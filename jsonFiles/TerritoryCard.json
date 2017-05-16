@@ -1,0 +1,132 @@
+{
+	"territoryCard": [
+		{
+			"firstPeriod": [
+				{
+					"name": "Avamposto Commerciale",
+					"diceHarvestAcion": 1,
+					"retrieved": [
+						{
+							"type": "coin",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Bosco",
+					"fastReward": [
+						{
+							"type": "wood",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAcion": 2,
+					"retrieved": [
+						{
+							"type": "wood",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Borgo",
+					"diceHarvestAcion": 3,
+					"retrieved": [
+						{
+							"type": "coin",
+							"quantity": 1
+						},
+						{
+							"type": "servant",
+							"quantity": 1
+						}
+					]
+				}
+			],
+			"secondPeriod": [
+				{
+					"name": "Miniera d'Oro",
+					"fastReward": [
+						{
+							"type": "coin",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAcion": 1,
+					"retrieved": [
+						{
+							"type": "coin",
+							"quantity": 2
+						}
+					]
+				},
+				{
+					"name": "Villaggio Montano",
+					"fastReward": [
+						{
+							"type": "servant",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAcion": 3,
+					"retrieved": [
+						{
+							"type": "wood",
+							"quantity": 2
+						},
+						{
+							"type": "militaryPoint",
+							"quantity": 1
+						}
+					]
+				}
+			],
+			"thirdPeriod": [
+				{
+					"name": "Città Mercantile",
+					"fastReward": [
+						{
+							"type": "coin",
+							"quantity": 1
+						},
+						{
+							"type": "servant",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAcion": 1,
+					"retrieved": [
+						{
+							"type": "coin",
+							"quantity": 3
+						}
+					]
+				},
+				{
+					"name": "Tenuta",
+					"fastReward": [
+						{
+							"type": "wood",
+							"quantity": 1
+						},
+						{
+							"type": "vicotryPoint",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAcion": 3,
+					"retrieved": [
+						{
+							"type": "wood",
+							"quantity": 2
+						},
+						{
+							"type": "vicotryPoint",
+							"quantity": 2
+						}
+					]
+				}
+			]
+		}
+	]
+}
