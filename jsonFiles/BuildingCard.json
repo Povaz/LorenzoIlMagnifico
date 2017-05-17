@@ -166,7 +166,7 @@
 								}
 							]
 						}
-					],
+					]
 				},
 				{
 					"name": "Tagliapietre",
@@ -441,7 +441,7 @@
 							],
 							"take": [
 								{
-									"type": "VICTORY_POINT
+									"type": "VICTORY_POINT",
 									"quantity": 3
 								}
 							]
@@ -455,7 +455,7 @@
 							],
 							"take": [
 								{
-									"type": "VICTORY_POINT
+									"type": "VICTORY_POINT",
 									"quantity": 7
 								}
 							]
