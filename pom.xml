@@ -4,7 +4,7 @@
 	<groupId>it.polimi.ingsw</groupId>
 	<artifactId>pc34</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
-	<name>pcXX</name>
+	<name>pc34</name>
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<sonar.language>java</sonar.language>
