@@ -3,6 +3,289 @@
 		{
 			"firstPeriod": [
 				{
+					"name": "Zecca",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 3
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 5
+						}
+					],
+					"diceProductionAction": 5,
+					"rewardForCard": {
+						"owned": "BUILDING",
+						"earned": [
+							{
+								"type": "COIN",
+								"quantity": 1
+							}
+						]
+					}
+				},
+				{
+					"name": "Esattoria",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 3
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 5
+						}
+					],
+					"diceProductionAction": 5,
+					"rewardForCard": {
+						"owned": "TERRITORY",
+						"earned": [
+							{
+								"type": "COIN",
+								"quantity": 1
+							}
+						]
+					}
+				},
+				{
+					"name": "Arco di Trionfo",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 6
+						}
+					],
+					"diceProductionAction": 6,
+					"rewardForCard": {
+						"owned": "VENTURE",
+						"earned": [
+							{
+								"type": "VICTORY_POINT",
+								"quantity": 1
+							}
+						]
+					}
+				},
+				{
+					"name": "Teatro",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 2
+						},
+						{
+							"type": "WOOD",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 6
+						}
+					],
+					"diceProductionAction": 6,
+					"rewardForCard": {
+						"owned": "CHARACTER",
+						"earned": [
+							{
+								"type": "VICTORY_POINT",
+								"quantity": 1
+							}
+						]
+					}
+				},
+				{
+					"name": "Falegnameria",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 1
+						},
+						{
+							"type": "WOOD",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 3
+						}
+					],
+					"diceProductionAction": 4,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "WOOD",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "COIN",
+									"quantity": 3
+								}
+							]
+						},
+						{
+							"give": [
+								{
+									"type": "WOOD",
+									"quantity": 2
+								}
+							],
+							"take": [
+								{
+									"type": "COIN",
+									"quantity": 5
+								}
+							]
+						}
+					],
+				},
+				{
+					"name": "Tagliapietre",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 2
+						}
+					],
+					"diceProductionAction": 3,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "STONE",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "COIN",
+									"quantity": 3
+								}
+							]
+						},
+											{
+							"give": [
+								{
+									"type": "STONE",
+									"quantity": 2
+								}
+							],
+							"take": [
+								{
+									"type": "COIN",
+									"quantity": 5
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Cappella",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"diceProductionAction": 2,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "COIN",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "FAITH_POINT",
+									"quantity": 1
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Residenza",
+					"cost": [
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					],
+					"diceProductionAction": 1,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "COIN",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "CouncilPrivilege",
+									"quantity": 1
+								}
+							]
+						}
+					]
+				},
+			],
+			"secondPeriod": [
+				
+				{
 					"name": "string",
 					"cost": [
 						{
@@ -64,9 +347,7 @@
 							}
 						]
 					}
-				}
-			],
-			"secondPeriod": [
+				},
 			],
 			"thirdPeriod": [
 			]
