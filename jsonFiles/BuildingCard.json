@@ -281,75 +281,650 @@
 							]
 						}
 					]
-				},
+				}
 			],
 			"secondPeriod": [
-				
 				{
-					"name": "string",
+					"name": "Mercato",
 					"cost": [
 						{
-							"type": "string",
-							"quantity": 0
+							"type": "WOOD",
+							"quantity": 2
 						},
 						{
-							"type": "string",
-							"quantity": 0
+							"type": "STONE",
+							"quantity": 1
 						}
 					],
 					"fastReward": [
 						{
-							"type": "string",
-							"quantity": 0
+							"type": "VICTORY_POINT",
+							"quantity": 3
 						}
 					],
-					"diceProductionAction": 0,
-					"retrieved": [
-						{
-							"type": "string",
-							"quantity": 0
-						}
-					],
+					"diceProductionAction": 3,
 					"trade": [
 						{
 							"give": [
 								{
-									"type": "string",
-									"quantity": 0
+									"type": "COIN",
+									"quantity": 3
 								}
 							],
 							"take": [
 								{
-									"type": "string",
-									"quantity": 0
+									"type": "WOOD",
+									"quantity": 2
+								},
+								{
+									"type": "STONE",
+									"quantity": 2
 								}
 							]
 						}
-					],
-					"rewardForReward": {
-						"owned": {
-							"type": "string",
-							"quantity": 0
-						},
-						"earned": [
-							{
-								"type": "string",
-								"quantity": 0
-							}
-						]
-					},
-					"rewardForCard": {
-						"owned": "carType",
-						"earned": [
-							{
-								"type": "string",
-								"quantity": 0
-							}
-						]
-					}
+					]
 				},
+				{
+					"name": "Tesoreria",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 3
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 4
+						}
+					],
+					"diceProductionAction": 3,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "COIN",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "VICTORY_POINT",
+									"quantity": 3
+								}
+							]
+						},
+						{
+							"give": [
+								{
+									"type": "COIN",
+									"quantity": 2
+								}
+							],
+							"take": [
+								{
+									"type": "VICTORY_POINT",
+									"quantity": 5
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Gilda dei Pittori",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 5
+						}
+					],
+					"diceProductionAction": 4,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "WOOD",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "VICTORY_POINT",
+									"quantity": 3
+								}
+							]
+						},
+						{
+							"give": [
+								{
+									"type": "WOOD",
+									"quantity": 3
+								}
+							],
+							"take": [
+								{
+									"type": "VICTORY_POINT",
+									"quantity": 7
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Gilda degli Scultori",
+					"cost": [
+						{
+							"type": "STONE",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 6
+						}
+					],
+					"diceProductionAction": 5,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "STONE",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "VICTORY_POINT
+									"quantity": 3
+								}
+							]
+						},
+						{
+							"give": [
+								{
+									"type": "STONE",
+									"quantity": 3
+								}
+							],
+							"take": [
+								{
+									"type": "VICTORY_POINT
+									"quantity": 7
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Gilda dei Costruttori",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 4
+						}
+					],
+					"diceProductionAction": 4,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "SERVANT",
+									"quantity": 1
+								},
+								{
+									"type": "WOOD",
+									"quantity": 1
+								},
+								{
+									"type": "STONE",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "VICTORY_POINT",
+									"quantity": 6
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Battistero",
+					"cost": [
+						{
+							"type": "STONE",
+							"quantity": 3
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 2
+						},
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"diceProductionAction": 2,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "FAITH_POINT",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "COIN",
+									"quantity": 2
+								},
+								{
+									"type": "VICTORY_POINT",
+       								        "quantity": 2
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Caserma",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 3
+						}
+					],
+					"diceProductionAction": 1,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "SERVANT",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "MILITARY_POINT",
+									"quantity": 3
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Fortezza",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 2
+						},
+						{
+							"type": "WOOD",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 8
+						}
+					],
+					"diceProductionAction": 6,
+					"retrieved": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 2
+						},
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 2
+						}
+					]
+				}
 			],
 			"thirdPeriod": [
+				{
+					"name": "Banca",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 3
+						},
+						{
+							"type": "WOOD",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 3
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 7
+						}
+					],
+					"diceProductionAction": 2,
+					"retrieved": [
+						{
+							"type": "COIN",
+							"quantity": 5
+						}
+					]
+				},
+				{
+					"name": "Fiera",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 4
+						},
+						{
+							"type": "WOOD",
+							"quantity": 3
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 8
+						}
+					],
+					"diceProductionAction": 4,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "COIN",
+									"quantity": 4
+								}
+							],
+							"take": [
+								{
+									"type": "WOOD",
+									"quantity": 3
+								},
+								{
+									"type": "STONE",
+									"quantity": 3
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Giardino",
+					"cost": [
+						{
+							"type": "SERVANT",
+							"quantity": 2
+						},
+						{
+							"type": "WOOD",
+							"quantity": 4
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 10
+						}
+					],
+					"diceProductionAction": 1,
+					"retrieved": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 3
+						}
+					]
+				},
+				{
+					"name": "Castelletto",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 2
+						},
+						{
+							"type": "WOOD",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 9
+						}
+					],
+					"diceProductionAction": 5,
+					"retrieved": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 2
+						},
+						{
+							"type": "CouncilPrivilege",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Palazzo",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 3
+						},
+						{
+							"type": "WOOD",
+							"quantity": 3
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 9
+						}
+					],
+					"diceProductionAction": 6,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "COIN",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "SERVANT",
+									"quantity": 2
+								},	
+								{
+									"type": "VICTORY_POINT",
+									"quantity": 4
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Basilica",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 5
+						},
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"diceProductionAction": 1,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "WOOD",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "FAITH_POINT",
+									"quantity": 2
+								}
+							]
+						},
+						{
+							"give": [
+								{
+									"type": "STONE",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "FAITH_POINT",
+									"quantity": 2
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Accademia Militare",
+					"cost": [
+						{
+							"type": "SERVANT",
+							"quantity": 1
+						},
+						{
+							"type": "WOOD",
+							"quantity": 2
+						},
+						
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 7
+						}
+					],
+					"diceProductionAction": 3,
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "SERVANT",
+									"quantity": 1
+								}
+							],
+							"take": [
+								{
+									"type": "MILITARY_POINT",
+									"quantity": 3
+								},
+								{
+									"type": "VICTORY_POINT",
+									"quantity": 1
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Cattedrale",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 4
+						},
+						{
+							"type": "STONE",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 7
+						},
+						{
+							"type": "FAITH_POINT",
+							"quantity": 3
+						}
+					],
+					"diceProductionAction": 2,
+					"retrieved": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 1
+						}
+					]
+				}
 			]
 		}
 	]
