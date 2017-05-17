@@ -4,7 +4,7 @@
 			"firstPeriod": [
 				{
 					"name": "Avamposto Commerciale",
-					"diceHarvestAcion": 1,
+					"diceHarvestAction": 1,
 					"retrieved": [
 						{
 							"type": "coin",
@@ -20,7 +20,7 @@
 							"quantity": 1
 						}
 					],
-					"diceHarvestAcion": 2,
+					"diceHarvestAction": 2,
 					"retrieved": [
 						{
 							"type": "wood",
@@ -30,7 +30,21 @@
 				},
 				{
 					"name": "Borgo",
-					"diceHarvestAcion": 3,
+					"diceHarvestAction": 3,
+					"retrieved": [
+						{
+							"type": "coin",
+							"quantity": 1
+						},
+						{
+							"type": "servant",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Cava di Ghiaia",
+					"diceHarvestAction": 3,
 					"retrieved": [
 						{
 							"type": "coin",
@@ -52,7 +66,7 @@
 							"quantity": 1
 						}
 					],
-					"diceHarvestAcion": 1,
+					"diceHarvestAction": 1,
 					"retrieved": [
 						{
 							"type": "coin",
@@ -68,7 +82,7 @@
 							"quantity": 1
 						}
 					],
-					"diceHarvestAcion": 3,
+					"diceHarvestAction": 3,
 					"retrieved": [
 						{
 							"type": "wood",
@@ -94,7 +108,7 @@
 							"quantity": 1
 						}
 					],
-					"diceHarvestAcion": 1,
+					"diceHarvestAction": 1,
 					"retrieved": [
 						{
 							"type": "coin",
@@ -114,7 +128,7 @@
 							"quantity": 1
 						}
 					],
-					"diceHarvestAcion": 3,
+					"diceHarvestAction": 3,
 					"retrieved": [
 						{
 							"type": "wood",
