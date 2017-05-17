@@ -110,7 +110,7 @@
 							"quantity": 1
 						},
 						{
-							"type": "vicotryPoint",
+							"type": "victoryPoint",
 							"quantity": 1
 						}
 					],
@@ -121,7 +121,7 @@
 							"quantity": 2
 						},
 						{
-							"type": "vicotryPoint",
+							"type": "victoryPoint",
 							"quantity": 2
 						}
 					]
