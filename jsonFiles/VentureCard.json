@@ -3,43 +3,469 @@
 		{
 			"firstPeriod": [
 				{
-					"name": "string",
+					"name": "Ingaggiare Reclute",
 					"cost": [
 						{
-							"type": "string",
-							"quantity": 0
+							"type": "COIN",
+							"quantity": 4
 						}
 					],
-					"militaryPointPrice": 0,
-					"militaryPointNeeded": 0,
 					"fastReward": [
 						{
-							"type": "string",
-							"quantity": 0
+							"type": "MILITARY_POINT",
+							"quantity": 5
 						}
 					],
-					"victoryPointEarned": 0,
-					"actions": [
+					"victoryPointEarned": 4
+				},
+				{
+					"name": "Riparare la Chiesa",
+					"cost": [
 						{
-							"actionType": "string",
-							"value": 0,
-							"option": [
-								{
-									"discount": [
-										{
-											"type": "string",
-											"quantity": 0
-										}
-									]
-								}
-							]
+							"type": "COIN",
+							"quantity": 1
+						},
+						{
+							"type": "WOOD",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
 						}
-					]
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"victoryPointEarned": 5
+				},
+				{
+					"name": "Costruire le Mura",
+					"cost": [
+						{
+							"type": "STONE",
+							"quantity": 3
+						}
+					],
+					"fastReward": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 2
+						},
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 1
+						}
+					],
+					"victoryPointEarned": 3
+				},
+				{
+					"name": "Innalzare una Statua",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 2
+						}
+					],
+					"victoryPointEarned": 4
+				},
+				{
+					"name": "Campagna Militare",
+					"militaryPointPrice": 2,
+					"militaryPointNeeded": 3,
+					"fastReward": [
+						{
+							"type": "COIN",
+							"quantity": 3
+						}
+					],
+					"victoryPointEarned": 5
+				},
+				{
+					"name": "Ospitare i Mendicanti",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 3
+						}
+					],
+					"fastReward": [
+						{
+							"type": "SERVANT",
+							"quantity": 4
+						}
+					],
+					"victoryPointEarned": 4
+				},
+				{
+					"name": "Combattere le Eresie",
+					"militaryPointPrice": 3,
+					"militaryPointNeeded": 5,
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 2
+						}
+					],
+					"victoryPointEarned": 5
+				},
+				{
+					"name": "Sostegno al Vescovo",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						},
+						{
+							"type": "COIN",
+							"quantity": 2
+						}
+					],
+					"militaryPointPrice": 2,
+					"militaryPointNeeded": 4,
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 3
+						}
+					],
+					"victoryPointEarned": 1
 				}
 			],
 			"secondPeriod": [
+				{
+					"name": "Ingaggiare Soldati",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 6
+						}
+					],
+					"fastReward": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 6
+						}
+					],
+					"victoryPointEarned": 5
+				},
+				{
+					"name": "Riparare l'Abbazia",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 2
+						},
+						{
+							"type": "WOOD",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 2
+						}
+					],
+					"victoryPointEarned": 6
+				},
+				{
+					"name": "Costruire i Bastioni",
+					"cost": [
+						{
+							"type": "STONE",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 3
+						},
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 1
+						}
+					],
+					"victoryPointEarned": 2
+				},
+				{
+					"name": "Supporto al Re",
+					"militaryPointPrice": 3,
+					"militaryPointNeeded": 6,
+					"fastReward": [
+						{
+							"type": "COIN",
+							"quantity": 5
+						},
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 1
+						}
+					],
+					"victoryPointEarned": 3
+				},
+				{
+					"name": "Scavare Canalizzazioni",
+					"cost": [
+						{
+							"type": "SERVANT",
+							"quantity": 2
+						},
+						{
+							"type": "COIN",
+							"quantity": 3
+						}
+					],
+					"victoryPointEarned": 5,
+					"actions": [
+						{
+							"actionType": "HARVEST",
+							"value": 4
+						}
+					]
+				},
+				{
+					"name": "Accogliere gli Stranieri",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "SERVANT",
+							"quantity": 5
+						}
+					],
+					"victoryPointEarned": 4
+				},
+				{
+					"name": "Crociata",
+					"militaryPointPrice": 4,
+					"militaryPointNeeded": 8,
+					"fastReward": [
+						{
+							"type": "COIN",
+							"quantity": 5
+						},
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"victoryPointEarned": 5
+				},
+				{
+					"name": "Sostegno al Cardinale",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						},
+						{
+							"type": "COIN",
+							"quantity": 3
+						}
+					],
+					"militaryPointPrice": 4,
+					"militaryPointNeeded": 7,
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 3
+						}
+					],
+					"victoryPointEarned": 4
+				}
 			],
 			"thirdPeriod": [
+				{
+					"name": "Ingaggiare Mercenari",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 8
+						}
+					],
+					"fastReward": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 7
+						}
+					],
+					"victoryPointEarned": 6
+				},
+				{
+					"name": "Riparare la Cattedrale",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 3
+						},
+						{
+							"type": "WOOD",
+							"quantity": 3
+						},
+						{
+							"type": "STONE",
+							"quantity": 3
+						}
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"victoryPointEarned": 5,
+					"actions": [
+						{
+							"actionType": "ANY_TOWER",
+							"value": 7
+						}
+					]
+				},
+				{
+					"name": "Costruire le Torri",
+					"cost": [
+						{
+							"type": "STONE",
+							"quantity": 6
+						}
+					],
+					"fastReward": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 4
+						},
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 1
+						}
+					],
+					"victoryPointEarned": 4
+				},
+				{
+					"name": "Commissionare Arte Sacra",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 6
+						}
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 3
+						}
+					],
+					"victoryPointEarned": 3
+				},
+				{
+					"name": "Conquista Militare",
+					"militaryPointPrice": 6,
+					"militaryPointNeeded": 12,
+					"fastReward": [
+						{
+							"type": "WOOD",
+							"quantity": 3
+						},
+						{
+							"type": "COIN",
+							"quantity": 3
+						},
+						{
+							"type": "STONE",
+							"quantity": 3
+						}
+					],
+					"victoryPointEarned": 7
+				},
+				{
+					"name": "Migliorare le Strade",
+					"cost": [
+						{
+							"type": "SERVANT",
+							"quantity": 3
+						},
+						{
+							"type": "COIN",
+							"quantity": 4
+						}
+					],
+					"victoryPointEarned": 5,
+					"actions": [
+						{
+							"actionType": "PRODUCTION",
+							"value": 3
+						}
+					]
+				},
+				{
+					"name": "Guerra Santa",
+					"militaryPointPrice": 8,
+					"militaryPointNeeded": 15,
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 4
+						}
+					],
+					"victoryPointEarned": 8
+				},
+				{
+					"name": "Sostegno al Papa",
+					"cost": [
+						{
+							"type": "WOOD",
+							"quantity": 3
+						},
+						{
+							"type": "COIN",
+							"quantity": 4
+						},
+						{
+							"type": "STONE",
+							"quantity": 3
+						}
+					],
+					"militaryPointPrice": 5,
+					"militaryPointNeeded": 10,
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 2
+						}
+					],
+					"victoryPointEarned": 10
+				}
 			]
 		}
 	]
