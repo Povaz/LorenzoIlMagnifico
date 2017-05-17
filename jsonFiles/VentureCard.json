@@ -1,0 +1,45 @@
+{
+	"ventureCard": [
+		{
+			"firstPeriod": [
+				{
+					"name": "string",
+					"cost": [
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					],
+					"militaryPointPrice": 0,
+					"militaryPointNeeded": 0,
+					"fastReward": [
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					],
+					"victoryPointEarned": 0,
+					"actions": [
+						{
+							"actionType": "string",
+							"discount": [
+								{
+									"resource": [
+										{
+											"type": "string",
+											"quantity": 0
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			],
+			"secondPeriod": [
+			],
+			"thirdPeriod": [
+			]
+		}
+	]
+}

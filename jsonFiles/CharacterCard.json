@@ -1,0 +1,85 @@
+{
+	"characterCard": [
+		{
+			"firstPeriod": [
+				{
+					"name": "string",
+					"cost": [
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					],
+					"fastReward": [
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					],
+					"noBonusTowerResource": false,
+					"harvestModifier": 0,
+					"productionModifier": 0,
+					"territoryTowerModifier": 0,
+					"buildingTowerModifier": 0,
+					"ventureTowerModifier": 0,
+					"rewardForReward": {
+						"owned": {
+							"type": "string",
+							"quantity": 0
+						},
+						"earned": [
+							{
+								"type": "string",
+								"quantity": 0
+							}
+						]
+					},
+					"rewardForCard": {
+						"owned": "string",
+						"earned": [
+							{
+								"type": "string",
+								"quantity": 0
+							}
+						]
+					},
+					"characterDiscount": [
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					],
+					"buildingDiscount": [
+						{
+							"resource": [
+								{
+									"type": "string",
+									"quantity": 0
+								}
+							]
+						}
+					],
+					"actions": [
+						{
+							"actionType": "string",
+							"discount": [
+								{
+									"resource": [
+										{
+											"type": "string",
+											"quantity": 0
+										}
+									]
+								}
+							]
+						}
+					]
+				}
+			],
+			"seconPeriod": [
+			],
+			"thirdPeriod": [
+			]
+		}
+	]
+}

@@ -1,0 +1,75 @@
+{
+	"buildingCard": [
+		{
+			"firstPeriod": [
+				{
+					"name": "string",
+					"cost": [
+						{
+							"type": "string",
+							"quantity": 0
+						},
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					],
+					"fastReward": [
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					],
+					"diceProductionAction": 0,
+					"retrieved": [
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					],
+					"trade": [
+						{
+							"give": [
+								{
+									"type": "string",
+									"quantity": 0
+								}
+							],
+							"take": [
+								{
+									"type": "string",
+									"quantity": 0
+								}
+							]
+						}
+					],
+					"rewardForReward": {
+						"owned": {
+							"type": "string",
+							"quantity": 0
+						},
+						"earned": [
+							{
+								"type": "string",
+								"quantity": 0
+							}
+						]
+					},
+					"rewardForCard": {
+						"owned": "carType",
+						"earned": [
+							{
+								"type": "string",
+								"quantity": 0
+							}
+						]
+					}
+				}
+			],
+			"secondPeriod": [
+			],
+			"thirdPeriod": [
+			]
+		}
+	]
+}
