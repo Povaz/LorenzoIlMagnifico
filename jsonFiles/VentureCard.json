@@ -22,9 +22,10 @@
 					"actions": [
 						{
 							"actionType": "string",
-							"discount": [
+							"value": 0,
+							"option": [
 								{
-									"resource": [
+									"discount": [
 										{
 											"type": "string",
 											"quantity": 0

@@ -3,82 +3,458 @@
 		{
 			"firstPeriod": [
 				{
-					"name": "string",
+					"name": "Condottiero",
 					"cost": [
 						{
-							"type": "string",
-							"quantity": 0
+							"type": "COIN",
+							"quantity": 2
 						}
 					],
 					"fastReward": [
 						{
-							"type": "string",
-							"quantity": 0
+							"type": "MILITARY_POINT",
+							"quantity": 3
 						}
 					],
-					"noBonusTowerResource": false,
-					"harvestModifier": 0,
-					"productionModifier": 0,
-					"territoryTowerModifier": 0,
-					"buildingTowerModifier": 0,
-					"ventureTowerModifier": 0,
-					"rewardForReward": {
-						"owned": {
-							"type": "string",
-							"quantity": 0
-						},
-						"earned": [
-							{
-								"type": "string",
-								"quantity": 0
-							}
-						]
-					},
-					"rewardForCard": {
-						"owned": "string",
-						"earned": [
-							{
-								"type": "string",
-								"quantity": 0
-							}
-						]
-					},
-					"characterDiscount": [
+					"territoryTowerModifier": 2
+				},
+				{
+					"name": "Costruttore",
+					"cost": [
 						{
-							"type": "string",
-							"quantity": 0
+							"type": "COIN",
+							"quantity": 4
 						}
 					],
-					"buildingDiscount": [
+					"buildingTowerModifier": 2,
+					"costDiscount": [
 						{
-							"resource": [
+							"cardType": "BUILDING",
+							"option": [
 								{
-									"type": "string",
-									"quantity": 0
-								}
-							]
-						}
-					],
-					"actions": [
-						{
-							"actionType": "string",
-							"discount": [
-								{
-									"resource": [
+									"discount": [
 										{
-											"type": "string",
-											"quantity": 0
+											"type": "WOOD",
+											"quantity": 1
+										}
+									]
+								},
+								{
+									"discount": [
+										{
+											"type": "STONE",
+											"quantity": 1
 										}
 									]
 								}
 							]
 						}
 					]
+				},
+				{
+					"name": "Dama",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 4
+						}
+					],
+					"characterTowerModifier": 2,
+					"costDiscount": [
+						{
+							"cardType": "CHARACTER",
+							"option": [
+								{
+									"discount": [
+										{
+											"type": "COIN",
+											"quantity": 1
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Cavaliere",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 1
+						}
+					],
+					"ventureTowerModifier": 2
+				},
+				{
+					"name": "Contadino",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 3
+						}
+					],
+					"harvestModifier": 2
+				},
+				{
+					"name": "Artigiano",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 3
+						}
+					],
+					"productionModifier": 2
+				},
+				{
+					"name": "Predicatore",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 2
+						}
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 4
+						}
+					],
+					"noBonusTowerResource": true
+				},
+				{
+					"name": "Badessa",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 3
+						}
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"actions": [
+						{
+							"actionType": "ANY_TOWER",
+							"value": 4
+						}
+					]
 				}
 			],
 			"seconPeriod": [
+				{
+					"name": "Capitano",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 2
+						}
+					],
+					"actions": [
+						{
+							"actionType": "TERRITORY_TOWER",
+							"value": 6
+						}
+					]
+				},
+				{
+					"name": "Architetto",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 4
+						}
+					],
+					"actions": [
+						{
+							"actionType": "BUILDING_TOWER",
+							"value": 6,
+							"option": [
+								{
+									"discount": [
+										{
+											"type": "WOOD",
+											"quantity": 1
+										},
+										{
+											"type": "STONE",
+											"quantity": 1
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Mecenate",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 3
+						}
+					],
+					"actions": [
+						{
+							"actionType": "CHARACTER_TOWER",
+							"value": 6,
+							"option": [
+								{
+									"discount": [
+										{
+											"type": "COIN",
+											"quantity": 2
+										}
+									]
+								}
+							]
+						}
+					]
+				},
+				{
+					"name": "Eroe",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 1
+						}
+					],
+					"actions": [
+						{
+							"actionType": "VENTURE_TOWER",
+							"value": 6
+						}
+					]
+				},
+				{
+					"name": "Fattore",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 4
+						}
+					],
+					"harvestModifier": 3
+				},
+				{
+					"name": "Studioso",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 4
+						}
+					],
+					"productionModifier": 3
+				},
+				{
+					"name": "Messo Papale",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 5
+						}
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 3
+						}
+					]
+				},
+				{
+					"name": "Messo Reale",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 5
+						}
+					],
+					"fastReward": [
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 3
+						}
+					]
+				}
 			],
 			"thirdPeriod": [
+				{
+					"name": "Nobile",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 6
+						}
+					],
+					"rewardForCard": {
+						"owned": "TERRITORY",
+						"earned": [
+							{
+								"type": "VICTORY_POINT",
+								"quantity": 2
+							}
+						]
+					}
+				},
+				{
+					"name": "Governatore",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 6
+						}
+					],
+					"rewardForCard": {
+						"owned": "BUILDING",
+						"earned": [
+							{
+								"type": "VICTORY_POINT",
+								"quantity": 2
+							}
+						]
+					}
+				},
+				{
+					"name": "Cortigiana",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 7
+						}
+					],
+					"rewardForCard": {
+						"owned": "CHARACTER",
+						"earned": [
+							{
+								"type": "VICTORY_POINT",
+								"quantity": 2
+							}
+						]
+					}
+				},
+				{
+					"name": "Araldo",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 6
+						}
+					],
+					"rewardForCard": {
+						"owned": "VENTURE",
+						"earned": [
+							{
+								"type": "VICTORY_POINT",
+								"quantity": 2
+							}
+						]
+					}
+				},
+				{
+					"name": "Cardinale",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 4
+						}
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 2
+						}
+					],
+					"actions": [
+						{
+							"actionType": "HARVEST",
+							"value": 4
+						}
+					]
+				},
+				{
+					"name": "Vescovo",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 5
+						}
+					],
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"actions": [
+						{
+							"actionType": "PRODUCTION",
+							"value": 4
+						}
+					]
+				},
+				{
+					"name": "Generale",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 5
+						}
+					],
+					"rewardForReward": {
+						"owned": {
+							"type": "MILITARY_POINT",
+							"quantity": 2
+						},
+						"earned": [
+							{
+								"type": "VICTORY_POINT",
+								"quantity": 1
+							}
+						]
+					}
+				},
+				{
+					"name": "Ambasciatore",
+					"cost": [
+						{
+							"type": "COIN",
+							"quantity": 6
+						}
+					],
+					"fastReward": [
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 1
+						}
+					],
+					"actions": [
+						{
+							"actionType": "ANY_TOWER",
+							"value": 7
+						}
+					]
+				}
 			]
 		}
 	]
