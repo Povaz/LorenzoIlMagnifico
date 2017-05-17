@@ -7,7 +7,7 @@
 					"diceHarvestAction": 1,
 					"retrieved": [
 						{
-							"type": "coin",
+							"type": "COIN",
 							"quantity": 1
 						}
 					]
@@ -16,14 +16,14 @@
 					"name": "Bosco",
 					"fastReward": [
 						{
-							"type": "wood",
+							"type": "WOOD",
 							"quantity": 1
 						}
 					],
 					"diceHarvestAction": 2,
 					"retrieved": [
 						{
-							"type": "wood",
+							"type": "WOOD",
 							"quantity": 1
 						}
 					]
@@ -33,25 +33,97 @@
 					"diceHarvestAction": 3,
 					"retrieved": [
 						{
-							"type": "coin",
+							"type": "COIN",
 							"quantity": 1
 						},
 						{
-							"type": "servant",
+							"type": "SERVANT",
 							"quantity": 1
 						}
 					]
 				},
 				{
 					"name": "Cava di Ghiaia",
+					"fastReward": [
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					],
 					"diceHarvestAction": 4,
 					"retrieved": [
 						{
-							"type": "stone",
+							"type": "STONE",
+							"quantity": 2
+						}
+					]
+				},
+				{
+					"name": "Foresta",
+					"fastReward": [
+						{
+							"type": "WOOD",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 5,
+					"retrieved": [
+						{
+							"type": "WOOD",
+							"quantity": 3
+						}
+					]
+				},
+				{
+					"name": "Monastero",
+					"fastReward": [
+						{
+							"type": "MILITARY_POINT",
 							"quantity": 2
 						},
 						{
-							"type": "servant",
+							"type": "SERVANT",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 6,
+					"retrieved": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Rocca",
+					"diceHarvestAction": 5,
+					"retrieved": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Città",
+					"fastReward": [
+						{
+							"type": "COIN",
+							"quantity": 3
+						}
+					],
+					"diceHarvestAction": 6,
+					"retrieved": [
+						{
+							"type": "COUNCIL_PRIVILEGE",
 							"quantity": 1
 						}
 					]
@@ -62,14 +134,14 @@
 					"name": "Miniera d'Oro",
 					"fastReward": [
 						{
-							"type": "coin",
+							"type": "COIN",
 							"quantity": 1
 						}
 					],
 					"diceHarvestAction": 1,
 					"retrieved": [
 						{
-							"type": "coin",
+							"type": "COIN",
 							"quantity": 2
 						}
 					]
@@ -78,18 +150,160 @@
 					"name": "Villaggio Montano",
 					"fastReward": [
 						{
-							"type": "servant",
+							"type": "SERVANT",
 							"quantity": 1
 						}
 					],
 					"diceHarvestAction": 3,
 					"retrieved": [
 						{
-							"type": "wood",
+							"type": "WOOD",
 							"quantity": 2
 						},
 						{
-							"type": "militaryPoint",
+							"type": "MILITARY_POINT",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Villaggio Minerario",
+					"fastReward": [
+						{
+							"type": "SERVANT",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 4,
+					"retrieved": [
+						{
+							"type": "SERVANT",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					]
+				},
+				{
+					"name": "Villaggio Minerario",
+					"fastReward": [
+						{
+							"type": "SERVANT",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 4,
+					"retrieved": [
+						{
+							"type": "SERVANT",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 2
+						}
+					]
+				},
+				{
+					"name": "Cava di Pietra",
+					"fastReward": [
+						{
+							"type": "WOOD",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 3,
+					"retrieved": [
+						{
+							"type": "STONE",
+							"quantity": 3
+						}
+					]
+				},
+				{
+					"name": "Possedimento",
+					"fastReward": [
+						{
+							"type": "SERVANT",
+							"quantity": 2
+						},
+						{
+							"type": "WOOD",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 4,
+					"retrieved": [
+						{
+							"type": "COIN",
+							"quantity": 1
+						},
+						{
+							"type": "WOOD",
+							"quantity": 2
+						}
+					]
+				},
+				{
+					"name": "Eremo",
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 2,
+					"retrieved": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Maniero",
+					"diceHarvestAction": 5,
+					"retrieved": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 2
+						},
+						{
+							"type": "SERVANT",
+							"quantity": 2
+						}
+					]
+				},
+				{
+					"name": "Ducato",
+					"fastReward": [
+						{
+							"type": "COIN",
+							"quantity": 4
+						}
+					],
+					"diceHarvestAction": 6,
+					"retrieved": [
+						{
+							"type": "COIN",
+							"quantity": 1
+						},
+						{
+							"type": "WOOD",
+							"quantity": 2
+						},
+						{
+							"type": "STONE",
 							"quantity": 1
 						}
 					]
@@ -100,18 +314,18 @@
 					"name": "Città Mercantile",
 					"fastReward": [
 						{
-							"type": "coin",
+							"type": "COIN",
 							"quantity": 1
 						},
 						{
-							"type": "servant",
+							"type": "SERVANT",
 							"quantity": 1
 						}
 					],
 					"diceHarvestAction": 1,
 					"retrieved": [
 						{
-							"type": "coin",
+							"type": "COIN",
 							"quantity": 3
 						}
 					]
@@ -120,22 +334,154 @@
 					"name": "Tenuta",
 					"fastReward": [
 						{
-							"type": "wood",
+							"type": "WOOD",
 							"quantity": 1
 						},
 						{
-							"type": "victoryPoint",
+							"type": "VICTORY_POINT",
 							"quantity": 1
 						}
 					],
 					"diceHarvestAction": 3,
 					"retrieved": [
 						{
-							"type": "wood",
+							"type": "WOOD",
 							"quantity": 2
 						},
 						{
-							"type": "victoryPoint",
+							"type": "VICTORY_POINT",
+							"quantity": 2
+						}
+					]
+				},
+				{
+					"name": "Colonia",
+					"fastReward": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 2
+						}
+					],
+					"diceHarvestAction":5,
+					"retrieved": [
+						{
+							"type": "WOOD",
+							"quantity": 1
+						},
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 4
+						}
+					]
+				},
+				{
+					"name": "Cava di Marmo",
+					"fastReward": [
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 3
+						}
+					],
+					"diceHarvestAction": 2,
+					"retrieved": [
+						{
+							"type": "STONE",
+							"quantity": 2
+						},
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Provincia",
+					"fastReward": [
+						{
+							"type": "COUNCIL_PRIVILEGE",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 6,
+					"retrieved": [
+						{
+							"type": "STONE",
+							"quantity": 2
+						},
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 4
+						}
+					]
+				},
+				{
+					"name": "Santuario",
+					"fastReward": [
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 1,
+					"retrieved": [
+						{
+							"type": "COIN",
+							"quantity": 1
+						},
+						{
+							"type": "FAITH_POINT",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Castello",
+					"fastReward": [
+						{
+							"type": "COIN",
+							"quantity": 2
+						},
+						{
+							"type": "VICTORY_POINT",
+							"quantity": 2
+						}
+					],
+					"diceHarvestAction": 4,
+					"retrieved": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 3
+						},
+						{
+							"type": "SERVANT",
+							"quantity": 1
+						}
+					]
+				},
+				{
+					"name": "Città Fortificata",
+					"fastReward": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 2
+						},
+						{
+							"type": "SERVANT",
+							"quantity": 1
+						}
+					],
+					"diceHarvestAction": 2,
+					"retrieved": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 1
+						},
+						{
+							"type": "SERVANT",
 							"quantity": 2
 						}
 					]
