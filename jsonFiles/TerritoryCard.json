@@ -44,11 +44,11 @@
 				},
 				{
 					"name": "Cava di Ghiaia",
-					"diceHarvestAction": 3,
+					"diceHarvestAction": 4,
 					"retrieved": [
 						{
-							"type": "coin",
-							"quantity": 1
+							"type": "stone",
+							"quantity": 2
 						},
 						{
 							"type": "servant",
