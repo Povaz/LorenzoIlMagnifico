@@ -1,6 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
 public enum ActionType {
-	VentureTower, TerritoryTower, BuildingTower, CharacterTower,
-	AnyTower, Harvest, Production;
+	TERRITORY_TOWER, BUILDING_TOWER, CHARACTER_TOWER, VENTURE_TOWER,
+	ANY_TOWER, HARVEST, PRODUCTION;
 }

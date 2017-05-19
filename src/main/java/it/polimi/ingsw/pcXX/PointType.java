@@ -1,5 +1,5 @@
 package it.polimi.ingsw.pcXX;
 
 public enum PointType {
-	VictoryPoint, MilitaryPoint, FaithPoint;
+	VICTORY_POINT, MILITARY_POINT, FAITH_POINT;
 }

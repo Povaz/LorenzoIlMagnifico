@@ -1,7 +1,7 @@
 {
-	"characterCard": [
+	"card": [
 		{
-			"firstPeriod": [
+			"period": [
 				{
 					"name": "Condottiero",
 					"cost": [
@@ -149,8 +149,10 @@
 						}
 					]
 				}
-			],
-			"seconPeriod": [
+			]
+		},
+		{
+			"period": [
 				{
 					"name": "Capitano",
 					"cost": [
@@ -297,8 +299,10 @@
 						}
 					]
 				}
-			],
-			"thirdPeriod": [
+			]
+		},
+		{
+			"period": [
 				{
 					"name": "Nobile",
 					"cost": [

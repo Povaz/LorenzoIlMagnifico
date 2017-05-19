@@ -6,4 +6,8 @@ public class BuildingCard extends DevelopmentCard{
 	private Trade[] trades;
 	private RewardForReward rewardForReward;
 	private RewardForCard rewardForCard;
+	
+	public BuildingCard(){
+		super(null,null,0,null,null);
+	}
 }

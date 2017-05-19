@@ -1,7 +1,7 @@
 {
-	"territoryCard": [
+	"card": [
 		{
-			"firstPeriod": [
+			"period": [
 				{
 					"name": "Avamposto Commerciale",
 					"diceHarvestAction": 1,
@@ -128,8 +128,10 @@
 						}
 					]
 				}
-			],
-			"secondPeriod": [
+			]
+		},
+		{
+			"period": [
 				{
 					"name": "Miniera d'Oro",
 					"fastReward": [
@@ -163,30 +165,6 @@
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 1
-						}
-					]
-				},
-				{
-					"name": "Villaggio Minerario",
-					"fastReward": [
-						{
-							"type": "SERVANT",
-							"quantity": 2
-						},
-						{
-							"type": "STONE",
-							"quantity": 1
-						}
-					],
-					"diceHarvestAction": 4,
-					"retrieved": [
-						{
-							"type": "SERVANT",
-							"quantity": 1
-						},
-						{
-							"type": "STONE",
-							"quantity": 2
 						}
 					]
 				},
@@ -308,8 +286,10 @@
 						}
 					]
 				}
-			],
-			"thirdPeriod": [
+			]
+		},
+		{
+			"period": [
 				{
 					"name": "Città Mercantile",
 					"fastReward": [

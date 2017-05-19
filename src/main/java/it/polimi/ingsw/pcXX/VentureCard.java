@@ -5,4 +5,8 @@ public class VentureCard extends DevelopmentCard{
 	private Point militaryPointPrice;
 	private Point militaryPointNeeded;
 	private Point victoryPoint;
+	
+	public VentureCard(){
+		super(null,null,0,null,null);
+	}
 }

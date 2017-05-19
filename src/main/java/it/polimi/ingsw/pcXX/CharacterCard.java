@@ -14,4 +14,8 @@ public class CharacterCard extends DevelopmentCard{
 	private Trade[] trades;
 	private RewardForReward rewardForReward;
 	private RewardForCard rewardForCard;
+	
+	public CharacterCard(){
+		super(null,null,0,null,null);
+	}
 }
