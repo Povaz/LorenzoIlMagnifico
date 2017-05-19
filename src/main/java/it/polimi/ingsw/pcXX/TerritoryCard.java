@@ -12,5 +12,16 @@ public class TerritoryCard extends DevelopmentCard{
 		this.earnings = earnings;
 	}
 
-
+	@Override
+	public String toString(){
+		String cardString = super.toString();
+		cardString += "Dice harvest: " + diceHarvestAction + "\n";
+		if(earnings != null){
+			cardString += "Earnings:\n";
+			for(Reward r : earnings){
+				cardString += "  " + r.toString() + "\n";
+			}
+		}
+		return cardString;
+	}
 }

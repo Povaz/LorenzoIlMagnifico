@@ -11,6 +11,6 @@ public class Point extends Reward{
 
 	@Override
 	public String toString() {
-		return "" + type.toString() + " = " + quantity;
+		return "" + quantity + " " + type.toString();
 	}
 }

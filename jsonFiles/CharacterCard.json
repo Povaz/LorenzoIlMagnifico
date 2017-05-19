@@ -1,16 +1,16 @@
 {
-	"card": [
+	"cards": [
 		{
 			"period": [
 				{
 					"name": "Condottiero",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 3
@@ -20,19 +20,19 @@
 				},
 				{
 					"name": "Costruttore",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
 						}
 					],
 					"buildingTowerModifier": 2,
-					"costDiscount": [
+					"costDiscounts": [
 						{
 							"cardType": "BUILDING",
 							"option": [
 								{
-									"discount": [
+									"discounts": [
 										{
 											"type": "WOOD",
 											"quantity": 1
@@ -40,7 +40,7 @@
 									]
 								},
 								{
-									"discount": [
+									"discounts": [
 										{
 											"type": "STONE",
 											"quantity": 1
@@ -53,19 +53,19 @@
 				},
 				{
 					"name": "Dama",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
 						}
 					],
 					"characterTowerModifier": 2,
-					"costDiscount": [
+					"costDiscounts": [
 						{
 							"cardType": "CHARACTER",
 							"option": [
 								{
-									"discount": [
+									"discounts": [
 										{
 											"type": "COIN",
 											"quantity": 1
@@ -78,13 +78,13 @@
 				},
 				{
 					"name": "Cavaliere",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "COUNCIL_PRIVILEGE",
 							"quantity": 1
@@ -94,7 +94,7 @@
 				},
 				{
 					"name": "Contadino",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 3
@@ -104,7 +104,7 @@
 				},
 				{
 					"name": "Artigiano",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 3
@@ -114,13 +114,13 @@
 				},
 				{
 					"name": "Predicatore",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 4
@@ -130,13 +130,13 @@
 				},
 				{
 					"name": "Badessa",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 3
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 1
@@ -155,13 +155,13 @@
 			"period": [
 				{
 					"name": "Capitano",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 2
@@ -176,7 +176,7 @@
 				},
 				{
 					"name": "Architetto",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
@@ -188,7 +188,7 @@
 							"value": 6,
 							"option": [
 								{
-									"discount": [
+									"discounts": [
 										{
 											"type": "WOOD",
 											"quantity": 1
@@ -205,7 +205,7 @@
 				},
 				{
 					"name": "Mecenate",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 3
@@ -217,7 +217,7 @@
 							"value": 6,
 							"option": [
 								{
-									"discount": [
+									"discounts": [
 										{
 											"type": "COIN",
 											"quantity": 2
@@ -230,13 +230,13 @@
 				},
 				{
 					"name": "Eroe",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "COUNCIL_PRIVILEGE",
 							"quantity": 1
@@ -251,7 +251,7 @@
 				},
 				{
 					"name": "Fattore",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
@@ -261,7 +261,7 @@
 				},
 				{
 					"name": "Studioso",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
@@ -271,13 +271,13 @@
 				},
 				{
 					"name": "Messo Papale",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 5
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 3
@@ -286,13 +286,13 @@
 				},
 				{
 					"name": "Messo Reale",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 5
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "COUNCIL_PRIVILEGE",
 							"quantity": 3
@@ -305,7 +305,7 @@
 			"period": [
 				{
 					"name": "Nobile",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 6
@@ -323,7 +323,7 @@
 				},
 				{
 					"name": "Governatore",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 6
@@ -341,7 +341,7 @@
 				},
 				{
 					"name": "Cortigiana",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 7
@@ -359,7 +359,7 @@
 				},
 				{
 					"name": "Araldo",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 6
@@ -377,13 +377,13 @@
 				},
 				{
 					"name": "Cardinale",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 2
@@ -398,13 +398,13 @@
 				},
 				{
 					"name": "Vescovo",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 5
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 1
@@ -419,7 +419,7 @@
 				},
 				{
 					"name": "Generale",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 5
@@ -440,13 +440,13 @@
 				},
 				{
 					"name": "Ambasciatore",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 6
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "COUNCIL_PRIVILEGE",
 							"quantity": 1

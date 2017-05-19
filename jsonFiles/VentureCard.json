@@ -1,16 +1,16 @@
 {
-	"card": [
+	"cards": [
 		{
 			"period": [
 				{
 					"name": "Ingaggiare Reclute",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 5
@@ -20,7 +20,7 @@
 				},
 				{
 					"name": "Riparare la Chiesa",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 1
@@ -34,7 +34,7 @@
 							"quantity": 1
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 1
@@ -44,13 +44,13 @@
 				},
 				{
 					"name": "Costruire le Mura",
-					"cost": [
+					"costs": [
 						{
 							"type": "STONE",
 							"quantity": 3
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 2
@@ -64,7 +64,7 @@
 				},
 				{
 					"name": "Innalzare una Statua",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 2
@@ -74,7 +74,7 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "COUNCIL_PRIVILEGE",
 							"quantity": 2
@@ -86,7 +86,7 @@
 					"name": "Campagna Militare",
 					"militaryPointPrice": 2,
 					"militaryPointNeeded": 3,
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "COIN",
 							"quantity": 3
@@ -96,13 +96,13 @@
 				},
 				{
 					"name": "Ospitare i Mendicanti",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 3
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "SERVANT",
 							"quantity": 4
@@ -114,7 +114,7 @@
 					"name": "Combattere le Eresie",
 					"militaryPointPrice": 3,
 					"militaryPointNeeded": 5,
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 2
@@ -124,7 +124,7 @@
 				},
 				{
 					"name": "Sostegno al Vescovo",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 1
@@ -140,7 +140,7 @@
 					],
 					"militaryPointPrice": 2,
 					"militaryPointNeeded": 4,
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 3
@@ -154,13 +154,13 @@
 			"period": [
 				{
 					"name": "Ingaggiare Soldati",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 6
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 6
@@ -170,7 +170,7 @@
 				},
 				{
 					"name": "Riparare l'Abbazia",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 2
@@ -184,7 +184,7 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 2
@@ -194,13 +194,13 @@
 				},
 				{
 					"name": "Costruire i Bastioni",
-					"cost": [
+					"costs": [
 						{
 							"type": "STONE",
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 3
@@ -216,7 +216,7 @@
 					"name": "Supporto al Re",
 					"militaryPointPrice": 3,
 					"militaryPointNeeded": 6,
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "COIN",
 							"quantity": 5
@@ -230,7 +230,7 @@
 				},
 				{
 					"name": "Scavare Canalizzazioni",
-					"cost": [
+					"costs": [
 						{
 							"type": "SERVANT",
 							"quantity": 2
@@ -250,13 +250,13 @@
 				},
 				{
 					"name": "Accogliere gli Stranieri",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "SERVANT",
 							"quantity": 5
@@ -268,7 +268,7 @@
 					"name": "Crociata",
 					"militaryPointPrice": 4,
 					"militaryPointNeeded": 8,
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "COIN",
 							"quantity": 5
@@ -282,7 +282,7 @@
 				},
 				{
 					"name": "Sostegno al Cardinale",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 2
@@ -298,7 +298,7 @@
 					],
 					"militaryPointPrice": 4,
 					"militaryPointNeeded": 7,
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 3
@@ -312,13 +312,13 @@
 			"period": [
 				{
 					"name": "Ingaggiare Mercenari",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 8
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 7
@@ -328,7 +328,7 @@
 				},
 				{
 					"name": "Riparare la Cattedrale",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 3
@@ -342,7 +342,7 @@
 							"quantity": 3
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 1
@@ -358,13 +358,13 @@
 				},
 				{
 					"name": "Costruire le Torri",
-					"cost": [
+					"costs": [
 						{
 							"type": "STONE",
 							"quantity": 6
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 4
@@ -378,13 +378,13 @@
 				},
 				{
 					"name": "Commissionare Arte Sacra",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 6
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 3
@@ -396,7 +396,7 @@
 					"name": "Conquista Militare",
 					"militaryPointPrice": 6,
 					"militaryPointNeeded": 12,
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "WOOD",
 							"quantity": 3
@@ -414,7 +414,7 @@
 				},
 				{
 					"name": "Migliorare le Strade",
-					"cost": [
+					"costs": [
 						{
 							"type": "SERVANT",
 							"quantity": 3
@@ -436,7 +436,7 @@
 					"name": "Guerra Santa",
 					"militaryPointPrice": 8,
 					"militaryPointNeeded": 15,
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 4
@@ -446,7 +446,7 @@
 				},
 				{
 					"name": "Sostegno al Papa",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 3
@@ -462,7 +462,7 @@
 					],
 					"militaryPointPrice": 5,
 					"militaryPointNeeded": 10,
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 2

@@ -1,10 +1,10 @@
 {
-	"card": [
+	"cards": [
 		{
 			"period": [
 				{
 					"name": "Zecca",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 1
@@ -14,7 +14,7 @@
 							"quantity": 3
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 5
@@ -33,7 +33,7 @@
 				},
 				{
 					"name": "Esattoria",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 3
@@ -43,7 +43,7 @@
 							"quantity": 1
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 5
@@ -62,7 +62,7 @@
 				},
 				{
 					"name": "Arco di Trionfo",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 2
@@ -72,7 +72,7 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 6
@@ -91,7 +91,7 @@
 				},
 				{
 					"name": "Teatro",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 2
@@ -101,7 +101,7 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 6
@@ -120,7 +120,7 @@
 				},
 				{
 					"name": "Falegnameria",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 1
@@ -130,14 +130,14 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 3
 						}
 					],
 					"diceProductionAction": 4,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -170,7 +170,7 @@
 				},
 				{
 					"name": "Tagliapietre",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 1
@@ -180,14 +180,14 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 2
 						}
 					],
 					"diceProductionAction": 3,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -220,20 +220,20 @@
 				},
 				{
 					"name": "Cappella",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
 							"quantity": 1
 						}
 					],
 					"diceProductionAction": 2,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -252,20 +252,20 @@
 				},
 				{
 					"name": "Residenza",
-					"cost": [
+					"costs": [
 						{
 							"type": "STONE",
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "string",
 							"quantity": 0
 						}
 					],
 					"diceProductionAction": 1,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -288,7 +288,7 @@
 			"period": [
 				{
 					"name": "Mercato",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 2
@@ -298,14 +298,14 @@
 							"quantity": 1
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 3
 						}
 					],
 					"diceProductionAction": 3,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -328,20 +328,20 @@
 				},
 				{
 					"name": "Tesoreria",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 3
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 4
 						}
 					],
 					"diceProductionAction": 3,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -374,20 +374,20 @@
 				},
 				{
 					"name": "Gilda dei Pittori",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 5
 						}
 					],
 					"diceProductionAction": 4,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -420,20 +420,20 @@
 				},
 				{
 					"name": "Gilda degli Scultori",
-					"cost": [
+					"costs": [
 						{
 							"type": "STONE",
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 6
 						}
 					],
 					"diceProductionAction": 5,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -466,7 +466,7 @@
 				},
 				{
 					"name": "Gilda dei Costruttori",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 1
@@ -476,14 +476,14 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 4
 						}
 					],
 					"diceProductionAction": 4,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -510,13 +510,13 @@
 				},
 				{
 					"name": "Battistero",
-					"cost": [
+					"costs": [
 						{
 							"type": "STONE",
 							"quantity": 3
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 2
@@ -527,7 +527,7 @@
 						}
 					],
 					"diceProductionAction": 2,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -550,7 +550,7 @@
 				},
 				{
 					"name": "Caserma",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 1
@@ -560,14 +560,14 @@
 							"quantity": 1
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 3
 						}
 					],
 					"diceProductionAction": 1,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -586,7 +586,7 @@
 				},
 				{
 					"name": "Fortezza",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 2
@@ -600,14 +600,14 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 8
 						}
 					],
 					"diceProductionAction": 6,
-					"retrieved": [
+					"earnings": [
 						{
 							"type": "MILITARY_POINT",
 							"quantity": 2
@@ -624,7 +624,7 @@
 			"period": [
 				{
 					"name": "Banca",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 3
@@ -638,14 +638,14 @@
 							"quantity": 3
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 7
 						}
 					],
 					"diceProductionAction": 2,
-					"retrieved": [
+					"earnings": [
 						{
 							"type": "COIN",
 							"quantity": 5
@@ -654,7 +654,7 @@
 				},
 				{
 					"name": "Fiera",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 4
@@ -664,14 +664,14 @@
 							"quantity": 3
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 8
 						}
 					],
 					"diceProductionAction": 4,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -694,7 +694,7 @@
 				},
 				{
 					"name": "Giardino",
-					"cost": [
+					"costs": [
 						{
 							"type": "SERVANT",
 							"quantity": 2
@@ -708,14 +708,14 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 10
 						}
 					],
 					"diceProductionAction": 1,
-					"retrieved": [
+					"earnings": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 3
@@ -724,7 +724,7 @@
 				},
 				{
 					"name": "Castelletto",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 2
@@ -738,14 +738,14 @@
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 9
 						}
 					],
 					"diceProductionAction": 5,
-					"retrieved": [
+					"earnings": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 2
@@ -758,7 +758,7 @@
 				},
 				{
 					"name": "Palazzo",
-					"cost": [
+					"costs": [
 						{
 							"type": "COIN",
 							"quantity": 3
@@ -772,14 +772,14 @@
 							"quantity": 1
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 9
 						}
 					],
 					"diceProductionAction": 6,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -802,7 +802,7 @@
 				},
 				{
 					"name": "Basilica",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 1
@@ -812,7 +812,7 @@
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 5
@@ -823,7 +823,7 @@
 						}
 					],
 					"diceProductionAction": 1,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -856,7 +856,7 @@
 				},
 				{
 					"name": "Accademia Militare",
-					"cost": [
+					"costs": [
 						{
 							"type": "SERVANT",
 							"quantity": 1
@@ -871,14 +871,14 @@
 							"quantity": 2
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 7
 						}
 					],
 					"diceProductionAction": 3,
-					"trade": [
+					"trades": [
 						{
 							"give": [
 								{
@@ -901,7 +901,7 @@
 				},
 				{
 					"name": "Cattedrale",
-					"cost": [
+					"costs": [
 						{
 							"type": "WOOD",
 							"quantity": 4
@@ -911,7 +911,7 @@
 							"quantity": 4
 						}
 					],
-					"fastReward": [
+					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 7
@@ -922,7 +922,7 @@
 						}
 					],
 					"diceProductionAction": 2,
-					"retrieved": [
+					"earnings": [
 						{
 							"type": "VICTORY_POINT",
 							"quantity": 1
