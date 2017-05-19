@@ -1,7 +1,7 @@
 {
-	"buildingCard": [
+	"card": [
 		{
-			"firstPeriod": [
+			"period": [
 				{
 					"name": "Zecca",
 					"cost": [
@@ -202,7 +202,7 @@
 								}
 							]
 						},
-											{
+						{
 							"give": [
 								{
 									"type": "STONE",
@@ -282,8 +282,10 @@
 						}
 					]
 				}
-			],
-			"secondPeriod": [
+			]
+		},
+		{
+			"period": [
 				{
 					"name": "Mercato",
 					"cost": [
@@ -540,7 +542,7 @@
 								},
 								{
 									"type": "VICTORY_POINT",
-       								        "quantity": 2
+									"quantity": 2
 								}
 							]
 						}
@@ -616,8 +618,10 @@
 						}
 					]
 				}
-			],
-			"thirdPeriod": [
+			]
+		},
+		{
+			"period": [
 				{
 					"name": "Banca",
 					"cost": [

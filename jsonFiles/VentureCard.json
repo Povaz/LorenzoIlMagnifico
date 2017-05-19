@@ -1,7 +1,7 @@
 {
-	"ventureCard": [
+	"card": [
 		{
-			"firstPeriod": [
+			"period": [
 				{
 					"name": "Ingaggiare Reclute",
 					"cost": [
@@ -148,8 +148,10 @@
 					],
 					"victoryPointEarned": 1
 				}
-			],
-			"secondPeriod": [
+			]
+		},
+		{
+			"period": [
 				{
 					"name": "Ingaggiare Soldati",
 					"cost": [
@@ -304,8 +306,10 @@
 					],
 					"victoryPointEarned": 4
 				}
-			],
-			"thirdPeriod": [
+			]
+		},
+		{
+			"period": [
 				{
 					"name": "Ingaggiare Mercenari",
 					"cost": [
