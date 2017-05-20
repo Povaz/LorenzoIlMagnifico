@@ -29,12 +29,12 @@ public class JSONUtility {
 			BuildingCard b4 = (BuildingCard) getCard(3,3, CardType.BUILDING);
 			System.out.println(b4 + "\n");
 
-			/*CharacterCard c1 = (CharacterCard) getCard(1,1, CardType.CHARACTER);
+			CharacterCard c1 = (CharacterCard) getCard(1,0, CardType.CHARACTER);
 			System.out.println(c1 + "\n");
-			CharacterCard c2 = (CharacterCard) getCard(2,1, CardType.CHARACTER);
+			CharacterCard c2 = (CharacterCard) getCard(1,1, CardType.CHARACTER);
 			System.out.println(c2 + "\n");
 
-			VentureCard v1 = (VentureCard) getCard(1,4, CardType.VENTURE);
+			/*VentureCard v1 = (VentureCard) getCard(1,4, CardType.VENTURE);
 			System.out.println(v1 + "\n");
 			VentureCard v2 = (VentureCard) getCard(2,4, CardType.VENTURE);
 			System.out.println(v2 + "\n");*/
@@ -42,11 +42,6 @@ public class JSONUtility {
 			e.printStackTrace();
 		}
 	}
-
-
-
-
-
 
 	public static DevelopmentCard getCard(int period, int number, CardType cardType) throws JSONException, IOException{
 		switch(cardType){

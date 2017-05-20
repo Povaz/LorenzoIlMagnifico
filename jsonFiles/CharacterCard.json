@@ -40,7 +40,7 @@
 					"costDiscounts": [
 						{
 							"cardType": "BUILDING",
-							"option": [
+							"options": [
 								{
 									"discounts": [
 										{
@@ -78,7 +78,7 @@
 					"costDiscounts": [
 						{
 							"cardType": "CHARACTER",
-							"option": [
+							"options": [
 								{
 									"discounts": [
 										{

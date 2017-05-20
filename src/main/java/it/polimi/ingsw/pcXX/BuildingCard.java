@@ -20,6 +20,33 @@ public class BuildingCard extends DevelopmentCard{
 	}
 
 	@Override
+	public boolean equals(Object o){
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		BuildingCard that = (BuildingCard) o;
+
+		if (diceProductionAction != that.diceProductionAction) return false;
+		if (earnings != null ? !earnings.equals(that.earnings) : that.earnings != null) return false;
+		if (trades != null ? !trades.equals(that.trades) : that.trades != null) return false;
+		if (rewardForReward != null ? !rewardForReward.equals(that.rewardForReward) : that.rewardForReward != null)
+			return false;
+		return rewardForCard != null ? rewardForCard.equals(that.rewardForCard) : that.rewardForCard == null;
+	}
+
+	@Override
+	public int hashCode(){
+		int result = super.hashCode();
+		result = 31 * result + diceProductionAction;
+		result = 31 * result + (earnings != null ? earnings.hashCode() : 0);
+		result = 31 * result + (trades != null ? trades.hashCode() : 0);
+		result = 31 * result + (rewardForReward != null ? rewardForReward.hashCode() : 0);
+		result = 31 * result + (rewardForCard != null ? rewardForCard.hashCode() : 0);
+		return result;
+	}
+
+	@Override
 	public String toString(){
 		String cardString = super.toString();
 		cardString += "Dice harvest: " + diceProductionAction + "\n";
