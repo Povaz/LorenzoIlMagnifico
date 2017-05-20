@@ -10,6 +10,24 @@ public class Resource extends Reward{
 	}
 
 	@Override
+	public boolean equals(Object o){
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Resource resource = (Resource) o;
+
+		if (quantity != resource.quantity) return false;
+		return type == resource.type;
+	}
+
+	@Override
+	public int hashCode(){
+		int result = type.hashCode();
+		result = 31 * result + quantity;
+		return result;
+	}
+
+	@Override
 	public String toString(){
 		return "" + quantity + " " + type.toString();
 	}

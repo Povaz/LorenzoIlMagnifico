@@ -13,6 +13,26 @@ public class TerritoryCard extends DevelopmentCard{
 	}
 
 	@Override
+	public boolean equals(Object o){
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		TerritoryCard that = (TerritoryCard) o;
+
+		if (diceHarvestAction != that.diceHarvestAction) return false;
+		return earnings.equals(that.earnings);
+	}
+
+	@Override
+	public int hashCode(){
+		int result = super.hashCode();
+		result = 31 * result + diceHarvestAction;
+		result = 31 * result + earnings.hashCode();
+		return result;
+	}
+
+	@Override
 	public String toString(){
 		String cardString = super.toString();
 		cardString += "Dice harvest: " + diceHarvestAction + "\n";

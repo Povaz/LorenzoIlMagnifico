@@ -38,6 +38,30 @@ public abstract class DevelopmentCard {
 	}
 
 	@Override
+	public boolean equals(Object o){
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		DevelopmentCard that = (DevelopmentCard) o;
+
+		if (period != that.period) return false;
+		if (!name.equals(that.name)) return false;
+		if (type != that.type) return false;
+		if (costs != null ? !costs.equals(that.costs) : that.costs != null) return false;
+		return fastRewards != null ? fastRewards.equals(that.fastRewards) : that.fastRewards == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = name.hashCode();
+		result = 31 * result + type.hashCode();
+		result = 31 * result + period;
+		result = 31 * result + (costs != null ? costs.hashCode() : 0);
+		result = 31 * result + (fastRewards != null ? fastRewards.hashCode() : 0);
+		return result;
+	}
+
+	@Override
 	public String toString(){
 		String cardString = "";
 
