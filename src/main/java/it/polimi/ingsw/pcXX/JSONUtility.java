@@ -29,6 +29,11 @@ public class JSONUtility {
 			System.out.println(c1 + "\n");
 			CharacterCard c2 = (CharacterCard) getCard(2,1, CardType.CHARACTER);
 			System.out.println(c2 + "\n");
+
+			VentureCard v1 = (VentureCard) getCard(1,4, CardType.VENTURE);
+			System.out.println(v1 + "\n");
+			VentureCard v2 = (VentureCard) getCard(2,4, CardType.VENTURE);
+			System.out.println(v2 + "\n");
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -47,8 +52,8 @@ public class JSONUtility {
 				return getBuildingCard(period, number);
 			case CHARACTER:
 				return getCharacterCard(period, number);
-			/*case VENTURE:
-				return getVentureCard(period, number);*/
+			case VENTURE:
+				return getVentureCard(period, number);
 			default:
 				return null;
 		}
@@ -99,6 +104,29 @@ public class JSONUtility {
 
 		return new CharacterCard(name, period, costs, fastRewards, actions, noBonusTowerResource, discounts, actionModifiers,
 				rewardForReward, rewardForCard);
+	}
+
+	private static VentureCard getVentureCard(int period, int number) throws JSONException, IOException{
+		JSONObject card = fromPathToJSONObject("jsonFiles/VentureCard.json");
+		card = getPeriodAndNumberCard(period, number, card);
+
+		String name = getName(card);
+		Set<Reward> costs = getCosts(card);
+		Set<Reward> fastRewards = getFastRewards(card);
+		LinkedList<GhostFamilyMember> actions = getActions(card);
+		Point militaryPointNeeded;
+		Point militaryPointPrice;
+		try{
+			militaryPointNeeded = new Point(PointType.MILITARY_POINT, card.getInt("militaryPointNeeded"));
+			militaryPointPrice = new Point(PointType.MILITARY_POINT, card.getInt("militaryPointPrice"));
+		} catch(JSONException e){
+			militaryPointNeeded = null;
+			militaryPointPrice = null;
+		}
+		Point victoryPointEarned = new Point(PointType.VICTORY_POINT, card.getInt("victoryPointEarned"));
+
+		return new VentureCard(name, period, costs, fastRewards, actions, militaryPointNeeded, militaryPointPrice,
+				victoryPointEarned);
 	}
 
 	private static JSONObject getPeriodAndNumberCard(int period, int number, JSONObject jsonObject) throws JSONException{
@@ -164,7 +192,7 @@ public class JSONUtility {
 				JSONObject actionObj = actions.getJSONObject(i);
 				ActionType actionType = ActionType.valueOf(actionObj.getString("actionType"));
 				int value = actionObj.getInt("value");
-				Set<Reward> discounts = null;
+				Set<Reward> discounts;
 				try {
 					discounts = getRewardSet(actionObj.getJSONArray("discounts"));
 				} catch(JSONException e){
