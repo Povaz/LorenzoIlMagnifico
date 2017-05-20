@@ -16,7 +16,12 @@
 							"quantity": 3
 						}
 					],
-					"territoryTowerModifier": 2
+					"actionModifiers": [
+						{
+							"type": "TERRITORY_TOWER",
+							"modifier": 2
+						}
+					]
 				},
 				{
 					"name": "Costruttore",
@@ -26,7 +31,12 @@
 							"quantity": 4
 						}
 					],
-					"buildingTowerModifier": 2,
+					"actionModifiers": [
+						{
+							"type": "BUILDING_TOWER",
+							"modifier": 2
+						}
+					],
 					"costDiscounts": [
 						{
 							"cardType": "BUILDING",
@@ -59,7 +69,12 @@
 							"quantity": 4
 						}
 					],
-					"characterTowerModifier": 2,
+					"actionModifiers": [
+						{
+							"type": "CHARACTER_TOWER",
+							"modifier": 2
+						}
+					],
 					"costDiscounts": [
 						{
 							"cardType": "CHARACTER",
@@ -90,7 +105,12 @@
 							"quantity": 1
 						}
 					],
-					"ventureTowerModifier": 2
+					"actionModifiers": [
+						{
+							"type": "VENTURE_TOWER",
+							"modifier": 2
+						}
+					]
 				},
 				{
 					"name": "Contadino",
@@ -100,7 +120,12 @@
 							"quantity": 3
 						}
 					],
-					"harvestModifier": 2
+					"actionModifiers": [
+						{
+							"type": "HARVEST",
+							"modifier": 2
+						}
+					]
 				},
 				{
 					"name": "Artigiano",
@@ -110,7 +135,12 @@
 							"quantity": 3
 						}
 					],
-					"productionModifier": 2
+					"actionModifiers": [
+						{
+							"type": "PRODUCTION",
+							"modifier": 2
+						}
+					]
 				},
 				{
 					"name": "Predicatore",
@@ -186,18 +216,14 @@
 						{
 							"actionType": "BUILDING_TOWER",
 							"value": 6,
-							"option": [
+							"discounts": [
 								{
-									"discounts": [
-										{
-											"type": "WOOD",
-											"quantity": 1
-										},
-										{
-											"type": "STONE",
-											"quantity": 1
-										}
-									]
+									"type": "WOOD",
+									"quantity": 1
+								},
+								{
+									"type": "STONE",
+									"quantity": 1
 								}
 							]
 						}
@@ -215,14 +241,10 @@
 						{
 							"actionType": "CHARACTER_TOWER",
 							"value": 6,
-							"option": [
+							"discounts": [
 								{
-									"discounts": [
-										{
-											"type": "COIN",
-											"quantity": 2
-										}
-									]
+									"type": "COIN",
+									"quantity": 2
 								}
 							]
 						}
@@ -257,7 +279,12 @@
 							"quantity": 4
 						}
 					],
-					"harvestModifier": 3
+					"actionModifiers": [
+						{
+							"type": "HARVEST",
+							"modifier": 3
+						}
+					]
 				},
 				{
 					"name": "Studioso",
@@ -267,7 +294,12 @@
 							"quantity": 4
 						}
 					],
-					"productionModifier": 3
+					"actionModifiers": [
+						{
+							"type": "PRODUCTION",
+							"modifier": 3
+						}
+					]
 				},
 				{
 					"name": "Messo Papale",

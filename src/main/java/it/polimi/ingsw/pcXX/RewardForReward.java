@@ -12,10 +12,12 @@ public class RewardForReward {
 	}
 
 	@Override
-	public String toString() {
-		return "RewardForReward{" +
-				"earned=" + earned +
-				", owned=" + owned +
-				'}';
+	public String toString(){
+		String rfcString = "";
+		for(Reward r : earned){
+			rfcString += r.toString() + "; ";
+		}
+		rfcString += "X " + owned.toString();
+		return rfcString;
 	}
 }

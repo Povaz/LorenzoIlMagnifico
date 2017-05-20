@@ -13,11 +13,11 @@ public class RewardForCard {
 
 	@Override
 	public String toString(){
-		String rfrString = "";
+		String rfcString = "";
 		for(Reward r : earned){
-			rfrString += r.toString() + "; ";
+			rfcString += r.toString() + "; ";
 		}
-		rfrString += "X " + cardTypeOwned.toString();
-		return rfrString;
+		rfcString += "X " + cardTypeOwned.toString();
+		return rfcString;
 	}
 }
