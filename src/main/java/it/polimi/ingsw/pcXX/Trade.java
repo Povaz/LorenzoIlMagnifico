@@ -12,7 +12,25 @@ public class Trade {
 	}
 
 	@Override
-	public String toString() {
+	public boolean equals(Object o){
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Trade trade = (Trade) o;
+
+		if (!give.equals(trade.give)) return false;
+		return take.equals(trade.take);
+	}
+
+	@Override
+	public int hashCode(){
+		int result = give.hashCode();
+		result = 31 * result + take.hashCode();
+		return result;
+	}
+
+	@Override
+	public String toString(){
 		String tradeString = "";
 		for(Reward r : give){
 			tradeString += r.toString() + "; ";

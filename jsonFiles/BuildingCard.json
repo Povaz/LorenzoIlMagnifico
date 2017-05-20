@@ -275,7 +275,7 @@
 							],
 							"take": [
 								{
-									"type": "CouncilPrivilege",
+									"type": "COUNCIL_PRIVILEGE",
 									"quantity": 1
 								}
 							]
@@ -751,7 +751,7 @@
 							"quantity": 2
 						},
 						{
-							"type": "CouncilPrivilege",
+							"type": "COUNCIL_PRIVILEGE",
 							"quantity": 1
 						}
 					]

@@ -15,17 +15,21 @@ public class JSONUtility {
 
 	public static void main(String[] args) {
 		try {
-			TerritoryCard t1 = (TerritoryCard) getCard(1,1, CardType.TERRITORY);
+			/*TerritoryCard t1 = (TerritoryCard) getCard(1, 0, CardType.TERRITORY);
 			System.out.println(t1 + "\n");
-			TerritoryCard t2 = (TerritoryCard) getCard(2,2, CardType.TERRITORY);
-			System.out.println(t2 + "\n");
+			TerritoryCard t2 = (TerritoryCard) getCard(3, 7, CardType.TERRITORY);
+			System.out.println(t2 + "\n");*/
 
-			BuildingCard b1 = (BuildingCard) getCard(1,1, CardType.BUILDING);
+			BuildingCard b1 = (BuildingCard) getCard(1,0, CardType.BUILDING);
 			System.out.println(b1 + "\n");
-			BuildingCard b2 = (BuildingCard) getCard(2,2, CardType.BUILDING);
+			BuildingCard b2 = (BuildingCard) getCard(1,4, CardType.BUILDING);
 			System.out.println(b2 + "\n");
+			BuildingCard b3 = (BuildingCard) getCard(2,7, CardType.BUILDING);
+			System.out.println(b3 + "\n");
+			BuildingCard b4 = (BuildingCard) getCard(3,3, CardType.BUILDING);
+			System.out.println(b4 + "\n");
 
-			CharacterCard c1 = (CharacterCard) getCard(1,1, CardType.CHARACTER);
+			/*CharacterCard c1 = (CharacterCard) getCard(1,1, CardType.CHARACTER);
 			System.out.println(c1 + "\n");
 			CharacterCard c2 = (CharacterCard) getCard(2,1, CardType.CHARACTER);
 			System.out.println(c2 + "\n");
@@ -33,7 +37,7 @@ public class JSONUtility {
 			VentureCard v1 = (VentureCard) getCard(1,4, CardType.VENTURE);
 			System.out.println(v1 + "\n");
 			VentureCard v2 = (VentureCard) getCard(2,4, CardType.VENTURE);
-			System.out.println(v2 + "\n");
+			System.out.println(v2 + "\n");*/
 		} catch(Exception e){
 			e.printStackTrace();
 		}

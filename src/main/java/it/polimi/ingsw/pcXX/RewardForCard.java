@@ -12,6 +12,24 @@ public class RewardForCard {
 	}
 
 	@Override
+	public boolean equals(Object o){
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		RewardForCard that = (RewardForCard) o;
+
+		if (!earned.equals(that.earned)) return false;
+		return cardTypeOwned == that.cardTypeOwned;
+	}
+
+	@Override
+	public int hashCode(){
+		int result = earned.hashCode();
+		result = 31 * result + cardTypeOwned.hashCode();
+		return result;
+	}
+
+	@Override
 	public String toString(){
 		String rfcString = "";
 		for(Reward r : earned){
