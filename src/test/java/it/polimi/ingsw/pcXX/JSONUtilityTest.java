@@ -339,4 +339,52 @@ public class JSONUtilityTest extends TestCase{
 
         assertEquals(expected, calculated);
     }
+
+    // With action(with discount)
+    public void testJSONImportVentureCard1(){
+        Set<Reward> fastRewards = new HashSet<Reward>();
+        fastRewards.add(new Resource(ResourceType.COIN, 3));
+
+        Point militaryPointNeeded = new Point(PointType.MILITARY_POINT, 3);
+
+        Point militaryPointPrice = new Point(PointType.MILITARY_POINT, 2);
+
+        Point victoryPointEarned = new Point(PointType.VICTORY_POINT, 5);
+
+        VentureCard expected = new VentureCard("Campagna Militare", 1, null, fastRewards, null,
+                militaryPointNeeded, militaryPointPrice, victoryPointEarned);
+
+        VentureCard calculated;
+        try {
+            calculated = (VentureCard) JSONUtility.getCard(1, 4, CardType.VENTURE);
+        } catch(Exception e){
+            calculated = null;
+        }
+
+        assertEquals(expected, calculated);
+    }
+
+    // With action(with discount)
+    public void testJSONImportVentureCard2(){
+        Set<Reward> costs = new HashSet<Reward>();
+        costs.add(new Resource(ResourceType.COIN, 3));
+        costs.add(new Resource(ResourceType.SERVANT, 2));
+
+        Point victoryPointEarned = new Point(PointType.VICTORY_POINT, 5);
+
+        LinkedList<GhostFamilyMember> actions = new LinkedList<GhostFamilyMember>();
+        actions.add(new GhostFamilyMember(ActionType.HARVEST, 4, null));
+
+        VentureCard expected = new VentureCard("Scavare Canalizzazioni", 2, costs, null, actions,
+                null, null, victoryPointEarned);
+
+        VentureCard calculated;
+        try {
+            calculated = (VentureCard) JSONUtility.getCard(2, 4, CardType.VENTURE);
+        } catch(Exception e){
+            calculated = null;
+        }
+
+        assertEquals(expected, calculated);
+    }
 }
