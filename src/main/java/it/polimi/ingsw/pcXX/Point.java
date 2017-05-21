@@ -9,6 +9,22 @@ public class Point extends Reward{
 		this.quantity = quantity;
 	}
 
+	public int getQuantity() {
+		return quantity;
+	}
+
+	public void setQuantity(int quantity) {
+		this.quantity = quantity;
+	}
+
+	public PointType getType() {
+		return type;
+	}
+
+	public void setType(PointType type) {
+		this.type = type;
+	}
+
 	@Override
 	public boolean equals(Object o){
 		if (this == o) return true;
