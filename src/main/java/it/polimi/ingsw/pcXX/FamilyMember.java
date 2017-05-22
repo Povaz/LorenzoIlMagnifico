@@ -4,11 +4,21 @@ public class FamilyMember {
 	private boolean used;
 	protected int value;
 	private boolean changes;
+	private PlayerColor playerColor;
+	private FamilyColor color;
 
 	public FamilyMember(boolean used, int value, boolean changes){
 		this.used = used;
 		this.value = value;
 		this.changes = changes;
+	}
+
+	public FamilyMember(boolean used, int value, boolean changes, PlayerColor playerColor, FamilyColor color){
+		this.used = used;
+		this.value = value;
+		this.changes = changes;
+		this.playerColor = playerColor;
+		this.color = color;
 	}
 
 	@Override
@@ -29,5 +39,9 @@ public class FamilyMember {
 		result = 31 * result + value;
 		result = 31 * result + (changes ? 1 : 0);
 		return result;
+	}
+
+	public PlayerColor getPlayerColor(){
+		return playerColor;
 	}
 }
