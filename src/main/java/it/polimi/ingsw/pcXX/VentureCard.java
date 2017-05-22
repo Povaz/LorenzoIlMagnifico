@@ -4,10 +4,10 @@ import java.util.LinkedList;
 import java.util.Set;
 
 public class VentureCard extends DevelopmentCard{
-	private LinkedList<GhostFamilyMember> actions;
-	private Point militaryPointPrice;
-	private Point militaryPointNeeded;
-	private Point victoryPointEarned;
+	private final LinkedList<GhostFamilyMember> actions;
+	private final Point militaryPointPrice;
+	private final Point militaryPointNeeded;
+	private final Point victoryPointEarned;
 	
 	public VentureCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, LinkedList<GhostFamilyMember> actions,
 					   Point militaryPointNeeded, Point militaryPointPrice, Point victoryPointEarned){

@@ -4,12 +4,12 @@ import java.util.LinkedList;
 import java.util.Set;
 
 public class CharacterCard extends DevelopmentCard{
-	private LinkedList<GhostFamilyMember> actions;
-	private boolean noBonusTowerResource;
-	private LinkedList<CostDiscount> discounts;
-	private LinkedList<ActionModifier> actionModifiers;
-	private RewardForReward rewardForReward;
-	private RewardForCard rewardForCard;
+	private final LinkedList<GhostFamilyMember> actions;
+	private final boolean noBonusTowerResource;
+	private final LinkedList<CostDiscount> discounts;
+	private final LinkedList<ActionModifier> actionModifiers;
+	private final RewardForReward rewardForReward;
+	private final RewardForCard rewardForCard;
 	
 	public CharacterCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, LinkedList<GhostFamilyMember> actions,
 						 boolean noBonusTowerResource, LinkedList<CostDiscount> discounts, LinkedList<ActionModifier> actionModifiers,

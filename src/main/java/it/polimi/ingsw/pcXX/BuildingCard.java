@@ -1,16 +1,17 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.ArrayList;
 import java.util.Set;
 
 public class BuildingCard extends DevelopmentCard{
-	private int diceProductionAction;
-	private Set<Reward> earnings;
-	private Set<Trade> trades;
-	private RewardForReward rewardForReward;
-	private RewardForCard rewardForCard;
+	private final int diceProductionAction;
+	private final Set<Reward> earnings;
+	private final ArrayList<Trade> trades;
+	private final RewardForReward rewardForReward;
+	private final RewardForCard rewardForCard;
 
 	public BuildingCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, int diceProductionAction,
-						Set<Reward> earnings, Set<Trade> trades, RewardForReward rewardForReward, RewardForCard rewardForCard){
+						Set<Reward> earnings, ArrayList<Trade> trades, RewardForReward rewardForReward, RewardForCard rewardForCard){
 		super(name, CardType.BUILDING, period, costs, fastRewards);
 		this.diceProductionAction = diceProductionAction;
 		this.earnings = earnings;
@@ -20,7 +21,7 @@ public class BuildingCard extends DevelopmentCard{
 	}
 
 	@Override
-	public boolean equals(Object o){
+	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		if (!super.equals(o)) return false;
@@ -36,7 +37,7 @@ public class BuildingCard extends DevelopmentCard{
 	}
 
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		int result = super.hashCode();
 		result = 31 * result + diceProductionAction;
 		result = 31 * result + (earnings != null ? earnings.hashCode() : 0);

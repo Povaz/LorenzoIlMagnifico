@@ -2,6 +2,7 @@ package it.polimi.ingsw.pcXX;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -15,10 +16,10 @@ public class JSONUtility {
 
 	public static void main(String[] args) {
 		try {
-			/*TerritoryCard t1 = (TerritoryCard) getCard(1, 0, CardType.TERRITORY);
+			TerritoryCard t1 = (TerritoryCard) getCard(1, 0, CardType.TERRITORY);
 			System.out.println(t1 + "\n");
 			TerritoryCard t2 = (TerritoryCard) getCard(3, 7, CardType.TERRITORY);
-			System.out.println(t2 + "\n");*/
+			System.out.println(t2 + "\n");
 
 			BuildingCard b1 = (BuildingCard) getCard(1,0, CardType.BUILDING);
 			System.out.println(b1 + "\n");
@@ -34,10 +35,10 @@ public class JSONUtility {
 			CharacterCard c2 = (CharacterCard) getCard(1,1, CardType.CHARACTER);
 			System.out.println(c2 + "\n");
 
-			/*VentureCard v1 = (VentureCard) getCard(1,4, CardType.VENTURE);
+			VentureCard v1 = (VentureCard) getCard(1,4, CardType.VENTURE);
 			System.out.println(v1 + "\n");
 			VentureCard v2 = (VentureCard) getCard(2,4, CardType.VENTURE);
-			System.out.println(v2 + "\n");*/
+			System.out.println(v2 + "\n");
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -79,7 +80,7 @@ public class JSONUtility {
 		Set<Reward> fastRewards = getFastRewards(card);
 		int diceProductionAction = card.getInt("diceProductionAction");
 		Set<Reward> earnings = getEarnings(card);
-		Set<Trade> trades = getTrades(card);
+		ArrayList<Trade> trades = getTrades(card);
 		RewardForReward rewardForReward = getRewardForReward(card);
 		RewardForCard rewardForCard = getRewardForCard(card);
 
@@ -166,18 +167,18 @@ public class JSONUtility {
 		}
 	}
 
-	private static Set<Trade> getTrades(JSONObject card){
+	private static ArrayList<Trade> getTrades(JSONObject card){
 		try {
-			Set<Trade> tradesSet = new HashSet<Trade>();
+			ArrayList<Trade> tradesArray = new ArrayList<>();
 			JSONArray trades = card.getJSONArray("trades");
 			for(int i = 0; i < trades.length(); i++){
 				JSONArray give = trades.getJSONObject(i).getJSONArray("give");
 				Set<Reward> giveSet = getRewardSet(give);
 				JSONArray take = trades.getJSONObject(i).getJSONArray("take");
 				Set<Reward> takeSet = getRewardSet(take);
-				tradesSet.add(new Trade(giveSet, takeSet));
+				tradesArray.add(new Trade(giveSet, takeSet));
 			}
-			return tradesSet;
+			return tradesArray;
 		} catch(JSONException e){
 			return null;
 		}

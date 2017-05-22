@@ -4,6 +4,7 @@ import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.Set;
@@ -103,7 +104,7 @@ public class JSONUtilityTest extends TestCase{
         give2.add(new Resource(ResourceType.WOOD, 2));
         Set<Reward> take2 = new HashSet<Reward>();
         take2.add(new Resource(ResourceType.COIN, 5));
-        Set<Trade> trades = new HashSet<Trade>();
+        ArrayList<Trade> trades = new ArrayList<>();
         trades.add(new Trade(give1, take1));
         trades.add(new Trade(give2, take2));
 

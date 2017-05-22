@@ -3,11 +3,11 @@ package it.polimi.ingsw.pcXX;
 import java.util.Set;
 
 public abstract class DevelopmentCard {
-	private String name;
-	private CardType type;
-	private int period;
-	private Set<Reward> costs;
-	private Set<Reward> fastRewards;
+	private final String name;
+	private final CardType type;
+	private final int period;
+	private final Set<Reward> costs;
+	private final Set<Reward> fastRewards;
 
 	public DevelopmentCard(String name, CardType type, int period, Set<Reward> costs, Set<Reward> fastRewards){
 		this.name = name;
