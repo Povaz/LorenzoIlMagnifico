@@ -2,11 +2,11 @@ package it.polimi.ingsw.pcXX.Socket;
 
 import java.net.Socket;
 
-public class Player {
+public class Person {
 	private String name;
 	private Socket socket;
 	
-	public Player(Socket socket){
+	public Person(Socket socket){
 		this.socket=socket;
 	}
 	

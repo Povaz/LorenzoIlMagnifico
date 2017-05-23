@@ -7,11 +7,11 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class CreateGameHandler {
-	private ArrayList <Player> players=new ArrayList <Player>();
+	private ArrayList <Person> players=new ArrayList <Person>();
 	private int counter=0;
 	
 	public void createPlayer(Socket neww) {
-		players.add(new Player(neww));
+		players.add(new Person(neww));
 		
 		counter++;
 		
