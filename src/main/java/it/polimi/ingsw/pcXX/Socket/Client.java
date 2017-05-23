@@ -1,9 +1,8 @@
-package Socket;
+package it.polimi.ingsw.pcXX.Socket;
 
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Client {

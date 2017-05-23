@@ -1,7 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
 public class Resource extends Reward{
-	private ResourceType type;
+	private final ResourceType type;
 	private int quantity;
 
 	public Resource(ResourceType type, int quantity){
@@ -13,18 +13,9 @@ public class Resource extends Reward{
         return quantity;
     }
 
-    public void setQuantity(int quantity) {
-        this.quantity = quantity;
-    }
-
-    public void setType(ResourceType type) {
-		this.type = type;
-	}
-
 	public ResourceType getType() {
 		return type;
 	}
-
 
 	@Override
 	public boolean equals(Object o){
@@ -47,5 +38,9 @@ public class Resource extends Reward{
 	@Override
 	public String toString(){
 		return "" + quantity + " " + type.toString();
+	}
+
+	public void addQuantity(int var){
+		quantity += var;
 	}
 }

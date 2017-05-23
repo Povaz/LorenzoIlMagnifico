@@ -1,4 +1,4 @@
-package Socket;
+package it.polimi.ingsw.pcXX.Socket;
 
 import java.net.Socket;
 
