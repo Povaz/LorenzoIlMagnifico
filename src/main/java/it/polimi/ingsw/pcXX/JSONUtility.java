@@ -44,6 +44,11 @@ public class JSONUtility {
 		}
 	}
 
+	public static String getPassword(String username) throws JSONException, IOException{
+		JSONObject users = fromPathToJSONObject("jsonFiles/Login.json");
+		return users.getString(username);
+	}
+
 	public static DevelopmentCard getCard(int period, int number, CardType cardType) throws JSONException, IOException{
 		switch(cardType){
 			case TERRITORY:

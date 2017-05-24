@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.ArrayList;
+
 /**
  * Created by trill on 23/05/2017.
  */
@@ -9,24 +11,34 @@ public class PlayerBoard {
     private final Resource wood;
     private final Resource stone;
     private final Resource servant;
-    /*
-    private final FamilyMember[] familyMember;
+    private final ArrayList<FamilyMember> familyMembers;
     private final PersonalBonusTile personalBonusTile;
-    private final Modifier modifier;
-    private final LeaderCard[] leaderCard;
+    private final ArrayList<LeaderCard> leaderCards;
     private final TerritorySpot territorySpot;
     private final BuildingSpot buildingSpot;
     private final CharacterSpot characterSpot;
     private final VentureSpot ventureSpot;
-    */
+    private final Modifier modifier;
 
-    public PlayerBoard(PlayerColor color, int playerOrder){
+
+    public PlayerBoard(PlayerColor color, int playerOrder, PersonalBonusTile personalBonusTile, ArrayList<LeaderCard> leaderCards){
         this.color = color;
         this.coin = new Resource(ResourceType.COIN, 5);
         this.wood = new Resource(ResourceType.WOOD, 2);
         this.stone = new Resource(ResourceType.STONE, 2);
         this.servant = new Resource(ResourceType.SERVANT, 3);
         initializeResources(playerOrder);
+        this.familyMembers = initializeFamilyMembers(color);
+        this.personalBonusTile = personalBonusTile;
+        this.leaderCards = leaderCards;
+
+        //*******************************************
+        // DA SISTEMARE QUELLO SCRITTO DOPO!
+        this.territorySpot = new TerritorySpot();
+        this.buildingSpot = new BuildingSpot();
+        this.characterSpot = new CharacterSpot();
+        this.ventureSpot = new VentureSpot();
+        this.modifier = new Modifier();
     }
 
     private void initializeResources(int playerOrder){
@@ -40,5 +52,14 @@ public class PlayerBoard {
         	coin.setQuantity(8);
         if(playerOrder == 5)
             coin.setQuantity(9);
+    }
+
+    private ArrayList<FamilyMember> initializeFamilyMembers(PlayerColor color){
+        ArrayList<FamilyMember> familyMember = new ArrayList<FamilyMember>();
+        familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.WHITE));
+        familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.ORANGE));
+        familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.BLACK));
+        familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.NEUTRAL));
+        return familyMember;
     }
 }
