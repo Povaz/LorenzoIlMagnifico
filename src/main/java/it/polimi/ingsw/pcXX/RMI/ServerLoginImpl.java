@@ -11,54 +11,66 @@ import java.util.ArrayList;
  * Created by Povaz on 24/05/2017.
  */
 public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin {
-    private ArrayList<UserLoginImpl> usersLogged;
+    private ArrayList<UserLogin> usersLogged;
 
     public ServerLoginImpl () throws RemoteException {
-        usersLogged = new ArrayList<UserLoginImpl>();
+        usersLogged = new ArrayList<UserLogin>();
     }
 
-    public synchronized void controlUser (UserLoginImpl userLoginImpl) throws RemoteException {
-        for (UserLoginImpl user : usersLogged) {
-            if (userLoginImpl.getUsername() == user.getUsername()) {
-                if (userLoginImpl.getPassword() == user.getPassword()) {
-                    userLoginImpl.setResponse(true);
-                    notify();
+    @Override
+    public boolean controlUser (UserLogin userLogin) throws RemoteException {
+        for (UserLogin user : usersLogged) {
+            if (userLogin.getUsername() == user.getUsername()) {
+                if (userLogin.getPassword() == user.getPassword()) {
+                    return true;
                 } else {
-                    userLoginImpl.setResponse(false);
-                    notify();
+                    return false;
                 }
             }
         }
-        userLoginImpl.setResponse(false);
-        notify();
+        return false;
     }
 
-    public synchronized void saveUser (UserLoginImpl userLoginImpl) throws RemoteException {
-        for (UserLoginImpl user: usersLogged) {
-            if (userLoginImpl.getUsername() == user.getUsername()) {
-                userLoginImpl.setResponse(false);
-                notify();
+    @Override
+    public boolean saveUser (UserLogin userLogin) throws RemoteException {
+        for (UserLogin user: usersLogged) {
+            if (userLogin.getUsername() == user.getUsername()) {
+                return false;
             }
         }
-        usersLogged.add(userLoginImpl);
-        userLoginImpl.setResponse(true);
-        notify();
+        usersLogged.add(userLogin);
+        return true;
     }
 
-    public void printUsers () {
-        for (UserLoginImpl user: usersLogged) {
+    @Override
+    public void printUsers () throws RemoteException{
+        for (UserLogin user: usersLogged) {
             System.out.println("Username: " + user.getUsername());
             System.out.println("Password: " + user.getPassword() + "\n");
         }
     }
 
+    @Override
+    public boolean deleteUser (UserLogin userLogin) throws RemoteException {
+        for (UserLogin user : usersLogged) {
+            if (userLogin.getUsername() == user.getUsername()) {
+                if (userLogin.getPassword() == user.getPassword()) {
+                    usersLogged.remove(user);
+                    return true;
+                }
+                return false;
+            }
+        }
+        return false;
+    }
+
     public static void main (String[] args) throws RemoteException, AlreadyBoundException {
         System.out.println("Constructing server implementation...");
-        ServerLoginImpl serverLogin = new ServerLoginImpl();
+        ServerLoginImpl serverLoginImpl = new ServerLoginImpl();
 
         System.out.println("Binding Server implementation to registry...");
         Registry registry = LocateRegistry.getRegistry();
-        registry.bind("serverLogin", serverLogin);
+        registry.bind("serverLogin", serverLoginImpl);
 
         System.out.println("Waiting for invocations from clients...");
     }
