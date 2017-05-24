@@ -3,6 +3,8 @@ package it.polimi.ingsw.pcXX.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 
 public class Server {
 	private int port;
@@ -14,6 +16,10 @@ public class Server {
 	
 	
 	public void startServer() {
+		
+		///////////////////////////////////////////////////////////////////////////MESSO PER IL LOGIN
+		//ExecutorService executor = Executors.newCachedThreadPool();
+		
 		ServerSocket serverSocket;
 		try {
 			serverSocket = new ServerSocket(port);
@@ -22,12 +28,19 @@ public class Server {
 			System.err.println(e.getMessage()); // porta non disponibile
 			return;
 		}
+		
 		System.out.println("Server ready");
+		
 		CreateGameHandler newGame = new CreateGameHandler(); 
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				newGame.createPlayer(socket);
+				
+				///////////////////////////////////////////////////////////////////////GESTIRE LOGIN(deve implementare runnable)
+				//executor.submit(login(socket));
+				//////////////////////////////////////////
+				
+				newGame.addPlayer(socket);
 			} 
 			catch(IOException e) {
 				break; // entrerei qui se serverSocket venisse chiuso
