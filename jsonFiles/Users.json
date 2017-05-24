@@ -1,7 +1,7 @@
 {
-	"users":[
-		{"Lacieoz":"lol"},
-		{"IngComesiscrive":"bakachimodifica"},
-		{"ShadowDD":"krypto"}
-	]
+	"users": {
+		"Lacieoz":"lol",
+		"IngComesiscrive":"bakachimodifica",
+		"ShadowDD":"krypto"
+	}
 }
