@@ -31,7 +31,6 @@ public class Client {
 				break;
 			}
 		}
-		notify.close();
 		return;
 	}
 	
