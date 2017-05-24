@@ -21,6 +21,31 @@ public class JSONUtilityTest extends TestCase{
         return new TestSuite(JSONUtilityTest.class);
     }
 
+    // With password in Login.json
+    public void testGetPassword1(){
+        String expected = "password";
+
+        String calculated;
+        try {
+            calculated = JSONUtility.getPassword("username");
+        } catch(Exception e){
+            calculated = null;
+        }
+
+        assertEquals(expected, calculated);
+    }
+
+    // Without password in Login.json
+    public void testGetPassword2(){
+        String calculated;
+        try {
+            calculated = JSONUtility.getPassword("non presente");
+            assertTrue(false);
+        } catch(Exception e){
+            assertTrue(true);
+        }
+    }
+
     // Without fastRewards
     public void testJSONImportTerritoryCard1(){
         Set<Reward> earnings = new HashSet<Reward>();
