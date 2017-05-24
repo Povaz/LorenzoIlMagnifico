@@ -3,12 +3,15 @@ package it.polimi.ingsw.pcXX.Socket;
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 public class Server {
 	private int port;
 	private ServerSocket serverSocket;
+	private ArrayList <Person> utenti = new ArrayList <Person>(); 
+	private int counter = 0;
 	
 	public Server(int port) {
 		this.port = port;
@@ -17,8 +20,7 @@ public class Server {
 	
 	public void startServer() {
 		
-		///////////////////////////////////////////////////////////////////////////MESSO PER IL LOGIN
-		//ExecutorService executor = Executors.newCachedThreadPool();
+		ExecutorService executor = Executors.newCachedThreadPool();
 		
 		ServerSocket serverSocket;
 		try {
@@ -35,12 +37,9 @@ public class Server {
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				
-				///////////////////////////////////////////////////////////////////////GESTIRE LOGIN(deve implementare runnable)
-				//executor.submit(login(socket));
-				//////////////////////////////////////////
-				
-				newGame.addPlayer(socket);
+				utenti.add(new Person(socket, newGame));
+				executor.submit(utenti.get(counter));
+				counter++;
 			} 
 			catch(IOException e) {
 				break; // entrerei qui se serverSocket venisse chiuso

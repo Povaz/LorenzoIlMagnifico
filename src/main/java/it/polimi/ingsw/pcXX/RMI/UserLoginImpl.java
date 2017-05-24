@@ -17,8 +17,6 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
     private boolean response;
     private int choose;
 
-    public static final Object stop = null;
-
     public UserLoginImpl () throws RemoteException {
         this.username = "Null";
         this.password = "Null";
@@ -34,7 +32,8 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         this.choose = choose;
     }
 
-    public String getUsername() {
+    @Override
+    public String getUsername() throws RemoteException {
         return username;
     }
 
@@ -42,6 +41,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         this.username = username;
     }
 
+    @Override
     public String getPassword() {
         return password;
     }
@@ -50,56 +50,82 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         this.password = password;
     }
 
-    public void setResponse (boolean response) throws RemoteException {
-        this.response = response;
-    }
-
     public boolean getResponse () {
         return response;
     }
 
-    public synchronized void login (ServerLogin serverLogin) throws InterruptedException, RemoteException{
-        while (!this.getResponse()) {
-            System.out.println("1. Login or 2. SignUp: ");
-            Scanner inChoose = new Scanner(System.in);
-
-            while (true) {
-                try {
-                    this.setChoose(inChoose.nextInt());
-                    if ((this.getChoose() != 1) && (this.getChoose() != 2)) {
-                        throw new Exception();
-                    }
-                    break;
-                } catch (Exception e) {
-                    System.out.println("Wrong number: 1. Login or 2. SignUp");
-                }
-            }
-
-            System.out.println("Insert your Username: ");
-            Scanner inUsername = new Scanner(System.in);
-            this.setUsername(inUsername.nextLine());
-            System.out.println("Insert your Password: ");
-            Scanner inPassword = new Scanner(System.in);
-            this.setPassword(inPassword.nextLine());
-
-            if (this.getChoose() == 1) {
-                serverLogin.controlUser(this);
-            } else {
-                serverLogin.saveUser(this);
-            }
-            wait();
-        }
-        serverLogin.printUsers();
+    public void setResponse (boolean response) {
+        this.response = response;
     }
 
-    public static void main (String[] args) throws RemoteException, NotBoundException, InterruptedException{
+    public void insertData () {
+        System.out.println("Insert your Username: ");
+        Scanner inUsername = new Scanner(System.in);
+        this.setUsername(inUsername.nextLine());
+        System.out.println("Insert your Password: ");
+        Scanner inPassword = new Scanner(System.in);
+        this.setPassword(inPassword.nextLine());
+        return;
+    }
+
+    public void login (ServerLogin serverLogin) throws RemoteException{
+        while (!this.getResponse()) {
+            this.insertData();
+            this.response = serverLogin.controlUser(this);
+            if (!this.response) { System.out.println("Login Failed: incorrect Username or Password"); }
+        }
+        this.setResponse(false);
+        return;
+    }
+
+    public void registration (ServerLogin serverLogin) throws RemoteException {
+        while (!this.getResponse()) {
+            this.insertData();
+            this.response = serverLogin.saveUser(this);
+            if (!this.response) { System.out.println("Registration Failed: Username already taken"); }
+        }
+        this.setResponse(false);
+        return;
+    }
+
+    public void remove (ServerLogin serverLogin) throws RemoteException {
+        while (!this.getResponse()) {
+            this.insertData();
+            this.response = serverLogin.deleteUser(this);
+            if (!this.response) {
+                System.out.println("Deletion failed: username or password incorrect");
+            }
+        }
+        this.setResponse(false);
+        return;
+    }
+
+    public static void main (String[] args) throws RemoteException, NotBoundException{
         Registry registry = LocateRegistry.getRegistry();
         ServerLogin serverLogin = (ServerLogin) registry.lookup("serverLogin");
-
-        System.out.println("Connected");
-
         UserLoginImpl userLogin = new UserLoginImpl();
 
-        userLogin.login(serverLogin);
+        while (true) {
+            System.out.println("1. Login; 2. SignUp; 3. Remove; 4. List of Users; 5. Quit");
+            Scanner inChoose = new Scanner(System.in);
+            userLogin.setChoose(inChoose.nextInt());
+
+            switch (userLogin.getChoose()) {
+                case 1:
+                    userLogin.login(serverLogin);
+                    break;
+                case 2:
+                    userLogin.registration(serverLogin);
+                    break;
+                case 3:
+                    userLogin.remove(serverLogin);
+                    break;
+                case 4:
+                    serverLogin.printUsers();
+                    break;
+                case 5: System.exit(0);
+                default: System.out.println("Uncorrect answer");
+            }
+        }
     }
 }

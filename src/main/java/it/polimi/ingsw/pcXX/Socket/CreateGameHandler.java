@@ -8,30 +8,20 @@ import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
-public class CreateGameHandler extends TimerTask {
+public class CreateGameHandler {
 	private ArrayList <Person> players=new ArrayList <Person>();
 	private int counter=0;
 	private Timer countdown = new Timer();
 	private TimerTask newGame = new Game(); 
 	
-	public void addPlayer(Socket newSocket) {
+	public void addPlayer(String name, Socket socket) {
 		
 		//crea nuova persona col socket
-		players.add(new Person(newSocket));
+		players.add(new Person(name, socket));
 		
 		counter++;
 		if(counter==2){
 			countdown.schedule(newGame, 10000);
-		}
-		
-		//inserisce nome player nel server
-		try {
-			Scanner in = new Scanner(((players.get(counter-1)).getSocket()).getInputStream());
-			players.get(counter-1).setName(in.nextLine());
-			in.close();
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
 		}
 		
 		//notifica a tutti i giocatori
@@ -53,6 +43,7 @@ public class CreateGameHandler extends TimerTask {
 	public void notifyPlayers (String message){
 		System.out.println("invio notifica: "+message);
 		for(int i=counter;i>0;i--){
+			System.out.println(i);
 			Socket instance = ((players.get(i-1)).getSocket());
 			try {
 				PrintWriter out = new PrintWriter(instance.getOutputStream());

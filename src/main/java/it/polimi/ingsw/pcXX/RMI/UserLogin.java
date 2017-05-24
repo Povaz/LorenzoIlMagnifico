@@ -7,5 +7,6 @@ import java.rmi.RemoteException;
  * Created by Povaz on 24/05/2017.
  */
 public interface UserLogin extends Remote{
-    void setResponse (boolean b) throws RemoteException;
+    String getUsername () throws RemoteException;
+    String getPassword () throws RemoteException;
 }

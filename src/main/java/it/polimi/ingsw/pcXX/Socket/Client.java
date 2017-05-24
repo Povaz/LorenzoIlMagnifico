@@ -12,9 +12,6 @@ public class Client {
 	private final int port = 1337;
 	private static Socket socketServer;
 	
-	public Client() throws UnknownHostException, IOException {
-		socketServer = new Socket (ip, port);
-	}
 	
 	public void setName(String username){
 		this.username=username;
@@ -43,7 +40,6 @@ public class Client {
 	public static String receiveFromServer() throws IOException{
 		Scanner socketIn = new Scanner(socketServer.getInputStream());
 		String received = socketIn.nextLine();
-		socketIn.close();
 		return received;
 	}
 	
@@ -62,12 +58,13 @@ public class Client {
 			System.out.println("Password : ");
 			password = in.nextLine();
 			sendToServer(password);
-		
-			if(receiveFromServer().equals("confirmed")){
+			String receivedRespPass=receiveFromServer();
+			System.out.println(receivedRespPass);
+			if(receivedRespPass.equals("confirmed")){
 				System.out.println("Bentornato " + username + "!");
 				break;
 			}
-			else if (receiveFromServer().equals("wrong password")){
+			else if (receivedRespPass.equals("wrong password")){
 				System.out.println("Password sbagliata, ritenta!");
 			}
 			else{
@@ -84,6 +81,7 @@ public class Client {
 		//Fa il login
 		
 		Client client = new Client();
+		client.socketServer = new Socket (client.ip, client.port);
 		
 		System.out.println("Connection established");
 		System.out.println("");
