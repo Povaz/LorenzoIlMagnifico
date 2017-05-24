@@ -1,40 +1,29 @@
 package it.polimi.ingsw.pcXX.RMI;
 
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ArrayList;
 
 /**
  * Created by Povaz on 24/05/2017.
  */
 public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin {
+    private ArrayList<UserLoginImpl>
 
+    public ServerLoginImpl () throws RemoteException {
 
-
-    public boolean controlUsername (String username) throws RemoteException {
-        // TO-DO LoginJSON
     }
 
-    public boolean controlPassword (String password) throws RemoteException {
-        // TO-DO LoginJSON
+    public boolean controlUser (UserLoginImpl userLoginImpl) throws RemoteException {
+        //TO-DO JSONLogin
     }
 
-    public boolean saveUsername (String username) throws RemoteException  {
-        // TO-DO LoginJSON
+    public boolean saveUser (UserLoginImpl userLoginImpl) throws RemoteException {
+        //TO-DO JSONLogin
     }
 
-    public boolean savePassword (String password) throws RemoteException {
-        //TO-DO LoginJSON
-    }
+    public static void main (String[] args) throws RemoteException, AlreadyBoundException {
 
-    public boolean saveEmail (String email) throws RemoteException {
-        //TO-DO LoginJSON
-    }
-
-    public boolean setPersonalQuestion (String answer) throws RemoteException {
-        //TO-DO LoginJSON
-    }
-
-    public boolean askPersonalQuestion () throws RemoteException {
-        //TO-DO LoginJSON
     }
 }

@@ -36,7 +36,7 @@ public class Client {
 	public static void main(String[] args) {
 		//chiede nome e inizializza
 		Scanner in = new Scanner(System.in);
-		System.out.println("nome User?");
+		System.out.println("nome UserLoginImpl?");
 		String name = in.nextLine();
 		Client client = new Client(name, "127.0.0.1", 1337);
 		try {
