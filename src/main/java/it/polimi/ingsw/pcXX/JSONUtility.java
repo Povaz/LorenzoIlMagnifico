@@ -2,6 +2,8 @@ package it.polimi.ingsw.pcXX;
 
 import java.io.File;
 import java.io.IOException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -11,12 +13,13 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 import static org.apache.commons.io.FileUtils.readFileToString;
+import static org.apache.commons.io.FileUtils.writeStringToFile;
 
 public class JSONUtility {
 
 	public static void main(String[] args) {
 		try {
-			TerritoryCard t1 = (TerritoryCard) getCard(1, 0, CardType.TERRITORY);
+			/*TerritoryCard t1 = (TerritoryCard) getCard(1, 0, CardType.TERRITORY);
 			System.out.println(t1 + "\n");
 			TerritoryCard t2 = (TerritoryCard) getCard(3, 7, CardType.TERRITORY);
 			System.out.println(t2 + "\n");
@@ -38,15 +41,47 @@ public class JSONUtility {
 			VentureCard v1 = (VentureCard) getCard(1,4, CardType.VENTURE);
 			System.out.println(v1 + "\n");
 			VentureCard v2 = (VentureCard) getCard(2,4, CardType.VENTURE);
-			System.out.println(v2 + "\n");
+			System.out.println(v2 + "\n");*/
+
+			System.out.println(checkLogin("lacieoz", "LoL"));
 		} catch(Exception e){
 			e.printStackTrace();
 		}
 	}
 
-	public static String getPassword(String username) throws JSONException, IOException{
+	public static synchronized boolean checkLogin(String username, String password) throws JSONException, IOException{
 		JSONObject users = fromPathToJSONObject("jsonFiles/Login.json");
+		username = encryptString(username);
+		password = encryptString(password);
+
+		if(users.has(username)){
+			return password.equals(getPassword(users, username));
+		}
+		else{
+			addUsernamePassword(users, username, password);
+		}
+		return true;
+	}
+
+	private static String getPassword(JSONObject users, String username) throws JSONException{
 		return users.getString(username);
+	}
+
+	private static void addUsernamePassword(JSONObject users, String username, String password) throws JSONException, IOException{
+		users.put(username, password);
+		writeStringToFile(new File("jsonFiles/Login.json"), users.toString());
+	}
+
+	private static String encryptString(String string){
+		try{
+			MessageDigest messageDigest = MessageDigest.getInstance("MD5");
+			byte[] stringByte = string.getBytes("UTF-8");
+			byte[] encryptedByte = messageDigest.digest(stringByte);
+			String encrypted = new String(encryptedByte, "UTF-8");
+			return encrypted;
+		} catch(Exception e){
+			return string;
+		}
 	}
 
 	public static DevelopmentCard getCard(int period, int number, CardType cardType) throws JSONException, IOException{
