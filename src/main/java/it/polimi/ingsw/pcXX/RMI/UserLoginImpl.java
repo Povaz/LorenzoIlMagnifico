@@ -16,14 +16,12 @@ import java.util.Scanner;
 public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
     private String username;
     private String password;
-    private boolean response;
     private boolean logged;
     private int choose;
 
     public UserLoginImpl () throws RemoteException {
         this.username = "Null";
         this.password = "Null";
-        this.response = false;
         this.logged = false;
         this.choose = 1;
     }
@@ -46,15 +44,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         this.password = password;
     }
 
-    public boolean getResponse () {
-        return response;
-    }
-
-    public void setResponse (boolean response) {
-        this.response = response;
-    }
-
-    public boolean isLogged() {
+    public boolean isLogged() throws RemoteException {
         return logged;
     }
 
@@ -70,49 +60,38 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         this.choose = choose;
     }
 
+    @Override
+    public void sendMessage (String message) throws RemoteException {
+        System.out.println(message);
+    }
+
     public void insertData () {
-        System.out.println("Insert your Username: ");
+        System.out.print("Insert your Username: ");
         Scanner inUsername = new Scanner(System.in);
         this.setUsername(inUsername.nextLine());
-        System.out.println("Insert your Password: ");
+        System.out.println("\n");
+        System.out.print("Insert your Password: ");
         Scanner inPassword = new Scanner(System.in);
         this.setPassword(inPassword.nextLine());
-        return;
+        System.out.println("\n");
     }
 
     public void login (ServerLogin serverLogin) throws RemoteException, JSONException, IOException{
         this.insertData();
-        this.setLogged(serverLogin.controlUser(this));
-        if (!this.isLogged()) {
-            System.out.println("Login Failed: incorrect Username or Password");
-        }
-        else {
-            System.out.println("Login successfull");
-        }
+        this.setLogged(serverLogin.loginServer(this));
     }
 
     public void registration (ServerLogin serverLogin) throws RemoteException, JSONException, IOException {
-        while (!this.getResponse()) {
-            this.insertData();
-            this.response = serverLogin.saveUser(this);
-            if (!this.response) { System.out.println("Registration Failed: Username already taken"); }
-            else {
-                System.out.println("Registration successful");
-            }
-        }
-        this.setResponse(false);
-        return;
+        this.insertData();
+        serverLogin.registrationServer(this);
     }
 
     public void logout(ServerLogin serverLogin) throws RemoteException {
-        while (!this.getResponse()) {
-            this.response = serverLogin.logoutUser(this);
-            if (!this.response) {
-                System.out.println("Logout Failed");
-            }
-        }
-        this.setResponse(false);
-        return;
+        this.setLogged(serverLogin.logoutServer(this));
+    }
+
+    public void printUsers (ServerLogin serverLogin) throws RemoteException {
+        serverLogin.printLoggedUsers();
     }
 
     public static void main (String[] args) throws RemoteException, NotBoundException, JSONException, IOException{
@@ -138,11 +117,21 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
                     if(!userLogin.isLogged()) {
                         userLogin.registration(serverLogin);
                     }
+                    else {
+                        System.out.println("You have to log out if you want to register another user");
+                    }
                     break;
                 case 3:
+                    if (userLogin.isLogged()) {
+                        System.out.println("It would be better to logout before closing the application");
+                    }
                     System.exit(0);
+                    break;
+                case 4:
+                    userLogin.printUsers(serverLogin);
+                    break;
                 default:
-                    System.out.println("Uncorrect answer");
+                    System.out.println("Incorrect answer");
             }
         }
     }

@@ -56,12 +56,11 @@ public class Client {
 		String username;
 		String password;
 		
-		System.out.println("Username : ");	
-		username = in.nextLine();
-		sendToServer(username);
-		
 		while(true){
 			
+			System.out.println("Username : ");	
+			username = in.nextLine();
+			sendToServer(username);		
 			System.out.println("Password : ");
 			password = in.nextLine();
 			sendToServer(password);
@@ -75,8 +74,8 @@ public class Client {
 				System.out.println("");
 				break;
 			}
-			else if (receivedRespPass.equals("wrong password")){
-				System.out.println("Password sbagliata, ritenta!");
+			else if (receivedRespPass.equals("wrong combination")){
+				System.out.println("Combinazione errata, riprova");
 				System.out.println("");
 			}
 			else{

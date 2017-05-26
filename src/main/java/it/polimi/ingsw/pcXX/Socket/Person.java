@@ -5,6 +5,10 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+import org.json.JSONException;
+
+import it.polimi.ingsw.pcXX.JSONUtility;
+
 public class Person implements Runnable{
 	private String name;
 	private Socket socket;
@@ -36,9 +40,15 @@ public class Person implements Runnable{
 		return name;
 	}
 	
-	public String login (String username, String password){
-		//////////////////////////////////////////////////////////////////////////////////////////////////CODICEEEEEEEEE;
-		return "ok";
+	public String login (String username, String password) throws JSONException, IOException{
+		boolean value = JSONUtility.checkLogin(username, password);
+		System.out.println(value);
+		if(value){
+			return "ok";
+		}
+		else{
+			return "Password sbagliata, ritenta!";
+		}
 	}
 	
 	synchronized public void sendToClient(String message) throws IOException{
@@ -58,21 +68,26 @@ public class Person implements Runnable{
 	}
 	
 	synchronized public void run() {
-		String username = null;
-		try {
-			username = receiveFromClient();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String password = null;
-		try {
-			password = receiveFromClient();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String login = login(username, password);
 		
 		while(true){
+			String username = null;
+			try {
+				username = receiveFromClient();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String password = null;
+			try {
+				password = receiveFromClient();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String login = null;
+			try {
+				login = login(username, password);
+			} catch (JSONException | IOException e1) {
+				e1.printStackTrace();
+			}
 			if(login.equals("ok")){
 				name=username;
 				try {
@@ -93,10 +108,12 @@ public class Person implements Runnable{
 				newGame.addPlayer(name, socket);
 				break;
 			}
-			try {
-				sendToClient("Password sbagliata, ritenta!");
-			} catch (IOException e) {
-				e.printStackTrace();
+			else{	
+				try {
+					sendToClient("wrong combination");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}
 		
