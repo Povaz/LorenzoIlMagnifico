@@ -1,5 +1,9 @@
 package it.polimi.ingsw.pcXX.RMI;
 
+import it.polimi.ingsw.pcXX.JSONUtility;
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -14,44 +18,25 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
     private ArrayList<UserLogin> usersLogged;
 
     public ServerLoginImpl () throws RemoteException {
-        usersLogged = new ArrayList<UserLogin>();
+        usersLogged = new ArrayList<>();
     }
 
     @Override
-    public boolean controlUser (UserLogin userLogin) throws RemoteException {
-        for (UserLogin user : usersLogged) {
-            if (userLogin.getUsername() == user.getUsername()) {
-                if (userLogin.getPassword() == user.getPassword()) {
-                    return true;
-                } else {
-                    return false;
-                }
-            }
+    public boolean controlUser (UserLogin userLogin) throws RemoteException, JSONException, IOException {
+        if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getPassword())) {
+            usersLogged.add(userLogin);
+            return true;
         }
         return false;
     }
 
     @Override
-    public boolean saveUser (UserLogin userLogin) throws RemoteException {
-        for (UserLogin user: usersLogged) {
-            if (userLogin.getUsername() == user.getUsername()) {
-                return false;
-            }
-        }
-        usersLogged.add(userLogin);
-        return true;
+    public boolean saveUser (UserLogin userLogin) throws RemoteException, JSONException, IOException {
+        return JSONUtility.checkRegister(userLogin.getUsername(), userLogin.getPassword());
     }
 
     @Override
-    public void printUsers () throws RemoteException{
-        for (UserLogin user: usersLogged) {
-            System.out.println("Username: " + user.getUsername());
-            System.out.println("Password: " + user.getPassword() + "\n");
-        }
-    }
-
-    @Override
-    public boolean deleteUser (UserLogin userLogin) throws RemoteException {
+    public boolean logoutUser(UserLogin userLogin) throws RemoteException {
         for (UserLogin user : usersLogged) {
             if (userLogin.getUsername() == user.getUsername()) {
                 if (userLogin.getPassword() == user.getPassword()) {

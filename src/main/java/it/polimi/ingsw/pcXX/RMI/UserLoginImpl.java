@@ -1,7 +1,9 @@
 package it.polimi.ingsw.pcXX.RMI;
 
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -15,21 +17,15 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
     private String username;
     private String password;
     private boolean response;
+    private boolean logged;
     private int choose;
 
     public UserLoginImpl () throws RemoteException {
         this.username = "Null";
         this.password = "Null";
         this.response = false;
+        this.logged = false;
         this.choose = 1;
-    }
-
-    public int getChoose() {
-        return choose;
-    }
-
-    public void setChoose(int choose) {
-        this.choose = choose;
     }
 
     @Override
@@ -58,6 +54,22 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         this.response = response;
     }
 
+    public boolean isLogged() {
+        return logged;
+    }
+
+    public void setLogged(boolean logged) {
+        this.logged = logged;
+    }
+
+    public int getChoose() {
+        return choose;
+    }
+
+    public void setChoose(int choose) {
+        this.choose = choose;
+    }
+
     public void insertData () {
         System.out.println("Insert your Username: ");
         Scanner inUsername = new Scanner(System.in);
@@ -68,17 +80,15 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         return;
     }
 
-    public void login (ServerLogin serverLogin) throws RemoteException{
-        while (!this.getResponse()) {
-            this.insertData();
-            this.response = serverLogin.controlUser(this);
-            if (!this.response) { System.out.println("Login Failed: incorrect Username or Password"); }
+    public void login (ServerLogin serverLogin) throws RemoteException, JSONException, IOException{
+        this.insertData();
+        this.setLogged(serverLogin.controlUser(this));
+        if (!this.isLogged()) {
+            System.out.println("Login Failed: incorrect Username or Password");
         }
-        this.setResponse(false);
-        return;
     }
 
-    public void registration (ServerLogin serverLogin) throws RemoteException {
+    public void registration (ServerLogin serverLogin) throws RemoteException, JSONException, IOException {
         while (!this.getResponse()) {
             this.insertData();
             this.response = serverLogin.saveUser(this);
@@ -88,10 +98,10 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         return;
     }
 
-    public void remove (ServerLogin serverLogin) throws RemoteException {
+    public void logout(ServerLogin serverLogin) throws RemoteException {
         while (!this.getResponse()) {
             this.insertData();
-            this.response = serverLogin.deleteUser(this);
+            this.response = serverLogin.logoutUser(this);
             if (!this.response) {
                 System.out.println("Deletion failed: username or password incorrect");
             }
@@ -100,31 +110,36 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         return;
     }
 
-    public static void main (String[] args) throws RemoteException, NotBoundException{
+    public static void main (String[] args) throws RemoteException, NotBoundException, JSONException, IOException{
         Registry registry = LocateRegistry.getRegistry();
         ServerLogin serverLogin = (ServerLogin) registry.lookup("serverLogin");
         UserLoginImpl userLogin = new UserLoginImpl();
 
         while (true) {
-            System.out.println("1. Login; 2. SignUp; 3. Remove; 4. List of Users; 5. Quit");
+            System.out.println("1. Login/Logout; 2. SignUp; 3. Quit     -   Logged: " + userLogin.isLogged());
             Scanner inChoose = new Scanner(System.in);
             userLogin.setChoose(inChoose.nextInt());
 
-            switch (userLogin.getChoose()) {
-                case 1:
-                    userLogin.login(serverLogin);
-                    break;
-                case 2:
-                    userLogin.registration(serverLogin);
-                    break;
-                case 3:
-                    userLogin.remove(serverLogin);
-                    break;
-                case 4:
-                    serverLogin.printUsers();
-                    break;
-                case 5: System.exit(0);
-                default: System.out.println("Uncorrect answer");
+            while (true) {
+                switch (userLogin.getChoose()) {
+                    case 1:
+                        if (!userLogin.isLogged()) {
+                            userLogin.login(serverLogin);
+                        }
+                        else {
+                            userLogin.logout(serverLogin);
+                        }
+                        break;
+                    case 2:
+                        if(!userLogin.isLogged()) {
+                            userLogin.registration(serverLogin);
+                        }
+                        break;
+                    case 3:
+                        System.exit(0);
+                    default:
+                        System.out.println("Uncorrect answer");
+                }
             }
         }
     }
