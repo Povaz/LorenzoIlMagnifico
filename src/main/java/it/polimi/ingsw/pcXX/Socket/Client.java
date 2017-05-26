@@ -17,18 +17,20 @@ public class Client {
 		this.username=username;
 	}
 	
-	public void startClient() throws IOException {
-		System.out.println("Attesa Inizio Game");
+	synchronized public void startClient() throws IOException {
+		System.out.println("Attesa Inizio Game . . .");
+		System.out.println("");
 		
 		//sempre pronto a ricevere notifiche
 		String line;
-		while (true){
+		synchronized(this){while (true){
 			line = receiveFromServer();
 			System.out.println(line);
+			System.out.println("");
 			if(line.equals("Game Iniziato")){
 				break;
 			}
-		}
+		}}
 		return;
 	}
 	
@@ -41,7 +43,11 @@ public class Client {
 	synchronized public static String receiveFromServer() throws IOException{
 		Scanner socketIn = new Scanner(socketServer.getInputStream());
 		String received = socketIn.nextLine();
+		PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
+		socketOut.println("ok");
+		socketOut.flush();
 		return received;
+		
 	}
 	
 	synchronized private static String login() throws IOException{
@@ -60,16 +66,22 @@ public class Client {
 			password = in.nextLine();
 			sendToServer(password);
 			String receivedRespPass=receiveFromServer();
+			System.out.println("");
 			System.out.println(receivedRespPass);
+			System.out.println("");
+			
 			if(receivedRespPass.equals("confirmed")){
-				System.out.println("Bentornato " + username + "!");
+				System.out.println("Accesso effettuato! Bentornato " + username + "!");
+				System.out.println("");
 				break;
 			}
 			else if (receivedRespPass.equals("wrong password")){
 				System.out.println("Password sbagliata, ritenta!");
+				System.out.println("");
 			}
 			else{
 				System.out.println("Nuovo Utente registrato! Benvenuto " + username + "!");
+				System.out.println("");
 				break;
 			}
 		}
@@ -82,7 +94,7 @@ public class Client {
 		//Fa il login
 		
 		Client client = new Client();
-		client.socketServer = new Socket (client.ip, client.port);
+		Client.socketServer = new Socket (client.ip, client.port);
 		
 		System.out.println("Connection established");
 		System.out.println("");

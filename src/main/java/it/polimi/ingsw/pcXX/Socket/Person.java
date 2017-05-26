@@ -45,12 +45,15 @@ public class Person implements Runnable{
 		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
 		socketOut.println(message);
 		socketOut.flush();
+		Scanner socketIn = new Scanner(socket.getInputStream());
+		String confirm = socketIn.nextLine();
 	}
 	
 	synchronized public String receiveFromClient() throws IOException{
 		Scanner socketIn = new Scanner(socket.getInputStream());
 		String received = socketIn.nextLine();
-		System.out.println(received);
+		System.out.println("RECEIVED : " + received);
+		System.out.println("");
 		return received;
 	}
 	
@@ -98,7 +101,6 @@ public class Person implements Runnable{
 		}
 		
 		//fine perchè ora viene gestito dal CreateGameHandler e poi parte il game
-		//CORREGGERE BUG PER CUI 2O CLIENT NON RICEVE PIU NULLA
 	}
 	
 	

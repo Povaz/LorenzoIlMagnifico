@@ -21,7 +21,7 @@ public class JSONUtilityTest extends TestCase{
         return new TestSuite(JSONUtilityTest.class);
     }
 
-    // With username in Login.json
+    // With username in User.json
     public void testCheckLogin(){
         String username = "username";
         String password = "password";
@@ -33,7 +33,7 @@ public class JSONUtilityTest extends TestCase{
         }
     }
 
-    // With username in Login.json
+    // With username in User.json
     public void testCheckRegister(){
         String username = "username";
         String password = "password";

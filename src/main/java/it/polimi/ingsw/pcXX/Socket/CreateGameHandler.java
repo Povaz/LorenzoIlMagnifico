@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
+import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -15,13 +16,15 @@ public class CreateGameHandler {
 	
 	synchronized public void addPlayer(String name, Socket socket) {
 		
-		//crea nuova persona col socket
-		players.add(new Person(name, socket));
+		//crea nuovo utente
+		players.add (new Person(name, socket));
 	
 		counter++;
+		
 		if(counter==2){
-			countdown.schedule(newGame, 10000);
-			System.out.println("inizio countdown (10sec)");
+			countdown.schedule(newGame, 100000);
+			System.out.println("INIZIO COUNTDOWN (10sec)");
+			System.out.println("");
 		}
 		
 		//notifica a tutti i giocatori
@@ -29,7 +32,9 @@ public class CreateGameHandler {
 		
 		if(counter==5){
 			countdown.cancel();
-			countdown.schedule(newGame, 0);
+			countdown = new Timer();
+			newGame = new Game(); 
+			countdown.schedule(newGame, 10);
 		}
 		
 		//
@@ -37,21 +42,26 @@ public class CreateGameHandler {
 	
 	
 	synchronized public static void notifyPlayers (String message){
-		System.out.println("invio notifica: "+message);
+		System.out.println("INVIO NOTIFICA : " + message);
+		System.out.println("");
 		Socket instance;
 		PrintWriter out = null;
-		System.out.println("counter="+counter);
 		for(int i=0;i<counter;i++){
-			System.out.println(i);
 			instance = ((players.get(i)).getSocket());
 			try {
 				out = new PrintWriter(instance.getOutputStream(), true);
-				System.out.println("fatto");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			out.println(message);
 			out.flush();
+			Scanner socketIn = null;
+			try {
+				socketIn = new Scanner(instance.getInputStream());
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			String confirm = socketIn.nextLine();
 		}
 	}
 	

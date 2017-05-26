@@ -32,6 +32,7 @@ public class Server {
 		}
 		
 		System.out.println("Server ready");
+		System.out.println("");
 		
 		CreateGameHandler newGame = new CreateGameHandler(); 
 		while (true) {
