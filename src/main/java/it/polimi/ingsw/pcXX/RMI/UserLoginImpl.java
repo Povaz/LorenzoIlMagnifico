@@ -86,6 +86,9 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         if (!this.isLogged()) {
             System.out.println("Login Failed: incorrect Username or Password");
         }
+        else {
+            System.out.println("Login successfull");
+        }
     }
 
     public void registration (ServerLogin serverLogin) throws RemoteException, JSONException, IOException {
@@ -93,6 +96,9 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
             this.insertData();
             this.response = serverLogin.saveUser(this);
             if (!this.response) { System.out.println("Registration Failed: Username already taken"); }
+            else {
+                System.out.println("Registration successful");
+            }
         }
         this.setResponse(false);
         return;
@@ -100,10 +106,9 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
 
     public void logout(ServerLogin serverLogin) throws RemoteException {
         while (!this.getResponse()) {
-            this.insertData();
             this.response = serverLogin.logoutUser(this);
             if (!this.response) {
-                System.out.println("Deletion failed: username or password incorrect");
+                System.out.println("Logout Failed");
             }
         }
         this.setResponse(false);
@@ -111,7 +116,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
     }
 
     public static void main (String[] args) throws RemoteException, NotBoundException, JSONException, IOException{
-        Registry registry = LocateRegistry.getRegistry();
+        Registry registry = LocateRegistry.getRegistry(8000);
         ServerLogin serverLogin = (ServerLogin) registry.lookup("serverLogin");
         UserLoginImpl userLogin = new UserLoginImpl();
 
@@ -120,27 +125,26 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
             Scanner inChoose = new Scanner(System.in);
             userLogin.setChoose(inChoose.nextInt());
 
-            while (true) {
-                switch (userLogin.getChoose()) {
-                    case 1:
-                        if (!userLogin.isLogged()) {
-                            userLogin.login(serverLogin);
-                        }
-                        else {
-                            userLogin.logout(serverLogin);
-                        }
-                        break;
-                    case 2:
-                        if(!userLogin.isLogged()) {
-                            userLogin.registration(serverLogin);
-                        }
-                        break;
-                    case 3:
-                        System.exit(0);
-                    default:
-                        System.out.println("Uncorrect answer");
-                }
+            switch (userLogin.getChoose()) {
+                case 1:
+                    if (!userLogin.isLogged()) {
+                        userLogin.login(serverLogin);
+                    }
+                    else {
+                        userLogin.logout(serverLogin);
+                    }
+                    break;
+                case 2:
+                    if(!userLogin.isLogged()) {
+                        userLogin.registration(serverLogin);
+                    }
+                    break;
+                case 3:
+                    System.exit(0);
+                default:
+                    System.out.println("Uncorrect answer");
             }
         }
     }
 }
+

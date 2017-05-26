@@ -4,7 +4,9 @@ import it.polimi.ingsw.pcXX.JSONUtility;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
+import java.rmi.Naming;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -49,12 +51,12 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
         return false;
     }
 
-    public static void main (String[] args) throws RemoteException, AlreadyBoundException {
+    public static void main (String[] args) throws RemoteException, AlreadyBoundException, MalformedURLException {
         System.out.println("Constructing server implementation...");
         ServerLoginImpl serverLoginImpl = new ServerLoginImpl();
 
         System.out.println("Binding Server implementation to registry...");
-        Registry registry = LocateRegistry.getRegistry();
+        Registry registry = LocateRegistry.createRegistry(8000);
         registry.bind("serverLogin", serverLoginImpl);
 
         System.out.println("Waiting for invocations from clients...");
