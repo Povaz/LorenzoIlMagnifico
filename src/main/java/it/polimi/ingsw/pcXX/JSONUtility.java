@@ -15,6 +15,11 @@ import static org.apache.commons.io.FileUtils.readFileToString;
 import static org.apache.commons.io.FileUtils.writeStringToFile;
 
 public class JSONUtility {
+	private static String territoryCardPath = "jsonFiles/TerritoryCard.json";
+	private static String buildingCardPath = "jsonFiles/BuildingCard.json";
+	private static String characterCardPath = "jsonFiles/CharacterCard.json";
+	private static String ventureCardPath = "jsonFiles/VentureCard.json";
+	private static String userPath = "jsonFiles/User.json";
 
 	public static void main(String[] args) {
 		try {
@@ -50,7 +55,7 @@ public class JSONUtility {
 	}
 
 	public static synchronized boolean checkLogin(String username, String password) throws JSONException, IOException{
-		JSONObject users = fromPathToJSONObject("jsonFiles/Login.json");
+		JSONObject users = fromPathToJSONObject(userPath);
 		username = encryptString(username);
 		password = encryptString(password);
 
@@ -63,7 +68,7 @@ public class JSONUtility {
 	}
 
 	public static synchronized boolean checkRegister(String username, String password) throws JSONException, IOException{
-		JSONObject users = fromPathToJSONObject("jsonFiles/Login.json");
+		JSONObject users = fromPathToJSONObject(userPath);
 		username = encryptString(username);
 		password = encryptString(password);
 
@@ -72,8 +77,8 @@ public class JSONUtility {
 		}
 		else{
 			addUsernamePassword(users, username, password);
+			return true;
 		}
-		return true;
 	}
 
 	private static String getPassword(JSONObject users, String username) throws JSONException{
@@ -82,7 +87,7 @@ public class JSONUtility {
 
 	private static void addUsernamePassword(JSONObject users, String username, String password) throws JSONException, IOException{
 		users.put(username, password);
-		writeStringToFile(new File("jsonFiles/Login.json"), users.toString());
+		writeStringToFile(new File(userPath), users.toString());
 	}
 
 	private static String encryptString(String string){
@@ -112,8 +117,29 @@ public class JSONUtility {
 		}
 	}
 
+	public static int getCardNumber(int period, CardType cardType) throws JSONException, IOException{
+		String path = null;
+		switch(cardType){
+			case TERRITORY:
+				path = territoryCardPath;
+				break;
+			case BUILDING:
+				path = buildingCardPath;
+				break;
+			case CHARACTER:
+				path = characterCardPath;
+				break;
+			case VENTURE:
+				path = ventureCardPath;
+				break;
+		}
+		JSONObject cards = fromPathToJSONObject(path);
+		JSONArray cardsArray = cards.getJSONArray("cards").getJSONObject(period - 1).getJSONArray("period");
+		return cardsArray.length();
+	}
+
 	private static TerritoryCard getTerritoryCard(int period, int number) throws JSONException, IOException{
-		JSONObject card = fromPathToJSONObject("jsonFiles/TerritoryCard.json");
+		JSONObject card = fromPathToJSONObject(territoryCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
 
 		String name = getName(card);
@@ -125,7 +151,7 @@ public class JSONUtility {
 	}
 
 	private static BuildingCard getBuildingCard(int period, int number) throws JSONException, IOException{
-		JSONObject card = fromPathToJSONObject("jsonFiles/BuildingCard.json");
+		JSONObject card = fromPathToJSONObject(buildingCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
 
 		String name = getName(card);
@@ -142,7 +168,7 @@ public class JSONUtility {
 	}
 
 	private static CharacterCard getCharacterCard(int period, int number) throws JSONException, IOException{
-		JSONObject card = fromPathToJSONObject("jsonFiles/CharacterCard.json");
+		JSONObject card = fromPathToJSONObject(characterCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
 
 		String name = getName(card);
@@ -160,7 +186,7 @@ public class JSONUtility {
 	}
 
 	private static VentureCard getVentureCard(int period, int number) throws JSONException, IOException{
-		JSONObject card = fromPathToJSONObject("jsonFiles/VentureCard.json");
+		JSONObject card = fromPathToJSONObject(ventureCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
 
 		String name = getName(card);
