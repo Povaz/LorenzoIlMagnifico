@@ -7,6 +7,7 @@ import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.Naming;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -23,32 +24,61 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
         usersLogged = new ArrayList<>();
     }
 
-    @Override
-    public boolean controlUser (UserLogin userLogin) throws RemoteException, JSONException, IOException {
-        if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getPassword())) {
-            usersLogged.add(userLogin);
-            return true;
-        }
-        return false;
-    }
 
     @Override
-    public boolean saveUser (UserLogin userLogin) throws RemoteException, JSONException, IOException {
-        return JSONUtility.checkRegister(userLogin.getUsername(), userLogin.getPassword());
-    }
-
-    @Override
-    public boolean logoutUser(UserLogin userLogin) throws RemoteException {
+    public boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
         for (UserLogin user : usersLogged) {
-            if (userLogin.getUsername() == user.getUsername()) {
-                if (userLogin.getPassword() == user.getPassword()) {
-                    usersLogged.remove(user);
-                    return true;
-                }
-                return false;
+            if ( (userLogin.getUsername().equals(user.getUsername())) && (userLogin.getPassword().equals(user.getPassword()))) {
+                return true;
             }
         }
         return false;
+    }
+
+    @Override
+    public boolean loginServer (UserLogin userLogin) throws RemoteException, JSONException, IOException {
+        if (!searchUserLogged(userLogin)) {
+            if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getPassword())) {
+                usersLogged.add(userLogin);
+                userLogin.sendMessage("Login Successful");
+                return true;
+            }
+            userLogin.sendMessage("Incorrect Username or password");
+            return false;
+        }
+        userLogin.sendMessage("User already logged");
+        return false;
+    }
+
+    @Override
+    public void registrationServer (UserLogin userLogin) throws RemoteException, JSONException, IOException {
+        if (JSONUtility.checkRegister(userLogin.getUsername(), userLogin.getPassword())) {
+            userLogin.sendMessage("Registration Successful");
+        }
+        else {
+            userLogin.sendMessage("Registration Failed: Username already taken");
+        }
+    }
+
+    @Override
+    public boolean logoutServer (UserLogin userLogin) throws RemoteException {
+        for (UserLogin user : usersLogged) {
+            if ((userLogin.getUsername().equals(user.getUsername())) && (userLogin.getPassword().equals(user.getPassword()))) {
+                usersLogged.remove(user);
+                userLogin.sendMessage("Logout successful");
+                return false;
+            }
+        }
+        userLogin.sendMessage("Logout Failed");
+        return true;
+    }
+
+    @Override
+    public void printLoggedUsers () throws RemoteException{
+        for (UserLogin user: usersLogged) {
+            System.out.println(user.getUsername());
+            System.out.println(user.getPassword());
+        }
     }
 
     public static void main (String[] args) throws RemoteException, AlreadyBoundException, MalformedURLException {
