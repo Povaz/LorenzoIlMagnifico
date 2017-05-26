@@ -3,7 +3,6 @@ package it.polimi.ingsw.pcXX;
 import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
-import org.json.JSONObject;
 
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -22,43 +21,29 @@ public class JSONUtilityTest extends TestCase{
         return new TestSuite(JSONUtilityTest.class);
     }
 
-    /*// With password in Login.json
-    public void testGetPassword1(){
-        String expected = "password";
+    // With username in Login.json
+    public void testCheckLogin(){
+        String username = "username";
+        String password = "password";
 
-        String calculated;
         try {
-            //calculated = JSONUtility.getPassword("username");
+            assertTrue(JSONUtility.checkLogin(username, password));
         } catch(Exception e){
-            calculated = null;
-        }
-
-        //assertEquals(expected, calculated);
-    }
-
-    // Without password in Login.json
-    public void testGetPassword2(){
-        String calculated;
-        try {
-            //calculated = JSONUtility.getPassword("non presente");
-            assertTrue(false);
-        } catch(Exception e){
-            assertTrue(true);
+            assertTrue("Exception", false);
         }
     }
 
-    // Without username in Login.json
-    public void testAddUsernamePassword(){
-        String usernameExpected = "USERNAME";
-        String passwordExpected = "PASSWORD";
-        /*try{
-            if(!JSONUtility.addUsernamePassword(usernameExpected, passwordExpected))
-                assertTrue("Username già presente", false);
-            assertEquals("Password diversa", passwordExpected, JSONUtility.getPassword(usernameExpected));
+    // With username in Login.json
+    public void testCheckRegister(){
+        String username = "username";
+        String password = "password";
+
+        try {
+            assertFalse(JSONUtility.checkRegister(username, password));
         } catch(Exception e){
-            assertTrue(false);
+            assertTrue("Exception", false);
         }
-    }*/
+    }
 
     // Without fastRewards
     public void testJSONImportTerritoryCard1(){

@@ -4,24 +4,24 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class CreateGameHandler {
-	private ArrayList <Person> players=new ArrayList <Person>();
-	private int counter=0;
-	private Timer countdown = new Timer();
-	private TimerTask newGame = new Game(); 
+	private static ArrayList <Person> players=new ArrayList <Person>();
+	private static int counter=0;
+	private static Timer countdown = new Timer();
+	private static TimerTask newGame = new Game(); 
 	
-	public void addPlayer(String name, Socket socket) {
+	synchronized public void addPlayer(String name, Socket socket) {
 		
 		//crea nuova persona col socket
 		players.add(new Person(name, socket));
-		
+	
 		counter++;
 		if(counter==2){
 			countdown.schedule(newGame, 10000);
+			System.out.println("inizio countdown (10sec)");
 		}
 		
 		//notifica a tutti i giocatori
@@ -30,32 +30,37 @@ public class CreateGameHandler {
 		if(counter==5){
 			countdown.cancel();
 			countdown.schedule(newGame, 0);
-			//Passa al nuovo gioco l'arraylist delle Persone
-			//reinizializza il tutto
-			players.clear();
-			counter=0;
 		}
 		
 		//
 	}
 	
 	
-	public void notifyPlayers (String message){
+	synchronized public static void notifyPlayers (String message){
 		System.out.println("invio notifica: "+message);
-		for(int i=counter;i>0;i--){
+		Socket instance;
+		PrintWriter out = null;
+		System.out.println("counter="+counter);
+		for(int i=0;i<counter;i++){
 			System.out.println(i);
-			Socket instance = ((players.get(i-1)).getSocket());
+			instance = ((players.get(i)).getSocket());
 			try {
-				PrintWriter out = new PrintWriter(instance.getOutputStream());
-				out.println(message);
-				out.flush();
+				out = new PrintWriter(instance.getOutputStream(), true);
+				System.out.println("fatto");
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
-			// chiudo gli stream e il socket 	
-			catch (IOException e) {
-				System.err.println(e.getMessage());
-			}
+			out.println(message);
+			out.flush();
 		}
 	}
 	
+	
+	synchronized public static void clear(){
+		players.clear();
+		counter=0;
+		countdown = new Timer();
+		newGame = new Game(); 
+	}
 	
 }

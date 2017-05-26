@@ -3,7 +3,6 @@ package it.polimi.ingsw.pcXX;
 import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedList;
@@ -44,6 +43,7 @@ public class JSONUtility {
 			System.out.println(v2 + "\n");*/
 
 			System.out.println(checkLogin("lacieoz", "LoL"));
+			System.out.println(checkRegister("lacieoz", "LoL"));
 		} catch(Exception e){
 			e.printStackTrace();
 		}
@@ -56,6 +56,19 @@ public class JSONUtility {
 
 		if(users.has(username)){
 			return password.equals(getPassword(users, username));
+		}
+		else{
+			return false;
+		}
+	}
+
+	public static synchronized boolean checkRegister(String username, String password) throws JSONException, IOException{
+		JSONObject users = fromPathToJSONObject("jsonFiles/Login.json");
+		username = encryptString(username);
+		password = encryptString(password);
+
+		if(users.has(username)){
+			return false;
 		}
 		else{
 			addUsernamePassword(users, username, password);

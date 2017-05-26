@@ -21,29 +21,30 @@ public class Client {
 		System.out.println("Attesa Inizio Game");
 		
 		//sempre pronto a ricevere notifiche
+		String line;
 		while (true){
-			String line = receiveFromServer();
+			line = receiveFromServer();
 			System.out.println(line);
-			if(line.equals("Inizio Game")){
+			if(line.equals("Game Iniziato")){
 				break;
 			}
 		}
 		return;
 	}
 	
-	public static void sendToServer(String message) throws IOException{
-		PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream());
+	synchronized public static void sendToServer(String message) throws IOException{
+		PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
 		socketOut.println(message);
 		socketOut.flush();
 	}
 	
-	public static String receiveFromServer() throws IOException{
+	synchronized public static String receiveFromServer() throws IOException{
 		Scanner socketIn = new Scanner(socketServer.getInputStream());
 		String received = socketIn.nextLine();
 		return received;
 	}
 	
-	private static String login() throws IOException{
+	synchronized private static String login() throws IOException{
 		System.out.println("LOGIN:");
 		Scanner in = new Scanner(System.in);
 		String username;

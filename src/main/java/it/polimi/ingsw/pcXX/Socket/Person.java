@@ -41,20 +41,20 @@ public class Person implements Runnable{
 		return "ok";
 	}
 	
-	public void sendToClient(String message) throws IOException{
-		PrintWriter socketOut = new PrintWriter(socket.getOutputStream());
+	synchronized public void sendToClient(String message) throws IOException{
+		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
 		socketOut.println(message);
 		socketOut.flush();
 	}
 	
-	public String receiveFromClient() throws IOException{
+	synchronized public String receiveFromClient() throws IOException{
 		Scanner socketIn = new Scanner(socket.getInputStream());
 		String received = socketIn.nextLine();
 		System.out.println(received);
 		return received;
 	}
 	
-	public void run() {
+	synchronized public void run() {
 		String username = null;
 		try {
 			username = receiveFromClient();

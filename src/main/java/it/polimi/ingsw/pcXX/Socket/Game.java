@@ -5,5 +5,8 @@ import java.util.TimerTask;
 public class Game extends TimerTask {
 	public void run(){
 		System.out.println("Game iniziato");
+		CreateGameHandler.notifyPlayers("Game Iniziato");
+		CreateGameHandler.clear();
+		
 	}
 }
