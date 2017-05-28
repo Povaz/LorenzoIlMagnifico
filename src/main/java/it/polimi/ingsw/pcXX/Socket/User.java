@@ -9,21 +9,21 @@ import org.json.JSONException;
 
 import it.polimi.ingsw.pcXX.JSONUtility;
 
-public class Person implements Runnable{
+public class User implements Runnable{
 	private String name;
 	private Socket socket;
 	private CreateGameHandler newGame;
 	
-	public Person(Socket socket){
+	public User(Socket socket){
 		this.socket = socket; 
 	}
 	
-	public Person(Socket socket, CreateGameHandler newGame){
+	public User(Socket socket, CreateGameHandler newGame){
 		this.socket = socket;
 		this.newGame = newGame; 
 	}
 	
-	public Person(String name, Socket socket){
+	public User(String name, Socket socket){
 		this.socket = socket;
 		this.name = name; 
 	}

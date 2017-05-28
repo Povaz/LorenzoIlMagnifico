@@ -10,7 +10,7 @@ import java.util.concurrent.Executors;
 public class Server {
 	private int port;
 	private ServerSocket serverSocket;
-	private ArrayList <Person> utenti = new ArrayList <Person>(); 
+	private ArrayList <User> utenti = new ArrayList <User>(); 
 	private int counter = 0;
 	
 	public Server(int port) {
@@ -38,7 +38,7 @@ public class Server {
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				utenti.add(new Person(socket, newGame));
+				utenti.add(new User(socket, newGame));
 				executor.submit(utenti.get(counter));
 				counter++;
 			} 

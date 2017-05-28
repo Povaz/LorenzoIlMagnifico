@@ -9,7 +9,7 @@ import java.util.Timer;
 import java.util.TimerTask;
 
 public class CreateGameHandler {
-	private static ArrayList <Person> players=new ArrayList <Person>();
+	private static ArrayList <User> players=new ArrayList <User>();
 	private static int counter=0;
 	private static Timer countdown = new Timer();
 	private static TimerTask newGame = new Game(); 
@@ -17,7 +17,7 @@ public class CreateGameHandler {
 	synchronized public void addPlayer(String name, Socket socket) {
 		
 		//crea nuovo utente
-		players.add (new Person(name, socket));
+		players.add (new User(name, socket));
 	
 		counter++;
 		
