@@ -8,6 +8,7 @@ import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 /**
@@ -94,44 +95,47 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         serverLogin.printLoggedUsers();
     }
 
-    public static void main (String[] args) throws RemoteException, NotBoundException, JSONException, IOException{
+    public static void main (String[] args) throws RemoteException, NotBoundException, JSONException, IOException {
         Registry registry = LocateRegistry.getRegistry(8000);
         ServerLogin serverLogin = (ServerLogin) registry.lookup("serverLogin");
         UserLoginImpl userLogin = new UserLoginImpl();
 
         while (true) {
-            System.out.println("1. Login/Logout; 2. SignUp; 3. Quit     -   Logged: " + userLogin.isLogged());
-            Scanner inChoose = new Scanner(System.in);
-            userLogin.setChoose(inChoose.nextInt());
+            try {
+                System.out.println("1. Login/Logout; 2. SignUp; 3. Quit     -   Logged: " + userLogin.isLogged());
+                Scanner inChoose = new Scanner(System.in);
+                userLogin.setChoose(inChoose.nextInt());
 
-            switch (userLogin.getChoose()) {
-                case 1:
-                    if (!userLogin.isLogged()) {
-                        userLogin.login(serverLogin);
-                    }
-                    else {
-                        userLogin.logout(serverLogin);
-                    }
-                    break;
-                case 2:
-                    if(!userLogin.isLogged()) {
-                        userLogin.registration(serverLogin);
-                    }
-                    else {
-                        System.out.println("You have to log out if you want to register another user");
-                    }
-                    break;
-                case 3:
-                    if (userLogin.isLogged()) {
-                        System.out.println("It would be better to logout before closing the application");
-                    }
-                    System.exit(0);
-                    break;
-                case 4:
-                    userLogin.printUsers(serverLogin);
-                    break;
-                default:
-                    System.out.println("Incorrect answer");
+                switch (userLogin.getChoose()) {
+                    case 1:
+                        if (!userLogin.isLogged()) {
+                            userLogin.login(serverLogin);
+                        } else {
+                            userLogin.logout(serverLogin);
+                        }
+                        break;
+                    case 2:
+                        if (!userLogin.isLogged()) {
+                            userLogin.registration(serverLogin);
+                        } else {
+                            System.out.println("You have to log out if you want to register another user");
+                        }
+                        break;
+                    case 3:
+                        if (userLogin.isLogged()) {
+                            System.out.println("It would be better to logout before closing the application");
+                        }
+                        System.exit(0);
+                        break;
+                    case 4:
+                        userLogin.printUsers(serverLogin);
+                        break;
+                    default:
+                        System.out.println("Incorrect answer");
+                }
+            }
+            catch (InputMismatchException e) {
+                System.out.println("InputError: Retry");
             }
         }
     }

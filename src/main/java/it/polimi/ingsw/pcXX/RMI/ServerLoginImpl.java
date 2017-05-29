@@ -18,12 +18,15 @@ import java.util.ArrayList;
  * Created by Povaz on 24/05/2017.
  */
 public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin {
-    private ArrayList<UserLogin> usersLogged;
+    private static ArrayList<UserLogin> usersLogged;
 
     public ServerLoginImpl () throws RemoteException {
         usersLogged = new ArrayList<>();
     }
 
+    public int countUsersLogged () {
+       return usersLogged.size();
+    }
 
     @Override
     public boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
