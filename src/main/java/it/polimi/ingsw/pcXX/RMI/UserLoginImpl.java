@@ -123,7 +123,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
                         break;
                     case 3:
                         if (userLogin.isLogged()) {
-                            System.out.println("It would be better to logout before closing the application");
+                            userLogin.logout(serverLogin);
                         }
                         System.exit(0);
                         break;

@@ -24,11 +24,6 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
         usersLogged = new ArrayList<>();
     }
 
-    public int countUsersLogged () {
-       return usersLogged.size();
-    }
-
-    @Override
     public boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
         for (UserLogin user : usersLogged) {
             if ( (userLogin.getUsername().equals(user.getUsername())) && (userLogin.getPassword().equals(user.getPassword()))) {
@@ -93,5 +88,6 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
         registry.bind("serverLogin", serverLoginImpl);
 
         System.out.println("Waiting for invocations from clients...");
+
     }
 }
