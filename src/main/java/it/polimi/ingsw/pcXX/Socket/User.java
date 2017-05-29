@@ -40,17 +40,6 @@ public class User implements Runnable{
 		return name;
 	}
 	
-	public String login (String username, String password) throws JSONException, IOException{
-		boolean value = JSONUtility.checkLogin(username, password);
-		System.out.println(value);
-		if(value){
-			return "ok";
-		}
-		else{
-			return "Password sbagliata, ritenta!";
-		}
-	}
-	
 	synchronized public void sendToClient(String message) throws IOException{
 		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
 		socketOut.println(message);
@@ -68,6 +57,13 @@ public class User implements Runnable{
 	}
 	
 	synchronized public void run() {
+		String decision = null;
+		try {
+			decision = receiveFromClient();
+		} catch (IOException e2) {
+			// TODO Auto-generated catch block
+			e2.printStackTrace();
+		}
 		
 		while(true){
 			String username = null;
@@ -82,26 +78,25 @@ public class User implements Runnable{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			String login = null;
-			try {
-				login = login(username, password);
-			} catch (JSONException | IOException e1) {
-				e1.printStackTrace();
+			boolean result = false;
+			if(decision.equals("1")){
+				try {
+					result = JSONUtility.checkLogin(username, password);
+				} catch (JSONException | IOException e1) {
+					e1.printStackTrace();
+				}
 			}
-			if(login.equals("ok")){
+			else{
+				try {
+					result = JSONUtility.checkRegister(username, password);
+				} catch (JSONException | IOException e1) {
+					e1.printStackTrace();
+				}
+			}
+			if(result){
 				name=username;
 				try {
 					sendToClient("confirmed");
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-				newGame.addPlayer(name, socket);
-				break;
-			}
-			else if(login.equals("new")){
-				name=username;
-				try {
-					sendToClient("new");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

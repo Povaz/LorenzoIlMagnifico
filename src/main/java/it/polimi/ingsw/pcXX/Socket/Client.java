@@ -51,8 +51,17 @@ public class Client {
 	}
 	
 	synchronized private static String login() throws IOException{
-		System.out.println("LOGIN:");
-		Scanner in = new Scanner(System.in);
+		String decision;
+	    Scanner in = new Scanner(System.in);
+		System.out.println("Inserisci numero: \r 1-login \r 2-register");
+		decision = in.nextLine();
+		sendToServer(decision);
+		if(decision.equals("1")){
+			System.out.println("LOGIN:");
+		}
+		else{
+			System.out.println("REGISTER:");
+		}
 		String username;
 		String password;
 		
@@ -70,18 +79,25 @@ public class Client {
 			System.out.println("");
 			
 			if(receivedRespPass.equals("confirmed")){
-				System.out.println("Accesso effettuato! Bentornato " + username + "!");
-				System.out.println("");
+				if(decision.equals("1")){
+					System.out.println("Accesso effettuato! Bentornato " + username + "!");
+					System.out.println("");
+				}
+				else{
+					System.out.println("Registrazione effettuata! Benvenuto " + username + "!");
+					System.out.println("");
+				}
 				break;
 			}
 			else if (receivedRespPass.equals("wrong combination")){
-				System.out.println("Combinazione errata, riprova");
-				System.out.println("");
-			}
-			else{
-				System.out.println("Nuovo Utente registrato! Benvenuto " + username + "!");
-				System.out.println("");
-				break;
+				if(decision.equals("1")){
+					System.out.println("Combinazione errata, riprova");
+					System.out.println("");
+				}
+				else{
+					System.out.println("Registrazione fallita! Ritenta");
+					System.out.println("");
+				}
 			}
 		}
 		in.close();
