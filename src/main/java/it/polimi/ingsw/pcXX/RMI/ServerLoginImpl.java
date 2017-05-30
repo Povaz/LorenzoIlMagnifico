@@ -6,8 +6,6 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
-import java.rmi.Naming;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -21,7 +19,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
     private static ArrayList<UserLogin> usersLogged;
 
     public ServerLoginImpl () throws RemoteException {
-        usersLogged = new ArrayList<>();
+        this.usersLogged = new ArrayList<>();
     }
 
     public boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
@@ -88,6 +86,5 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
         registry.bind("serverLogin", serverLoginImpl);
 
         System.out.println("Waiting for invocations from clients...");
-
     }
 }
