@@ -13,14 +13,14 @@ import java.util.Scanner;
 
 /**
  * Created by Povaz on 24/05/2017.
- */
+ **/
 public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
     private String username;
     private String password;
     private boolean logged;
     private int choose;
 
-    public UserLoginImpl () throws RemoteException {
+    private UserLoginImpl() throws RemoteException {
         this.username = "Null";
         this.password = "Null";
         this.logged = false;
@@ -32,7 +32,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         return username;
     }
 
-    public void setUsername(String username) {
+    private void setUsername(String username) {
         this.username = username;
     }
 
@@ -41,23 +41,23 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         return password;
     }
 
-    public void setPassword(String password) {
+    private void setPassword(String password) {
         this.password = password;
     }
 
-    public boolean isLogged() throws RemoteException {
+    private boolean isLogged() throws RemoteException {
         return logged;
     }
 
-    public void setLogged(boolean logged) {
+    private void setLogged(boolean logged) {
         this.logged = logged;
     }
 
-    public int getChoose() {
+    private int getChoose() {
         return choose;
     }
 
-    public void setChoose(int choose) {
+    private void setChoose(int choose) {
         this.choose = choose;
     }
 
@@ -66,7 +66,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         System.out.println(message);
     }
 
-    public void insertData () {
+    private void insertData() {
         System.out.print("Insert your Username: ");
         Scanner inUsername = new Scanner(System.in);
         this.setUsername(inUsername.nextLine());
@@ -77,25 +77,25 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         System.out.println("\n");
     }
 
-    public void login (ServerLogin serverLogin) throws RemoteException, JSONException, IOException{
+    private void login(ServerLogin serverLogin) throws JSONException, IOException{
         this.insertData();
         this.setLogged(serverLogin.loginServer(this));
     }
 
-    public void registration (ServerLogin serverLogin) throws RemoteException, JSONException, IOException {
+    private void registration(ServerLogin serverLogin) throws JSONException, IOException {
         this.insertData();
         serverLogin.registrationServer(this);
     }
 
-    public void logout(ServerLogin serverLogin) throws RemoteException {
+    private void logout(ServerLogin serverLogin) throws RemoteException {
         this.setLogged(serverLogin.logoutServer(this));
     }
 
-    public void printUsers (ServerLogin serverLogin) throws RemoteException {
+    private void printUsers(ServerLogin serverLogin) throws RemoteException {
         serverLogin.printLoggedUsers();
     }
 
-    public static void main (String[] args) throws RemoteException, NotBoundException, JSONException, IOException {
+    public static void main (String[] args) throws NotBoundException, JSONException, IOException {
         Registry registry = LocateRegistry.getRegistry(8000);
         ServerLogin serverLogin = (ServerLogin) registry.lookup("serverLogin");
         UserLoginImpl userLogin = new UserLoginImpl();
