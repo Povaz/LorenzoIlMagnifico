@@ -19,7 +19,7 @@ import java.util.TimerTask;
  **/
 public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin {
     private static ArrayList<UserLogin> usersLogged;
-    private Timer timer;
+    private transient Timer timer;
 
     private ServerLoginImpl () throws RemoteException {
         usersLogged = new ArrayList<>();
@@ -27,7 +27,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
 
     private boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
         for (UserLogin user : usersLogged) {
-            if ( (userLogin.getUsername().equals(user.getUsername())) && (userLogin.getPassword().equals(user.getPassword()))) {
+            if ( (userLogin.getUsername().equals(user.getUsername())) && (userLogin.getKeyword().equals(user.getKeyword()))) {
                 return true;
             }
         }
@@ -37,7 +37,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
     @Override
     public boolean loginServer (UserLogin userLogin) throws JSONException, IOException {
         if (!searchUserLogged(userLogin)) {
-            if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getPassword())) {
+            if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getKeyword())) {
                 usersLogged.add(userLogin);
                 userLogin.sendMessage("Login Successful");
 
@@ -46,16 +46,13 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
                     timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            // Passo usersLogged a chi gestirà la partita;
                             System.out.println("Start Game with: " + usersLogged.size() + "players");
-                            System.exit(0);
                         }
                     }, 10000);
                 }
 
                 if (usersLogged.size() == 5) {
                     timer.cancel();
-                    //Passo usersLogged a chi gestirà la partita
                     System.out.println("Start Game");
                 }
 
@@ -70,7 +67,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
 
     @Override
     public void registrationServer (UserLogin userLogin) throws JSONException, IOException {
-        if (JSONUtility.checkRegister(userLogin.getUsername(), userLogin.getPassword())) {
+        if (JSONUtility.checkRegister(userLogin.getUsername(), userLogin.getKeyword())) {
             userLogin.sendMessage("Registration Successful");
         }
         else {
@@ -81,7 +78,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
     @Override
     public boolean logoutServer (UserLogin userLogin) throws RemoteException {
         for (UserLogin user : usersLogged) {
-            if ((userLogin.getUsername().equals(user.getUsername())) && (userLogin.getPassword().equals(user.getPassword()))) {
+            if ((userLogin.getUsername().equals(user.getUsername())) && (userLogin.getKeyword().equals(user.getKeyword()))) {
                 usersLogged.remove(user);
                 userLogin.sendMessage("Logout successful");
 
@@ -101,7 +98,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
     public void printLoggedUsers () throws RemoteException{
         for (UserLogin user: usersLogged) {
             System.out.println(user.getUsername());
-            System.out.println(user.getPassword());
+            System.out.println(user.getKeyword());
         }
     }
 

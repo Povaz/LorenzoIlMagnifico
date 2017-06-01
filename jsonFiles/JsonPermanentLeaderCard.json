@@ -1,37 +1,347 @@
 {
-	"name": "string",
-	"number": 0,
-	"activationResourceCost": [
-		{
-			"type": "string",
-			"quantity": 0
-		}
-	],
-	"activationCardCost": [
-		{
-			"type": "string",
-			"quantity": 0
-		}
-	],
-	"neutralFamilyMemberModifier": 0,
-	"coloredFamilyMemberModifier": 0,
-	"doubleFastRewardDevelopmentCard": false,
-	"placeInBusyActionSpot": false,
-	"permanentDice": false,
-	"permanentDiceValue": 0,
-	"notSatisfyMilitaryPointForTerritory": false,
-	"notPayTollBusyTower": false,
-	"copyOtherCard": false,
-	"costDiscountDevelopmenCard": [
-		{
-			"type": "string",
-			"quantity": 0
-		}
-	],
-	"bonusRewardChurchSupport": [
-		{
-			"type": "string",
-			"quantity": 0
-		}
-	]
+  "PermanentLeaderCard" : [
+    {
+      "name": "Ludovico Ariosto",
+      "activationCardCost": [
+        {
+          "type": "CHARACTER",
+          "quantity": 5
+        }
+      ],
+      "placeInBusyActionSpot": true
+    },
+    {
+      "name": "string",
+      "number": 0,
+      "activationResourceCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "activationCardCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "neutralFamilyMemberModifier": 0,
+      "coloredFamilyMemberModifier": 0,
+      "doubleFastRewardDevelopmentCard": false,
+      "placeInBusyActionSpot": false,
+      "permanentDice": false,
+      "permanentDiceValue": 0,
+      "notSatisfyMilitaryPointForTerritory": false,
+      "notPayTollBusyTower": false,
+      "copyOtherCard": false,
+      "costDiscountDevelopmentCard": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "bonusRewardChurchSupport": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ]
+    },
+    {
+      "name": "string",
+      "number": 0,
+      "activationResourceCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "activationCardCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "neutralFamilyMemberModifier": 0,
+      "coloredFamilyMemberModifier": 0,
+      "doubleFastRewardDevelopmentCard": false,
+      "placeInBusyActionSpot": false,
+      "permanentDice": false,
+      "permanentDiceValue": 0,
+      "notSatisfyMilitaryPointForTerritory": false,
+      "notPayTollBusyTower": false,
+      "copyOtherCard": false,
+      "costDiscountDevelopmentCard": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "bonusRewardChurchSupport": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ]
+    },
+    {
+      "name": "string",
+      "number": 0,
+      "activationResourceCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "activationCardCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "neutralFamilyMemberModifier": 0,
+      "coloredFamilyMemberModifier": 0,
+      "doubleFastRewardDevelopmentCard": false,
+      "placeInBusyActionSpot": false,
+      "permanentDice": false,
+      "permanentDiceValue": 0,
+      "notSatisfyMilitaryPointForTerritory": false,
+      "notPayTollBusyTower": false,
+      "copyOtherCard": false,
+      "costDiscountDevelopmentCard": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "bonusRewardChurchSupport": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ]
+    },
+    {
+      "name": "string",
+      "number": 0,
+      "activationResourceCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "activationCardCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "neutralFamilyMemberModifier": 0,
+      "coloredFamilyMemberModifier": 0,
+      "doubleFastRewardDevelopmentCard": false,
+      "placeInBusyActionSpot": false,
+      "permanentDice": false,
+      "permanentDiceValue": 0,
+      "notSatisfyMilitaryPointForTerritory": false,
+      "notPayTollBusyTower": false,
+      "copyOtherCard": false,
+      "costDiscountDevelopmentCard": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "bonusRewardChurchSupport": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ]
+    },
+    {
+      "name": "string",
+      "number": 0,
+      "activationResourceCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "activationCardCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "neutralFamilyMemberModifier": 0,
+      "coloredFamilyMemberModifier": 0,
+      "doubleFastRewardDevelopmentCard": false,
+      "placeInBusyActionSpot": false,
+      "permanentDice": false,
+      "permanentDiceValue": 0,
+      "notSatisfyMilitaryPointForTerritory": false,
+      "notPayTollBusyTower": false,
+      "copyOtherCard": false,
+      "costDiscountDevelopmentCard": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "bonusRewardChurchSupport": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ]
+    },
+    {
+      "name": "string",
+      "number": 0,
+      "activationResourceCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "activationCardCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "neutralFamilyMemberModifier": 0,
+      "coloredFamilyMemberModifier": 0,
+      "doubleFastRewardDevelopmentCard": false,
+      "placeInBusyActionSpot": false,
+      "permanentDice": false,
+      "permanentDiceValue": 0,
+      "notSatisfyMilitaryPointForTerritory": false,
+      "notPayTollBusyTower": false,
+      "copyOtherCard": false,
+      "costDiscountDevelopmentCard": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "bonusRewardChurchSupport": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ]
+    },
+    {
+      "name": "string",
+      "number": 0,
+      "activationResourceCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "activationCardCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "neutralFamilyMemberModifier": 0,
+      "coloredFamilyMemberModifier": 0,
+      "doubleFastRewardDevelopmentCard": false,
+      "placeInBusyActionSpot": false,
+      "permanentDice": false,
+      "permanentDiceValue": 0,
+      "notSatisfyMilitaryPointForTerritory": false,
+      "notPayTollBusyTower": false,
+      "copyOtherCard": false,
+      "costDiscountDevelopmentCard": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "bonusRewardChurchSupport": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ]
+    },
+    {
+      "name": "string",
+      "number": 0,
+      "activationResourceCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "activationCardCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "neutralFamilyMemberModifier": 0,
+      "coloredFamilyMemberModifier": 0,
+      "doubleFastRewardDevelopmentCard": false,
+      "placeInBusyActionSpot": false,
+      "permanentDice": false,
+      "permanentDiceValue": 0,
+      "notSatisfyMilitaryPointForTerritory": false,
+      "notPayTollBusyTower": false,
+      "copyOtherCard": false,
+      "costDiscountDevelopmentCard": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "bonusRewardChurchSupport": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ]
+    },
+    {
+      "name": "string",
+      "number": 0,
+      "activationResourceCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "activationCardCost": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "neutralFamilyMemberModifier": 0,
+      "coloredFamilyMemberModifier": 0,
+      "doubleFastRewardDevelopmentCard": false,
+      "placeInBusyActionSpot": false,
+      "permanentDice": false,
+      "permanentDiceValue": 0,
+      "notSatisfyMilitaryPointForTerritory": false,
+      "notPayTollBusyTower": false,
+      "copyOtherCard": false,
+      "costDiscountDevelopmentCard": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ],
+      "bonusRewardChurchSupport": [
+        {
+          "type": "string",
+          "quantity": 0
+        }
+      ]
+    }
+  ]
 }

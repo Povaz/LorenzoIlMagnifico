@@ -16,13 +16,13 @@ import java.util.Scanner;
  **/
 public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
     private String username;
-    private String password;
+    private String keyword;
     private boolean logged;
     private int choose;
 
     private UserLoginImpl() throws RemoteException {
         this.username = "Null";
-        this.password = "Null";
+        this.keyword = "Null";
         this.logged = false;
         this.choose = 1;
     }
@@ -37,12 +37,12 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
     }
 
     @Override
-    public String getPassword() {
-        return password;
+    public String getKeyword() {
+        return keyword;
     }
 
-    private void setPassword(String password) {
-        this.password = password;
+    private void setKeyword(String keyword) {
+        this.keyword = keyword;
     }
 
     private boolean isLogged() throws RemoteException {
@@ -73,7 +73,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         System.out.println("\n");
         System.out.print("Insert your Password: ");
         Scanner inPassword = new Scanner(System.in);
-        this.setPassword(inPassword.nextLine());
+        this.setKeyword(inPassword.nextLine());
         System.out.println("\n");
     }
 
@@ -125,7 +125,6 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
                         if (userLogin.isLogged()) {
                             userLogin.logout(serverLogin);
                         }
-                        System.exit(0);
                         break;
                     case 4:
                         userLogin.printUsers(serverLogin);
@@ -136,6 +135,9 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
             }
             catch (InputMismatchException e) {
                 System.out.println("InputError: Retry");
+            }
+            if (userLogin.getChoose() == 3) {
+                break;
             }
         }
     }

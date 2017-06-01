@@ -8,6 +8,6 @@ import java.rmi.RemoteException;
  **/
 public interface UserLogin extends Remote{
     String getUsername () throws RemoteException;
-    String getPassword () throws RemoteException;
+    String getKeyword() throws RemoteException;
     void sendMessage (String message) throws RemoteException;
 }
