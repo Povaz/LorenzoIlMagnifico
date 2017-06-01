@@ -1,9 +1,10 @@
 package it.polimi.ingsw.pcXX;
 
 import java.util.ArrayList;
+import java.util.List;
 
 public class Tower {
-	private final ArrayList<Floor> floors;
+	private final List<Floor> floors;
 	private boolean occupied;
 	private final CardType type;
 
@@ -13,7 +14,7 @@ public class Tower {
 		this.floors = initializeFloors(type);
 	}
 
-	private ArrayList<Floor> initializeFloors(CardType type){
+	private List<Floor> initializeFloors(CardType type){
 		ArrayList<Floor> floors = new ArrayList<Floor>();
 
 		Reward reward5 = null;
@@ -41,5 +42,28 @@ public class Tower {
 		floors.add(2, new Floor(5, reward5));
 		floors.add(3, new Floor(7, reward7));
 		return floors;
+	}
+
+	public List<Floor> getFloors() {
+		return floors;
+	}
+
+	public boolean isOccupied() {
+		return occupied;
+	}
+
+	public void setOccupied(boolean occupied) {
+		this.occupied = occupied;
+	}
+
+	public CardType getType() {
+		return type;
+	}
+
+	public void reinitialize(){
+		this.occupied = false;
+		for(Floor f : floors){
+			f.reinitialize();
+		}
 	}
 }

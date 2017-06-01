@@ -9,4 +9,21 @@ public class Floor extends ActionSpot{
 		this.card = null;
 		this.reward = reward;
 	}
+
+	public DevelopmentCard getCard() {
+		return card;
+	}
+
+	public void setCard(DevelopmentCard card) {
+		this.card = card;
+	}
+
+	public Reward getReward() {
+		return reward;
+	}
+
+	public void reinitialize(){
+		super.reinitialize();
+		card = null;
+	}
 }

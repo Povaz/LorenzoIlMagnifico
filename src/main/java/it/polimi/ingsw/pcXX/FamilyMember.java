@@ -41,6 +41,10 @@ public class FamilyMember {
 		return result;
 	}
 
+	public boolean sameColor(FamilyMember other){
+		return playerColor.equals(other.playerColor);
+	}
+
 	public PlayerColor getPlayerColor(){
 		return playerColor;
 	}

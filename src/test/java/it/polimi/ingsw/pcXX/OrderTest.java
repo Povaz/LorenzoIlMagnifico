@@ -35,7 +35,7 @@ public class OrderTest extends TestCase{
         calculated.add(PlayerColor.YELLOW);
         calculated.add(PlayerColor.PURPLE);
         calculated.add(PlayerColor.RED);
-        Order.removeBottomDuplicates(calculated);
+        //Order.removeBottomDuplicates(calculated);
 
         assertEquals(expected, calculated);
     }

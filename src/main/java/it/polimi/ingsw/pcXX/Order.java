@@ -5,28 +5,45 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class Order{
+
+	// TODO playercolor --> player
 	private final int playerNumber;
 	private List<PlayerColor> shown;
 	private List<PlayerColor> real;
-	private PlayerColor current;
+	private int current;
 
 	public Order(int playerNumber){
 		this.playerNumber = playerNumber;
-		this.shown = initializeOrder();
-		this.real = calculateRealOrder(shown);
-		this.current = real.get(0);
+		initializeOrder();
+		calculateRealOrder();
+		this.current = 0;
 	}
 
-	private List<PlayerColor> initializeOrder(){
+	private void initializeOrder(){
 		int[] randArray = RandomUtility.randomIntArray(1, playerNumber);
 		List<PlayerColor> shown = new ArrayList<>();
 		for(int i = 0; i < randArray.length; i++){
 			shown.add(i, PlayerColor.fromInt(randArray[i]));
 		}
-		return shown;
+		this.shown = shown;
 	}
 
-	public static List<PlayerColor> calculateRealOrder(List<PlayerColor> shown){
+	public void recalculate(List<FamilyMember> councilPalaceOrder){
+		calculateShownOrder(councilPalaceOrder);
+		calculateRealOrder();
+		current = 0;
+	}
+
+	private void calculateShownOrder(List<FamilyMember> councilPalaceOrder){
+		List<PlayerColor> newOrder = new ArrayList<>(shown);
+		for(int i = 0; i < councilPalaceOrder.size(); i++){
+			newOrder.add(i, councilPalaceOrder.get(i).getPlayerColor());
+		}
+		removeBottomDuplicates(newOrder);
+		this.shown = newOrder;
+	}
+
+	private void calculateRealOrder(){
 		List<PlayerColor> real = new ArrayList<>();
 		int familyMemberNumber = 4;
 		for(int familyMember = 0; familyMember < familyMemberNumber; familyMember++){
@@ -34,19 +51,11 @@ public class Order{
 				real.add((familyMember * shown.size()) + player, shown.get(player));
 			}
 		}
-		return real;
+		this.real = real;
 	}
 
-	private List<PlayerColor> calculateShownOrder(List<FamilyMember> councilPalaceOrder){
-		List<PlayerColor> newOrder = new ArrayList<>(shown);
-		for(int i = 0; i < councilPalaceOrder.size(); i++){
-			newOrder.add(i, councilPalaceOrder.get(i).getPlayerColor());
-		}
-		removeBottomDuplicates(newOrder);
-		return newOrder;
-	}
 
-	public static void removeBottomDuplicates(List<PlayerColor> list){
+	private void removeBottomDuplicates(List<PlayerColor> list){
 		for(int i = 0; i < list.size() - 1; i++){
 			for(int j = i + 1; j < list.size(); j++){
 				if(list.get(i).equals(list.get(j)))
@@ -57,5 +66,17 @@ public class Order{
 
 	public int getPositionOrder(PlayerColor playerColor){
 		return shown.indexOf(playerColor);
+	}
+
+	public PlayerColor getCurrent() {
+		return real.get(current);
+	}
+
+	public boolean nextOrder(){
+		if(real.size() > current + 1){
+			current++;
+			return true;
+		}
+		return false;
 	}
 }

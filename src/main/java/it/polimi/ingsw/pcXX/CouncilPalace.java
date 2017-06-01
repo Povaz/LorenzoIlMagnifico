@@ -12,4 +12,8 @@ public class CouncilPalace extends ActionSpot{
 		rewards.add(new Resource(ResourceType.COIN, 1));
 		rewards.add(new CouncilPrivilege(1));
 	}
+
+	public Set<Reward> getRewards() {
+		return rewards;
+	}
 }

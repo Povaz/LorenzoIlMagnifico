@@ -15,4 +15,8 @@ public class Player{
         this.color = color;
         this.playerBoard = new PlayerBoard(color, playerOrder, personalBonusTile, leaderCards);
     }
+
+    public boolean sameColor(Player other){
+        return color.equals(other.color);
+    }
 }

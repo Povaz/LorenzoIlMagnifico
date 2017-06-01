@@ -117,7 +117,7 @@ public class JSONUtility {
 		}
 	}
 
-	public static int getCardNumber(int period, CardType cardType) throws JSONException, IOException{
+	public static int getCardLength(int period, CardType cardType) throws JSONException, IOException{
 		String path = null;
 		switch(cardType){
 			case TERRITORY:
