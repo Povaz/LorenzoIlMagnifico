@@ -232,9 +232,9 @@ public class JSONUtilityTest extends TestCase{
         actionModifiers.add(new ActionModifier(ActionType.BUILDING_TOWER, 2));
 
         Set<Reward> discounts1 = new HashSet<Reward>();
-        discounts1.add(new Resource(ResourceType.STONE, 1));
+        discounts1.add(new Resource(ResourceType.WOOD, 1));
         Set<Reward> discounts2 = new HashSet<Reward>();
-        discounts2.add(new Resource(ResourceType.WOOD, 1));
+        discounts2.add(new Resource(ResourceType.STONE, 1));
         LinkedList<CostDiscount> costDiscounts = new LinkedList<CostDiscount>();
         costDiscounts.add(new CostDiscount(CardType.BUILDING, discounts1));
         costDiscounts.add(new CostDiscount(CardType.BUILDING, discounts2));

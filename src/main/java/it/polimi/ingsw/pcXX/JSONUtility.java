@@ -3,10 +3,7 @@ package it.polimi.ingsw.pcXX;
 import java.io.File;
 import java.io.IOException;
 import java.security.MessageDigest;
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.Set;
+import java.util.*;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -159,7 +156,7 @@ public class JSONUtility {
 		Set<Reward> fastRewards = getFastRewards(card);
 		int diceProductionAction = card.getInt("diceProductionAction");
 		Set<Reward> earnings = getEarnings(card);
-		ArrayList<Trade> trades = getTrades(card);
+		List<Trade> trades = getTrades(card);
 		RewardForReward rewardForReward = getRewardForReward(card);
 		RewardForCard rewardForCard = getRewardForCard(card);
 
@@ -174,10 +171,10 @@ public class JSONUtility {
 		String name = getName(card);
 		Set<Reward> costs = getCosts(card);
 		Set<Reward> fastRewards = getFastRewards(card);
-		LinkedList<GhostFamilyMember> actions = getActions(card);
+		List<GhostFamilyMember> actions = getActions(card);
 		boolean noBonusTowerResource = getBooleanNoException(card, "noBonusTowerResource");
-		LinkedList<CostDiscount> discounts = getDiscounts(card);
-		LinkedList<ActionModifier> actionModifiers = getActionModifiers(card);
+		List<CostDiscount> discounts = getDiscounts(card);
+		List<ActionModifier> actionModifiers = getActionModifiers(card);
 		RewardForReward rewardForReward = getRewardForReward(card);
 		RewardForCard rewardForCard = getRewardForCard(card);
 
@@ -192,7 +189,7 @@ public class JSONUtility {
 		String name = getName(card);
 		Set<Reward> costs = getCosts(card);
 		Set<Reward> fastRewards = getFastRewards(card);
-		LinkedList<GhostFamilyMember> actions = getActions(card);
+		List<GhostFamilyMember> actions = getActions(card);
 		Point militaryPointNeeded;
 		Point militaryPointPrice;
 		try{
@@ -246,9 +243,9 @@ public class JSONUtility {
 		}
 	}
 
-	private static ArrayList<Trade> getTrades(JSONObject card){
+	private static List<Trade> getTrades(JSONObject card){
 		try {
-			ArrayList<Trade> tradesArray = new ArrayList<>();
+			List<Trade> tradesArray = new ArrayList<>();
 			JSONArray trades = card.getJSONArray("trades");
 			for(int i = 0; i < trades.length(); i++){
 				JSONArray give = trades.getJSONObject(i).getJSONArray("give");
@@ -263,9 +260,9 @@ public class JSONUtility {
 		}
 	}
 
-	private static LinkedList<GhostFamilyMember> getActions(JSONObject card){
+	private static List<GhostFamilyMember> getActions(JSONObject card){
 		try{
-			LinkedList<GhostFamilyMember> actionList = new LinkedList<GhostFamilyMember>();
+			List<GhostFamilyMember> actionList = new LinkedList<>();
 			JSONArray actions = card.getJSONArray("actions");
 			for(int i = 0; i < actions.length(); i++){
 				JSONObject actionObj = actions.getJSONObject(i);
@@ -285,10 +282,10 @@ public class JSONUtility {
 		}
 	}
 
-	private static LinkedList<CostDiscount> getDiscounts(JSONObject card){
+	private static List<CostDiscount> getDiscounts(JSONObject card){
 		try{
 			JSONArray costDiscounts = card.getJSONArray("costDiscounts");
-			LinkedList<CostDiscount> discountList = new LinkedList<CostDiscount>();
+			List<CostDiscount> discountList = new LinkedList<>();
 			for(int i = 0; i < costDiscounts.length(); i++){
 				JSONObject discountObj = costDiscounts.getJSONObject(i);
 				CardType cardType = CardType.valueOf(discountObj.getString("cardType"));
@@ -306,9 +303,9 @@ public class JSONUtility {
 		}
 	}
 
-	private static LinkedList<ActionModifier> getActionModifiers(JSONObject card){
+	private static List<ActionModifier> getActionModifiers(JSONObject card){
 		try{
-			LinkedList<ActionModifier> actionModifierList = new LinkedList<ActionModifier>();
+			List<ActionModifier> actionModifierList = new LinkedList<>();
 			JSONArray actionModifiers = card.getJSONArray("actionModifiers");
 			for(int i = 0; i < actionModifiers.length(); i++){
 				JSONObject modifierObj = actionModifiers.getJSONObject(i);
@@ -348,7 +345,7 @@ public class JSONUtility {
 	}
 
 	private static Set<Reward> getRewardSet(JSONArray jsonRewards) throws JSONException{
-		Set<Reward> rewardSet = new HashSet<Reward>();
+		Set<Reward> rewardSet = new HashSet<>();
 		for(int i = 0; i < jsonRewards.length(); i++){
 			JSONObject reward = jsonRewards.getJSONObject(i);
 			rewardSet.add(getReward(reward));

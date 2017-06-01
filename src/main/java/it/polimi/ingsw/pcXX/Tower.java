@@ -15,7 +15,7 @@ public class Tower {
 	}
 
 	private List<Floor> initializeFloors(CardType type){
-		ArrayList<Floor> floors = new ArrayList<Floor>();
+		List<Floor> floors = new ArrayList<>();
 
 		Reward reward5 = null;
 		Reward reward7 = null;

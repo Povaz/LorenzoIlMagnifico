@@ -22,4 +22,22 @@ public class CostDiscount {
         }
         return discountString;
     }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        CostDiscount that = (CostDiscount) o;
+
+        if (type != that.type) return false;
+        return discount != null ? discount.equals(that.discount) : that.discount == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = type.hashCode();
+        result = 31 * result + (discount != null ? discount.hashCode() : 0);
+        return result;
+    }
 }

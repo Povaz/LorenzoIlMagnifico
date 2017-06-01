@@ -1,15 +1,15 @@
 package it.polimi.ingsw.pcXX;
 
-import java.util.LinkedList;
+import java.util.List;
 import java.util.Set;
 
 public class VentureCard extends DevelopmentCard{
-	private final LinkedList<GhostFamilyMember> actions;
+	private final List<GhostFamilyMember> actions;
 	private final Point militaryPointPrice;
 	private final Point militaryPointNeeded;
 	private final Point victoryPointEarned;
 	
-	public VentureCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, LinkedList<GhostFamilyMember> actions,
+	public VentureCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<GhostFamilyMember> actions,
 					   Point militaryPointNeeded, Point militaryPointPrice, Point victoryPointEarned){
 		super(name, CardType.VENTURE, period, costs, fastRewards);
 		this.actions = actions;
@@ -35,5 +35,31 @@ public class VentureCard extends DevelopmentCard{
 			}
 		}
 		return cardString;
+	}
+
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+		if (!super.equals(o)) return false;
+
+		VentureCard that = (VentureCard) o;
+
+		if (actions != null ? !actions.equals(that.actions) : that.actions != null) return false;
+		if (militaryPointPrice != null ? !militaryPointPrice.equals(that.militaryPointPrice) : that.militaryPointPrice != null)
+			return false;
+		if (militaryPointNeeded != null ? !militaryPointNeeded.equals(that.militaryPointNeeded) : that.militaryPointNeeded != null)
+			return false;
+		return victoryPointEarned != null ? victoryPointEarned.equals(that.victoryPointEarned) : that.victoryPointEarned == null;
+	}
+
+	@Override
+	public int hashCode() {
+		int result = super.hashCode();
+		result = 31 * result + (actions != null ? actions.hashCode() : 0);
+		result = 31 * result + (militaryPointPrice != null ? militaryPointPrice.hashCode() : 0);
+		result = 31 * result + (militaryPointNeeded != null ? militaryPointNeeded.hashCode() : 0);
+		result = 31 * result + (victoryPointEarned != null ? victoryPointEarned.hashCode() : 0);
+		return result;
 	}
 }

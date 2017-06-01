@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by trill on 23/05/2017.
@@ -11,9 +12,9 @@ public class PlayerBoard {
     private final Resource wood;
     private final Resource stone;
     private final Resource servant;
-    private final ArrayList<FamilyMember> familyMembers;
+    private final List<FamilyMember> familyMembers;
     private final PersonalBonusTile personalBonusTile;
-    private final ArrayList<LeaderCard> leaderCards;
+    private final List<LeaderCard> leaderCards;
     private final TerritorySpot territorySpot;
     private final BuildingSpot buildingSpot;
     private final CharacterSpot characterSpot;
@@ -21,7 +22,7 @@ public class PlayerBoard {
     private final Modifier modifier;
 
 
-    public PlayerBoard(PlayerColor color, int playerOrder, PersonalBonusTile personalBonusTile, ArrayList<LeaderCard> leaderCards){
+    public PlayerBoard(PlayerColor color, int playerOrder, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.color = color;
         this.coin = new Resource(ResourceType.COIN, 5);
         this.wood = new Resource(ResourceType.WOOD, 2);
@@ -51,8 +52,8 @@ public class PlayerBoard {
             coin.setQuantity(9);
     }
 
-    private ArrayList<FamilyMember> initializeFamilyMembers(PlayerColor color){
-        ArrayList<FamilyMember> familyMember = new ArrayList<FamilyMember>();
+    private List<FamilyMember> initializeFamilyMembers(PlayerColor color){
+        List<FamilyMember> familyMember = new ArrayList<>();
         familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.WHITE));
         familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.ORANGE));
         familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.BLACK));

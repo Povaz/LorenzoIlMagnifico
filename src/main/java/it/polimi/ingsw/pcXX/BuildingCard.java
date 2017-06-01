@@ -1,17 +1,17 @@
 package it.polimi.ingsw.pcXX;
 
-import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 public class BuildingCard extends DevelopmentCard{
 	private final int diceProductionAction;
 	private final Set<Reward> earnings;
-	private final ArrayList<Trade> trades;
+	private final List<Trade> trades;
 	private final RewardForReward rewardForReward;
 	private final RewardForCard rewardForCard;
 
 	public BuildingCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, int diceProductionAction,
-						Set<Reward> earnings, ArrayList<Trade> trades, RewardForReward rewardForReward, RewardForCard rewardForCard){
+						Set<Reward> earnings, List<Trade> trades, RewardForReward rewardForReward, RewardForCard rewardForCard){
 		super(name, CardType.BUILDING, period, costs, fastRewards);
 		this.diceProductionAction = diceProductionAction;
 		this.earnings = earnings;

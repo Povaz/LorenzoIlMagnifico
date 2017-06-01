@@ -1,8 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
-import sun.security.util.Resources_de;
-
 import java.util.HashSet;
+import java.util.Set;
 
 public class CouncilPrivilege extends Reward{
     private int quantity;
@@ -31,7 +30,7 @@ public class CouncilPrivilege extends Reward{
         return "" + quantity + " COUNCIL_PRIVILEGE";
     }
 
-    public HashSet<Reward> exchange (HashSet <Reward> rewards) {
+    public Set<Reward> exchange (HashSet <Reward> rewards) {
         for (Reward reward: rewards) {
             if (reward instanceof Resource) {
                 if (((Resource) reward).getType() == ResourceType.WOOD) {
