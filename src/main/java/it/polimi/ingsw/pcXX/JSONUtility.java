@@ -21,7 +21,7 @@ public class JSONUtility {
 	private static String ventureCardPath = "jsonFiles/VentureCard.json";
 	private static String userPath = "jsonFiles/User.json";
 
-	public static void main(String[] args) {
+	/*public static void main(String[] args) {
 		try {
 			/*TerritoryCard t1 = (TerritoryCard) getCard(1, 0, CardType.TERRITORY);
 			System.out.println(t1 + "\n");
@@ -45,14 +45,14 @@ public class JSONUtility {
 			VentureCard v1 = (VentureCard) getCard(1,4, CardType.VENTURE);
 			System.out.println(v1 + "\n");
 			VentureCard v2 = (VentureCard) getCard(2,4, CardType.VENTURE);
-			System.out.println(v2 + "\n");*/
+			System.out.println(v2 + "\n");
 
 			System.out.println(checkLogin("lacieoz", "LoL"));
 			System.out.println(checkRegister("lacieoz", "LoL"));
 		} catch(Exception e){
 			e.printStackTrace();
 		}
-	}
+	}*/
 
 	public static synchronized boolean checkLogin(String username, String password) throws JSONException, IOException{
 		JSONObject users = fromPathToJSONObject(userPath);

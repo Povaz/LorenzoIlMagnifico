@@ -31,9 +31,6 @@ public class PlayerBoard {
         this.familyMembers = initializeFamilyMembers(color);
         this.personalBonusTile = personalBonusTile;
         this.leaderCards = leaderCards;
-
-        //*******************************************
-        // DA SISTEMARE QUELLO SCRITTO DOPO!
         this.territorySpot = new TerritorySpot();
         this.buildingSpot = new BuildingSpot();
         this.characterSpot = new CharacterSpot();
