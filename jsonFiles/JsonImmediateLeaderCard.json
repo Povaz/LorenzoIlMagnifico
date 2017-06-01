@@ -1,0 +1,39 @@
+{
+	"name": "string",
+	"number": 0,
+	"activationResourceCost": [
+		{
+			"type": "string",
+			"quantity": 0
+		}
+	],
+	"activationCardCost": [
+		{
+			"type": "string",
+			"quantity": 0
+		}
+	],
+	"reward": [
+		{
+			"type": "string",
+			"quantity": 0
+		}
+	],
+	"changeColoredFamilyMemberValue": false,
+	"newValueColoredFamilyMember": 0,
+	"actions": [
+		{
+			"actionType": "string",
+			"discount": [
+				{
+					"resource": [
+						{
+							"type": "string",
+							"quantity": 0
+						}
+					]
+				}
+			]
+		}
+	]
+}
