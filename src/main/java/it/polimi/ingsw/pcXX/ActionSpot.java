@@ -8,7 +8,7 @@ public abstract class ActionSpot {
 	private final boolean active;
 	private final boolean unrestricted;
 	private final int diceValue;
-	private List<FamilyMember> occupiedBy;
+	protected List<FamilyMember> occupiedBy;
 
 	public ActionSpot(boolean active, boolean unrestricted, int diceValue){
 		this.busy = false;
@@ -45,5 +45,23 @@ public abstract class ActionSpot {
 	public void reinitialize(){
 		this.busy = false;
 		this.occupiedBy = new LinkedList<>();
+	}
+
+	public boolean isPlaceable(FamilyMember familyMember){
+		if(busy){
+			return false;
+		}
+		if(diceValue > familyMember.getValue()){
+			return false;
+		}
+		return true;
+	}
+
+	public boolean place(FamilyMember familyMember){
+		occupiedBy.add(familyMember);
+		if(!unrestricted){
+			busy = true;
+		}
+		return true;
 	}
 }

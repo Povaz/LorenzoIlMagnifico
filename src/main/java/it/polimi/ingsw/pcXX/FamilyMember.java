@@ -4,7 +4,7 @@ public class FamilyMember {
 	private boolean used;
 	protected int value;
 	private boolean changes;
-	private PlayerColor playerColor;
+	private Player player;
 	private FamilyColor color;
 
 	public FamilyMember(boolean used, int value, boolean changes){
@@ -13,16 +13,16 @@ public class FamilyMember {
 		this.changes = changes;
 	}
 
-	public FamilyMember(boolean used, int value, boolean changes, PlayerColor playerColor, FamilyColor color){
+	public FamilyMember(boolean used, int value, boolean changes, Player player, FamilyColor color){
 		this.used = used;
 		this.value = value;
 		this.changes = changes;
-		this.playerColor = playerColor;
+		this.player = player;
 		this.color = color;
 	}
 
 	@Override
-	public boolean equals(Object o){
+	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
@@ -30,22 +30,62 @@ public class FamilyMember {
 
 		if (used != that.used) return false;
 		if (value != that.value) return false;
-		return changes == that.changes;
+		if (changes != that.changes) return false;
+		if (!player.equals(that.player)) return false;
+		return color == that.color;
 	}
 
 	@Override
-	public int hashCode(){
+	public int hashCode() {
 		int result = (used ? 1 : 0);
 		result = 31 * result + value;
 		result = 31 * result + (changes ? 1 : 0);
+		result = 31 * result + player.hashCode();
+		result = 31 * result + color.hashCode();
 		return result;
 	}
 
-	public boolean sameColor(FamilyMember other){
-		return playerColor.equals(other.playerColor);
+	public boolean samePlayer(FamilyMember other){
+		return player.equals(other.player);
 	}
 
-	public PlayerColor getPlayerColor(){
-		return playerColor;
+	public boolean isUsed() {
+		return used;
+	}
+
+	public void setUsed(boolean used) {
+		this.used = used;
+	}
+
+	public int getValue() {
+		return value;
+	}
+
+	public void setValue(int value) {
+		this.value = value;
+	}
+
+	public boolean isChanges() {
+		return changes;
+	}
+
+	public void setChanges(boolean changes) {
+		this.changes = changes;
+	}
+
+	public Player getPlayer() {
+		return player;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
+	}
+
+	public FamilyColor getColor() {
+		return color;
+	}
+
+	public void setColor(FamilyColor color) {
+		this.color = color;
 	}
 }

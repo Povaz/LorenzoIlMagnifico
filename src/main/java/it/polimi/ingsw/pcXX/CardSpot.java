@@ -15,4 +15,8 @@ public abstract class CardSpot{
 
     public abstract Point estimateVictoryPoint();
     public abstract boolean placeCard(DevelopmentCard card);
+
+    public List<DevelopmentCard> getCards(){
+        return cards;
+    }
 }

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by trill on 30/05/2017.
@@ -13,10 +14,69 @@ public class Player{
     public Player(String username, PlayerColor color, int playerOrder, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.username = username;
         this.color = color;
-        this.playerBoard = new PlayerBoard(color, playerOrder, personalBonusTile, leaderCards);
+        this.playerBoard = new PlayerBoard(this, playerOrder, personalBonusTile, leaderCards);
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public PlayerColor getColor() {
+        return color;
+    }
+
+    public PlayerBoard getPlayerBoard() {
+        return playerBoard;
     }
 
     public boolean sameColor(Player other){
         return color.equals(other.color);
+    }
+
+    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot){
+        if(actionSpot instanceof Market){
+            return placeMarket(familyMember, (Market) actionSpot);
+        }
+        if(actionSpot instanceof CouncilPalace){
+            return placeCouncilPalace(familyMember, (CouncilPalace) actionSpot);
+        }
+        if(actionSpot instanceof HarvestArea){
+            return placeHarvestArea(familyMember, (HarvestArea) actionSpot);
+        }
+        if(actionSpot instanceof ProductionArea){
+            return placeProductionArea(familyMember, (ProductionArea) actionSpot);
+        }
+        if(actionSpot instanceof Floor){
+            //return placeFloor(familyMember, (Floor) actionSpot);
+        }
+        return false;
+    }
+
+    private boolean placeMarket(FamilyMember familyMember, Market market){
+        if(market.isPlaceable(familyMember)){
+            return market.place(familyMember);
+        }
+        return false;
+    }
+
+    private boolean placeCouncilPalace(FamilyMember familyMember, CouncilPalace councilPalace){
+        if(councilPalace.isPlaceable(familyMember)){
+            return councilPalace.place(familyMember);
+        }
+        return false;
+    }
+
+    private boolean placeHarvestArea(FamilyMember familyMember, HarvestArea harvestArea){
+        if(harvestArea.isPlaceable(familyMember)){
+            return harvestArea.place(familyMember);
+        }
+        return false;
+    }
+
+    private boolean placeProductionArea(FamilyMember familyMember, ProductionArea productionArea){
+        if(productionArea.isPlaceable(familyMember)){
+            return productionArea.place(familyMember);
+        }
+        return false;
     }
 }

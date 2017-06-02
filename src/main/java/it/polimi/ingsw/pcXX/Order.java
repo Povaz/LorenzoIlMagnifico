@@ -1,29 +1,27 @@
 package it.polimi.ingsw.pcXX;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 public class Order{
 
 	// TODO playercolor --> player
 	private final int playerNumber;
-	private List<PlayerColor> shown;
-	private List<PlayerColor> real;
+	private List<Player> shown;
+	private List<Player> real;
 	private int current;
 
-	public Order(int playerNumber){
-		this.playerNumber = playerNumber;
-		initializeOrder();
+	public Order(List<Player> players){
+		this.playerNumber = players.size();
+		initializeOrder(players);
 		calculateRealOrder();
 		this.current = 0;
 	}
 
-	private void initializeOrder(){
-		int[] randArray = RandomUtility.randomIntArray(1, playerNumber);
-		List<PlayerColor> shown = new ArrayList<>();
-		for(int i = 0; i < randArray.length; i++){
-			shown.add(i, PlayerColor.fromInt(randArray[i]));
-		}
+	private void initializeOrder(List<Player> players){
+		List<Player> shown = new ArrayList<>(players);
+		Collections.shuffle(shown);
 		this.shown = shown;
 	}
 
@@ -34,16 +32,16 @@ public class Order{
 	}
 
 	private void calculateShownOrder(List<FamilyMember> councilPalaceOrder){
-		List<PlayerColor> newOrder = new ArrayList<>(shown);
+		List<Player> newOrder = new ArrayList<>(shown);
 		for(int i = 0; i < councilPalaceOrder.size(); i++){
-			newOrder.add(i, councilPalaceOrder.get(i).getPlayerColor());
+			newOrder.add(i, councilPalaceOrder.get(i).getPlayer());
 		}
 		removeBottomDuplicates(newOrder);
 		this.shown = newOrder;
 	}
 
 	private void calculateRealOrder(){
-		List<PlayerColor> real = new ArrayList<>();
+		List<Player> real = new ArrayList<>();
 		int familyMemberNumber = 4;
 		for(int familyMember = 0; familyMember < familyMemberNumber; familyMember++){
 			for(int player = 0; player < shown.size(); player++){
@@ -54,11 +52,12 @@ public class Order{
 	}
 
 
-	private void removeBottomDuplicates(List<PlayerColor> list){
+	private void removeBottomDuplicates(List<Player> list){
 		for(int i = 0; i < list.size() - 1; i++){
 			for(int j = i + 1; j < list.size(); j++){
-				if(list.get(i).equals(list.get(j)))
+				if(list.get(i).sameColor(list.get(j))){
 					list.remove(j);
+				}
 			}
 		}
 	}
@@ -67,7 +66,7 @@ public class Order{
 		return shown.indexOf(playerColor);
 	}
 
-	public PlayerColor getCurrent() {
+	public Player getCurrent() {
 		return real.get(current);
 	}
 

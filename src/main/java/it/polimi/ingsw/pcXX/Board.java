@@ -18,7 +18,7 @@ public class Board {
     private final VaticanReportSpot vaticanReportSpot;
     private final List<Dice> dices;
 
-    public Board(int playerNumber){
+    public Board(List<Player> players){
         this.harvestArea = new ArrayList<>();
         this.productionArea = new ArrayList<>();
         this.market = new ArrayList<>();
@@ -27,10 +27,10 @@ public class Board {
         this.characterTower = new Tower(CardType.CHARACTER);
         this.ventureTower = new Tower(CardType.VENTURE);
         this.councilPalace = new CouncilPalace();
-        this.order = new Order(playerNumber);
+        this.order = new Order(players);
         this.vaticanReportSpot = new VaticanReportSpot();
         this.dices = new ArrayList<>();
-        initialize(playerNumber);
+        initialize(players.size());
     }
 
     private void initialize(int playerNumber){
@@ -42,15 +42,15 @@ public class Board {
     }
 
     private void initializeHarvestArea(int playerNumber){
-        harvestArea.add(new HarvestArea(true, false, 0));
+        harvestArea.add(new HarvestArea(true, false, 0, this));
         if(playerNumber >= 3)
-            harvestArea.add(new HarvestArea(true, true, -3));
+            harvestArea.add(new HarvestArea(true, true, -3, this));
     }
 
     private void initializeProductionArea(int playerNumber){
-        productionArea.add(new ProductionArea(true, false, 0));
+        productionArea.add(new ProductionArea(true, false, 0, this));
         if(playerNumber >= 3)
-            productionArea.add(new ProductionArea(true, true, -3));
+            productionArea.add(new ProductionArea(true, true, -3, this));
     }
 
     private void initializeMarket(int playerNumber){

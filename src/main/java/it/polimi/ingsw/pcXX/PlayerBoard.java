@@ -2,6 +2,7 @@ package it.polimi.ingsw.pcXX;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by trill on 23/05/2017.
@@ -12,6 +13,9 @@ public class PlayerBoard {
     private final Resource wood;
     private final Resource stone;
     private final Resource servant;
+    private final Point militaryPoint;
+    private final Point faltihPoint;
+    private final Point victoryPoint;
     private final List<FamilyMember> familyMembers;
     private final PersonalBonusTile personalBonusTile;
     private final List<LeaderCard> leaderCards;
@@ -22,14 +26,17 @@ public class PlayerBoard {
     private final Modifier modifier;
 
 
-    public PlayerBoard(PlayerColor color, int playerOrder, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
-        this.color = color;
+    public PlayerBoard(Player player, int playerOrder, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
+        this.color = player.getColor();
         this.coin = new Resource(ResourceType.COIN, 5);
         this.wood = new Resource(ResourceType.WOOD, 2);
         this.stone = new Resource(ResourceType.STONE, 2);
         this.servant = new Resource(ResourceType.SERVANT, 3);
         initializeResources(playerOrder);
-        this.familyMembers = initializeFamilyMembers(color);
+        this.militaryPoint = new Point(PointType.MILITARY_POINT, 0);
+        this.faltihPoint = new Point(PointType.FAITH_POINT, 0);
+        this.victoryPoint = new Point(PointType.VICTORY_POINT, 0);
+        this.familyMembers = initializeFamilyMembers(player);
         this.personalBonusTile = personalBonusTile;
         this.leaderCards = leaderCards;
         this.territorySpot = new TerritorySpot();
@@ -52,12 +59,76 @@ public class PlayerBoard {
             coin.setQuantity(9);
     }
 
-    private List<FamilyMember> initializeFamilyMembers(PlayerColor color){
+    private List<FamilyMember> initializeFamilyMembers(Player player){
         List<FamilyMember> familyMember = new ArrayList<>();
-        familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.WHITE));
-        familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.ORANGE));
-        familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.BLACK));
-        familyMember.add(new FamilyMember(false, 0, false, color, FamilyColor.NEUTRAL));
+        familyMember.add(new FamilyMember(false, 0, false, player, FamilyColor.WHITE));
+        familyMember.add(new FamilyMember(false, 0, false, player, FamilyColor.ORANGE));
+        familyMember.add(new FamilyMember(false, 0, false, player, FamilyColor.BLACK));
+        familyMember.add(new FamilyMember(false, 0, false, player, FamilyColor.NEUTRAL));
         return familyMember;
+    }
+
+    public void give(Set<Reward> rewards){
+        for(Reward r : rewards){
+            if(r instanceof Resource){
+                giveResource((Resource) r);
+            }
+            else if(r instanceof Point){
+                givePoint((Point) r);
+            }
+            else if(r instanceof CouncilPrivilege){
+                giveCouncilPrivilege((CouncilPrivilege) r);
+            }
+        }
+    }
+
+    private void giveResource(Resource resource){
+        switch(resource.getType()){
+            case WOOD:
+                wood.addQuantity(resource.getQuantity());
+                break;
+            case STONE:
+                stone.addQuantity(resource.getQuantity());
+                break;
+            case SERVANT:
+                servant.addQuantity(resource.getQuantity());
+                break;
+            case COIN:
+                coin.addQuantity(resource.getQuantity());
+                break;
+        }
+    }
+
+    private void givePoint(Point point){
+        switch(point.getType()){
+            case MILITARY_POINT:
+                militaryPoint.addQuantity(point.getQuantity());
+                break;
+            case FAITH_POINT:
+                faltihPoint.addQuantity(point.getQuantity());
+                break;
+            case VICTORY_POINT:
+                victoryPoint.addQuantity(point.getQuantity());
+                break;
+        }
+    }
+
+    private void giveCouncilPrivilege(CouncilPrivilege councilPrivilege){
+        // TODO
+    }
+
+    public boolean harvest(int value){
+        for(DevelopmentCard dC : territorySpot.getCards()){
+            TerritoryCard tc = (TerritoryCard) dC;
+            if(value >= tc.getDiceHarvestAction()){
+                give(tc.getEarnings());
+            }
+        }
+        return true;
+    }
+
+    public boolean produce(int value){
+        // TODO
+        return false;
     }
 }

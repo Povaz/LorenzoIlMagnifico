@@ -9,4 +9,18 @@ public class Market extends ActionSpot{
 		super(active, unrestricted, diceValue);
 		this.rewards = rewards;
 	}
+
+	@Override
+	public boolean isPlaceable(FamilyMember familyMember){
+		return super.isPlaceable(familyMember);
+	}
+
+	@Override
+	public boolean place(FamilyMember familyMember){
+		if(super.place(familyMember)) {
+			familyMember.getPlayer().getPlayerBoard().give(rewards);
+			return true;
+		}
+		return false;
+	}
 }

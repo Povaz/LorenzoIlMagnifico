@@ -16,4 +16,18 @@ public class CouncilPalace extends ActionSpot{
 	public Set<Reward> getRewards() {
 		return rewards;
 	}
+
+	@Override
+	public boolean isPlaceable(FamilyMember familyMember){
+		return super.isPlaceable(familyMember);
+	}
+
+	@Override
+	public boolean place(FamilyMember familyMember){
+		if(super.place(familyMember)) {
+			familyMember.getPlayer().getPlayerBoard().give(rewards);
+			return true;
+		}
+		return false;
+	}
 }

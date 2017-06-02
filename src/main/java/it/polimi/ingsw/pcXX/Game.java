@@ -5,6 +5,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class Game{
         this.period = 1;
         this.usernames = usernames;
         this.playerNumber = usernames.size();
-        this.board = new Board(playerNumber);
+        this.board = new Board(null/*players*/);    //TODO inizializza (per inizializzare board c'è bisogno di player e viceversa)
         this.players = initializePlayers();
     }
 
@@ -88,13 +89,14 @@ public class Game{
     }
 
     public void playTurn(){
+        FamilyMember familyMember = new FamilyMember(false, 3, false);
+        ActionSpot actionSpot = new Market(true, true, 1, null);
         do{
-            //board.getOrder().getCurrent().placeFamilyMember(familyMember, actionSpot);
+            board.getOrder().getCurrent().placeFamilyMember(familyMember, actionSpot);
         } while(board.getOrder().nextOrder());
     }
 
     public void endTurn(){
-        // TODO guarda classe Order
         calculateNewOrder();
         reinitializeBoard();
     }
