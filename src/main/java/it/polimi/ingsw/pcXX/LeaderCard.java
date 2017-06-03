@@ -13,9 +13,9 @@ public abstract class LeaderCard {
     private final Map<CardType, Integer> activationCardTypeRequirement;
 
 
-    public LeaderCard (String name, boolean inHand, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement) {
+    public LeaderCard (String name, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement) {
         this.name = name;
-        this.inHand = inHand;
+        this.inHand = true;
         this.activationRewardRequirement = activationRewardRequirement;
         this.activationCardTypeRequirement = activationCardTypeRequirement;
     }

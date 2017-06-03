@@ -19,12 +19,12 @@ public class PermanentLeaderCard extends LeaderCard {
     private final boolean notPayTollBusyTower;
     private final boolean copyOtherCard;
 
-    public PermanentLeaderCard (String name, boolean inHand, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
+    public PermanentLeaderCard (String name, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
                                 int neutralFamilyMemberModifier, int coloredFamilyMemberModifier, boolean doubleFastRewardDevelopmentCard,
                                 boolean placeInBusyActionSpot, Set<Reward> bonusRewardChurchSupport, boolean permanentDice,
                                 int permanentDiceValue, Set<Reward> costDiscountDevelopmentCard, boolean notSatisfyMilitaryPointForTerritory,
                                 boolean notPayTollBusyTower, boolean copyOtherCard) {
-        super (name, inHand, activationRewardRequirement, activationCardTypeRequirement);
+        super (name, activationRewardRequirement, activationCardTypeRequirement);
         this.neutralFamilyMemberModifier = neutralFamilyMemberModifier;
         this.coloredFamilyMemberModifier = coloredFamilyMemberModifier;
         this.doubleFastRewardDevelopmentCard = doubleFastRewardDevelopmentCard;
