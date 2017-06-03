@@ -11,335 +11,146 @@
       "placeInBusyActionSpot": true
     },
     {
-      "name": "string",
+      "name": "Sigismondo Malatesta",
+      "activationResourceCost": [
+        {
+          "type": "MILITARY_POINT",
+          "quantity": 7
+        },
+        {
+          "type": "FAITH_POINT",
+          "quantity": 3
+        }
+      ],
+      "neutralFamilyMemberModifier": 3
+    },
+    {
+      "name": "Filippo Brunelleschi",
+      "activationCardCost": [
+        {
+          "type": "BUILDING",
+          "quantity": 5
+        }
+      ],
+      "notPayTollBusyTower": true
+    },
+    {
+      "name": "Ludovico il Moro",
+      "activationCardCost": [
+        {
+          "type": "TERRITORY",
+          "quantity": 2
+        },
+        {
+          "type": "CHARACTER",
+          "quantity": 2
+        },
+        {
+          "type": "BUILDING",
+          "quantity": 2
+        },
+        {
+          "type": "VENTURE",
+          "quantity": 2
+        }
+      ],
+      "permanentDice": true,
+      "permanentDiceValue": 5
+    },
+    {
+      "name": "Lucrezia Borgia",
+      "activationCardCost": [
+        {
+          "type": "ANY",
+          "quantity": 6
+        }
+      ],
+      "coloredFamilyMemberModifier": 2
+    },
+    {
+      "name": "Lorenzo de' Medici",
+      "activationResourceCost": [
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 35
+        }
+      ],
+      "copyOtherCard": true
+    },
+    {
+      "name": "Sisto IV",
       "number": 0,
       "activationResourceCost": [
         {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "activationCardCost": [
+          "type": "WOOD",
+          "quantity": 6
+        },
         {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "neutralFamilyMemberModifier": 0,
-      "coloredFamilyMemberModifier": 0,
-      "doubleFastRewardDevelopmentCard": false,
-      "placeInBusyActionSpot": false,
-      "permanentDice": false,
-      "permanentDiceValue": 0,
-      "notSatisfyMilitaryPointForTerritory": false,
-      "notPayTollBusyTower": false,
-      "copyOtherCard": false,
-      "costDiscountDevelopmentCard": [
+          "type": "STONE",
+          "quantity": 6
+        },
         {
-          "type": "string",
-          "quantity": 0
+          "type": "COIN",
+          "quantity": 6
+        },
+        {
+          "type": "SERVANT",
+          "quantity": 6
         }
       ],
       "bonusRewardChurchSupport": [
         {
-          "type": "string",
-          "quantity": 0
+          "type": "VICTORY_POINT",
+          "quantity": 5
         }
       ]
     },
     {
-      "name": "string",
-      "number": 0,
+      "name": "Cesare Borgia",
       "activationResourceCost": [
         {
-          "type": "string",
-          "quantity": 0
+          "type": "COIN",
+          "quantity": 12
+        },
+        {
+          "type": "FAITH_POINT",
+          "quantity": 2
         }
       ],
       "activationCardCost": [
         {
-          "type": "string",
-          "quantity": 0
+          "type": "BUILDING",
+          "quantity": 3
         }
       ],
-      "neutralFamilyMemberModifier": 0,
-      "coloredFamilyMemberModifier": 0,
-      "doubleFastRewardDevelopmentCard": false,
-      "placeInBusyActionSpot": false,
-      "permanentDice": false,
-      "permanentDiceValue": 0,
-      "notSatisfyMilitaryPointForTerritory": false,
-      "notPayTollBusyTower": false,
-      "copyOtherCard": false,
-      "costDiscountDevelopmentCard": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "bonusRewardChurchSupport": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ]
+      "notSatisfyMilitaryPointForTerritory": true
     },
     {
-      "name": "string",
-      "number": 0,
+      "name": "Santa Rita",
       "activationResourceCost": [
         {
-          "type": "string",
-          "quantity": 0
+          "type": "FAITH_POINT",
+          "quantity": 8
         }
       ],
-      "activationCardCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "neutralFamilyMemberModifier": 0,
-      "coloredFamilyMemberModifier": 0,
-      "doubleFastRewardDevelopmentCard": false,
-      "placeInBusyActionSpot": false,
-      "permanentDice": false,
-      "permanentDiceValue": 0,
-      "notSatisfyMilitaryPointForTerritory": false,
-      "notPayTollBusyTower": false,
-      "copyOtherCard": false,
-      "costDiscountDevelopmentCard": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "bonusRewardChurchSupport": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ]
+      "doubleFastRewardDevelopmentCard": true
     },
     {
-      "name": "string",
-      "number": 0,
-      "activationResourceCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
+      "name": "Pico della Mirandola",
       "activationCardCost": [
         {
-          "type": "string",
-          "quantity": 0
+          "type": "BUILDING",
+          "quantity": 2
+        },
+        {
+          "type": "VENTURE",
+          "quantity": 4
         }
       ],
-      "neutralFamilyMemberModifier": 0,
-      "coloredFamilyMemberModifier": 0,
-      "doubleFastRewardDevelopmentCard": false,
-      "placeInBusyActionSpot": false,
-      "permanentDice": false,
-      "permanentDiceValue": 0,
-      "notSatisfyMilitaryPointForTerritory": false,
-      "notPayTollBusyTower": false,
-      "copyOtherCard": false,
       "costDiscountDevelopmentCard": [
         {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "bonusRewardChurchSupport": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ]
-    },
-    {
-      "name": "string",
-      "number": 0,
-      "activationResourceCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "activationCardCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "neutralFamilyMemberModifier": 0,
-      "coloredFamilyMemberModifier": 0,
-      "doubleFastRewardDevelopmentCard": false,
-      "placeInBusyActionSpot": false,
-      "permanentDice": false,
-      "permanentDiceValue": 0,
-      "notSatisfyMilitaryPointForTerritory": false,
-      "notPayTollBusyTower": false,
-      "copyOtherCard": false,
-      "costDiscountDevelopmentCard": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "bonusRewardChurchSupport": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ]
-    },
-    {
-      "name": "string",
-      "number": 0,
-      "activationResourceCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "activationCardCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "neutralFamilyMemberModifier": 0,
-      "coloredFamilyMemberModifier": 0,
-      "doubleFastRewardDevelopmentCard": false,
-      "placeInBusyActionSpot": false,
-      "permanentDice": false,
-      "permanentDiceValue": 0,
-      "notSatisfyMilitaryPointForTerritory": false,
-      "notPayTollBusyTower": false,
-      "copyOtherCard": false,
-      "costDiscountDevelopmentCard": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "bonusRewardChurchSupport": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ]
-    },
-    {
-      "name": "string",
-      "number": 0,
-      "activationResourceCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "activationCardCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "neutralFamilyMemberModifier": 0,
-      "coloredFamilyMemberModifier": 0,
-      "doubleFastRewardDevelopmentCard": false,
-      "placeInBusyActionSpot": false,
-      "permanentDice": false,
-      "permanentDiceValue": 0,
-      "notSatisfyMilitaryPointForTerritory": false,
-      "notPayTollBusyTower": false,
-      "copyOtherCard": false,
-      "costDiscountDevelopmentCard": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "bonusRewardChurchSupport": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ]
-    },
-    {
-      "name": "string",
-      "number": 0,
-      "activationResourceCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "activationCardCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "neutralFamilyMemberModifier": 0,
-      "coloredFamilyMemberModifier": 0,
-      "doubleFastRewardDevelopmentCard": false,
-      "placeInBusyActionSpot": false,
-      "permanentDice": false,
-      "permanentDiceValue": 0,
-      "notSatisfyMilitaryPointForTerritory": false,
-      "notPayTollBusyTower": false,
-      "copyOtherCard": false,
-      "costDiscountDevelopmentCard": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "bonusRewardChurchSupport": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ]
-    },
-    {
-      "name": "string",
-      "number": 0,
-      "activationResourceCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "activationCardCost": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "neutralFamilyMemberModifier": 0,
-      "coloredFamilyMemberModifier": 0,
-      "doubleFastRewardDevelopmentCard": false,
-      "placeInBusyActionSpot": false,
-      "permanentDice": false,
-      "permanentDiceValue": 0,
-      "notSatisfyMilitaryPointForTerritory": false,
-      "notPayTollBusyTower": false,
-      "copyOtherCard": false,
-      "costDiscountDevelopmentCard": [
-        {
-          "type": "string",
-          "quantity": 0
-        }
-      ],
-      "bonusRewardChurchSupport": [
-        {
-          "type": "string",
-          "quantity": 0
+          "type": "COIN",
+          "quantity": 3
         }
       ]
     }
