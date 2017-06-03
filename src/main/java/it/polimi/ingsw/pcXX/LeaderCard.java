@@ -37,6 +37,15 @@ public abstract class LeaderCard {
     }
 
     @Override
+    public int hashCode() {
+        int result = name.hashCode();
+        result = 31 * result + (inHand ? 1 : 0);
+        result = 31 * result + (activationRewardRequirement != null ? activationRewardRequirement.hashCode() : 0);
+        result = 31 * result + (activationCardTypeRequirement != null ? activationCardTypeRequirement.hashCode() : 0);
+        return result;
+    }
+
+    @Override
     public String toString () {
         String leaderCardString = "";
 
@@ -57,6 +66,20 @@ public abstract class LeaderCard {
             }
         }
         return leaderCardString;
+    }
+
+    @Override
+    public boolean equals (Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+
+        LeaderCard that = (LeaderCard) o;
+
+        if (name != that.name) return false;
+        if (inHand != that.inHand) return false;
+        if (activationRewardRequirement != null ? !activationRewardRequirement.equals(that.activationRewardRequirement) : that.activationRewardRequirement != null) return false;
+        return activationCardTypeRequirement != null ? !activationCardTypeRequirement.equals(that.activationCardTypeRequirement) : that.activationCardTypeRequirement != null;
     }
 }
 
