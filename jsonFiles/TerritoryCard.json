@@ -3,7 +3,7 @@
 		{
 			"period": [
 				{
-					"name": "Avamposto Commerciale",
+					"name": "Commercial Hub",
 					"diceHarvestAction": 1,
 					"earnings": [
 						{
@@ -13,7 +13,7 @@
 					]
 				},
 				{
-					"name": "Bosco",
+					"name": "Woods",
 					"fastRewards": [
 						{
 							"type": "WOOD",
@@ -29,7 +29,7 @@
 					]
 				},
 				{
-					"name": "Borgo",
+					"name": "Village",
 					"diceHarvestAction": 3,
 					"earnings": [
 						{
@@ -43,7 +43,7 @@
 					]
 				},
 				{
-					"name": "Cava di Ghiaia",
+					"name": "Gravel Pit",
 					"fastRewards": [
 						{
 							"type": "STONE",
@@ -59,7 +59,7 @@
 					]
 				},
 				{
-					"name": "Foresta",
+					"name": "Forest",
 					"fastRewards": [
 						{
 							"type": "WOOD",
@@ -75,7 +75,7 @@
 					]
 				},
 				{
-					"name": "Monastero",
+					"name": "Monastery",
 					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
@@ -99,7 +99,7 @@
 					]
 				},
 				{
-					"name": "Rocca",
+					"name": "Citadel",
 					"diceHarvestAction": 5,
 					"earnings": [
 						{
@@ -113,7 +113,7 @@
 					]
 				},
 				{
-					"name": "Città",
+					"name": "City",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -133,7 +133,7 @@
 		{
 			"period": [
 				{
-					"name": "Miniera d'Oro",
+					"name": "Gold Mine",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -149,7 +149,7 @@
 					]
 				},
 				{
-					"name": "Villaggio Montano",
+					"name": "Mountain Town",
 					"fastRewards": [
 						{
 							"type": "SERVANT",
@@ -169,7 +169,7 @@
 					]
 				},
 				{
-					"name": "Villaggio Minerario",
+					"name": "Minig Town",
 					"fastRewards": [
 						{
 							"type": "SERVANT",
@@ -193,7 +193,7 @@
 					]
 				},
 				{
-					"name": "Cava di Pietra",
+					"name": "Rock Pit",
 					"fastRewards": [
 						{
 							"type": "WOOD",
@@ -209,7 +209,7 @@
 					]
 				},
 				{
-					"name": "Possedimento",
+					"name": "Estate",
 					"fastRewards": [
 						{
 							"type": "SERVANT",
@@ -233,7 +233,7 @@
 					]
 				},
 				{
-					"name": "Eremo",
+					"name": "Hermitage",
 					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
@@ -249,7 +249,7 @@
 					]
 				},
 				{
-					"name": "Maniero",
+					"name": "Manor House",
 					"diceHarvestAction": 5,
 					"earnings": [
 						{
@@ -263,7 +263,7 @@
 					]
 				},
 				{
-					"name": "Ducato",
+					"name": "Dukedom",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -291,7 +291,7 @@
 		{
 			"period": [
 				{
-					"name": "Città Mercantile",
+					"name": "Trading Town",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -311,7 +311,7 @@
 					]
 				},
 				{
-					"name": "Tenuta",
+					"name": "Farm",
 					"fastRewards": [
 						{
 							"type": "WOOD",
@@ -335,7 +335,7 @@
 					]
 				},
 				{
-					"name": "Colonia",
+					"name": "Colony",
 					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
@@ -355,7 +355,7 @@
 					]
 				},
 				{
-					"name": "Cava di Marmo",
+					"name": "Marble Pit",
 					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
@@ -375,7 +375,7 @@
 					]
 				},
 				{
-					"name": "Provincia",
+					"name": "Province",
 					"fastRewards": [
 						{
 							"type": "COUNCIL_PRIVILEGE",
@@ -399,7 +399,7 @@
 					]
 				},
 				{
-					"name": "Santuario",
+					"name": "Sanctuary",
 					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
@@ -419,7 +419,7 @@
 					]
 				},
 				{
-					"name": "Castello",
+					"name": "Castle",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -443,7 +443,7 @@
 					]
 				},
 				{
-					"name": "Città Fortificata",
+					"name": "Fortified Town",
 					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",

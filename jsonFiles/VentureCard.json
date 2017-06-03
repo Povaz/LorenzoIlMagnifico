@@ -3,7 +3,7 @@
 		{
 			"period": [
 				{
-					"name": "Ingaggiare Reclute",
+					"name": "Hiring Recruits",
 					"costs": [
 						{
 							"type": "COIN",
@@ -19,7 +19,7 @@
 					"victoryPointEarned": 4
 				},
 				{
-					"name": "Riparare la Chiesa",
+					"name": "Repairing the Church",
 					"costs": [
 						{
 							"type": "COIN",
@@ -43,7 +43,7 @@
 					"victoryPointEarned": 5
 				},
 				{
-					"name": "Costruire le Mura",
+					"name": "Buildings the Walls",
 					"costs": [
 						{
 							"type": "STONE",
@@ -63,7 +63,7 @@
 					"victoryPointEarned": 3
 				},
 				{
-					"name": "Innalzare una Statua",
+					"name": "Raising a Statue",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -83,7 +83,7 @@
 					"victoryPointEarned": 4
 				},
 				{
-					"name": "Campagna Militare",
+					"name": "Military Campaign",
 					"militaryPointPrice": 2,
 					"militaryPointNeeded": 3,
 					"fastRewards": [
@@ -95,7 +95,7 @@
 					"victoryPointEarned": 5
 				},
 				{
-					"name": "Ospitare i Mendicanti",
+					"name": "Hosting Panhandlers",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -111,7 +111,7 @@
 					"victoryPointEarned": 4
 				},
 				{
-					"name": "Combattere le Eresie",
+					"name": "Fighting Heresies",
 					"militaryPointPrice": 3,
 					"militaryPointNeeded": 5,
 					"fastRewards": [
@@ -123,7 +123,7 @@
 					"victoryPointEarned": 5
 				},
 				{
-					"name": "Sostegno al Vescovo",
+					"name": "Support to the Bishop",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -153,7 +153,7 @@
 		{
 			"period": [
 				{
-					"name": "Ingaggiare Soldati",
+					"name": "Hiring Soldiers",
 					"costs": [
 						{
 							"type": "COIN",
@@ -169,7 +169,7 @@
 					"victoryPointEarned": 5
 				},
 				{
-					"name": "Riparare l'Abbazia",
+					"name": "Repairing the Abbey",
 					"costs": [
 						{
 							"type": "COIN",
@@ -193,7 +193,7 @@
 					"victoryPointEarned": 6
 				},
 				{
-					"name": "Costruire i Bastioni",
+					"name": "Building the Bastions",
 					"costs": [
 						{
 							"type": "STONE",
@@ -213,7 +213,7 @@
 					"victoryPointEarned": 2
 				},
 				{
-					"name": "Supporto al Re",
+					"name": "Support to the King",
 					"militaryPointPrice": 3,
 					"militaryPointNeeded": 6,
 					"fastRewards": [
@@ -229,7 +229,7 @@
 					"victoryPointEarned": 3
 				},
 				{
-					"name": "Scavare Canalizzazioni",
+					"name": "Improving the Canals",
 					"costs": [
 						{
 							"type": "SERVANT",
@@ -249,7 +249,7 @@
 					]
 				},
 				{
-					"name": "Accogliere gli Stranieri",
+					"name": "Hosting Foreigners",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -265,7 +265,7 @@
 					"victoryPointEarned": 4
 				},
 				{
-					"name": "Crociata",
+					"name": "Crusade",
 					"militaryPointPrice": 4,
 					"militaryPointNeeded": 8,
 					"fastRewards": [
@@ -281,7 +281,7 @@
 					"victoryPointEarned": 5
 				},
 				{
-					"name": "Sostegno al Cardinale",
+					"name": "Support to the Cardinal",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -311,7 +311,7 @@
 		{
 			"period": [
 				{
-					"name": "Ingaggiare Mercenari",
+					"name": "Hiring Mercenaries",
 					"costs": [
 						{
 							"type": "COIN",
@@ -327,7 +327,7 @@
 					"victoryPointEarned": 6
 				},
 				{
-					"name": "Riparare la Cattedrale",
+					"name": "Repairing the Cathedral",
 					"costs": [
 						{
 							"type": "COIN",
@@ -357,7 +357,7 @@
 					]
 				},
 				{
-					"name": "Costruire le Torri",
+					"name": "Building the Towers",
 					"costs": [
 						{
 							"type": "STONE",
@@ -377,7 +377,7 @@
 					"victoryPointEarned": 4
 				},
 				{
-					"name": "Commissionare Arte Sacra",
+					"name": "Promoting Sacred Art",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -393,7 +393,7 @@
 					"victoryPointEarned": 3
 				},
 				{
-					"name": "Conquista Militare",
+					"name": "Military Conquest",
 					"militaryPointPrice": 6,
 					"militaryPointNeeded": 12,
 					"fastRewards": [
@@ -413,7 +413,7 @@
 					"victoryPointEarned": 7
 				},
 				{
-					"name": "Migliorare le Strade",
+					"name": "Improving the Roads",
 					"costs": [
 						{
 							"type": "SERVANT",
@@ -433,7 +433,7 @@
 					]
 				},
 				{
-					"name": "Guerra Santa",
+					"name": "Sacred War",
 					"militaryPointPrice": 8,
 					"militaryPointNeeded": 15,
 					"fastRewards": [
@@ -445,7 +445,7 @@
 					"victoryPointEarned": 8
 				},
 				{
-					"name": "Sostegno al Papa",
+					"name": "Support to the Pope",
 					"costs": [
 						{
 							"type": "WOOD",
