@@ -24,8 +24,8 @@ public class CouncilPalace extends ActionSpot{
 
 	@Override
 	public boolean place(FamilyMember familyMember){
-		if(super.place(familyMember)) {
-			familyMember.getPlayer().getPlayerBoard().give(rewards);
+		if(super.place(familyMember)){
+			familyMember.getPlayer().getPlayerBoard().getCounter().add(rewards);
 			return true;
 		}
 		return false;
