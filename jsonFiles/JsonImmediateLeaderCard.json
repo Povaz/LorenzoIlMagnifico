@@ -1,37 +1,176 @@
 {
-	"name": "string",
-	"number": 0,
-	"activationResourceCost": [
+	"ImmediateLeaderCard" : [
 		{
-			"type": "string",
-			"quantity": 0
-		}
-	],
-	"activationCardCost": [
-		{
-			"type": "string",
-			"quantity": 0
-		}
-	],
-	"reward": [
-		{
-			"type": "string",
-			"quantity": 0
-		}
-	],
-	"changeColoredFamilyMemberValue": false,
-	"newValueColoredFamilyMember": 0,
-	"actions": [
-		{
-			"actionType": "string",
-			"discount": [
+			"name": "Francesco Sforza",
+			"activationCardCost": [
 				{
-					"resource": [
-						{
-							"type": "string",
-							"quantity": 0
-						}
-					]
+					"type": "VENTURE",
+					"quantity": 5
+				}
+			],
+			"actions": [
+				{
+					"actionType": "HARVEST",
+					"value" : 1
+				}
+			]
+		},
+		{
+			"name": "Girolamo Savonarola",
+			"activationResourceCost": [
+				{
+					"type": "COIN",
+					"quantity": 18
+				}
+			],
+			"reward": [
+				{
+					"type": "FAITH_POINT",
+					"quantity": 1
+				}
+			]
+		},
+		{
+			"name": "Michelangelo Buonarroti",
+			"activationResourceCost": [
+				{
+					"type": "STONE",
+					"quantity": 10
+				}
+			],
+			"reward": [
+				{
+					"type": "COIN",
+					"quantity": 3
+				}
+			]
+		},
+		{
+			"name": "Giovanni dalle Bande Nere",
+			"activationResourceCost": [
+				{
+					"type": "MILITARY_POINT",
+					"quantity": 12
+				}
+			],
+			"reward": [
+				{
+					"type": "WOOD",
+					"quantity": 1
+				},
+				{
+					"type": "STONE",
+					"quantity": 1
+				},
+				{
+					"type": "COIN",
+					"quantity": 1
+				}
+			]
+		},
+		{
+			"name": "Leonardo da Vinci",
+			"activationCardCost": [
+				{
+					"type": "CHARACTER",
+					"quantity": 4
+				},
+				{
+					"type": "TERRITORY",
+					"quantity": 2
+				}
+			],
+			"actions": [
+				{
+					"actionType": "PRODUCTION",
+					"value" : 0
+				}
+			]
+		},
+		{
+			"name": "Sandro Botticelli",
+			"activationResourceCost": [
+				{
+					"type": "WOOD",
+					"quantity": 10
+				}
+			],
+			"reward": [
+				{
+					"type": "MILITARY_POINT",
+					"quantity": 2
+				},
+				{
+					"type": "VICTORY_POINT",
+					"quantity": 1
+				}
+			]
+		},
+		{
+			"name": "Federico da Montefeltro",
+			"activationCardCost": [
+				{
+					"type": "TERRITORY",
+					"quantity": 5
+				}
+			],
+			"changeColoredFamilyMemberValue": true,
+			"newValueColoredFamilyMember": 6
+		},
+		{
+			"name": "Cosimo de' Medici",
+			"activationCardCost": [
+				{
+					"type": "BUILDING",
+					"quantity": 4
+				},
+				{
+					"type": "CHARACTER",
+					"quantity": 2
+				}
+			],
+			"reward": [
+				{
+					"type": "SERVANT",
+					"quantity": 3
+				},
+				{
+					"type": "VICTORY_POINT",
+					"quantity": 1
+				}
+			]
+		},
+		{
+			"name": "Bartolomeo Colleoni",
+			"activationCardCost": [
+				{
+					"type": "TERRITORY",
+					"quantity": 4
+				},
+				{
+					"type": "VENTURE",
+					"quantity": 2
+				}
+			],
+			"reward": [
+				{
+					"type": "VICTORY_POINT",
+					"quantity": 4
+				}
+			]
+		},
+		{
+			"name": "Ludovico III Gonzaga",
+			"activationResourceCost": [
+				{
+					"type": "SERVANT",
+					"quantity": 15
+				}
+			],
+			"reward": [
+				{
+					"type": "COUNCIL_PRIVILEGE",
+					"quantity": 1
 				}
 			]
 		}
