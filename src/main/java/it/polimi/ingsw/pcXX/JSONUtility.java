@@ -17,6 +17,7 @@ public class JSONUtility {
 	private static String characterCardPath = "jsonFiles/CharacterCard.json";
 	private static String ventureCardPath = "jsonFiles/VentureCard.json";
 	private static String userPath = "jsonFiles/User.json";
+	private static String vaticanReportCardPath = "jsonFiles/VaticanReportCard.json";
 
 	/*public static void main(String[] args) {
 		try {
@@ -403,6 +404,25 @@ public class JSONUtility {
 			return null;
 		}
 	}
+	
+	//Codice Di Lacieoz
+	private static VaticanReportCard getVaticanReportCard(int period, int number) throws JSONException, IOException {
+		JSONObject card = fromPathToJSONObject(vaticanReportCardPath);
+		card = getPeriodAndNumberCard(period, number, card);
+		String attribute = getAttribute(card);
+		int value = getValue(card);
+		
+		return new VaticanReportCard(number, period, attribute, value);
+	}
+	
+	private static String getAttribute (JSONObject card) throws JSONException {
+		return card.getString("attribute");
+	}
+	
+	private static int getValue (JSONObject card) throws JSONException {
+		return card.getInt("value");
+	}
+	//Fine Codice Di Lacieoz
 	
 	private static JSONObject fromPathToJSONObject(String path) throws IOException, JSONException{
 		return new JSONObject(readFileToString(new File(path)));

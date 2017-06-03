@@ -1,112 +1,101 @@
 {
-	"VaticanReportCard": [
+	"cards": [
 		{
-			"number": 1,
-			"period": 1,
-			"militaryPointModifier": 1
+			"period": [
+				{
+					"attribute": "militaryPointModifier",
+					"value": 1
+				},
+				{
+					"attribute": "coinModifier",
+					"value": 1
+				},
+				{
+					"attribute": "servantModifier",
+					"value": 1
+				},
+				{
+					"attribute": "resourceModifier",
+					"value": 1
+				},
+				{
+					"attribute": "harvestModifier",
+					"value": 1
+				},
+				{
+					"attribute": "productionModifier",
+					"value": 1
+				},
+				{
+					"attribute": "coloredFamilyMemberModifier",
+					"value": 1
+				}
+			]
 		},
 		{
-			"number": 2,
-			"period": 1,
-			"coinModifier": 1
+			"period": [
+				{
+					"attribute": "territoryTowerModifier",
+					"value": 4
+				},
+				{
+					"attribute": "buildingTowerModifier",
+					"value": 4
+				},
+				{
+					"attribute": "characterTowerModifier",
+					"value": 4
+				},
+				{
+					"attribute": "ventureTowerModifier",
+					"value": 4
+				},
+				{
+					"attribute": "cannotPlaceInMarket",
+					"value": 0
+				},
+				{
+					"attribute": "servantValueHalved",
+					"value": 0
+				},
+				{
+					"attribute": "jumpFirstRound",
+					"value": 0
+				}
+			]
 		},
 		{
-			"number": 3,
-			"period": 1,
-			"servantModifier": 1
-		},
-		{
-			"number": 4,
-			"period": 1,
-			"woodModifier": 1,
-			"stoneModifier": 1
-		},
-		{
-			"number": 5,
-			"period": 1,
-			"harvestModifier": 3
-		},
-		{
-			"number": 6,
-			"period": 1,
-			"productionModifier": 3
-		},
-		{
-			"number": 7,
-			"period": 1,
-			"coloredFamilyMemberModifier": 1
-		},
-		{
-			"number": 1,
-			"period": 2,
-			"territoryTowerModifier": 4
-		},
-		{
-			"number": 2,
-			"period": 2,
-			"buildingTowerModifier": 4
-		},
-		{
-			"number": 3,
-			"period": 2,
-			"characterTowerModifier": 4
-		},
-		{
-			"number": 4,
-			"period": 2,
-			"ventureTowerModifier": 4
-		},
-		{
-			"number": 5,
-			"period": 2,
-			"cannotPlaceInMarket": true
-		},
-		{
-			"number": 6,
-			"period": 2,
-			"servantValueHalved": true
-		},
-		{
-			"number": 7,
-			"period": 2,
-			"jumpFirstRound": true
-		},
-		{
-			"number": 1,
-			"period": 3,
-			"notEarnVictoryPointFromCharacter": true
-		},
-		{
-			"number": 2,
-			"period": 3,
-			"notEarnVictoryPointFromVenture": true
-		},
-		{
-			"number": 3,
-			"period": 3,
-			"notEarnVictoryPointFromTerritory": true
-		},
-		{
-			"number": 4,
-			"period": 3,
-			"loseVictoryPointFromVictoryPoint": true
-		},
-		{
-			"number": 5,
-			"period": 3,
-			"loseVictoryPointFromMilitaryPoint": true
-		},
-		{
-			"number": 6,
-			"period": 3,
-			"loseVictoryPointFromBuildingCost": true
-		},
-		{
-			"number": 7,
-			"period": 3,
-			"loseVictoryPointFromResource": true
+			"period": [
+				{	
+					"attribute": "notEarnVictoryPointFromCharacter",
+					"value": 0
+				},
+				{
+					"attribute": "notEarnVictoryPointFromVenture",
+					"value": 0
+				},
+				{
+					"attribute": "notEarnVictoryPointFromTerritory",
+					"value": 0
+				},
+				{
+					"attribute": "loseVictoryPointFromVictoryPoint",
+					"value": 0
+				},
+				{
+					"attribute": "loseVictoryPointFromMilitaryPoint",
+					"value": 0
+				},
+				{
+					"attribute": "loseVictoryPointFromBuildingCost",
+					"value": 0
+				},
+				{
+					"attribute": "loseVictoryPointFromResource",
+					"value": 0
+				}
+			]
 		}
-	
 	]
 }
 	
