@@ -48,7 +48,10 @@ public class Point extends Reward{
 		return "" + quantity + " " + type.toString();
 	}
 
-	public void addQuantity(int var){
-		quantity += var;
+	public void addQuantity(Point other){
+		if(type != other.type){
+			throw new IllegalArgumentException();
+		}
+		quantity += other.quantity;
 	}
 }
