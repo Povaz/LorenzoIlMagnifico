@@ -3,7 +3,7 @@
 		{
 			"period": [
 				{
-					"attribute": "militaryPointModifier",
+					"attribute": "militaryPointsModifier",
 					"value": 1
 				},
 				{

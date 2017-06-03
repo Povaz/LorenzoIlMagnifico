@@ -44,7 +44,10 @@ public class Resource extends Reward{
 		return "" + quantity + " " + type.toString();
 	}
 
-	public void addQuantity(int var){
-		quantity += var;
+	public void addQuantity(Resource other){
+		if(type != other.type){
+			throw new IllegalArgumentException();
+		}
+		quantity += other.quantity;
 	}
 }

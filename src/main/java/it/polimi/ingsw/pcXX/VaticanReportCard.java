@@ -28,9 +28,8 @@ public class VaticanReportCard {
 	
 	public VaticanReportCard (int number, int period, String attribute, int value){
 		
-		this.number=number;
-		this.period=period;
-		
+		this.number = number;
+		this.period = period;
 		switch(attribute){
 			case "coloredFamilyMemberModifier":
 				coloredFamilyMemberModifier = value;
@@ -76,5 +75,18 @@ public class VaticanReportCard {
 			case "loseVictoryPointFromResource":
 				loseVictoryPointFromResource = true;
 		}
+		
+	}
+	
+	public int getPeriod(){
+		return period;
+	}
+	
+	public int getNumber(){
+		return number;
+	}
+	
+	public int getMilitaryPointsModifier(){
+		return militaryPointsModifier;
 	}
 }

@@ -17,7 +17,7 @@ public class JSONUtility {
 	private static String characterCardPath = "jsonFiles/CharacterCard.json";
 	private static String ventureCardPath = "jsonFiles/VentureCard.json";
 	private static String userPath = "jsonFiles/User.json";
-	private static String vaticanReportCardPath = "jsonFiles/VaticanReportCard.json";
+	private static String vaticanReportCardPath = "jsonFiles/JsonVaticanReportCard.json";
 
 	/*public static void main(String[] args) {
 		try {
@@ -406,9 +406,9 @@ public class JSONUtility {
 	}
 	
 	//Codice Di Lacieoz
-	private static VaticanReportCard getVaticanReportCard(int period, int number) throws JSONException, IOException {
+	public static VaticanReportCard getVaticanReportCard(int period, int number) throws JSONException, IOException {
 		JSONObject card = fromPathToJSONObject(vaticanReportCardPath);
-		card = getPeriodAndNumberCard(period, number, card);
+		card = getPeriodAndNumberCard(period, number-1, card);
 		String attribute = getAttribute(card);
 		int value = getValue(card);
 		
