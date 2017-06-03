@@ -1,26 +1,112 @@
 {
-	"number": 0,
-	"period": 0,
-	"coloredFamilyMemberModifier": 0,
-	"militaryPointModifier": 0,
-	"coinModifier": 0,
-	"servantModifier": 0,
-	"woodModifier": 0,
-	"stoneModifier": 0,
-	"harvestModifier": 0,
-	"productionModifier": 0,
-	"territoryTowerModifier": 0,
-	"buildingTowerModifier": 0,
-	"characterTowerModifier": 0,
-	"ventureTowerModifier": 0,
-	"cannotPlaceInMarket": false,
-	"servantValueHalved": false,
-	"jumpFirstRound": false,
-	"notEarnVictoryPointFromTerritory": false,
-	"notEarnVictoryPointFromCharacter": false,
-	"notEarnVictoryPointFromVenture": false,
-	"loseVictoryPointFromVictoryPoint": false,
-	"loseVictoryPointFromMilitaryPoint": false,
-	"loseVictoryPointFromBuildingCost": false,
-	"loseVictoryPointFromResource": false
+	"VaticanReportCard": [
+		{
+			"number": 1,
+			"period": 1,
+			"militaryPointModifier": 1
+		},
+		{
+			"number": 2,
+			"period": 1,
+			"coinModifier": 1
+		},
+		{
+			"number": 3,
+			"period": 1,
+			"servantModifier": 1
+		},
+		{
+			"number": 4,
+			"period": 1,
+			"woodModifier": 1,
+			"stoneModifier": 1
+		},
+		{
+			"number": 5,
+			"period": 1,
+			"harvestModifier": 3
+		},
+		{
+			"number": 6,
+			"period": 1,
+			"productionModifier": 3
+		},
+		{
+			"number": 7,
+			"period": 1,
+			"coloredFamilyMemberModifier": 1
+		},
+		{
+			"number": 1,
+			"period": 2,
+			"territoryTowerModifier": 4
+		},
+		{
+			"number": 2,
+			"period": 2,
+			"buildingTowerModifier": 4
+		},
+		{
+			"number": 3,
+			"period": 2,
+			"characterTowerModifier": 4
+		},
+		{
+			"number": 4,
+			"period": 2,
+			"ventureTowerModifier": 4
+		},
+		{
+			"number": 5,
+			"period": 2,
+			"cannotPlaceInMarket": true
+		},
+		{
+			"number": 6,
+			"period": 2,
+			"servantValueHalved": true
+		},
+		{
+			"number": 7,
+			"period": 2,
+			"jumpFirstRound": true
+		},
+		{
+			"number": 1,
+			"period": 3,
+			"notEarnVictoryPointFromCharacter": true
+		},
+		{
+			"number": 2,
+			"period": 3,
+			"notEarnVictoryPointFromVenture": true
+		},
+		{
+			"number": 3,
+			"period": 3,
+			"notEarnVictoryPointFromTerritory": true
+		},
+		{
+			"number": 4,
+			"period": 3,
+			"loseVictoryPointFromVictoryPoint": true
+		},
+		{
+			"number": 5,
+			"period": 3,
+			"loseVictoryPointFromMilitaryPoint": true
+		},
+		{
+			"number": 6,
+			"period": 3,
+			"loseVictoryPointFromBuildingCost": true
+		},
+		{
+			"number": 7,
+			"period": 3,
+			"loseVictoryPointFromResource": true
+		}
+	
+	]
 }
+	
