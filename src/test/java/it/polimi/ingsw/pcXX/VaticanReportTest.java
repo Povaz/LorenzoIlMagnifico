@@ -1,10 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
-import static org.junit.Assert.assertFalse;
-import static org.junit.Assert.assertTrue;
 
 import java.io.IOException;
-import java.util.Arrays;
 
 import org.json.JSONException;
 import org.junit.Test;
@@ -12,14 +9,16 @@ import org.junit.Test;
 public class VaticanReportTest {
 		@Test
 	    public void testVaticanReport() throws JSONException, IOException{
-	        int period = 1;
-			int number = 1;
+	        int period = 3;
+			int number = 2;
 			VaticanReportCard testVatican = JSONUtility.getVaticanReportCard(period, number);
+			int period2 = 3;
+			int number2 = 2;
+			VaticanReportCard testVatican2 = JSONUtility.getVaticanReportCard(period2, number2);
 			
-	        System.out.println(testVatican.getPeriod());
-	        System.out.println(testVatican.getNumber());
-	        System.out.println(testVatican.getMilitaryPointsModifier());
-	        
+	        System.out.println(testVatican.toString());
+	        System.out.println(testVatican2.toString());
+	        System.out.println(testVatican.equals(testVatican2));
 	    }
 }
 

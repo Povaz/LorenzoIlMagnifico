@@ -63,7 +63,7 @@ public class CharacterCard extends DevelopmentCard{
 		if (!super.equals(o)) return false;
 
 		CharacterCard that = (CharacterCard) o;
-
+        
 		if (noBonusTowerResource != that.noBonusTowerResource) return false;
 		if (actions != null ? !actions.equals(that.actions) : that.actions != null) return false;
 		if (discounts != null ? !discounts.equals(that.discounts) : that.discounts != null) return false;
