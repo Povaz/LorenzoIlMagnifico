@@ -356,24 +356,10 @@ public class JSONUtility {
 		return rewardSet;
 	}
 
-	// TODO rifare la funzione
 	private static Reward getReward(JSONObject reward) throws JSONException{
 		int quantity = reward.getInt("quantity");
-		String rewardType = reward.getString("type");
-
-		try{
-			RewardType type = RewardType.valueOf(rewardType);
-			return new Reward(type, quantity);
-		} catch(IllegalArgumentException e1){
-			try{
-				RewardType type = RewardType.valueOf(rewardType);
-				return new Reward(type,quantity);
-			} catch(IllegalArgumentException e2){
-				if(rewardType.equals("COUNCIL_PRIVILEGE"))
-					return new Reward(RewardType.COUNCIL_PRIVILEGE, quantity);
-				throw new JSONException("type");
-			}
-		}
+		String type = reward.getString("type");
+		return new Reward(RewardType.valueOf(type), quantity);
 	}
 
 	private static Integer getIntegerNoException(JSONObject obj, String name){

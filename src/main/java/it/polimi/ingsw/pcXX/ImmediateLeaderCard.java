@@ -7,26 +7,22 @@ import java.util.Set;
  * Created by Povaz on 03/06/2017.
  */
 public class ImmediateLeaderCard extends LeaderCard {
-    private /*final*/ boolean activated;
-    private /*final*/ Set<Reward> reward;
-    private /*final*/ boolean changeColoredFamilyMamberValue;
-    private /*final*/ int newValueColoredFamilyMember;
-    private /*final*/ Set<GhostFamilyMember> actions;
+    private final boolean activated;
+    private final Set<Reward> reward;
+    private final boolean changeColoredFamilyMamberValue;
+    private final int newValueColoredFamilyMember;
+    private final Set<GhostFamilyMember> actions;
 
-    private ImmediateLeaderCard(){
-        super(null, null, null);
-    }
-
-    /*public ImmediateLeaderCard (String name, boolean inHand, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
+    public ImmediateLeaderCard (String name, boolean inHand, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
                                 boolean activated, Set<Reward> reward, boolean changeColoredFamilyMamberValue, int newValueColoredFamilyMember,
                                 Set<GhostFamilyMember> actions) {
-        super(name, inHand, activationRewardRequirement, activationCardTypeRequirement);
+        super(name, activationRewardRequirement, activationCardTypeRequirement);
         this.activated = activated;
         this.reward = reward;
         this.changeColoredFamilyMamberValue = changeColoredFamilyMamberValue;
         this.newValueColoredFamilyMember = newValueColoredFamilyMember;
         this.actions = actions;
-    }*/
+    }
 
     @Override
     public boolean equals (Object o) {

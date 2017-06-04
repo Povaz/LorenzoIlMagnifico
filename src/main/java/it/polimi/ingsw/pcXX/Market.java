@@ -18,7 +18,7 @@ public class Market extends ActionSpot{
 	@Override
 	public boolean place(FamilyMember familyMember){
 		if(super.place(familyMember)) {
-			familyMember.getPlayer().getPlayerBoard().getCounter().add(rewards);
+			familyMember.getPlayer().getPlayerBoard().getCounter().sum(rewards);
 			return true;
 		}
 		return false;

@@ -44,11 +44,22 @@ public class Reward{
         return "" + quantity + " " + type.toString();
     }
 
-    public void addQuantity(Reward other){
+    public void sumQuantity(Reward other){
         if(type != other.type){
             throw new IllegalArgumentException();
         }
         quantity += other.quantity;
+    }
+
+    public void subtractQuantity(Reward other){
+        if(type != other.type){
+            throw new IllegalArgumentException();
+        }
+        quantity -= other.quantity;
+    }
+
+    public void multiplyQuantity(int multiplier){
+        quantity *= multiplier;
     }
 
     /* TODO: fix exchange method!

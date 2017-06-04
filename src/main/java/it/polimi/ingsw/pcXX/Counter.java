@@ -64,43 +64,43 @@ public class Counter{
         for(Reward r : rewards) {
             switch (r.getType()) {
                 case WOOD:
-                    temp.wood.addQuantity(r);
+                    temp.wood.sumQuantity(r);
                     if (temp.wood.getQuantity() < 0) {
                         return false;
                     }
                     break;
                 case STONE:
-                    temp.stone.addQuantity(r);
+                    temp.stone.sumQuantity(r);
                     if (temp.stone.getQuantity() < 0) {
                         return false;
                     }
                     break;
                 case SERVANT:
-                    temp.servant.addQuantity(r);
+                    temp.servant.sumQuantity(r);
                     if (temp.servant.getQuantity() < 0) {
                         return false;
                     }
                     break;
                 case COIN:
-                    temp.coin.addQuantity(r);
+                    temp.coin.sumQuantity(r);
                     if (temp.coin.getQuantity() < 0) {
                         return false;
                     }
                     break;
                 case MILITARY_POINT:
-                    temp.militaryPoint.addQuantity(r);
+                    temp.militaryPoint.sumQuantity(r);
                     if (temp.militaryPoint.getQuantity() < 0) {
                         return false;
                     }
                     break;
                 case FAITH_POINT:
-                    temp.faithPoint.addQuantity(r);
+                    temp.faithPoint.sumQuantity(r);
                     if (temp.faithPoint.getQuantity() < 0) {
                         return false;
                     }
                     break;
                 case VICTORY_POINT:
-                    temp.victoryPoint.addQuantity(r);
+                    temp.victoryPoint.sumQuantity(r);
                     if (temp.victoryPoint.getQuantity() < 0) {
                         return false;
                     }
@@ -110,42 +110,105 @@ public class Counter{
         return true;
     }
 
-    public void add(Set<Reward> rewards){
+    public void sum(Set<Reward> rewards){
         for(Reward r : rewards) {
             switch (r.getType()) {
                 case WOOD:
-                    wood.addQuantity(r);
+                    wood.sumQuantity(r);
                     break;
                 case STONE:
-                    stone.addQuantity(r);
+                    stone.sumQuantity(r);
                     break;
                 case SERVANT:
-                    servant.addQuantity(r);
+                    servant.sumQuantity(r);
                     break;
                 case COIN:
-                    coin.addQuantity(r);
+                    coin.sumQuantity(r);
                     break;
                 case MILITARY_POINT:
-                    militaryPoint.addQuantity(r);
+                    militaryPoint.sumQuantity(r);
                     break;
                 case FAITH_POINT:
-                    faithPoint.addQuantity(r);
+                    faithPoint.sumQuantity(r);
                     break;
                 case VICTORY_POINT:
-                    victoryPoint.addQuantity(r);
+                    victoryPoint.sumQuantity(r);
                     break;
             }
         }
     }
 
-    public void add(Counter other){
-        coin.addQuantity(other.coin);
-        wood.addQuantity(other.wood);
-        stone.addQuantity(other.stone);
-        servant.addQuantity(other.servant);
-        militaryPoint.addQuantity(other.militaryPoint);
-        faithPoint.addQuantity(other.faithPoint);
-        victoryPoint.addQuantity(other.victoryPoint);
+    public void subtract(Set<Reward> rewards){
+        for(Reward r : rewards) {
+            switch (r.getType()) {
+                case WOOD:
+                    wood.subtractQuantity(r);
+                    break;
+                case STONE:
+                    stone.subtractQuantity(r);
+                    break;
+                case SERVANT:
+                    servant.subtractQuantity(r);
+                    break;
+                case COIN:
+                    coin.subtractQuantity(r);
+                    break;
+                case MILITARY_POINT:
+                    militaryPoint.subtractQuantity(r);
+                    break;
+                case FAITH_POINT:
+                    faithPoint.subtractQuantity(r);
+                    break;
+                case VICTORY_POINT:
+                    victoryPoint.subtractQuantity(r);
+                    break;
+            }
+        }
+    }
+
+    public void sum(Counter other){
+        coin.sumQuantity(other.coin);
+        wood.sumQuantity(other.wood);
+        stone.sumQuantity(other.stone);
+        servant.sumQuantity(other.servant);
+        militaryPoint.sumQuantity(other.militaryPoint);
+        faithPoint.sumQuantity(other.faithPoint);
+        victoryPoint.sumQuantity(other.victoryPoint);
+    }
+
+    public void subtract(Counter other){
+        coin.subtractQuantity(other.coin);
+        wood.subtractQuantity(other.wood);
+        stone.subtractQuantity(other.stone);
+        servant.subtractQuantity(other.servant);
+        militaryPoint.subtractQuantity(other.militaryPoint);
+        faithPoint.subtractQuantity(other.faithPoint);
+        victoryPoint.subtractQuantity(other.victoryPoint);
+    }
+
+    public boolean check(){
+        if(coin.getQuantity() < 0){
+            return false;
+        }
+        if(wood.getQuantity() < 0){
+            return false;
+        }
+        if(stone.getQuantity() < 0){
+            return false;
+        }
+        if(servant.getQuantity() < 0){
+            return false;
+        }
+        if(militaryPoint.getQuantity() < 0){
+            return false;
+        }
+        if(faithPoint.getQuantity() < 0){
+            return false;
+        }
+        if(victoryPoint.getQuantity() < 0){
+            return false;
+        }
+        return true;
     }
 
     public Reward giveSameReward(Reward reward){
