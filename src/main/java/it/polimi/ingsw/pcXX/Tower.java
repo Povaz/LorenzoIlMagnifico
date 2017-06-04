@@ -1,40 +1,45 @@
 package it.polimi.ingsw.pcXX;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Tower {
 	private final List<Floor> floors;
 	private boolean occupied;
 	private final CardType type;
+	private final Set<Reward> occupiedTax;
 
 	public Tower(CardType type){
 		this.occupied = false;
 		this.type = type;
 		this.floors = initializeFloors(type);
+		this.occupiedTax = new HashSet<>();
+		occupiedTax.add(new Reward(RewardType.COIN, 3));
 	}
 
 	private List<Floor> initializeFloors(CardType type){
 		List<Floor> floors = new ArrayList<>();
 
-		Reward reward5 = null;
-		Reward reward7 = null;
+		Set<Reward> reward5 = new HashSet<>();
+		Set<Reward> reward7 = new HashSet<>();
 		switch(type){
 			case TERRITORY:
-				reward5 = new Reward(RewardType.WOOD, 1);
-				reward7 = new Reward(RewardType.WOOD, 2);
+				reward5.add(new Reward(RewardType.WOOD, 1));
+				reward7.add(new Reward(RewardType.WOOD, 2));
 				break;
 			case CHARACTER:
-				reward5 = new Reward(RewardType.STONE, 1);
-				reward7 = new Reward(RewardType.STONE, 2);
+				reward5.add(new Reward(RewardType.STONE, 1));
+				reward7.add(new Reward(RewardType.STONE, 2));
 				break;
 			case BUILDING:
-				reward5 = new Reward(RewardType.MILITARY_POINT, 1);
-				reward7 = new Reward(RewardType.MILITARY_POINT, 2);
+				reward5.add(new Reward(RewardType.MILITARY_POINT, 1));
+				reward7.add(new Reward(RewardType.MILITARY_POINT, 2));
 				break;
 			case VENTURE:
-				reward5 = new Reward(RewardType.COIN, 1);
-				reward7 = new Reward(RewardType.COIN, 2);
+				reward5.add(new Reward(RewardType.COIN, 1));
+				reward7.add(new Reward(RewardType.COIN, 2));
 		}
 
 		floors.add(0, new Floor(1, null, this));
@@ -58,6 +63,10 @@ public class Tower {
 
 	public CardType getType() {
 		return type;
+	}
+
+	public Set<Reward> getOccupiedTax() {
+		return occupiedTax;
 	}
 
 	public void reinitialize(){

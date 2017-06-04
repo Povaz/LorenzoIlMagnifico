@@ -260,4 +260,32 @@ public class Counter{
         }
         return null;
     }
+
+    public Reward getCoin() {
+        return coin;
+    }
+
+    public Reward getWood() {
+        return wood;
+    }
+
+    public Reward getStone() {
+        return stone;
+    }
+
+    public Reward getServant() {
+        return servant;
+    }
+
+    public Reward getMilitaryPoint() {
+        return militaryPoint;
+    }
+
+    public Reward getFaithPoint() {
+        return faithPoint;
+    }
+
+    public Reward getVictoryPoint() {
+        return victoryPoint;
+    }
 }

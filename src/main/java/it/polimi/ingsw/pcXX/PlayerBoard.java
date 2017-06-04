@@ -1,9 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
-import java.util.ArrayList;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 /**
  * Created by trill on 23/05/2017.
@@ -79,10 +76,19 @@ public class PlayerBoard {
                     covertRewardForCard(bC.getRewardForCard());
                 }
                 if(bC.getTrades() != null){
-                    for(Trade t : bC.getTrades()){
-                        copyForCosts.subtract(t.getGive());
-                        counterMod.subtract(t.getGive());
-                        counterMod.sum(t.getTake());
+
+                    System.out.println("Seleziona scambio:");
+                    Scanner input = new Scanner(System.in);
+                    int scelta = input.nextInt();
+                    if(scelta != -1){
+                        try {
+                            Trade trade = bC.getTrades().get(scelta);
+                            copyForCosts.subtract(trade.getGive());
+                            counterMod.subtract(trade.getGive());
+                            counterMod.sum(trade.getTake());
+                        } catch (IndexOutOfBoundsException e) {
+                            return false;
+                        }
                     }
                 }
             }
@@ -94,11 +100,42 @@ public class PlayerBoard {
         return true;
     }
 
-    public boolean buyCard(int value){
+    public boolean buyCard(Floor floor){
         /*
         TODO: controlla 3 monete, controlla costo + risorse rapide, compra carta;
          */
+        Counter copyForCosts = new Counter(counter);
+        Counter counterMod = new Counter();
+        if(floor.getTower().isOccupied()){
+            copyForCosts.subtract(floor.getTower().getOccupiedTax());
+        }
+        if(!copyForCosts.check()){
+            return false;
+        }
+        copyForCosts.sum(floor.getRewards());
+        counterMod.sum(floor.getRewards());
 
+        DevelopmentCard developmentCard = floor.getCard();
+        if(developmentCard.getFastRewards() != null){
+            copyForCosts.sum(developmentCard.getFastRewards());
+            counterMod.sum(developmentCard.getFastRewards());
+        }
+
+        if(developmentCard instanceof VentureCard){
+            VentureCard ventureCard = (VentureCard) developmentCard;
+            if(ventureCard.getMilitaryPointPrice() != null){
+                if(developmentCard.getCosts() != null){
+
+                }
+            }
+        }
+        if(developmentCard.getCosts() != null){
+            copyForCosts.subtract(developmentCard.getCosts());
+            counterMod.subtract(developmentCard.getCosts());
+        }
+        if(!copyForCosts.check()){
+            return false;
+        }
 
         return false;
     }

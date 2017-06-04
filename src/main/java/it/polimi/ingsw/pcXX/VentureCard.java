@@ -62,4 +62,20 @@ public class VentureCard extends DevelopmentCard{
 		result = 31 * result + (victoryPointEarned != null ? victoryPointEarned.hashCode() : 0);
 		return result;
 	}
+
+	public List<GhostFamilyMember> getActions() {
+		return actions;
+	}
+
+	public Reward getMilitaryPointPrice() {
+		return militaryPointPrice;
+	}
+
+	public Reward getMilitaryPointNeeded() {
+		return militaryPointNeeded;
+	}
+
+	public Reward getVictoryPointEarned() {
+		return victoryPointEarned;
+	}
 }

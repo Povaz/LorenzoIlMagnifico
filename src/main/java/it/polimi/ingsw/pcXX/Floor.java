@@ -1,14 +1,16 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.Set;
+
 public class Floor extends ActionSpot{
 	private DevelopmentCard card;
-	private final Reward reward;
+	private final Set<Reward> rewards;
 	private final Tower tower;
 
-	public Floor(int value, Reward reward, Tower tower){
+	public Floor(int value, Set<Reward> rewards, Tower tower){
 		super(true, false, value);
 		this.card = null;
-		this.reward = reward;
+		this.rewards = rewards;
 		this.tower = tower;
 	}
 
@@ -20,8 +22,12 @@ public class Floor extends ActionSpot{
 		this.card = card;
 	}
 
-	public Reward getReward() {
-		return reward;
+	public Set<Reward> getRewards() {
+		return rewards;
+	}
+
+	public Tower getTower() {
+		return tower;
 	}
 
 	public void reinitialize(){
@@ -50,7 +56,7 @@ public class Floor extends ActionSpot{
 
 	@Override
 	public boolean place(FamilyMember familyMember){
-		if(familyMember.getPlayer().getPlayerBoard().buyCard(familyMember.getValue())){
+		if(familyMember.getPlayer().getPlayerBoard().buyCard(this)){
 			super.place(familyMember);
 			return true;
 		}
