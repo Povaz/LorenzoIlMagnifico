@@ -211,6 +211,36 @@ public class Counter{
         return true;
     }
 
+    public void round(){
+        if(coin.getQuantity() < 0){
+            coin.setQuantity(0);
+        }
+        if(wood.getQuantity() < 0){
+            wood.setQuantity(0);
+        }
+        if(stone.getQuantity() < 0){
+            stone.setQuantity(0);
+        }
+        if(servant.getQuantity() < 0){
+            servant.setQuantity(0);
+        }
+        if(militaryPoint.getQuantity() < 0){
+            militaryPoint.setQuantity(0);
+        }
+        if(faithPoint.getQuantity() < 0){
+            faithPoint.setQuantity(0);
+        }
+        if(victoryPoint.getQuantity() < 0){
+            victoryPoint.setQuantity(0);
+        }
+        if(militaryPoint.getQuantity() > 30){
+            militaryPoint.setQuantity(30);
+        }
+        if(faithPoint.getQuantity() > 30){
+            faithPoint.setQuantity(30);
+        }
+    }
+
     public Reward giveSameReward(Reward reward){
         switch(reward.getType()) {
             case WOOD:

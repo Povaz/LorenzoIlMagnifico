@@ -94,6 +94,15 @@ public class PlayerBoard {
         return true;
     }
 
+    public boolean buyCard(int value){
+        /*
+        TODO: controlla 3 monete, controlla costo + risorse rapide, compra carta;
+         */
+
+
+        return false;
+    }
+
     private Set<Reward> convertRewardForReward(RewardForReward rewardForReward){
         Reward owned = rewardForReward.getOwned();
         Reward currentReward = counter.giveSameReward(owned);

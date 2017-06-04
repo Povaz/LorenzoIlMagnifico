@@ -31,8 +31,8 @@ public class ProductionArea extends ActionSpot{
 
 	@Override
 	public boolean place(FamilyMember familyMember){
-		if(super.place(familyMember)) {
-			return familyMember.getPlayer().getPlayerBoard().produce(familyMember.getValue() + diceModifier);
+		if(familyMember.getPlayer().getPlayerBoard().produce(familyMember.getValue() + diceModifier)){
+			return super.place(familyMember);
 		}
 		return false;
 	}

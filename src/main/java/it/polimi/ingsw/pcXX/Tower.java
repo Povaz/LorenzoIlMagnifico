@@ -37,10 +37,10 @@ public class Tower {
 				reward7 = new Reward(RewardType.COIN, 2);
 		}
 
-		floors.add(0, new Floor(1, null));
-		floors.add(1, new Floor(3, null));
-		floors.add(2, new Floor(5, reward5));
-		floors.add(3, new Floor(7, reward7));
+		floors.add(0, new Floor(1, null, this));
+		floors.add(1, new Floor(3, null, this));
+		floors.add(2, new Floor(5, reward5, this));
+		floors.add(3, new Floor(7, reward7, this));
 		return floors;
 	}
 
