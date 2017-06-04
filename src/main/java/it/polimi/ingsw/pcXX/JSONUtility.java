@@ -453,10 +453,8 @@ public class JSONUtility {
 			rewardSet = getRewardSet(obj.getJSONArray(name));
 		}
 		catch (JSONException e) {
-			Resource blankResource = new Resource(ResourceType.COIN, 0);
+			Reward blankResource = new Reward(RewardType.COIN, 0);
 			rewardSet.add(blankResource);
-			Point blankPoint = new Point(PointType.VICTORY_POINT, 0);
-			rewardSet.add(blankPoint);
 		}
 		return rewardSet;
 	}
