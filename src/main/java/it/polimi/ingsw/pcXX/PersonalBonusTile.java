@@ -17,24 +17,24 @@ public class PersonalBonusTile {
         this.productionRewards = new HashSet<>();
         this.diceHarvest = diceHarvest;
         this.diceProduction = diceProduction;
-        initialize(number);
+        //initialize(number);
     }
 
-    private void initialize(int number){
+    /*private void initialize(int number){
         switch(number){
             case 0:
-                productionRewards.add(new Point(PointType.MILITARY_POINT, 1));
-                productionRewards.add(new Resource(ResourceType.COIN, 2));
-                harvestRewards.add(new Resource(ResourceType.WOOD, 1));
-                harvestRewards.add(new Resource(ResourceType.STONE, 1));
-                harvestRewards.add(new Resource(ResourceType.SERVANT, 1));
+                productionRewards.add(new Reward(RewardType.MILITARY_POINT, 1));
+                productionRewards.add(new Reward(RewardType.COIN, 2));
+                harvestRewards.add(new Reward(RewardType.WOOD, 1));
+                harvestRewards.add(new Reward(RewardType.STONE, 1));
+                harvestRewards.add(new Reward(RewardType.SERVANT, 1));
                 break;
             case 1:
-                productionRewards.add(new Resource(ResourceType.SERVANT, 2));
-                productionRewards.add(new Resource(ResourceType.COIN, 1));
-                harvestRewards.add(new Resource(ResourceType.WOOD, 1));
-                harvestRewards.add(new Resource(ResourceType.STONE, 1));
-                harvestRewards.add(new Point(PointType.MILITARY_POINT, 1));
+                productionRewards.add(new Reward(RewardType.SERVANT, 2));
+                productionRewards.add(new Reward(RewardType.COIN, 1));
+                harvestRewards.add(new Reward(RewardType.WOOD, 1));
+                harvestRewards.add(new Reward(RewardType.STONE, 1));
+                harvestRewards.add(new Reward(RewardType.MILITARY_POINT, 1));
                 break;
             case 2:
                 productionRewards.add(new Resource(ResourceType.SERVANT, 1));
@@ -58,7 +58,7 @@ public class PersonalBonusTile {
                 harvestRewards.add(new Point(PointType.MILITARY_POINT, 1));
                 break;
         }
-    }
+    }*/
 
     public int getDiceHarvest(){
         return diceHarvest;

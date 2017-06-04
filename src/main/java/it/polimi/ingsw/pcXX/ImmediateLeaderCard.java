@@ -1,8 +1,5 @@
 package it.polimi.ingsw.pcXX;
 
-import com.sun.media.jfxmediaimpl.platform.ios.IOSMediaPlayer;
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.util.Map;
 import java.util.Set;
 
@@ -10,13 +7,17 @@ import java.util.Set;
  * Created by Povaz on 03/06/2017.
  */
 public class ImmediateLeaderCard extends LeaderCard {
-    private final boolean activated;
-    private final Set<Reward> reward;
-    private final boolean changeColoredFamilyMamberValue;
-    private final int newValueColoredFamilyMember;
-    private final Set<GhostFamilyMember> actions;
+    private /*final*/ boolean activated;
+    private /*final*/ Set<Reward> reward;
+    private /*final*/ boolean changeColoredFamilyMamberValue;
+    private /*final*/ int newValueColoredFamilyMember;
+    private /*final*/ Set<GhostFamilyMember> actions;
 
-    public ImmediateLeaderCard (String name, boolean inHand, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
+    private ImmediateLeaderCard(){
+        super(null, null, null);
+    }
+
+    /*public ImmediateLeaderCard (String name, boolean inHand, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
                                 boolean activated, Set<Reward> reward, boolean changeColoredFamilyMamberValue, int newValueColoredFamilyMember,
                                 Set<GhostFamilyMember> actions) {
         super(name, inHand, activationRewardRequirement, activationCardTypeRequirement);
@@ -25,7 +26,7 @@ public class ImmediateLeaderCard extends LeaderCard {
         this.changeColoredFamilyMamberValue = changeColoredFamilyMamberValue;
         this.newValueColoredFamilyMember = newValueColoredFamilyMember;
         this.actions = actions;
-    }
+    }*/
 
     @Override
     public boolean equals (Object o) {

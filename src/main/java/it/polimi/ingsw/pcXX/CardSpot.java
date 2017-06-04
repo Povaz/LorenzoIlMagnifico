@@ -13,7 +13,7 @@ public abstract class CardSpot{
         this.cards = new ArrayList<>();
     }
 
-    public abstract Point estimateVictoryPoint();
+    public abstract Reward estimateVictoryPoint();
     public abstract boolean placeCard(DevelopmentCard card);
 
     public List<DevelopmentCard> getCards(){

@@ -21,20 +21,20 @@ public class Tower {
 		Reward reward7 = null;
 		switch(type){
 			case TERRITORY:
-				reward5 = new Resource(ResourceType.WOOD, 1);
-				reward7 = new Resource(ResourceType.WOOD, 2);
+				reward5 = new Reward(RewardType.WOOD, 1);
+				reward7 = new Reward(RewardType.WOOD, 2);
 				break;
 			case CHARACTER:
-				reward5 = new Resource(ResourceType.STONE, 1);
-				reward7 = new Resource(ResourceType.STONE, 2);
+				reward5 = new Reward(RewardType.STONE, 1);
+				reward7 = new Reward(RewardType.STONE, 2);
 				break;
 			case BUILDING:
-				reward5 = new Point(PointType.MILITARY_POINT, 1);
-				reward7 = new Point(PointType.MILITARY_POINT, 2);
+				reward5 = new Reward(RewardType.MILITARY_POINT, 1);
+				reward7 = new Reward(RewardType.MILITARY_POINT, 2);
 				break;
 			case VENTURE:
-				reward5 = new Resource(ResourceType.COIN, 1);
-				reward7 = new Resource(ResourceType.COIN, 2);
+				reward5 = new Reward(RewardType.COIN, 1);
+				reward7 = new Reward(RewardType.COIN, 2);
 		}
 
 		floors.add(0, new Floor(1, null));

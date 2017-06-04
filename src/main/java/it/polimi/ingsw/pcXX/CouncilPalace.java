@@ -9,8 +9,8 @@ public class CouncilPalace extends ActionSpot{
 	public CouncilPalace(){
 		super(true, true, 1);
 		this.rewards = new HashSet<>();
-		rewards.add(new Resource(ResourceType.COIN, 1));
-		rewards.add(new CouncilPrivilege(1));
+		rewards.add(new Reward(RewardType.COIN, 1));
+		rewards.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 1));
 	}
 
 	public Set<Reward> getRewards() {
