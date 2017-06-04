@@ -18,8 +18,8 @@ public class JSONUtility {
 	private static String ventureCardPath = "jsonFiles/VentureCard.json";
 	private static String userPath = "jsonFiles/User.json";
 	private static String vaticanReportCardPath = "jsonFiles/JsonVaticanReportCard.json";
-	private static String permanentLeaderCardPath = "jsonFiles/JsonPermanentLeaderCard";
-	private static String immediateLeaderCardPath = "jsonFiles/JsonImmediateLeaderCard";
+	private static String permanentLeaderCardPath = "jsonFiles/JsonPermanentLeaderCard.json";
+	private static String immediateLeaderCardPath = "jsonFiles/JsonImmediateLeaderCard.json";
 
 	/*public static void main(String[] args) {
 		try {
@@ -366,7 +366,7 @@ public class JSONUtility {
 		try{
 			return new Integer(obj.getInt(name));
 		} catch(JSONException e){
-			return null;
+			return 0;
 		}
 	}
 	
@@ -423,19 +423,20 @@ public class JSONUtility {
 		}
 		catch (JSONException e) {
 			System.out.println("Index Error");
+			return null;
 		}
 
 		String name = getName(permanentLeaderCard);
-		Set<Reward> activationRewardRequirement = getActivationRewardRequirement(permanentLeaderCard);
+		Set<Reward> activationRewardRequirement = getRewardSetWithException(permanentLeaderCard, "activationRewardRequirement");
 		Map<CardType, Integer> activationCardTypeRequirement = getActivationCardTypeRequirement(permanentLeaderCard);
 		int neutralFamilyMemberModifier = getIntegerNoException(permanentLeaderCard, "neutralFamilyMemberModifier");
 		int coloredFamilyMemberModifier = getIntegerNoException(permanentLeaderCard, "coloredFamilyMemberModifier");
 		boolean doubleFastRewardDevelopmentCard = getBooleanNoException(permanentLeaderCard, "doubleFastRewardDevelopmentCard");
 		boolean placeInBusyActionSpot = getBooleanNoException(permanentLeaderCard, "placeInBusyActionSpot");
-		Set<Reward> bonusRewardChurchSupport = getRewardSet(permanentLeaderCard.getJSONArray("bonusRewardChurchSupport"));
+		Set<Reward> bonusRewardChurchSupport = getRewardSetWithException(permanentLeaderCard, "bonusRewardChurchSupport");
 		boolean permanentDice = getBooleanNoException(permanentLeaderCard, "permanentDice");
 		int permanentDiceValue = getIntegerNoException(permanentLeaderCard, "permanentDiceValue");
-		Set<Reward> costDiscountDevelopmentCard = getRewardSet(permanentLeaderCard.getJSONArray("costDiscountDevelopmentCard"));
+		Set<Reward> costDiscountDevelopmentCard = getRewardSetWithException(permanentLeaderCard, "costDiscountDevelopmentCard");
 		boolean notSatisfyMilitaryPointForTerritory = getBooleanNoException(permanentLeaderCard, "notSatisfyMilitaryPointForTerritory");
 		boolean notPayTollBusyTower = getBooleanNoException(permanentLeaderCard, "notPayTollBusyTower");
 		boolean copyOtherCard = getBooleanNoException(permanentLeaderCard, "copyOtherCard");
@@ -446,14 +447,18 @@ public class JSONUtility {
 
 	}
 
-	public static Set<Reward> getActivationRewardRequirement (JSONObject leaderCard) throws JSONException{
+	public static Set<Reward> getRewardSetWithException (JSONObject obj, String name) throws JSONException {
+		Set<Reward> rewardSet = new HashSet<>();
 		try {
-			JSONArray activationRewardRequirement = leaderCard.getJSONArray("activationResourceCost");
-			return getRewardSet(activationRewardRequirement);
+			rewardSet = getRewardSet(obj.getJSONArray(name));
 		}
 		catch (JSONException e) {
-			return null;
+			Resource blankResource = new Resource(ResourceType.COIN, 0);
+			rewardSet.add(blankResource);
+			Point blankPoint = new Point(PointType.VICTORY_POINT, 0);
+			rewardSet.add(blankPoint);
 		}
+		return rewardSet;
 	}
 
 	public static Map<CardType, Integer> getActivationCardTypeRequirement (JSONObject leaderCard) throws JSONException {
@@ -512,10 +517,10 @@ public class JSONUtility {
 		}
 
 		String name = getName(immediateLeaderCard);
-		Set<Reward> activationRewardRequirement = getActivationRewardRequirement(immediateLeaderCard);
+		Set<Reward> activationRewardRequirement = getRewardSetWithException(immediateLeaderCard, "activationRewardRequirement");
 		Map<CardType, Integer> activationCardTypeRequirement = getActivationCardTypeRequirement(immediateLeaderCard);
 		boolean activated = getBooleanNoException(immediateLeaderCard,"activated");
-		Set<Reward> reward = getRewardSet(immediateLeaderCard.getJSONArray("reward"));
+		Set<Reward> reward = getRewardSetWithException(immediateLeaderCard,"reward");
 		boolean changeColoredFamilyMemberValue = getBooleanNoException(immediateLeaderCard, "changeColoredFamilyMemberValue");
 		int newValueColoredFamilyMemberValue = getIntegerNoException(immediateLeaderCard, "newValueColoredFamilyMember");
 		List<GhostFamilyMember> actions = getActions(immediateLeaderCard);
@@ -523,8 +528,8 @@ public class JSONUtility {
 		return new ImmediateLeaderCard(name, activationRewardRequirement, activationCardTypeRequirement, activated, reward, changeColoredFamilyMemberValue,
 				newValueColoredFamilyMemberValue, actions);
 	}
-
 	//Fine codice Povaz
+
 	private static JSONObject fromPathToJSONObject(String path) throws IOException, JSONException{
 		return new JSONObject(readFileToString(new File(path)));
 	}
