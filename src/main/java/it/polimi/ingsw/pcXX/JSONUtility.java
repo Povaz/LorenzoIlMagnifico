@@ -20,6 +20,7 @@ public class JSONUtility {
 	private static String vaticanReportCardPath = "jsonFiles/JsonVaticanReportCard.json";
 	private static String permanentLeaderCardPath = "jsonFiles/JsonPermanentLeaderCard";
 	private static String immediateLeaderCardPath = "jsonFiles/JsonImmediateLeaderCard";
+	private static String personalBonusTilePath = "jsonFiles/PersonalBonusTile.json";
 
 	/*public static void main(String[] args) {
 		try {
@@ -426,6 +427,43 @@ public class JSONUtility {
 	}
 	//Fine Codice Di Lacieoz
 
+	//Codice Lacieoz 2
+	public static PersonalBonusTile getPersonalBonusTile (int number) throws IOException, JSONException{
+		JSONObject tile = fromPathToJSONObject(personalBonusTilePath);
+		tile = getNumberCard(number, tile);
+		Reward[] productionRewards = new Reward [2];
+		productionRewards=getRewards(tile, 2);
+		Reward[] harvestRewards = new Reward [3];
+		harvestRewards=getRewards(tile, 3);
+		return new PersonalBonusTile(productionRewards, harvestRewards);
+		
+	}
+	
+	public static JSONObject getNumberCard (int number, JSONObject jsonObject) throws JSONException{
+		JSONArray tiles = jsonObject.getJSONArray("PersonalBonusTile");
+		return tiles.getJSONObject(number);
+	}
+	public static Reward[] getRewards (JSONObject jsonObject, int j) throws JSONException{
+		JSONArray rewards = null;
+		if (j==2){
+			rewards = jsonObject.getJSONArray("productionRewards");
+		}
+		else{
+			rewards = jsonObject.getJSONArray("harvestRewards");
+		}
+		JSONObject productionReward;
+		Reward [] toBeReturned = new Reward [j];
+		for (int i=0;i<j;i++){
+			productionReward=rewards.getJSONObject(i);
+			
+			//Per ora dà errore perchè bisogna definire Reward con relativo costruttore
+			
+			toBeReturned[i]= new Reward(productionReward.getString("type"),productionReward.getString("quantity"));
+		}
+		return toBeReturned;
+	}
+	//Fine Codice Lacieoz 2
+	
 	//Codice di Povaz
 	public static PermanentLeaderCard getPermanentLeaderCard (int index) throws JSONException, IOException {
 		JSONObject permanentLeaderCard = fromPathToJSONObject(permanentLeaderCardPath);
