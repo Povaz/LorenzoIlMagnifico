@@ -193,16 +193,16 @@ public class JSONUtility {
 		Set<Reward> costs = getCosts(card);
 		Set<Reward> fastRewards = getFastRewards(card);
 		List<GhostFamilyMember> actions = getActions(card);
-		Point militaryPointNeeded;
-		Point militaryPointPrice;
+		Reward militaryPointNeeded;
+		Reward militaryPointPrice;
 		try{
-			militaryPointNeeded = new Point(PointType.MILITARY_POINT, card.getInt("militaryPointNeeded"));
-			militaryPointPrice = new Point(PointType.MILITARY_POINT, card.getInt("militaryPointPrice"));
+			militaryPointNeeded = new Reward(RewardType.MILITARY_POINT, card.getInt("militaryPointNeeded"));
+			militaryPointPrice = new Reward(RewardType.MILITARY_POINT, card.getInt("militaryPointPrice"));
 		} catch(JSONException e){
 			militaryPointNeeded = null;
 			militaryPointPrice = null;
 		}
-		Point victoryPointEarned = new Point(PointType.VICTORY_POINT, card.getInt("victoryPointEarned"));
+		Reward victoryPointEarned = new Reward(RewardType.VICTORY_POINT, card.getInt("victoryPointEarned"));
 
 		return new VentureCard(name, period, costs, fastRewards, actions, militaryPointNeeded, militaryPointPrice,
 				victoryPointEarned);
@@ -358,21 +358,8 @@ public class JSONUtility {
 
 	private static Reward getReward(JSONObject reward) throws JSONException{
 		int quantity = reward.getInt("quantity");
-		String rewardType = reward.getString("type");
-
-		try{
-			ResourceType type = ResourceType.valueOf(rewardType);
-			return new Resource(type, quantity);
-		} catch(IllegalArgumentException e1){
-			try{
-				PointType type = PointType.valueOf(rewardType);
-				return new Point(type,quantity);
-			} catch(IllegalArgumentException e2){
-				if(rewardType.equals("COUNCIL_PRIVILEGE"))
-					return new CouncilPrivilege(quantity);
-				throw new JSONException("type");
-			}
-		}
+		String type = reward.getString("type");
+		return new Reward(RewardType.valueOf(type), quantity);
 	}
 
 	private static Integer getIntegerNoException(JSONObject obj, String name){

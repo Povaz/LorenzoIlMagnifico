@@ -3,8 +3,8 @@ package it.polimi.ingsw.pcXX;
 import java.util.Set;
 
 public class RewardForCard {
-	private Set<Reward> earned;
-	private CardType cardTypeOwned;
+	private final Set<Reward> earned;
+	private final CardType cardTypeOwned;
 
 	public RewardForCard(Set<Reward> earned, CardType cardTypeOwned){
 		this.earned = earned;
@@ -37,5 +37,12 @@ public class RewardForCard {
 		}
 		rfcString += "X " + cardTypeOwned.toString();
 		return rfcString;
+	}
+
+	public Set<Reward> getEarned() {
+		return earned;
+	}
+	public CardType getCardTypeOwned() {
+		return cardTypeOwned;
 	}
 }
