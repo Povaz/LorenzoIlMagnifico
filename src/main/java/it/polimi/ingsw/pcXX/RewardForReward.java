@@ -38,4 +38,20 @@ public class RewardForReward {
 		rfcString += "X " + owned.toString();
 		return rfcString;
 	}
+
+	public Set<Reward> getEarned() {
+		return earned;
+	}
+
+	public void setEarned(Set<Reward> earned) {
+		this.earned = earned;
+	}
+
+	public Reward getOwned() {
+		return owned;
+	}
+
+	public void setOwned(Reward owned) {
+		this.owned = owned;
+	}
 }

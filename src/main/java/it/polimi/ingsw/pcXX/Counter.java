@@ -163,4 +163,32 @@ public class Counter{
         faithPoint.addQuantity(other.faithPoint);
         victoryPoint.addQuantity(other.victoryPoint);
     }
+
+    public Reward giveSameReward(Reward reward){
+        if(reward instanceof Resource){
+            Resource resource = (Resource) reward;
+            switch(resource.getType()){
+                case WOOD:
+                    return wood;
+                case STONE:
+                    return stone;
+                case SERVANT:
+                    return servant;
+                case COIN:
+                    return coin;
+            }
+        }
+        else if(reward instanceof Point){
+            Point point = (Point) reward;
+            switch(point.getType()) {
+                case MILITARY_POINT:
+                    return militaryPoint;
+                case FAITH_POINT:
+                    return faithPoint;
+                case VICTORY_POINT:
+                    return victoryPoint;
+            }
+        }
+        return null;
+    }
 }

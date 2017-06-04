@@ -71,4 +71,24 @@ public class BuildingCard extends DevelopmentCard{
 		}
 		return cardString;
 	}
+
+	public int getDiceProductionAction() {
+		return diceProductionAction;
+	}
+
+	public Set<Reward> getEarnings() {
+		return earnings;
+	}
+
+	public List<Trade> getTrades() {
+		return trades;
+	}
+
+	public RewardForReward getRewardForReward() {
+		return rewardForReward;
+	}
+
+	public RewardForCard getRewardForCard() {
+		return rewardForCard;
+	}
 }

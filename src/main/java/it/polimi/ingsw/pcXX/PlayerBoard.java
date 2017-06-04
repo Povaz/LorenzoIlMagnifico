@@ -2,6 +2,7 @@ package it.polimi.ingsw.pcXX;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by trill on 23/05/2017.
@@ -43,18 +44,50 @@ public class PlayerBoard {
 
 
     public boolean harvest(int value){
+        if(value >= personalBonusTile.getDiceHarvest()){
+            counter.add(personalBonusTile.getHarvestRewards());
+        }
         for(DevelopmentCard dC : territorySpot.getCards()){
             TerritoryCard tc = (TerritoryCard) dC;
             if(value >= tc.getDiceHarvestAction()){
-                counter.add(tc.getEarnings());
+                if(tc.getEarnings() != null){
+                    counter.add(tc.getEarnings());
+                }
             }
         }
         return true;
     }
 
     public boolean produce(int value){
+        Counter copyForCosts = new Counter(counter);
+        Counter counteMod = new Counter();
 
+        if(value >= personalBonusTile.getDiceProduction()){
+            counteMod.add(personalBonusTile.getProductionRewards());
+        }
+        for(DevelopmentCard dC : buildingSpot.getCards()){
+            BuildingCard bC = (BuildingCard) dC;
+            if(value >= bC.getDiceProductionAction()){
+                if(bC.getEarnings() != null){
+                    counteMod.add(bC.getEarnings());
+                }
+                if(bC.getRewardForCard() != null){
+
+                }
+                if(bC.getRewardForReward() != null){
+
+                }
+                if(bC.getTrades() != null){
+
+                }
+            }
+        }
         return false;
+    }
+
+    private Set<Reward> convertRewardForReward(RewardForReward rewardForReward){
+        Reward currentReward = counter.giveSameReward(rewardForReward.getOwned());
+        return null;
     }
 
     public PlayerColor getColor() {
