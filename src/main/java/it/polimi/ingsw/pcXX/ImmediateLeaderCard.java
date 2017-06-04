@@ -19,7 +19,7 @@ public class ImmediateLeaderCard extends LeaderCard {
     public ImmediateLeaderCard (String name, boolean inHand, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
                                 boolean activated, Set<Reward> reward, boolean changeColoredFamilyMamberValue, int newValueColoredFamilyMember,
                                 Set<GhostFamilyMember> actions) {
-        super(name, inHand, activationRewardRequirement, activationCardTypeRequirement);
+        super(name, activationRewardRequirement, activationCardTypeRequirement);
         this.activated = activated;
         this.reward = reward;
         this.changeColoredFamilyMamberValue = changeColoredFamilyMamberValue;
