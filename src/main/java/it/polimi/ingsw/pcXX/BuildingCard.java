@@ -91,4 +91,20 @@ public class BuildingCard extends DevelopmentCard{
 	public RewardForCard getRewardForCard() {
 		return rewardForCard;
 	}
+
+	@Override
+	public boolean isPlaceable(Counter copyForCosts, Counter counterMod, PlayerBoard playerBoard){
+		if(!playerBoard.getBuildingSpot().canPlaceCard(copyForCosts)){
+			return false;
+		}
+		if(!canBuyCard(copyForCosts, counterMod)){
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void place(PlayerBoard playerBoard){
+		playerBoard.getBuildingSpot().placeCard(this);
+	}
 }

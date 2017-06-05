@@ -14,7 +14,17 @@ public abstract class CardSpot{
     }
 
     public abstract Reward estimateVictoryPoint();
-    public abstract boolean placeCard(DevelopmentCard card);
+
+    public void placeCard(DevelopmentCard card){
+        getCards().add(card);
+    }
+
+    public boolean canPlaceCard(Counter copyForCosts){
+        if(cards.size() >= 6){
+            return false;
+        }
+        return true;
+    }
 
     public List<DevelopmentCard> getCards(){
         return cards;

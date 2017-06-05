@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
 import java.util.List;
+import java.util.Scanner;
 import java.util.Set;
 
 public class VentureCard extends DevelopmentCard{
@@ -77,5 +78,59 @@ public class VentureCard extends DevelopmentCard{
 
 	public Reward getVictoryPointEarned() {
 		return victoryPointEarned;
+	}
+
+	@Override
+	public boolean isPlaceable(Counter copyForCosts, Counter counterMod, PlayerBoard playerBoard){
+		if(!playerBoard.getVentureSpot().canPlaceCard(copyForCosts)){
+			return false;
+		}
+		if(!canBuyCard(copyForCosts, counterMod)){
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void place(PlayerBoard playerBoard){
+		playerBoard.getVentureSpot().placeCard(this);
+	}
+
+	@Override
+	public boolean canBuyCard(Counter copyForCosts, Counter counterMod){
+		if(militaryPointNeeded != null && militaryPointPrice != null && getCosts() != null){
+			boolean payWithMilitaryPoint = howWantPayVentureCard(getCosts(), militaryPointNeeded, militaryPointPrice);
+			if(payWithMilitaryPoint){
+				return canBuyCardMilitaryPoint(copyForCosts, counterMod);
+			}
+			else{
+				return super.canBuyCard(copyForCosts, counterMod);
+			}
+		}
+		else if(militaryPointNeeded != null && militaryPointPrice != null){
+			return canBuyCardMilitaryPoint(copyForCosts, counterMod);
+		}
+		else{
+			return super.canBuyCard(copyForCosts, counterMod);
+		}
+	}
+
+	private boolean canBuyCardMilitaryPoint(Counter copyForCosts, Counter counterMod){
+		if(copyForCosts.getMilitaryPoint().getQuantity() >= militaryPointNeeded.getQuantity()){
+			copyForCosts.subtract(militaryPointPrice);
+			counterMod.subtract(militaryPointPrice);
+			return copyForCosts.check();
+		}
+		return false;
+	}
+
+	//TODO con client
+	private boolean howWantPayVentureCard(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
+		System.out.println("COSTS:\n" + costs);
+		System.out.println("\nPOINT NEEDED:\n" + militaryPointNeeded);
+		System.out.println("POINT PRICE:\n" + militaryPointPrice);
+		System.out.println("\nWANT TO PAY WITH MILITARY POINTS?");
+		Scanner input = new Scanner(System.in);
+		return input.nextBoolean();
 	}
 }

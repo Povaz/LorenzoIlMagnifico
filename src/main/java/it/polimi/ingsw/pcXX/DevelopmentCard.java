@@ -17,6 +17,21 @@ public abstract class DevelopmentCard {
 		this.fastRewards = fastRewards;
 	}
 
+	public abstract boolean isPlaceable(Counter copyForCosts, Counter counterMod, PlayerBoard playerBoard);
+
+	public abstract void place(PlayerBoard playerBoard);
+
+	public boolean canBuyCard(Counter copyForCosts, Counter counterMod){
+		if(costs != null){
+			copyForCosts.subtract(costs);
+			counterMod.subtract(costs);
+		}
+		if(copyForCosts.check()){
+			return true;
+		}
+		return false;
+	}
+
 	public String getName(){
 		return name;
 	}

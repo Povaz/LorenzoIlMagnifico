@@ -10,11 +10,11 @@ public class VentureSpot extends CardSpot{
 
     @Override
     public Reward estimateVictoryPoint(){
-        return null;
-    }
-
-    @Override
-    public boolean placeCard(DevelopmentCard card){
-        return false;
+        Reward victoryPoint = new Reward(RewardType.VICTORY_POINT, 0);
+        for(DevelopmentCard dC : getCards()){
+            VentureCard vC = (VentureCard) dC;
+            victoryPoint.sumQuantity(vC.getVictoryPointEarned());
+        }
+        return victoryPoint;
     }
 }

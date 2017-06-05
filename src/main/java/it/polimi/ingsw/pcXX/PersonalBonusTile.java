@@ -9,9 +9,9 @@ import java.util.Set;
  */
 public class PersonalBonusTile {
     private final int diceHarvest;
-    private Set<Reward> harvestRewards = new HashSet<>();
+    private final Set<Reward> harvestRewards;
     private final int diceProduction;
-    private Set<Reward> productionRewards = new HashSet<>();
+    private final Set<Reward> productionRewards;
 
     public PersonalBonusTile(int diceProduction, int diceHarvest, Set<Reward> productionRewards, Set<Reward> harvestRewards){
         this.diceProduction = diceProduction;
@@ -49,5 +49,12 @@ public class PersonalBonusTile {
     public int getDiceProduction(){
         return diceProduction;
     }
-    
+
+    public Set<Reward> getHarvestRewards() {
+        return harvestRewards;
+    }
+
+    public Set<Reward> getProductionRewards() {
+        return productionRewards;
+    }
 }

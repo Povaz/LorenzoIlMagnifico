@@ -10,11 +10,6 @@ public class BuildingSpot extends CardSpot{
 
     @Override
     public Reward estimateVictoryPoint(){
-        return null;
-    }
-
-    @Override
-    public boolean placeCard(DevelopmentCard card){
-        return false;
+        return new Reward(RewardType.VICTORY_POINT, 0);
     }
 }
