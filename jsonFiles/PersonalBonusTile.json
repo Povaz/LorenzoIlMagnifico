@@ -1,6 +1,7 @@
 {
 	"PersonalBonusTile":[
 		{
+			"diceProduction": 1,
 			"productionRewards":[
 				{	
 					"type": "VICTORY_POINT",
@@ -11,6 +12,7 @@
 					"quantity": 2
 				}
 			],
+			"diceHarvest": 1,
 			"harvestRewards":[
 				{	
 					"type": "WOOD",
@@ -26,7 +28,8 @@
 				}
 			]
 		},
-		{
+		{	
+			"diceProduction": 1,
 			"productionRewards":[
 				{	
 					"type": "SERVANT",
@@ -37,6 +40,7 @@
 					"quantity": 1
 				}
 			],
+			"diceHarvest": 1,
 			"harvestRewards":[
 				{	
 					"type": "WOOD",
@@ -53,6 +57,7 @@
 			]
 		},
 		{	
+			"diceProduction": 1,
 			"productionRewards":[
 				{	
 					"type": "SERVANT",
@@ -63,6 +68,7 @@
 					"quantity": 2
 				}
 			],
+			"diceHarvest": 1,
 			"harvestRewards":[
 				{	
 					"type": "WOOD",
@@ -79,6 +85,7 @@
 			]
 		},
 		{	
+			"diceProduction": 1,
 			"productionRewards":[
 				{	
 					"type": "MILITARY_POINT",
@@ -89,6 +96,7 @@
 					"quantity": 1
 				}
 			],
+			"diceHarvest": 1,
 			"harvestRewards":[
 				{	
 					"type": "WOOD",
@@ -105,6 +113,7 @@
 			]
 		},
 		{
+			"diceProduction": 1,
 			"productionRewards":[
 				{	
 					"type": "SERVANT",
@@ -115,6 +124,7 @@
 					"quantity": 2
 				}
 			],
+			"diceHarvest": 1,
 			"harvestRewards":[
 				{	
 					"type": "WOOD",

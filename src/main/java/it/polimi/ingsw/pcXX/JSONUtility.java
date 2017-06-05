@@ -18,48 +18,10 @@ public class JSONUtility {
 	private static String ventureCardPath = "jsonFiles/VentureCard.json";
 	private static String userPath = "jsonFiles/User.json";
 	private static String vaticanReportCardPath = "jsonFiles/JsonVaticanReportCard.json";
-<<<<<<< HEAD
 	private static String permanentLeaderCardPath = "jsonFiles/JsonPermanentLeaderCard";
 	private static String immediateLeaderCardPath = "jsonFiles/JsonImmediateLeaderCard";
 	private static String personalBonusTilePath = "jsonFiles/PersonalBonusTile.json";
-=======
-	private static String permanentLeaderCardPath = "jsonFiles/JsonPermanentLeaderCard.json";
-	private static String immediateLeaderCardPath = "jsonFiles/JsonImmediateLeaderCard.json";
->>>>>>> master
-
-	/*public static void main(String[] args) {
-		try {
-			/*TerritoryCard t1 = (TerritoryCard) getCard(1, 0, CardType.TERRITORY);
-			System.out.println(t1 + "\n");
-			TerritoryCard t2 = (TerritoryCard) getCard(3, 7, CardType.TERRITORY);
-			System.out.println(t2 + "\n");
-
-			BuildingCard b1 = (BuildingCard) getCard(1,0, CardType.BUILDING);
-			System.out.println(b1 + "\n");
-			BuildingCard b2 = (BuildingCard) getCard(1,4, CardType.BUILDING);
-			System.out.println(b2 + "\n");
-			BuildingCard b3 = (BuildingCard) getCard(2,7, CardType.BUILDING);
-			System.out.println(b3 + "\n");
-			BuildingCard b4 = (BuildingCard) getCard(3,3, CardType.BUILDING);
-			System.out.println(b4 + "\n");
-
-			CharacterCard c1 = (CharacterCard) getCard(1,0, CardType.CHARACTER);
-			System.out.println(c1 + "\n");
-			CharacterCard c2 = (CharacterCard) getCard(1,1, CardType.CHARACTER);
-			System.out.println(c2 + "\n");
-
-			VentureCard v1 = (VentureCard) getCard(1,4, CardType.VENTURE);
-			System.out.println(v1 + "\n");
-			VentureCard v2 = (VentureCard) getCard(2,4, CardType.VENTURE);
-			System.out.println(v2 + "\n");
-
-			System.out.println(checkLogin("lacieoz", "LoL"));
-			System.out.println(checkRegister("lacieoz", "LoL"));
-		} catch(Exception e){
-			e.printStackTrace();
-		}
-	}*/
-
+	
 	public static synchronized boolean checkLogin(String username, String password) throws JSONException, IOException{
 		JSONObject users = fromPathToJSONObject(userPath);
 		username = encryptString(username);
@@ -421,38 +383,31 @@ public class JSONUtility {
 
 	//Codice Lacieoz 2
 	public static PersonalBonusTile getPersonalBonusTile (int number) throws IOException, JSONException{
+		//estrae file
 		JSONObject tile = fromPathToJSONObject(personalBonusTilePath);
-		tile = getNumberCard(number, tile);
-		Reward[] productionRewards = new Reward [2];
-		productionRewards=getRewards(tile, 2);
-		Reward[] harvestRewards = new Reward [3];
-		harvestRewards=getRewards(tile, 3);
-		return new PersonalBonusTile(productionRewards, harvestRewards);
+		//estrae oggetto
+		tile = getNumberTile(number-1, tile);
+		//estrae parametri
+		int diceProduction = tile.getInt("diceProduction");   
+		int diceHarvest = tile.getInt("diceHarvest");   
+		Set<Reward> productionRewards = new HashSet<>();
+		Set<Reward> harvestRewards = new HashSet<>();
+		productionRewards=getRewards(tile, "production");
+		harvestRewards=getRewards(tile, "harvest");
+		return new PersonalBonusTile(diceProduction, diceHarvest, productionRewards, harvestRewards);
 		
 	}
 	
-	public static JSONObject getNumberCard (int number, JSONObject jsonObject) throws JSONException{
+	public static JSONObject getNumberTile (int number, JSONObject jsonObject) throws JSONException{
 		JSONArray tiles = jsonObject.getJSONArray("PersonalBonusTile");
 		return tiles.getJSONObject(number);
 	}
-	public static Reward[] getRewards (JSONObject jsonObject, int j) throws JSONException{
+	
+	
+	public static Set<Reward> getRewards (JSONObject jsonObject, String type) throws JSONException{
 		JSONArray rewards = null;
-		if (j==2){
-			rewards = jsonObject.getJSONArray("productionRewards");
-		}
-		else{
-			rewards = jsonObject.getJSONArray("harvestRewards");
-		}
-		JSONObject productionReward;
-		Reward [] toBeReturned = new Reward [j];
-		for (int i=0;i<j;i++){
-			productionReward=rewards.getJSONObject(i);
-			
-			//Per ora dà errore perchè bisogna definire Reward con relativo costruttore
-			
-			toBeReturned[i]= new Reward(productionReward.getString("type"),productionReward.getString("quantity"));
-		}
-		return toBeReturned;
+		rewards = jsonObject.getJSONArray(type+"Rewards");
+		return getRewardSet(rewards);
 	}
 	//Fine Codice Lacieoz 2
 	
