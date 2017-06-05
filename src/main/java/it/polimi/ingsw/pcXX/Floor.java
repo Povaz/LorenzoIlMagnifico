@@ -58,6 +58,7 @@ public class Floor extends ActionSpot{
 	public boolean place(FamilyMember familyMember){
 		if(familyMember.getPlayer().getPlayerBoard().buyCard(this)){
 			super.place(familyMember);
+			this.card = null;
 			return true;
 		}
 		return false;

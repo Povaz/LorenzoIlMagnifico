@@ -166,6 +166,10 @@ public class Counter{
         }
     }
 
+    public void subtract(Reward reward){
+        giveSameReward(reward).subtractQuantity(reward);
+    }
+
     public void sum(Counter other){
         coin.sumQuantity(other.coin);
         wood.sumQuantity(other.wood);

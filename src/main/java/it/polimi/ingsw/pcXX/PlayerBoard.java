@@ -101,43 +101,62 @@ public class PlayerBoard {
     }
 
     public boolean buyCard(Floor floor){
-        /*
-        TODO: controlla 3 monete, controlla costo + risorse rapide, compra carta;
-         */
         Counter copyForCosts = new Counter(counter);
         Counter counterMod = new Counter();
+        DevelopmentCard developmentCard = floor.getCard();
+
+        if(!payTowerTax(copyForCosts, counterMod, floor)){
+            return false;
+        }
+
+        earnTowerReward(copyForCosts, counterMod, floor);
+
+        earnCardFastReward(copyForCosts, counterMod, developmentCard);
+
+        if(!developmentCard.isPlaceable(copyForCosts, counterMod, this)){
+            return false;
+        }
+
+        if(!developmentCard.canBuyCard(copyForCosts, counterMod)){
+            return false;
+        }
+
+        if(!copyForCosts.check()){
+            return false;
+        }
+
+        developmentCard.place(this);
+
+        counter.sum(counterMod);
+
+        counter.round();
+
+        return true;
+    }
+
+    private boolean payTowerTax(Counter copyForCosts, Counter counterMod, Floor floor){
         if(floor.getTower().isOccupied()){
             copyForCosts.subtract(floor.getTower().getOccupiedTax());
+            counterMod.subtract(floor.getTower().getOccupiedTax());
         }
         if(!copyForCosts.check()){
             return false;
         }
-        copyForCosts.sum(floor.getRewards());
-        counterMod.sum(floor.getRewards());
+        return true;
+    }
 
-        DevelopmentCard developmentCard = floor.getCard();
+    private void earnTowerReward(Counter copyForCosts, Counter counterMod, Floor floor){
+        if(floor.getRewards() != null){
+            copyForCosts.sum(floor.getRewards());
+            counterMod.sum(floor.getRewards());
+        }
+    }
+
+    private void earnCardFastReward(Counter copyForCosts, Counter counterMod, DevelopmentCard developmentCard){
         if(developmentCard.getFastRewards() != null){
             copyForCosts.sum(developmentCard.getFastRewards());
             counterMod.sum(developmentCard.getFastRewards());
         }
-
-        if(developmentCard instanceof VentureCard){
-            VentureCard ventureCard = (VentureCard) developmentCard;
-            if(ventureCard.getMilitaryPointPrice() != null){
-                if(developmentCard.getCosts() != null){
-
-                }
-            }
-        }
-        if(developmentCard.getCosts() != null){
-            copyForCosts.subtract(developmentCard.getCosts());
-            counterMod.subtract(developmentCard.getCosts());
-        }
-        if(!copyForCosts.check()){
-            return false;
-        }
-
-        return false;
     }
 
     private Set<Reward> convertRewardForReward(RewardForReward rewardForReward){

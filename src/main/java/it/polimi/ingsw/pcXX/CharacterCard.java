@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pcXX;
 
-import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -84,5 +83,21 @@ public class CharacterCard extends DevelopmentCard{
 		result = 31 * result + (rewardForReward != null ? rewardForReward.hashCode() : 0);
 		result = 31 * result + (rewardForCard != null ? rewardForCard.hashCode() : 0);
 		return result;
+	}
+
+	@Override
+	public boolean isPlaceable(Counter copyForCosts, Counter counterMod, PlayerBoard playerBoard){
+		if(!playerBoard.getCharacterSpot().canPlaceCard(copyForCosts)){
+			return false;
+		}
+		if(!canBuyCard(copyForCosts, counterMod)){
+			return false;
+		}
+		return true;
+	}
+
+	@Override
+	public void place(PlayerBoard playerBoard){
+		playerBoard.getCharacterSpot().placeCard(this);
 	}
 }
