@@ -53,15 +53,22 @@ public class Client {
 	synchronized private static String login() throws IOException{
 		String decision;
 	    Scanner in = new Scanner(System.in);
-		System.out.println("Inserisci numero: \r 1-login \r 2-register");
-		decision = in.nextLine();
+		while(true){
+			System.out.println("Inserisci numero: \r 1-login \r 2-register");
+			decision = in.nextLine();
+			//prima era qua l'invio al server
+			if(decision.equals("1")){
+				System.out.println("LOGIN:");
+				break;
+			}
+			else if(decision.equals("2")){
+				System.out.println("REGISTER:");
+				break;
+			}
+			System.out.println("Inserimento errato: riprova");
+		}
 		sendToServer(decision);
-		if(decision.equals("1")){
-			System.out.println("LOGIN:");
-		}
-		else{
-			System.out.println("REGISTER:");
-		}
+		
 		String username;
 		String password;
 		
