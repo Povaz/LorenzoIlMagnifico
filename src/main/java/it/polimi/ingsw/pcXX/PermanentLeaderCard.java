@@ -61,7 +61,7 @@ public class PermanentLeaderCard extends LeaderCard {
         if (bonusRewardChurchSupport != null) {
             permanentLeaderCardString += "Bonus Reward Church Support: \n";
             for (Reward r: bonusRewardChurchSupport) {
-                permanentLeaderCardString += "Rewards: " + r.toString();
+                permanentLeaderCardString += "  Rewards: " + r.toString() + "\n";
             }
         }
 
@@ -72,20 +72,20 @@ public class PermanentLeaderCard extends LeaderCard {
         if (costDiscountDevelopmentCard != null) {
             permanentLeaderCardString += "Cost Discount Development Card: \n";
             for (Reward r: costDiscountDevelopmentCard) {
-                permanentLeaderCardString += "Discount: " + r.toString();
+                permanentLeaderCardString += "  Discount: " + r.toString() + "\n";
             }
         }
 
         if (notSatisfyMilitaryPointForTerritory) {
-            permanentLeaderCardString += "Not Satisfy Military Point for Territory: " + notSatisfyMilitaryPointForTerritory;
+            permanentLeaderCardString += "Not Satisfy Military Point for Territory: " + notSatisfyMilitaryPointForTerritory + "\n";
         }
 
         if (notPayTollBusyTower) {
-            permanentLeaderCardString += "Not Pay toll Busy Tower: " + notPayTollBusyTower;
+            permanentLeaderCardString += "Not Pay toll Busy Tower: " + notPayTollBusyTower + "\n";
         }
 
         if (copyOtherCard) {
-            permanentLeaderCardString += "Copy other Card: " + copyOtherCard;
+            permanentLeaderCardString += "Copy other Card: " + copyOtherCard + "\n";
         }
 
         return permanentLeaderCardString;

@@ -5,12 +5,12 @@ import java.util.Set;
 
 public class VentureCard extends DevelopmentCard{
 	private final List<GhostFamilyMember> actions;
-	private final Point militaryPointPrice;
-	private final Point militaryPointNeeded;
-	private final Point victoryPointEarned;
+	private final Reward militaryPointPrice;
+	private final Reward militaryPointNeeded;
+	private final Reward victoryPointEarned;
 	
 	public VentureCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<GhostFamilyMember> actions,
-					   Point militaryPointNeeded, Point militaryPointPrice, Point victoryPointEarned){
+					   Reward militaryPointNeeded, Reward militaryPointPrice, Reward victoryPointEarned){
 		super(name, CardType.VENTURE, period, costs, fastRewards);
 		this.actions = actions;
 		this.militaryPointNeeded = militaryPointNeeded;
@@ -61,5 +61,21 @@ public class VentureCard extends DevelopmentCard{
 		result = 31 * result + (militaryPointNeeded != null ? militaryPointNeeded.hashCode() : 0);
 		result = 31 * result + (victoryPointEarned != null ? victoryPointEarned.hashCode() : 0);
 		return result;
+	}
+
+	public List<GhostFamilyMember> getActions() {
+		return actions;
+	}
+
+	public Reward getMilitaryPointPrice() {
+		return militaryPointPrice;
+	}
+
+	public Reward getMilitaryPointNeeded() {
+		return militaryPointNeeded;
+	}
+
+	public Reward getVictoryPointEarned() {
+		return victoryPointEarned;
 	}
 }

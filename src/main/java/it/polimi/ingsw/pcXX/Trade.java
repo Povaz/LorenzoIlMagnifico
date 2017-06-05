@@ -3,8 +3,8 @@ package it.polimi.ingsw.pcXX;
 import java.util.Set;
 
 public class Trade {
-	private Set<Reward> give;
-	private Set<Reward> take;
+	private final Set<Reward> give;
+	private final Set<Reward> take;
 
 	public Trade(Set<Reward> give, Set<Reward> take){
 		this.give = give;
@@ -40,5 +40,13 @@ public class Trade {
 			tradeString += r.toString() + "; ";
 		}
 		return tradeString;
+	}
+
+	public Set<Reward> getGive() {
+		return give;
+	}
+
+	public Set<Reward> getTake() {
+		return take;
 	}
 }

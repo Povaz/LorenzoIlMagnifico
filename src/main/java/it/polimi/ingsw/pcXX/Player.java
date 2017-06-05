@@ -47,7 +47,7 @@ public class Player{
             return placeProductionArea(familyMember, (ProductionArea) actionSpot);
         }
         if(actionSpot instanceof Floor){
-            //return placeFloor(familyMember, (Floor) actionSpot);
+            return placeFloor(familyMember, (Floor) actionSpot);
         }
         return false;
     }
@@ -76,6 +76,13 @@ public class Player{
     private boolean placeProductionArea(FamilyMember familyMember, ProductionArea productionArea){
         if(productionArea.isPlaceable(familyMember)){
             return productionArea.place(familyMember);
+        }
+        return false;
+    }
+
+    private boolean placeFloor(FamilyMember familyMember, Floor floor){
+        if(floor.isPlaceable(familyMember)){
+            return floor.place(familyMember);
         }
         return false;
     }

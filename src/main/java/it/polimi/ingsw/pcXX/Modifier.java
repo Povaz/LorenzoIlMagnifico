@@ -23,8 +23,8 @@ public class Modifier{
     private List<Reward> bonusChurchSupport = new ArrayList<>();
 
     // Scomuniche
-    private List<Point> losePoints = new ArrayList<>();
-    private List<Resource> loseResources = new ArrayList<>();
+    private List<Reward> losePoints = new ArrayList<>();
+    private List<Reward> loseResources = new ArrayList<>();
 
     private int harvestModifier = 0;
     private int productionModifier = 0;

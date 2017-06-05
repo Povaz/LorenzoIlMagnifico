@@ -9,7 +9,7 @@ public class VentureSpot extends CardSpot{
     }
 
     @Override
-    public Point estimateVictoryPoint(){
+    public Reward estimateVictoryPoint(){
         return null;
     }
 

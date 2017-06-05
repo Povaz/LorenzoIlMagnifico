@@ -62,7 +62,7 @@ public abstract class LeaderCard {
         if (activationCardTypeRequirement != null) {
             leaderCardString += "Cards Requirement: \n";
             for (Map.Entry <CardType, Integer> entry : activationCardTypeRequirement.entrySet()) {
-                leaderCardString += "CardType: " + entry.getKey() + "Count: " + entry.getValue();
+                leaderCardString += "   CardType: " + entry.getKey() + "\n" + " Count: " + entry.getValue() + "\n";
             }
         }
         return leaderCardString;

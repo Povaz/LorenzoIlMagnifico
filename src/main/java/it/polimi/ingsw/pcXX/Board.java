@@ -55,21 +55,21 @@ public class Board {
 
     private void initializeMarket(int playerNumber){
         Set<Reward> firstAreaReward = new HashSet<>();
-        firstAreaReward.add(new Resource(ResourceType.COIN, 5));
+        firstAreaReward.add(new Reward(RewardType.COIN, 5));
         market.add(new Market(true, false, 1, firstAreaReward));
 
         Set<Reward> secondAreaReward = new HashSet<>();
-        secondAreaReward.add(new Resource(ResourceType.SERVANT, 5));
+        secondAreaReward.add(new Reward(RewardType.SERVANT, 5));
         market.add(new Market(true, false, 1, secondAreaReward));
 
         if(playerNumber >= 4){
             Set<Reward> thirdAreaReward = new HashSet<>();
-            thirdAreaReward.add(new Resource(ResourceType.COIN, 2));
-            thirdAreaReward.add(new Point(PointType.MILITARY_POINT, 3));
+            thirdAreaReward.add(new Reward(RewardType.COIN, 2));
+            thirdAreaReward.add(new Reward(RewardType.MILITARY_POINT, 3));
             market.add(new Market(true, false, 1, thirdAreaReward));
 
             Set<Reward> fourthAreaReward = new HashSet<>();
-            fourthAreaReward.add(new CouncilPrivilege(2));
+            fourthAreaReward.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 2));
             market.add(new Market(true, false, 1, fourthAreaReward));
         }
     }

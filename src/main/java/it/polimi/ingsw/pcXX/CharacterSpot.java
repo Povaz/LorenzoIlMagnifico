@@ -9,7 +9,7 @@ public class CharacterSpot extends CardSpot{
     }
 
     @Override
-    public Point estimateVictoryPoint(){
+    public Reward estimateVictoryPoint(){
         return null;
     }
 

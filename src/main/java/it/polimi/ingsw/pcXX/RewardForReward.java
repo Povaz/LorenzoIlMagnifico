@@ -3,8 +3,8 @@ package it.polimi.ingsw.pcXX;
 import java.util.Set;
 
 public class RewardForReward {
-	private Set<Reward> earned;
-	private Reward owned;
+	private final Set<Reward> earned;
+	private final Reward owned;
 
 	public RewardForReward(Set<Reward> earned, Reward owned){
 		this.earned = earned;
@@ -43,15 +43,7 @@ public class RewardForReward {
 		return earned;
 	}
 
-	public void setEarned(Set<Reward> earned) {
-		this.earned = earned;
-	}
-
 	public Reward getOwned() {
 		return owned;
-	}
-
-	public void setOwned(Reward owned) {
-		this.owned = owned;
 	}
 }

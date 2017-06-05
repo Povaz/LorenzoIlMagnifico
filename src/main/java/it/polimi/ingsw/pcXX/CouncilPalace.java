@@ -9,8 +9,8 @@ public class CouncilPalace extends ActionSpot{
 	public CouncilPalace(){
 		super(true, true, 1);
 		this.rewards = new HashSet<>();
-		rewards.add(new Resource(ResourceType.COIN, 1));
-		rewards.add(new CouncilPrivilege(1));
+		rewards.add(new Reward(RewardType.COIN, 1));
+		rewards.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 1));
 	}
 
 	public Set<Reward> getRewards() {
@@ -24,10 +24,7 @@ public class CouncilPalace extends ActionSpot{
 
 	@Override
 	public boolean place(FamilyMember familyMember){
-		if(super.place(familyMember)){
-			familyMember.getPlayer().getPlayerBoard().getCounter().add(rewards);
-			return true;
-		}
-		return false;
+		familyMember.getPlayer().getPlayerBoard().getCounter().sum(rewards);
+		return super.place(familyMember);
 	}
 }
