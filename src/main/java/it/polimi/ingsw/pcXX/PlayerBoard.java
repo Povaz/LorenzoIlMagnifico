@@ -6,6 +6,7 @@ import java.util.*;
  * Created by trill on 23/05/2017.
  */
 public class PlayerBoard {
+    private final Player player;
     private final PlayerColor color;
     private final Counter counter;
     private final List<FamilyMember> familyMembers;
@@ -19,6 +20,7 @@ public class PlayerBoard {
 
 
     public PlayerBoard(Player player, int playerOrder, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
+        this.player = player;
         this.color = player.getColor();
         this.counter = new Counter(playerOrder);
         this.familyMembers = initializeFamilyMembers(player);
@@ -33,13 +35,12 @@ public class PlayerBoard {
 
     private List<FamilyMember> initializeFamilyMembers(Player player){
         List<FamilyMember> familyMember = new ArrayList<>();
-        familyMember.add(new FamilyMember(false, 0, false, player, FamilyColor.WHITE));
-        familyMember.add(new FamilyMember(false, 0, false, player, FamilyColor.ORANGE));
-        familyMember.add(new FamilyMember(false, 0, false, player, FamilyColor.BLACK));
-        familyMember.add(new FamilyMember(false, 0, false, player, FamilyColor.NEUTRAL));
+        familyMember.add(new FamilyMember(player, FamilyColor.WHITE));
+        familyMember.add(new FamilyMember(player, FamilyColor.ORANGE));
+        familyMember.add(new FamilyMember(player, FamilyColor.BLACK));
+        familyMember.add(new FamilyMember(player, FamilyColor.NEUTRAL));
         return familyMember;
     }
-
 
     public boolean harvest(int value){
         if(value >= personalBonusTile.getDiceHarvest()){
@@ -53,6 +54,7 @@ public class PlayerBoard {
                 }
             }
         }
+        counter.round();
         return true;
     }
 
@@ -80,6 +82,7 @@ public class PlayerBoard {
                     System.out.println("Seleziona scambio:");
                     Scanner input = new Scanner(System.in);
                     int scelta = input.nextInt();
+
                     if(scelta != -1){
                         try {
                             Trade trade = bC.getTrades().get(scelta);
@@ -178,6 +181,10 @@ public class PlayerBoard {
             r.multiplyQuantity(multiplier);
         }
         return earned;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public PlayerColor getColor() {

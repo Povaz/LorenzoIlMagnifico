@@ -12,7 +12,16 @@ public class Market extends ActionSpot{
 
 	@Override
 	public boolean isPlaceable(FamilyMember familyMember){
-		return super.isPlaceable(familyMember);
+		if(super.isPlaceable(familyMember)){
+			if(familyMember.getAction() != null){
+				if(familyMember.getAction() == ActionType.MARKET || familyMember.getAction() == ActionType.ALL){
+					return true;
+				}
+				return false;
+			}
+			return true;
+		}
+		return false;
 	}
 
 	@Override

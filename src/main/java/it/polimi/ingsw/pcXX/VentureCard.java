@@ -5,12 +5,12 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class VentureCard extends DevelopmentCard{
-	private final List<GhostFamilyMember> actions;
+	private final List<FamilyMember> actions;
 	private final Reward militaryPointPrice;
 	private final Reward militaryPointNeeded;
 	private final Reward victoryPointEarned;
 	
-	public VentureCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<GhostFamilyMember> actions,
+	public VentureCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<FamilyMember> actions,
 					   Reward militaryPointNeeded, Reward militaryPointPrice, Reward victoryPointEarned){
 		super(name, CardType.VENTURE, period, costs, fastRewards);
 		this.actions = actions;
@@ -31,7 +31,7 @@ public class VentureCard extends DevelopmentCard{
 		cardString += "Victory point earned: "+ victoryPointEarned + "\n";
 		if(actions != null){
 			cardString += "Actions:\n";
-			for (GhostFamilyMember g : actions){
+			for (FamilyMember g : actions){
 				cardString += "  " + g.toString() + "\n";
 			}
 		}
@@ -64,7 +64,7 @@ public class VentureCard extends DevelopmentCard{
 		return result;
 	}
 
-	public List<GhostFamilyMember> getActions() {
+	public List<FamilyMember> getActions() {
 		return actions;
 	}
 
@@ -87,6 +87,11 @@ public class VentureCard extends DevelopmentCard{
 		}
 		if(!canBuyCard(copyForCosts, counterMod)){
 			return false;
+		}
+		if(actions != null){
+			for(FamilyMember f : actions){
+				playerBoard.getPlayer().placeFamilyMember(f, null/*TODO chiedi dove*/);
+			}
 		}
 		return true;
 	}

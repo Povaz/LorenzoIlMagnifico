@@ -142,7 +142,7 @@ public class JSONUtility {
 		String name = getName(card);
 		Set<Reward> costs = getCosts(card);
 		Set<Reward> fastRewards = getFastRewards(card);
-		List<GhostFamilyMember> actions = getActions(card);
+		List<FamilyMember> actions = getActions(card);
 		boolean noBonusTowerResource = getBooleanNoException(card, "noBonusTowerResource");
 		List<CostDiscount> discounts = getDiscounts(card);
 		List<ActionModifier> actionModifiers = getActionModifiers(card);
@@ -160,7 +160,7 @@ public class JSONUtility {
 		String name = getName(card);
 		Set<Reward> costs = getCosts(card);
 		Set<Reward> fastRewards = getFastRewards(card);
-		List<GhostFamilyMember> actions = getActions(card);
+		List<FamilyMember> actions = getActions(card);
 		Reward militaryPointNeeded;
 		Reward militaryPointPrice;
 		try{
@@ -231,9 +231,9 @@ public class JSONUtility {
 		}
 	}
 
-	private static List<GhostFamilyMember> getActions(JSONObject card){
+	private static List<FamilyMember> getActions(JSONObject card){
 		try{
-			List<GhostFamilyMember> actionList = new LinkedList<>();
+			List<FamilyMember> actionList = new LinkedList<>();
 			JSONArray actions = card.getJSONArray("actions");
 			for(int i = 0; i < actions.length(); i++){
 				JSONObject actionObj = actions.getJSONObject(i);
@@ -245,7 +245,7 @@ public class JSONUtility {
 				} catch(JSONException e){
 					discounts = null;
 				}
-				actionList.add(new GhostFamilyMember(actionType, value, discounts));
+				actionList.add(new FamilyMember(actionType, value, discounts));
 			}
 			return actionList;
 		} catch(JSONException e){
@@ -519,7 +519,7 @@ public class JSONUtility {
 		Set<Reward> reward = getRewardSetWithException(immediateLeaderCard,"reward");
 		boolean changeColoredFamilyMemberValue = getBooleanNoException(immediateLeaderCard, "changeColoredFamilyMemberValue");
 		int newValueColoredFamilyMemberValue = getIntegerNoException(immediateLeaderCard, "newValueColoredFamilyMember");
-		List<GhostFamilyMember> actions = getActions(immediateLeaderCard);
+		List<FamilyMember> actions = getActions(immediateLeaderCard);
 
 		return new ImmediateLeaderCard(name, activationRewardRequirement, activationCardTypeRequirement, activated, reward, changeColoredFamilyMemberValue,
 				newValueColoredFamilyMemberValue, actions);

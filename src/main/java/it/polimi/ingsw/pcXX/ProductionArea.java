@@ -15,6 +15,11 @@ public class ProductionArea extends ActionSpot{
 		if(!super.isPlaceable(familyMember)){
 			return false;
 		}
+		if(familyMember.getAction() != null) {
+			if (familyMember.getAction() != ActionType.PRODUCE && familyMember.getAction() != ActionType.ALL) {
+				return false;
+			}
+		}
 		if(familyMember.getColor() != FamilyColor.NEUTRAL){
 			for(ProductionArea pA : board.getProductionArea()){
 				for(FamilyMember f : pA.occupiedBy){

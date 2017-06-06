@@ -15,6 +15,11 @@ public class HarvestArea extends ActionSpot{
         if(!super.isPlaceable(familyMember)){
             return false;
         }
+        if(familyMember.getAction() != null) {
+            if (familyMember.getAction() != ActionType.HARVEST && familyMember.getAction() != ActionType.ALL) {
+                return false;
+            }
+        }
         if(familyMember.getColor() != FamilyColor.NEUTRAL){
             for(HarvestArea hA : board.getHarvestArea()){
                 for(FamilyMember f : hA.occupiedBy){

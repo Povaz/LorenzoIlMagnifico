@@ -278,8 +278,8 @@ public class JSONUtilityTest extends TestCase{
         Set<Reward> discounts = new HashSet<>();
         discounts.add(new Reward(RewardType.STONE, 1));
         discounts.add(new Reward(RewardType.WOOD, 1));
-        List<GhostFamilyMember> actions = new LinkedList<>();
-        actions.add(new GhostFamilyMember(ActionType.BUILDING_TOWER, 6, discounts));
+        List<FamilyMember> actions = new LinkedList<>();
+        actions.add(new FamilyMember(ActionType.BUILDING_TOWER, 6, discounts));
 
         CharacterCard expected = new CharacterCard("Architect", 2, costs, null, actions,
                 false, null, null, null, null);
@@ -346,8 +346,8 @@ public class JSONUtilityTest extends TestCase{
         Set<Reward> fastRewards = new HashSet<>();
         fastRewards.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 1));
 
-        List<GhostFamilyMember> actions = new LinkedList<>();
-        actions.add(new GhostFamilyMember(ActionType.ANY_TOWER, 7, null));
+        List<FamilyMember> actions = new LinkedList<>();
+        actions.add(new FamilyMember(ActionType.ANY_TOWER, 7, null));
 
         CharacterCard expected = new CharacterCard("Ambassador", 3, costs, fastRewards, actions,
                 false, null, null, null, null);
@@ -394,8 +394,8 @@ public class JSONUtilityTest extends TestCase{
 
         Reward victoryPointEarned = new Reward(RewardType.VICTORY_POINT, 5);
 
-        List<GhostFamilyMember> actions = new LinkedList<>();
-        actions.add(new GhostFamilyMember(ActionType.HARVEST, 4, null));
+        List<FamilyMember> actions = new LinkedList<>();
+        actions.add(new FamilyMember(ActionType.HARVEST, 4, null));
 
         VentureCard expected = new VentureCard("Improving the Canals", 2, costs, null, actions,
                 null, null, victoryPointEarned);
