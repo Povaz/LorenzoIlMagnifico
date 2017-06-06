@@ -11,6 +11,7 @@ import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -18,7 +19,7 @@ import java.util.TimerTask;
  * Created by Povaz on 24/05/2017.
  **/
 public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin {
-    private static ArrayList<UserLogin> usersLogged;
+    private static List<UserLogin> usersLogged;
     private transient Timer timer;
 
     private ServerLoginImpl () throws RemoteException {

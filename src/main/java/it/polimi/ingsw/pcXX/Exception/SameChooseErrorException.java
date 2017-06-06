@@ -1,4 +1,4 @@
-package it.polimi.ingsw.pcXX;
+package it.polimi.ingsw.pcXX.Exception;
 
 /**
  * Created by Povaz on 06/06/2017.

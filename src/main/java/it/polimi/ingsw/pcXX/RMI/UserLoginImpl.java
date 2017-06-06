@@ -137,7 +137,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
                 System.out.println("InputError: Retry");
             }
             if (userLogin.getChoose() == 3) {
-                break;
+                System.exit(0);
             }
         }
     }

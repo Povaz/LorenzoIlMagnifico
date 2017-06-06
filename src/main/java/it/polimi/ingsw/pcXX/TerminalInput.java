@@ -1,11 +1,9 @@
 package it.polimi.ingsw.pcXX;
 
-import com.sun.org.apache.regexp.internal.RE;
+import it.polimi.ingsw.pcXX.Exception.IllegalCouncilPrivilegeQuantity;
+import it.polimi.ingsw.pcXX.Exception.SameChooseErrorException;
 
-import java.util.Arrays;
 import java.util.Scanner;
-import java.util.Set;
-import java.util.stream.IntStream;
 
 /**
  * Created by Povaz on 06/06/2017.
