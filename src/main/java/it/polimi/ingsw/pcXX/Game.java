@@ -88,7 +88,8 @@ public class Game{
     }
 
     public void playTurn(){
-        FamilyMember familyMember = new FamilyMember(false, 3, false);
+        FamilyMember familyMember = new FamilyMember(null, FamilyColor.WHITE);
+        familyMember.setValue(5);
         ActionSpot actionSpot = new Market(true, true, 1, null);
         do{
             board.getOrder().getCurrent().placeFamilyMember(familyMember, actionSpot);

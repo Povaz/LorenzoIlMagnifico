@@ -1,24 +1,31 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.Set;
+
 public class FamilyMember {
 	private boolean used;
-	protected int value;
-	private boolean changes;
-	private Player player;
-	private FamilyColor color;
+	private int value;
+	private final Player player;
+	private final FamilyColor color;
+	private final ActionType action;
+	private final Set<Reward> discounts;
 
-	public FamilyMember(boolean used, int value, boolean changes){
-		this.used = used;
-		this.value = value;
-		this.changes = changes;
-	}
-
-	public FamilyMember(boolean used, int value, boolean changes, Player player, FamilyColor color){
-		this.used = used;
-		this.value = value;
-		this.changes = changes;
+	public FamilyMember(Player player, FamilyColor color){
+		this.used = false;
+		this.value = 0;
 		this.player = player;
 		this.color = color;
+		this.action = null;
+		this.discounts = null;
+	}
+
+	public FamilyMember(ActionType action, int value, Set<Reward> discounts){
+		this.used = false;
+		this.value = value;
+		this.player = null;
+		this.color = FamilyColor.NEUTRAL;
+		this.action = action;
+		this.discounts = discounts;
 	}
 
 	@Override
@@ -30,18 +37,20 @@ public class FamilyMember {
 
 		if (used != that.used) return false;
 		if (value != that.value) return false;
-		if (changes != that.changes) return false;
-		if (!player.equals(that.player)) return false;
-		return color == that.color;
+		if (player != null ? !player.equals(that.player) : that.player != null) return false;
+		if (color != that.color) return false;
+		if (action != that.action) return false;
+		return discounts != null ? discounts.equals(that.discounts) : that.discounts == null;
 	}
 
 	@Override
 	public int hashCode() {
 		int result = (used ? 1 : 0);
 		result = 31 * result + value;
-		result = 31 * result + (changes ? 1 : 0);
-		result = 31 * result + player.hashCode();
+		result = 31 * result + (player != null ? player.hashCode() : 0);
 		result = 31 * result + color.hashCode();
+		result = 31 * result + (action != null ? action.hashCode() : 0);
+		result = 31 * result + (discounts != null ? discounts.hashCode() : 0);
 		return result;
 	}
 
@@ -65,27 +74,19 @@ public class FamilyMember {
 		this.value = value;
 	}
 
-	public boolean isChanges() {
-		return changes;
-	}
-
-	public void setChanges(boolean changes) {
-		this.changes = changes;
-	}
-
 	public Player getPlayer() {
 		return player;
-	}
-
-	public void setPlayer(Player player) {
-		this.player = player;
 	}
 
 	public FamilyColor getColor() {
 		return color;
 	}
 
-	public void setColor(FamilyColor color) {
-		this.color = color;
+	public ActionType getAction() {
+		return action;
+	}
+
+	public Set<Reward> getDiscounts() {
+		return discounts;
 	}
 }

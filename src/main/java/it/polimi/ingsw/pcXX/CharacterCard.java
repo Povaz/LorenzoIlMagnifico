@@ -4,14 +4,14 @@ import java.util.List;
 import java.util.Set;
 
 public class CharacterCard extends DevelopmentCard{
-	private final List<GhostFamilyMember> actions;
+	private final List<FamilyMember> actions;
 	private final boolean noBonusTowerResource;
 	private final List<CostDiscount> discounts;
 	private final List<ActionModifier> actionModifiers;
 	private final RewardForReward rewardForReward;
 	private final RewardForCard rewardForCard;
 	
-	public CharacterCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<GhostFamilyMember> actions,
+	public CharacterCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<FamilyMember> actions,
 						 boolean noBonusTowerResource, List<CostDiscount> discounts, List<ActionModifier> actionModifiers,
 						 RewardForReward rewardForReward, RewardForCard rewardForCard){
 		super(name, CardType.CHARACTER, period, costs, fastRewards);
@@ -29,7 +29,7 @@ public class CharacterCard extends DevelopmentCard{
 		cardString += "No bonus tower resource: " + noBonusTowerResource + "\n";
 		if(actions != null){
 			cardString += "Actions:\n";
-			for (GhostFamilyMember g : actions){
+			for (FamilyMember g : actions){
 				cardString += "  " + g.toString() + "\n";
 			}
 		}

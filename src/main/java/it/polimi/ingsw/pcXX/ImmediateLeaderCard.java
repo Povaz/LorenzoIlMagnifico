@@ -15,11 +15,11 @@ public class ImmediateLeaderCard extends LeaderCard {
     private final Set<Reward> reward;
     private final boolean changeColoredFamilyMamberValue;
     private final int newValueColoredFamilyMember;
-    private final List<GhostFamilyMember> actions;
+    private final List<FamilyMember> actions;
 
     public ImmediateLeaderCard (String name, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
                                 boolean activated, Set<Reward> reward, boolean changeColoredFamilyMamberValue, int newValueColoredFamilyMember,
-                                List<GhostFamilyMember> actions) {
+                                List<FamilyMember> actions) {
         super(name, activationRewardRequirement, activationCardTypeRequirement);
         this.activated = activated;
         this.reward = reward;
@@ -59,7 +59,7 @@ public class ImmediateLeaderCard extends LeaderCard {
         }
         if (actions != null) {
             immediateLeaderCardString += "Actions: \n";
-            for (GhostFamilyMember g: actions) {
+            for (FamilyMember g: actions) {
                 immediateLeaderCardString += "  " + g.toString() + "\n";
             }
         }
