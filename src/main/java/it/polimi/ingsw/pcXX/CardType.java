@@ -1,5 +1,32 @@
 package it.polimi.ingsw.pcXX;
 
 public enum CardType {
-	ANY, TERRITORY, BUILDING, CHARACTER, VENTURE;
+	TERRITORY, BUILDING, CHARACTER, VENTURE;
+
+	public boolean same(ActionType action){
+		switch(this){
+			case TERRITORY:
+				if(action == ActionType.TERRITORY_TOWER || action == ActionType.ANY_TOWER){
+					return true;
+				}
+				return false;
+			case BUILDING:
+				if(action == ActionType.BUILDING_TOWER || action == ActionType.ANY_TOWER){
+					return true;
+				}
+				return false;
+			case CHARACTER:
+				if(action == ActionType.CHARACTER_TOWER || action == ActionType.ANY_TOWER){
+					return true;
+				}
+				return false;
+			case VENTURE:
+				if(action == ActionType.VENTURE_TOWER || action == ActionType.ANY_TOWER){
+					return true;
+				}
+				return false;
+			default:
+					return false;
+		}
+	}
 }

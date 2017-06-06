@@ -88,6 +88,11 @@ public class VentureCard extends DevelopmentCard{
 		if(!canBuyCard(copyForCosts, counterMod)){
 			return false;
 		}
+		if(actions != null){
+			for(FamilyMember f : actions){
+				playerBoard.getPlayer().placeFamilyMember(f, null/*TODO chiedi dove*/);
+			}
+		}
 		return true;
 	}
 
