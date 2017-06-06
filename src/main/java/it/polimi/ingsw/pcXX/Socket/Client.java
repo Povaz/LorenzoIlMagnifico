@@ -111,6 +111,53 @@ public class Client {
 		return username;
 	}
 	
+	synchronized private static String askAction(){
+		Scanner insertNumber = new Scanner (System.in);
+		System.out.println("Seleziona Azione: \n 1-Posiziona Familiare \n 2-Usa Carta Leader \n 3-Scarta Carta Leader \n 4-Passa il Turno");
+		int numberAction = insertNumber.nextInt();
+		switch(numberAction){
+			case 1:
+				System.out.println("Seleziona Colore Familiare: \n 1-Nero \n 2-Arancione \n 3-Bianco \n 4-No Color");
+				int numberColorFamilyMember = insertNumber.nextInt();
+				System.out.println("Select Spot: \n 1-Stanza \n 2-Market \n 3-Production \n 4-Harvest \n 5-Council Palace");
+				int numberSpot = insertNumber.nextInt();
+				switch(numberSpot){
+					case 1:
+						System.out.println("Select Tower");
+						int numberTower = insertNumber.nextInt();
+						System.out.println("Select Floor");
+						int numberFloor = insertNumber.nextInt();
+						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberTower) + "," + Integer.toString(numberFloor));
+					case 2:
+						System.out.println("Select Market's Spot");
+						int numberMarket = insertNumber.nextInt();
+						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberMarket));
+					case 3:
+						System.out.println("Select Spot Production");
+						int numberProduction = insertNumber.nextInt();
+						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberProduction));
+					case 4:
+						System.out.println("Select Spot Harvest");
+						int numberHarvest = insertNumber.nextInt();
+						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberHarvest));		
+					case 5:
+						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot));
+				}
+			case 2:
+				System.out.println("Seleziona Numero Carta Leader");
+				int numberLeaderCard = insertNumber.nextInt();
+				return (Integer.toString(numberAction) + "," + Integer.toString(numberLeaderCard));
+			case 3: 
+				System.out.println("Seleziona Numero Carta Leader");
+				int numberLeaderCard2 = insertNumber.nextInt();
+				return (Integer.toString(numberAction) + "," + Integer.toString(numberLeaderCard2));
+			case 4:
+				return (Integer.toString(numberAction));
+		}
+		
+		return "a";
+	}
+	
 	public static void main(String[] args) throws UnknownHostException, IOException {
 		
 		//Fa il login
