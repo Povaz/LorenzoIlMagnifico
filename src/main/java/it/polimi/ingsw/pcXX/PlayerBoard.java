@@ -8,7 +8,7 @@ import java.util.*;
 public class PlayerBoard {
     private final Player player;
     private final PlayerColor color;
-    private final Counter counter;
+    private Counter counter;
     private final List<FamilyMember> familyMembers;
     private final PersonalBonusTile personalBonusTile;
     private final List<LeaderCard> leaderCards;
@@ -42,40 +42,50 @@ public class PlayerBoard {
         return familyMember;
     }
 
-    public boolean harvest(int value){
-        if(value >= personalBonusTile.getDiceHarvest()){
-            counter.sum(personalBonusTile.getHarvestRewards());
+    public boolean harvest(int value) throws TooMuchTimeException{
+        Counter newCounter = new Counter(counter);
+
+        if(personalBonusTile.getHarvestRewards() != null) {
+            if(value >= personalBonusTile.getDiceHarvest()){
+                newCounter.sum(personalBonusTile.getHarvestRewards());
+            }
         }
         for(DevelopmentCard dC : territorySpot.getCards()){
             TerritoryCard tc = (TerritoryCard) dC;
             if(value >= tc.getDiceHarvestAction()){
                 if(tc.getEarnings() != null){
-                    counter.sum(tc.getEarnings());
+                    newCounter.sum(tc.getEarnings());
                 }
             }
         }
-        counter.round();
+        if(!newCounter.check()){
+            return false;
+        }
+        newCounter.round();
+        counter = newCounter;
         return true;
     }
 
-    public boolean produce(int value){
+    public boolean produce(int value) throws TooMuchTimeException{
         Counter copyForCosts = new Counter(counter);
-        Counter counterMod = new Counter();
+        Counter newCounter = new Counter(counter);
 
-        if(value >= personalBonusTile.getDiceProduction()){
-            counterMod.sum(personalBonusTile.getProductionRewards());
+        if(personalBonusTile.getProductionRewards() != null) {
+            if(value >= personalBonusTile.getDiceProduction()){
+                newCounter.sum(personalBonusTile.getProductionRewards());
+            }
         }
         for(DevelopmentCard dC : buildingSpot.getCards()){
             BuildingCard bC = (BuildingCard) dC;
             if(value >= bC.getDiceProductionAction()){
                 if(bC.getEarnings() != null){
-                    counterMod.sum(bC.getEarnings());
+                    newCounter.sum(bC.getEarnings());
                 }
                 if(bC.getRewardForCard() != null){
-                    counterMod.sum(convertRewardForReward(bC.getRewardForReward()));
+                    newCounter.sum(convertRewardForReward(bC.getRewardForReward()));
                 }
                 if(bC.getRewardForReward() != null){
-                    covertRewardForCard(bC.getRewardForCard());
+                    newCounter.sum(covertRewardForCard(bC.getRewardForCard()));
                 }
                 if(bC.getTrades() != null){
 
@@ -87,8 +97,8 @@ public class PlayerBoard {
                         try {
                             Trade trade = bC.getTrades().get(scelta);
                             copyForCosts.subtract(trade.getGive());
-                            counterMod.subtract(trade.getGive());
-                            counterMod.sum(trade.getTake());
+                            newCounter.subtract(trade.getGive());
+                            newCounter.sum(trade.getTake());
                         } catch (IndexOutOfBoundsException e) {
                             return false;
                         }
@@ -99,66 +109,65 @@ public class PlayerBoard {
         if(!copyForCosts.check()){
             return false;
         }
-        counter.sum(counterMod);
+        if(!newCounter.check()){
+            return false;
+        }
+        newCounter.round();
+        counter = newCounter;
         return true;
     }
 
-    public boolean buyCard(Floor floor){
-        Counter copyForCosts = new Counter(counter);
-        Counter counterMod = new Counter();
+    public boolean buyCard(Floor floor) throws TooMuchTimeException{
+        Counter newCounter = new Counter(counter);
         DevelopmentCard developmentCard = floor.getCard();
 
-        if(!payTowerTax(copyForCosts, counterMod, floor)){
+        if(!payTowerTax(newCounter, floor)){
             return false;
         }
 
-        earnTowerReward(copyForCosts, counterMod, floor);
+        earnTowerReward(newCounter, floor);
 
-        earnCardFastReward(copyForCosts, counterMod, developmentCard);
+        earnCardFastReward(newCounter, developmentCard);
 
-        if(!developmentCard.isPlaceable(copyForCosts, counterMod, this)){
+        if(!developmentCard.isPlaceable(newCounter, this)){
             return false;
         }
 
-        if(!developmentCard.canBuyCard(copyForCosts, counterMod)){
+        if(!developmentCard.canBuyCard(newCounter)){
             return false;
         }
 
-        if(!copyForCosts.check()){
+        if(!newCounter.check()){
             return false;
         }
 
         developmentCard.place(this);
+        newCounter.round();
+        counter = newCounter;
 
-        counter.sum(counterMod);
-
-        counter.round();
 
         return true;
     }
 
-    private boolean payTowerTax(Counter copyForCosts, Counter counterMod, Floor floor){
+    private boolean payTowerTax(Counter newCounter, Floor floor){
         if(floor.getTower().isOccupied()){
-            copyForCosts.subtract(floor.getTower().getOccupiedTax());
-            counterMod.subtract(floor.getTower().getOccupiedTax());
+            newCounter.subtract(floor.getTower().getOccupiedTax());
         }
-        if(!copyForCosts.check()){
+        if(!newCounter.check()){
             return false;
         }
         return true;
     }
 
-    private void earnTowerReward(Counter copyForCosts, Counter counterMod, Floor floor){
+    private void earnTowerReward(Counter newCounter, Floor floor) throws TooMuchTimeException{
         if(floor.getRewards() != null){
-            copyForCosts.sum(floor.getRewards());
-            counterMod.sum(floor.getRewards());
+            newCounter.sum(floor.getRewards());
         }
     }
 
-    private void earnCardFastReward(Counter copyForCosts, Counter counterMod, DevelopmentCard developmentCard){
+    private void earnCardFastReward(Counter newCounter, DevelopmentCard developmentCard) throws TooMuchTimeException{
         if(developmentCard.getFastRewards() != null){
-            copyForCosts.sum(developmentCard.getFastRewards());
-            counterMod.sum(developmentCard.getFastRewards());
+            newCounter.sum(developmentCard.getFastRewards());
         }
     }
 
@@ -225,6 +234,10 @@ public class PlayerBoard {
 
     public Modifier getModifier() {
         return modifier;
+    }
+
+    public void setCounter(Counter counter) {
+        this.counter = counter;
     }
 
     public CardSpot getCardSpot(CardType cardType){

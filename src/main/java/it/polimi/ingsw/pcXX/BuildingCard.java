@@ -12,7 +12,7 @@ public class BuildingCard extends DevelopmentCard{
 
 	public BuildingCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, int diceProductionAction,
 						Set<Reward> earnings, List<Trade> trades, RewardForReward rewardForReward, RewardForCard rewardForCard){
-		super(name, CardType.BUILDING, period, costs, fastRewards);
+		super(name, CardType.BUILDING, period, costs, fastRewards, null);
 		this.diceProductionAction = diceProductionAction;
 		this.earnings = earnings;
 		this.trades = trades;
@@ -93,11 +93,11 @@ public class BuildingCard extends DevelopmentCard{
 	}
 
 	@Override
-	public boolean isPlaceable(Counter copyForCosts, Counter counterMod, PlayerBoard playerBoard){
-		if(!playerBoard.getBuildingSpot().canPlaceCard(copyForCosts)){
+	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard){
+		if(!playerBoard.getBuildingSpot().canPlaceCard(newCounter)){
 			return false;
 		}
-		if(!canBuyCard(copyForCosts, counterMod)){
+		if(!canBuyCard(newCounter)){
 			return false;
 		}
 		return true;

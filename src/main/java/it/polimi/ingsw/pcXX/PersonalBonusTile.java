@@ -19,8 +19,7 @@ public class PersonalBonusTile {
         this.harvestRewards = harvestRewards;
         this.productionRewards = productionRewards;
     }
-    
-    
+
     public String toString (){
     	String tileString = super.toString();
     	tileString+="\nDice Harvest: "+ diceHarvest + "\n";
@@ -40,8 +39,30 @@ public class PersonalBonusTile {
     	}
     	return tileString;
     }
-    
-    
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        PersonalBonusTile that = (PersonalBonusTile) o;
+
+        if (diceHarvest != that.diceHarvest) return false;
+        if (diceProduction != that.diceProduction) return false;
+        if (harvestRewards != null ? !harvestRewards.equals(that.harvestRewards) : that.harvestRewards != null)
+            return false;
+        return productionRewards != null ? productionRewards.equals(that.productionRewards) : that.productionRewards == null;
+    }
+
+    @Override
+    public int hashCode() {
+        int result = diceHarvest;
+        result = 31 * result + (harvestRewards != null ? harvestRewards.hashCode() : 0);
+        result = 31 * result + diceProduction;
+        result = 31 * result + (productionRewards != null ? productionRewards.hashCode() : 0);
+        return result;
+    }
+
     public int getDiceHarvest(){
         return diceHarvest;
     }

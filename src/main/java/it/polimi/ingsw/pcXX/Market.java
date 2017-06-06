@@ -25,7 +25,7 @@ public class Market extends ActionSpot{
 	}
 
 	@Override
-	public boolean place(FamilyMember familyMember){
+	public boolean place(FamilyMember familyMember) throws TooMuchTimeException{
 		familyMember.getPlayer().getPlayerBoard().getCounter().sum(rewards);
 		return super.place(familyMember);
 	}

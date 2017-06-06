@@ -7,7 +7,7 @@ public class TerritoryCard extends DevelopmentCard{
 	private final Set<Reward> earnings;
 
 	public TerritoryCard(String name, int period, Set<Reward> fastRewards, int diceHarvestAction, Set<Reward> earnings){
-		super(name, CardType.TERRITORY, period, null, fastRewards);
+		super(name, CardType.TERRITORY, period, null, fastRewards, null);
 		this.diceHarvestAction = diceHarvestAction;
 		this.earnings = earnings;
 	}
@@ -54,11 +54,11 @@ public class TerritoryCard extends DevelopmentCard{
 	}
 
 	@Override
-	public boolean isPlaceable(Counter copyForCosts, Counter counterMod, PlayerBoard playerBoard){
-		if(!playerBoard.getTerritorySpot().canPlaceCard(copyForCosts)){
+	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard){
+		if(!playerBoard.getTerritorySpot().canPlaceCard(newCounter)){
 			return false;
 		}
-		if(!canBuyCard(copyForCosts, counterMod)){
+		if(!canBuyCard(newCounter)){
 			return false;
 		}
 		return true;

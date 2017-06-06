@@ -35,7 +35,7 @@ public class HarvestArea extends ActionSpot{
     }
 
     @Override
-    public boolean place(FamilyMember familyMember){
+    public boolean place(FamilyMember familyMember) throws TooMuchTimeException{
         if(familyMember.getPlayer().getPlayerBoard().harvest(familyMember.getValue() + diceModifier)){
             return super.place(familyMember);
         }
