@@ -6,6 +6,7 @@ import java.util.*;
  * Created by trill on 23/05/2017.
  */
 public class PlayerBoard {
+    private final Player player;
     private final PlayerColor color;
     private final Counter counter;
     private final List<FamilyMember> familyMembers;
@@ -19,6 +20,7 @@ public class PlayerBoard {
 
 
     public PlayerBoard(Player player, int playerOrder, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
+        this.player = player;
         this.color = player.getColor();
         this.counter = new Counter(playerOrder);
         this.familyMembers = initializeFamilyMembers(player);
@@ -40,7 +42,6 @@ public class PlayerBoard {
         return familyMember;
     }
 
-
     public boolean harvest(int value){
         if(value >= personalBonusTile.getDiceHarvest()){
             counter.sum(personalBonusTile.getHarvestRewards());
@@ -53,6 +54,7 @@ public class PlayerBoard {
                 }
             }
         }
+        counter.round();
         return true;
     }
 
@@ -80,6 +82,7 @@ public class PlayerBoard {
                     System.out.println("Seleziona scambio:");
                     Scanner input = new Scanner(System.in);
                     int scelta = input.nextInt();
+
                     if(scelta != -1){
                         try {
                             Trade trade = bC.getTrades().get(scelta);
@@ -178,6 +181,10 @@ public class PlayerBoard {
             r.multiplyQuantity(multiplier);
         }
         return earned;
+    }
+
+    public Player getPlayer() {
+        return player;
     }
 
     public PlayerColor getColor() {
