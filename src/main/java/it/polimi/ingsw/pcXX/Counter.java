@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.HashSet;
 import java.util.Set;
 
 /**
@@ -58,61 +59,12 @@ public class Counter{
             coin.setQuantity(9);
     }
 
-
-    public boolean canAdd(Set<Reward> rewards){
-        Counter temp = new Counter(this);
-        for(Reward r : rewards) {
-            switch (r.getType()) {
-                case WOOD:
-                    temp.wood.sumQuantity(r);
-                    if (temp.wood.getQuantity() < 0) {
-                        return false;
-                    }
-                    break;
-                case STONE:
-                    temp.stone.sumQuantity(r);
-                    if (temp.stone.getQuantity() < 0) {
-                        return false;
-                    }
-                    break;
-                case SERVANT:
-                    temp.servant.sumQuantity(r);
-                    if (temp.servant.getQuantity() < 0) {
-                        return false;
-                    }
-                    break;
-                case COIN:
-                    temp.coin.sumQuantity(r);
-                    if (temp.coin.getQuantity() < 0) {
-                        return false;
-                    }
-                    break;
-                case MILITARY_POINT:
-                    temp.militaryPoint.sumQuantity(r);
-                    if (temp.militaryPoint.getQuantity() < 0) {
-                        return false;
-                    }
-                    break;
-                case FAITH_POINT:
-                    temp.faithPoint.sumQuantity(r);
-                    if (temp.faithPoint.getQuantity() < 0) {
-                        return false;
-                    }
-                    break;
-                case VICTORY_POINT:
-                    temp.victoryPoint.sumQuantity(r);
-                    if (temp.victoryPoint.getQuantity() < 0) {
-                        return false;
-                    }
-                    break;
-            }
+    public void sum(Set<Reward> rewards) throws TooMuchTimeException{
+        if(rewards == null){
+            return;
         }
-        return true;
-    }
-
-    public void sum(Set<Reward> rewards){
-        for(Reward r : rewards) {
-            switch (r.getType()) {
+        for(Reward r : rewards){
+            switch (r.getType()){
                 case WOOD:
                     wood.sumQuantity(r);
                     break;
@@ -133,6 +85,9 @@ public class Counter{
                     break;
                 case VICTORY_POINT:
                     victoryPoint.sumQuantity(r);
+                    break;
+                case COUNCIL_PRIVILEGE:
+                    sum(r.exchange());
                     break;
             }
         }
@@ -261,8 +216,9 @@ public class Counter{
                 return faithPoint;
             case VICTORY_POINT:
                 return victoryPoint;
+            default:
+                return null;
         }
-        return null;
     }
 
     public Reward getCoin() {

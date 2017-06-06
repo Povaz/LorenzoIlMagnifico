@@ -1,5 +1,8 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.HashSet;
+import java.util.Set;
+
 public class Reward{
     private final RewardType type;
     private int quantity;
@@ -34,9 +37,7 @@ public class Reward{
 
     @Override
     public int hashCode() {
-        int result = type.hashCode();
-        result = 31 * result + quantity;
-        return result;
+        return type.hashCode();
     }
 
     @Override
@@ -62,39 +63,22 @@ public class Reward{
         quantity *= multiplier;
     }
 
-    /* TODO: fix exchange method!
-    public Set<Reward> exchange (Set<Reward> rewards) {
-        if(type == COUNCIL_PRIVILEGE) {
-            for (Reward reward : rewards) {
-                if (reward instanceof Resource) {
-                    if (((Resource) reward).getType() == ResourceType.WOOD) {
-                        ((Resource) reward).setQuantity(1);
-                    }
-                    if (((Resource) reward).getType() == ResourceType.STONE) {
-                        ((Resource) reward).setQuantity(1);
-                    }
-                    if (((Resource) reward).getType() == ResourceType.SERVANT) {
-                        ((Resource) reward).setQuantity(2);
-                    }
-                    if (((Resource) reward).getType() == ResourceType.COIN) {
-                        ((Resource) reward).setQuantity(2);
-                    }
-                }
-
-                if (reward instanceof Point) {
-                    if (((Point) reward).getType() == PointType.FAITH_POINT) {
-                        ((Point) reward).setQuantity(1);
-                    }
-                    if (((Point) reward).getType() == PointType.MILITARY_POINT) {
-                        ((Point) reward).setQuantity(2);
-                    }
-                }
-            }
-
-            return rewards;
+    public Set<Reward> exchange() throws TooMuchTimeException{
+        Set<Reward> rewards = new HashSet<>();
+        int i = 0;
+        switch (i/*TODO funzione che chiede i privilegi*/) {
+            case 0:
+                rewards.add(new Reward(RewardType.WOOD, 1));
+                rewards.add(new Reward(RewardType.STONE, 1));
+            case 1:
+                rewards.add(new Reward(RewardType.SERVANT, 2));
+            case 2:
+                rewards.add(new Reward(RewardType.COIN, 2));
+            case 3:
+                rewards.add(new Reward(RewardType.MILITARY_POINT, 2));
+            case 4:
+                rewards.add(new Reward(RewardType.FAITH_POINT, 1));
         }
-        else{
-            throw new IllegalArgumentException();
-        }
-    }*/
+        return rewards;
+    }
 }

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.List;
 import java.util.Set;
 
 public abstract class DevelopmentCard {
@@ -8,52 +9,34 @@ public abstract class DevelopmentCard {
 	private final int period;
 	private final Set<Reward> costs;
 	private final Set<Reward> fastRewards;
+	private final List<FamilyMember> actions;
 
-	public DevelopmentCard(String name, CardType type, int period, Set<Reward> costs, Set<Reward> fastRewards){
+	public DevelopmentCard(String name, CardType type, int period, Set<Reward> costs, Set<Reward> fastRewards,
+						   List<FamilyMember> actions){
 		this.name = name;
 		this.type = type;
 		this.period = period;
 		this.costs = costs;
 		this.fastRewards = fastRewards;
+		this.actions = actions;
 	}
 
-	public abstract boolean isPlaceable(Counter copyForCosts, Counter counterMod, PlayerBoard playerBoard);
+	public abstract boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard) throws TooMuchTimeException;
 
 	public abstract void place(PlayerBoard playerBoard);
 
-	public boolean canBuyCard(Counter copyForCosts, Counter counterMod){
+	public boolean canBuyCard(Counter newCounter){
 		if(costs != null){
-			copyForCosts.subtract(costs);
-			counterMod.subtract(costs);
+			newCounter.subtract(costs);
 		}
-		if(copyForCosts.check()){
+		if(newCounter.check()){
 			return true;
 		}
 		return false;
 	}
 
-	public String getName(){
-		return name;
-	}
-
-	public CardType getType(){
-		return type;
-	}
-
-	public int getPeriod(){
-		return period;
-	}
-
-	public Set<Reward> getCosts(){
-		return costs;
-	}
-
-	public Set<Reward> getFastRewards(){
-		return fastRewards;
-	}
-
 	@Override
-	public boolean equals(Object o){
+	public boolean equals(Object o) {
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
@@ -63,7 +46,8 @@ public abstract class DevelopmentCard {
 		if (!name.equals(that.name)) return false;
 		if (type != that.type) return false;
 		if (costs != null ? !costs.equals(that.costs) : that.costs != null) return false;
-		return fastRewards != null ? fastRewards.equals(that.fastRewards) : that.fastRewards == null;
+		if (fastRewards != null ? !fastRewards.equals(that.fastRewards) : that.fastRewards != null) return false;
+		return actions != null ? actions.equals(that.actions) : that.actions == null;
 	}
 
 	@Override
@@ -73,6 +57,7 @@ public abstract class DevelopmentCard {
 		result = 31 * result + period;
 		result = 31 * result + (costs != null ? costs.hashCode() : 0);
 		result = 31 * result + (fastRewards != null ? fastRewards.hashCode() : 0);
+		result = 31 * result + (actions != null ? actions.hashCode() : 0);
 		return result;
 	}
 
@@ -96,7 +81,36 @@ public abstract class DevelopmentCard {
 				cardString +=  "  " + r.toString() + "\n";
 			}
 		}
-
+		if(actions != null){
+			cardString += "Actions:\n";
+			for (FamilyMember g : actions){
+				cardString += "  " + g.toString() + "\n";
+			}
+		}
 		return cardString;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public CardType getType() {
+		return type;
+	}
+
+	public int getPeriod() {
+		return period;
+	}
+
+	public Set<Reward> getCosts() {
+		return costs;
+	}
+
+	public Set<Reward> getFastRewards() {
+		return fastRewards;
+	}
+
+	public List<FamilyMember> getActions() {
+		return actions;
 	}
 }

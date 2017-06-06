@@ -92,7 +92,9 @@ public class Game{
         familyMember.setValue(5);
         ActionSpot actionSpot = new Market(true, true, 1, null);
         do{
-            board.getOrder().getCurrent().placeFamilyMember(familyMember, actionSpot);
+            try {
+                board.getOrder().getCurrent().placeFamilyMember(familyMember, actionSpot);
+            } catch (TooMuchTimeException e){}
         } while(board.getOrder().nextOrder());
     }
 

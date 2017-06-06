@@ -2,9 +2,10 @@ package it.polimi.ingsw.pcXX;
 
 import java.util.Set;
 
-public class FamilyMember {
+public class FamilyMember{
 	private boolean used;
 	private int value;
+	private final boolean ghost;
 	private final Player player;
 	private final FamilyColor color;
 	private final ActionType action;
@@ -13,6 +14,7 @@ public class FamilyMember {
 	public FamilyMember(Player player, FamilyColor color){
 		this.used = false;
 		this.value = 0;
+		this.ghost = false;
 		this.player = player;
 		this.color = color;
 		this.action = null;
@@ -22,6 +24,7 @@ public class FamilyMember {
 	public FamilyMember(ActionType action, int value, Set<Reward> discounts){
 		this.used = false;
 		this.value = value;
+		this.ghost = true;
 		this.player = null;
 		this.color = FamilyColor.NEUTRAL;
 		this.action = action;

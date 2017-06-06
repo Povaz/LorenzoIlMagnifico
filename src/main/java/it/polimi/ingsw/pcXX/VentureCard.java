@@ -5,15 +5,13 @@ import java.util.Scanner;
 import java.util.Set;
 
 public class VentureCard extends DevelopmentCard{
-	private final List<FamilyMember> actions;
 	private final Reward militaryPointPrice;
 	private final Reward militaryPointNeeded;
 	private final Reward victoryPointEarned;
 	
 	public VentureCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<FamilyMember> actions,
 					   Reward militaryPointNeeded, Reward militaryPointPrice, Reward victoryPointEarned){
-		super(name, CardType.VENTURE, period, costs, fastRewards);
-		this.actions = actions;
+		super(name, CardType.VENTURE, period, costs, fastRewards, actions);
 		this.militaryPointNeeded = militaryPointNeeded;
 		this.militaryPointPrice = militaryPointPrice;
 		this.victoryPointEarned = victoryPointEarned;
@@ -29,12 +27,6 @@ public class VentureCard extends DevelopmentCard{
 			cardString += "Military point price: " + militaryPointPrice + "\n";
 		}
 		cardString += "Victory point earned: "+ victoryPointEarned + "\n";
-		if(actions != null){
-			cardString += "Actions:\n";
-			for (FamilyMember g : actions){
-				cardString += "  " + g.toString() + "\n";
-			}
-		}
 		return cardString;
 	}
 
@@ -46,26 +38,20 @@ public class VentureCard extends DevelopmentCard{
 
 		VentureCard that = (VentureCard) o;
 
-		if (actions != null ? !actions.equals(that.actions) : that.actions != null) return false;
 		if (militaryPointPrice != null ? !militaryPointPrice.equals(that.militaryPointPrice) : that.militaryPointPrice != null)
 			return false;
 		if (militaryPointNeeded != null ? !militaryPointNeeded.equals(that.militaryPointNeeded) : that.militaryPointNeeded != null)
 			return false;
-		return victoryPointEarned != null ? victoryPointEarned.equals(that.victoryPointEarned) : that.victoryPointEarned == null;
+		return victoryPointEarned.equals(that.victoryPointEarned);
 	}
 
 	@Override
 	public int hashCode() {
 		int result = super.hashCode();
-		result = 31 * result + (actions != null ? actions.hashCode() : 0);
 		result = 31 * result + (militaryPointPrice != null ? militaryPointPrice.hashCode() : 0);
 		result = 31 * result + (militaryPointNeeded != null ? militaryPointNeeded.hashCode() : 0);
-		result = 31 * result + (victoryPointEarned != null ? victoryPointEarned.hashCode() : 0);
+		result = 31 * result + victoryPointEarned.hashCode();
 		return result;
-	}
-
-	public List<FamilyMember> getActions() {
-		return actions;
 	}
 
 	public Reward getMilitaryPointPrice() {
@@ -81,17 +67,12 @@ public class VentureCard extends DevelopmentCard{
 	}
 
 	@Override
-	public boolean isPlaceable(Counter copyForCosts, Counter counterMod, PlayerBoard playerBoard){
-		if(!playerBoard.getVentureSpot().canPlaceCard(copyForCosts)){
+	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard) throws TooMuchTimeException{
+		if(!playerBoard.getVentureSpot().canPlaceCard(newCounter)){
 			return false;
 		}
-		if(!canBuyCard(copyForCosts, counterMod)){
+		if(!canBuyCard(newCounter)){
 			return false;
-		}
-		if(actions != null){
-			for(FamilyMember f : actions){
-				playerBoard.getPlayer().placeFamilyMember(f, null/*TODO chiedi dove*/);
-			}
 		}
 		return true;
 	}
@@ -102,29 +83,28 @@ public class VentureCard extends DevelopmentCard{
 	}
 
 	@Override
-	public boolean canBuyCard(Counter copyForCosts, Counter counterMod){
+	public boolean canBuyCard(Counter newCounter){
 		if(militaryPointNeeded != null && militaryPointPrice != null && getCosts() != null){
 			boolean payWithMilitaryPoint = howWantPayVentureCard(getCosts(), militaryPointNeeded, militaryPointPrice);
 			if(payWithMilitaryPoint){
-				return canBuyCardMilitaryPoint(copyForCosts, counterMod);
+				return canBuyCardMilitaryPoint(newCounter);
 			}
 			else{
-				return super.canBuyCard(copyForCosts, counterMod);
+				return super.canBuyCard(newCounter);
 			}
 		}
 		else if(militaryPointNeeded != null && militaryPointPrice != null){
-			return canBuyCardMilitaryPoint(copyForCosts, counterMod);
+			return canBuyCardMilitaryPoint(newCounter);
 		}
 		else{
-			return super.canBuyCard(copyForCosts, counterMod);
+			return super.canBuyCard(newCounter);
 		}
 	}
 
-	private boolean canBuyCardMilitaryPoint(Counter copyForCosts, Counter counterMod){
-		if(copyForCosts.getMilitaryPoint().getQuantity() >= militaryPointNeeded.getQuantity()){
-			copyForCosts.subtract(militaryPointPrice);
-			counterMod.subtract(militaryPointPrice);
-			return copyForCosts.check();
+	private boolean canBuyCardMilitaryPoint(Counter newCounter){
+		if(newCounter.getMilitaryPoint().getQuantity() >= militaryPointNeeded.getQuantity()){
+			newCounter.subtract(militaryPointPrice);
+			return newCounter.check();
 		}
 		return false;
 	}
