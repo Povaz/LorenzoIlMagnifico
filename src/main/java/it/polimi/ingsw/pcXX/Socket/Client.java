@@ -4,7 +4,11 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.rmi.NotBoundException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import org.json.JSONException;
 
 public class Client {
 	private String username;
@@ -18,7 +22,7 @@ public class Client {
 	}
 	
 	synchronized public void startClient() throws IOException {
-		System.out.println("Attesa Inizio Game . . .");
+		System.out.println("Waiting Game to Start. . .");
 		System.out.println("");
 		
 		//sempre pronto a ricevere notifiche
@@ -27,7 +31,7 @@ public class Client {
 			line = receiveFromServer();
 			System.out.println(line);
 			System.out.println("");
-			if(line.equals("Game Iniziato")){
+			if(line.equals("Game Started")){
 				break;
 			}
 		}}
@@ -50,11 +54,11 @@ public class Client {
 		
 	}
 	
-	synchronized private static String login() throws IOException{
+	synchronized private static String loginVsRegister (Scanner in){
+		
 		String decision;
-	    Scanner in = new Scanner(System.in);
 		while(true){
-			System.out.println("Inserisci numero: \r 1-login \r 2-register");
+			System.out.println("What you want to do? Insert number: \n 1-login \n 2-register");
 			decision = in.nextLine();
 			//prima era qua l'invio al server
 			if(decision.equals("1")){
@@ -65,17 +69,22 @@ public class Client {
 				System.out.println("REGISTER:");
 				break;
 			}
-			System.out.println("Inserimento errato: riprova");
+			System.out.println("Wrong input: Retry");
 		}
-		sendToServer(decision);
-		
+		return decision;
+	}
+	synchronized private static String sendDataLog (Scanner in, String decision) throws IOException{
 		String username;
 		String password;
 		
-		while(true){
-			
-			System.out.println("Username : ");	
+		while(true){	
+			System.out.println("(write '/back' to go back to the previous selection)");
+			System.out.println("Username :");	
 			username = in.nextLine();
+			if (username.equals("/back")){
+				decision=loginVsRegister(in);
+				return sendDataLog(in, decision);
+			}
 			sendToServer(username);		
 			System.out.println("Password : ");
 			password = in.nextLine();
@@ -87,14 +96,15 @@ public class Client {
 			
 			if(receivedRespPass.equals("confirmed")){
 				if(decision.equals("1")){
-					System.out.println("Accesso effettuato! Bentornato " + username + "!");
+					System.out.println("Succesful Login! Welcome back " + username + "!");
 					System.out.println("");
+					return username;
 				}
 				else{
-					System.out.println("Registrazione effettuata! Benvenuto " + username + "!");
+					System.out.println("Successful Register! Welcome" + username + "!");
 					System.out.println("");
+					return username;
 				}
-				break;
 			}
 			else if (receivedRespPass.equals("wrong combination")){
 				if(decision.equals("1")){
@@ -107,55 +117,80 @@ public class Client {
 				}
 			}
 		}
+	}
+	
+	synchronized private static String login() throws IOException{
+		String decision;
+	    Scanner in = new Scanner(System.in);
+		decision= loginVsRegister(in);
+		sendToServer(decision);
+		String username = sendDataLog(in, decision);
 		in.close();
 		return username;
 	}
 	
-	synchronized private static String askAction(){
-		Scanner insertNumber = new Scanner (System.in);
-		System.out.println("Seleziona Azione: \n 1-Posiziona Familiare \n 2-Usa Carta Leader \n 3-Scarta Carta Leader \n 4-Passa il Turno");
-		int numberAction = insertNumber.nextInt();
+	@SuppressWarnings("resource")
+	synchronized private static int askNumber(int min, int max){
+		int number;
+		Scanner insertNumber;
+		while(true){
+			insertNumber = new Scanner (System.in);
+			try {
+				number = insertNumber.nextInt();
+				if(number >= min && number <= max){
+					return number;
+				}
+				System.out.println("Number invalid. Retry");;
+			}
+			catch (InputMismatchException e) {
+				System.out.println("InputError. Retry with another input :");
+	        }
+		}
+	}
+	
+	public synchronized static String askAction(){
+		System.out.println("Select Action: \n 1-Set Family Member \n 2-Use Leader Card \n 3-Draw Leader Card \n 4-Lose your Turn");
+		int numberAction = askNumber(1, 4);
 		switch(numberAction){
 			case 1:
-				System.out.println("Seleziona Colore Familiare: \n 1-Nero \n 2-Arancione \n 3-Bianco \n 4-No Color");
-				int numberColorFamilyMember = insertNumber.nextInt();
-				System.out.println("Select Spot: \n 1-Stanza \n 2-Market \n 3-Production \n 4-Harvest \n 5-Council Palace");
-				int numberSpot = insertNumber.nextInt();
+				System.out.println("Seleziona Family Member Color: \n 1-Black \n 2-Orange \n 3-White \n 4-No Color");
+				int numberColorFamilyMember = askNumber(1, 4);
+				System.out.println("Select Spot: \n 1-Card \n 2-Market \n 3-Production \n 4-Harvest \n 5-Council Palace");
+				int numberSpot = askNumber(1, 5);
 				switch(numberSpot){
 					case 1:
 						System.out.println("Select Tower");
-						int numberTower = insertNumber.nextInt();
+						int numberTower = askNumber(1, 4);
 						System.out.println("Select Floor");
-						int numberFloor = insertNumber.nextInt();
+						int numberFloor = askNumber(1, 4);
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberTower) + "," + Integer.toString(numberFloor));
 					case 2:
 						System.out.println("Select Market's Spot");
-						int numberMarket = insertNumber.nextInt();
+						int numberMarket = askNumber(1, 5);
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberMarket));
 					case 3:
-						System.out.println("Select Spot Production");
-						int numberProduction = insertNumber.nextInt();
+						System.out.println("Select Production's Spot");
+						int numberProduction = askNumber(1, 2);
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberProduction));
 					case 4:
-						System.out.println("Select Spot Harvest");
-						int numberHarvest = insertNumber.nextInt();
+						System.out.println("Select Harvest's Spot");
+						int numberHarvest = askNumber(1, 2);
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberHarvest));		
 					case 5:
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot));
 				}
 			case 2:
-				System.out.println("Seleziona Numero Carta Leader");
-				int numberLeaderCard = insertNumber.nextInt();
+				System.out.println("Select Leader Card's Number");
+				int numberLeaderCard = askNumber(1, 3);
 				return (Integer.toString(numberAction) + "," + Integer.toString(numberLeaderCard));
 			case 3: 
-				System.out.println("Seleziona Numero Carta Leader");
-				int numberLeaderCard2 = insertNumber.nextInt();
+				System.out.println("Select Leader Card's Number");
+				int numberLeaderCard2 = askNumber(1, 3);
 				return (Integer.toString(numberAction) + "," + Integer.toString(numberLeaderCard2));
 			case 4:
 				return (Integer.toString(numberAction));
 		}
-		
-		return "a";
+		return "";
 	}
 	
 	public static void main(String[] args) throws UnknownHostException, IOException {

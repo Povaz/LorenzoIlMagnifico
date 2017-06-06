@@ -22,13 +22,13 @@ public class CreateGameHandler {
 		counter++;
 		
 		if(counter==2){
-			countdown.schedule(newGame, 100000);
+			countdown.schedule(newGame, 10000);
 			System.out.println("INIZIO COUNTDOWN (10sec)");
 			System.out.println("");
 		}
 		
 		//notifica a tutti i giocatori
-		notifyPlayers ( ((players.get(counter-1)).getName()) + " si è aggiunto alla partita!!");
+		notifyPlayers ( ((players.get(counter-1)).getName()) + " si è aggiunto alla partita!! Ora sono presenti " + counter + " giocatori");
 		
 		if(counter==5){
 			countdown.cancel();
