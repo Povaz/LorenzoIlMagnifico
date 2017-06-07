@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
-import java.util.HashSet;
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+
 import java.util.Set;
 
 /**
@@ -30,10 +31,10 @@ public class Counter{
         this.wood = new Reward(RewardType.WOOD, 2);
         this.stone = new Reward(RewardType.STONE, 2);
         this.servant = new Reward(RewardType.SERVANT, 3);
-        initializeResources(playerOrder);
         this.militaryPoint = new Reward(RewardType.MILITARY_POINT, 0);
         this.faithPoint = new Reward(RewardType.FAITH_POINT, 0);
         this.victoryPoint = new Reward(RewardType.VICTORY_POINT, 0);
+        initializeResources(playerOrder);
     }
 
     public Counter(Counter copied){
@@ -59,7 +60,7 @@ public class Counter{
             coin.setQuantity(9);
     }
 
-    public void sum(Set<Reward> rewards) throws TooMuchTimeException{
+    public void sum(Set<Reward> rewards) throws TooMuchTimeException {
         if(rewards == null){
             return;
         }
@@ -119,6 +120,10 @@ public class Counter{
                     break;
             }
         }
+    }
+
+    public void sum(Reward reward){
+        giveSameReward(reward).sumQuantity(reward);
     }
 
     public void subtract(Reward reward){

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+
 import java.util.Set;
 
 public class Floor extends ActionSpot{
@@ -60,7 +62,7 @@ public class Floor extends ActionSpot{
 	}
 
 	@Override
-	public boolean place(FamilyMember familyMember) throws TooMuchTimeException{
+	public boolean place(FamilyMember familyMember) throws TooMuchTimeException {
 		if(familyMember.getPlayer().getPlayerBoard().buyCard(this)){
 			super.place(familyMember);
 			this.card = null;

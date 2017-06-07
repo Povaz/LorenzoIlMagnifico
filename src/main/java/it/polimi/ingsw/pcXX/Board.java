@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+
 import java.util.*;
 
 /**
@@ -87,6 +89,31 @@ public class Board {
         dices.add(new Dice(FamilyColor.WHITE));
         dices.add(new Dice(FamilyColor.ORANGE));
         dices.add(new Dice(FamilyColor.BLACK));
+    }
+
+    public ActionSpot getViewActionSpot() throws TooMuchTimeException {
+        ActionType actionType = ActionType.ANY_TOWER;
+        int number = 2;
+        switch(actionType){
+            case TERRITORY_TOWER:
+                return territoryTower.getFloors().get(number);
+            case BUILDING_TOWER:
+                return buildingTower.getFloors().get(number);
+            case CHARACTER_TOWER:
+                return characterTower.getFloors().get(number);
+            case VENTURE_TOWER:
+                return ventureTower.getFloors().get(number);
+            case HARVEST:
+                return harvestArea.get(number);
+            case PRODUCE:
+                return productionArea.get(number);
+            case MARKET:
+                return market.get(number);
+            case COUNCIL_PALACE:
+                return councilPalace;
+            default:
+                return null;
+        }
     }
 
     public List<HarvestArea> getHarvestArea() {

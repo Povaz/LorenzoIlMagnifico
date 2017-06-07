@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+
 import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
@@ -67,7 +69,7 @@ public class VentureCard extends DevelopmentCard{
 	}
 
 	@Override
-	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard) throws TooMuchTimeException{
+	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard) throws TooMuchTimeException {
 		if(!playerBoard.getVentureSpot().canPlaceCard(newCounter)){
 			return false;
 		}
