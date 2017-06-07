@@ -427,7 +427,7 @@
 					"victoryPointEarned": 5,
 					"actions": [
 						{
-							"actionType": "PRODUCTION",
+							"actionType": "PRODUCE",
 							"value": 3
 						}
 					]

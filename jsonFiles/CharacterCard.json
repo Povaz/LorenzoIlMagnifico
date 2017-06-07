@@ -137,7 +137,7 @@
 					],
 					"actionModifiers": [
 						{
-							"type": "PRODUCTION",
+							"type": "PRODUCE",
 							"modifier": 2
 						}
 					]
@@ -296,7 +296,7 @@
 					],
 					"actionModifiers": [
 						{
-							"type": "PRODUCTION",
+							"type": "PRODUCE",
 							"modifier": 3
 						}
 					]
@@ -444,7 +444,7 @@
 					],
 					"actions": [
 						{
-							"actionType": "PRODUCTION",
+							"actionType": "PRODUCE",
 							"value": 4
 						}
 					]

@@ -205,13 +205,12 @@ public class Game{
             List<Floor> characterFloors = board.getCharacterTower().getFloors();
             List<Floor> ventureFloors = board.getVentureTower().getFloors();
 
-            int start = (CARD_FOR_TOWER) * (turn - 1);
-            int end = CARD_FOR_TOWER * turn;
-            for (int i = start; i < end; i++) {
-                territoryFloors.get(i).setCard(JSONUtility.getCard(period, territoryCard[i], CardType.TERRITORY));
-                buildingFloors.get(i).setCard(JSONUtility.getCard(period, buildingCard[i], CardType.BUILDING));
-                characterFloors.get(i).setCard(JSONUtility.getCard(period, characterCard[i], CardType.CHARACTER));
-                ventureFloors.get(i).setCard(JSONUtility.getCard(period, ventureCard[i], CardType.VENTURE));
+            for (int i = 0; i < CARD_FOR_TOWER; i++){
+                int index = i + CARD_FOR_TOWER*(turn - 1);
+                territoryFloors.get(i).setCard(JSONUtility.getCard(period, territoryCard[index], CardType.TERRITORY));
+                buildingFloors.get(i).setCard(JSONUtility.getCard(period, buildingCard[index], CardType.BUILDING));
+                characterFloors.get(i).setCard(JSONUtility.getCard(period, characterCard[index], CardType.CHARACTER));
+                ventureFloors.get(i).setCard(JSONUtility.getCard(period, ventureCard[index], CardType.VENTURE));
             }
         } catch (IOException e){
             e.printStackTrace();

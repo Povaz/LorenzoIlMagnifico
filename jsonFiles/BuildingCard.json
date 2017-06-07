@@ -260,8 +260,8 @@
 					],
 					"fastRewards": [
 						{
-							"type": "string",
-							"quantity": 0
+							"type": "VICTORY_POINT",
+							"quantity": 1
 						}
 					],
 					"diceProductionAction": 1,
