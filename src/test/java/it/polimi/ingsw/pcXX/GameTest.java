@@ -17,7 +17,7 @@ public class GameTest{
         try {
             List<String> usernames = new ArrayList<>(Arrays.asList("EriK", "Paolo", "Tom"));
             Game game = new Game(usernames);
-            game.startPeriod();
+            //game.startPeriod();
 
             System.out.println(Arrays.toString(game.getTerritoryCard()));
             System.out.println(Arrays.toString(game.getBuildingCard()));

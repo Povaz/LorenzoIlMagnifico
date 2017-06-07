@@ -1,7 +1,8 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by trill on 30/05/2017.
@@ -11,10 +12,10 @@ public class Player{
     private final PlayerColor color;
     private final PlayerBoard playerBoard;
 
-    public Player(String username, PlayerColor color, int playerOrder, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
+    public Player(String username, PlayerColor color, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.username = username;
         this.color = color;
-        this.playerBoard = new PlayerBoard(this, playerOrder, personalBonusTile, leaderCards);
+        this.playerBoard = new PlayerBoard(this, personalBonusTile, leaderCards);
     }
 
     public String getUsername() {
@@ -33,7 +34,7 @@ public class Player{
         return color.equals(other.color);
     }
 
-    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException{
+    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException {
         if(actionSpot instanceof Market){
             return placeMarket(familyMember, (Market) actionSpot);
         }

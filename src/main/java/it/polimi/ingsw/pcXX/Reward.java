@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+
 import java.util.HashSet;
 import java.util.Set;
 
@@ -63,8 +65,9 @@ public class Reward{
         quantity *= multiplier;
     }
 
-    public Set<Reward> exchange() throws TooMuchTimeException{
+    public Set<Reward> exchange() throws TooMuchTimeException {
         Set<Reward> rewards = new HashSet<>();
+<<<<<<< HEAD
         int i = 0;
         switch (i) {
             case 0:
@@ -78,6 +81,23 @@ public class Reward{
                 rewards.add(new Reward(RewardType.MILITARY_POINT, 2));
             case 4:
                 rewards.add(new Reward(RewardType.FAITH_POINT, 1));
+=======
+        int[] rewardArray = TerminalInput.exchangeCouncilPrivilege(this);
+        for(int i = 0; i < rewardArray.length; i++) {
+            switch(rewardArray[i]){
+                case 1:
+                    rewards.add(new Reward(RewardType.WOOD, 1));
+                    rewards.add(new Reward(RewardType.STONE, 1));
+                case 2:
+                    rewards.add(new Reward(RewardType.SERVANT, 2));
+                case 3:
+                    rewards.add(new Reward(RewardType.COIN, 2));
+                case 4:
+                    rewards.add(new Reward(RewardType.MILITARY_POINT, 2));
+                case 5:
+                    rewards.add(new Reward(RewardType.FAITH_POINT, 1));
+            }
+>>>>>>> master
         }
         return rewards;
     }

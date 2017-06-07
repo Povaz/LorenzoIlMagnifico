@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+
 import java.util.LinkedList;
 import java.util.List;
 
@@ -57,7 +59,7 @@ public abstract class ActionSpot {
 		return true;
 	}
 
-	public boolean place(FamilyMember familyMember) throws TooMuchTimeException{
+	public boolean place(FamilyMember familyMember) throws TooMuchTimeException {
 		occupiedBy.add(familyMember);
 		if(!unrestricted){
 			busy = true;

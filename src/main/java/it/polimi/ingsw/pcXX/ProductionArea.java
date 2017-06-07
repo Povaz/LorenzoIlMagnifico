@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+
 public class ProductionArea extends ActionSpot{
 	private final int diceModifier;
 	private final Board board;
@@ -35,7 +37,7 @@ public class ProductionArea extends ActionSpot{
 	}
 
 	@Override
-	public boolean place(FamilyMember familyMember) throws TooMuchTimeException{
+	public boolean place(FamilyMember familyMember) throws TooMuchTimeException {
 		if(familyMember.getPlayer().getPlayerBoard().produce(familyMember.getValue() + diceModifier)){
 			return super.place(familyMember);
 		}

@@ -62,6 +62,10 @@ public class Order{
 		}
 	}
 
+	public List<Player> getShown() {
+		return shown;
+	}
+
 	public int getPositionOrder(PlayerColor playerColor){
 		return shown.indexOf(playerColor);
 	}

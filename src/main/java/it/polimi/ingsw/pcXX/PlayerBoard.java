@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+
 import java.util.*;
 
 /**
@@ -19,10 +21,10 @@ public class PlayerBoard {
     private final Modifier modifier;
 
 
-    public PlayerBoard(Player player, int playerOrder, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
+    public PlayerBoard(Player player, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.player = player;
         this.color = player.getColor();
-        this.counter = new Counter(playerOrder);
+        this.counter = new Counter();
         this.familyMembers = initializeFamilyMembers(player);
         this.personalBonusTile = personalBonusTile;
         this.leaderCards = leaderCards;
@@ -42,7 +44,7 @@ public class PlayerBoard {
         return familyMember;
     }
 
-    public boolean harvest(int value) throws TooMuchTimeException{
+    public boolean harvest(int value) throws TooMuchTimeException {
         Counter newCounter = new Counter(counter);
 
         if(personalBonusTile.getHarvestRewards() != null) {
@@ -88,20 +90,13 @@ public class PlayerBoard {
                     newCounter.sum(covertRewardForCard(bC.getRewardForCard()));
                 }
                 if(bC.getTrades() != null){
-
-                    System.out.println("Seleziona scambio:");
-                    Scanner input = new Scanner(System.in);
-                    int scelta = input.nextInt();
-
-                    if(scelta != -1){
-                        try {
-                            Trade trade = bC.getTrades().get(scelta);
-                            copyForCosts.subtract(trade.getGive());
-                            newCounter.subtract(trade.getGive());
-                            newCounter.sum(trade.getTake());
-                        } catch (IndexOutOfBoundsException e) {
-                            return false;
-                        }
+                    try {
+                        Trade trade = TerminalInput.chooseTrade(bC);
+                        copyForCosts.subtract(trade.getGive());
+                        newCounter.subtract(trade.getGive());
+                        newCounter.sum(trade.getTake());
+                    } catch (IndexOutOfBoundsException e) {
+                        return false;
                     }
                 }
             }
@@ -192,6 +187,51 @@ public class PlayerBoard {
         return earned;
     }
 
+    public void earnFinalVictoryPoint(){
+        counter.sum(territorySpot.estimateVictoryPoint());
+        counter.sum(buildingSpot.estimateVictoryPoint());
+        counter.sum(characterSpot.estimateVictoryPoint());
+        counter.sum(ventureSpot.estimateVictoryPoint());
+        earnVictoryPointFromRewards();
+
+    }
+
+    private void earnVictoryPointFromRewards(){
+        int sumRewards = 0;
+        sumRewards += counter.getCoin().getQuantity();
+        sumRewards += counter.getWood().getQuantity();
+        sumRewards += counter.getStone().getQuantity();
+        sumRewards += counter.getServant().getQuantity();
+        int numberVictoryPoints = sumRewards / 5;
+        counter.sum(new Reward(RewardType.VICTORY_POINT, numberVictoryPoints));
+    }
+
+    private CardSpot getCardSpot(CardType cardType){
+        if(cardType == CardType.TERRITORY){
+            return getTerritorySpot();
+        }
+        if(cardType == CardType.BUILDING){
+            return getBuildingSpot();
+        }
+        if(cardType == CardType.CHARACTER){
+            return getCharacterSpot();
+        }
+        if(cardType == CardType.VENTURE){
+            return getVentureSpot();
+        }
+        throw new IllegalArgumentException();
+    }
+
+    public FamilyMember getViewFamilyMember() throws TooMuchTimeException{
+        FamilyColor familyColor = FamilyColor.ORANGE;
+        for(FamilyMember fM : familyMembers){
+            if(fM.getColor() == familyColor){
+                return fM;
+            }
+        }
+        return null;
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -238,21 +278,5 @@ public class PlayerBoard {
 
     public void setCounter(Counter counter) {
         this.counter = counter;
-    }
-
-    public CardSpot getCardSpot(CardType cardType){
-        if(cardType == CardType.TERRITORY){
-            return getTerritorySpot();
-        }
-        if(cardType == CardType.BUILDING){
-            return getBuildingSpot();
-        }
-        if(cardType == CardType.CHARACTER){
-            return getCharacterSpot();
-        }
-        if(cardType == CardType.VENTURE){
-            return getVentureSpot();
-        }
-        throw new IllegalArgumentException();
     }
 }

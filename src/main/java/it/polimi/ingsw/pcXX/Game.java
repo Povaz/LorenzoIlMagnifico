@@ -1,11 +1,13 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by trill on 30/05/2017.
@@ -25,17 +27,8 @@ public class Game{
     private int[] characterCard;
     private int[] ventureCard;
 
-    public Game(List<String> usernames){
-        this.turn = 1;
-        this.period = 1;
-        this.usernames = usernames;
-        this.playerNumber = usernames.size();
-        this.board = new Board(null/*players*/);    //TODO inizializza (per inizializzare board c'è bisogno di player e viceversa)
-        this.players = initializePlayers();
-    }
-
     public static void main(String[] args) {
-        Game game = new Game(Arrays.asList("Paolo", "Erick", "Tommaso"));
+        Game game = new Game(Arrays.asList("Affetti", "Cugola"));
         while(game.period <= game.PERIOD_NUMBER){
             game.startPeriod();
             while(game.turn <= game.TURNS_FOR_PERIOD){
@@ -45,7 +38,18 @@ public class Game{
             }
             game.endPeriod();
         }
-        game.decreeWinner();
+        Player winner = game.decreeWinner();
+        System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
+    }
+
+    public Game(List<String> usernames){
+        this.turn = 1;
+        this.period = 1;
+        this.usernames = usernames;
+        this.playerNumber = usernames.size();
+        this.players = initializePlayers();
+        this.board = new Board(players);
+        initializePlayersRewards();
     }
 
     // TODO aggiungi carte leader e personalBonusTile
@@ -54,14 +58,21 @@ public class Game{
         List<Player> players = new ArrayList<>();
         for(int i = 0; i < playerNumber; i++){
             PlayerColor playerColor = PlayerColor.fromInt(i + 1);
-            int position = board.getOrder().getPositionOrder(playerColor);
-            players.add(new Player(usernames.get(i), playerColor, position, null, null));
+            players.add(new Player(usernames.get(i), playerColor, null, null));
         }
 
         return players;
     }
 
-    public void startPeriod(){
+    private void initializePlayersRewards(){
+        int i = 1;
+        do{
+            board.getOrder().getCurrent().getPlayerBoard().setCounter(new Counter(i));
+            i++;
+        } while(board.getOrder().nextOrder());
+    }
+
+    private void startPeriod(){
         try {
             territoryCard = RandomUtility.randomIntArray(0, JSONUtility.getCardLength(period, CardType.TERRITORY) - 1,
                     CARD_FOR_TOWER * 2);
@@ -78,33 +89,106 @@ public class Game{
         }
     }
 
-    public void endPeriod(){
-        //TODO
+    private void endPeriod(){
+        //TODO gestisci scomuniche
+        period++;
+        turn = 1;
     }
 
-    public void startTurn(){
+    private void startTurn(){
         throwDices();
         placeDevelopmentCard();
     }
 
-    public void playTurn(){
-        FamilyMember familyMember = new FamilyMember(null, FamilyColor.WHITE);
-        familyMember.setValue(5);
-        ActionSpot actionSpot = new Market(true, true, 1, null);
+    private void playTurn(){
+        Order order = board.getOrder();
         do{
-            try {
-                board.getOrder().getCurrent().placeFamilyMember(familyMember, actionSpot);
-            } catch (TooMuchTimeException e){}
+            try{
+                do{
+                    board.getViewActionSpot();
+                    order.getCurrent().getPlayerBoard().getViewFamilyMember();
+                } while(order.getCurrent().placeFamilyMember(null, null));
+            } catch(TooMuchTimeException e){
+                e.printStackTrace();
+            }
         } while(board.getOrder().nextOrder());
     }
 
-    public void endTurn(){
+    private void endTurn(){
         calculateNewOrder();
         reinitializeBoard();
+        turn++;
     }
 
-    public void decreeWinner(){
-        //TODO
+    private Player decreeWinner(){
+        List<Player> order = board.getOrder().getShown();
+        for(Player p : order){
+            p.getPlayerBoard().earnFinalVictoryPoint();
+        }
+        earnVictoryPointFromMilitaryPoint(order);
+        return calculateWinner(order);
+    }
+
+    private void earnVictoryPointFromMilitaryPoint(List<Player> order){
+        List<Player> first = new ArrayList<>();
+        List<Player> second = new ArrayList<>();
+        int firstMP = -1;
+        int secondMP = -2;
+
+        for(Player p : order){
+            int current = p.getPlayerBoard().getCounter().getMilitaryPoint().getQuantity();
+            if(current > firstMP){
+                secondMP = firstMP;
+                firstMP = current;
+                second = first;
+                first = new ArrayList<>();
+                first.add(p);
+            }
+            else if(current == firstMP){
+                first.add(p);
+            }
+            else if(current < firstMP && current > secondMP){
+                secondMP = current;
+                second = new ArrayList<>();
+                second.add(p);
+            }
+            else if(current == secondMP){
+                second.add(p);
+            }
+        }
+
+        for(Player p : first){
+            p.getPlayerBoard().getCounter().sum(new Reward(RewardType.VICTORY_POINT, 5));
+        }
+        if(first.size() < 2){
+            for(Player p : second){
+                p.getPlayerBoard().getCounter().sum(new Reward(RewardType.VICTORY_POINT, 2));
+            }
+        }
+    }
+
+    private Player calculateWinner(List<Player> order){
+        List<Player> winner = new ArrayList<>();
+        int victoryPoint = -1;
+        for(Player p : order){
+            int current = p.getPlayerBoard().getCounter().getVictoryPoint().getQuantity();
+            if(current > victoryPoint){
+                victoryPoint = current;
+                winner = new ArrayList<>();
+                winner.add(p);
+            }
+            else if(current == victoryPoint){
+                winner.add(p);
+            }
+        }
+        for(Player p : order){
+            for(Player w : winner){
+                if(p == w){
+                    return p;
+                }
+            }
+        }
+        return winner.get(0);
     }
 
     private void throwDices(){
@@ -121,13 +205,12 @@ public class Game{
             List<Floor> characterFloors = board.getCharacterTower().getFloors();
             List<Floor> ventureFloors = board.getVentureTower().getFloors();
 
-            int start = (CARD_FOR_TOWER) * (turn - 1);
-            int end = CARD_FOR_TOWER * turn;
-            for (int i = start; i < end; i++) {
-                territoryFloors.get(i).setCard(JSONUtility.getCard(period, territoryCard[i], CardType.TERRITORY));
-                buildingFloors.get(i).setCard(JSONUtility.getCard(period, buildingCard[i], CardType.BUILDING));
-                characterFloors.get(i).setCard(JSONUtility.getCard(period, characterCard[i], CardType.CHARACTER));
-                ventureFloors.get(i).setCard(JSONUtility.getCard(period, ventureCard[i], CardType.VENTURE));
+            for (int i = 0; i < CARD_FOR_TOWER; i++){
+                int index = i + CARD_FOR_TOWER*(turn - 1);
+                territoryFloors.get(i).setCard(JSONUtility.getCard(period, territoryCard[index], CardType.TERRITORY));
+                buildingFloors.get(i).setCard(JSONUtility.getCard(period, buildingCard[index], CardType.BUILDING));
+                characterFloors.get(i).setCard(JSONUtility.getCard(period, characterCard[index], CardType.CHARACTER));
+                ventureFloors.get(i).setCard(JSONUtility.getCard(period, ventureCard[index], CardType.VENTURE));
             }
         } catch (IOException e){
             e.printStackTrace();
