@@ -10,6 +10,8 @@ import java.util.Scanner;
 
 import org.json.JSONException;
 
+import static it.polimi.ingsw.pcXX.TerminalInput.askNumber;
+
 public class Client {
 	private String username;
 	private final String ip = "127.0.0.1";
@@ -130,24 +132,7 @@ public class Client {
 	}
 	
 	@SuppressWarnings("resource")
-	synchronized private static int askNumber(int min, int max){
-		int number;
-		Scanner insertNumber;
-		while(true){
-			insertNumber = new Scanner (System.in);
-			try {
-				number = insertNumber.nextInt();
-				if(number >= min && number <= max){
-					return number;
-				}
-				System.out.println("Number invalid. Retry");;
-			}
-			catch (InputMismatchException e) {
-				System.out.println("InputError. Retry with another input :");
-	        }
-		}
-	}
-	
+
 	public synchronized static String askAction(){
 		System.out.println("Select Action: \n 1-Set Family Member \n 2-Use Leader Card \n 3-Draw Leader Card \n 4-Lose your Turn");
 		int numberAction = askNumber(1, 4);

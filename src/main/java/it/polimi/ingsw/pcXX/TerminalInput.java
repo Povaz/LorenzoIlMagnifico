@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class TerminalInput { //Metodi view del Client
 
-    public static int[] exchangeCouncilPrivilege(Reward councilPrivilege) {
+    public static int[] exchangeCouncilPrivilege(Reward councilPrivilege) { // View
         try {
             if (councilPrivilege.getQuantity() > 5) {
                 throw new IllegalNumberOf(councilPrivilege);
@@ -61,11 +61,132 @@ public class TerminalInput { //Metodi view del Client
         }
     }
 
-    public static void manageAction (ActionSpot actionSpot, FamilyMember familyMember) {
-        // TODO gestire mappatura delle azioni
+    public static FamilyColor chooseFamilyMemberColor () throws InputMismatchException {
+        FamilyColor familyColor = FamilyColor.NEUTRAL;
+        boolean correct = false;
+        while (!correct) {
+            try {
+                System.out.println("Which FamilyMember do you choose?\n" + "1. " + FamilyColor.WHITE + "\n" + "2. " + FamilyColor.BLACK + "\n" + "3. " + FamilyColor.ORANGE + "\n" + "4. " + FamilyColor.NEUTRAL + "\n");
+                Scanner inChoose = new Scanner(System.in);
+                int choose = inChoose.nextInt();
+
+                switch (choose) {
+                    case 1:
+                        familyColor = FamilyColor.WHITE;
+                        correct = true;
+                        break;
+                    case 2:
+                        familyColor = FamilyColor.BLACK;
+                        correct = true;
+                        break;
+                    case 3:
+                        familyColor = FamilyColor.ORANGE;
+                        correct = true;
+                        break;
+                    case 4:
+                        familyColor = FamilyColor.NEUTRAL;
+                        correct = true;
+                        break;
+                    default:
+                        System.out.println("Incorrect Answer");
+                }
+
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
+                System.out.println("Incorrect answer");
+            }
+        }
+        return familyColor;
     }
 
-    public static Trade chooseTrade (BuildingCard buildingCard) {
+    synchronized public static int askNumber(int min, int max){
+        int number;
+        Scanner insertNumber;
+        while(true){
+            insertNumber = new Scanner (System.in);
+            try {
+                number = insertNumber.nextInt();
+                if(number >= min && number <= max){
+                    return number;
+                }
+                System.out.println("Number invalid. Retry");;
+            }
+            catch (InputMismatchException e) {
+                System.out.println("InputError. Retry with another input :");
+            }
+        }
+    }
+
+
+    public static Action chooseAction() {
+        Action action = new Action();
+        boolean correct = false;
+        while(!correct) {
+            try {
+                System.out.println("Which FamilyMember do you choose?\n" + "1. " + ActionType.TERRITORY_TOWER + "\n" + "2. " + ActionType.BUILDING_TOWER + "\n" + "3. " + ActionType.CHARACTER_TOWER + "\n" + "4. " +
+                        ActionType.VENTURE_TOWER + "\n" + "5. " + ActionType.HARVEST + "\n" + "6. " + ActionType.PRODUCE + "\n" + "7. " + ActionType.MARKET + "\n" + "7. " + ActionType.COUNCIL_PALACE + "\n");
+                Scanner inChoose = new Scanner(System.in);
+                int choose = inChoose.nextInt();
+
+                switch (choose) {
+                    case 1:
+                        action.setActionType(ActionType.TERRITORY_TOWER);
+                        System.out.println("Which card?");
+                        action.setSpot(askNumber(1, 4));
+                        correct = true;
+                        break;
+                    case 2:
+                        action.setActionType(ActionType.BUILDING_TOWER);
+                        System.out.println("Which card?");
+                        action.setSpot(askNumber(1, 4));
+                        correct = true;
+                        break;
+                    case 3:
+                        action.setActionType(ActionType.CHARACTER_TOWER);
+                        System.out.println("Which card?");
+                        action.setSpot(askNumber(1, 4));
+                        correct = true;
+                        break;
+                    case 4:
+                        action.setActionType(ActionType.VENTURE_TOWER);
+                        System.out.println("Which card?");
+                        action.setSpot(askNumber(1, 4));
+                        correct = true;
+                        break;
+                    case 5:
+                        action.setActionType(ActionType.HARVEST);
+                        action.setSpot(0);
+                        correct = true;
+                        break;
+                    case 6:
+                        action.setActionType(ActionType.PRODUCE);
+                        action.setSpot(0);
+                        correct = true;
+                        break;
+                    case 7:
+                        action.setActionType(ActionType.MARKET);
+                        System.out.println("Which Spot? 1.COIN(5)  2.SERVANT(5)   3.COIN(2) & MILITARY_POINT(3) 4.COUNCILPRIVILEGE(2)");
+                        action.setSpot(askNumber(1, 4));
+                        correct = true;
+                        break;
+                    case 8:
+                        exchangeCouncilPrivilege(new Reward(RewardType.COUNCIL_PRIVILEGE, 2));
+                        correct = true;
+                        break;
+                    default:
+                        System.out.println("Incorrect Answer");
+
+                }
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
+                System.out.println("Incorrect Answer");
+            }
+        }
+        return action;
+    }
+
+
+    public static Trade chooseTrade (BuildingCard buildingCard) { //View
         while (true) {
             try {
                 System.out.println("Choose between this " + buildingCard.getTrades().size() + " possibilities: \n");
@@ -99,11 +220,18 @@ public class TerminalInput { //Metodi view del Client
             System.out.println(choose[i]);
         }*/
 
-        DevelopmentCard buildingCard = JSONUtility.getCard(1, 4, CardType.BUILDING);
+        /* DevelopmentCard buildingCard = JSONUtility.getCard(1, 4, CardType.BUILDING);
 
         Trade trade = chooseTrade((BuildingCard) buildingCard);
 
-        System.out.println(trade.toString());
+        System.out.println(trade.toString()); */
+
+        /* System.out.println(chooseFamilyMemberColor()); */
+
+        Action action = chooseAction();
+
+        System.out.println(action.toString());
+
     }
 }
 

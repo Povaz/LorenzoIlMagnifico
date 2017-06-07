@@ -66,7 +66,7 @@ public class Reward{
     public Set<Reward> exchange() throws TooMuchTimeException{
         Set<Reward> rewards = new HashSet<>();
         int i = 0;
-        switch (i/*TODO funzione che chiede i privilegi*/) {
+        switch (i) {
             case 0:
                 rewards.add(new Reward(RewardType.WOOD, 1));
                 rewards.add(new Reward(RewardType.STONE, 1));
