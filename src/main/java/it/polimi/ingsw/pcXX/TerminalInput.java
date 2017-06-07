@@ -2,7 +2,9 @@ package it.polimi.ingsw.pcXX;
 
 import it.polimi.ingsw.pcXX.Exception.IllegalNumberOf;
 import it.polimi.ingsw.pcXX.Exception.SameChooseErrorException;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -59,52 +61,49 @@ public class TerminalInput { //Metodi view del Client
         }
     }
 
-    public static void main (String args[]) throws SameChooseErrorException{
-        Reward councilPrivilege = new Reward (RewardType.COUNCIL_PRIVILEGE, 2);
-
-        int[] choose = exchangeCouncilPrivilege(councilPrivilege);
-
-        for (int i = 0; i < choose.length; i++) {
-            System.out.println(choose[i]);
-        }
-    }
-
     public static void manageAction (ActionSpot actionSpot, FamilyMember familyMember) {
         // TODO gestire mappatura delle azioni
     }
 
     public static Trade chooseTrade (BuildingCard buildingCard) {
-        try {
-            if (buildingCard.getTrades().size() > 2) {
-                throw new IllegalNumberOf(buildingCard);
-            }
-
-            while (true) {
-                try {
-                    System.out.println("Choose between this two possibility: \n    1. " + buildingCard.getTrades().get(0).toString() + "\n    2. " + buildingCard.getTrades().get(1).toString() + "\n");
-                    Scanner inChoose = new Scanner(System.in);
-                    int choose = inChoose.nextInt();
-
-                    if (choose > 1 || choose < 2) {
-                        throw new InputMismatchException();
-                    }
-                    else {
-                        return buildingCard.getTrades().get(choose);
-                    }
-
-                } catch (InputMismatchException e) {
-                    e.printStackTrace();
-                    System.out.println("Incorrect answer");
+        while (true) {
+            try {
+                System.out.println("Choose between this " + buildingCard.getTrades().size() + " possibilities: \n");
+                for (int i = 0; i < buildingCard.getTrades().size(); i++) {
+                    System.out.println("    " + i + ". " + buildingCard.getTrades().get(i).toString());
                 }
+
+                Scanner inChoose = new Scanner(System.in);
+                int choose = inChoose.nextInt();
+
+                if (choose < 1 || choose > buildingCard.getTrades().size() + 1) {
+                    throw new InputMismatchException();
+                }
+                else {
+                    return buildingCard.getTrades().get(choose);
+                }
+
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
+                System.out.println("Incorrect answer");
             }
         }
-        catch (IllegalNumberOf e) {
-            e.printStackTrace();
-            Set<Reward> give = new HashSet<>();
-            Set<Reward> take = new HashSet<>();
-            Trade nullTrade = new Trade(give, take);
-            return nullTrade;
-        }
+    }
+
+    public static void main (String args[]) throws SameChooseErrorException, IOException, JSONException{
+        /* Reward councilPrivilege = new Reward (RewardType.COUNCIL_PRIVILEGE, 2);
+
+        int[] choose = exchangeCouncilPrivilege(councilPrivilege);
+
+        for (int i = 0; i < choose.length; i++) {
+            System.out.println(choose[i]);
+        }*/
+
+        DevelopmentCard buildingCard = JSONUtility.getCard(1, 4, CardType.BUILDING);
+
+        Trade trade = chooseTrade((BuildingCard) buildingCard);
+
+        System.out.println(trade.toString());
     }
 }
 
