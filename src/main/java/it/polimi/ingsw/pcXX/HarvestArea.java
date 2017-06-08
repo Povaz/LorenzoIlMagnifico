@@ -18,7 +18,7 @@ public class HarvestArea extends ActionSpot{
             return false;
         }
         if(familyMember.getAction() != null) {
-            if (familyMember.getAction() != ActionType.HARVEST && familyMember.getAction() != ActionType.ALL) {
+            if(familyMember.getAction() != ActionType.HARVEST && familyMember.getAction() != ActionType.ALL){
                 return false;
             }
         }

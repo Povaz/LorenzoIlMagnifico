@@ -10,8 +10,10 @@ public class Tower {
 	private boolean occupied;
 	private final CardType type;
 	private final Set<Reward> occupiedTax;
+	private final Board board;
 
-	public Tower(CardType type){
+	public Tower(CardType type, Board board){
+		this.board = board;
 		this.occupied = false;
 		this.type = type;
 		this.floors = initializeFloors(type);
@@ -49,6 +51,13 @@ public class Tower {
 		return floors;
 	}
 
+	public void reinitialize(){
+		this.occupied = false;
+		for(Floor f : floors){
+			f.reinitialize();
+		}
+	}
+
 	public List<Floor> getFloors() {
 		return floors;
 	}
@@ -69,10 +78,7 @@ public class Tower {
 		return occupiedTax;
 	}
 
-	public void reinitialize(){
-		this.occupied = false;
-		for(Floor f : floors){
-			f.reinitialize();
-		}
+	public Board getBoard(){
+		return board;
 	}
 }

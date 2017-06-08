@@ -386,14 +386,12 @@ public class JSONUtility {
 		//estrae file
 		JSONObject tile = fromPathToJSONObject(personalBonusTilePath);
 		//estrae oggetto
-		tile = getNumberTile(number-1, tile);
+		tile = getNumberTile(number, tile);
 		//estrae parametri
 		int diceProduction = tile.getInt("diceProduction");   
 		int diceHarvest = tile.getInt("diceHarvest");   
-		Set<Reward> productionRewards = new HashSet<>();
-		Set<Reward> harvestRewards = new HashSet<>();
-		productionRewards=getRewards(tile, "production");
-		harvestRewards=getRewards(tile, "harvest");
+		Set<Reward> productionRewards = getRewards(tile, "productionRewards");
+		Set<Reward> harvestRewards = getRewards(tile, "harvestRewards");
 		return new PersonalBonusTile(diceProduction, diceHarvest, productionRewards, harvestRewards);
 		
 	}
@@ -405,8 +403,7 @@ public class JSONUtility {
 	
 	
 	public static Set<Reward> getRewards (JSONObject jsonObject, String type) throws JSONException{
-		JSONArray rewards = null;
-		rewards = jsonObject.getJSONArray(type+"Rewards");
+		JSONArray rewards = jsonObject.getJSONArray(type);
 		return getRewardSet(rewards);
 	}
 	//Fine Codice Lacieoz 2

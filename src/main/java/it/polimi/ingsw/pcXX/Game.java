@@ -56,11 +56,19 @@ public class Game{
 
     private List<Player> initializePlayers(){
         List<Player> players = new ArrayList<>();
+        int[] tiles = RandomUtility.randomIntArray(0, playerNumber - 1);
         for(int i = 0; i < playerNumber; i++){
+            PersonalBonusTile personalBonusTile = null;
+            try {
+                personalBonusTile = JSONUtility.getPersonalBonusTile(tiles[i]);
+            } catch(JSONException e){
+                personalBonusTile = null;
+            } catch(IOException e){
+                personalBonusTile = null;
+            }
             PlayerColor playerColor = PlayerColor.fromInt(i + 1);
-            players.add(new Player(usernames.get(i), playerColor, null, null));
+            players.add(new Player(usernames.get(i), playerColor, personalBonusTile, null));
         }
-
         return players;
     }
 

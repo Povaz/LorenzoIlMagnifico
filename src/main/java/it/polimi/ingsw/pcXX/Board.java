@@ -26,10 +26,10 @@ public class Board {
         this.harvestArea = new ArrayList<>();
         this.productionArea = new ArrayList<>();
         this.market = new ArrayList<>();
-        this.territoryTower = new Tower(CardType.TERRITORY);
-        this.buildingTower = new Tower(CardType.BUILDING);
-        this.characterTower = new Tower(CardType.CHARACTER);
-        this.ventureTower = new Tower(CardType.VENTURE);
+        this.territoryTower = new Tower(CardType.TERRITORY, this);
+        this.buildingTower = new Tower(CardType.BUILDING, this);
+        this.characterTower = new Tower(CardType.CHARACTER, this);
+        this.ventureTower = new Tower(CardType.VENTURE, this);
         this.councilPalace = new CouncilPalace();
         this.order = new Order(players);
         this.vaticanReportSpot = new VaticanReportSpot();
