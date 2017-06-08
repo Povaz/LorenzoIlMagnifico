@@ -138,40 +138,40 @@ public class Client {
 		int numberAction = askNumber(1, 4);
 		switch(numberAction){
 			case 1:
-				System.out.println("Select Family Member Color: \n 1-Black \n 2-Orange \n 3-White \n 4-No Color");
+				System.out.println("Select Family Member Color: \n 1-White \n 2-Orange \n 3-Black \n 4-No Color");
 				int numberColorFamilyMember = askNumber(1, 4);
 				System.out.println("Select Spot: \n 1-Card \n 2-Market \n 3-Production \n 4-Harvest \n 5-Council Palace");
 				int numberSpot = askNumber(1, 5);
 				int numberServant;
 				switch(numberSpot){
 					case 1:
-						System.out.println("Select Tower");
+						System.out.println("Select Tower \n (insert from 1 to 4)");
 						int numberTower = askNumber(1, 4);
-						System.out.println("Select Floor");
+						System.out.println("Select Floor \n (insert from 1 to 4)");
 						int numberFloor = askNumber(1, 4);
-						System.out.println("Select Number Servant To Use (from 0 to 100)");
+						System.out.println("Select Number of Servant To Use \n (from 0 to 100)");
 						numberServant = askNumber(0,100); 
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberTower) + "," + Integer.toString(numberFloor) + "," + Integer.toString(numberServant));
 					case 2:
-						System.out.println("Select Market's Spot");
+						System.out.println("Select Market's Spot \n ( 1-5 Coins 2-5 Servants 3-2 Coins+3 Military Points 4-2 Council Privileges)");
 						int numberMarket = askNumber(1, 5);
-						System.out.println("Select Number Servant To Use (from 0 to 100)");
+						System.out.println("Select Number of Servant To Use \n (from 0 to 100)");
 						numberServant = askNumber(0,100); 
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberMarket) + "," + Integer.toString(numberServant));
 					case 3:
-						System.out.println("Select Production's Spot");
+						System.out.println("Select Production's Spot \n (1-normal 2-infinite)");
 						int numberProduction = askNumber(1, 2);
-						System.out.println("Select Number Servant To Use (from 0 to 100)");
+						System.out.println("Select Number of Servant To Use \n (from 0 to 100)");
 						numberServant = askNumber(0,100); 
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberProduction) + "," + Integer.toString(numberServant));
 					case 4:
-						System.out.println("Select Harvest's Spot");
+						System.out.println("Select Harvest's Spot \n (1-normal 2-infinite)");
 						int numberHarvest = askNumber(1, 2);
-						System.out.println("Select Number Servant To Use (from 0 to 100)");
+						System.out.println("Select Number of Servant To Use \n (from 0 to 100)");
 						numberServant = askNumber(0,100); 
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberHarvest) + "," + Integer.toString(numberServant));		
 					case 5:
-						System.out.println("Select Number Servant To Use (from 0 to 100)");
+						System.out.println("Select Number of Servant To Use (from 0 to 100)");
 						numberServant = askNumber(0,100); 
 						return (Integer.toString(numberAction) + "," + Integer.toString(numberColorFamilyMember) + "," + Integer.toString(numberSpot) + "," + Integer.toString(numberServant));
 				}

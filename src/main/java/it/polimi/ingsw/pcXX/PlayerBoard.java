@@ -21,6 +21,7 @@ public class PlayerBoard {
     private final Modifier modifier;
 
 
+    
     public PlayerBoard(Player player, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.player = player;
         this.color = player.getColor();
@@ -294,4 +295,63 @@ public class PlayerBoard {
     public void setCounter(Counter counter) {
         this.counter = counter;
     }
+    
+    public String toString (){
+    	String playerBoardString = null;
+    	playerBoardString  = super.toString() + "\n";
+    	playerBoardString += player.toString() + "\n";
+    	playerBoardString+= counter.toString() + "\n";
+    	int contatore = 1;
+		FamilyMember element;
+		Iterator<FamilyMember> iteratorFamilyMember = familyMembers.iterator();
+		while(iteratorFamilyMember.hasNext()){
+    	  element = (FamilyMember) iteratorFamilyMember.next();
+    	  playerBoardString += "FamilyMember n° " + contatore + " : " + element.toString() + "\n";
+    	  contatore++;
+    	}
+		playerBoardString+= personalBonusTile.toString() + "\n";
+		contatore = 1;
+		LeaderCard element2;
+		Iterator<LeaderCard> iteratorLeaderCard = leaderCards.iterator();
+		while(iteratorLeaderCard.hasNext()){
+    	  element2 = (LeaderCard) iteratorLeaderCard.next();
+    	  playerBoardString += "Leader Card n° " + contatore + " : " + element2.toString() + "\n";
+    	  contatore++;
+    	}
+		contatore = 1;
+		TerritoryCard element3;
+		Iterator<DevelopmentCard> iteratorTerritoryCards = territorySpot.getCards().iterator();
+		while(iteratorTerritoryCards.hasNext()){
+    	  element3 = (TerritoryCard) iteratorTerritoryCards.next();
+    	  playerBoardString += "Territory Card n° " + contatore + " : " + element3.toString() + "\n";
+    	  contatore++;
+    	}
+		contatore = 1;
+		BuildingCard element4;
+		Iterator<DevelopmentCard> iteratorBuildingCards = buildingSpot.getCards().iterator();
+		while(iteratorTerritoryCards.hasNext()){
+    	  element4 = (BuildingCard) iteratorBuildingCards.next();
+    	  playerBoardString += "Building Card n° " + contatore + " : " + element4.toString() + "\n";
+    	  contatore++;
+    	}
+		contatore = 1;
+		CharacterCard element5;
+		Iterator<DevelopmentCard> iteratorCharacterCards = characterSpot.getCards().iterator();
+		while(iteratorCharacterCards.hasNext()){
+    	  element5 = (CharacterCard) iteratorCharacterCards.next();
+    	  playerBoardString += "Character Card n° " + contatore + " : " + element5.toString() + "\n";
+    	  contatore++;
+    	}
+		contatore = 1;
+		VentureCard element6;
+		Iterator<DevelopmentCard> iteratorVentureCards = ventureSpot.getCards().iterator();
+		while(iteratorVentureCards.hasNext()){
+    	  element6 = (VentureCard) iteratorVentureCards.next();
+    	  playerBoardString += "Character Card n° " + contatore + " : " + element6.toString() + "\n";
+    	  contatore++;
+    	}
+		playerBoardString+= modifier.toString();
+    	return playerBoardString;
+    }
+    
 }

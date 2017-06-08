@@ -11,7 +11,7 @@ public class Player{
     private final String username;
     private final PlayerColor color;
     private final PlayerBoard playerBoard;
-
+    
     public Player(String username, PlayerColor color, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.username = username;
         this.color = color;
@@ -86,5 +86,12 @@ public class Player{
             return floor.place(familyMember);
         }
         return false;
+    }
+    
+    public String toString(){
+    	String playerString = null;
+    	playerString+="Username : " + username + "\n";
+    	playerString+="Color : " + color + "\n";	
+    	return playerString;
     }
 }

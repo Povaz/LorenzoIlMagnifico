@@ -29,6 +29,7 @@ public class PersonalBonusTile {
     	while(iteratorHar.hasNext()){
     	  element = (Reward) iteratorHar.next();
     	  tileString += "Harvest Reward n° " + contatore + " : " + element.toString() + "\n";
+    	  contatore++;
     	}
     	tileString+="\nDice Production: "+ diceProduction + "\n";
     	contatore=1;
@@ -36,6 +37,7 @@ public class PersonalBonusTile {
     	while(iteratorProd.hasNext()){
     	  element = (Reward) iteratorProd.next();
     	  tileString += "Production Reward n° " + contatore + " : " + element.toString() + "\n";
+    	  contatore++;
     	}
     	return tileString;
     }

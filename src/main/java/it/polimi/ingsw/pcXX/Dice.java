@@ -43,4 +43,11 @@ public class Dice{
     public FamilyColor getColor() {
         return color;
     }
+    
+    public String toString(){
+    	String diceString = null;
+    	diceString += "value : " + value + "\n"; 
+    	diceString += "color : " + color.toString() + "\n";
+    	return diceString;
+    }
 }

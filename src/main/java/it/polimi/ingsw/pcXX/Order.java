@@ -2,6 +2,7 @@ package it.polimi.ingsw.pcXX;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 
 public class Order{
@@ -11,7 +12,30 @@ public class Order{
 	private List<Player> shown;
 	private List<Player> real;
 	private int current;
-
+	
+	public String toString() {
+		String orderString = null;
+		orderString +="Player number : " + playerNumber + "\n";
+		orderString +="current : " + current + "\n";
+		
+		int contatore = 1;
+		Player element;
+		Iterator<Player> iteratorShown = shown.iterator();
+		while(iteratorShown.hasNext()){
+    	  element = (Player) iteratorShown.next();
+    	  orderString += "Shown n° " + contatore + " : " + element.toString() + "\n";
+    	  contatore++;
+    	}
+		contatore = 1;
+		Iterator<Player> iteratorReal = real.iterator();
+		while(iteratorReal.hasNext()){
+    	  element = (Player) iteratorReal.next();
+    	  orderString += "Real n° " + contatore + " : " + element.toString() + "\n";
+    	  contatore++;
+    	}
+		return orderString;
+	}
+	
 	public Order(List<Player> players){
 		this.playerNumber = players.size();
 		initializeOrder(players);

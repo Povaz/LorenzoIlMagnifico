@@ -20,7 +20,51 @@ public class Board {
     private final Order order;
     private final VaticanReportSpot vaticanReportSpot;
     private final List<Dice> dices;
-
+    
+    public String toString(){
+    	String boardString = null;
+    	boardString = super.toString() + "\n";
+    	int contatore = 1;
+		HarvestArea element;
+		Iterator<HarvestArea> iteratorHarvestArea = harvestArea.iterator();
+		while(iteratorHarvestArea.hasNext()){
+    	  element = (HarvestArea) iteratorHarvestArea.next();
+    	  boardString += "HarvestArea n° " + contatore + " : " + element.toString() + "\n";
+    	  contatore++;
+    	}
+		contatore = 1;
+		ProductionArea element2;
+		Iterator<ProductionArea> iteratorProductionArea = productionArea.iterator();
+		while(iteratorProductionArea.hasNext()){
+    	  element2 = (ProductionArea) iteratorProductionArea.next();
+    	  boardString += "ProductionArea n° " + contatore + " : " + element2.toString() + "\n";
+    	  contatore++;
+    	}
+		contatore = 1;
+		Market element3;
+		Iterator<Market> iteratorMarket = market.iterator();
+		while(iteratorMarket.hasNext()){
+    	  element3 = (Market) iteratorMarket.next();
+    	  boardString += "Market n° " + contatore + " : " + element3.toString() + "\n";
+    	  contatore++;
+    	}
+    	boardString +="Territory Tower : " + territoryTower.toString() + "\n";
+    	boardString +="Building Tower : " + buildingTower.toString() + "\n";
+    	boardString +="Character Tower : " + characterTower.toString() + "\n";
+    	boardString +="Venture Tower : " + ventureTower.toString() + "\n";
+    	boardString +="Order : " + order + "\n";
+    	contatore = 1;
+		Dice element4;
+		Iterator<Dice> iteratorDices = dices.iterator();
+		while(iteratorDices.hasNext()){
+    	  element4 = (Dice) iteratorDices.next();
+    	  boardString += "Market n° " + contatore + " : " + element4.toString() + "\n";
+    	  contatore++;
+    	}
+    	//Manca Vatican Report Spot
+    	return boardString;
+    }
+    
     public Board(List<Player> players){
         this.playerNumber = players.size();
         this.harvestArea = new ArrayList<>();

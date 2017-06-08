@@ -38,4 +38,5 @@ public class CouncilPalace extends ActionSpot{
 		familyMember.getPlayer().getPlayerBoard().getCounter().sum(rewards);
 		return super.place(familyMember);
 	}
+	
 }

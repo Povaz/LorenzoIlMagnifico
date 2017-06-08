@@ -15,7 +15,7 @@ public class Counter{
     private final Reward militaryPoint;
     private final Reward faithPoint;
     private final Reward victoryPoint;
-
+    
     public Counter(){
         this.coin = new Reward(RewardType.COIN, 0);
         this.wood = new Reward(RewardType.WOOD, 0);
@@ -252,5 +252,17 @@ public class Counter{
 
     public Reward getVictoryPoint() {
         return victoryPoint;
+    }
+    
+    public String toString(){
+    	String counterString=null;
+    	counterString += coin.toString() + "\n";
+    	counterString += wood.toString () + "\n";
+    	counterString += stone.toString() + "\n";
+    	counterString += servant.toString() + "\n";
+    	counterString += militaryPoint.toString() + "\n";
+    	counterString += faithPoint.toString() + "\n";
+    	counterString += victoryPoint.toString() + "\n";
+    	return counterString;
     }
 }
