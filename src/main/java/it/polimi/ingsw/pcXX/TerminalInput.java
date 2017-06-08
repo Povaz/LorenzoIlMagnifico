@@ -10,9 +10,9 @@ import java.util.*;
 /**
  * Created by Povaz on 06/06/2017.
  */
-public class TerminalInput { //Metodi view del Client
+public class TerminalInput { //Metodi view: richieste ai Client
 
-    public static int[] exchangeCouncilPrivilege(Reward councilPrivilege) { // View
+    public static int[] exchangeCouncilPrivilege(Reward councilPrivilege) {
         try {
             if (councilPrivilege.getQuantity() > 5) {
                 throw new IllegalNumberOf(councilPrivilege);
@@ -117,6 +117,16 @@ public class TerminalInput { //Metodi view del Client
         }
     }
 
+    public static int askNumberOfServant() {
+        System.out.println("How many Servant do you want to use?");
+        return askNumber(0, 7);
+    }
+
+    public static int askVaticanSupport() {
+        System.out.print("Do you choose to support Vatican? \n0. No\n1. Yes");
+        return askNumber(0,1);
+    }
+
 
     public static Action chooseAction(int playerNumber) {
         Action action = new Action();
@@ -204,7 +214,7 @@ public class TerminalInput { //Metodi view del Client
     }
 
 
-    public static Trade chooseTrade (BuildingCard buildingCard) { //View
+    public static Trade chooseTrade (BuildingCard buildingCard) {
         while (true) {
             try {
                 System.out.println("Choose between this " + buildingCard.getTrades().size() + " possibilities: \n");
@@ -233,6 +243,14 @@ public class TerminalInput { //Metodi view del Client
         }
     }
 
+    public static CostDiscount askWhichDiscount (CharacterCard characterCard) {
+        System.out.println("Which Discount do you want to choose?\n");
+        for (int i = 0; i < characterCard.getDiscounts().size(); i++) {
+            System.out.println(i + ". " + characterCard.getDiscounts().get(i).toString() + "\n");
+        }
+        return characterCard.getDiscounts().get(askNumber(0, characterCard.getDiscounts().size() - 1));
+    }
+
     public static void main (String args[]) throws SameChooseErrorException, IOException, JSONException{
         /* Reward councilPrivilege = new Reward (RewardType.COUNCIL_PRIVILEGE, 2);
 
@@ -250,9 +268,16 @@ public class TerminalInput { //Metodi view del Client
 
         /* System.out.println(chooseFamilyMemberColor()); */
 
-        Action action = chooseAction(4);
+        /* Action action = chooseAction(4);
 
-        System.out.println(action.toString());
+        System.out.println(action.toString()); */
+
+        /* System.out.println(askNumberOfServant());
+        System.out.println(askVaticanSupport()); */
+
+        CharacterCard characterCard = (CharacterCard) JSONUtility.getCard(1, 1, CardType.CHARACTER);
+        CostDiscount costDiscount = askWhichDiscount(characterCard);
+        System.out.println(costDiscount.toString());
 
     }
 }
