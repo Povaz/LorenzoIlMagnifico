@@ -6,6 +6,11 @@ import java.util.Random;
  * Created by trill on 31/05/2017.
  */
 public class RandomUtility{
+    public static int randomInt(int start, int end){
+        Random rand = new Random();
+        return rand.nextInt();
+    }
+
     public static int[] randomIntArray(int start, int end){
         Random rand = new Random();
         int length = end - start + 1;
