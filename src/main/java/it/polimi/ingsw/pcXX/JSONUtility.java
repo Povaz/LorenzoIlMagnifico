@@ -363,9 +363,15 @@ public class JSONUtility {
 	}
 	
 	//Codice Di Lacieoz
-	public static VaticanReportCard getVaticanReportCard(int period, int number) throws JSONException, IOException {
+	public static int getVaticanReportLength(int period) throws JSONException, IOException{
+		JSONObject cards = fromPathToJSONObject(ventureCardPath);
+		JSONArray cardsArray = cards.getJSONArray("cards").getJSONObject(period - 1).getJSONArray("period");
+		return cardsArray.length();
+	}
+
+	public static VaticanReportCard getVaticanReportCard(int period, int number) throws JSONException, IOException{
 		JSONObject card = fromPathToJSONObject(vaticanReportCardPath);
-		card = getPeriodAndNumberCard(period, number-1, card);
+		card = getPeriodAndNumberCard(period, number, card);
 		String attribute = getAttribute(card);
 		int value = getValue(card);
 		
