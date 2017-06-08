@@ -50,6 +50,9 @@ public abstract class ActionSpot {
 	}
 
 	public boolean isPlaceable(FamilyMember familyMember){
+		if(familyMember.isUsed()){
+			return false;
+		}
 		if(busy){
 			return false;
 		}
@@ -61,6 +64,7 @@ public abstract class ActionSpot {
 
 	public boolean place(FamilyMember familyMember) throws TooMuchTimeException {
 		occupiedBy.add(familyMember);
+		familyMember.setUsed(true);
 		if(!unrestricted){
 			busy = true;
 		}

@@ -66,10 +66,11 @@ public class Game{
 
     private void initializePlayersRewards(){
         int i = 1;
-        do{
-            board.getOrder().getCurrent().getPlayerBoard().setCounter(new Counter(i));
+        List<Player> order = board.getOrder().getShown();
+        for(Player p : order){
+            p.getPlayerBoard().setCounter(new Counter(i));
             i++;
-        } while(board.getOrder().nextOrder());
+        }
     }
 
     private void startPeriod(){
@@ -97,6 +98,7 @@ public class Game{
 
     private void startTurn(){
         throwDices();
+        reinitializeFamilyMembers();
         placeDevelopmentCard();
     }
 
@@ -104,10 +106,13 @@ public class Game{
         Order order = board.getOrder();
         do{
             try{
+                ActionSpot actionSpot;
+                FamilyMember familyMember;
                 do{
-                    board.getViewActionSpot();
-                    order.getCurrent().getPlayerBoard().getViewFamilyMember();
-                } while(order.getCurrent().placeFamilyMember(null, null));
+                    System.out.println("IS YOUR TURN " + order.getCurrent().getUsername() + "!!!");
+                    actionSpot = board.getViewActionSpot();
+                    familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
+                } while(!order.getCurrent().placeFamilyMember(familyMember, actionSpot));
             } catch(TooMuchTimeException e){
                 e.printStackTrace();
             }
@@ -253,6 +258,12 @@ public class Game{
     private void reinitializeMarket(){
         for(Market m : board.getMarket()){
             m.reinitialize();
+        }
+    }
+
+    private void reinitializeFamilyMembers(){
+        for(Player p : players){
+            p.getPlayerBoard().reinitializeFamilyMembers(board.getDices());
         }
     }
 

@@ -8,6 +8,7 @@ import java.util.*;
  * Created by trill on 22/05/2017.
  */
 public class Board {
+    private final int playerNumber;
     private final List<HarvestArea> harvestArea;
     private final List<ProductionArea> productionArea;
     private final List<Market> market;
@@ -21,6 +22,7 @@ public class Board {
     private final List<Dice> dices;
 
     public Board(List<Player> players){
+        this.playerNumber = players.size();
         this.harvestArea = new ArrayList<>();
         this.productionArea = new ArrayList<>();
         this.market = new ArrayList<>();
@@ -92,23 +94,22 @@ public class Board {
     }
 
     public ActionSpot getViewActionSpot() throws TooMuchTimeException {
-        ActionType actionType = ActionType.ANY_TOWER;
-        int number = 2;
-        switch(actionType){
+        Action action = TerminalInput.chooseAction(playerNumber);
+        switch(action.getActionType()){
             case TERRITORY_TOWER:
-                return territoryTower.getFloors().get(number);
+                return territoryTower.getFloors().get(action.getSpot());
             case BUILDING_TOWER:
-                return buildingTower.getFloors().get(number);
+                return buildingTower.getFloors().get(action.getSpot());
             case CHARACTER_TOWER:
-                return characterTower.getFloors().get(number);
+                return characterTower.getFloors().get(action.getSpot());
             case VENTURE_TOWER:
-                return ventureTower.getFloors().get(number);
+                return ventureTower.getFloors().get(action.getSpot());
             case HARVEST:
-                return harvestArea.get(number);
+                return harvestArea.get(action.getSpot());
             case PRODUCE:
-                return productionArea.get(number);
+                return productionArea.get(action.getSpot());
             case MARKET:
-                return market.get(number);
+                return market.get(action.getSpot());
             case COUNCIL_PALACE:
                 return councilPalace;
             default:

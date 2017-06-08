@@ -28,7 +28,7 @@ public class Order{
 	public void recalculate(List<FamilyMember> councilPalaceOrder){
 		calculateShownOrder(councilPalaceOrder);
 		calculateRealOrder();
-		current = 0;
+		this.current = 0;
 	}
 
 	private void calculateShownOrder(List<FamilyMember> councilPalaceOrder){

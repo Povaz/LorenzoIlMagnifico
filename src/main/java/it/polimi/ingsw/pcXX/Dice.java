@@ -15,12 +15,32 @@ public class Dice{
         throwDice();
     }
 
+    public void throwDice(){
+        Random rand = new Random();
+        value = rand.nextInt(6) + 1;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Dice dice = (Dice) o;
+
+        if (value != dice.value) return false;
+        return color == dice.color;
+    }
+
+    @Override
+    public int hashCode() {
+        return color.hashCode();
+    }
+
     public int getValue(){
         return value;
     }
 
-    public void throwDice(){
-        Random rand = new Random();
-        value = rand.nextInt(6) + 1;
+    public FamilyColor getColor() {
+        return color;
     }
 }

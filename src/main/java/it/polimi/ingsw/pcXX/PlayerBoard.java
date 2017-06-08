@@ -44,12 +44,25 @@ public class PlayerBoard {
         return familyMember;
     }
 
+    public void reinitializeFamilyMembers(List<Dice> dices){
+        for(FamilyMember fM : familyMembers){
+            FamilyColor color = fM.getColor();
+            for(Dice d : dices){
+                if(color == d.getColor()){
+                    fM.setValue(d.getValue());
+                }
+            }
+        }
+    }
+
     public boolean harvest(int value) throws TooMuchTimeException {
         Counter newCounter = new Counter(counter);
 
-        if(personalBonusTile.getHarvestRewards() != null) {
-            if(value >= personalBonusTile.getDiceHarvest()){
-                newCounter.sum(personalBonusTile.getHarvestRewards());
+        if(personalBonusTile != null){
+            if(personalBonusTile.getHarvestRewards() != null){
+                if(value >= personalBonusTile.getDiceHarvest()){
+                    newCounter.sum(personalBonusTile.getHarvestRewards());
+                }
             }
         }
         for(DevelopmentCard dC : territorySpot.getCards()){
@@ -72,9 +85,11 @@ public class PlayerBoard {
         Counter copyForCosts = new Counter(counter);
         Counter newCounter = new Counter(counter);
 
-        if(personalBonusTile.getProductionRewards() != null) {
-            if(value >= personalBonusTile.getDiceProduction()){
-                newCounter.sum(personalBonusTile.getProductionRewards());
+        if(personalBonusTile != null){
+            if(personalBonusTile.getProductionRewards() != null){
+                if(value >= personalBonusTile.getDiceProduction()){
+                    newCounter.sum(personalBonusTile.getProductionRewards());
+                }
             }
         }
         for(DevelopmentCard dC : buildingSpot.getCards()){
@@ -223,7 +238,7 @@ public class PlayerBoard {
     }
 
     public FamilyMember getViewFamilyMember() throws TooMuchTimeException{
-        FamilyColor familyColor = FamilyColor.ORANGE;
+        FamilyColor familyColor = TerminalInput.chooseFamilyMemberColor();
         for(FamilyMember fM : familyMembers){
             if(fM.getColor() == familyColor){
                 return fM;
