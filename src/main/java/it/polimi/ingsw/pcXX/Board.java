@@ -1,7 +1,9 @@
 package it.polimi.ingsw.pcXX;
 
 import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
+import org.json.JSONException;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -18,7 +20,7 @@ public class Board {
     private final Tower ventureTower;
     private final CouncilPalace councilPalace;
     private final Order order;
-    private final VaticanReportSpot vaticanReportSpot;
+    private final List<VaticanReportSpot> vaticanReportSpot;
     private final List<Dice> dices;
 
     public Board(List<Player> players){
@@ -32,7 +34,7 @@ public class Board {
         this.ventureTower = new Tower(CardType.VENTURE, this);
         this.councilPalace = new CouncilPalace();
         this.order = new Order(players);
-        this.vaticanReportSpot = new VaticanReportSpot();
+        this.vaticanReportSpot = new ArrayList<>();
         this.dices = new ArrayList<>();
         initialize(players.size());
     }
@@ -79,12 +81,17 @@ public class Board {
     }
 
     private void initializeVaticanReportSpot(){
-        /*
-        scegli 3 numeri casuali,
-        da ogni numero estrai una tessera dal file JSON,
-        creala e collegala allo spot,
-        inizializza le altre variabili
-         */
+        try {
+            for (int period = 1; period <= Game.PERIOD_NUMBER; period++) {
+                int cardNumber = RandomUtility.randomInt(0, JSONUtility.getVaticanReportLength(period));
+                VaticanReportCard vaticanReportCard = JSONUtility.getVaticanReportCard(period, cardNumber);
+                vaticanReportSpot.add(new VaticanReportSpot(vaticanReportCard));
+            }
+        } catch(JSONException e){
+            e.printStackTrace();
+        } catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     private void initializeDices(){
@@ -153,7 +160,11 @@ public class Board {
         return order;
     }
 
-    public VaticanReportSpot getVaticanReportSpot() {
+    public int getPlayerNumber() {
+        return playerNumber;
+    }
+
+    public List<VaticanReportSpot> getVaticanReportSpot() {
         return vaticanReportSpot;
     }
 

@@ -13,9 +13,9 @@ import java.util.Set;
  * Created by trill on 30/05/2017.
  */
 public class Game{
-    private final int PERIOD_NUMBER = 3;
-    private final int TURNS_FOR_PERIOD = 2;
-    private final int CARD_FOR_TOWER = 4;
+    public static final int PERIOD_NUMBER = 3;
+    public static final int TURNS_FOR_PERIOD = 2;
+    public static final int CARD_FOR_TOWER = 4;
     private int turn;
     private int period;
     private final List<String> usernames;
@@ -277,14 +277,6 @@ public class Game{
 
     private void reinitializeCouncilPalace(){
         board.getCouncilPalace().reinitialize();
-    }
-
-    public int getPERIOD_NUMBER() {
-        return PERIOD_NUMBER;
-    }
-
-    public int getCARD_FOR_TOWER() {
-        return CARD_FOR_TOWER;
     }
 
     public int getPeriod() {
