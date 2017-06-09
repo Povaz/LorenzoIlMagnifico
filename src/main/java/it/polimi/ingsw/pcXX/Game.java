@@ -111,6 +111,8 @@ public class Game{
     }
 
     private void playTurn(){
+        System.out.println("\n\nBOARD:");
+        System.out.println(board);
         Order order = board.getOrder();
         do{
             try{
@@ -118,8 +120,6 @@ public class Game{
                 FamilyMember familyMember;
                 boolean skipTurn = false;
                 do{
-                    System.out.println("\n\nBOARD:");
-                    System.out.println(board);
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(order.getCurrent().getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!   " + order.getCurrent().getColor() + "\n\n");

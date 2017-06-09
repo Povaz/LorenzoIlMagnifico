@@ -73,14 +73,21 @@ public class Reward{
                 case 1:
                     rewards.add(new Reward(RewardType.WOOD, 1));
                     rewards.add(new Reward(RewardType.STONE, 1));
+                    break;
                 case 2:
                     rewards.add(new Reward(RewardType.SERVANT, 2));
+                    break;
                 case 3:
                     rewards.add(new Reward(RewardType.COIN, 2));
+                    break;
                 case 4:
                     rewards.add(new Reward(RewardType.MILITARY_POINT, 2));
+                    break;
                 case 5:
                     rewards.add(new Reward(RewardType.FAITH_POINT, 1));
+                    break;
+                default:
+                    break;
             }
         }
         return rewards;
