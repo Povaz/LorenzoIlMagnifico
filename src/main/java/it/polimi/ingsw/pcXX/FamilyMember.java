@@ -13,21 +13,23 @@ public class FamilyMember{
 	private final Set<Reward> discounts;
 
 	public String toString(){
-		String familyMemberString = null;
-		familyMemberString+="color:" + color.toString() + "\n";
-		familyMemberString+="used : " + used + "\n";
-		familyMemberString+="value : " + value + "\n";
-		familyMemberString+="ghost : " + ghost + "\n";
-		familyMemberString+="ActionType : " + action.toString() + "\n";
-		int contatore = 1;
-		Reward element;
-		Iterator<Reward> iteratorDiscounts = discounts.iterator();
-		while(iteratorDiscounts.hasNext()){
-    	  element = (Reward) iteratorDiscounts.next();
-    	  familyMemberString += "Discount n° " + contatore + " : " + element.toString() + "\n";
-    	  contatore++;
-    	}
+		String familyMemberString = "";
+		if(!ghost) {
+			familyMemberString += "used : " + used + "\n";
+			familyMemberString += "color:" + color.toString() + "\n";
+		}
+		else {
+			familyMemberString += "ActionType : " + action.toString() + "\n";
+		}
+		familyMemberString += "value : " + value + "\n";
 		return familyMemberString;
+	}
+
+	public String toString1(){
+		String string = "";
+		string += "    player: " + player.getUsername() + "\n";
+		string += "    color: " + color;
+		return string;
 	}
 	
 	public FamilyMember(Player player, FamilyColor color){

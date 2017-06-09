@@ -29,4 +29,13 @@ public abstract class CardSpot{
     public List<DevelopmentCard> getCards(){
         return cards;
     }
+
+    @Override
+    public String toString(){
+        String string = "";
+        for(DevelopmentCard dC : cards){
+            string += dC.toString();
+        }
+        return string;
+    }
 }

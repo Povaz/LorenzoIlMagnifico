@@ -23,50 +23,6 @@ public class Board {
     private final List<VaticanReportSpot> vaticanReportSpot;
     private final List<Dice> dices;
     
-    public String toString(){
-    	String boardString = null;
-    	boardString = super.toString() + "\n";
-    	int contatore = 1;
-		HarvestArea element;
-		Iterator<HarvestArea> iteratorHarvestArea = harvestArea.iterator();
-		while(iteratorHarvestArea.hasNext()){
-    	  element = (HarvestArea) iteratorHarvestArea.next();
-    	  boardString += "HarvestArea n° " + contatore + " : " + element.toString() + "\n";
-    	  contatore++;
-    	}
-		contatore = 1;
-		ProductionArea element2;
-		Iterator<ProductionArea> iteratorProductionArea = productionArea.iterator();
-		while(iteratorProductionArea.hasNext()){
-    	  element2 = (ProductionArea) iteratorProductionArea.next();
-    	  boardString += "ProductionArea n° " + contatore + " : " + element2.toString() + "\n";
-    	  contatore++;
-    	}
-		contatore = 1;
-		Market element3;
-		Iterator<Market> iteratorMarket = market.iterator();
-		while(iteratorMarket.hasNext()){
-    	  element3 = (Market) iteratorMarket.next();
-    	  boardString += "Market n° " + contatore + " : " + element3.toString() + "\n";
-    	  contatore++;
-    	}
-    	boardString +="Territory Tower : " + territoryTower.toString() + "\n";
-    	boardString +="Building Tower : " + buildingTower.toString() + "\n";
-    	boardString +="Character Tower : " + characterTower.toString() + "\n";
-    	boardString +="Venture Tower : " + ventureTower.toString() + "\n";
-    	boardString +="Order : " + order + "\n";
-    	contatore = 1;
-		Dice element4;
-		Iterator<Dice> iteratorDices = dices.iterator();
-		while(iteratorDices.hasNext()){
-    	  element4 = (Dice) iteratorDices.next();
-    	  boardString += "Market n° " + contatore + " : " + element4.toString() + "\n";
-    	  contatore++;
-    	}
-    	//Manca Vatican Report Spot
-    	return boardString;
-    }
-    
     public Board(List<Player> players){
         this.playerNumber = players.size();
         this.harvestArea = new ArrayList<>();
@@ -126,7 +82,7 @@ public class Board {
 
     private void initializeVaticanReportSpot(){
         try {
-            for (int period = 1; period <= Game.PERIOD_NUMBER; period++) {
+            for(int period = 1; period <= Game.PERIOD_NUMBER; period++) {
                 int cardNumber = RandomUtility.randomInt(0, JSONUtility.getVaticanReportLength(period));
                 VaticanReportCard vaticanReportCard = JSONUtility.getVaticanReportCard(period, cardNumber);
                 vaticanReportSpot.add(new VaticanReportSpot(vaticanReportCard));
@@ -166,6 +122,71 @@ public class Board {
             default:
                 return null;
         }
+    }
+
+    @Override
+    public String toString(){
+        String boardString = "";
+        if(harvestArea != null) {
+            boardString += "harvestArea:\n";
+            for (HarvestArea hA : harvestArea) {
+                boardString += hA.toString() + "\n\n";
+            }
+            boardString += "\n";
+        }
+        if(productionArea != null){
+            boardString += "productionArea:\n";
+            for(ProductionArea pA : productionArea){
+                boardString += pA.toString() + "\n\n";
+            }
+            boardString += "\n";
+        }
+        if(market != null){
+            boardString += "market:\n";
+            for(Market m : market){
+                boardString += m.toString() + "\n\n";
+            }
+            boardString += "\n";
+        }
+        if(councilPalace != null){
+            boardString += "councilPalace:\n";
+            boardString += councilPalace + "\n\n\n";
+        }
+        if(territoryTower != null){
+            boardString += "territoryTower:\n";
+            boardString += territoryTower + "\n\n";
+        }
+        if(buildingTower != null){
+            boardString += "buildingTower:\n";
+            boardString += buildingTower + "\n\n";
+        }
+        if(characterTower != null){
+            boardString += "characterTower:\n";
+            boardString += characterTower + "\n\n";
+        }
+        if(ventureTower != null){
+            boardString += "ventureTower:\n";
+            boardString += ventureTower + "\n\n";
+        }
+        if(order != null){
+            boardString += "order: \n";
+            boardString += order.toString() + "\n";
+        }
+        if(dices != null){
+            boardString += "dices:\n";
+            for(Dice d : dices){
+                boardString += d.toString() + "\n";
+            }
+            boardString += "\n";
+        }
+        if(vaticanReportSpot != null){
+            boardString += "vaticanReportSpot:\n";
+            for(VaticanReportSpot vRS : vaticanReportSpot){
+                boardString += "  " + vRS.toString() + "\n";
+            }
+            boardString += "\n";
+        }
+        return boardString;
     }
 
     public List<HarvestArea> getHarvestArea() {

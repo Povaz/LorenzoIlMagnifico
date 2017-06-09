@@ -11,4 +11,9 @@ public class VaticanReportSpot {
 		this.reported = new ArrayList<>();
 		this.vaticanReportCard = vaticanReportCard;
 	}
+
+	@Override
+	public String toString(){
+		return "ANCORA DA IMPLEMENTARE!!!\n";
+	}
 }

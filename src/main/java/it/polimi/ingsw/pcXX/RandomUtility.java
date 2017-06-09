@@ -6,9 +6,9 @@ import java.util.Random;
  * Created by trill on 31/05/2017.
  */
 public class RandomUtility{
-    public static int randomInt(int start, int end){
+    public static int randomInt(int min, int max){
         Random rand = new Random();
-        return rand.nextInt();
+        return rand.nextInt(max - min + 1) + min;
     }
 
     public static int[] randomIntArray(int start, int end){

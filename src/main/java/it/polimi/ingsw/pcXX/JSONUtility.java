@@ -364,7 +364,7 @@ public class JSONUtility {
 	
 	//Codice Di Lacieoz
 	public static int getVaticanReportLength(int period) throws JSONException, IOException{
-		JSONObject cards = fromPathToJSONObject(ventureCardPath);
+		JSONObject cards = fromPathToJSONObject(vaticanReportCardPath);
 		JSONArray cardsArray = cards.getJSONArray("cards").getJSONObject(period - 1).getJSONArray("period");
 		return cardsArray.length();
 	}

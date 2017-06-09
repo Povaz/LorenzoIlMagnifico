@@ -12,29 +12,6 @@ public class Tower {
 	private final CardType type;
 	private final Set<Reward> occupiedTax;
 	private final Board board;
-	
-	public String toString(){
-		String towerString = null;
-		towerString += "occupied : " + occupied + "\n";
-		towerString += "type : " + type.toString() + "\n";
-		int contatore = 1;
-		Floor element;
-		Iterator<Floor> iteratorFloor = floors.iterator();
-		while(iteratorFloor.hasNext()){
-    	  element = (Floor) iteratorFloor.next();
-    	  towerString += "Floor n° " + contatore + " : " + element.toString() + "\n";
-    	  contatore++;
-    	}
-		contatore = 1;
-		Reward element2;
-		Iterator<Reward> iteratorOccupiedTax = occupiedTax.iterator();
-		while(iteratorOccupiedTax.hasNext()){
-    	  element2 = (Reward) iteratorOccupiedTax.next();
-    	  towerString += "Occupied Tax n° " + contatore + " : " + element2.toString() + "\n";
-    	  contatore++;
-    	}
-		return towerString;
-	}
 
 	public Tower(CardType type, Board board){
 		this.board = board;
@@ -80,6 +57,15 @@ public class Tower {
 		for(Floor f : floors){
 			f.reinitialize();
 		}
+	}
+
+	@Override
+	public String toString(){
+		String string = "";
+		for(Floor f : floors){
+			string += f.toString() + "\n";
+		}
+		return string;
 	}
 
 	public List<Floor> getFloors() {

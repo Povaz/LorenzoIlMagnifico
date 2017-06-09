@@ -28,7 +28,7 @@ public class Game{
     private int[] ventureCard;
 
     public static void main(String[] args) {
-        Game game = new Game(Arrays.asList("Affetti", "Cugola"));
+        Game game = new Game(Arrays.asList("Affetti", "Cugola", "Ganesh", "Frizzi"));
         while(game.period <= game.PERIOD_NUMBER){
             game.startPeriod();
             while(game.turn <= game.TURNS_FOR_PERIOD){
@@ -117,7 +117,11 @@ public class Game{
                 ActionSpot actionSpot;
                 FamilyMember familyMember;
                 do{
-                    System.out.println("IS YOUR TURN " + order.getCurrent().getUsername() + "!!!");
+                    System.out.println("\n\nBOARD:");
+                    System.out.println(board);
+                    System.out.println("\n\nPLAYERBOARD:");
+                    System.out.println(order.getCurrent().getPlayerBoard());
+                    System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!\n\n");
                     actionSpot = board.getViewActionSpot();
                     familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
                 } while(!order.getCurrent().placeFamilyMember(familyMember, actionSpot));

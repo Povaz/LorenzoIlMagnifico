@@ -43,11 +43,12 @@ public class Dice{
     public FamilyColor getColor() {
         return color;
     }
-    
+
+    @Override
     public String toString(){
-    	String diceString = null;
-    	diceString += "value : " + value + "\n"; 
-    	diceString += "color : " + color.toString() + "\n";
+    	String diceString = "";
+    	diceString += "  value : " + value + "\n";
+    	diceString += "  color : " + color.toString() + "\n";
     	return diceString;
     }
 }

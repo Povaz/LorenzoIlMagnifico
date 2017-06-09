@@ -86,4 +86,19 @@ public class Floor extends ActionSpot{
 			}
 		}
 	}
+
+	@Override
+	public String toString(){
+		String string = super.toString();
+		if(rewards != null){
+			string += "\n  Reward if place: ";
+			for(Reward r : rewards){
+				string += r.toString() + "   ";
+			}
+		}
+		if(card != null){
+			string += "\n  CARD:" + card.toString();
+		}
+		return string;
+	}
 }

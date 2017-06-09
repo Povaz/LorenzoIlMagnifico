@@ -43,10 +43,11 @@ public class HarvestArea extends ActionSpot{
         }
         return false;
     }
-    
+
+    @Override
     public String toString(){
-    	String harvestAreaString = null;
-    	harvestAreaString += "harvestArea diceModifier : " + diceModifier + "\n";
-    	return harvestAreaString;
+        String string = super.toString();
+        string += "\n  diceModifier: " + diceModifier;
+        return string;
     }
 }

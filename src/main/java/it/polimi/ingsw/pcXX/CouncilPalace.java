@@ -38,5 +38,16 @@ public class CouncilPalace extends ActionSpot{
 		familyMember.getPlayer().getPlayerBoard().getCounter().sum(rewards);
 		return super.place(familyMember);
 	}
-	
+
+	@Override
+	public String toString(){
+		String string = super.toString();
+		if(rewards != null) {
+			string += "\n  rewards: ";
+			for (Reward r : rewards) {
+				string += r.toString() + "   ";
+			}
+		}
+		return string;
+	}
 }

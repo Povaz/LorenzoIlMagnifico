@@ -20,28 +20,6 @@ public class PersonalBonusTile {
         this.productionRewards = productionRewards;
     }
 
-    public String toString (){
-    	String tileString = super.toString();
-    	tileString+="\nDice Harvest: "+ diceHarvest + "\n";
-    	Iterator<Reward> iteratorHar = harvestRewards.iterator();
-    	int contatore=1;
-    	Reward element;
-    	while(iteratorHar.hasNext()){
-    	  element = (Reward) iteratorHar.next();
-    	  tileString += "Harvest Reward n° " + contatore + " : " + element.toString() + "\n";
-    	  contatore++;
-    	}
-    	tileString+="\nDice Production: "+ diceProduction + "\n";
-    	contatore=1;
-    	Iterator<Reward> iteratorProd = productionRewards.iterator();
-    	while(iteratorProd.hasNext()){
-    	  element = (Reward) iteratorProd.next();
-    	  tileString += "Production Reward n° " + contatore + " : " + element.toString() + "\n";
-    	  contatore++;
-    	}
-    	return tileString;
-    }
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -79,5 +57,27 @@ public class PersonalBonusTile {
 
     public Set<Reward> getProductionRewards() {
         return productionRewards;
+    }
+
+    @Override
+    public String toString (){
+        String string = "";
+        string += "  diceHarvest: " + diceHarvest + "\n";
+        if(harvestRewards != null) {
+            string += "  harvestRewards: ";
+            for (Reward r : harvestRewards) {
+                string += r.toString() + "   ";
+            }
+            string += "\n";
+        }
+        string += "  diceProduction: " + diceProduction + "\n";
+        if(productionRewards != null) {
+            string += "  productionRewards: ";
+            for (Reward r : productionRewards) {
+                string += r.toString() + "   ";
+            }
+            string += "\n";
+        }
+        return string;
     }
 }

@@ -43,10 +43,11 @@ public class ProductionArea extends ActionSpot{
 		}
 		return false;
 	}
-	
-	 public String toString(){
-    	String productionAreaString = null;
-    	productionAreaString += "productionArea diceModifier : " + diceModifier + "\n";
-    	return productionAreaString;
-    }
+
+	@Override
+	public String toString(){
+		String string = super.toString();
+		string += "\n  diceModifier: " + diceModifier;
+		return string;
+	}
 }

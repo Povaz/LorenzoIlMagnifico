@@ -70,4 +70,18 @@ public abstract class ActionSpot {
 		}
 		return true;
 	}
+
+	@Override
+	public String toString(){
+		String string = "";
+		string += "  busy: " + busy + "\n";
+		string += "  unrestricted: " + unrestricted + "\n";
+		string += "  diceValue: " + diceValue + "\n";
+		string += "  occupiedBy: ";
+		for(FamilyMember fM : occupiedBy){
+			string += "\n";
+			string += fM.toString1();
+		}
+		return string;
+	}
 }

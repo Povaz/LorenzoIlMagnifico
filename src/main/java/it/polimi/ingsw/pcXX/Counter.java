@@ -253,16 +253,17 @@ public class Counter{
     public Reward getVictoryPoint() {
         return victoryPoint;
     }
-    
+
+    @Override
     public String toString(){
-    	String counterString=null;
-    	counterString += coin.toString() + "\n";
-    	counterString += wood.toString () + "\n";
-    	counterString += stone.toString() + "\n";
-    	counterString += servant.toString() + "\n";
-    	counterString += militaryPoint.toString() + "\n";
-    	counterString += faithPoint.toString() + "\n";
-    	counterString += victoryPoint.toString() + "\n";
+    	String counterString = "counter:\n";
+    	counterString += "  " + coin.toString() + "\n";
+    	counterString += "  " + wood.toString () + "\n";
+    	counterString += "  " + stone.toString() + "\n";
+    	counterString += "  " + servant.toString() + "\n";
+    	counterString += "  " + militaryPoint.toString() + "\n";
+    	counterString += "  " + faithPoint.toString() + "\n";
+    	counterString += "  " + victoryPoint.toString() + "\n";
     	return counterString;
     }
 }
