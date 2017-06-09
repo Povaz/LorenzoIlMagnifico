@@ -142,10 +142,6 @@ public class PlayerBoard {
             return false;
         }
 
-        if(!developmentCard.canBuyCard(newCounter)){
-            return false;
-        }
-
         if(!newCounter.check()){
             return false;
         }
