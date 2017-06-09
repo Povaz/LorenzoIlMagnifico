@@ -45,6 +45,7 @@ public class PlayerBoard {
 
     public void reinitializeFamilyMembers(List<Dice> dices){
         for(FamilyMember fM : familyMembers){
+            fM.setUsed(false);
             FamilyColor color = fM.getColor();
             for(Dice d : dices){
                 if(color == d.getColor()){
