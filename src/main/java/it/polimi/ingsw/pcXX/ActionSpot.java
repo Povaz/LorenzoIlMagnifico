@@ -56,7 +56,7 @@ public abstract class ActionSpot {
 		if(busy){
 			return false;
 		}
-		if(diceValue > familyMember.getValue()){
+		if(diceValue > familyMember.getValue() + familyMember.getServantUsed().getQuantity()){
 			return false;
 		}
 		return true;

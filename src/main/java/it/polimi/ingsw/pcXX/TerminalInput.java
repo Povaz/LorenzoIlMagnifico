@@ -129,9 +129,9 @@ public class TerminalInput { //Metodi view: richieste ai Client
         }
     }
 
-    public static int askNumberOfServant() {
+    public static Reward askNumberOfServant() {
         System.out.println("How many Servant do you want to use?");
-        return askNumber(0, 7);
+        return new Reward(RewardType.SERVANT, askNumber(0, 7));
     }
 
     public static int askVaticanSupport() {

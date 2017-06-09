@@ -122,6 +122,10 @@ public class Counter{
         }
     }
 
+    public boolean canSubtract(Reward reward){
+        return giveSameReward(reward).getQuantity() - reward.getQuantity() >= 0;
+    }
+
     public void sum(Reward reward){
         giveSameReward(reward).sumQuantity(reward);
     }

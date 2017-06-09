@@ -50,7 +50,7 @@ public class BuildingCard extends DevelopmentCard{
 	@Override
 	public String toString(){
 		String cardString = super.toString();
-		cardString += "Dice harvest: " + diceProductionAction + "\n";
+		cardString += "Dice production: " + diceProductionAction + "\n";
 		if(earnings != null){
 			cardString += "Earnings:\n";
 			for(Reward r : earnings){

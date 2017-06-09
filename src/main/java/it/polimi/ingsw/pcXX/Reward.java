@@ -14,6 +14,11 @@ public class Reward{
         this.quantity = quantity;
     }
 
+    public Reward(Reward other){
+        this.type = other.type;
+        this.quantity = other.quantity;
+    }
+
     public RewardType getType() {
         return type;
     }

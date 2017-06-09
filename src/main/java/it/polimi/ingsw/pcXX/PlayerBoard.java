@@ -55,9 +55,12 @@ public class PlayerBoard {
         }
     }
 
-    public boolean harvest(int value) throws TooMuchTimeException {
+    public boolean harvest(int value, Reward servantUsed) throws TooMuchTimeException {
         Counter newCounter = new Counter(counter);
 
+        if(!checkServantUsed(newCounter, servantUsed)){
+            return false;
+        }
         if(personalBonusTile != null){
             if(personalBonusTile.getHarvestRewards() != null){
                 if(value >= personalBonusTile.getDiceHarvest()){
@@ -81,10 +84,13 @@ public class PlayerBoard {
         return true;
     }
 
-    public boolean produce(int value) throws TooMuchTimeException{
+    public boolean produce(int value, Reward servantUsed) throws TooMuchTimeException{
         Counter copyForCosts = new Counter(counter);
-        Counter newCounter = new Counter(counter);
 
+        if(!checkServantUsed(copyForCosts, servantUsed)){
+            return false;
+        }
+        Counter newCounter = new Counter(copyForCosts);
         if(personalBonusTile != null){
             if(personalBonusTile.getProductionRewards() != null){
                 if(value >= personalBonusTile.getDiceProduction()){
@@ -127,9 +133,13 @@ public class PlayerBoard {
         return true;
     }
 
-    public boolean buyCard(Floor floor) throws TooMuchTimeException{
+    public boolean buyCard(Floor floor, Reward servantUsed) throws TooMuchTimeException{
         Counter newCounter = new Counter(counter);
         DevelopmentCard developmentCard = floor.getCard();
+
+        if(!checkServantUsed(newCounter, servantUsed)){
+            return false;
+        }
 
         if(!payTowerTax(newCounter, floor)){
             return false;
@@ -137,21 +147,25 @@ public class PlayerBoard {
 
         earnTowerReward(newCounter, floor);
 
-        earnCardFastReward(newCounter, developmentCard);
-
         if(!developmentCard.isPlaceable(newCounter, this)){
             return false;
         }
-
         if(!newCounter.check()){
             return false;
         }
+
+        earnCardFastReward(newCounter, developmentCard);
 
         developmentCard.place(this);
         newCounter.round();
         counter = newCounter;
 
         return true;
+    }
+
+    private boolean checkServantUsed(Counter newCounter, Reward servantUsed){
+        newCounter.subtract(servantUsed);
+        return newCounter.check();
     }
 
     private boolean payTowerTax(Counter newCounter, Floor floor){

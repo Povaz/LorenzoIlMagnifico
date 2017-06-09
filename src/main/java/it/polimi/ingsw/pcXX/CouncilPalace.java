@@ -22,19 +22,22 @@ public class CouncilPalace extends ActionSpot{
 	@Override
 	public boolean isPlaceable(FamilyMember familyMember){
 		if(super.isPlaceable(familyMember)){
-			if(familyMember.getAction() != null){
-				if(familyMember.getAction() == ActionType.COUNCIL_PALACE || familyMember.getAction() == ActionType.ALL){
-					return true;
+			if(familyMember.getPlayer().getPlayerBoard().getCounter().canSubtract(familyMember.getServantUsed())) {
+				if (familyMember.getAction() != null) {
+					if (familyMember.getAction() == ActionType.COUNCIL_PALACE || familyMember.getAction() == ActionType.ALL) {
+						return true;
+					}
+					return false;
 				}
-				return false;
+				return true;
 			}
-			return true;
 		}
 		return false;
 	}
 
 	@Override
 	public boolean place(FamilyMember familyMember) throws TooMuchTimeException {
+		familyMember.getPlayer().getPlayerBoard().getCounter().subtract(familyMember.getServantUsed());
 		familyMember.getPlayer().getPlayerBoard().getCounter().sum(rewards);
 		return super.place(familyMember);
 	}
@@ -42,7 +45,7 @@ public class CouncilPalace extends ActionSpot{
 	@Override
 	public String toString(){
 		String string = super.toString();
-		if(rewards != null) {
+		if(rewards != null){
 			string += "\n  rewards: ";
 			for (Reward r : rewards) {
 				string += r.toString() + "   ";
