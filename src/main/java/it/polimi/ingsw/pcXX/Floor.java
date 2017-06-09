@@ -66,6 +66,7 @@ public class Floor extends ActionSpot{
 	public boolean place(FamilyMember familyMember) throws TooMuchTimeException{
 		if(familyMember.getPlayer().getPlayerBoard().buyCard(this)){
 			super.place(familyMember);
+			tower.setOccupied(true);
 			DevelopmentCard developmentCard = this.card;
 			this.card = null;
 			doActions(developmentCard);

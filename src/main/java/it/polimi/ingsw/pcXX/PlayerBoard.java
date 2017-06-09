@@ -20,8 +20,6 @@ public class PlayerBoard {
     private final VentureSpot ventureSpot;
     private final Modifier modifier;
 
-
-    
     public PlayerBoard(Player player, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.player = player;
         this.color = player.getColor();
@@ -156,7 +154,6 @@ public class PlayerBoard {
         newCounter.round();
         counter = newCounter;
 
-
         return true;
     }
 
@@ -242,6 +239,7 @@ public class PlayerBoard {
         FamilyColor familyColor = TerminalInput.chooseFamilyMemberColor();
         for(FamilyMember fM : familyMembers){
             if(fM.getColor() == familyColor){
+                fM.setServantUsed(TerminalInput.askNumberOfServant());
                 return fM;
             }
         }

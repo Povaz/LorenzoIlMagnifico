@@ -121,13 +121,15 @@ public class Game{
                     System.out.println(board);
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(order.getCurrent().getPlayerBoard());
-                    System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!\n\n");
+                    System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!   " + order.getCurrent().getColor() + "\n\n");
                     actionSpot = board.getViewActionSpot();
                     familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
                 } while(!order.getCurrent().placeFamilyMember(familyMember, actionSpot));
             } catch(TooMuchTimeException e){
                 e.printStackTrace();
             }
+            System.out.println("\n\nPLAYERBOARD:");
+            System.out.println(order.getCurrent().getPlayerBoard());
         } while(board.getOrder().nextOrder());
     }
 

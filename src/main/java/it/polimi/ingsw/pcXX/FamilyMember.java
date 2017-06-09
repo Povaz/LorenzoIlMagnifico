@@ -6,6 +6,7 @@ import java.util.Set;
 public class FamilyMember{
 	private boolean used;
 	private int value;
+	private int servantUsed;
 	private final boolean ghost;
 	private final Player player;
 	private final FamilyColor color;
@@ -35,6 +36,7 @@ public class FamilyMember{
 	public FamilyMember(Player player, FamilyColor color){
 		this.used = false;
 		this.value = 0;
+		this.servantUsed = 0;
 		this.ghost = false;
 		this.player = player;
 		this.color = color;
@@ -112,5 +114,13 @@ public class FamilyMember{
 
 	public Set<Reward> getDiscounts() {
 		return discounts;
+	}
+
+	public int getServantUsed() {
+		return servantUsed;
+	}
+
+	public void setServantUsed(int servantUsed) {
+		this.servantUsed = servantUsed;
 	}
 }
