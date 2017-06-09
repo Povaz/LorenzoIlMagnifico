@@ -27,7 +27,6 @@ public class VaticanReportCard {
 	private boolean loseVictoryPointFromResource = false;
 	
 	public VaticanReportCard (int number, int period, String attribute, int value){
-		
 		this.number = number;
 		this.period = period;
 		switch(attribute){
