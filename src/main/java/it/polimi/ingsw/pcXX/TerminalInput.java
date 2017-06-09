@@ -12,9 +12,15 @@ import java.util.*;
  */
 public class TerminalInput { //Metodi view: richieste ai Client
 
-    public static int doYouWantToSkip () {
-        System.out.println("Do you want to skip your turn? 0. No 1. Yes");
-        return askNumber(0, 1);
+    public static boolean doYouWantToSkip () {
+        System.out.println("Do you want to skip your turn? 0. No 1. Yes \n");
+        int skipTurn = askNumber(0,1);
+        if (skipTurn == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
 
