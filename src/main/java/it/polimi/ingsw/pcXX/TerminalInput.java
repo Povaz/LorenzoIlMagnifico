@@ -201,7 +201,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
                         action.setActionType(ActionType.MARKET);
                         System.out.println("Which Spot? 0.COIN(5)  1.SERVANT(5)   2.COIN(2) & MILITARY_POINT(3) 3.COUNCILPRIVILEGE(2)");
                         if(playerNumber > 3){
-                            action.setSpot(askNumber(0, 4));
+                            action.setSpot(askNumber(0, 3));
                         }
                         else {
                             action.setSpot(askNumber(0, 1));
