@@ -43,7 +43,7 @@ public class Board {
         initializeHarvestArea(playerNumber);
         initializeProductionArea(playerNumber);
         initializeMarket(playerNumber);
-        initializeVaticanReportSpot();
+        //initializeVaticanReportSpot();
         initializeDices();
     }
 

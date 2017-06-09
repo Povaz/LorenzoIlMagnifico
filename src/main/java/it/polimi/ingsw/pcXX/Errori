@@ -1,0 +1,6 @@
+1. Comprando una CharacterCard ha scalato 4 COIN al posto di 2 COIN.
+2. Al turno successivo, Cugola ha comprato una carta che avrebbe potuto comprare, ma il gioco gli aveva calcolato solo 1 COIN, invece che 3.
+3. VentureCard --> howWantPayMilitaryPoint(): spostare in terminal input e rifarla decentemente che Paolo non sa l'inglese
+4. Per il punto  2: non paga le monete, quando piazzi i giocatori setta BusyTower a true.
+5. Per il punto 4: paga tutto doppio.
+6. Un giocatore può piazzare più volte in una torre familiari di colori diversi non neutri (WRONG)

@@ -28,7 +28,7 @@ public class Game{
     private int[] ventureCard;
 
     public static void main(String[] args) {
-        Game game = new Game(Arrays.asList("Affetti", "Cugola", "Ganesh", "Frizzi"));
+        Game game = new Game(Arrays.asList("Affetti", "Cugola"));
         while(game.period <= game.PERIOD_NUMBER){
             game.startPeriod();
             while(game.turn <= game.TURNS_FOR_PERIOD){
