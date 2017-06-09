@@ -116,15 +116,21 @@ public class Game{
             try{
                 ActionSpot actionSpot;
                 FamilyMember familyMember;
+                boolean skipTurn = false;
                 do{
                     System.out.println("\n\nBOARD:");
                     System.out.println(board);
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(order.getCurrent().getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!   " + order.getCurrent().getColor() + "\n\n");
-                    actionSpot = board.getViewActionSpot();
-                    familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
-                } while(!order.getCurrent().placeFamilyMember(familyMember, actionSpot));
+                    skipTurn = TerminalInput.doYouWantToSkip();
+                    familyMember = null;
+                    actionSpot = null;
+                    if(!skipTurn){
+                        actionSpot = board.getViewActionSpot();
+                        familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
+                    }
+                } while(!skipTurn && !(order.getCurrent().placeFamilyMember(familyMember, actionSpot)));
             } catch(TooMuchTimeException e){
                 e.printStackTrace();
             }
