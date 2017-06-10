@@ -37,11 +37,11 @@ public class ProductionArea extends ActionSpot{
 	}
 
 	@Override
-	public boolean place(FamilyMember familyMember) throws TooMuchTimeException {
-		if(familyMember.getPlayer().getPlayerBoard().produce(familyMember.getValue() + diceModifier, familyMember.getServantUsed())){
-			return super.place(familyMember);
+	public void placeFamilyMember(FamilyMember familyMember){
+		/*if(familyMember.getPlayer().getPlayerBoard().produce(familyMember.getValue() + diceModifier, familyMember.getServantUsed())){
+			return super.placeFamilyMember(familyMember);
 		}
-		return false;
+		return false;*/
 	}
 
 	@Override

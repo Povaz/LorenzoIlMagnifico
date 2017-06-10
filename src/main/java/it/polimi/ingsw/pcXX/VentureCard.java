@@ -69,22 +69,6 @@ public class VentureCard extends DevelopmentCard{
 	}
 
 	@Override
-	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard) throws TooMuchTimeException {
-		if(!playerBoard.getVentureSpot().canPlaceCard(newCounter)){
-			return false;
-		}
-		if(!canBuyCard(newCounter)){
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public void place(PlayerBoard playerBoard){
-		playerBoard.getVentureSpot().placeCard(this);
-	}
-
-	@Override
 	public boolean canBuyCard(Counter newCounter){
 		if(militaryPointNeeded != null && militaryPointPrice != null && getCosts() != null){
 			boolean payWithMilitaryPoint = howWantPayVentureCard(getCosts(), militaryPointNeeded, militaryPointPrice);

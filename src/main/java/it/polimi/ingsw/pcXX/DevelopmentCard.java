@@ -23,10 +23,6 @@ public abstract class DevelopmentCard {
 		this.actions = actions;
 	}
 
-	public abstract boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard) throws TooMuchTimeException;
-
-	public abstract void place(PlayerBoard playerBoard);
-
 	public boolean canBuyCard(Counter newCounter){
 		if(costs != null){
 			newCounter.subtract(costs);

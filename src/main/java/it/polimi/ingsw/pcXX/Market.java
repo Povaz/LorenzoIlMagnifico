@@ -1,7 +1,5 @@
 package it.polimi.ingsw.pcXX;
 
-import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
-
 import java.util.Set;
 
 public class Market extends ActionSpot{
@@ -14,25 +12,26 @@ public class Market extends ActionSpot{
 
 	@Override
 	public boolean isPlaceable(FamilyMember familyMember){
-		if(super.isPlaceable(familyMember)){
-			if(familyMember.getPlayer().getPlayerBoard().getCounter().canSubtract(familyMember.getServantUsed())){
-				if (familyMember.getAction() != null) {
-					if (familyMember.getAction() == ActionType.MARKET || familyMember.getAction() == ActionType.ALL) {
-						return true;
-					}
+		if(!super.isPlaceable(familyMember)){
+			return false;
+		}
+
+		if(familyMember.isGhost()){
+			if(familyMember.getAction() != null){
+				if(familyMember.getAction() != ActionType.ALL && familyMember.getAction() != ActionType.MARKET){
 					return false;
 				}
-				return true;
 			}
 		}
-		return false;
+
+		return true;
 	}
 
 	@Override
-	public boolean place(FamilyMember familyMember) throws TooMuchTimeException {
-		familyMember.getPlayer().getPlayerBoard().getCounter().subtract(familyMember.getServantUsed());
-		familyMember.getPlayer().getPlayerBoard().getCounter().sum(rewards);
-		return super.place(familyMember);
+	public void placeFamilyMember(FamilyMember familyMember){
+		if(!familyMember.isGhost()){
+			super.placeFamilyMember(familyMember);
+		}
 	}
 
 	@Override
@@ -45,5 +44,9 @@ public class Market extends ActionSpot{
 			}
 		}
 		return string;
+	}
+
+	public Set<Reward> getRewards() {
+		return rewards;
 	}
 }

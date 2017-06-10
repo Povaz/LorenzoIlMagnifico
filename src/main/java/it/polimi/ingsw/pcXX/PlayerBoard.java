@@ -133,36 +133,6 @@ public class PlayerBoard {
         return true;
     }
 
-    public boolean buyCard(Floor floor, Reward servantUsed) throws TooMuchTimeException{
-        Counter newCounter = new Counter(counter);
-        DevelopmentCard developmentCard = floor.getCard();
-
-        if(!checkServantUsed(newCounter, servantUsed)){
-            return false;
-        }
-
-        if(!payTowerTax(newCounter, floor)){
-            return false;
-        }
-
-        earnTowerReward(newCounter, floor);
-
-        if(!developmentCard.isPlaceable(newCounter, this)){
-            return false;
-        }
-        if(!newCounter.check()){
-            return false;
-        }
-
-        earnCardFastReward(newCounter, developmentCard);
-
-        developmentCard.place(this);
-        newCounter.round();
-        counter = newCounter;
-
-        return true;
-    }
-
     private boolean checkServantUsed(Counter newCounter, Reward servantUsed){
         newCounter.subtract(servantUsed);
         return newCounter.check();

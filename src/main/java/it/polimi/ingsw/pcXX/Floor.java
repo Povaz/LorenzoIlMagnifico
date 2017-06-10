@@ -38,6 +38,11 @@ public class Floor extends ActionSpot{
 		card = null;
 	}
 
+	/* familyMember può essere piazzato nell'actionSpot:
+    	- familiare non usato, spazio azione libero, valore dado sufficiente;
+  	  	- se è un'azione aggiuntiva deve essere del tipo giusto;
+  		- non ci possono essere due familiari dello stesso giocatore non neutrali nella stessa torre
+    */
 	@Override
 	public boolean isPlaceable(FamilyMember familyMember){
 		if(!super.isPlaceable(familyMember)){
@@ -46,8 +51,8 @@ public class Floor extends ActionSpot{
 
 		if(familyMember.isGhost()){
 			if(familyMember.getAction() != null){
-				if (familyMember.getAction() != ActionType.ALL){
-					if (!tower.getType().same(familyMember.getAction())){
+				if(familyMember.getAction() != ActionType.ALL){
+					if(!tower.getType().sameType(familyMember.getAction())){
 						return false;
 					}
 				}
@@ -69,16 +74,12 @@ public class Floor extends ActionSpot{
 	}
 
 	@Override
-	public boolean place(FamilyMember familyMember) throws TooMuchTimeException{
-		if(familyMember.getPlayer().getPlayerBoard().buyCard(this, familyMember.getServantUsed())){
-			super.place(familyMember);
+	public void placeFamilyMember(FamilyMember familyMember){
+		if(!familyMember.isGhost()){
+			super.placeFamilyMember(familyMember);
 			tower.setOccupied(true);
-			DevelopmentCard developmentCard = this.card;
-			this.card = null;
-			doActions(developmentCard, familyMember.getPlayer());
-			return true;
 		}
-		return false;
+		card = null;
 	}
 
 	private void doActions(DevelopmentCard developmentCard, Player player) throws TooMuchTimeException{
@@ -104,7 +105,7 @@ public class Floor extends ActionSpot{
 	public String toString(){
 		String string = super.toString();
 		if(rewards != null){
-			string += "\n  Reward if place: ";
+			string += "\n  Reward if placeFamilyMember: ";
 			for(Reward r : rewards){
 				string += r.toString() + "   ";
 			}

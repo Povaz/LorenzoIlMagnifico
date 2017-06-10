@@ -62,13 +62,12 @@ public abstract class ActionSpot {
 		return true;
 	}
 
-	public boolean place(FamilyMember familyMember) throws TooMuchTimeException {
-		occupiedBy.add(familyMember);
+	public void placeFamilyMember(FamilyMember familyMember){
 		familyMember.setUsed(true);
+		occupiedBy.add(familyMember);
 		if(!unrestricted){
 			busy = true;
 		}
-		return true;
 	}
 
 	@Override

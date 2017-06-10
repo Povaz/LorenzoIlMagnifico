@@ -35,6 +35,7 @@ public class Player{
     }
 
     public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException {
+        // TODO TODOTODOTODO
         if(actionSpot instanceof Market){
             return placeMarket(familyMember, (Market) actionSpot);
         }
@@ -55,35 +56,32 @@ public class Player{
 
     private boolean placeMarket(FamilyMember familyMember, Market market) throws TooMuchTimeException{
         if(market.isPlaceable(familyMember)){
-            return market.place(familyMember);
         }
         return false;
     }
 
     private boolean placeCouncilPalace(FamilyMember familyMember, CouncilPalace councilPalace) throws TooMuchTimeException{
         if(councilPalace.isPlaceable(familyMember)){
-            return councilPalace.place(familyMember);
         }
         return false;
     }
 
     private boolean placeHarvestArea(FamilyMember familyMember, HarvestArea harvestArea) throws TooMuchTimeException{
         if(harvestArea.isPlaceable(familyMember)){
-            return harvestArea.place(familyMember);
+            //return harvestArea.placeFamilyMember(familyMember);
         }
         return false;
     }
 
     private boolean placeProductionArea(FamilyMember familyMember, ProductionArea productionArea) throws TooMuchTimeException{
         if(productionArea.isPlaceable(familyMember)){
-            return productionArea.place(familyMember);
+            //return productionArea.placeFamilyMember(familyMember);
         }
         return false;
     }
 
     private boolean placeFloor(FamilyMember familyMember, Floor floor) throws TooMuchTimeException{
         if(floor.isPlaceable(familyMember)){
-            return floor.place(familyMember);
         }
         return false;
     }

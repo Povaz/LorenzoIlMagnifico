@@ -52,20 +52,4 @@ public class TerritoryCard extends DevelopmentCard{
 	public Set<Reward> getEarnings() {
 		return earnings;
 	}
-
-	@Override
-	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard){
-		if(!playerBoard.getTerritorySpot().canPlaceCard(newCounter)){
-			return false;
-		}
-		if(!canBuyCard(newCounter)){
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public void place(PlayerBoard playerBoard){
-		playerBoard.getTerritorySpot().placeCard(this);
-	}
 }

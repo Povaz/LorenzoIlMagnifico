@@ -3,7 +3,7 @@ package it.polimi.ingsw.pcXX;
 public enum CardType {
 	TERRITORY, BUILDING, CHARACTER, VENTURE;
 
-	public boolean same(ActionType action){
+	public boolean sameType(ActionType action){
 		switch(this){
 			case TERRITORY:
 				if(action == ActionType.TERRITORY_TOWER || action == ActionType.ANY_TOWER){
