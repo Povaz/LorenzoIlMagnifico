@@ -1,34 +1,32 @@
 package it.polimi.ingsw.pcXX.RMI;
 
 import it.polimi.ingsw.pcXX.JSONUtility;
+import it.polimi.ingsw.pcXX.SocketRMICongiunction.ConnectionType;
+import it.polimi.ingsw.pcXX.SocketRMICongiunction.Server;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Timer;
-import java.util.TimerTask;
+import java.util.*;
 
 /**
  * Created by Povaz on 24/05/2017.
  **/
-public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin {
-    private static List<UserLogin> usersLogged;
-    private transient Timer timer;
+public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin, Runnable {
+    public static ArrayList<UserLogin> usersLoggedRMI;
 
-    private ServerLoginImpl () throws RemoteException {
-        usersLogged = new ArrayList<>();
+    public ServerLoginImpl () throws RemoteException {
+        this.usersLoggedRMI = new ArrayList<>();
     }
 
     private boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
-        for (UserLogin user : usersLogged) {
-            if ( (userLogin.getUsername().equals(user.getUsername())) && (userLogin.getKeyword().equals(user.getKeyword()))) {
+        Set<String> usernames = Server.usersInLobby.keySet();
+        for (String username : usernames) {
+            if ( (userLogin.getUsername().equals(username)) && (userLogin.getKeyword().equals(username))) {
                 return true;
             }
         }
@@ -39,21 +37,22 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
     public boolean loginServer (UserLogin userLogin) throws JSONException, IOException {
         if (!searchUserLogged(userLogin)) {
             if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getKeyword())) {
-                usersLogged.add(userLogin);
+                Server.usersInLobby.put(userLogin.getUsername(), ConnectionType.RMI);
+                usersLoggedRMI.add(userLogin);
                 userLogin.sendMessage("Login Successful");
 
-                if (usersLogged.size() == 2) {
-                    timer = new Timer();
-                    timer.schedule(new TimerTask() {
+                if (Server.usersInLobby.size() == 2) {
+                    Server.timer = new Timer();
+                    Server.timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
-                            System.out.println("Start Game with: " + usersLogged.size() + "players");
+                            System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
                         }
                     }, 10000);
                 }
 
-                if (usersLogged.size() == 5) {
-                    timer.cancel();
+                if (Server.usersInLobby.size() == 5) {
+                    Server.timer.cancel();
                     System.out.println("Start Game");
                 }
 
@@ -78,14 +77,16 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
 
     @Override
     public boolean logoutServer (UserLogin userLogin) throws RemoteException {
-        for (UserLogin user : usersLogged) {
-            if ((userLogin.getUsername().equals(user.getUsername())) && (userLogin.getKeyword().equals(user.getKeyword()))) {
-                usersLogged.remove(user);
+        Set<String> usernames = Server.usersInLobby.keySet();
+        for (String user : usernames) {
+            if ((userLogin.getUsername().equals(user))) {
+                Server.usersInLobby.remove(user, ConnectionType.RMI);
+                usersLoggedRMI.remove(userLogin);
                 userLogin.sendMessage("Logout successful");
 
-                if (usersLogged.size() == 1) {
+                if (Server.usersInLobby.size() == 1) {
                     System.out.println(userLogin.getUsername() + "left the room");
-                    timer.cancel();
+                    Server.timer.cancel();
                 }
 
                 return false;
@@ -97,20 +98,27 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
 
     @Override
     public void printLoggedUsers () throws RemoteException{
-        for (UserLogin user: usersLogged) {
-            System.out.println(user.getUsername());
-            System.out.println(user.getKeyword());
+        Set<String> users = Server.usersInLobby.keySet();
+        for (String user: users) {
+            System.out.println(user);
         }
     }
 
-    public static void main (String[] args) throws RemoteException, AlreadyBoundException, MalformedURLException {
-        System.out.println("Constructing server implementation...");
-        ServerLoginImpl serverLoginImpl = new ServerLoginImpl();
+    public void run (){
+        try {
+            System.out.println("Constructing server implementation...");
 
-        System.out.println("Binding Server implementation to registry...");
-        Registry registry = LocateRegistry.createRegistry(8000);
-        registry.bind("serverLogin", serverLoginImpl);
+            System.out.println("Binding Server implementation to registry...");
+            Registry registry = LocateRegistry.createRegistry(8000);
+            registry.bind("serverLogin", this);
 
-        System.out.println("Waiting for invocations from clients...");
+            System.out.println("Waiting for invocations from clients...");
+        }
+        catch(RemoteException e) {
+            e.printStackTrace();
+        }
+        catch(AlreadyBoundException e) {
+            e.printStackTrace();
+        }
     }
 }

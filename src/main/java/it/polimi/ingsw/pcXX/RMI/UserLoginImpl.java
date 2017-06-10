@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pcXX.RMI;
 
+import it.polimi.ingsw.pcXX.SocketRMICongiunction.ConnectionType;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -15,18 +16,19 @@ import java.util.Scanner;
  * Created by Povaz on 24/05/2017.
  **/
 
-public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
+public class UserLoginImpl extends UnicastRemoteObject implements UserLogin, Runnable {
     private String username;
     private String keyword;
     private boolean logged;
     private int choose;
 
-    private UserLoginImpl() throws RemoteException {
+    public UserLoginImpl() throws RemoteException {
         this.username = "Null";
         this.keyword = "Null";
         this.logged = false;
         this.choose = 1;
     }
+
 
     @Override
     public String getUsername() throws RemoteException {
@@ -94,50 +96,58 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         serverLogin.printLoggedUsers();
     }
 
-    public static void main (String[] args) throws NotBoundException, JSONException, IOException {
-        Registry registry = LocateRegistry.getRegistry(8000);
-        ServerLogin serverLogin = (ServerLogin) registry.lookup("serverLogin");
-        UserLoginImpl userLogin = new UserLoginImpl();
+    public void run () {
+        try {
+            Registry registry = LocateRegistry.getRegistry(8000);
+            ServerLogin serverLogin = (ServerLogin) registry.lookup("serverLogin");
 
-        while (true) {
-            try {
-                System.out.println("1. Login/Logout; 2. SignUp; 3. Quit     -   Logged: " + userLogin.isLogged());
-                Scanner inChoose = new Scanner(System.in);
-                userLogin.setChoose(inChoose.nextInt());
+            while (true) {
+                try {
+                    System.out.println("1. Login/Logout; 2. SignUp; 3. Quit     -   Logged: " + this.isLogged());
+                    Scanner inChoose = new Scanner(System.in);
+                    this.setChoose(inChoose.nextInt());
 
-                switch (userLogin.getChoose()) {
-                    case 1:
-                        if (!userLogin.isLogged()) {
-                            userLogin.login(serverLogin);
-                        } else {
-                            userLogin.logout(serverLogin);
-                        }
-                        break;
-                    case 2:
-                        if (!userLogin.isLogged()) {
-                            userLogin.registration(serverLogin);
-                        } else {
-                            System.out.println("You have to log out if you want to register another user");
-                        }
-                        break;
-                    case 3:
-                        if (userLogin.isLogged()) {
-                            userLogin.logout(serverLogin);
-                        }
-                        break;
-                    case 4:
-                        userLogin.printUsers(serverLogin);
-                        break;
-                    default:
-                        System.out.println("Incorrect answer");
+                    switch (this.getChoose()) {
+                        case 1:
+                            if (!this.isLogged()) {
+                                this.login(serverLogin);
+                            } else {
+                                this.logout(serverLogin);
+                            }
+                            break;
+                        case 2:
+                            if (!this.isLogged()) {
+                                this.registration(serverLogin);
+                            } else {
+                                System.out.println("You have to log out if you want to register another user");
+                            }
+                            break;
+                        case 3:
+                            if (this.isLogged()) {
+                                this.logout(serverLogin);
+                            }
+                            break;
+                        case 4:
+                            this.printUsers(serverLogin);
+                            break;
+                        default:
+                            System.out.println("Incorrect answer");
+                    }
+                } catch (InputMismatchException e) {
+                    System.out.println("InputError: Retry");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
+                if (this.getChoose() == 3) {
+                    System.exit(0);
                 }
             }
-            catch (InputMismatchException e) {
-                System.out.println("InputError: Retry");
-            }
-            if (userLogin.getChoose() == 3) {
-                System.exit(0);
-            }
+        }
+        catch (NotBoundException e) {
+            e.printStackTrace();
+        }
+        catch (IOException e) {
+            e.printStackTrace();
         }
     }
 }
