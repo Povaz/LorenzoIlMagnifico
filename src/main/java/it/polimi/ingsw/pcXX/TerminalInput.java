@@ -12,10 +12,10 @@ import java.util.*;
  */
 public class TerminalInput { //Metodi view: richieste ai Client
 
-    public static boolean doYouWantToSkip () {
-        System.out.println("Do you want to skip your turn? 0. No 1. Yes \n");
-        int skipTurn = askNumber(0,1);
-        if (skipTurn == 0) {
+    public static boolean doYouWantToSkip () { // TODO Merge
+        System.out.println("Do you want to skip your action? 0. No 1. Yes \n");
+        int skipAction = askNumber(0,1);
+        if (skipAction == 0) {
             return false;
         }
         else {
@@ -146,7 +146,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
     }
 
 
-    public static ActionInput chooseAction(int playerNumber) {
+    public static ActionInput chooseAction(int playerNumber) { // TODO Merge with doYouWantToSkip
         ActionInput actionInput = new ActionInput();
         boolean correct = false;
         while(!correct) {
@@ -154,7 +154,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
                 System.out.println("Which ActionSpot do you choose?\n" + "1. " + ActionType.TERRITORY_TOWER + "\n"
                         + "2. " + ActionType.BUILDING_TOWER + "\n" + "3. " + ActionType.CHARACTER_TOWER + "\n" + "4. "
                         + ActionType.VENTURE_TOWER + "\n" + "5. " + ActionType.HARVEST + "\n" + "6. " + ActionType.PRODUCE
-                        + "\n" + "7. " + ActionType.MARKET + "\n" + "8. " + ActionType.COUNCIL_PALACE + "\n");
+                        + "\n" + "7. " + ActionType.MARKET + "\n" + "8. " + ActionType.COUNCIL_PALACE + "\n" + "-1. SKIP ACTION \n");
                 Scanner inChoose = new Scanner(System.in);
                 int choose = inChoose.nextInt();
 
@@ -219,7 +219,15 @@ public class TerminalInput { //Metodi view: richieste ai Client
                         actionInput.setSpot(0);
                         correct = true;
                         break;
-                    default:
+                    case -1:
+                        boolean skip = doYouWantToSkip();
+                        if (skip) {
+                            return null;
+                        }
+                        else {
+                            break;
+                        }
+                            default:
                         System.out.println("Incorrect Answer");
 
                 }
@@ -269,14 +277,23 @@ public class TerminalInput { //Metodi view: richieste ai Client
         return characterCard.getDiscounts().get(askNumber(0, characterCard.getDiscounts().size() - 1));
     }
 
-    //TODO SISTEMA PER ERICK!! (LASCIA QUESTO NOME PER LA FUNZ)
     public static boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
-        System.out.println("COSTS:\n" + costs);
-        System.out.println("\nPOINT NEEDED:\n" + militaryPointNeeded);
-        System.out.println("POINT PRICE:\n" + militaryPointPrice);
-        System.out.println("\nWANT TO PAY WITH MILITARY POINTS?");
-        Scanner input = new Scanner(System.in);
-        return input.nextBoolean();
+        System.out.println("Do you want to pay with Military Points?");
+        int payWithMilitaryPoint = askNumber(0,1);
+
+        System.out.println("Costs: ");
+        for (Reward reward: costs) {
+            System.out.println("    " + reward);
+        }
+        System.out.println("Military Point Needed: " + militaryPointNeeded.toString() + " ");
+        System.out.println("MilitaryPointPrice: " + militaryPointPrice.toString() + " ");
+
+        if (payWithMilitaryPoint == 0) {
+            return false;
+        }
+        else {
+            return true;
+        }
     }
 
     public static void main (String args[]) throws SameChooseErrorException, IOException, JSONException{
@@ -296,17 +313,24 @@ public class TerminalInput { //Metodi view: richieste ai Client
 
         /* System.out.println(chooseFamilyMemberColor()); */
 
-        /* Action action = chooseAction(4);
+        /* ActionInput action = chooseAction(4);
 
-        System.out.println(action.toString()); */
+        System.out.println(action.toString());*/
 
         /* System.out.println(askNumberOfServant());
         System.out.println(askVaticanSupport()); */
 
-        CharacterCard characterCard = (CharacterCard) JSONUtility.getCard(1, 1, CardType.CHARACTER);
+        /* CharacterCard characterCard = (CharacterCard) JSONUtility.getCard(1, 1, CardType.CHARACTER);
         CostDiscount costDiscount = askWhichDiscount(characterCard);
-        System.out.println(costDiscount.toString());
+        System.out.println(costDiscount.toString()); */
 
+        Set<Reward> reward = new HashSet<>();
+        reward.add(new Reward(RewardType.COIN, 2));
+        reward.add(new Reward(RewardType.STONE, 2));
+
+
+        boolean militaryPoint = wantToPayWithMilitaryPoint(reward, new Reward (RewardType.MILITARY_POINT, 5), new Reward (RewardType.MILITARY_POINT, 5));
+        System.out.println(militaryPoint);
     }
 }
 

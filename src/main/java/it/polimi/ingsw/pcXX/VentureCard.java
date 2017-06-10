@@ -3,8 +3,6 @@ package it.polimi.ingsw.pcXX;
 import java.util.List;
 import java.util.Set;
 
-import static it.polimi.ingsw.pcXX.TerminalInput.howDoWantPayVentureCard;
-
 public class VentureCard extends DevelopmentCard{
 	private final Reward militaryPointPrice;
 	private final Reward militaryPointNeeded;
