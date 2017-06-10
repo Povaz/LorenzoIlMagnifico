@@ -230,20 +230,19 @@ public class PlayerBoard {
         counter.sum(new Reward(RewardType.VICTORY_POINT, numberVictoryPoints));
     }
 
-    private CardSpot getCardSpot(CardType cardType){
-        if(cardType == CardType.TERRITORY){
-            return getTerritorySpot();
+    public CardSpot getCardSpot(CardType cardType){
+        switch(cardType){
+            case TERRITORY:
+                return getTerritorySpot();
+            case BUILDING:
+                return getBuildingSpot();
+            case CHARACTER:
+                return getCharacterSpot();
+            case VENTURE:
+                return getVentureSpot();
+            default:
+                throw new IllegalArgumentException("developmentCard type incorrect");
         }
-        if(cardType == CardType.BUILDING){
-            return getBuildingSpot();
-        }
-        if(cardType == CardType.CHARACTER){
-            return getCharacterSpot();
-        }
-        if(cardType == CardType.VENTURE){
-            return getVentureSpot();
-        }
-        throw new IllegalArgumentException();
     }
 
     public FamilyMember getViewFamilyMember() throws TooMuchTimeException{

@@ -134,9 +134,15 @@ public class TerminalInput { //Metodi view: richieste ai Client
         return new Reward(RewardType.SERVANT, askNumber(0, 7));
     }
 
-    public static int askVaticanSupport() {
+    public static boolean wantToSupportVatican() {
         System.out.print("Do you choose to support Vatican? \n0. No\n1. Yes");
-        return askNumber(0,1);
+        int supportVatican = askNumber(0,1);
+        if(supportVatican == 0) {
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
 
@@ -261,6 +267,16 @@ public class TerminalInput { //Metodi view: richieste ai Client
             System.out.println(i + ". " + characterCard.getDiscounts().get(i).toString() + "\n");
         }
         return characterCard.getDiscounts().get(askNumber(0, characterCard.getDiscounts().size() - 1));
+    }
+
+    //TODO SISTEMA PER ERICK!! (LASCIA QUESTO NOME PER IL METODO)
+    public static boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
+        System.out.println("COSTS:\n" + costs);
+        System.out.println("\nPOINT NEEDED:\n" + militaryPointNeeded);
+        System.out.println("POINT PRICE:\n" + militaryPointPrice);
+        System.out.println("\nWANT TO PAY WITH MILITARY POINTS?");
+        Scanner input = new Scanner(System.in);
+        return input.nextBoolean();
     }
 
     public static void main (String args[]) throws SameChooseErrorException, IOException, JSONException{

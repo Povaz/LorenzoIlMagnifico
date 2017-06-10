@@ -92,7 +92,7 @@ public class BuildingCard extends DevelopmentCard{
 		return rewardForCard;
 	}
 
-	@Override
+	/*@Override
 	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard){
 		if(!playerBoard.getBuildingSpot().canPlaceCard(newCounter)){
 			return false;
@@ -101,7 +101,7 @@ public class BuildingCard extends DevelopmentCard{
 			return false;
 		}
 		return true;
-	}
+	}*/
 
 	@Override
 	public void place(PlayerBoard playerBoard){

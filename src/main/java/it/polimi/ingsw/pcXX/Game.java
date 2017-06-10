@@ -139,6 +139,25 @@ public class Game{
         } while(board.getOrder().nextOrder());
     }
 
+    private boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot){
+        /*if(actionSpot instanceof Market){
+            return placeMarket(familyMember, (Market) actionSpot);
+        }
+        if(actionSpot instanceof CouncilPalace){
+            return placeCouncilPalace(familyMember, (CouncilPalace) actionSpot);
+        }*/
+        if(actionSpot instanceof HarvestArea){
+            Harvest harvest = new Harvest();
+        }
+        if(actionSpot instanceof ProductionArea){
+            Produce produce = new Produce();
+        }
+        if(actionSpot instanceof Floor){
+            BuyCard buyCard = new BuyCard(familyMember.getPlayer(), board, actionSpot, familyMember);
+        }
+        return false;
+    }
+
     private void endTurn(){
         calculateNewOrder();
         reinitializeBoard();

@@ -43,11 +43,17 @@ public class Floor extends ActionSpot{
 		if(!super.isPlaceable(familyMember)){
 			return false;
 		}
-		if(familyMember.getAction() != null){
-			if(familyMember.getAction() != ActionType.ALL && !tower.getType().same(familyMember.getAction())){
-				return false;
+
+		if(familyMember.isGhost()){
+			if(familyMember.getAction() != null){
+				if (familyMember.getAction() != ActionType.ALL){
+					if (!tower.getType().same(familyMember.getAction())){
+						return false;
+					}
+				}
 			}
 		}
+
 		if(familyMember.getColor() != FamilyColor.NEUTRAL){
 			for(Floor f : tower.getFloors()){
 				for(FamilyMember fM : f.occupiedBy){

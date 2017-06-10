@@ -8,6 +8,7 @@ import java.util.List;
  */
 public abstract class CardSpot{
     private final List<DevelopmentCard> cards;
+    private final int CARD_SPOT_CAPACITY = 6;
 
     public CardSpot(){
         this.cards = new ArrayList<>();
@@ -19,8 +20,8 @@ public abstract class CardSpot{
         getCards().add(card);
     }
 
-    public boolean canPlaceCard(Counter copyForCosts){
-        if(cards.size() >= 6){
+    public boolean canPlaceCard(){
+        if(cards.size() >= CARD_SPOT_CAPACITY){
             return false;
         }
         return true;

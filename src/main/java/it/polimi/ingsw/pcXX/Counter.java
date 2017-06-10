@@ -65,76 +65,44 @@ public class Counter{
             return;
         }
         for(Reward r : rewards){
-            switch (r.getType()){
-                case WOOD:
-                    wood.sumQuantity(r);
-                    break;
-                case STONE:
-                    stone.sumQuantity(r);
-                    break;
-                case SERVANT:
-                    servant.sumQuantity(r);
-                    break;
-                case COIN:
-                    coin.sumQuantity(r);
-                    break;
-                case MILITARY_POINT:
-                    militaryPoint.sumQuantity(r);
-                    break;
-                case FAITH_POINT:
-                    faithPoint.sumQuantity(r);
-                    break;
-                case VICTORY_POINT:
-                    victoryPoint.sumQuantity(r);
-                    break;
-                case COUNCIL_PRIVILEGE:
-                    sum(r.exchange());
-                    break;
-            }
+            this.sum(r);
         }
     }
 
     public void subtract(Set<Reward> rewards){
-        for(Reward r : rewards) {
-            switch (r.getType()) {
-                case WOOD:
-                    wood.subtractQuantity(r);
-                    break;
-                case STONE:
-                    stone.subtractQuantity(r);
-                    break;
-                case SERVANT:
-                    servant.subtractQuantity(r);
-                    break;
-                case COIN:
-                    coin.subtractQuantity(r);
-                    break;
-                case MILITARY_POINT:
-                    militaryPoint.subtractQuantity(r);
-                    break;
-                case FAITH_POINT:
-                    faithPoint.subtractQuantity(r);
-                    break;
-                case VICTORY_POINT:
-                    victoryPoint.subtractQuantity(r);
-                    break;
-            }
+        if(rewards == null){
+            return;
+        }
+        for(Reward r : rewards){
+            this.subtract(r);
         }
     }
 
-    public boolean canSubtract(Reward reward){
-        return giveSameReward(reward).getQuantity() - reward.getQuantity() >= 0;
-    }
-
     public void sum(Reward reward){
+        if(reward == null){
+            return;
+        }
         giveSameReward(reward).sumQuantity(reward);
     }
 
     public void subtract(Reward reward){
+        if(reward == null){
+            return;
+        }
         giveSameReward(reward).subtractQuantity(reward);
     }
 
+    public boolean canSubtract(Reward reward){
+        if(reward == null){
+            return true;
+        }
+        return giveSameReward(reward).getQuantity() - reward.getQuantity() >= 0;
+    }
+
     public void sum(Counter other){
+        if(other == null){
+            return;
+        }
         coin.sumQuantity(other.coin);
         wood.sumQuantity(other.wood);
         stone.sumQuantity(other.stone);
@@ -145,6 +113,9 @@ public class Counter{
     }
 
     public void subtract(Counter other){
+        if(other == null){
+            return;
+        }
         coin.subtractQuantity(other.coin);
         wood.subtractQuantity(other.wood);
         stone.subtractQuantity(other.stone);
@@ -210,6 +181,9 @@ public class Counter{
     }
 
     public Reward giveSameReward(Reward reward){
+        if(reward == null){
+            return null;
+        }
         switch(reward.getType()) {
             case WOOD:
                 return wood;
