@@ -102,6 +102,9 @@ public class Board {
 
     public ActionSpot getViewActionSpot() throws TooMuchTimeException {
         ActionInput actionInput = TerminalInput.chooseAction(playerNumber);
+        if(actionInput == null){
+            return null;
+        }
         switch(actionInput.getActionType()){
             case TERRITORY_TOWER:
                 return territoryTower.getFloors().get(actionInput.getSpot());

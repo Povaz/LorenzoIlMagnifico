@@ -117,20 +117,16 @@ public class Game{
         do{
             try{
                 ActionSpot actionSpot;
-                FamilyMember familyMember;
-                boolean skipTurn = false;
+                FamilyMember familyMember = null;
                 do{
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(order.getCurrent().getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!   " + order.getCurrent().getColor() + "\n\n");
-                    skipTurn = TerminalInput.doYouWantToSkip();
-                    familyMember = null;
-                    actionSpot = null;
-                    if(!skipTurn){
-                        actionSpot = board.getViewActionSpot();
+                    actionSpot = board.getViewActionSpot();
+                    if(actionSpot != null){
                         familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
                     }
-                } while(!skipTurn && !(placeFamilyMember(familyMember, actionSpot)));
+                } while(!(placeFamilyMember(familyMember, actionSpot)));
             } catch(TooMuchTimeException e){
                 // TODO addTimer
                 e.printStackTrace();
@@ -141,6 +137,9 @@ public class Game{
     }
 
     public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException{
+        if(actionSpot == null || familyMember == null){
+            return true;
+        }
         if(actionSpot instanceof Market){
             PlaceMarket placeMarket = new PlaceMarket(this, actionSpot, familyMember);
             if(placeMarket.canDoAction()){

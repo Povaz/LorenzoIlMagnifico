@@ -13,7 +13,7 @@ import java.util.*;
 public class TerminalInput { //Metodi view: richieste ai Client
 
     public static boolean doYouWantToSkip () { // TODO Merge
-        System.out.println("Do you want to skip your action? 0. No 1. Yes \n");
+        System.out.println("Do you want to skip your action?\n  0. No\n  1. Yes");
         int skipAction = askNumber(0,1);
         if (skipAction == 0) {
             return false;
@@ -278,8 +278,8 @@ public class TerminalInput { //Metodi view: richieste ai Client
     }
 
     public static boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
-        System.out.println("Do you want to pay with Military Points?");
-        int payWithMilitaryPoint = askNumber(0,1);
+        System.out.println("Do you want to pay with Military Points?\n  0. No\n  1. Yes");
+
 
         System.out.println("Costs: ");
         for (Reward reward: costs) {
@@ -288,6 +288,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
         System.out.println("Military Point Needed: " + militaryPointNeeded.toString() + " ");
         System.out.println("MilitaryPointPrice: " + militaryPointPrice.toString() + " ");
 
+        int payWithMilitaryPoint = askNumber(0,1);
         if (payWithMilitaryPoint == 0) {
             return false;
         }
@@ -329,7 +330,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
         reward.add(new Reward(RewardType.STONE, 2));
 
 
-        boolean militaryPoint = wantToPayWithMilitaryPoint(reward, new Reward (RewardType.MILITARY_POINT, 5), new Reward (RewardType.MILITARY_POINT, 5));
+        boolean militaryPoint = wantToPayWithMilitaryPoint(reward, new Reward (RewardType.MILITARY_POINT, 5), new Reward (RewardType.MILITARY_POINT, 2));
         System.out.println(militaryPoint);
     }
 }

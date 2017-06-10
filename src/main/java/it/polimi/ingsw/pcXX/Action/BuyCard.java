@@ -229,16 +229,14 @@ public class BuyCard implements CommandPattern {
     }
 
     private void doBonusAction(FamilyMember fM) throws TooMuchTimeException{
-        ActionSpot actionSpot = null;
-        boolean skipTurn = false;
+        ActionSpot actionSpot;
         do{
             System.out.println("AZIONE AGGIUNTIVA!!!");
-            skipTurn = TerminalInput.doYouWantToSkip();
-            actionSpot = null;
-            if(!skipTurn){
-                actionSpot = board.getViewActionSpot();
+            System.out.println(fM.getAction() + ":  " + fM.getValue());
+            actionSpot = board.getViewActionSpot();
+            if(actionSpot != null){
                 fM.setServantUsed(TerminalInput.askNumberOfServant());
             }
-        } while(!skipTurn && !(game.placeFamilyMember(fM, actionSpot)));
+        } while(!(game.placeFamilyMember(fM, actionSpot)));
     }
 }
