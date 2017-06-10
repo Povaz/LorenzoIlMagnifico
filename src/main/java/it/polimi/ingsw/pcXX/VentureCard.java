@@ -6,6 +6,8 @@ import java.util.List;
 import java.util.Scanner;
 import java.util.Set;
 
+import static it.polimi.ingsw.pcXX.TerminalInput.howDoWantPayVentureCard;
+
 public class VentureCard extends DevelopmentCard{
 	private final Reward militaryPointPrice;
 	private final Reward militaryPointNeeded;
@@ -87,7 +89,7 @@ public class VentureCard extends DevelopmentCard{
 	@Override
 	public boolean canBuyCard(Counter newCounter){
 		if(militaryPointNeeded != null && militaryPointPrice != null && getCosts() != null){
-			boolean payWithMilitaryPoint = howWantPayVentureCard(getCosts(), militaryPointNeeded, militaryPointPrice);
+			boolean payWithMilitaryPoint = howDoWantPayVentureCard(getCosts(), militaryPointNeeded, militaryPointPrice);
 			if(payWithMilitaryPoint){
 				return canBuyCardMilitaryPoint(newCounter);
 			}
@@ -109,15 +111,5 @@ public class VentureCard extends DevelopmentCard{
 			return newCounter.check();
 		}
 		return false;
-	}
-
-	//TODO con client
-	private boolean howWantPayVentureCard(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
-		System.out.println("COSTS:\n" + costs);
-		System.out.println("\nPOINT NEEDED:\n" + militaryPointNeeded);
-		System.out.println("POINT PRICE:\n" + militaryPointPrice);
-		System.out.println("\nWANT TO PAY WITH MILITARY POINTS?");
-		Scanner input = new Scanner(System.in);
-		return input.nextBoolean();
 	}
 }

@@ -263,6 +263,15 @@ public class TerminalInput { //Metodi view: richieste ai Client
         return characterCard.getDiscounts().get(askNumber(0, characterCard.getDiscounts().size() - 1));
     }
 
+    public static boolean howDoWantPayVentureCard(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
+        System.out.println("COSTS:\n" + costs);
+        System.out.println("\nPOINT NEEDED:\n" + militaryPointNeeded);
+        System.out.println("POINT PRICE:\n" + militaryPointPrice);
+        System.out.println("\nWANT TO PAY WITH MILITARY POINTS?");
+        Scanner input = new Scanner(System.in);
+        return input.nextBoolean();
+    }
+
     public static void main (String args[]) throws SameChooseErrorException, IOException, JSONException{
         /* Reward councilPrivilege = new Reward (RewardType.COUNCIL_PRIVILEGE, 2);
 

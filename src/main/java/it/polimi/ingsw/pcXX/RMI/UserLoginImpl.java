@@ -14,6 +14,7 @@ import java.util.Scanner;
 /**
  * Created by Povaz on 24/05/2017.
  **/
+
 public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
     private String username;
     private String keyword;
@@ -70,11 +71,9 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin{
         System.out.print("Insert your Username: ");
         Scanner inUsername = new Scanner(System.in);
         this.setUsername(inUsername.nextLine());
-        System.out.println("\n");
         System.out.print("Insert your Password: ");
         Scanner inPassword = new Scanner(System.in);
         this.setKeyword(inPassword.nextLine());
-        System.out.println("\n");
     }
 
     private void login(ServerLogin serverLogin) throws JSONException, IOException{
