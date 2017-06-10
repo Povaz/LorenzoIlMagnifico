@@ -44,7 +44,7 @@ public class Game{
 
     public Game(List<String> usernames){
         this.turn = 1;
-        this.period = 1;
+        this.period = 2;
         this.usernames = usernames;
         this.playerNumber = usernames.size();
         this.players = initializePlayers();

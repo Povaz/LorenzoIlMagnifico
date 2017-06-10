@@ -7,7 +7,7 @@ public class FamilyMember{
 	private int value;
 	private Reward servantUsed;
 	private final boolean ghost;
-	private final Player player;
+	private Player player;
 	private final FamilyColor color;
 	private final ActionType action;
 	private final Set<Reward> discounts;
@@ -125,5 +125,9 @@ public class FamilyMember{
 
 	public boolean isGhost() {
 		return ghost;
+	}
+
+	public void setPlayer(Player player) {
+		this.player = player;
 	}
 }

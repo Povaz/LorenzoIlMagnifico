@@ -69,21 +69,27 @@ public class Floor extends ActionSpot{
 			tower.setOccupied(true);
 			DevelopmentCard developmentCard = this.card;
 			this.card = null;
-			doActions(developmentCard);
+			doActions(developmentCard, familyMember.getPlayer());
 			return true;
 		}
 		return false;
 	}
 
-	private void doActions(DevelopmentCard developmentCard) throws TooMuchTimeException{
+	private void doActions(DevelopmentCard developmentCard, Player player) throws TooMuchTimeException{
 		List<FamilyMember> actions = developmentCard.getActions();
 		if(actions != null){
 			for(FamilyMember fM : actions){
-				ActionSpot actionSpot;
+				fM.setPlayer(player);
+				ActionSpot actionSpot = null;
+				boolean skipTurn = false;
 				do{
-					actionSpot = tower.getBoard().getViewActionSpot();
+					skipTurn = TerminalInput.doYouWantToSkip();
+					if(!skipTurn){
+						actionSpot = tower.getBoard().getViewActionSpot();
+						fM.setServantUsed(TerminalInput.askNumberOfServant());
+					}
 				}
-				while(!fM.getPlayer().placeFamilyMember(fM, actionSpot));
+				while(!skipTurn && !fM.getPlayer().placeFamilyMember(fM, actionSpot));
 			}
 		}
 	}
