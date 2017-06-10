@@ -66,8 +66,8 @@ public class Reward{
         quantity -= other.quantity;
     }
 
-    public void multiplyQuantity(int multiplier){
-        quantity *= multiplier;
+    public Reward multiplyQuantity(int multiplier){
+        return new Reward(type, quantity * multiplier);
     }
 
     public Set<Reward> exchange() throws TooMuchTimeException {

@@ -1,7 +1,5 @@
 package it.polimi.ingsw.pcXX;
 
-import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
-
 import java.util.List;
 import java.util.Set;
 
@@ -21,20 +19,6 @@ public abstract class DevelopmentCard {
 		this.costs = costs;
 		this.fastRewards = fastRewards;
 		this.actions = actions;
-	}
-
-	public abstract boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard) throws TooMuchTimeException;
-
-	public abstract void place(PlayerBoard playerBoard);
-
-	public boolean canBuyCard(Counter newCounter){
-		if(costs != null){
-			newCounter.subtract(costs);
-		}
-		if(newCounter.check()){
-			return true;
-		}
-		return false;
 	}
 
 	@Override
@@ -92,27 +76,27 @@ public abstract class DevelopmentCard {
 		return cardString;
 	}
 
-	public String getName() {
+	public String getName(){
 		return name;
 	}
 
-	public CardType getType() {
+	public CardType getType(){
 		return type;
 	}
 
-	public int getPeriod() {
+	public int getPeriod(){
 		return period;
 	}
 
-	public Set<Reward> getCosts() {
+	public Set<Reward> getCosts(){
 		return costs;
 	}
 
-	public Set<Reward> getFastRewards() {
+	public Set<Reward> getFastRewards(){
 		return fastRewards;
 	}
 
-	public List<FamilyMember> getActions() {
+	public List<FamilyMember> getActions(){
 		return actions;
 	}
 }

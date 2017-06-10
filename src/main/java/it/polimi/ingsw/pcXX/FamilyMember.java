@@ -83,51 +83,51 @@ public class FamilyMember{
 		return player.equals(other.player);
 	}
 
-	public boolean isUsed() {
+	public boolean isUsed(){
 		return used;
 	}
 
-	public void setUsed(boolean used) {
+	public void setUsed(boolean used){
 		this.used = used;
 	}
 
-	public int getValue() {
+	public int getValue(){
 		return value;
 	}
 
-	public void setValue(int value) {
+	public void setValue(int value){
 		this.value = value;
 	}
 
-	public Player getPlayer() {
+	public Player getPlayer(){
 		return player;
 	}
 
-	public FamilyColor getColor() {
+	public FamilyColor getColor(){
 		return color;
 	}
 
-	public ActionType getAction() {
+	public ActionType getAction(){
 		return action;
 	}
 
-	public Set<Reward> getDiscounts() {
+	public Set<Reward> getDiscounts(){
 		return discounts;
 	}
 
-	public Reward getServantUsed() {
+	public Reward getServantUsed(){
 		return servantUsed;
 	}
 
-	public void setServantUsed(Reward servantUsed) {
+	public void setServantUsed(Reward servantUsed){
 		this.servantUsed = servantUsed;
 	}
 
-	public boolean isGhost() {
+	public boolean isGhost(){
 		return ghost;
 	}
 
-	public void setPlayer(Player player) {
+	public void setPlayer(Player player){
 		this.player = player;
 	}
 }

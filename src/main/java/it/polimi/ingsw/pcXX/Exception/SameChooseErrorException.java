@@ -5,6 +5,6 @@ package it.polimi.ingsw.pcXX.Exception;
  */
 public class SameChooseErrorException extends Exception{
     public SameChooseErrorException (Object obj) {
-        System.out.println("You cannot choose the same " + obj.getClass() + " more than once");
+        System.out.println("You cannot choose the sameType " + obj.getClass() + " more than once");
     }
 }

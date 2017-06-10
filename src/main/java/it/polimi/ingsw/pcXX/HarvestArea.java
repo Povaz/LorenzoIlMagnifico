@@ -17,11 +17,15 @@ public class HarvestArea extends ActionSpot{
         if(!super.isPlaceable(familyMember)){
             return false;
         }
-        if(familyMember.getAction() != null) {
-            if(familyMember.getAction() != ActionType.HARVEST && familyMember.getAction() != ActionType.ALL){
-                return false;
+
+        if(familyMember.isGhost()){
+            if (familyMember.getAction() != null){
+                if (familyMember.getAction() != ActionType.HARVEST && familyMember.getAction() != ActionType.ALL){
+                    return false;
+                }
             }
         }
+
         if(familyMember.getColor() != FamilyColor.NEUTRAL){
             for(HarvestArea hA : board.getHarvestArea()){
                 for(FamilyMember f : hA.occupiedBy){
@@ -37,11 +41,10 @@ public class HarvestArea extends ActionSpot{
     }
 
     @Override
-    public boolean place(FamilyMember familyMember) throws TooMuchTimeException {
-        if(familyMember.getPlayer().getPlayerBoard().harvest(familyMember.getValue() + diceModifier, familyMember.getServantUsed())){
-            return super.place(familyMember);
+    public void placeFamilyMember(FamilyMember familyMember){
+        if(!familyMember.isGhost()){
+            super.placeFamilyMember(familyMember);
         }
-        return false;
     }
 
     @Override

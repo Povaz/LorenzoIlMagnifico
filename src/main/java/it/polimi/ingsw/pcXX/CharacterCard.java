@@ -93,20 +93,4 @@ public class CharacterCard extends DevelopmentCard{
 		}
 		return cardString;
 	}
-
-	@Override
-	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard){
-		if(!playerBoard.getCharacterSpot().canPlaceCard(newCounter)){
-			return false;
-		}
-		if(!canBuyCard(newCounter)){
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public void place(PlayerBoard playerBoard){
-		playerBoard.getCharacterSpot().placeCard(this);
-	}
 }

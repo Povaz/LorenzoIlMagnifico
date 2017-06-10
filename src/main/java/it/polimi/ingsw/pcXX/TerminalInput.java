@@ -34,7 +34,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
                 try {
                     try {
                         System.out.println("1. 1 WOOD 1 Stone   2. 2 SERVANT    3. 2 COIN   4. 2 MILITARY_POINT  5. 1 FAITH_POINT \n" +
-                                "Don't choose the same reward as before" + "\n");
+                                "Don't choose the sameType reward as before" + "\n");
                         Scanner inChoose = new Scanner(System.in);
                         choose[i] = inChoose.nextInt();
 
@@ -134,14 +134,20 @@ public class TerminalInput { //Metodi view: richieste ai Client
         return new Reward(RewardType.SERVANT, askNumber(0, 7));
     }
 
-    public static int askVaticanSupport() {
+    public static boolean wantToSupportVatican() {
         System.out.print("Do you choose to support Vatican? \n0. No\n1. Yes");
-        return askNumber(0,1);
+        int supportVatican = askNumber(0,1);
+        if(supportVatican == 0) {
+            return false;
+        }
+        else{
+            return true;
+        }
     }
 
 
-    public static Action chooseAction(int playerNumber) {
-        Action action = new Action();
+    public static ActionInput chooseAction(int playerNumber) {
+        ActionInput actionInput = new ActionInput();
         boolean correct = false;
         while(!correct) {
             try {
@@ -154,63 +160,63 @@ public class TerminalInput { //Metodi view: richieste ai Client
 
                 switch (choose) {
                     case 1:
-                        action.setActionType(ActionType.TERRITORY_TOWER);
+                        actionInput.setActionType(ActionType.TERRITORY_TOWER);
                         System.out.println("Which card?");
-                        action.setSpot(askNumber(0, 3));
+                        actionInput.setSpot(askNumber(0, 3));
                         correct = true;
                         break;
                     case 2:
-                        action.setActionType(ActionType.BUILDING_TOWER);
+                        actionInput.setActionType(ActionType.BUILDING_TOWER);
                         System.out.println("Which card?");
-                        action.setSpot(askNumber(0, 3));
+                        actionInput.setSpot(askNumber(0, 3));
                         correct = true;
                         break;
                     case 3:
-                        action.setActionType(ActionType.CHARACTER_TOWER);
+                        actionInput.setActionType(ActionType.CHARACTER_TOWER);
                         System.out.println("Which card?");
-                        action.setSpot(askNumber(0, 3));
+                        actionInput.setSpot(askNumber(0, 3));
                         correct = true;
                         break;
                     case 4:
-                        action.setActionType(ActionType.VENTURE_TOWER);
+                        actionInput.setActionType(ActionType.VENTURE_TOWER);
                         System.out.println("Which card?");
-                        action.setSpot(askNumber(0, 3));
+                        actionInput.setSpot(askNumber(0, 3));
                         correct = true;
                         break;
                     case 5:
-                        action.setActionType(ActionType.HARVEST);
+                        actionInput.setActionType(ActionType.HARVEST);
                         if(playerNumber > 2){
-                            action.setSpot(askNumber(0, 1));
+                            actionInput.setSpot(askNumber(0, 1));
                         }
                         else{
-                            action.setSpot(0);
+                            actionInput.setSpot(0);
                         }
                         correct = true;
                         break;
                     case 6:
-                        action.setActionType(ActionType.PRODUCE);
+                        actionInput.setActionType(ActionType.PRODUCE);
                         if(playerNumber > 2){
-                            action.setSpot(askNumber(0, 1));
+                            actionInput.setSpot(askNumber(0, 1));
                         }
                         else{
-                            action.setSpot(0);
+                            actionInput.setSpot(0);
                         }
                         correct = true;
                         break;
                     case 7:
-                        action.setActionType(ActionType.MARKET);
+                        actionInput.setActionType(ActionType.MARKET);
                         System.out.println("Which Spot? 0.COIN(5)  1.SERVANT(5)   2.COIN(2) & MILITARY_POINT(3) 3.COUNCILPRIVILEGE(2)");
                         if(playerNumber > 3){
-                            action.setSpot(askNumber(0, 3));
+                            actionInput.setSpot(askNumber(0, 3));
                         }
                         else {
-                            action.setSpot(askNumber(0, 1));
+                            actionInput.setSpot(askNumber(0, 1));
                         }
                         correct = true;
                         break;
                     case 8:
-                        action.setActionType(ActionType.COUNCIL_PALACE);
-                        action.setSpot(0);
+                        actionInput.setActionType(ActionType.COUNCIL_PALACE);
+                        actionInput.setSpot(0);
                         correct = true;
                         break;
                     default:
@@ -222,7 +228,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
                 System.out.println("Incorrect Answer");
             }
         }
-        return action;
+        return actionInput;
     }
 
 
@@ -263,7 +269,8 @@ public class TerminalInput { //Metodi view: richieste ai Client
         return characterCard.getDiscounts().get(askNumber(0, characterCard.getDiscounts().size() - 1));
     }
 
-    public static boolean howDoWantPayVentureCard(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
+    //TODO SISTEMA PER ERICK!! (LASCIA QUESTO NOME PER LA FUNZ)
+    public static boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
         System.out.println("COSTS:\n" + costs);
         System.out.println("\nPOINT NEEDED:\n" + militaryPointNeeded);
         System.out.println("POINT PRICE:\n" + militaryPointPrice);

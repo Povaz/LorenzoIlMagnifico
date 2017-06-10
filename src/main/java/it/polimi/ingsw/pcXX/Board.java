@@ -101,22 +101,22 @@ public class Board {
     }
 
     public ActionSpot getViewActionSpot() throws TooMuchTimeException {
-        Action action = TerminalInput.chooseAction(playerNumber);
-        switch(action.getActionType()){
+        ActionInput actionInput = TerminalInput.chooseAction(playerNumber);
+        switch(actionInput.getActionType()){
             case TERRITORY_TOWER:
-                return territoryTower.getFloors().get(action.getSpot());
+                return territoryTower.getFloors().get(actionInput.getSpot());
             case BUILDING_TOWER:
-                return buildingTower.getFloors().get(action.getSpot());
+                return buildingTower.getFloors().get(actionInput.getSpot());
             case CHARACTER_TOWER:
-                return characterTower.getFloors().get(action.getSpot());
+                return characterTower.getFloors().get(actionInput.getSpot());
             case VENTURE_TOWER:
-                return ventureTower.getFloors().get(action.getSpot());
+                return ventureTower.getFloors().get(actionInput.getSpot());
             case HARVEST:
-                return harvestArea.get(action.getSpot());
+                return harvestArea.get(actionInput.getSpot());
             case PRODUCE:
-                return productionArea.get(action.getSpot());
+                return productionArea.get(actionInput.getSpot());
             case MARKET:
-                return market.get(action.getSpot());
+                return market.get(actionInput.getSpot());
             case COUNCIL_PALACE:
                 return councilPalace;
             default:

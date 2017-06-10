@@ -1,9 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
-import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
-
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 import static it.polimi.ingsw.pcXX.TerminalInput.howDoWantPayVentureCard;
@@ -58,58 +55,15 @@ public class VentureCard extends DevelopmentCard{
 		return result;
 	}
 
-	public Reward getMilitaryPointPrice() {
+	public Reward getMilitaryPointPrice(){
 		return militaryPointPrice;
 	}
 
-	public Reward getMilitaryPointNeeded() {
+	public Reward getMilitaryPointNeeded(){
 		return militaryPointNeeded;
 	}
 
-	public Reward getVictoryPointEarned() {
+	public Reward getVictoryPointEarned(){
 		return victoryPointEarned;
-	}
-
-	@Override
-	public boolean isPlaceable(Counter newCounter, PlayerBoard playerBoard) throws TooMuchTimeException {
-		if(!playerBoard.getVentureSpot().canPlaceCard(newCounter)){
-			return false;
-		}
-		if(!canBuyCard(newCounter)){
-			return false;
-		}
-		return true;
-	}
-
-	@Override
-	public void place(PlayerBoard playerBoard){
-		playerBoard.getVentureSpot().placeCard(this);
-	}
-
-	@Override
-	public boolean canBuyCard(Counter newCounter){
-		if(militaryPointNeeded != null && militaryPointPrice != null && getCosts() != null){
-			boolean payWithMilitaryPoint = howDoWantPayVentureCard(getCosts(), militaryPointNeeded, militaryPointPrice);
-			if(payWithMilitaryPoint){
-				return canBuyCardMilitaryPoint(newCounter);
-			}
-			else{
-				return super.canBuyCard(newCounter);
-			}
-		}
-		else if(militaryPointNeeded != null && militaryPointPrice != null){
-			return canBuyCardMilitaryPoint(newCounter);
-		}
-		else{
-			return super.canBuyCard(newCounter);
-		}
-	}
-
-	private boolean canBuyCardMilitaryPoint(Counter newCounter){
-		if(newCounter.getMilitaryPoint().getQuantity() >= militaryPointNeeded.getQuantity()){
-			newCounter.subtract(militaryPointPrice);
-			return newCounter.check();
-		}
-		return false;
 	}
 }

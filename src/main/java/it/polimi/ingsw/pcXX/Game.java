@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
+import it.polimi.ingsw.pcXX.Action.*;
 import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
 import org.json.JSONException;
 
@@ -7,7 +8,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 /**
  * Created by trill on 30/05/2017.
@@ -130,13 +130,58 @@ public class Game{
                         actionSpot = board.getViewActionSpot();
                         familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
                     }
-                } while(!skipTurn && !(order.getCurrent().placeFamilyMember(familyMember, actionSpot)));
+                } while(!skipTurn && !(placeFamilyMember(familyMember, actionSpot)));
             } catch(TooMuchTimeException e){
+                // TODO addTimer
                 e.printStackTrace();
             }
             System.out.println("\n\nPLAYERBOARD:");
             System.out.println(order.getCurrent().getPlayerBoard());
         } while(board.getOrder().nextOrder());
+    }
+
+    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException{
+        if(actionSpot instanceof Market){
+            PlaceMarket placeMarket = new PlaceMarket(this, actionSpot, familyMember);
+            if(placeMarket.canDoAction()){
+                placeMarket.doAction();
+                return true;
+            }
+            return false;
+        }
+        if(actionSpot instanceof CouncilPalace){
+            PlaceCouncilPalace placeCouncilPalace = new PlaceCouncilPalace(this, actionSpot, familyMember);
+            if(placeCouncilPalace.canDoAction()){
+                placeCouncilPalace.doAction();
+                return true;
+            }
+            return false;
+        }
+        if(actionSpot instanceof HarvestArea){
+            Harvest harvest = new Harvest(this, actionSpot, familyMember);
+            if(harvest.canDoAction()){
+                harvest.doAction();
+                return true;
+            }
+            return false;
+        }
+        if(actionSpot instanceof ProductionArea){
+            Produce produce = new Produce(this, actionSpot, familyMember);
+            if(produce.canDoAction()){
+                produce.doAction();
+                return true;
+            }
+            return false;
+        }
+        if(actionSpot instanceof Floor){
+            BuyCard buyCard = new BuyCard(this, actionSpot, familyMember);
+            if(buyCard.canDoAction()){
+                buyCard.doAction();
+                return true;
+            }
+            return false;
+        }
+        return false;
     }
 
     private void endTurn(){
