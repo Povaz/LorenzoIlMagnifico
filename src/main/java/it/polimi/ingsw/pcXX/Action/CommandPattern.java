@@ -7,5 +7,5 @@ import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
  */
 public interface CommandPattern{
     public boolean canDoAction() throws TooMuchTimeException;
-    public void doAction();
+    public void doAction() throws TooMuchTimeException;
 }

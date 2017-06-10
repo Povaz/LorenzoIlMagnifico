@@ -1,8 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
-import it.polimi.ingsw.pcXX.Action.BuyCard;
-import it.polimi.ingsw.pcXX.Action.Harvest;
-import it.polimi.ingsw.pcXX.Action.Produce;
+import it.polimi.ingsw.pcXX.Action.*;
 import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
 import org.json.JSONException;
 
@@ -132,8 +130,9 @@ public class Game{
                         actionSpot = board.getViewActionSpot();
                         familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
                     }
-                } while(!skipTurn && !(order.getCurrent().placeFamilyMember(familyMember, actionSpot)));
+                } while(!skipTurn && !(placeFamilyMember(familyMember, actionSpot)));
             } catch(TooMuchTimeException e){
+                // TODO addTimer
                 e.printStackTrace();
             }
             System.out.println("\n\nPLAYERBOARD:");
@@ -141,21 +140,46 @@ public class Game{
         } while(board.getOrder().nextOrder());
     }
 
-    private boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot){
-        /*if(actionSpot instanceof Market){
-            return placeMarket(familyMember, (Market) actionSpot);
+    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException{
+        if(actionSpot instanceof Market){
+            PlaceMarket placeMarket = new PlaceMarket(this, actionSpot, familyMember);
+            if(placeMarket.canDoAction()){
+                placeMarket.doAction();
+                return true;
+            }
+            return false;
         }
         if(actionSpot instanceof CouncilPalace){
-            return placeCouncilPalace(familyMember, (CouncilPalace) actionSpot);
-        }*/
+            PlaceCouncilPalace placeCouncilPalace = new PlaceCouncilPalace(this, actionSpot, familyMember);
+            if(placeCouncilPalace.canDoAction()){
+                placeCouncilPalace.doAction();
+                return true;
+            }
+            return false;
+        }
         if(actionSpot instanceof HarvestArea){
-            Harvest harvest = new Harvest();
+            Harvest harvest = new Harvest(this, actionSpot, familyMember);
+            if(harvest.canDoAction()){
+                harvest.doAction();
+                return true;
+            }
+            return false;
         }
         if(actionSpot instanceof ProductionArea){
-            Produce produce = new Produce();
+            Produce produce = new Produce(this, actionSpot, familyMember);
+            if(produce.canDoAction()){
+                produce.doAction();
+                return true;
+            }
+            return false;
         }
         if(actionSpot instanceof Floor){
-            BuyCard buyCard = new BuyCard(familyMember.getPlayer(), board, actionSpot, familyMember);
+            BuyCard buyCard = new BuyCard(this, actionSpot, familyMember);
+            if(buyCard.canDoAction()){
+                buyCard.doAction();
+                return true;
+            }
+            return false;
         }
         return false;
     }

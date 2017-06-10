@@ -1,8 +1,5 @@
 package it.polimi.ingsw.pcXX;
 
-import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
-
-import java.util.List;
 import java.util.Set;
 
 public class Floor extends ActionSpot{
@@ -80,25 +77,6 @@ public class Floor extends ActionSpot{
 			tower.setOccupied(true);
 		}
 		card = null;
-	}
-
-	private void doActions(DevelopmentCard developmentCard, Player player) throws TooMuchTimeException{
-		List<FamilyMember> actions = developmentCard.getActions();
-		if(actions != null){
-			for(FamilyMember fM : actions){
-				fM.setPlayer(player);
-				ActionSpot actionSpot = null;
-				boolean skipTurn = false;
-				do{
-					skipTurn = TerminalInput.doYouWantToSkip();
-					if(!skipTurn){
-						actionSpot = tower.getBoard().getViewActionSpot();
-						fM.setServantUsed(TerminalInput.askNumberOfServant());
-					}
-				}
-				while(!skipTurn && !fM.getPlayer().placeFamilyMember(fM, actionSpot));
-			}
-		}
 	}
 
 	@Override

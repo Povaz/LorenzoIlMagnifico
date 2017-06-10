@@ -1,9 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
-import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
-
 import java.util.List;
-import java.util.Scanner;
 import java.util.Set;
 
 public class VentureCard extends DevelopmentCard{
@@ -56,52 +53,15 @@ public class VentureCard extends DevelopmentCard{
 		return result;
 	}
 
-	public Reward getMilitaryPointPrice() {
+	public Reward getMilitaryPointPrice(){
 		return militaryPointPrice;
 	}
 
-	public Reward getMilitaryPointNeeded() {
+	public Reward getMilitaryPointNeeded(){
 		return militaryPointNeeded;
 	}
 
-	public Reward getVictoryPointEarned() {
+	public Reward getVictoryPointEarned(){
 		return victoryPointEarned;
-	}
-
-	@Override
-	public boolean canBuyCard(Counter newCounter){
-		if(militaryPointNeeded != null && militaryPointPrice != null && getCosts() != null){
-			boolean payWithMilitaryPoint = howWantPayVentureCard(getCosts(), militaryPointNeeded, militaryPointPrice);
-			if(payWithMilitaryPoint){
-				return canBuyCardMilitaryPoint(newCounter);
-			}
-			else{
-				return super.canBuyCard(newCounter);
-			}
-		}
-		else if(militaryPointNeeded != null && militaryPointPrice != null){
-			return canBuyCardMilitaryPoint(newCounter);
-		}
-		else{
-			return super.canBuyCard(newCounter);
-		}
-	}
-
-	private boolean canBuyCardMilitaryPoint(Counter newCounter){
-		if(newCounter.getMilitaryPoint().getQuantity() >= militaryPointNeeded.getQuantity()){
-			newCounter.subtract(militaryPointPrice);
-			return newCounter.check();
-		}
-		return false;
-	}
-
-	//TODO con client
-	private boolean howWantPayVentureCard(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
-		System.out.println("COSTS:\n" + costs);
-		System.out.println("\nPOINT NEEDED:\n" + militaryPointNeeded);
-		System.out.println("POINT PRICE:\n" + militaryPointPrice);
-		System.out.println("\nWANT TO PAY WITH MILITARY POINTS?");
-		Scanner input = new Scanner(System.in);
-		return input.nextBoolean();
 	}
 }

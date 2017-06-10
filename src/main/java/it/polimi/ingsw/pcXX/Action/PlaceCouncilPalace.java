@@ -7,16 +7,18 @@ import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
  * Created by trill on 10/06/2017.
  */
 public class PlaceCouncilPalace implements CommandPattern{
+    private final Game game;
     private final Player player;
     private final Board board;
     private final CouncilPalace councilPalace;
     private final FamilyMember familyMember;
     private final Counter newCounter;
 
-    public PlaceCouncilPalace(Player player, Board board, CouncilPalace councilPalace, FamilyMember familyMember){
-        this.player = player;
-        this.board = board;
-        this.councilPalace = councilPalace;
+    public PlaceCouncilPalace(Game game, ActionSpot actionSpot, FamilyMember familyMember){
+        this.game = game;
+        this.player = familyMember.getPlayer();
+        this.board = game.getBoard();
+        this.councilPalace = (CouncilPalace) actionSpot;
         this.familyMember = familyMember;
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
     }

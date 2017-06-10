@@ -3,10 +3,13 @@ package it.polimi.ingsw.pcXX.Action;
 import it.polimi.ingsw.pcXX.*;
 import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
 
+import java.util.List;
+
 /**
  * Created by trill on 10/06/2017.
  */
 public class BuyCard implements CommandPattern {
+    private final Game game;
     private final Player player;
     private final Board board;
     private final Floor floor;
@@ -15,9 +18,10 @@ public class BuyCard implements CommandPattern {
     private DevelopmentCard card;
     private CardSpot cardSpot;
 
-    public BuyCard(Player player, Board board, ActionSpot actionSpot, FamilyMember familyMember){
-        this.player = player;
-        this.board = board;
+    public BuyCard(Game game, ActionSpot actionSpot, FamilyMember familyMember){
+        this.game = game;
+        this.player = familyMember.getPlayer();
+        this.board = game.getBoard();
         this.floor = (Floor) actionSpot;
         this.familyMember = familyMember;
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
@@ -158,7 +162,7 @@ public class BuyCard implements CommandPattern {
             System.out.println("Non hai abbastanza spazio nel CardSpot per poter piazzare la carta");
             return false;
         }
-        if(cardSpot instanceof CardSpot){
+        if(cardSpot instanceof TerritorySpot){
             TerritorySpot tSpot = (TerritorySpot) cardSpot;
             return haveEnoughtMilitaryPoint(tSpot);
         }
@@ -199,7 +203,7 @@ public class BuyCard implements CommandPattern {
         }
     }
 
-    public void doAction(){
+    public void doAction() throws TooMuchTimeException{
         // aggiorna risorse giocatore
         player.getPlayerBoard().setCounter(newCounter);
 
@@ -210,6 +214,31 @@ public class BuyCard implements CommandPattern {
         cardSpot.placeCard(card);
 
         // esegui azioni aggiuntive della carta
-        // TODO TODOTODOTODO
+        doBonusActions();
+    }
+
+    private void doBonusActions() throws TooMuchTimeException{
+        // TODO uguale a Game
+        List<FamilyMember> actions = card.getActions();
+        if(actions != null){
+            for(FamilyMember fM : actions){
+                fM.setPlayer(player);
+                doBonusAction(fM);
+            }
+        }
+    }
+
+    private void doBonusAction(FamilyMember fM) throws TooMuchTimeException{
+        ActionSpot actionSpot = null;
+        boolean skipTurn = false;
+        do{
+            System.out.println("AZIONE AGGIUNTIVA!!!");
+            skipTurn = TerminalInput.doYouWantToSkip();
+            actionSpot = null;
+            if(!skipTurn){
+                actionSpot = board.getViewActionSpot();
+                fM.setServantUsed(TerminalInput.askNumberOfServant());
+            }
+        } while(!skipTurn && !(game.placeFamilyMember(fM, actionSpot)));
     }
 }

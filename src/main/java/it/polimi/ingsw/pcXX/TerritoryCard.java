@@ -45,11 +45,11 @@ public class TerritoryCard extends DevelopmentCard{
 		return cardString;
 	}
 
-	public int getDiceHarvestAction() {
+	public int getDiceHarvestAction(){
 		return diceHarvestAction;
 	}
 
-	public Set<Reward> getEarnings() {
+	public Set<Reward> getEarnings(){
 		return earnings;
 	}
 }

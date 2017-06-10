@@ -7,16 +7,18 @@ import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
  * Created by trill on 10/06/2017.
  */
 public class PlaceMarket implements CommandPattern{
+    private final Game game;
     private final Player player;
     private final Board board;
     private final Market market;
     private final FamilyMember familyMember;
     private final Counter newCounter;
 
-    public PlaceMarket(Player player, Board board, Market market, FamilyMember familyMember){
-        this.player = player;
-        this.board = board;
-        this.market = market;
+    public PlaceMarket(Game game, ActionSpot actionSpot, FamilyMember familyMember){
+        this.game = game;
+        this.player = familyMember.getPlayer();
+        this.board = game.getBoard();
+        this.market = (Market) actionSpot;
         this.familyMember = familyMember;
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
     }

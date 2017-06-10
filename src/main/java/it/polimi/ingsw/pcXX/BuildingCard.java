@@ -21,7 +21,7 @@ public class BuildingCard extends DevelopmentCard{
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(Object o){
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 		if (!super.equals(o)) return false;
@@ -37,7 +37,7 @@ public class BuildingCard extends DevelopmentCard{
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode(){
 		int result = super.hashCode();
 		result = 31 * result + diceProductionAction;
 		result = 31 * result + (earnings != null ? earnings.hashCode() : 0);
@@ -72,23 +72,23 @@ public class BuildingCard extends DevelopmentCard{
 		return cardString;
 	}
 
-	public int getDiceProductionAction() {
+	public int getDiceProductionAction(){
 		return diceProductionAction;
 	}
 
-	public Set<Reward> getEarnings() {
+	public Set<Reward> getEarnings(){
 		return earnings;
 	}
 
-	public List<Trade> getTrades() {
+	public List<Trade> getTrades(){
 		return trades;
 	}
 
-	public RewardForReward getRewardForReward() {
+	public RewardForReward getRewardForReward(){
 		return rewardForReward;
 	}
 
-	public RewardForCard getRewardForCard() {
+	public RewardForCard getRewardForCard(){
 		return rewardForCard;
 	}
 }

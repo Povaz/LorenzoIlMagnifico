@@ -269,7 +269,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
         return characterCard.getDiscounts().get(askNumber(0, characterCard.getDiscounts().size() - 1));
     }
 
-    //TODO SISTEMA PER ERICK!! (LASCIA QUESTO NOME PER IL METODO)
+    //TODO SISTEMA PER ERICK!! (LASCIA QUESTO NOME PER LA FUNZ)
     public static boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
         System.out.println("COSTS:\n" + costs);
         System.out.println("\nPOINT NEEDED:\n" + militaryPointNeeded);

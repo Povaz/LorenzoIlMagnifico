@@ -17,11 +17,15 @@ public class ProductionArea extends ActionSpot{
 		if(!super.isPlaceable(familyMember)){
 			return false;
 		}
-		if(familyMember.getAction() != null) {
-			if (familyMember.getAction() != ActionType.PRODUCE && familyMember.getAction() != ActionType.ALL) {
-				return false;
+
+		if(familyMember.isGhost()){
+			if(familyMember.getAction() != null){
+				if(familyMember.getAction() != ActionType.PRODUCE && familyMember.getAction() != ActionType.ALL){
+					return false;
+				}
 			}
 		}
+
 		if(familyMember.getColor() != FamilyColor.NEUTRAL){
 			for(ProductionArea pA : board.getProductionArea()){
 				for(FamilyMember f : pA.occupiedBy){
@@ -38,10 +42,9 @@ public class ProductionArea extends ActionSpot{
 
 	@Override
 	public void placeFamilyMember(FamilyMember familyMember){
-		/*if(familyMember.getPlayer().getPlayerBoard().produce(familyMember.getValue() + diceModifier, familyMember.getServantUsed())){
-			return super.placeFamilyMember(familyMember);
+		if(!familyMember.isGhost()){
+			super.placeFamilyMember(familyMember);
 		}
-		return false;*/
 	}
 
 	@Override

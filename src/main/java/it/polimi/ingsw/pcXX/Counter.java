@@ -60,7 +60,7 @@ public class Counter{
             coin.setQuantity(9);
     }
 
-    public void sum(Set<Reward> rewards) throws TooMuchTimeException {
+    public void sum(Set<Reward> rewards) throws TooMuchTimeException{
         if(rewards == null){
             return;
         }
