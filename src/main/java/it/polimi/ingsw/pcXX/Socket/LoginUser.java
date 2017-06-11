@@ -3,27 +3,26 @@ package it.polimi.ingsw.pcXX.Socket;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.Scanner;
+import java.util.Set;
 
 import org.json.JSONException;
 
 import it.polimi.ingsw.pcXX.JSONUtility;
+import it.polimi.ingsw.pcXX.RMI.UserLogin;
+import it.polimi.ingsw.pcXX.SocketRMICongiunction.ConnectionType;
+import it.polimi.ingsw.pcXX.SocketRMICongiunction.Server;
 
-public class User implements Runnable{
+public class LoginUser implements Runnable{
 	private String name;
 	private Socket socket;
-	private CreateGameHandler newGame;
 	
-	public User(Socket socket){
+	public LoginUser(Socket socket){
 		this.socket = socket; 
 	}
 	
-	public User(Socket socket, CreateGameHandler newGame){
-		this.socket = socket;
-		this.newGame = newGame; 
-	}
-	
-	public User(String name, Socket socket){
+	public LoginUser(String name, Socket socket){
 		this.socket = socket;
 		this.name = name; 
 	}
@@ -56,6 +55,16 @@ public class User implements Runnable{
 		return received;
 	}
 	
+	private boolean searchUserLogged (String name) throws RemoteException {
+        Set<String> usernames = Server.usersInLobby.keySet();
+        for (String username : usernames) {
+            if ( (name.equals(username)) && (name.equals(username))) {
+                return true;
+            }
+        }
+        return false;
+    }
+	
 	synchronized public void run() {
 		String decision = null;
 		try {
@@ -79,11 +88,18 @@ public class User implements Runnable{
 				e.printStackTrace();
 			}
 			boolean result = false;
+			boolean yetLogged = true;
 			if(decision.equals("1")){
 				try {
 					result = JSONUtility.checkLogin(username, password);
 				} catch (JSONException | IOException e1) {
 					e1.printStackTrace();
+				}
+				try {
+					yetLogged =searchUserLogged(username);
+				} catch (RemoteException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
 				}
 			}
 			else{
@@ -93,19 +109,26 @@ public class User implements Runnable{
 					e1.printStackTrace();
 				}
 			}
-			if(result){
+			if(result && !yetLogged){
 				name=username;
 				try {
 					sendToClient("confirmed");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				newGame.addPlayer(name, socket);
+				ServerSOC.addPlayer(username, socket);
 				break;
 			}
-			else{	
+			else if(result==false){	
 				try {
-					sendToClient("wrong combination");
+					sendToClient("Wrong Combination!");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			}
+			else {	
+				try {
+					sendToClient("User yet Logged! Retry!");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

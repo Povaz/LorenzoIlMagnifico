@@ -1,7 +1,9 @@
 package it.polimi.ingsw.pcXX.SocketRMICongiunction;
 
 import it.polimi.ingsw.pcXX.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pcXX.Socket.ServerSOC;
 
+import java.net.ServerSocket;
 import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Timer;
@@ -11,14 +13,14 @@ import java.util.Timer;
  */
 public class Server {
     private ServerLoginImpl serverLoginRMI;
-    // private ServerSocket
+    private ServerSOC serverSoc;
     public static HashMap<String, ConnectionType> usersInGame;
     public static HashMap<String, ConnectionType> usersInLobby;
     public static Timer timer;
-
-    public Server (ServerLoginImpl serverLoginRMI /*ServerSocket,*/) {
+    
+    public Server (ServerLoginImpl serverLoginRMI , ServerSOC serverSoc) {
         this.serverLoginRMI = serverLoginRMI;
-        /* ServerSocket*/
+        this.serverSoc = serverSoc;
         usersInGame = new HashMap<String, ConnectionType>();
         usersInLobby = new HashMap<String, ConnectionType>();
     }
@@ -26,12 +28,14 @@ public class Server {
     private void startServers () {
        Thread serverLoginRMI = new Thread(this.serverLoginRMI);
        serverLoginRMI.start();
+       Thread serverSoc = new Thread(this.serverSoc);
+       serverSoc.start();
     }
 
     public static void main (String[] args) throws RemoteException {
         ServerLoginImpl serverLoginRMI = new ServerLoginImpl();
-        //ServerSocket
-        Server server = new Server(serverLoginRMI /*, serverSocket */);
+        ServerSOC serverSoc = new ServerSOC(1337);
+        Server server = new Server(serverLoginRMI , serverSoc);
         server.startServers();
     }
 }

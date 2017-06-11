@@ -40,8 +40,9 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
                 Server.usersInLobby.put(userLogin.getUsername(), ConnectionType.RMI);
                 usersLoggedRMI.add(userLogin);
                 userLogin.sendMessage("Login Successful");
-
+                
                 if (Server.usersInLobby.size() == 2) {
+                	System.out.println("Partito Timer");
                     Server.timer = new Timer();
                     Server.timer.schedule(new TimerTask() {
                         @Override

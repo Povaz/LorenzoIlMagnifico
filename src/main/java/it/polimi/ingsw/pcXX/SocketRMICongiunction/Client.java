@@ -1,7 +1,11 @@
 package it.polimi.ingsw.pcXX.SocketRMICongiunction;
 
 import it.polimi.ingsw.pcXX.RMI.UserLoginImpl;
+import it.polimi.ingsw.pcXX.Socket.ClientSOC;
 
+import java.io.IOException;
+import java.net.Socket;
+import java.net.UnknownHostException;
 import java.rmi.RemoteException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -11,14 +15,14 @@ import java.util.Scanner;
  */
 public class Client {
     private UserLoginImpl userLoginRMI;
-    // ClientSocket
+    private ClientSOC userSoc;
 
     public Client (UserLoginImpl userLoginRMI) {
         this.userLoginRMI = userLoginRMI;
     }
 
-    public Client (/*ClientSocket*/) {
-        //ClientSocket
+    public Client (ClientSOC userSoc) {
+        this.userSoc = userSoc;
     }
 
     public void startClientRMI() {
@@ -26,11 +30,12 @@ public class Client {
         userLoginRMI.start();
     }
 
-    public void startClientSocket () {
-        //start clientSocket
+    public void startClientSOC() {
+        Thread userSoc = new Thread (this.userSoc);
+        userSoc.start();
     }
 
-    public static void main (String[] args) throws RemoteException, InputMismatchException {
+    public static void main (String[] args) throws InputMismatchException, UnknownHostException, IOException {
         Client client;
         boolean correct = false;
         while (!correct) {
@@ -48,7 +53,9 @@ public class Client {
                         correct = true;
                         break;
                     case 2:
-                        //ClientSocket
+                        ClientSOC userSoc = new ClientSOC(); 
+                        client = new Client(userSoc);
+                        client.startClientSOC();
                         correct = true;
                         break;
                     default:

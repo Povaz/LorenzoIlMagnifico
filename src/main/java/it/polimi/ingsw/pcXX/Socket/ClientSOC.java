@@ -12,25 +12,41 @@ import org.json.JSONException;
 
 import static it.polimi.ingsw.pcXX.TerminalInput.askNumber;
 
-public class Client {
+public class ClientSOC implements Runnable {
 	private String username;
 	private final String ip = "127.0.0.1";
 	private final int port = 1337;
 	private static Socket socketServer;
 	
+	public ClientSOC() throws UnknownHostException, IOException{
+		socketServer = new Socket (ip, port);
+	}
 	
 	public void setName(String username){
 		this.username=username;
 	}
 	
-	synchronized public void startClient() throws IOException {
+	synchronized public void run() {
+		System.out.println("Connection established");
+		System.out.println("");
+		try {
+			setName(login());
+		} catch (IOException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
 		System.out.println("Waiting Game to Start. . .");
 		System.out.println("");
 		
 		//sempre pronto a ricevere notifiche
-		String line;
+		String line = null;
 		synchronized(this){while (true){
-			line = receiveFromServer();
+			try {
+				line = receiveFromServer();
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
 			System.out.println(line);
 			System.out.println("");
 			if(line.equals("Game Started")){
@@ -189,23 +205,5 @@ public class Client {
 		return "";
 	}
 	
-	public static void main(String[] args) throws UnknownHostException, IOException {
-		
-		//Fa il login
-		
-		Client client = new Client();
-		Client.socketServer = new Socket (client.ip, client.port);
-		
-		System.out.println("Connection established");
-		System.out.println("");
-		
-		client.setName(login());
-		
-		try {
-			client.startClient();
-		}
-		catch (IOException e) {
-			System.err.println(e.getMessage());
-		}
-	}
+	
 }
