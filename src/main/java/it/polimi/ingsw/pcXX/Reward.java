@@ -32,7 +32,7 @@ public class Reward{
     }
 
     @Override
-    public boolean equals(Object o) {
+    public boolean equals(Object o){
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
@@ -43,7 +43,7 @@ public class Reward{
     }
 
     @Override
-    public int hashCode() {
+    public int hashCode(){
         return type.hashCode();
     }
 
@@ -54,7 +54,7 @@ public class Reward{
 
     public void sumQuantity(Reward other){
         if(type != other.type){
-            throw new IllegalArgumentException();
+            return;
         }
         quantity += other.quantity;
     }

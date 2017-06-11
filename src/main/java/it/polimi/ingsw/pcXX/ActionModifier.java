@@ -4,7 +4,7 @@ package it.polimi.ingsw.pcXX;
  * Created by trill on 20/05/2017.
  */
 public class ActionModifier {
-    private  ActionType type;
+    private final ActionType type;
     private int modifier;
 
     public ActionModifier(ActionType type, int modifier){

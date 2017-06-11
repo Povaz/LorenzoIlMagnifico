@@ -269,13 +269,14 @@ public class TerminalInput { //Metodi view: richieste ai Client
         }
     }
 
-    public static CostDiscount askWhichDiscount (CharacterCard characterCard) {
+    // TODO TODOTODOTODO
+    /*public static CostDiscount askWhichDiscount (CharacterCard characterCard) {
         System.out.println("Which Discount do you want to choose?\n");
         for (int i = 0; i < characterCard.getDiscounts().size(); i++) {
             System.out.println(i + ". " + characterCard.getDiscounts().get(i).toString() + "\n");
         }
         return characterCard.getDiscounts().get(askNumber(0, characterCard.getDiscounts().size() - 1));
-    }
+    }*/
 
     public static boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){
         System.out.println("Do you want to pay with Military Points?\n  0. No\n  1. Yes");

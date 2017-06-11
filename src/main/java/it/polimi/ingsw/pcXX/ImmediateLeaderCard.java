@@ -1,8 +1,5 @@
 package it.polimi.ingsw.pcXX;
 
-import com.sun.media.jfxmediaimpl.platform.ios.IOSMediaPlayer;
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,8 +10,10 @@ import java.util.Set;
 public class ImmediateLeaderCard extends LeaderCard {
     private final boolean activated;
     private final Set<Reward> reward;
+
     private final boolean changeColoredFamilyMamberValue;
     private final int newValueColoredFamilyMember;
+
     private final List<FamilyMember> actions;
 
     public ImmediateLeaderCard (String name, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,

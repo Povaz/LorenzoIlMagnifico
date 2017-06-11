@@ -1,1 +1,9 @@
-4. Azione istantanea (Architetto): ti chiede di fare una mossa (tra tutte le possibili, non solo quella giusta) e se sbagli chiude il processo.
+1. TODO rifare i toString di: CharacterCard, VaticanReportCard, Modifier, LeaderCard (Immediate and Permanent);
+2. TODO rifare i medoti di input da JSON di: CharacterCard, VaticanReport, LeaderCard;
+3. TODO rifare askWhichDiscount in TerminalInpu;
+4. TODO eliminare le classi ActionModifier e CostDiscount;
+
+DOMANDE PER MARTEDì:
+    - COME DOBBIAMO CONFIGURARE LA RELAZIONE CLIENT SERVER? PENSAVAMO AD UNA COSA DEL GENERE:
+      IL SERVER TI DICE CHE DEVI DARE CERTI INPUT ED IL CLIENT GLIELI DA, ALTRIMENTI NON NE MANDA.
+    - COME POSSIAMO TESTARE DEI METODI PRIVATI LASCIANDOLI PRIVATI?

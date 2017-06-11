@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -7,23 +8,27 @@ import java.util.Set;
  * Created by Povaz on 03/06/2017.
  */
 public class PermanentLeaderCard extends LeaderCard {
+    private final boolean copyOtherCard;
+
     private final int neutralFamilyMemberModifier;
     private final int coloredFamilyMemberModifier;
     private final boolean doubleFastRewardDevelopmentCard;
     private final boolean placeInBusyActionSpot;
-    private final Set<Reward> bonusRewardChurchSupport;
+
     private final boolean permanentDice;
     private final int permanentDiceValue;
-    private final Set<Reward> costDiscountDevelopmentCard;
+
     private final boolean notSatisfyMilitaryPointForTerritory;
     private final boolean notPayTollBusyTower;
-    private final boolean copyOtherCard;
+
+    private final List<Reward> bonusRewardChurchSupport;
+    private Map<CardType, List<List<Reward>>> costDiscountDevelopmentCard;
 
     public PermanentLeaderCard (String name, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
                                 int neutralFamilyMemberModifier, int coloredFamilyMemberModifier, boolean doubleFastRewardDevelopmentCard,
-                                boolean placeInBusyActionSpot, Set<Reward> bonusRewardChurchSupport, boolean permanentDice,
-                                int permanentDiceValue, Set<Reward> costDiscountDevelopmentCard, boolean notSatisfyMilitaryPointForTerritory,
-                                boolean notPayTollBusyTower, boolean copyOtherCard) {
+                                boolean placeInBusyActionSpot, List<Reward> bonusRewardChurchSupport, boolean permanentDice,
+                                int permanentDiceValue, Map<CardType, List<List<Reward>>> costDiscountDevelopmentCard,
+                                boolean notSatisfyMilitaryPointForTerritory, boolean notPayTollBusyTower, boolean copyOtherCard) {
         super (name, activationRewardRequirement, activationCardTypeRequirement);
         this.neutralFamilyMemberModifier = neutralFamilyMemberModifier;
         this.coloredFamilyMemberModifier = coloredFamilyMemberModifier;
@@ -69,12 +74,13 @@ public class PermanentLeaderCard extends LeaderCard {
             permanentLeaderCardString += "Permanent Dice Value: " + permanentDiceValue + "\n";
         }
 
+        /* TODO TODOTODO risistema
         if (costDiscountDevelopmentCard != null) {
             permanentLeaderCardString += "Cost Discount Development Card: \n";
-            for (Reward r: costDiscountDevelopmentCard) {
+            for (Reward r: costDiscountDevelopmentCard){
                 permanentLeaderCardString += "  Discount: " + r.toString() + "\n";
             }
-        }
+        }*/
 
         if (notSatisfyMilitaryPointForTerritory) {
             permanentLeaderCardString += "Not Satisfy Military Point for Territory: " + notSatisfyMilitaryPointForTerritory + "\n";
@@ -92,40 +98,84 @@ public class PermanentLeaderCard extends LeaderCard {
     }
 
     @Override
-    public int hashCode () {
-        int result = super.hashCode();
-        result = 31 * result + neutralFamilyMemberModifier;
-        result = 31 * result + coloredFamilyMemberModifier;
-        result = 31 * result + (doubleFastRewardDevelopmentCard ? 1 : 0);
-        result = 31 * result + (placeInBusyActionSpot ? 1 : 0);
-        result = 31 * result + (bonusRewardChurchSupport != null ? bonusRewardChurchSupport.hashCode() : 0);
-        result = 31 * result + (permanentDice ? 1 : 0);
-        result = 31 * result + permanentDiceValue;
-        result = 31 * result + (costDiscountDevelopmentCard != null ? costDiscountDevelopmentCard.hashCode() : 0);
-        result = 31 * result + (notSatisfyMilitaryPointForTerritory ? 1 : 0);
-        result = 31 * result + (notPayTollBusyTower ? 1 : 0);
-        result = 31 * result + (copyOtherCard ? 1 : 0);
-        return result;
-    }
-
-    @Override
-    public boolean equals (Object o) {
+    public boolean equals(Object o){
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         if (!super.equals(o)) return false;
 
         PermanentLeaderCard that = (PermanentLeaderCard) o;
 
+        if (copyOtherCard != that.copyOtherCard) return false;
         if (neutralFamilyMemberModifier != that.neutralFamilyMemberModifier) return false;
         if (coloredFamilyMemberModifier != that.coloredFamilyMemberModifier) return false;
         if (doubleFastRewardDevelopmentCard != that.doubleFastRewardDevelopmentCard) return false;
         if (placeInBusyActionSpot != that.placeInBusyActionSpot) return false;
-        if (bonusRewardChurchSupport != null ? !bonusRewardChurchSupport.equals(that.bonusRewardChurchSupport) : that.bonusRewardChurchSupport != null) return false;
         if (permanentDice != that.permanentDice) return false;
         if (permanentDiceValue != that.permanentDiceValue) return false;
-        if (costDiscountDevelopmentCard != null ? !costDiscountDevelopmentCard.equals(that.costDiscountDevelopmentCard) : that.costDiscountDevelopmentCard != null) return false;
         if (notSatisfyMilitaryPointForTerritory != that.notSatisfyMilitaryPointForTerritory) return false;
         if (notPayTollBusyTower != that.notPayTollBusyTower) return false;
-        return copyOtherCard != that.copyOtherCard;
+        if (!bonusRewardChurchSupport.equals(that.bonusRewardChurchSupport)) return false;
+        return costDiscountDevelopmentCard.equals(that.costDiscountDevelopmentCard);
+    }
+
+    @Override
+    public int hashCode(){
+        int result = super.hashCode();
+        result = 31 * result + (copyOtherCard ? 1 : 0);
+        result = 31 * result + neutralFamilyMemberModifier;
+        result = 31 * result + coloredFamilyMemberModifier;
+        result = 31 * result + (doubleFastRewardDevelopmentCard ? 1 : 0);
+        result = 31 * result + (placeInBusyActionSpot ? 1 : 0);
+        result = 31 * result + (permanentDice ? 1 : 0);
+        result = 31 * result + permanentDiceValue;
+        result = 31 * result + (notSatisfyMilitaryPointForTerritory ? 1 : 0);
+        result = 31 * result + (notPayTollBusyTower ? 1 : 0);
+        result = 31 * result + bonusRewardChurchSupport.hashCode();
+        result = 31 * result + costDiscountDevelopmentCard.hashCode();
+        return result;
+    }
+
+    public boolean isCopyOtherCard() {
+        return copyOtherCard;
+    }
+
+    public int getNeutralFamilyMemberModifier() {
+        return neutralFamilyMemberModifier;
+    }
+
+    public int getColoredFamilyMemberModifier() {
+        return coloredFamilyMemberModifier;
+    }
+
+    public boolean isDoubleFastRewardDevelopmentCard() {
+        return doubleFastRewardDevelopmentCard;
+    }
+
+    public boolean isPlaceInBusyActionSpot() {
+        return placeInBusyActionSpot;
+    }
+
+    public boolean isPermanentDice() {
+        return permanentDice;
+    }
+
+    public int getPermanentDiceValue() {
+        return permanentDiceValue;
+    }
+
+    public boolean isNotSatisfyMilitaryPointForTerritory() {
+        return notSatisfyMilitaryPointForTerritory;
+    }
+
+    public boolean isNotPayTollBusyTower() {
+        return notPayTollBusyTower;
+    }
+
+    public List<Reward> getBonusRewardChurchSupport() {
+        return bonusRewardChurchSupport;
+    }
+
+    public Map<CardType, List<List<Reward>>> getCostDiscountDevelopmentCard() {
+        return costDiscountDevelopmentCard;
     }
 }
