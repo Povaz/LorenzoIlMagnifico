@@ -88,7 +88,7 @@ public class LoginUser implements Runnable{
 				e.printStackTrace();
 			}
 			boolean result = false;
-			boolean yetLogged = true;
+			boolean yetLogged = false;
 			if(decision.equals("1")){
 				try {
 					result = JSONUtility.checkLogin(username, password);

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pcXX.RMI;
 
 import it.polimi.ingsw.pcXX.JSONUtility;
+import it.polimi.ingsw.pcXX.Socket.ServerSOC;
 import it.polimi.ingsw.pcXX.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pcXX.SocketRMICongiunction.Server;
 import org.json.JSONException;
@@ -44,6 +45,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
                 Server.usersInLobby.put(userLogin.getUsername(), ConnectionType.RMI);
                 usersLoggedRMI.add(userLogin);
                 userLogin.sendMessage("Login Successful");
+                ServerSOC.notifyPlayers (userLogin.getUsername() + " si è aggiunto alla partita!! Ora sono presenti " + Server.usersInLobby.size() + " giocatori");
                 
                 if (Server.usersInLobby.size() == 2) {
                 	System.out.println("Partito Timer");
@@ -52,8 +54,9 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
                         @Override
                         public void run() {
                             System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
+                            ServerSOC.notifyPlayers ("Game Iniziato!!");
                         }
-                    }, 90000);
+                    }, 10000);
                 }
 
                 if (Server.usersInLobby.size() == 5) {

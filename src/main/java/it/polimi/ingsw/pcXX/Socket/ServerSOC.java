@@ -57,6 +57,7 @@ public class ServerSOC implements Runnable {
 		Server.usersInLobby.put(username, ConnectionType.SOCKET);
 		
 		if(Server.usersInLobby.size() == 2){
+			notifyPlayers("Tra 10 secondi Inizia Il Game!");
 			System.out.println("Partito Timer");
             Server.timer = new Timer();
             Server.timer.schedule(new TimerTask() {
@@ -64,6 +65,8 @@ public class ServerSOC implements Runnable {
                 public void run() {
                     System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
                     notifyPlayers("Game Iniziato!!");
+                    clear();
+                    return;
                 }
             }, 10000);
 		}
@@ -79,6 +82,8 @@ public class ServerSOC implements Runnable {
                 public void run() {
                     System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
                     notifyPlayers("Game Iniziato!!");
+                    clear();
+                    return;
                 }
             }, 10000);
 		}
@@ -107,13 +112,14 @@ public class ServerSOC implements Runnable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			String confirm = socketIn.nextLine();
+			
 		}
 	}
 	
 	
 	synchronized public static void clear(){
 		utenti.clear();
+		Server.usersInLobby.clear();
 		counter=0;
 		Server.timer = new Timer();
 	}
