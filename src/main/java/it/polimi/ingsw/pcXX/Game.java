@@ -100,8 +100,15 @@ public class Game{
 
     private void endPeriod(){
         //TODO gestisci scomuniche
+        churchSupport();
         period++;
         turn = 1;
+    }
+
+    private void churchSupport(){
+        for(Player p : board.getOrder().getShown()){
+            board.getVaticanReportSpot().get(period - 1).support(p);
+        }
     }
 
     private void startTurn(){
