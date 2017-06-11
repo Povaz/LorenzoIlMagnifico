@@ -144,8 +144,8 @@ public class JSONUtility {
 		Set<Reward> fastRewards = getFastRewards(card);
 		List<FamilyMember> actions = getActions(card);
 		boolean noBonusTowerResource = getBooleanNoException(card, "noBonusTowerResource");
-		List<CostDiscount> discounts = getDiscounts(card);
-		List<ActionModifier> actionModifiers = getActionModifiers(card);
+		Map<CardType,List<List<Reward>>> discounts = getDiscounts(card);
+		Map<ActionType, Integer> actionModifiers = getActionModifiers(card);
 		RewardForReward rewardForReward = getRewardForReward(card);
 		RewardForCard rewardForCard = getRewardForCard(card);
 
@@ -253,38 +253,42 @@ public class JSONUtility {
 		}
 	}
 
-	private static List<CostDiscount> getDiscounts(JSONObject card){
+	private static Map<CardType, List<List<Reward>>> getDiscounts(JSONObject card){
 		try{
 			JSONArray costDiscounts = card.getJSONArray("costDiscounts");
-			List<CostDiscount> discountList = new LinkedList<>();
+			Map<CardType, List<List<Reward>>> discountMap = new HashMap<>();
+			discountMap.put(CardType.TERRITORY, new ArrayList<>());
+			discountMap.put(CardType.BUILDING, new ArrayList<>());
+			discountMap.put(CardType.CHARACTER, new ArrayList<>());
+			discountMap.put(CardType.VENTURE, new ArrayList<>());
 			for(int i = 0; i < costDiscounts.length(); i++){
 				JSONObject discountObj = costDiscounts.getJSONObject(i);
 				CardType cardType = CardType.valueOf(discountObj.getString("cardType"));
-
+				List<List<Reward>> discountList = discountMap.get(cardType);
 				JSONArray options = discountObj.getJSONArray("options");
 				for(int j = 0; j < options.length(); j++){
 					JSONObject discounts = options.getJSONObject(j);
-					Set<Reward> rewards = getRewardSet(discounts.getJSONArray("discounts"));
-					discountList.add(new CostDiscount(cardType, rewards));
+					List<Reward> rewards = getRewardList(discounts.getJSONArray("discounts"));
+					discountList.add(rewards);
 				}
 			}
-			return discountList;
+			return discountMap;
 		} catch(JSONException e){
 			return null;
 		}
 	}
 
-	private static List<ActionModifier> getActionModifiers(JSONObject card){
+	private static Map<ActionType, Integer> getActionModifiers(JSONObject card){
 		try{
-			List<ActionModifier> actionModifierList = new LinkedList<>();
+			Map<ActionType, Integer> actionModifierMap = new HashMap<>();
 			JSONArray actionModifiers = card.getJSONArray("actionModifiers");
 			for(int i = 0; i < actionModifiers.length(); i++){
 				JSONObject modifierObj = actionModifiers.getJSONObject(i);
 				ActionType type = ActionType.valueOf(modifierObj.getString("type"));
 				int modifier = modifierObj.getInt("modifier");
-				actionModifierList.add(new ActionModifier(type, modifier));
+				actionModifierMap.put(type, modifier);
 			}
-			return actionModifierList;
+			return actionModifierMap;
 		} catch(JSONException e){
 			return null;
 		}
@@ -313,6 +317,15 @@ public class JSONUtility {
 		} catch(JSONException e){
 			return null;
 		}
+	}
+
+	private static List<Reward> getRewardList(JSONArray jsonRewards) throws JSONException{
+		List<Reward> rewardList = new ArrayList<>();
+		for(int i = 0; i < jsonRewards.length(); i++){
+			JSONObject reward = jsonRewards.getJSONObject(i);
+			rewardList.add(getReward(reward));
+		}
+		return rewardList;
 	}
 
 	private static Set<Reward> getRewardSet(JSONArray jsonRewards) throws JSONException{
@@ -434,10 +447,10 @@ public class JSONUtility {
 		int coloredFamilyMemberModifier = getIntegerNoException(permanentLeaderCard, "coloredFamilyMemberModifier");
 		boolean doubleFastRewardDevelopmentCard = getBooleanNoException(permanentLeaderCard, "doubleFastRewardDevelopmentCard");
 		boolean placeInBusyActionSpot = getBooleanNoException(permanentLeaderCard, "placeInBusyActionSpot");
-		Set<Reward> bonusRewardChurchSupport = getRewardSetWithException(permanentLeaderCard, "bonusRewardChurchSupport");
+		List<Reward> bonusRewardChurchSupport = getRewardListWithException(permanentLeaderCard, "bonusRewardChurchSupport");
 		boolean permanentDice = getBooleanNoException(permanentLeaderCard, "permanentDice");
 		int permanentDiceValue = getIntegerNoException(permanentLeaderCard, "permanentDiceValue");
-		Set<Reward> costDiscountDevelopmentCard = getRewardSetWithException(permanentLeaderCard, "costDiscountDevelopmentCard");
+		Map<CardType, List<List<Reward>>> costDiscountDevelopmentCard = getDiscounts(permanentLeaderCard);
 		boolean notSatisfyMilitaryPointForTerritory = getBooleanNoException(permanentLeaderCard, "notSatisfyMilitaryPointForTerritory");
 		boolean notPayTollBusyTower = getBooleanNoException(permanentLeaderCard, "notPayTollBusyTower");
 		boolean copyOtherCard = getBooleanNoException(permanentLeaderCard, "copyOtherCard");
@@ -458,6 +471,18 @@ public class JSONUtility {
 			rewardSet.add(blankResource);
 		}
 		return rewardSet;
+	}
+
+	public static List<Reward> getRewardListWithException (JSONObject obj, String name) throws JSONException {
+		List<Reward> rewardList = new ArrayList<>();
+		try {
+			rewardList = getRewardList(obj.getJSONArray(name));
+		}
+		catch (JSONException e) {
+			Reward blankResource = new Reward(RewardType.COIN, 0);
+			rewardList.add(blankResource);
+		}
+		return rewardList;
 	}
 
 	public static Map<CardType, Integer> getActivationCardTypeRequirement (JSONObject leaderCard) throws JSONException {

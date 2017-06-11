@@ -43,7 +43,7 @@ public class Board {
         initializeHarvestArea(playerNumber);
         initializeProductionArea(playerNumber);
         initializeMarket(playerNumber);
-        //initializeVaticanReportSpot();
+        initializeVaticanReportSpot();
         initializeDices();
     }
 
@@ -85,7 +85,12 @@ public class Board {
             for(int period = 1; period <= Game.PERIOD_NUMBER; period++) {
                 int cardNumber = RandomUtility.randomInt(0, JSONUtility.getVaticanReportLength(period)) - 1;
                 VaticanReportCard vaticanReportCard = JSONUtility.getVaticanReportCard(period, cardNumber);
-                vaticanReportSpot.add(new VaticanReportSpot(vaticanReportCard));
+                if(period == Game.PERIOD_NUMBER){
+                    vaticanReportSpot.add(new VaticanReportSpot(vaticanReportCard, new Reward(RewardType.FAITH_POINT, 5), true));
+                }
+                else{
+                    vaticanReportSpot.add(new VaticanReportSpot(vaticanReportCard, new Reward(RewardType.FAITH_POINT, period + 2), false));
+                }
             }
         } catch(JSONException e){
             e.printStackTrace();

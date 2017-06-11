@@ -19,19 +19,34 @@ public class VaticanReportSpot {
 	public void support(Player player){
 		Reward playerFaithPoint = player.getPlayerBoard().getCounter().getFaithPoint();
 		if(last){
-
+			if(playerFaithPoint.getQuantity() < faithPointNeeded.getQuantity()){
+				getReported(player);
+			}
+			earnVictoryPointSupport(player);
+			if(playerFaithPoint.getQuantity() >= faithPointNeeded.getQuantity()){
+				earnRewardSupport(player);
+			}
 		}
 		else{
 			if(playerFaithPoint.getQuantity() >= faithPointNeeded.getQuantity()){
 				if(TerminalInput.wantToSupportVatican()){
+					earnVictoryPointSupport(player);
 					earnRewardSupport(player);
+				}
+				else{
+					getReported(player);
 				}
 			}
 		}
 	}
 
-	private void earnRewardSupport(Player player){
-		Reward victoryPoint = calculateVictoryPointFromFaithPoint(faithPoint);
+	private void earnVictoryPointSupport(Player player){
+		Counter counter = player.getPlayerBoard().getCounter();
+		// guadagna i victoryPoint in base ai faithPoint che possiedi
+		Reward victoryPoint = calculateVictoryPointFromFaithPoint(counter.getFaithPoint());
+		counter.sum(victoryPoint);
+		// azzera i faithPoint
+		counter.subtract(counter.getFaithPoint());
 	}
 
 	private Reward calculateVictoryPointFromFaithPoint(Reward faithPoint){
@@ -53,8 +68,17 @@ public class VaticanReportSpot {
 		}
 	}
 
-	private void getExcommunicated(Player player){
+	private void earnRewardSupport(Player player){
+		Counter counter = player.getPlayerBoard().getCounter();
+		// guadagna le risorse aggiuntive
+		for(Reward r : player.getPlayerBoard().getModifier().getBonusChurchSupport()){
+			counter.sum(r);
+		}
+	}
 
+	private void getReported(Player player){
+		reported.add(player);
+		player.getPlayerBoard().getModifier().update(vaticanReportCard);
 	}
 
 	@Override

@@ -147,10 +147,19 @@
           "quantity": 4
         }
       ],
-      "costDiscountDevelopmentCard": [
+      "costDiscounts": [
         {
-          "type": "COIN",
-          "quantity": 3
+          "cardType": "ALL",
+          "options": [
+            {
+              "discounts": [
+                {
+                  "type": "COIN",
+                  "quantity": 3
+                }
+              ]
+            }
+          ]
         }
       ]
     }

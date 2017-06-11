@@ -34,7 +34,7 @@ public class Modifier{
 	private boolean notSatisfyMilitaryPointForTerritory = false;
 	private boolean notPayTollBusyTower = false;
 
-	private final List<Reward> bonusChurchSupport = new ArrayList<>(); // TODO
+	private final List<Reward> bonusChurchSupport = new ArrayList<>();
 
 
 	// Carte sviluppo

@@ -99,7 +99,6 @@ public class Game{
     }
 
     private void endPeriod(){
-        //TODO gestisci scomuniche
         churchSupport();
         period++;
         turn = 1;

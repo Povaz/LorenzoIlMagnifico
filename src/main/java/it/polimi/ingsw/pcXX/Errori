@@ -1,6 +1,6 @@
 1. TODO rifare i toString di: CharacterCard, VaticanReportCard, Modifier, LeaderCard (Immediate and Permanent);
 2. TODO rifare i medoti di input da JSON di: CharacterCard, VaticanReport, LeaderCard;
-3. TODO rifare askWhichDiscount in TerminalInpu;
+3. TODO rifare askWhichDiscount in TerminalInput;
 4. TODO eliminare le classi ActionModifier e CostDiscount;
 
 DOMANDE PER MARTEDì:
