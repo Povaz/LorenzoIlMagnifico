@@ -15,6 +15,7 @@ public class BuyCard implements CommandPattern {
     private final Floor floor;
     private final FamilyMember familyMember;
     private final Counter newCounter;
+    private final Modifier modifier;
     private DevelopmentCard card;
     private CardSpot cardSpot;
 
@@ -25,6 +26,27 @@ public class BuyCard implements CommandPattern {
         this.floor = (Floor) actionSpot;
         this.familyMember = familyMember;
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
+        this.modifier = player.getPlayerBoard().getModifier();
+        updateFamilyMemberRealValue();
+    }
+
+    private void updateFamilyMemberRealValue(){
+        int realValue = familyMember.getRealValue();
+        switch(floor.getTower().getType()){
+            case TERRITORY:
+                realValue += modifier.getActionModifiers().get(ActionType.TERRITORY_TOWER);
+                break;
+            case BUILDING:
+                realValue += modifier.getActionModifiers().get(ActionType.BUILDING_TOWER);
+                break;
+            case CHARACTER:
+                realValue += modifier.getActionModifiers().get(ActionType.CHARACTER_TOWER);
+                break;
+            case VENTURE:
+                realValue += modifier.getActionModifiers().get(ActionType.VENTURE_TOWER);
+                break;
+        }
+        familyMember.setRealValue(realValue);
     }
 
     public boolean canDoAction() throws TooMuchTimeException {
@@ -33,7 +55,7 @@ public class BuyCard implements CommandPattern {
             return false;
         }
 
-        if(!floor.isPlaceable(familyMember)){
+        if(!floor.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot())){
             return false;
         }
 
@@ -41,11 +63,15 @@ public class BuyCard implements CommandPattern {
             return false;
         }
 
-        if(!canPayTowerTax()){
-            return false;
+        if(!modifier.isNotPayTollBusyTower()){
+            if(!canPayTowerTax()){
+                return false;
+            }
         }
 
-        earnReward();
+        if(!modifier.isNoBonusTowerResource()){
+            earnReward();
+        }
 
         if(!canPayCardCost()){
             return false;
@@ -151,6 +177,9 @@ public class BuyCard implements CommandPattern {
     // guadagna i fastReward della carta
     private void earnCardFastReward() throws TooMuchTimeException{
         newCounter.sum(card.getFastRewards());
+        if(modifier.isDoubleFastRewardDevelopmentCard()){
+            newCounter.sum(card.getFastRewards());
+        }
     }
 
     /* carta può essere piazzata nel cardSpot:
@@ -162,9 +191,11 @@ public class BuyCard implements CommandPattern {
             System.out.println("Non hai abbastanza spazio nel CardSpot per poter piazzare la carta");
             return false;
         }
-        if(cardSpot instanceof TerritorySpot){
-            TerritorySpot tSpot = (TerritorySpot) cardSpot;
-            return haveEnoughtMilitaryPoint(tSpot);
+        if(!modifier.isNotSatisfyMilitaryPointForTerritory()) {
+            if(cardSpot instanceof TerritorySpot){
+                TerritorySpot tSpot = (TerritorySpot) cardSpot;
+                return haveEnoughtMilitaryPoint(tSpot);
+            }
         }
         return true;
     }

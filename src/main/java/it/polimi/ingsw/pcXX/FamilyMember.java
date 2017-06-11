@@ -6,6 +6,7 @@ public class FamilyMember{
 	private boolean used;
 	private int value;
 	private Reward servantUsed;
+	private int realValue;
 	private final boolean ghost;
 	private Player player;
 	private final FamilyColor color;
@@ -129,5 +130,13 @@ public class FamilyMember{
 
 	public void setPlayer(Player player){
 		this.player = player;
+	}
+
+	public int getRealValue() {
+		return realValue;
+	}
+
+	public void setRealValue(int realValue) {
+		this.realValue = realValue;
 	}
 }

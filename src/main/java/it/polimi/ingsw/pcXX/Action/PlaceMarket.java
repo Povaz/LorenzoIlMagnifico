@@ -13,6 +13,7 @@ public class PlaceMarket implements CommandPattern{
     private final Market market;
     private final FamilyMember familyMember;
     private final Counter newCounter;
+    private final Modifier modifier;
 
     public PlaceMarket(Game game, ActionSpot actionSpot, FamilyMember familyMember){
         this.game = game;
@@ -21,10 +22,22 @@ public class PlaceMarket implements CommandPattern{
         this.market = (Market) actionSpot;
         this.familyMember = familyMember;
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
+        this.modifier = player.getPlayerBoard().getModifier();
+        updateFamilyMemberRealValue();
+    }
+
+    private void updateFamilyMemberRealValue(){
+        int realValue = familyMember.getRealValue();
+        realValue += modifier.getActionModifiers().get(ActionType.MARKET);
+        familyMember.setRealValue(realValue);
     }
 
     public boolean canDoAction() throws TooMuchTimeException{
-        if(!market.isPlaceable(familyMember)){
+        if(modifier.isCannotPlaceInMarket()){
+            return false;
+        }
+
+        if(!market.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot())){
             return false;
         }
 

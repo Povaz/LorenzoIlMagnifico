@@ -13,6 +13,7 @@ public class PlaceCouncilPalace implements CommandPattern{
     private final CouncilPalace councilPalace;
     private final FamilyMember familyMember;
     private final Counter newCounter;
+    private final Modifier modifier;
 
     public PlaceCouncilPalace(Game game, ActionSpot actionSpot, FamilyMember familyMember){
         this.game = game;
@@ -21,10 +22,18 @@ public class PlaceCouncilPalace implements CommandPattern{
         this.councilPalace = (CouncilPalace) actionSpot;
         this.familyMember = familyMember;
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
+        this.modifier = player.getPlayerBoard().getModifier();
+        updateFamilyMemberRealValue();
+    }
+
+    private void updateFamilyMemberRealValue(){
+        int realValue = familyMember.getRealValue();
+        realValue += modifier.getActionModifiers().get(ActionType.COUNCIL_PALACE);
+        familyMember.setRealValue(realValue);
     }
 
     public boolean canDoAction() throws TooMuchTimeException{
-        if(!councilPalace.isPlaceable(familyMember)){
+        if(!councilPalace.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot())){
             return false;
         }
 

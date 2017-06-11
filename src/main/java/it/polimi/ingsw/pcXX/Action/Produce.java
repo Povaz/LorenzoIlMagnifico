@@ -17,6 +17,7 @@ public class Produce {
     private final FamilyMember familyMember;
     private final Counter newCounter;
     private final Counter copyForCosts;
+    private final Modifier modifier;
     private final int actionValue;
 
     public Produce(Game game, ActionSpot actionSpot, FamilyMember familyMember){
@@ -27,11 +28,19 @@ public class Produce {
         this.familyMember = familyMember;
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
         this.copyForCosts = new Counter(player.getPlayerBoard().getCounter());
+        this.modifier = player.getPlayerBoard().getModifier();
         this.actionValue = familyMember.getValue() + familyMember.getServantUsed().getQuantity();
+        updateFamilyMemberRealValue();
+    }
+
+    private void updateFamilyMemberRealValue(){
+        int realValue = familyMember.getRealValue();
+        realValue += modifier.getActionModifiers().get(ActionType.PRODUCE);
+        familyMember.setRealValue(realValue);
     }
 
     public boolean canDoAction() throws TooMuchTimeException{
-        if(!productionArea.isPlaceable(familyMember)){
+        if(!productionArea.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot())){
             return false;
         }
 

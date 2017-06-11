@@ -140,6 +140,7 @@ public class Game{
         if(actionSpot == null || familyMember == null){
             return true;
         }
+        calculateRealValueFamilyMember(familyMember);
         if(actionSpot instanceof Market){
             PlaceMarket placeMarket = new PlaceMarket(this, actionSpot, familyMember);
             if(placeMarket.canDoAction()){
@@ -183,6 +184,26 @@ public class Game{
         return false;
     }
 
+    private void calculateRealValueFamilyMember(FamilyMember familyMember){
+        Modifier modifier = familyMember.getPlayer().getPlayerBoard().getModifier();
+        int value = familyMember.getValue();
+        int servantUsed = familyMember.getServantUsed().getQuantity();
+        if(modifier.isServantValueHalved()){
+            servantUsed = servantUsed / 2;
+        }
+        int diceModifier = 0;
+        if(!familyMember.isGhost()){
+            if(familyMember.getColor() == FamilyColor.NEUTRAL){
+                diceModifier = modifier.getNeutralFamilyMemberModifier();
+            }
+            else{
+                diceModifier = modifier.getColoredFamilyMemberModifier();
+            }
+        }
+        int realValue = value + servantUsed + diceModifier;
+        familyMember.setRealValue(realValue);
+    }
+
     private void endTurn(){
         calculateNewOrder();
         reinitializeBoard();
@@ -191,10 +212,10 @@ public class Game{
 
     private Player decreeWinner(){
         List<Player> order = board.getOrder().getShown();
+        earnVictoryPointFromMilitaryPoint(order);
         for(Player p : order){
             p.getPlayerBoard().earnFinalVictoryPoint();
         }
-        earnVictoryPointFromMilitaryPoint(order);
         return calculateWinner(order);
     }
 

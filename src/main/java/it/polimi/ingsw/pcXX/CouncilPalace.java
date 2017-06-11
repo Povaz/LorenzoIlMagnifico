@@ -18,8 +18,8 @@ public class CouncilPalace extends ActionSpot{
 	}
 
 	@Override
-	public boolean isPlaceable(FamilyMember familyMember){
-		if(!super.isPlaceable(familyMember)){
+	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot){
+		if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot)){
 			return false;
 		}
 

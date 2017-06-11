@@ -8,7 +8,7 @@ import java.util.*;
 public class Modifier{
 
     // Scomuniche
-    private final List<Reward> loseRewards = new ArrayList<>();
+    private final List<Reward> loseRewards = new ArrayList<>(); // TODO
 
     private boolean cannotPlaceInMarket = false;
     private boolean servantValueHalved = false;
@@ -34,7 +34,7 @@ public class Modifier{
 	private boolean notSatisfyMilitaryPointForTerritory = false;
 	private boolean notPayTollBusyTower = false;
 
-	private final List<Reward> bonusChurchSupport = new ArrayList<>();
+	private final List<Reward> bonusChurchSupport = new ArrayList<>(); // TODO
 
 
 	// Carte sviluppo
@@ -42,7 +42,7 @@ public class Modifier{
 
 
 	// Leader card permanenti + Carte sviluppo
-	private final Map<CardType, List<List<Reward>>> discounts = new HashMap<>();
+	private final Map<CardType, List<List<Reward>>> discounts = new HashMap<>(); // TODO
 
 	// Scomuniche + Leader card permanenti
 	private int coloredFamilyMemberModifier = 0;
@@ -209,8 +209,36 @@ public class Modifier{
 		}
 	}
 
-	// TODO TODOTODOTODO
-	private void updateCostDiscountDevelopmentCard(Map<CardType, List<List<Reward>>> discountToAdd){}
+	// TODO TODOTODOTODO test!
+	public void updateCostDiscountDevelopmentCard(Map<CardType, List<List<Reward>>> discountsToAdd){
+		for(CardType cT : discountsToAdd.keySet()){
+			if(cT != null){
+				int nToCopy = discountsToAdd.get(cT).size();
+				int length = discounts.get(cT).size();
+				// copia gli elementi di discount tante quante sono le scelta da aggiungere
+				for(int i = 0; i < nToCopy; i++){
+					for(int j = 0; j < length; j++){
+						discounts.get(cT).add(new ArrayList<>(discounts.get(cT).get(j)));
+					}
+				}
+				// aggiungi ad ogni sconto una scelta in modo che non vengano sommati gli stessi sconti più volte
+				for(int i = 0; i < nToCopy; i++){
+					for(int j = i * length; j < (i + 1) * length ; j++){
+						addListToOtherList(discounts.get(cT).get(j), discountsToAdd.get(cT).get(i));
+					}
+				}
+				// elimina i doppioni
+				for(int i = 0; i < discounts.get(cT).size() - 1; i++){
+					for(int j = i + 1; j < discounts.get(cT).size(); j++){
+						if(discounts.get(cT).get(i).equals(discounts.get(cT).get(j))){
+							discounts.remove(j);
+							j--;
+						}
+					}
+				}
+			}
+		}
+	}
 
     @Override
     public String toString(){
@@ -259,4 +287,96 @@ public class Modifier{
     	
     	return modifierString;
     }
+
+	public List<Reward> getLoseRewards() {
+		return loseRewards;
+	}
+
+	public boolean isCannotPlaceInMarket() {
+		return cannotPlaceInMarket;
+	}
+
+	public boolean isServantValueHalved() {
+		return servantValueHalved;
+	}
+
+	public boolean isJumpFirstRound() {
+		return jumpFirstRound;
+	}
+
+	public boolean isNotEarnVictoryPointFromTerritory() {
+		return notEarnVictoryPointFromTerritory;
+	}
+
+	public boolean isNotEarnVictoryPointFromCharacter() {
+		return notEarnVictoryPointFromCharacter;
+	}
+
+	public boolean isNotEarnVictoryPointFromVenture() {
+		return notEarnVictoryPointFromVenture;
+	}
+
+	public boolean isLoseVictoryPointFromVictoryPoint() {
+		return loseVictoryPointFromVictoryPoint;
+	}
+
+	public boolean isLoseVictoryPointFromMilitaryPoint() {
+		return loseVictoryPointFromMilitaryPoint;
+	}
+
+	public boolean isLoseVictoryPointFromBuildingCost() {
+		return loseVictoryPointFromBuildingCost;
+	}
+
+	public boolean isLoseVictoryPointFromResource() {
+		return loseVictoryPointFromResource;
+	}
+
+	public int getNeutralFamilyMemberModifier() {
+		return neutralFamilyMemberModifier;
+	}
+
+	public boolean isDoubleFastRewardDevelopmentCard() {
+		return doubleFastRewardDevelopmentCard;
+	}
+
+	public boolean isPlaceInBusyActionSpot() {
+		return placeInBusyActionSpot;
+	}
+
+	public boolean isPermanentDice() {
+		return permanentDice;
+	}
+
+	public int getPermanentDiceValue() {
+		return permanentDiceValue;
+	}
+
+	public boolean isNotSatisfyMilitaryPointForTerritory() {
+		return notSatisfyMilitaryPointForTerritory;
+	}
+
+	public boolean isNotPayTollBusyTower() {
+		return notPayTollBusyTower;
+	}
+
+	public List<Reward> getBonusChurchSupport() {
+		return bonusChurchSupport;
+	}
+
+	public boolean isNoBonusTowerResource() {
+		return noBonusTowerResource;
+	}
+
+	public Map<CardType, List<List<Reward>>> getDiscounts() {
+		return discounts;
+	}
+
+	public int getColoredFamilyMemberModifier() {
+		return coloredFamilyMemberModifier;
+	}
+
+	public Map<ActionType, Integer> getActionModifiers() {
+		return actionModifiers;
+	}
 }
