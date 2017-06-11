@@ -21,16 +21,12 @@ public class ClientSOC implements Runnable {
 	public ClientSOC() throws UnknownHostException, IOException{
 		socketServer = new Socket (ip, port);
 	}
-	
-	public void setName(String username){
-		this.username=username;
-	}
-	
+
 	synchronized public void run() {
 		System.out.println("Connection established");
 		System.out.println("");
 		try {
-			setName(login());
+			login();
 		} catch (IOException e1) {
 			// TODO Auto-generated catch block
 			e1.printStackTrace();
@@ -72,8 +68,8 @@ public class ClientSOC implements Runnable {
 		
 	}
 	
-	synchronized private static String loginVsRegister (Scanner in){
-		
+	synchronized private static String loginVsRegister (){
+		Scanner in = new Scanner (System.in);
 		String decision;
 		while(true){
 			System.out.println("What you want to do? Insert number: \n 1-login \n 2-register");
@@ -91,17 +87,18 @@ public class ClientSOC implements Runnable {
 		}
 		return decision;
 	}
-	synchronized private static String sendDataLog (Scanner in, String decision) throws IOException{
+	
+	synchronized private static String sendDataLog ( String decision) throws IOException{
 		String username;
 		String password;
-		
+		Scanner in = new Scanner (System.in); 
 		while(true){	
 			System.out.println("(write '/back' to go back to the previous selection)");
 			System.out.println("Username :");	
 			username = in.nextLine();
 			if (username.equals("/back")){
-				decision=loginVsRegister(in);
-				return sendDataLog(in, decision);
+				decision=loginVsRegister();
+				return sendDataLog(decision);
 			}
 			sendToServer(username);		
 			System.out.println("Password : ");
@@ -119,37 +116,35 @@ public class ClientSOC implements Runnable {
 					return username;
 				}
 				else{
-					System.out.println("Successful Register! Welcome" + username + "!");
+					System.out.println("Successful Register! Welcome " + username + "!");
 					System.out.println("");
 					return username;
 				}
 			}
 			else if (receivedRespPass.equals("wrong combination")){
 				if(decision.equals("1")){
-					System.out.println("Combinazione errata, riprova");
+					System.out.println("Wrong combination, retry");
 					System.out.println("");
 				}
 				else{
-					System.out.println("Registrazione fallita! Ritenta");
+					System.out.println("Register failed! Retry");
 					System.out.println("");
 				}
 			}
 		}
 	}
 	
-	synchronized private static String login() throws IOException{
+	synchronized private void login() throws IOException{
 		String decision;
+		decision= loginVsRegister();
 	    Scanner in = new Scanner(System.in);
-		decision= loginVsRegister(in);
 		sendToServer(decision);
-		String username = sendDataLog(in, decision);
-		in.close();
-		return username;
+		String username = sendDataLog(decision);
 	}
 	
 	@SuppressWarnings("resource")
 
-	public synchronized static String askAction(){
+	synchronized public static String askAction(){
 		System.out.println("Select Action: \n 1-Set Family Member \n 2-Use Leader Card \n 3-Draw Leader Card \n 4-Lose your Turn");
 		int numberAction = askNumber(1, 4);
 		switch(numberAction){

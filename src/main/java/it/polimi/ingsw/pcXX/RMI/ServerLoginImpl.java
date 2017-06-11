@@ -45,16 +45,16 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
                 Server.usersInLobby.put(userLogin.getUsername(), ConnectionType.RMI);
                 usersLoggedRMI.add(userLogin);
                 userLogin.sendMessage("Login Successful");
-                ServerSOC.notifyPlayers (userLogin.getUsername() + " si è aggiunto alla partita!! Ora sono presenti " + Server.usersInLobby.size() + " giocatori");
+                ServerSOC.notifyPlayers (userLogin.getUsername() + " joined the lobby!! Now in the lobby there are " + Server.usersInLobby.size() + " players");
                 
                 if (Server.usersInLobby.size() == 2) {
-                	System.out.println("Partito Timer");
+                	System.out.println("Timer Started");
                     Server.timer = new Timer();
                     Server.timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
                             System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
-                            ServerSOC.notifyPlayers ("Game Iniziato!!");
+                            ServerSOC.notifyPlayers ("Game Started!!");
                         }
                     }, 10000);
                 }

@@ -14,15 +14,15 @@ import it.polimi.ingsw.pcXX.RMI.UserLogin;
 import it.polimi.ingsw.pcXX.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pcXX.SocketRMICongiunction.Server;
 
-public class LoginUser implements Runnable{
+public class SeverLoginUser implements Runnable{
 	private String name;
 	private Socket socket;
 	
-	public LoginUser(Socket socket){
+	public SeverLoginUser(Socket socket){
 		this.socket = socket; 
 	}
 	
-	public LoginUser(String name, Socket socket){
+	public SeverLoginUser(String name, Socket socket){
 		this.socket = socket;
 		this.name = name; 
 	}
@@ -116,7 +116,9 @@ public class LoginUser implements Runnable{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				ServerSOC.addPlayer(username, socket);
+				if(decision.equals("1")){
+					ServerSOC.addPlayer(username, socket);
+				}
 				break;
 			}
 			else if(result==false){	
@@ -134,8 +136,6 @@ public class LoginUser implements Runnable{
 				}
 			}
 		}
-		
-		//fine perchè ora viene gestito dal CreateGameHandler e poi parte il game
 	}
 	
 	

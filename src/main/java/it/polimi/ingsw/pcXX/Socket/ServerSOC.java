@@ -17,7 +17,7 @@ import it.polimi.ingsw.pcXX.SocketRMICongiunction.Server;
 public class ServerSOC implements Runnable {
 	private int port;
 	private ServerSocket serverSocket;
-	private static ArrayList <LoginUser> utenti = new ArrayList <LoginUser>(); 
+	private static ArrayList <SeverLoginUser> utenti = new ArrayList <SeverLoginUser>(); 
 	private static int counter = 0;
 	
 	public ServerSOC(int port) {
@@ -41,7 +41,7 @@ public class ServerSOC implements Runnable {
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				utenti.add(new LoginUser(socket));
+				utenti.add(new SeverLoginUser(socket));
 				executor.submit(utenti.get(counter));
 				counter++;
 			} 
@@ -57,14 +57,14 @@ public class ServerSOC implements Runnable {
 		Server.usersInLobby.put(username, ConnectionType.SOCKET);
 		
 		if(Server.usersInLobby.size() == 2){
-			notifyPlayers("Tra 10 secondi Inizia Il Game!");
-			System.out.println("Partito Timer");
+			notifyPlayers("In 10 seconds Game will start!!");
+			System.out.println("Timer Started");
             Server.timer = new Timer();
             Server.timer.schedule(new TimerTask() {
                 @Override
                 public void run() {
                     System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
-                    notifyPlayers("Game Iniziato!!");
+                    notifyPlayers("Game Started!!");
                     clear();
                     return;
                 }
@@ -72,7 +72,7 @@ public class ServerSOC implements Runnable {
 		}
 		
 		//notifica a tutti i giocatori
-		notifyPlayers (username + " si è aggiunto alla partita!! Ora sono presenti " + Server.usersInLobby.size() + " giocatori");
+		notifyPlayers (username + " joined the lobby!! Now in the lobby there are " + Server.usersInLobby.size() + " players");
 		
 		if(Server.usersInLobby.size()==5){
 			Server.timer.cancel();
@@ -81,7 +81,7 @@ public class ServerSOC implements Runnable {
                 @Override
                 public void run() {
                     System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
-                    notifyPlayers("Game Iniziato!!");
+                    notifyPlayers("Game Started!!");
                     clear();
                     return;
                 }
@@ -97,6 +97,7 @@ public class ServerSOC implements Runnable {
 		System.out.println("");
 		Socket instance;
 		PrintWriter out = null;
+		//MODIFICARE CON PLAYER IN LOBBY (NON POSSO ANCORA FARLO PERCHè LA GESTIONE UTENTI è INCOMPLETA) 
 		for(int i=0;i<utenti.size();i++){
 			instance = ((utenti.get(i)).getSocket());
 			try {
