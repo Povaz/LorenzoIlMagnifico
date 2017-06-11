@@ -67,23 +67,26 @@ public class SeverLoginUser implements Runnable{
 	
 	synchronized public void run() {
 		String decision = null;
-		try {
-			decision = receiveFromClient();
-		} catch (IOException e2) {
-			// TODO Auto-generated catch block
-			e2.printStackTrace();
-		}
-		
-		while(true){
+		boolean logged = false;
+		while(!logged){
+			try {
+				decision = receiveFromClient();
+			} catch (IOException e2) {
+				// TODO Auto-generated catch block
+				e2.printStackTrace();
+			}
 			String username = null;
 			try {
 				username = receiveFromClient();
+				if(username.equals("/back")){
+					continue;
+				}
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
 			String password = null;
 			try {
-				password = receiveFromClient();
+				password = receiveFromClient();		
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -96,7 +99,7 @@ public class SeverLoginUser implements Runnable{
 					e1.printStackTrace();
 				}
 				try {
-					yetLogged =searchUserLogged(username);
+					yetLogged = searchUserLogged(username);
 				} catch (RemoteException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -118,8 +121,8 @@ public class SeverLoginUser implements Runnable{
 				}
 				if(decision.equals("1")){
 					ServerSOC.addPlayer(username, socket);
+					logged= true;
 				}
-				break;
 			}
 			else if(result==false){	
 				try {

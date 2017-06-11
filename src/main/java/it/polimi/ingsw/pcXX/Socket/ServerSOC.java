@@ -35,7 +35,7 @@ public class ServerSOC implements Runnable {
 			e1.printStackTrace();
 		}
 		
-		System.out.println("Server ready");
+		System.out.println("Server Socket ready");
 		System.out.println("");
 		
 		while (true) {
@@ -55,6 +55,9 @@ public class ServerSOC implements Runnable {
 		
 		//crea nuovo utente
 		Server.usersInLobby.put(username, ConnectionType.SOCKET);
+	
+		//notifica a tutti i giocatori
+		notifyPlayers (username + " joined the lobby!! Now in the lobby there are " + Server.usersInLobby.size() + " players");
 		
 		if(Server.usersInLobby.size() == 2){
 			notifyPlayers("In 10 seconds Game will start!!");
@@ -71,10 +74,8 @@ public class ServerSOC implements Runnable {
             }, 10000);
 		}
 		
-		//notifica a tutti i giocatori
-		notifyPlayers (username + " joined the lobby!! Now in the lobby there are " + Server.usersInLobby.size() + " players");
-		
 		if(Server.usersInLobby.size()==5){
+			notifyPlayers("In 10 seconds Game will start!!");
 			Server.timer.cancel();
 			Server.timer = new Timer();
 			Server.timer.schedule(new TimerTask() {
@@ -119,6 +120,8 @@ public class ServerSOC implements Runnable {
 	
 	
 	synchronized public static void clear(){
+		System.out.println("Creating New Lobby");
+		System.out.println("");
 		utenti.clear();
 		Server.usersInLobby.clear();
 		counter=0;

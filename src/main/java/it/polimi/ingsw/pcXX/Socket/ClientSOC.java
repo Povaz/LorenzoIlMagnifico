@@ -4,11 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.rmi.NotBoundException;
-import java.util.InputMismatchException;
 import java.util.Scanner;
-
-import org.json.JSONException;
 
 import static it.polimi.ingsw.pcXX.TerminalInput.askNumber;
 
@@ -25,11 +21,14 @@ public class ClientSOC implements Runnable {
 	synchronized public void run() {
 		System.out.println("Connection established");
 		System.out.println("");
-		try {
-			login();
-		} catch (IOException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
+		boolean logged = false;
+		while(!logged){
+			try {
+				logged=login();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
 		}
 		System.out.println("Waiting Game to Start. . .");
 		System.out.println("");
@@ -52,20 +51,24 @@ public class ClientSOC implements Runnable {
 		return;
 	}
 	
-	synchronized public static void sendToServer(String message) throws IOException{
-		PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
-		socketOut.println(message);
-		socketOut.flush();
-	}
-	
-	synchronized public static String receiveFromServer() throws IOException{
-		Scanner socketIn = new Scanner(socketServer.getInputStream());
-		String received = socketIn.nextLine();
-		PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
-		socketOut.println("ok");
-		socketOut.flush();
-		return received;
-		
+	synchronized private boolean login() throws IOException{
+		String decision = null;
+		boolean cycle = true;
+		while(cycle){
+			decision = loginVsRegister();
+			Scanner in = new Scanner(System.in);
+			sendToServer(decision);
+			String username = sendDataLog(decision);
+			if(!username.equals("/back")){
+				cycle=false;
+			}
+		}
+		if(decision.equals("1")){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	synchronized private static String loginVsRegister (){
@@ -96,11 +99,10 @@ public class ClientSOC implements Runnable {
 			System.out.println("(write '/back' to go back to the previous selection)");
 			System.out.println("Username :");	
 			username = in.nextLine();
+			sendToServer(username);
 			if (username.equals("/back")){
-				decision=loginVsRegister();
-				return sendDataLog(decision);
-			}
-			sendToServer(username);		
+				return username;
+			}		
 			System.out.println("Password : ");
 			password = in.nextLine();
 			sendToServer(password);
@@ -134,12 +136,20 @@ public class ClientSOC implements Runnable {
 		}
 	}
 	
-	synchronized private void login() throws IOException{
-		String decision;
-		decision= loginVsRegister();
-	    Scanner in = new Scanner(System.in);
-		sendToServer(decision);
-		String username = sendDataLog(decision);
+	synchronized public static void sendToServer(String message) throws IOException{
+		PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
+		socketOut.println(message);
+		socketOut.flush();
+	}
+	
+	synchronized public static String receiveFromServer() throws IOException{
+		Scanner socketIn = new Scanner(socketServer.getInputStream());
+		String received = socketIn.nextLine();
+		PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
+		socketOut.println("ok");
+		socketOut.flush();
+		return received;
+		
 	}
 	
 	@SuppressWarnings("resource")

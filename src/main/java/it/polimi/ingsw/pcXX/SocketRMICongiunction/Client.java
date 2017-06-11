@@ -4,9 +4,7 @@ import it.polimi.ingsw.pcXX.RMI.UserLoginImpl;
 import it.polimi.ingsw.pcXX.Socket.ClientSOC;
 
 import java.io.IOException;
-import java.net.Socket;
 import java.net.UnknownHostException;
-import java.rmi.RemoteException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
