@@ -13,6 +13,7 @@ import java.util.Scanner;
 /**
  * Created by Povaz on 10/06/2017.
  */
+
 public class Client {
     private UserLoginImpl userLoginRMI;
     private ClientSOC userSoc;

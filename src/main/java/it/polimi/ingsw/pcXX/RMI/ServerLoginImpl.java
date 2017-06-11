@@ -25,11 +25,15 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
 
     private boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
         Set<String> usernames = Server.usersInLobby.keySet();
+        System.out.println("UsersInLobby: " + usernames.toString());
         for (String username : usernames) {
-            if ( (userLogin.getUsername().equals(username)) && (userLogin.getKeyword().equals(username))) {
+            System.out.println("Username searched: " + username);
+            System.out.println("Username in login: " + userLogin.getUsername());
+            if ((userLogin.getUsername().equals(username))) {
                 return true;
             }
         }
+        System.out.println("Fucked up");
         return false;
     }
 
@@ -49,7 +53,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
                         public void run() {
                             System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
                         }
-                    }, 10000);
+                    }, 90000);
                 }
 
                 if (Server.usersInLobby.size() == 5) {
@@ -59,8 +63,8 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
 
                 return true;
             }
-                userLogin.sendMessage("Incorrect Username or password");
-                return false;
+            userLogin.sendMessage("Incorrect Username or password");
+            return false;
         }
         userLogin.sendMessage("User already logged");
         return false;
