@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by trill on 30/05/2017.
  */
-public class Game{
+public class Game implements Runnable{
     public static final int PERIOD_NUMBER = 3;
     public static final int TURNS_FOR_PERIOD = 2;
     public static final int CARD_FOR_TOWER = 4;
@@ -27,18 +27,22 @@ public class Game{
     private int[] characterCard;
     private int[] ventureCard;
 
-    public static void main(String[] args) {
-        Game game = new Game(Arrays.asList("Affetti", "Cugola"));
-        while(game.period <= game.PERIOD_NUMBER){
-            game.startPeriod();
-            while(game.turn <= game.TURNS_FOR_PERIOD){
-                game.startTurn();
-                game.playTurn();
-                game.endTurn();
+    public static void main(String[] args){
+        Thread game = new Thread(new Game(Arrays.asList("Affetti", "Cugola")));
+        game.start();
+    }
+
+    public void run(){
+        while(this.period <= this.PERIOD_NUMBER){
+            this.startPeriod();
+            while(this.turn <= this.TURNS_FOR_PERIOD){
+                this.startTurn();
+                this.playTurn();
+                this.endTurn();
             }
-            game.endPeriod();
+            this.endPeriod();
         }
-        Player winner = game.decreeWinner();
+        Player winner = this.decreeWinner();
         System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
     }
 

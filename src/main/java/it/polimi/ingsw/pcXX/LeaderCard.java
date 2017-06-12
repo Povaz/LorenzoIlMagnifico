@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
 
@@ -11,13 +12,15 @@ public abstract class LeaderCard {
     private final boolean inHand;
     private final Set<Reward> activationRewardRequirement;
     private final Map<CardType, Integer> activationCardTypeRequirement;
-
+    private final Set<Reward> changedRewards;
 
     public LeaderCard (String name, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement) {
         this.name = name;
         this.inHand = true;
         this.activationRewardRequirement = activationRewardRequirement;
         this.activationCardTypeRequirement = activationCardTypeRequirement;
+        this.changedRewards = new HashSet<>();
+        this.changedRewards.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 1));
     }
 
     public String getName() {
@@ -34,6 +37,10 @@ public abstract class LeaderCard {
 
     public Map<CardType, Integer> getActivationCardTypeRequirement() {
         return activationCardTypeRequirement;
+    }
+
+    public Set<Reward> getChangedRewards() {
+        return changedRewards;
     }
 
     @Override

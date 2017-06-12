@@ -129,6 +129,24 @@ public class TerminalInput { //Metodi view: richieste ai Client
         }
     }
 
+    public static int askWhichCardChange(List<LeaderCard> leaderCardsInHand){
+        System.out.println("Scegli la carta da convertire: ");
+        for(int i = 0; i < leaderCardsInHand.size(); i++){
+            System.out.println(i + ".");
+            System.out.println(leaderCardsInHand.get(i).toString());
+        }
+        return askNumber(0, leaderCardsInHand.size() - 1);
+    }
+
+    public static int askWhichCardPlace(List<LeaderCard> leaderCardsInHand){
+        System.out.println("Scegli la carta da piazzare: ");
+        for(int i = 0; i < leaderCardsInHand.size(); i++){
+            System.out.println(i + ".");
+            System.out.println(leaderCardsInHand.get(i).toString());
+        }
+        return askNumber(0, leaderCardsInHand.size() - 1);
+    }
+
     public static Reward askNumberOfServant() {
         System.out.println("How many Servant do you want to use?");
         return new Reward(RewardType.SERVANT, askNumber(0, 7));
@@ -146,7 +164,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
     }
 
 
-    public static ActionInput chooseAction(int playerNumber) { // TODO Merge with doYouWantToSkip
+    public static ActionInput chooseAction(int playerNumber) {
         ActionInput actionInput = new ActionInput();
         boolean correct = false;
         while(!correct) {

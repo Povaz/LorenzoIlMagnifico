@@ -1,7 +1,7 @@
 package it.polimi.ingsw.pcXX;
 
 public enum CardType {
-	TERRITORY, BUILDING, CHARACTER, VENTURE;
+	TERRITORY, BUILDING, CHARACTER, VENTURE, ANY;
 
 	public boolean sameType(ActionType action){
 		switch(this){
@@ -26,7 +26,7 @@ public enum CardType {
 				}
 				return false;
 			default:
-					return false;
+				return false;
 		}
 	}
 }

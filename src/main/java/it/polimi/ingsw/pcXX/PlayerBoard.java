@@ -13,12 +13,14 @@ public class PlayerBoard {
     private Counter counter;
     private final List<FamilyMember> familyMembers;
     private final PersonalBonusTile personalBonusTile;
-    private final List<LeaderCard> leaderCards;
     private final TerritorySpot territorySpot;
     private final BuildingSpot buildingSpot;
     private final CharacterSpot characterSpot;
     private final VentureSpot ventureSpot;
     private final Modifier modifier;
+    private final List<LeaderCard> leaderCardsInHand;
+    private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
+    private final List<PermanentLeaderCard> permanentLeaderCardsPositionated;
 
     public PlayerBoard(Player player, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.player = player;
@@ -26,12 +28,14 @@ public class PlayerBoard {
         this.counter = new Counter();
         this.familyMembers = initializeFamilyMembers(player);
         this.personalBonusTile = personalBonusTile;
-        this.leaderCards = leaderCards;
         this.territorySpot = new TerritorySpot();
         this.buildingSpot = new BuildingSpot();
         this.characterSpot = new CharacterSpot();
         this.ventureSpot = new VentureSpot();
         this.modifier = new Modifier();
+        this.leaderCardsInHand = leaderCards;
+        this.immediateLeaderCardsPositionated = new ArrayList<>();
+        this.permanentLeaderCardsPositionated = new ArrayList<>();
     }
 
     private List<FamilyMember> initializeFamilyMembers(Player player){
@@ -148,6 +152,15 @@ public class PlayerBoard {
         return null;
     }
 
+    public void changeLeaderCardInReward() throws TooMuchTimeException{
+        if(leaderCardsInHand.size() > 0){
+            int index = TerminalInput.askWhichCardChange(leaderCardsInHand);
+            counter.sum(leaderCardsInHand.get(index).getChangedRewards());
+            counter.round();
+            leaderCardsInHand.remove(index);
+        }
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -168,8 +181,16 @@ public class PlayerBoard {
         return personalBonusTile;
     }
 
-    public List<LeaderCard> getLeaderCards() {
-        return leaderCards;
+    public List<LeaderCard> getLeaderCardsInHand() {
+        return leaderCardsInHand;
+    }
+
+    public List<ImmediateLeaderCard> getImmediateLeaderCardsPositionated() {
+        return immediateLeaderCardsPositionated;
+    }
+
+    public List<PermanentLeaderCard> getPermanentLeaderCardsPositionated() {
+        return permanentLeaderCardsPositionated;
     }
 
     public TerritorySpot getTerritorySpot() {
@@ -214,5 +235,4 @@ public class PlayerBoard {
         }
         return string;
     }
-    
 }
