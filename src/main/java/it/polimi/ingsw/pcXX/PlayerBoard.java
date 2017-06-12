@@ -64,6 +64,12 @@ public class PlayerBoard {
         }
     }
 
+    public void reinitializeLeaderCards(){
+        for(ImmediateLeaderCard iLC : immediateLeaderCardsPositionated){
+            iLC.setActivated(false);
+        }
+    }
+
     public void earnFinalVictoryPoint(){
         if(!modifier.isNotEarnVictoryPointFromTerritory()){
             counter.sum(territorySpot.estimateVictoryPoint());
@@ -158,6 +164,13 @@ public class PlayerBoard {
             counter.sum(leaderCardsInHand.get(index).getChangedRewards());
             counter.round();
             leaderCardsInHand.remove(index);
+        }
+    }
+
+    public void activeImmediateLeaderCard() throws TooMuchTimeException{
+        if(immediateLeaderCardsPositionated.size() > 0){
+            int index = TerminalInput.askWhichCardActivate(immediateLeaderCardsPositionated);
+
         }
     }
 

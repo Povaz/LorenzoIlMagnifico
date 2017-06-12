@@ -66,6 +66,16 @@ public class Reward{
         quantity -= other.quantity;
     }
 
+    public void subtractQuantityLimitedZero(Reward other){
+        if(type != other.type){
+            throw new IllegalArgumentException();
+        }
+        quantity -= other.quantity;
+        if(quantity < 0){
+            quantity = 0;
+        }
+    }
+
     public Reward multiplyQuantity(int multiplier){
         return new Reward(type, quantity * multiplier);
     }

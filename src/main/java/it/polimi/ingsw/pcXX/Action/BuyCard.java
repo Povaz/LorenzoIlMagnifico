@@ -3,7 +3,9 @@ package it.polimi.ingsw.pcXX.Action;
 import it.polimi.ingsw.pcXX.*;
 import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by trill on 10/06/2017.
@@ -123,11 +125,11 @@ public class BuyCard implements CommandPattern {
 
     // guadagna i reward della torre
     private void earnReward() throws TooMuchTimeException{
-        newCounter.sum(floor.getRewards());
+        newCounter.sumWithLose(floor.getRewards(), modifier.getLoseRewards());
     }
 
     // controlla se ha abbastanza risorse per pagare la carta
-    private boolean canPayCardCost(){
+    private boolean canPayCardCost() throws TooMuchTimeException{
         if(card instanceof VentureCard){
             VentureCard vCard = (VentureCard) card;
             if(vCard.getCosts() != null && vCard.getMilitaryPointNeeded() != null && vCard.getMilitaryPointPrice() != null){
@@ -153,8 +155,10 @@ public class BuyCard implements CommandPattern {
         return true;
     }
 
-    private boolean canPayNormalCost(){
-        newCounter.subtract(card.getCosts());
+    private boolean canPayNormalCost() throws TooMuchTimeException{
+        List<List<Reward>> discountsSelectables = modifier.getDiscounts().get(floor.getTower().getType());
+        List<Reward> discount = discountsSelectables.get(TerminalInput.askWhichDiscount(discountsSelectables));
+        newCounter.subtractWithDiscount(card.getCosts(), discount);
         if(!newCounter.check()){
             System.out.println("Non hai abbastanza risorse per pagare i costi della carta!");
             return false;
@@ -176,9 +180,15 @@ public class BuyCard implements CommandPattern {
 
     // guadagna i fastReward della carta
     private void earnCardFastReward() throws TooMuchTimeException{
-        newCounter.sum(card.getFastRewards());
         if(modifier.isDoubleFastRewardDevelopmentCard()){
-            newCounter.sum(card.getFastRewards());
+            Set<Reward> doubleReward = new HashSet<>();
+            for(Reward r : card.getFastRewards()){
+                doubleReward.add(r.multiplyQuantity(2));
+            }
+            newCounter.sumWithLose(doubleReward, modifier.getLoseRewards());
+        }
+        else{
+            newCounter.sumWithLose(card.getFastRewards(), modifier.getLoseRewards());
         }
     }
 
@@ -237,6 +247,9 @@ public class BuyCard implements CommandPattern {
     public void doAction() throws TooMuchTimeException{
         // aggiorna risorse giocatore
         player.getPlayerBoard().setCounter(newCounter);
+
+        // aggiorna modificatore giocatore
+        modifier.update(card);
 
         // posiziona il familiare nell'ActionSpot
         floor.placeFamilyMember(familyMember);

@@ -62,7 +62,7 @@ public class PlaceMarket implements CommandPattern{
 
     // guadagna i reward del CouncilPalace
     private void earnReward() throws TooMuchTimeException{
-        newCounter.sum(market.getRewards());
+        newCounter.sumWithLose(market.getRewards(), modifier.getLoseRewards());
     }
 
     public void doAction(){

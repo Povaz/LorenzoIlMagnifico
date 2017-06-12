@@ -83,19 +83,19 @@ public class Produce {
             BuildingCard bCard = (BuildingCard) card;
             if(actionValue >= bCard.getDiceProductionAction()){
                 if(bCard.getEarnings() != null){
-                    newCounter.sum(bCard.getEarnings());
+                    newCounter.sumWithLose(bCard.getEarnings(), modifier.getLoseRewards());
                 }
                 if(bCard.getRewardForCard() != null){
-                    newCounter.sum(convertRewardForReward(bCard.getRewardForReward()));
+                    newCounter.sumWithLose(convertRewardForReward(bCard.getRewardForReward()), modifier.getLoseRewards());
                 }
                 if(bCard.getRewardForReward() != null){
-                    newCounter.sum(covertRewardForCard(bCard.getRewardForCard()));
+                    newCounter.sumWithLose(covertRewardForCard(bCard.getRewardForCard()), modifier.getLoseRewards());
                 }
                 if(bCard.getTrades() != null){
                     Trade trade = TerminalInput.chooseTrade(bCard);
                     copyForCosts.subtract(trade.getGive());
                     newCounter.subtract(trade.getGive());
-                    newCounter.sum(trade.getTake());
+                    newCounter.sumWithLose(trade.getTake(), modifier.getLoseRewards());
                 }
             }
         }

@@ -39,7 +39,7 @@ public abstract class LeaderCard {
         return activationCardTypeRequirement;
     }
 
-    public Set<Reward> getChangedRewards() {
+    public Set<Reward> getChangedRewards(){
         return changedRewards;
     }
 

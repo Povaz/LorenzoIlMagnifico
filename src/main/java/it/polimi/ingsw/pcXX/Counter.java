@@ -2,6 +2,8 @@ package it.polimi.ingsw.pcXX;
 
 import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 /**
@@ -60,24 +62,6 @@ public class Counter{
             coin.setQuantity(9);
     }
 
-    public void sum(Set<Reward> rewards) throws TooMuchTimeException{
-        if(rewards == null){
-            return;
-        }
-        for(Reward r : rewards){
-            this.sum(r);
-        }
-    }
-
-    public void subtract(Set<Reward> rewards){
-        if(rewards == null){
-            return;
-        }
-        for(Reward r : rewards){
-            this.subtract(r);
-        }
-    }
-
     public void sum(Reward reward){
         if(reward == null){
             return;
@@ -92,11 +76,72 @@ public class Counter{
         giveSameReward(reward).subtractQuantity(reward);
     }
 
-    public boolean canSubtract(Reward reward){
-        if(reward == null){
-            return true;
+    public void sum(Set<Reward> rewards) throws TooMuchTimeException{
+        if(rewards == null){
+            return;
         }
-        return giveSameReward(reward).getQuantity() - reward.getQuantity() >= 0;
+        for(Reward r : rewards){
+            this.sum(r);
+        }
+    }
+
+    public void sumWithLose(Set<Reward> rewards, List<Reward> losed) throws TooMuchTimeException{
+        if(rewards == null){
+            return;
+        }
+        if(losed == null){
+            sum(rewards);
+            return;
+        }
+
+        // crea il nuovo set con le risorse con le perdite
+        Set<Reward> copyOfReward = removeRewardFromSet(rewards, losed);
+
+        // somma i guadagni
+        for(Reward r : copyOfReward){
+            this.sum(r);
+        }
+    }
+
+    public void subtractWithDiscount(Set<Reward> rewards, List<Reward> discount) throws TooMuchTimeException{
+        if(rewards == null){
+            return;
+        }
+        if(discount == null){
+            sum(rewards);
+            return;
+        }
+
+        // crea il nuovo set con le risorse con lo sconto
+        Set<Reward> copyOfReward = removeRewardFromSet(rewards, discount);
+
+        // somma i guadagni
+        for(Reward r : copyOfReward){
+            this.subtract(r);
+        }
+    }
+
+    private Set<Reward> removeRewardFromSet(Set<Reward> rewards, List<Reward> toDelete){
+        Set<Reward> copyOfReward = new HashSet<>();
+        for(Reward r : rewards){
+            Reward toBeAdded = new Reward(r);
+            for(Reward toRemove : toDelete){
+                if(toRemove.getType() == r.getType()) {
+                    r.subtractQuantityLimitedZero(toRemove);
+                }
+            }
+            copyOfReward.add(new Reward(toBeAdded));
+        }
+        return copyOfReward;
+    }
+
+    public void subtract(Set<Reward> rewards){
+        if(rewards == null){
+            return;
+        }
+        for(Reward r : rewards){
+            this.subtract(r);
+        }
     }
 
     public void sum(Counter other){

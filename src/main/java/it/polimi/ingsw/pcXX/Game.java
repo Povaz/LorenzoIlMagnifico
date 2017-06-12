@@ -117,6 +117,7 @@ public class Game implements Runnable{
     private void startTurn(){
         throwDices();
         reinitializeFamilyMembers();
+        reinitializeLeaderCards();
         placeDevelopmentCard();
     }
 
@@ -359,6 +360,12 @@ public class Game implements Runnable{
     private void reinitializeFamilyMembers(){
         for(Player p : players){
             p.getPlayerBoard().reinitializeFamilyMembers(board.getDices());
+        }
+    }
+
+    private void reinitializeLeaderCards(){
+        for(Player p : players){
+            p.getPlayerBoard().reinitializeLeaderCards();
         }
     }
 

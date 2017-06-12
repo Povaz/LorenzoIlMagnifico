@@ -58,7 +58,7 @@ public class PlaceCouncilPalace implements CommandPattern{
 
     // guadagna i reward del CouncilPalace
     private void earnReward() throws TooMuchTimeException{
-        newCounter.sum(councilPalace.getRewards());
+        newCounter.sumWithLose(councilPalace.getRewards(), modifier.getLoseRewards());
     }
 
     public void doAction(){

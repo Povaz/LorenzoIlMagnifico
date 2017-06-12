@@ -8,7 +8,7 @@ import java.util.*;
 public class Modifier{
 
     // Scomuniche
-    private final List<Reward> loseRewards = new ArrayList<>(); // TODO
+    private final List<Reward> loseRewards = new ArrayList<>();
 
     private boolean cannotPlaceInMarket = false;
     private boolean servantValueHalved = false;
@@ -42,7 +42,7 @@ public class Modifier{
 
 
 	// Leader card permanenti + Carte sviluppo
-	private final Map<CardType, List<List<Reward>>> discounts = new HashMap<>(); // TODO
+	private final Map<CardType, List<List<Reward>>> discounts = new HashMap<>();
 
 	// Scomuniche + Leader card permanenti
 	private int coloredFamilyMemberModifier = 0;

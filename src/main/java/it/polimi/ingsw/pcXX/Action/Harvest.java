@@ -78,7 +78,7 @@ public class Harvest implements CommandPattern{
             TerritoryCard tCard = (TerritoryCard) card;
             if(actionValue >= tCard.getDiceHarvestAction()){
                 if(tCard.getEarnings() != null){
-                    newCounter.sum(tCard.getEarnings());
+                    newCounter.sumWithLose(tCard.getEarnings(), modifier.getLoseRewards());
                 }
             }
         }
