@@ -24,6 +24,14 @@ public class Client {
         this.userSoc = userSoc;
     }
 
+    public UserLoginImpl getUserLoginRMI() {
+        return userLoginRMI;
+    }
+
+    public ClientSOC getUserSoc() {
+        return userSoc;
+    }
+
     public void startClientRMI() {
         Thread userLoginRMI = new Thread (this.userLoginRMI);
         userLoginRMI.start();

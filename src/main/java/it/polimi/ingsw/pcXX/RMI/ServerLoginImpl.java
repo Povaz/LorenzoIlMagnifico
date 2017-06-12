@@ -3,6 +3,7 @@ package it.polimi.ingsw.pcXX.RMI;
 import it.polimi.ingsw.pcXX.JSONUtility;
 import it.polimi.ingsw.pcXX.Socket.ServerSOC;
 import it.polimi.ingsw.pcXX.SocketRMICongiunction.ConnectionType;
+import it.polimi.ingsw.pcXX.SocketRMICongiunction.NotificationType;
 import it.polimi.ingsw.pcXX.SocketRMICongiunction.Server;
 import org.json.JSONException;
 
@@ -21,20 +22,16 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
     public static ArrayList<UserLogin> usersLoggedRMI;
 
     public ServerLoginImpl () throws RemoteException {
-        this.usersLoggedRMI = new ArrayList<>();
+        usersLoggedRMI = new ArrayList<>();
     }
 
     private boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
         Set<String> usernames = Server.usersInLobby.keySet();
-        System.out.println("UsersInLobby: " + usernames.toString());
         for (String username : usernames) {
-            System.out.println("Username searched: " + username);
-            System.out.println("Username in login: " + userLogin.getUsername());
             if ((userLogin.getUsername().equals(username))) {
                 return true;
             }
         }
-        System.out.println("Fucked up");
         return false;
     }
 
@@ -45,16 +42,15 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
                 Server.usersInLobby.put(userLogin.getUsername(), ConnectionType.RMI);
                 usersLoggedRMI.add(userLogin);
                 userLogin.sendMessage("Login Successful");
-                ServerSOC.notifyPlayers (userLogin.getUsername() + " joined the lobby!! Now in the lobby there are " + Server.usersInLobby.size() + " players");
-                
+                Server.notifyAllPlayers(NotificationType.USERLOGIN);
                 if (Server.usersInLobby.size() == 2) {
-                	System.out.println("Timer Started");
+                	userLogin.sendMessage("Timer Started");
                     Server.timer = new Timer();
                     Server.timer.schedule(new TimerTask() {
                         @Override
                         public void run() {
                             System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
-                            ServerSOC.notifyPlayers ("Game Started!!");
+                            Server.notifyAllPlayers(NotificationType.STARTGAME);
                         }
                     }, 10000);
                 }

@@ -29,6 +29,24 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin, Run
         this.choose = 1;
     }
 
+    @Override
+    public boolean equals (Object obj) {
+        if (this == obj) return true;
+        if (obj == null ||  getClass() != obj.getClass()) return false;
+
+        UserLoginImpl that = (UserLoginImpl) obj;
+
+        if (username != that.username) return false;
+        return keyword == that.keyword;
+    }
+
+    @Override
+    public String toString () {
+       String userLoginString = "";
+       userLoginString += "Username: " + this.username + "\n";
+       userLoginString += "Password: " + this.keyword + "\n";
+       return userLoginString;
+    }
 
     @Override
     public String getUsername() throws RemoteException {
