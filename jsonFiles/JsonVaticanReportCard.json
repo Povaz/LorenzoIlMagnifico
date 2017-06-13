@@ -3,52 +3,96 @@
 		{
 			"period": [
 				{
-					"attribute": "militaryPointsModifier",
-					"value": 1
+					"loseRewards": [
+						{
+							"type": "MILITARY_POINT",
+							"quantity": 1
+						}
+					]
 				},
 				{
-					"attribute": "coinModifier",
-					"value": 1
+					"loseRewards": [
+						{
+							"type": "COIN",
+							"quantity": 1
+						}
+					]
 				},
 				{
-					"attribute": "servantModifier",
-					"value": 1
+					"loseRewards": [
+						{
+							"type": "SERVANT",
+							"quantity": 1
+						}
+					]
 				},
 				{
-					"attribute": "resourceModifier",
-					"value": 1
+					"loseRewards": [
+						{
+							"type": "WOOD",
+							"quantity": 1
+						},
+						{
+							"type": "STONE",
+							"quantity": 1
+						}
+					]
 				},
 				{
-					"attribute": "harvestModifier",
-					"value": 1
+					"actionModifiers": [
+						{
+							"type": "HARVEST",
+							"modifier": -1
+						}
+					]
 				},
 				{
-					"attribute": "productionModifier",
-					"value": 1
+					"actionModifiers": [
+						{
+							"type": "PRODUCE",
+							"modifier": -1
+						}
+					]
 				},
 				{
 					"attribute": "coloredFamilyMemberModifier",
-					"value": 1
+					"value": -1
 				}
 			]
 		},
 		{
 			"period": [
 				{
-					"attribute": "territoryTowerModifier",
-					"value": 4
+					"actionModifiers": [
+						{
+							"type": "TERRITORY_TOWER",
+							"modifier": -4
+						}
+					]
 				},
 				{
-					"attribute": "buildingTowerModifier",
-					"value": 4
+					"actionModifiers": [
+						{
+							"type": "BUILDING_TOWER",
+							"modifier": -4
+						}
+					]
 				},
 				{
-					"attribute": "characterTowerModifier",
-					"value": 4
+					"actionModifiers": [
+						{
+							"type": "CHARACTER_TOWER",
+							"modifier": -4
+						}
+					]
 				},
 				{
-					"attribute": "ventureTowerModifier",
-					"value": 4
+					"actionModifiers": [
+						{
+							"type": "VENTURE_TOWER",
+							"modifier": -4
+						}
+					]
 				},
 				{
 					"attribute": "cannotPlaceInMarket",
