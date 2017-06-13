@@ -1,23 +1,21 @@
 package it.polimi.ingsw.pcXX;
 
-public class VaticanReportCard {
-	private int number;
-	private int period;
+import java.util.List;
+import java.util.Map;
+
+public class VaticanReportCard{
+	private final int number;
+	private final int period;
+
 	private int coloredFamilyMemberModifier = 0;
-	private int militaryPointsModifier = 0;
-	private int coinModifier = 0;
-	private int servantModifier = 0;
-	private int woodModifier = 0;
-	private int stoneModifier = 0;
-	private int harvestModifier = 0;
-	private int productionModifier = 0;
-	private int territoryTowerModifier = 0;
-	private int buildingTowerModifier = 0;
-	private int characterTowerModifier = 0;
-	private int ventureTowerModifier = 0;
+
+	private List<Reward> loseRewards;
+	private Map<ActionType, Integer> actionModifiers;
+
 	private boolean cannotPlaceInMarket = false;
 	private boolean servantValueHalved = false;
 	private boolean jumpFirstRound = false;
+
 	private boolean notEarnVictoryPointFromTerritory = false;
 	private boolean notEarnVictoryPointFromCharacter = false;
 	private boolean notEarnVictoryPointFromVenture = false;
@@ -25,15 +23,18 @@ public class VaticanReportCard {
 	private boolean loseVictoryPointFromMilitaryPoint = false;
 	private boolean loseVictoryPointFromBuildingCost = false;
 	private boolean loseVictoryPointFromResource = false;
-	
-	public VaticanReportCard (int number, int period, String attribute, int value){
+
+	public VaticanReportCard (int number, int period, List<Reward> loseRewards, Map<ActionType, Integer> actionModifiers,
+							  String attribute, int value){
 		this.number = number;
 		this.period = period;
+		this.loseRewards = loseRewards;
+		this.actionModifiers = actionModifiers;
 		switch(attribute){
 			case "coloredFamilyMemberModifier":
 				coloredFamilyMemberModifier = value;
 				break;
-			case "militaryPointsModifier":
+			/*case "militaryPointsModifier":
 				militaryPointsModifier = value;
 				break;
 			case "coinModifier":
@@ -63,7 +64,7 @@ public class VaticanReportCard {
 				break;
 			case "ventureTowerModifier":
 				ventureTowerModifier = value;
-				break;
+				break;*/
 			case "cannotPlaceInMarket":
 				cannotPlaceInMarket = true;
 				break;
@@ -95,7 +96,6 @@ public class VaticanReportCard {
 				loseVictoryPointFromResource = true;
 				break;
 		}
-		
 	}
 	
 	public String toString(){
@@ -103,17 +103,6 @@ public class VaticanReportCard {
 		cardString+="\nperiod: "+ period + "\n";
 		cardString+="number: "+ number + "\n";
 		cardString+="coloredFamilyMemberModifier: "+ coloredFamilyMemberModifier +"\n";
-		cardString+="militaryPointsModifier: "+ militaryPointsModifier + "\n";
-		cardString+="coinModifier: "+ coinModifier + "\n";
-		cardString+="servantModifier: "+ servantModifier + "\n";
-		cardString+="woodModifier: "+ woodModifier + "\n";
-		cardString+="stoneModifier: "+ stoneModifier + "\n";
-		cardString+="harvestModifier: "+ harvestModifier + "\n";
-		cardString+="productionModifier: "+ productionModifier + "\n";
-		cardString+="territoryTowerModifier: "+ territoryTowerModifier + "\n";
-		cardString+="buildingTowerModifier: "+ buildingTowerModifier + "\n";
-		cardString+="characterTowerModifier: "+ characterTowerModifier + "\n";
-		cardString+="ventureTowerModifier: "+ ventureTowerModifier + "\n";
 		cardString+="cannotPlaceInMarket: "+ cannotPlaceInMarket + "\n";
 		cardString+="servantValueHalved: "+ servantValueHalved + "\n";
 		cardString+="jumpFirstRound: "+ jumpFirstRound + "\n";
@@ -124,89 +113,125 @@ public class VaticanReportCard {
 		cardString+="loseVictoryPointFromMilitaryPoint: "+ loseVictoryPointFromMilitaryPoint + "\n";
 		cardString+="loseVictoryPointFromBuildingCost: "+ loseVictoryPointFromBuildingCost + "\n";
 		cardString+="loseVictoryPointFromResource: "+ loseVictoryPointFromResource + "\n";
+
+		if(loseRewards != null){
+			cardString += "loseRewards:  ";
+			for(Reward r : loseRewards){
+				cardString += r.toString() + ";  ";
+			}
+		}
+
+		if(actionModifiers != null){
+			cardString += "actionModifiers:\n";
+			for(ActionType aT : actionModifiers.keySet()){
+				cardString += aT + "  " + actionModifiers.get(aT) + "\n";
+			}
+		}
+
 		return cardString;
 	}
-	
-	public boolean equals(Object one){
-		if (this == one) return true;
-		if (one == null || getClass() != one.getClass()) return false;
-		if (!super.equals(one)) return false;
 
-		VaticanReportCard that = (VaticanReportCard) one;
-		if(period!=that.period){
-			return false;
-		}
-		if(number!=that.number){
-			return false;
-		}
-		if(coloredFamilyMemberModifier!=that.coloredFamilyMemberModifier){
-			return false;
-		}
-		if(militaryPointsModifier!=that.militaryPointsModifier){
-			return false;
-		}
-		if(coinModifier!=that.coinModifier){
-			return false;
-		}
-		if(servantModifier!=that.servantModifier){
-			return false;
-		}
-		if(woodModifier!=that.woodModifier){
-			return false;
-		}
-		if(stoneModifier!=that.stoneModifier){
-			return false;
-		}
-		if(harvestModifier!=that.harvestModifier){
-			return false;
-		}
-		if(productionModifier!=that.productionModifier){
-			return false;
-		}
-		if(territoryTowerModifier!=that.territoryTowerModifier){
-			return false;
-		}
-		if(buildingTowerModifier!=that.buildingTowerModifier){
-			return false;
-		}
-		if(characterTowerModifier!=that.characterTowerModifier){
-			return false;
-		}
-		if(ventureTowerModifier!=that.ventureTowerModifier){
-			return false;
-		}
-		if(cannotPlaceInMarket!=that.cannotPlaceInMarket){
-			return false;
-		}
-		if(servantValueHalved!=that.servantValueHalved){
-			return false;
-		}
-		if(jumpFirstRound!=that.jumpFirstRound){
-			return false;
-		}
-		if(notEarnVictoryPointFromTerritory!=that.notEarnVictoryPointFromTerritory){
-			return false;
-		}
-		if(notEarnVictoryPointFromCharacter!=that.notEarnVictoryPointFromCharacter){
-			return false;
-		}
-		if(notEarnVictoryPointFromVenture!=that.notEarnVictoryPointFromVenture){
-			return false;
-		}
-		if(loseVictoryPointFromVictoryPoint!=that.loseVictoryPointFromVictoryPoint){
-			return false;
-		}
-		if(loseVictoryPointFromMilitaryPoint!=that.loseVictoryPointFromMilitaryPoint){
-			return false;
-		}
-		if(loseVictoryPointFromBuildingCost!=that.loseVictoryPointFromBuildingCost){
-			return false;
-		}
-		if(loseVictoryPointFromResource!=that.loseVictoryPointFromResource){
-			return false;
-		}
-		return true;
+	@Override
+	public boolean equals(Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		VaticanReportCard that = (VaticanReportCard) o;
+
+		if (number != that.number) return false;
+		if (period != that.period) return false;
+		if (coloredFamilyMemberModifier != that.coloredFamilyMemberModifier) return false;
+		if (cannotPlaceInMarket != that.cannotPlaceInMarket) return false;
+		if (servantValueHalved != that.servantValueHalved) return false;
+		if (jumpFirstRound != that.jumpFirstRound) return false;
+		if (notEarnVictoryPointFromTerritory != that.notEarnVictoryPointFromTerritory) return false;
+		if (notEarnVictoryPointFromCharacter != that.notEarnVictoryPointFromCharacter) return false;
+		if (notEarnVictoryPointFromVenture != that.notEarnVictoryPointFromVenture) return false;
+		if (loseVictoryPointFromVictoryPoint != that.loseVictoryPointFromVictoryPoint) return false;
+		if (loseVictoryPointFromMilitaryPoint != that.loseVictoryPointFromMilitaryPoint) return false;
+		if (loseVictoryPointFromBuildingCost != that.loseVictoryPointFromBuildingCost) return false;
+		if (loseVictoryPointFromResource != that.loseVictoryPointFromResource) return false;
+		if (!loseRewards.equals(that.loseRewards)) return false;
+		return actionModifiers.equals(that.actionModifiers);
 	}
-	
-	
+
+	@Override
+	public int hashCode() {
+		int result = number;
+		result = 31 * result + period;
+		result = 31 * result + coloredFamilyMemberModifier;
+		result = 31 * result + loseRewards.hashCode();
+		result = 31 * result + actionModifiers.hashCode();
+		result = 31 * result + (cannotPlaceInMarket ? 1 : 0);
+		result = 31 * result + (servantValueHalved ? 1 : 0);
+		result = 31 * result + (jumpFirstRound ? 1 : 0);
+		result = 31 * result + (notEarnVictoryPointFromTerritory ? 1 : 0);
+		result = 31 * result + (notEarnVictoryPointFromCharacter ? 1 : 0);
+		result = 31 * result + (notEarnVictoryPointFromVenture ? 1 : 0);
+		result = 31 * result + (loseVictoryPointFromVictoryPoint ? 1 : 0);
+		result = 31 * result + (loseVictoryPointFromMilitaryPoint ? 1 : 0);
+		result = 31 * result + (loseVictoryPointFromBuildingCost ? 1 : 0);
+		result = 31 * result + (loseVictoryPointFromResource ? 1 : 0);
+		return result;
+	}
+
+	public int getNumber() {
+		return number;
+	}
+
+	public int getPeriod() {
+		return period;
+	}
+
+	public int getColoredFamilyMemberModifier() {
+		return coloredFamilyMemberModifier;
+	}
+
+	public List<Reward> getLoseRewards() {
+		return loseRewards;
+	}
+
+	public Map<ActionType, Integer> getActionModifiers() {
+		return actionModifiers;
+	}
+
+	public boolean isCannotPlaceInMarket() {
+		return cannotPlaceInMarket;
+	}
+
+	public boolean isServantValueHalved() {
+		return servantValueHalved;
+	}
+
+	public boolean isJumpFirstRound() {
+		return jumpFirstRound;
+	}
+
+	public boolean isNotEarnVictoryPointFromTerritory() {
+		return notEarnVictoryPointFromTerritory;
+	}
+
+	public boolean isNotEarnVictoryPointFromCharacter() {
+		return notEarnVictoryPointFromCharacter;
+	}
+
+	public boolean isNotEarnVictoryPointFromVenture() {
+		return notEarnVictoryPointFromVenture;
+	}
+
+	public boolean isLoseVictoryPointFromVictoryPoint() {
+		return loseVictoryPointFromVictoryPoint;
+	}
+
+	public boolean isLoseVictoryPointFromMilitaryPoint() {
+		return loseVictoryPointFromMilitaryPoint;
+	}
+
+	public boolean isLoseVictoryPointFromBuildingCost() {
+		return loseVictoryPointFromBuildingCost;
+	}
+
+	public boolean isLoseVictoryPointFromResource() {
+		return loseVictoryPointFromResource;
+	}
 }

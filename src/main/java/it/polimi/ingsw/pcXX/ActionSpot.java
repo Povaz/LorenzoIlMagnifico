@@ -1,7 +1,5 @@
 package it.polimi.ingsw.pcXX;
 
-import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
-
 import java.util.LinkedList;
 import java.util.List;
 
@@ -49,11 +47,11 @@ public abstract class ActionSpot {
 		this.occupiedBy = new LinkedList<>();
 	}
 
-	public boolean isPlaceable(FamilyMember familyMember){
+	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot){
 		if(familyMember.isUsed()){
 			return false;
 		}
-		if(busy){
+		if(busy && !canPlaceInBusyActionSpot){
 			return false;
 		}
 		if(diceValue > familyMember.getValue() + familyMember.getServantUsed().getQuantity()){

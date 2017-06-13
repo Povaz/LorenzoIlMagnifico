@@ -17,6 +17,7 @@ public class Produce {
     private final FamilyMember familyMember;
     private final Counter newCounter;
     private final Counter copyForCosts;
+    private final Modifier modifier;
     private final int actionValue;
 
     public Produce(Game game, ActionSpot actionSpot, FamilyMember familyMember){
@@ -27,11 +28,19 @@ public class Produce {
         this.familyMember = familyMember;
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
         this.copyForCosts = new Counter(player.getPlayerBoard().getCounter());
+        this.modifier = player.getPlayerBoard().getModifier();
         this.actionValue = familyMember.getValue() + familyMember.getServantUsed().getQuantity();
+        updateFamilyMemberRealValue();
+    }
+
+    private void updateFamilyMemberRealValue(){
+        int realValue = familyMember.getRealValue();
+        realValue += modifier.getActionModifiers().get(ActionType.PRODUCE);
+        familyMember.setRealValue(realValue);
     }
 
     public boolean canDoAction() throws TooMuchTimeException{
-        if(!productionArea.isPlaceable(familyMember)){
+        if(!productionArea.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot())){
             return false;
         }
 
@@ -74,19 +83,19 @@ public class Produce {
             BuildingCard bCard = (BuildingCard) card;
             if(actionValue >= bCard.getDiceProductionAction()){
                 if(bCard.getEarnings() != null){
-                    newCounter.sum(bCard.getEarnings());
+                    newCounter.sumWithLose(bCard.getEarnings(), modifier.getLoseRewards());
                 }
                 if(bCard.getRewardForCard() != null){
-                    newCounter.sum(convertRewardForReward(bCard.getRewardForReward()));
+                    newCounter.sumWithLose(convertRewardForReward(bCard.getRewardForReward()), modifier.getLoseRewards());
                 }
                 if(bCard.getRewardForReward() != null){
-                    newCounter.sum(covertRewardForCard(bCard.getRewardForCard()));
+                    newCounter.sumWithLose(covertRewardForCard(bCard.getRewardForCard()), modifier.getLoseRewards());
                 }
                 if(bCard.getTrades() != null){
                     Trade trade = TerminalInput.chooseTrade(bCard);
                     copyForCosts.subtract(trade.getGive());
                     newCounter.subtract(trade.getGive());
-                    newCounter.sum(trade.getTake());
+                    newCounter.sumWithLose(trade.getTake(), modifier.getLoseRewards());
                 }
             }
         }

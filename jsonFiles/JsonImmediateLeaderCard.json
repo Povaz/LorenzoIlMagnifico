@@ -1,5 +1,5 @@
 {
-	"ImmediateLeaderCard" : [
+	"cards" : [
 		{
 			"name": "Francesco Sforza",
 			"activationCardCost": [
@@ -17,13 +17,13 @@
 		},
 		{
 			"name": "Girolamo Savonarola",
-			"activationResourceCost": [
+			"activationRewardCost": [
 				{
 					"type": "COIN",
 					"quantity": 18
 				}
 			],
-			"reward": [
+			"earnings": [
 				{
 					"type": "FAITH_POINT",
 					"quantity": 1
@@ -32,13 +32,13 @@
 		},
 		{
 			"name": "Michelangelo Buonarroti",
-			"activationResourceCost": [
+			"activationRewardCost": [
 				{
 					"type": "STONE",
 					"quantity": 10
 				}
 			],
-			"reward": [
+			"earnings": [
 				{
 					"type": "COIN",
 					"quantity": 3
@@ -47,13 +47,13 @@
 		},
 		{
 			"name": "Giovanni dalle Bande Nere",
-			"activationResourceCost": [
+			"activationRewardCost": [
 				{
 					"type": "MILITARY_POINT",
 					"quantity": 12
 				}
 			],
-			"reward": [
+			"earnings": [
 				{
 					"type": "WOOD",
 					"quantity": 1
@@ -82,20 +82,20 @@
 			],
 			"actions": [
 				{
-					"actionType": "PRODUCTION",
+					"actionType": "PRODUCE",
 					"value" : 0
 				}
 			]
 		},
 		{
 			"name": "Sandro Botticelli",
-			"activationResourceCost": [
+			"activationRewardCost": [
 				{
 					"type": "WOOD",
 					"quantity": 10
 				}
 			],
-			"reward": [
+			"earnings": [
 				{
 					"type": "MILITARY_POINT",
 					"quantity": 2
@@ -114,8 +114,8 @@
 					"quantity": 5
 				}
 			],
-			"changeColoredFamilyMemberValue": true,
-			"newValueColoredFamilyMember": 6
+			"permanentColoredFamilyMember": true,
+			"permanentColoredFamilyMemberValue": 6
 		},
 		{
 			"name": "Cosimo de' Medici",
@@ -129,7 +129,7 @@
 					"quantity": 2
 				}
 			],
-			"reward": [
+			"earnings": [
 				{
 					"type": "SERVANT",
 					"quantity": 3
@@ -152,7 +152,7 @@
 					"quantity": 2
 				}
 			],
-			"reward": [
+			"earnings": [
 				{
 					"type": "VICTORY_POINT",
 					"quantity": 4
@@ -161,13 +161,13 @@
 		},
 		{
 			"name": "Ludovico III Gonzaga",
-			"activationResourceCost": [
+			"activationRewardCost": [
 				{
 					"type": "SERVANT",
 					"quantity": 15
 				}
 			],
-			"reward": [
+			"earnings": [
 				{
 					"type": "COUNCIL_PRIVILEGE",
 					"quantity": 1

@@ -13,6 +13,7 @@ public class Harvest implements CommandPattern{
     private final HarvestArea harvestArea;
     private final FamilyMember familyMember;
     private final Counter newCounter;
+    private final Modifier modifier;
     private final int actionValue;
 
     public Harvest(Game game, ActionSpot actionSpot, FamilyMember familyMember){
@@ -22,11 +23,19 @@ public class Harvest implements CommandPattern{
         this.harvestArea = (HarvestArea) actionSpot;
         this.familyMember = familyMember;
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
+        this.modifier = player.getPlayerBoard().getModifier();
         this.actionValue = familyMember.getValue() + familyMember.getServantUsed().getQuantity();
+        updateFamilyMemberRealValue();
+    }
+
+    private void updateFamilyMemberRealValue(){
+        int realValue = familyMember.getRealValue();
+        realValue += modifier.getActionModifiers().get(ActionType.HARVEST);
+        familyMember.setRealValue(realValue);
     }
 
     public boolean canDoAction() throws TooMuchTimeException{
-        if(!harvestArea.isPlaceable(familyMember)){
+        if(!harvestArea.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot())){
             return false;
         }
 
@@ -69,7 +78,7 @@ public class Harvest implements CommandPattern{
             TerritoryCard tCard = (TerritoryCard) card;
             if(actionValue >= tCard.getDiceHarvestAction()){
                 if(tCard.getEarnings() != null){
-                    newCounter.sum(tCard.getEarnings());
+                    newCounter.sumWithLose(tCard.getEarnings(), modifier.getLoseRewards());
                 }
             }
         }

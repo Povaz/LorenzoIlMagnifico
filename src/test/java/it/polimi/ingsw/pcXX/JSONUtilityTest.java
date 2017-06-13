@@ -204,8 +204,8 @@ public class JSONUtilityTest extends TestCase{
         Set<Reward> fastRewards = new HashSet<>();
         fastRewards.add(new Reward(RewardType.MILITARY_POINT, 3));
 
-        List<ActionModifier> actionModifiers = new LinkedList<>();
-        actionModifiers.add(new ActionModifier(ActionType.TERRITORY_TOWER, 2));
+        Map<ActionType, Integer> actionModifiers = new HashMap<>();
+        actionModifiers.put(ActionType.TERRITORY_TOWER, 2);
 
         CharacterCard expected = new CharacterCard("Warlord", 1, costs, fastRewards, null,
                 false, null, actionModifiers, null, null);
@@ -225,16 +225,20 @@ public class JSONUtilityTest extends TestCase{
         Set<Reward> costs = new HashSet<>();
         costs.add(new Reward(RewardType.COIN, 4));
 
-        List<ActionModifier> actionModifiers = new LinkedList<>();
-        actionModifiers.add(new ActionModifier(ActionType.BUILDING_TOWER, 2));
+        Map<ActionType, Integer> actionModifiers = new HashMap<>();
+        actionModifiers.put(ActionType.BUILDING_TOWER, 2);
 
-        Set<Reward> discounts1 = new HashSet<>();
+        List<Reward> discounts1 = new ArrayList<>();
         discounts1.add(new Reward(RewardType.WOOD, 1));
-        Set<Reward> discounts2 = new HashSet<>();
+        List<Reward> discounts2 = new ArrayList<>();
         discounts2.add(new Reward(RewardType.STONE, 1));
-        List<CostDiscount> costDiscounts = new LinkedList<>();
-        costDiscounts.add(new CostDiscount(CardType.BUILDING, discounts1));
-        costDiscounts.add(new CostDiscount(CardType.BUILDING, discounts2));
+        Map<CardType, List<List<Reward>>> costDiscounts = new HashMap<>();
+        costDiscounts.put(CardType.TERRITORY, new ArrayList<>());
+        costDiscounts.put(CardType.BUILDING, new ArrayList<>());
+        costDiscounts.put(CardType.CHARACTER, new ArrayList<>());
+        costDiscounts.put(CardType.VENTURE, new ArrayList<>());
+        costDiscounts.get(CardType.BUILDING).add(discounts1);
+        costDiscounts.get(CardType.BUILDING).add(discounts2);
 
         CharacterCard expected = new CharacterCard("Stonemason", 1, costs, null, null,
                 false, costDiscounts, actionModifiers, null, null);
@@ -245,7 +249,7 @@ public class JSONUtilityTest extends TestCase{
         } catch(Exception e){
             calculated = null;
         }
-
+        System.out.println(expected);
         assertEquals(expected, calculated);
     }
 

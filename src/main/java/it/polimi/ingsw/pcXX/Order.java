@@ -47,6 +47,14 @@ public class Order{
 				real.add((familyMember * shown.size()) + player, shown.get(player));
 			}
 		}
+		// se hanno la scomunica saltano il primo round
+		for(int i = 0; i < shown.size(); i++){
+			if(real.get(i).getPlayerBoard().getModifier().isJumpFirstRound()){
+				real.add(real.get(i));
+				real.remove(i);
+				i--;
+			}
+		}
 		this.real = real;
 	}
 

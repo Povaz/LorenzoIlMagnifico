@@ -12,7 +12,7 @@ import java.util.List;
 /**
  * Created by trill on 30/05/2017.
  */
-public class Game{
+public class Game implements Runnable{
     public static final int PERIOD_NUMBER = 3;
     public static final int TURNS_FOR_PERIOD = 2;
     public static final int CARD_FOR_TOWER = 4;
@@ -27,24 +27,28 @@ public class Game{
     private int[] characterCard;
     private int[] ventureCard;
 
-    public static void main(String[] args) {
-        Game game = new Game(Arrays.asList("Affetti", "Cugola"));
-        while(game.period <= game.PERIOD_NUMBER){
-            game.startPeriod();
-            while(game.turn <= game.TURNS_FOR_PERIOD){
-                game.startTurn();
-                game.playTurn();
-                game.endTurn();
+    public static void main(String[] args){
+        Thread game = new Thread(new Game(Arrays.asList("Affetti", "Cugola")));
+        game.start();
+    }
+
+    public void run(){
+        while(this.period <= this.PERIOD_NUMBER){
+            this.startPeriod();
+            while(this.turn <= this.TURNS_FOR_PERIOD){
+                this.startTurn();
+                this.playTurn();
+                this.endTurn();
             }
-            game.endPeriod();
+            this.endPeriod();
         }
-        Player winner = game.decreeWinner();
+        Player winner = this.decreeWinner();
         System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
     }
 
     public Game(List<String> usernames){
         this.turn = 1;
-        this.period = 2;
+        this.period = 1;
         this.usernames = usernames;
         this.playerNumber = usernames.size();
         this.players = initializePlayers();
@@ -99,14 +103,21 @@ public class Game{
     }
 
     private void endPeriod(){
-        //TODO gestisci scomuniche
+        churchSupport();
         period++;
         turn = 1;
+    }
+
+    private void churchSupport(){
+        for(Player p : board.getOrder().getShown()){
+            board.getVaticanReportSpot().get(period - 1).support(p);
+        }
     }
 
     private void startTurn(){
         throwDices();
         reinitializeFamilyMembers();
+        reinitializeLeaderCards();
         placeDevelopmentCard();
     }
 
@@ -140,6 +151,7 @@ public class Game{
         if(actionSpot == null || familyMember == null){
             return true;
         }
+        calculateRealValueFamilyMember(familyMember);
         if(actionSpot instanceof Market){
             PlaceMarket placeMarket = new PlaceMarket(this, actionSpot, familyMember);
             if(placeMarket.canDoAction()){
@@ -183,6 +195,26 @@ public class Game{
         return false;
     }
 
+    private void calculateRealValueFamilyMember(FamilyMember familyMember){
+        Modifier modifier = familyMember.getPlayer().getPlayerBoard().getModifier();
+        int value = familyMember.getValue();
+        int servantUsed = familyMember.getServantUsed().getQuantity();
+        if(modifier.isServantValueHalved()){
+            servantUsed = servantUsed / 2;
+        }
+        int diceModifier = 0;
+        if(!familyMember.isGhost()){
+            if(familyMember.getColor() == FamilyColor.NEUTRAL){
+                diceModifier = modifier.getNeutralFamilyMemberModifier();
+            }
+            else{
+                diceModifier = modifier.getColoredFamilyMemberModifier();
+            }
+        }
+        int realValue = value + servantUsed + diceModifier;
+        familyMember.setRealValue(realValue);
+    }
+
     private void endTurn(){
         calculateNewOrder();
         reinitializeBoard();
@@ -191,10 +223,10 @@ public class Game{
 
     private Player decreeWinner(){
         List<Player> order = board.getOrder().getShown();
+        earnVictoryPointFromMilitaryPoint(order);
         for(Player p : order){
             p.getPlayerBoard().earnFinalVictoryPoint();
         }
-        earnVictoryPointFromMilitaryPoint(order);
         return calculateWinner(order);
     }
 
@@ -328,6 +360,12 @@ public class Game{
     private void reinitializeFamilyMembers(){
         for(Player p : players){
             p.getPlayerBoard().reinitializeFamilyMembers(board.getDices());
+        }
+    }
+
+    private void reinitializeLeaderCards(){
+        for(Player p : players){
+            p.getPlayerBoard().reinitializeLeaderCards();
         }
     }
 

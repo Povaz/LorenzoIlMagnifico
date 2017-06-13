@@ -1,8 +1,5 @@
 package it.polimi.ingsw.pcXX;
 
-import com.sun.media.jfxmediaimpl.platform.ios.IOSMediaPlayer;
-import com.sun.org.apache.regexp.internal.RE;
-
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -11,17 +8,19 @@ import java.util.Set;
  * Created by Povaz on 03/06/2017.
  */
 public class ImmediateLeaderCard extends LeaderCard {
-    private final boolean activated;
+    private boolean activated;
     private final Set<Reward> reward;
+
     private final boolean changeColoredFamilyMamberValue;
     private final int newValueColoredFamilyMember;
+
     private final List<FamilyMember> actions;
 
-    public ImmediateLeaderCard (String name, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement,
-                                boolean activated, Set<Reward> reward, boolean changeColoredFamilyMamberValue, int newValueColoredFamilyMember,
-                                List<FamilyMember> actions) {
-        super(name, activationRewardRequirement, activationCardTypeRequirement);
-        this.activated = activated;
+    public ImmediateLeaderCard (String name, Set<Reward> activationRewardCost, Map<CardType, Integer> activationCardTypeRequirement,
+                                Set<Reward> reward, boolean changeColoredFamilyMamberValue, int newValueColoredFamilyMember,
+                                List<FamilyMember> actions){
+        super(name, activationRewardCost, activationCardTypeRequirement);
+        this.activated = false;
         this.reward = reward;
         this.changeColoredFamilyMamberValue = changeColoredFamilyMamberValue;
         this.newValueColoredFamilyMember = newValueColoredFamilyMember;
@@ -77,4 +76,27 @@ public class ImmediateLeaderCard extends LeaderCard {
         return result;
     }
 
+    public boolean isActivated() {
+        return activated;
+    }
+
+    public void setActivated(boolean activated) {
+        this.activated = activated;
+    }
+
+    public Set<Reward> getReward() {
+        return reward;
+    }
+
+    public boolean isChangeColoredFamilyMamberValue() {
+        return changeColoredFamilyMamberValue;
+    }
+
+    public int getNewValueColoredFamilyMember() {
+        return newValueColoredFamilyMember;
+    }
+
+    public List<FamilyMember> getActions() {
+        return actions;
+    }
 }

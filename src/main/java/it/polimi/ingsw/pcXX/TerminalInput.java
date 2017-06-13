@@ -12,7 +12,7 @@ import java.util.*;
  */
 public class TerminalInput { //Metodi view: richieste ai Client
 
-    public static boolean doYouWantToSkip () { // TODO Merge
+    public static boolean doYouWantToSkip () {
         System.out.println("Do you want to skip your action?\n  0. No\n  1. Yes");
         int skipAction = askNumber(0,1);
         if (skipAction == 0) {
@@ -111,6 +111,40 @@ public class TerminalInput { //Metodi view: richieste ai Client
         return familyColor;
     }
 
+    public static FamilyColor chooseFamilyMemberColorNotNeutral () throws InputMismatchException {
+        FamilyColor familyColor = FamilyColor.NEUTRAL;
+        boolean correct = false;
+        while (!correct) {
+            try {
+                System.out.println("Which FamilyMember do you choose?\n" + "1. " + FamilyColor.WHITE + "\n" + "2. " + FamilyColor.BLACK + "\n" + "3. " + FamilyColor.ORANGE + "\n");
+                Scanner inChoose = new Scanner(System.in);
+                int choose = inChoose.nextInt();
+
+                switch (choose) {
+                    case 1:
+                        familyColor = FamilyColor.WHITE;
+                        correct = true;
+                        break;
+                    case 2:
+                        familyColor = FamilyColor.BLACK;
+                        correct = true;
+                        break;
+                    case 3:
+                        familyColor = FamilyColor.ORANGE;
+                        correct = true;
+                        break;
+                    default:
+                        System.out.println("Incorrect Answer");
+                }
+
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
+                System.out.println("Incorrect answer");
+            }
+        }
+        return familyColor;
+    }
+
     synchronized public static int askNumber(int min, int max){
         int number;
         Scanner insertNumber;
@@ -127,6 +161,33 @@ public class TerminalInput { //Metodi view: richieste ai Client
                 System.out.println("InputError. Retry with another input :");
             }
         }
+    }
+
+    public static int askWhichCardChange(List<LeaderCard> leaderCardsInHand){
+        System.out.println("Scegli la carta da convertire: ");
+        for(int i = 0; i < leaderCardsInHand.size(); i++){
+            System.out.println(i + ".");
+            System.out.println(leaderCardsInHand.get(i).toString());
+        }
+        return askNumber(0, leaderCardsInHand.size() - 1);
+    }
+
+    public static int askWhichCardPlace(List<LeaderCard> leaderCardsInHand){
+        System.out.println("Scegli la carta da piazzare: ");
+        for(int i = 0; i < leaderCardsInHand.size(); i++){
+            System.out.println(i + ".");
+            System.out.println(leaderCardsInHand.get(i).toString());
+        }
+        return askNumber(0, leaderCardsInHand.size() - 1);
+    }
+
+    public static int askWhichCardActivate(List<ImmediateLeaderCard> immediateLeaderCardsPositionated){
+        System.out.println("Scegli la carta da piazzare: ");
+        for(int i = 0; i < immediateLeaderCardsPositionated.size(); i++){
+            System.out.println(i + ".");
+            System.out.println(immediateLeaderCardsPositionated.get(i).toString());
+        }
+        return askNumber(0, immediateLeaderCardsPositionated.size() - 1);
     }
 
     public static Reward askNumberOfServant() {
@@ -146,7 +207,7 @@ public class TerminalInput { //Metodi view: richieste ai Client
     }
 
 
-    public static ActionInput chooseAction(int playerNumber) { // TODO Merge with doYouWantToSkip
+    public static ActionInput chooseAction(int playerNumber) {
         ActionInput actionInput = new ActionInput();
         boolean correct = false;
         while(!correct) {
@@ -269,12 +330,12 @@ public class TerminalInput { //Metodi view: richieste ai Client
         }
     }
 
-    public static CostDiscount askWhichDiscount (CharacterCard characterCard) {
+    public static int askWhichDiscount(List<List<Reward>> discounts){
         System.out.println("Which Discount do you want to choose?\n");
-        for (int i = 0; i < characterCard.getDiscounts().size(); i++) {
-            System.out.println(i + ". " + characterCard.getDiscounts().get(i).toString() + "\n");
+        for (int i = 0; i < discounts.size(); i++) {
+            System.out.println(i + ". " + discounts.get(i).toString() + "\n");
         }
-        return characterCard.getDiscounts().get(askNumber(0, characterCard.getDiscounts().size() - 1));
+        return askNumber(0, discounts.size() - 1);
     }
 
     public static boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice){

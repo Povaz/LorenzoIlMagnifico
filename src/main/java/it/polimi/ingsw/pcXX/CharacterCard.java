@@ -1,18 +1,19 @@
 package it.polimi.ingsw.pcXX;
 
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class CharacterCard extends DevelopmentCard{
 	private final boolean noBonusTowerResource;
-	private final List<CostDiscount> discounts;
-	private final List<ActionModifier> actionModifiers;
+	private Map<CardType, List<List<Reward>>> discounts;
+	private final Map<ActionType, Integer> actionModifiers;
 	private final RewardForReward rewardForReward;
 	private final RewardForCard rewardForCard;
 	
 	public CharacterCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<FamilyMember> actions,
-						 boolean noBonusTowerResource, List<CostDiscount> discounts, List<ActionModifier> actionModifiers,
-						 RewardForReward rewardForReward, RewardForCard rewardForCard){
+						 boolean noBonusTowerResource, Map<CardType, List<List<Reward>>> discounts,
+						 Map<ActionType, Integer> actionModifiers, RewardForReward rewardForReward, RewardForCard rewardForCard){
 		super(name, CardType.CHARACTER, period, costs, fastRewards, actions);
 		this.noBonusTowerResource = noBonusTowerResource;
 		this.discounts = discounts;
@@ -53,11 +54,11 @@ public class CharacterCard extends DevelopmentCard{
 		return noBonusTowerResource;
 	}
 
-	public List<CostDiscount> getDiscounts() {
+	public Map<CardType, List<List<Reward>>> getDiscounts() {
 		return discounts;
 	}
 
-	public List<ActionModifier> getActionModifiers() {
+	public Map<ActionType, Integer> getActionModifiers() {
 		return actionModifiers;
 	}
 
@@ -75,14 +76,23 @@ public class CharacterCard extends DevelopmentCard{
 		cardString += "No bonus tower resource: " + noBonusTowerResource + "\n";
 		if(discounts != null){
 			cardString += "Discounts:\n";
-			for (CostDiscount d : discounts) {
-				cardString += "  " + d.toString() + "\n";
+			for(CardType cT : discounts.keySet()){
+				cardString += "  " + cT + ":\n";
+				int i = 0;
+				for(List<Reward> l : discounts.get(cT)){
+					cardString += "    " + i + ".";
+					for(Reward r : l){
+						cardString += "  " + r.toString() + ";";
+					}
+					i++;
+					cardString += "\n";
+				}
 			}
 		}
 		if(actionModifiers != null){
 			cardString += "Dice modifiers:\n";
-			for (ActionModifier d : actionModifiers) {
-				cardString += "  " + d.toString() + "\n";
+			for(ActionType d : actionModifiers.keySet()) {
+				cardString += "  " + d.toString() + ": " + actionModifiers.get(d) + "\n";
 			}
 		}
 		if(rewardForReward != null){

@@ -13,12 +13,14 @@ public class PlayerBoard {
     private Counter counter;
     private final List<FamilyMember> familyMembers;
     private final PersonalBonusTile personalBonusTile;
-    private final List<LeaderCard> leaderCards;
     private final TerritorySpot territorySpot;
     private final BuildingSpot buildingSpot;
     private final CharacterSpot characterSpot;
     private final VentureSpot ventureSpot;
     private final Modifier modifier;
+    private final List<LeaderCard> leaderCardsInHand;
+    private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
+    private final List<PermanentLeaderCard> permanentLeaderCardsPositionated;
 
     public PlayerBoard(Player player, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.player = player;
@@ -26,12 +28,14 @@ public class PlayerBoard {
         this.counter = new Counter();
         this.familyMembers = initializeFamilyMembers(player);
         this.personalBonusTile = personalBonusTile;
-        this.leaderCards = leaderCards;
         this.territorySpot = new TerritorySpot();
         this.buildingSpot = new BuildingSpot();
         this.characterSpot = new CharacterSpot();
         this.ventureSpot = new VentureSpot();
         this.modifier = new Modifier();
+        this.leaderCardsInHand = leaderCards;
+        this.immediateLeaderCardsPositionated = new ArrayList<>();
+        this.permanentLeaderCardsPositionated = new ArrayList<>();
     }
 
     private List<FamilyMember> initializeFamilyMembers(Player player){
@@ -49,145 +53,45 @@ public class PlayerBoard {
             FamilyColor color = fM.getColor();
             for(Dice d : dices){
                 if(color == d.getColor()){
-                    fM.setValue(d.getValue());
-                }
-            }
-        }
-    }
-
-    public boolean harvest(int value, Reward servantUsed) throws TooMuchTimeException {
-        Counter newCounter = new Counter(counter);
-
-        if(!checkServantUsed(newCounter, servantUsed)){
-            return false;
-        }
-        if(personalBonusTile != null){
-            if(personalBonusTile.getHarvestRewards() != null){
-                if(value >= personalBonusTile.getDiceHarvest()){
-                    newCounter.sum(personalBonusTile.getHarvestRewards());
-                }
-            }
-        }
-        for(DevelopmentCard dC : territorySpot.getCards()){
-            TerritoryCard tc = (TerritoryCard) dC;
-            if(value >= tc.getDiceHarvestAction()){
-                if(tc.getEarnings() != null){
-                    newCounter.sum(tc.getEarnings());
-                }
-            }
-        }
-        if(!newCounter.check()){
-            return false;
-        }
-        newCounter.round();
-        counter = newCounter;
-        return true;
-    }
-
-    public boolean produce(int value, Reward servantUsed) throws TooMuchTimeException{
-        Counter copyForCosts = new Counter(counter);
-
-        if(!checkServantUsed(copyForCosts, servantUsed)){
-            return false;
-        }
-        Counter newCounter = new Counter(copyForCosts);
-        if(personalBonusTile != null){
-            if(personalBonusTile.getProductionRewards() != null){
-                if(value >= personalBonusTile.getDiceProduction()){
-                    newCounter.sum(personalBonusTile.getProductionRewards());
-                }
-            }
-        }
-        for(DevelopmentCard dC : buildingSpot.getCards()){
-            BuildingCard bC = (BuildingCard) dC;
-            if(value >= bC.getDiceProductionAction()){
-                if(bC.getEarnings() != null){
-                    newCounter.sum(bC.getEarnings());
-                }
-                if(bC.getRewardForCard() != null){
-                    newCounter.sum(convertRewardForReward(bC.getRewardForReward()));
-                }
-                if(bC.getRewardForReward() != null){
-                    newCounter.sum(covertRewardForCard(bC.getRewardForCard()));
-                }
-                if(bC.getTrades() != null){
-                    try {
-                        Trade trade = TerminalInput.chooseTrade(bC);
-                        copyForCosts.subtract(trade.getGive());
-                        newCounter.subtract(trade.getGive());
-                        newCounter.sum(trade.getTake());
-                    } catch (IndexOutOfBoundsException e) {
-                        return false;
+                    if(modifier.isPermanentDice()){
+                        fM.setValue(modifier.getPermanentDiceValue());
+                    }
+                    else{
+                        fM.setValue(d.getValue());
                     }
                 }
             }
         }
-        if(!copyForCosts.check()){
-            return false;
-        }
-        if(!newCounter.check()){
-            return false;
-        }
-        newCounter.round();
-        counter = newCounter;
-        return true;
     }
 
-    private boolean checkServantUsed(Counter newCounter, Reward servantUsed){
-        newCounter.subtract(servantUsed);
-        return newCounter.check();
-    }
-
-    private boolean payTowerTax(Counter newCounter, Floor floor){
-        if(floor.getTower().isOccupied()){
-            newCounter.subtract(floor.getTower().getOccupiedTax());
+    public void reinitializeLeaderCards(){
+        for(ImmediateLeaderCard iLC : immediateLeaderCardsPositionated){
+            iLC.setActivated(false);
         }
-        if(!newCounter.check()){
-            return false;
-        }
-        return true;
-    }
-
-    private void earnTowerReward(Counter newCounter, Floor floor) throws TooMuchTimeException{
-        if(floor.getRewards() != null){
-            newCounter.sum(floor.getRewards());
-        }
-    }
-
-    private void earnCardFastReward(Counter newCounter, DevelopmentCard developmentCard) throws TooMuchTimeException{
-        if(developmentCard.getFastRewards() != null){
-            newCounter.sum(developmentCard.getFastRewards());
-        }
-    }
-
-    private Set<Reward> convertRewardForReward(RewardForReward rewardForReward){
-        Reward owned = rewardForReward.getOwned();
-        Reward currentReward = counter.giveSameReward(owned);
-        int multiplier = currentReward.getQuantity() / owned.getQuantity();
-        Set<Reward> earned = new HashSet<>(rewardForReward.getEarned());
-        for(Reward r : earned){
-            r.multiplyQuantity(multiplier);
-        }
-        return earned;
-    }
-
-    private Set<Reward> covertRewardForCard(RewardForCard rewardForCard){
-        CardType cardType = rewardForCard.getCardTypeOwned();
-        int multiplier = getCardSpot(cardType).getCards().size();
-        Set<Reward> earned = new HashSet<>(rewardForCard.getEarned());
-        for(Reward r : earned){
-            r.multiplyQuantity(multiplier);
-        }
-        return earned;
     }
 
     public void earnFinalVictoryPoint(){
-        counter.sum(territorySpot.estimateVictoryPoint());
+        if(!modifier.isNotEarnVictoryPointFromTerritory()){
+            counter.sum(territorySpot.estimateVictoryPoint());
+        }
         counter.sum(buildingSpot.estimateVictoryPoint());
-        counter.sum(characterSpot.estimateVictoryPoint());
-        counter.sum(ventureSpot.estimateVictoryPoint());
+        if(!modifier.isNotEarnVictoryPointFromCharacter()){
+            counter.sum(characterSpot.estimateVictoryPoint());
+        }
+        if(!modifier.isNotEarnVictoryPointFromVenture()){
+            counter.sum(ventureSpot.estimateVictoryPoint());
+        }
         earnVictoryPointFromRewards();
-
+        if(modifier.isLoseVictoryPointFromMilitaryPoint()){
+            loseVictoryPointFromMilitaryPoint();
+        }
+        if(modifier.isLoseVictoryPointFromBuildingCost()){
+            loseVictoryPointFromBuildingCost();
+        }
+        counter.round();
+        if(modifier.isLoseVictoryPointFromVictoryPoint()){
+            loseVictoryPointFromVictoryPoint();
+        }
     }
 
     private void earnVictoryPointFromRewards(){
@@ -198,6 +102,34 @@ public class PlayerBoard {
         sumRewards += counter.getServant().getQuantity();
         int numberVictoryPoints = sumRewards / 5;
         counter.sum(new Reward(RewardType.VICTORY_POINT, numberVictoryPoints));
+        // togli i punti se ha la scomunica
+        if(modifier.isLoseVictoryPointFromResource()){
+            counter.subtract(new Reward(RewardType.VICTORY_POINT, sumRewards));
+        }
+    }
+
+    private void loseVictoryPointFromMilitaryPoint(){
+        counter.subtract(new Reward(RewardType.VICTORY_POINT, counter.getMilitaryPoint().getQuantity()));
+    }
+
+    private void loseVictoryPointFromBuildingCost(){
+        int sumCosts = 0;
+        List<DevelopmentCard> developmentCards = buildingSpot.getCards();
+        for(DevelopmentCard card : developmentCards){
+            if(card.getCosts() != null){
+                for(Reward r : card.getCosts()){
+                   if(r.getType() == RewardType.WOOD || r.getType() == RewardType.STONE){
+                       sumCosts += r.getQuantity();
+                   }
+                }
+            }
+        }
+        counter.subtract(new Reward(RewardType.VICTORY_POINT, sumCosts));
+    }
+
+    private void loseVictoryPointFromVictoryPoint(){
+        int victoryPointToLose = counter.getVictoryPoint().getQuantity() / 5;
+        counter.subtract(new Reward(RewardType.VICTORY_POINT, victoryPointToLose));
     }
 
     public CardSpot getCardSpot(CardType cardType){
@@ -226,6 +158,22 @@ public class PlayerBoard {
         return null;
     }
 
+    public void changeLeaderCardInReward() throws TooMuchTimeException{
+        if(leaderCardsInHand.size() > 0){
+            int index = TerminalInput.askWhichCardChange(leaderCardsInHand);
+            counter.sum(leaderCardsInHand.get(index).getChangedRewards());
+            counter.round();
+            leaderCardsInHand.remove(index);
+        }
+    }
+
+    public void activeImmediateLeaderCard() throws TooMuchTimeException{
+        if(immediateLeaderCardsPositionated.size() > 0){
+            int index = TerminalInput.askWhichCardActivate(immediateLeaderCardsPositionated);
+
+        }
+    }
+
     public Player getPlayer() {
         return player;
     }
@@ -246,8 +194,16 @@ public class PlayerBoard {
         return personalBonusTile;
     }
 
-    public List<LeaderCard> getLeaderCards() {
-        return leaderCards;
+    public List<LeaderCard> getLeaderCardsInHand() {
+        return leaderCardsInHand;
+    }
+
+    public List<ImmediateLeaderCard> getImmediateLeaderCardsPositionated() {
+        return immediateLeaderCardsPositionated;
+    }
+
+    public List<PermanentLeaderCard> getPermanentLeaderCardsPositionated() {
+        return permanentLeaderCardsPositionated;
     }
 
     public TerritorySpot getTerritorySpot() {
@@ -292,5 +248,4 @@ public class PlayerBoard {
         }
         return string;
     }
-    
 }
