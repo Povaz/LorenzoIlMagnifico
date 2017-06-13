@@ -13,6 +13,8 @@ public class Server {
     private ServerLoginImpl serverLoginRMI;
     private ServerSOC serverSoc;
     public static HashMap<String, ConnectionType> usersInGame;
+    public static HashMap<String, ConnectionType> usersInLobby;
+    public static Timer timer;
     
     public Server (ServerLoginImpl serverLoginRMI, ServerSOC serverSoc) {
         this.serverLoginRMI = serverLoginRMI;

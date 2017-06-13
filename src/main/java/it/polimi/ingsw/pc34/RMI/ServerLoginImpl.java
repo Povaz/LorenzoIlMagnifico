@@ -1,17 +1,11 @@
 package it.polimi.ingsw.pc34.RMI;
 
-<<<<<<< Updated upstream:src/main/java/it/polimi/ingsw/pc34/RMI/ServerLoginImpl.java
+
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
-=======
-import it.polimi.ingsw.pcXX.JSONUtility;
-import it.polimi.ingsw.pcXX.SocketRMICongiunction.ConnectionType;
-import it.polimi.ingsw.pcXX.SocketRMICongiunction.Lobby;
-import it.polimi.ingsw.pcXX.SocketRMICongiunction.NotificationType;
-import it.polimi.ingsw.pcXX.SocketRMICongiunction.Server;
->>>>>>> Stashed changes:src/main/java/it/polimi/ingsw/pcXX/RMI/ServerLoginImpl.java
+
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import org.json.JSONException;
 
 import java.io.IOException;

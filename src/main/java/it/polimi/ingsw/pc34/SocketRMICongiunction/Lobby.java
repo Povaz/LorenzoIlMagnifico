@@ -1,6 +1,6 @@
-package it.polimi.ingsw.pcXX.SocketRMICongiunction;
+package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
-import it.polimi.ingsw.pcXX.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 
 import java.rmi.RemoteException;
 import java.util.*;

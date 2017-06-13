@@ -53,8 +53,9 @@ public class SeverLoginUser implements Runnable{
 		return received;
 	}
 	
+
 	private boolean searchUserLogged (String name) throws RemoteException {
-        Set<String> usernames = Server.usersInLobby.keySet();
+        Set<String> usernames = null;//Server.usersInLobby.keySet();
         for (String username : usernames) {
             if ( (name.equals(username)) && (name.equals(username))) {
                 return true;
