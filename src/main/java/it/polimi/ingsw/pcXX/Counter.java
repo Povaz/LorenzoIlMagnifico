@@ -2,6 +2,7 @@ package it.polimi.ingsw.pcXX;
 
 import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -126,8 +127,8 @@ public class Counter{
         for(Reward r : rewards){
             Reward toBeAdded = new Reward(r);
             for(Reward toRemove : toDelete){
-                if(toRemove.getType() == r.getType()) {
-                    r.subtractQuantityLimitedZero(toRemove);
+                if(toRemove.getType() == toBeAdded.getType()) {
+                    toBeAdded.subtractQuantityLimitedZero(toRemove);
                 }
             }
             copyOfReward.add(new Reward(toBeAdded));

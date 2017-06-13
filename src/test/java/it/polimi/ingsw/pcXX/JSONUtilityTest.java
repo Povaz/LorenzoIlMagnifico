@@ -249,7 +249,7 @@ public class JSONUtilityTest extends TestCase{
         } catch(Exception e){
             calculated = null;
         }
-
+        System.out.println(expected);
         assertEquals(expected, calculated);
     }
 

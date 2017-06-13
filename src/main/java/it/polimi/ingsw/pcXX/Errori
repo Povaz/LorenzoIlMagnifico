@@ -1,6 +1,7 @@
 1. TODO rifare i toString di: CharacterCard, VaticanReportCard, Modifier, LeaderCard (Immediate and Permanent);
 2. TODO rifare i medoti di input da JSON di: CharacterCard, VaticanReport, LeaderCard;
 3. TODO rifare askWhichDiscount in TerminalInput;
+4. TODO fare il metodo per copiare la carta Lorenzo de Medici
 
 DOMANDE PER MARTEDì:
     - COME DOBBIAMO CONFIGURARE LA RELAZIONE CLIENT SERVER? PENSAVAMO AD UNA COSA DEL GENERE:

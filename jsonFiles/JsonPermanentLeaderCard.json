@@ -1,5 +1,5 @@
 {
-  "PermanentLeaderCard" : [
+  "cards" : [
     {
       "name": "Ludovico Ariosto",
       "activationCardCost": [
@@ -12,7 +12,7 @@
     },
     {
       "name": "Sigismondo Malatesta",
-      "activationResourceCost": [
+      "activationRewardCost": [
         {
           "type": "MILITARY_POINT",
           "quantity": 7
@@ -69,7 +69,7 @@
     },
     {
       "name": "Lorenzo de' Medici",
-      "activationResourceCost": [
+      "activationRewardCost": [
         {
           "type": "VICTORY_POINT",
           "quantity": 35
@@ -80,7 +80,7 @@
     {
       "name": "Sisto IV",
       "number": 0,
-      "activationResourceCost": [
+      "activationRewardCost": [
         {
           "type": "WOOD",
           "quantity": 6
@@ -107,7 +107,7 @@
     },
     {
       "name": "Cesare Borgia",
-      "activationResourceCost": [
+      "activationRewardCost": [
         {
           "type": "COIN",
           "quantity": 12
@@ -127,7 +127,7 @@
     },
     {
       "name": "Santa Rita",
-      "activationResourceCost": [
+      "activationRewardCost": [
         {
           "type": "FAITH_POINT",
           "quantity": 8

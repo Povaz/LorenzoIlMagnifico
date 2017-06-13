@@ -48,7 +48,7 @@ public class Game implements Runnable{
 
     public Game(List<String> usernames){
         this.turn = 1;
-        this.period = 2;
+        this.period = 1;
         this.usernames = usernames;
         this.playerNumber = usernames.size();
         this.players = initializePlayers();

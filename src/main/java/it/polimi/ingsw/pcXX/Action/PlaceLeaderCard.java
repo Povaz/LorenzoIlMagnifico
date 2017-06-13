@@ -43,7 +43,7 @@ public class PlaceLeaderCard implements CommandPattern{
     }
 
     private boolean haveEnoughRewardToActive(){
-        newCounter.subtract(leaderCard.getActivationRewardRequirement());
+        newCounter.subtract(leaderCard.getActivationRewardCost());
         if(!newCounter.check()){
             System.out.println("Non hai abbastanza risorse per piazzare la carta");
             return false;
@@ -52,7 +52,7 @@ public class PlaceLeaderCard implements CommandPattern{
     }
 
     private boolean haveEnoughCardToActive(){
-        Map<CardType, Integer> cardNeeded = leaderCard.getActivationCardTypeRequirement();
+        Map<CardType, Integer> cardNeeded = leaderCard.getActivationCardCost();
         for(CardType cT : cardNeeded.keySet()){
             switch(cT){
                 case TERRITORY:

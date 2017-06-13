@@ -74,12 +74,21 @@ public class CharacterCard extends DevelopmentCard{
 	public String toString() {
 		String cardString = super.toString();
 		cardString += "No bonus tower resource: " + noBonusTowerResource + "\n";
-		/*if(discounts != null){
+		if(discounts != null){
 			cardString += "Discounts:\n";
-			for (CostDiscount d : discounts) {
-				cardString += "  " + d.toString() + "\n";
+			for(CardType cT : discounts.keySet()){
+				cardString += "  " + cT + ":\n";
+				int i = 0;
+				for(List<Reward> l : discounts.get(cT)){
+					cardString += "    " + i + ".";
+					for(Reward r : l){
+						cardString += "  " + r.toString() + ";";
+					}
+					i++;
+					cardString += "\n";
+				}
 			}
-		}*/
+		}
 		if(actionModifiers != null){
 			cardString += "Dice modifiers:\n";
 			for(ActionType d : actionModifiers.keySet()) {

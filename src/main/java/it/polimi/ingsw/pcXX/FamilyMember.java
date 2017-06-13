@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pcXX;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class FamilyMember{
@@ -41,7 +42,7 @@ public class FamilyMember{
 		this.player = player;
 		this.color = color;
 		this.action = null;
-		this.discounts = null;
+		this.discounts = new HashSet<>();
 	}
 
 	public FamilyMember(ActionType action, int value, Set<Reward> discounts){

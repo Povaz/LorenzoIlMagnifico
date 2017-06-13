@@ -24,36 +24,12 @@ public class VaticanReportCard{
 	private boolean loseVictoryPointFromBuildingCost = false;
 	private boolean loseVictoryPointFromResource = false;
 
-	/*
-	private final int number;
-	private final int period;
-	private final int coloredFamilyMemberModifier = 0;
-	private final int militaryPointsModifier = 0;
-	private final int coinModifier = 0;
-	private final int servantModifier = 0;
-	private final int woodModifier = 0;
-	private final int stoneModifier = 0;
-	private final int harvestModifier = 0;
-	private final int productionModifier = 0;
-	private final int territoryTowerModifier = 0;
-	private final int buildingTowerModifier = 0;
-	private final int characterTowerModifier = 0;
-	private final int ventureTowerModifier = 0;
-	private final boolean cannotPlaceInMarket = false;
-	private final boolean servantValueHalved = false;
-	private final boolean jumpFirstRound = false;
-	private final boolean notEarnVictoryPointFromTerritory = false;
-	private final boolean notEarnVictoryPointFromCharacter = false;
-	private final boolean notEarnVictoryPointFromVenture = false;
-	private final boolean loseVictoryPointFromVictoryPoint = false;
-	private final boolean loseVictoryPointFromMilitaryPoint = false;
-	private final boolean loseVictoryPointFromBuildingCost = false;
-	private final boolean loseVictoryPointFromResource = false;
-	 */
-	
-	public VaticanReportCard (int number, int period, String attribute, int value){
+	public VaticanReportCard (int number, int period, List<Reward> loseRewards, Map<ActionType, Integer> actionModifiers,
+							  String attribute, int value){
 		this.number = number;
 		this.period = period;
+		this.loseRewards = loseRewards;
+		this.actionModifiers = actionModifiers;
 		switch(attribute){
 			case "coloredFamilyMemberModifier":
 				coloredFamilyMemberModifier = value;
@@ -127,17 +103,6 @@ public class VaticanReportCard{
 		cardString+="\nperiod: "+ period + "\n";
 		cardString+="number: "+ number + "\n";
 		cardString+="coloredFamilyMemberModifier: "+ coloredFamilyMemberModifier +"\n";
-		/*cardString+="militaryPointsModifier: "+ militaryPointsModifier + "\n";
-		cardString+="coinModifier: "+ coinModifier + "\n";
-		cardString+="servantModifier: "+ servantModifier + "\n";
-		cardString+="woodModifier: "+ woodModifier + "\n";
-		cardString+="stoneModifier: "+ stoneModifier + "\n";*/
-		/*cardString+="harvestModifier: "+ harvestModifier + "\n";
-		cardString+="productionModifier: "+ productionModifier + "\n";
-		cardString+="territoryTowerModifier: "+ territoryTowerModifier + "\n";
-		cardString+="buildingTowerModifier: "+ buildingTowerModifier + "\n";
-		cardString+="characterTowerModifier: "+ characterTowerModifier + "\n";
-		cardString+="ventureTowerModifier: "+ ventureTowerModifier + "\n";*/
 		cardString+="cannotPlaceInMarket: "+ cannotPlaceInMarket + "\n";
 		cardString+="servantValueHalved: "+ servantValueHalved + "\n";
 		cardString+="jumpFirstRound: "+ jumpFirstRound + "\n";
@@ -148,6 +113,21 @@ public class VaticanReportCard{
 		cardString+="loseVictoryPointFromMilitaryPoint: "+ loseVictoryPointFromMilitaryPoint + "\n";
 		cardString+="loseVictoryPointFromBuildingCost: "+ loseVictoryPointFromBuildingCost + "\n";
 		cardString+="loseVictoryPointFromResource: "+ loseVictoryPointFromResource + "\n";
+
+		if(loseRewards != null){
+			cardString += "loseRewards:  ";
+			for(Reward r : loseRewards){
+				cardString += r.toString() + ";  ";
+			}
+		}
+
+		if(actionModifiers != null){
+			cardString += "actionModifiers:\n";
+			for(ActionType aT : actionModifiers.keySet()){
+				cardString += aT + "  " + actionModifiers.get(aT) + "\n";
+			}
+		}
+
 		return cardString;
 	}
 

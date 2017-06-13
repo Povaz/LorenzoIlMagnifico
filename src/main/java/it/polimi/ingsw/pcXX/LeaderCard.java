@@ -10,15 +10,15 @@ import java.util.Set;
 public abstract class LeaderCard {
     private final String name;
     private final boolean inHand;
-    private final Set<Reward> activationRewardRequirement;
-    private final Map<CardType, Integer> activationCardTypeRequirement;
+    private final Set<Reward> activationRewardCost;
+    private final Map<CardType, Integer> activationCardCost;
     private final Set<Reward> changedRewards;
 
-    public LeaderCard (String name, Set<Reward> activationRewardRequirement, Map<CardType, Integer> activationCardTypeRequirement) {
+    public LeaderCard (String name, Set<Reward> activationRewardCost, Map<CardType, Integer> activationCardCost) {
         this.name = name;
         this.inHand = true;
-        this.activationRewardRequirement = activationRewardRequirement;
-        this.activationCardTypeRequirement = activationCardTypeRequirement;
+        this.activationRewardCost = activationRewardCost;
+        this.activationCardCost = activationCardCost;
         this.changedRewards = new HashSet<>();
         this.changedRewards.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 1));
     }
@@ -31,12 +31,12 @@ public abstract class LeaderCard {
         return inHand;
     }
 
-    public Set<Reward> getActivationRewardRequirement() {
-        return activationRewardRequirement;
+    public Set<Reward> getActivationRewardCost() {
+        return activationRewardCost;
     }
 
-    public Map<CardType, Integer> getActivationCardTypeRequirement() {
-        return activationCardTypeRequirement;
+    public Map<CardType, Integer> getActivationCardCost() {
+        return activationCardCost;
     }
 
     public Set<Reward> getChangedRewards(){
@@ -47,8 +47,8 @@ public abstract class LeaderCard {
     public int hashCode() {
         int result = name.hashCode();
         result = 31 * result + (inHand ? 1 : 0);
-        result = 31 * result + (activationRewardRequirement != null ? activationRewardRequirement.hashCode() : 0);
-        result = 31 * result + (activationCardTypeRequirement != null ? activationCardTypeRequirement.hashCode() : 0);
+        result = 31 * result + (activationRewardCost != null ? activationRewardCost.hashCode() : 0);
+        result = 31 * result + (activationCardCost != null ? activationCardCost.hashCode() : 0);
         return result;
     }
 
@@ -59,16 +59,16 @@ public abstract class LeaderCard {
         leaderCardString += "Name: " + name + "\n";
         leaderCardString += "Hand: " + inHand + "\n";
 
-        if (activationRewardRequirement != null) {
+        if (activationRewardCost != null) {
             leaderCardString += "Rewards Requirement: \n";
-            for (Reward r: activationRewardRequirement) {
+            for (Reward r: activationRewardCost) {
                 leaderCardString += "  " + r.toString() + "\n";
             }
         }
 
-        if (activationCardTypeRequirement != null) {
+        if (activationCardCost != null) {
             leaderCardString += "Cards Requirement: \n";
-            for (Map.Entry <CardType, Integer> entry : activationCardTypeRequirement.entrySet()) {
+            for (Map.Entry <CardType, Integer> entry : activationCardCost.entrySet()) {
                 leaderCardString += "   CardType: " + entry.getKey() + "\n" + " Count: " + entry.getValue() + "\n";
             }
         }
@@ -85,8 +85,8 @@ public abstract class LeaderCard {
 
         if (name != that.name) return false;
         if (inHand != that.inHand) return false;
-        if (activationRewardRequirement != null ? !activationRewardRequirement.equals(that.activationRewardRequirement) : that.activationRewardRequirement != null) return false;
-        return activationCardTypeRequirement != null ? !activationCardTypeRequirement.equals(that.activationCardTypeRequirement) : that.activationCardTypeRequirement != null;
+        if (activationRewardCost != null ? !activationRewardCost.equals(that.activationRewardCost) : that.activationRewardCost != null) return false;
+        return activationCardCost != null ? !activationCardCost.equals(that.activationCardCost) : that.activationCardCost != null;
     }
 }
 

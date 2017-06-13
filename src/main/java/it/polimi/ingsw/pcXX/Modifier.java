@@ -50,8 +50,6 @@ public class Modifier{
 	// Scomuniche + Carte sviluppo
 	private final Map<ActionType, Integer> actionModifiers = new HashMap<>();
 
-
-
     public Modifier(){
 		discounts.put(CardType.TERRITORY, new LinkedList<>());
 		discounts.put(CardType.BUILDING, new LinkedList<>());

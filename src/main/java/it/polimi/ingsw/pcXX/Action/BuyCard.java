@@ -3,6 +3,7 @@ package it.polimi.ingsw.pcXX.Action;
 import it.polimi.ingsw.pcXX.*;
 import it.polimi.ingsw.pcXX.Exception.TooMuchTimeException;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -157,13 +158,31 @@ public class BuyCard implements CommandPattern {
 
     private boolean canPayNormalCost() throws TooMuchTimeException{
         List<List<Reward>> discountsSelectables = modifier.getDiscounts().get(floor.getTower().getType());
-        List<Reward> discount = discountsSelectables.get(TerminalInput.askWhichDiscount(discountsSelectables));
+        List<Reward> permanentDiscount = discountsSelectables.get(TerminalInput.askWhichDiscount(discountsSelectables));
+        List<Reward> discount = addRewardFromSet(permanentDiscount, familyMember.getDiscounts());
         newCounter.subtractWithDiscount(card.getCosts(), discount);
         if(!newCounter.check()){
             System.out.println("Non hai abbastanza risorse per pagare i costi della carta!");
             return false;
         }
         return true;
+    }
+
+    private List<Reward> addRewardFromSet(List<Reward> rewards, Set<Reward> toSum){
+        if(toSum == null){
+            return rewards;
+        }
+        List<Reward> copyOfReward = new ArrayList<>();
+        for(Reward r : rewards){
+            Reward toBeAdded = new Reward(r);
+            for(Reward toAdd : toSum){
+                if(toAdd.getType() == toBeAdded.getType()) {
+                    toBeAdded.sumQuantity(toAdd);
+                }
+            }
+            copyOfReward.add(new Reward(toBeAdded));
+        }
+        return copyOfReward;
     }
 
     private boolean canPayMilitaryPoint(VentureCard vCard){
