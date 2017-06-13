@@ -1,8 +1,8 @@
 package it.polimi.ingsw.pcXX.RMI;
 
 import it.polimi.ingsw.pcXX.JSONUtility;
-import it.polimi.ingsw.pcXX.Socket.ServerSOC;
 import it.polimi.ingsw.pcXX.SocketRMICongiunction.ConnectionType;
+import it.polimi.ingsw.pcXX.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pcXX.SocketRMICongiunction.NotificationType;
 import it.polimi.ingsw.pcXX.SocketRMICongiunction.Server;
 import org.json.JSONException;
@@ -20,13 +20,16 @@ import java.util.*;
  **/
 public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin, Runnable {
     public static ArrayList<UserLogin> usersLoggedRMI;
+    private Lobby lobby;
 
-    public ServerLoginImpl () throws RemoteException {
-        usersLoggedRMI = new ArrayList<>();
+    public ServerLoginImpl (Lobby lobby) throws RemoteException {
+        this.usersLoggedRMI = new ArrayList<>();
+        this.lobby = lobby;
+        this.lobby.setServerRMI(this);
     }
 
     private boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
-        Set<String> usernames = Server.usersInLobby.keySet();
+        Set<String> usernames = lobby.getUsers().keySet();
         for (String username : usernames) {
             if ((userLogin.getUsername().equals(username))) {
                 return true;
@@ -39,24 +42,17 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
     public boolean loginServer (UserLogin userLogin) throws JSONException, IOException {
         if (!searchUserLogged(userLogin)) {
             if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getKeyword())) {
-                Server.usersInLobby.put(userLogin.getUsername(), ConnectionType.RMI);
-                usersLoggedRMI.add(userLogin);
+                lobby.getUsers().put(userLogin.getUsername(), ConnectionType.RMI);
                 userLogin.sendMessage("Login Successful");
-                Server.notifyAllPlayers(NotificationType.USERLOGIN);
-                if (Server.usersInLobby.size() == 2) {
+                lobby.notifyAllUsers(NotificationType.USERLOGIN);
+                if (lobby.getUsers().size() == 2) {
                 	userLogin.sendMessage("Timer Started");
-                    Server.timer = new Timer();
-                    Server.timer.schedule(new TimerTask() {
-                        @Override
-                        public void run() {
-                            System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
-                            Server.notifyAllPlayers(NotificationType.STARTGAME);
-                        }
-                    }, 10000);
+                    lobby.inizializeTimer();
+                    lobby.startTimer();
                 }
 
-                if (Server.usersInLobby.size() == 5) {
-                    Server.timer.cancel();
+                if (lobby.getUsers().size() == 5) {
+                    lobby.stopTimer();
                     System.out.println("Start Game");
                 }
 
@@ -81,16 +77,15 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
 
     @Override
     public boolean logoutServer (UserLogin userLogin) throws RemoteException {
-        Set<String> usernames = Server.usersInLobby.keySet();
+        Set<String> usernames = lobby.getUsers().keySet();
         for (String user : usernames) {
             if ((userLogin.getUsername().equals(user))) {
-                Server.usersInLobby.remove(user, ConnectionType.RMI);
+                lobby.removeUser(user);
                 usersLoggedRMI.remove(userLogin);
                 userLogin.sendMessage("Logout successful");
-
-                if (Server.usersInLobby.size() == 1) {
+                if (lobby.getUsers().size() == 1) {
                     System.out.println(userLogin.getUsername() + "left the room");
-                    Server.timer.cancel();
+                    lobby.stopTimer();
                 }
 
                 return false;
@@ -101,10 +96,16 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
     }
 
     @Override
-    public void printLoggedUsers () throws RemoteException{
-        Set<String> users = Server.usersInLobby.keySet();
+    public void printLoggedUsers () throws RemoteException{ // DA ELIMINARE ALLA FINE
+        Set<String> users = lobby.getUsers().keySet();
         for (String user: users) {
             System.out.println(user);
+        }
+    }
+
+    public void notifyRMIPlayers (String m) throws RemoteException {
+        for (UserLogin user: usersLoggedRMI) {
+            user.sendMessage(m);
         }
     }
 

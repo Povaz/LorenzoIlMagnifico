@@ -14,14 +14,11 @@ public class Server {
     private ServerLoginImpl serverLoginRMI;
     private ServerSOC serverSoc;
     public static HashMap<String, ConnectionType> usersInGame;
-    public static HashMap<String, ConnectionType> usersInLobby;
-    public static Timer timer;
     
     public Server (ServerLoginImpl serverLoginRMI, ServerSOC serverSoc) {
         this.serverLoginRMI = serverLoginRMI;
         this.serverSoc = serverSoc;
         usersInGame = new HashMap<>();
-        usersInLobby = new HashMap<>();
     }
 
     private void startServers () {
@@ -31,27 +28,14 @@ public class Server {
        serverSoc.start();
     }
 
-    public static void notifyAllPlayers (NotificationType notificationType) {
-        Iterator it = usersInLobby.entrySet().iterator();
-        while (it.hasNext()) {
-            Map.Entry user = (Map.Entry)it.next();
-            if (notificationType.equals(NotificationType.USERLOGIN)) {
-                ServerSOC.notifyPlayers(user.getKey() + " joined the lobby!! Now in the lobby there are " + usersInLobby.size() + " players");
-
-            }
-            if (notificationType.equals(NotificationType.STARTGAME)) {
-                ServerSOC.notifyPlayers("The Game is starting");
-            }
-        }
-    }
-
-    public static void startServerGame (/* I giocatori che stanno iniziando la partita */) {
+    public static void startServerGame () {
         // Creazione Thread con istanza Game
         // game.start();
     }
 
     public static void main (String[] args) throws RemoteException {
-        ServerLoginImpl serverLoginRMI = new ServerLoginImpl();
+        Lobby lobby = new Lobby();
+        ServerLoginImpl serverLoginRMI = new ServerLoginImpl(lobby);
         ServerSOC serverSoc = new ServerSOC(1337);
         Server server = new Server(serverLoginRMI , serverSoc);
         server.startServers();
