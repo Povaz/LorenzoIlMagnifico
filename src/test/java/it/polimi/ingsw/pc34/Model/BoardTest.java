@@ -1,16 +1,12 @@
 package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.JSONUtility;
-import it.polimi.ingsw.pc34.Model.*;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.json.JSONException;
 import org.junit.Test;
 
-import java.awt.*;
 import java.io.IOException;
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Method;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
@@ -22,7 +18,9 @@ import static junit.framework.TestCase.assertEquals;
  * Created by Povaz on 14/06/2017.
  */
 public class BoardTest extends TestCase {
-    private Board board;
+    private Board board1player;
+    private Board board3player;
+    private Board board4player;
     private List<Player> players;
 
     public BoardTest(String name) {
@@ -31,41 +29,31 @@ public class BoardTest extends TestCase {
 
     @Test
     public void testInitializeHarvestArea() {
-        board.initializeHarvestArea(1);
-        assertEquals(1, board.getHarvestArea().size());
-
-        board.initializeHarvestArea(3);
-        assertEquals(2, board.getHarvestArea().size());
+        assertEquals(1, board1player.getHarvestArea().size());
+        assertEquals(2, board3player.getHarvestArea().size());
     }
 
     @Test
     public void testInitializeProductionArea() {
-        board.initializeProductionArea(1);
-        assertEquals(1, board.getProductionArea().size());
-
-        board.initializeProductionArea(3);
-        assertEquals(2, board.getProductionArea().size());
+        assertEquals(1, board1player.getProductionArea().size());
+        assertEquals(2, board3player.getProductionArea().size());
     }
 
     @Test
     public void testInitializeMarket() {
-        board.initializeMarket(1);
-        assertEquals(1, board.getMarket().size());
-
-        board.initializeMarket(3);
-        assertEquals(4, board.getMarket().size());
+        assertEquals(2, board1player.getMarket().size());
+        assertEquals(2, board3player.getMarket().size());
+        assertEquals(4, board4player.getMarket().size());
     }
 
     @Test
-    public void testInitilizeVatican() {
-        board.initializeVaticanReportSpot();
-        assertEquals(3, board.getVaticanReportSpot().size());
+    public void testInitializeVatican() {
+        assertEquals(3, board1player.getVaticanReportSpot().size());
     }
 
     @Test
     public void testInitializeDice() {
-        board.initializeDices();
-        assertEquals(3, board.getDices().size());
+        assertEquals(3, board1player.getDices().size());
     }
 
     public void setUp () throws JSONException, IOException {
@@ -79,7 +67,16 @@ public class BoardTest extends TestCase {
         players = new ArrayList<>();
         players.add(new Player("Erick", PlayerColor.RED, personalBonusTile, leaderCards));
 
-        board = new Board(players);
+        board1player = new Board(players);
+
+        players.add(new Player("Erick", PlayerColor.BLUE, personalBonusTile, leaderCards));
+        players.add(new Player("Erick", PlayerColor.YELLOW, personalBonusTile, leaderCards));
+
+        board3player = new Board(players);
+
+        players.add(new Player("Erick", PlayerColor.GREEN, personalBonusTile, leaderCards));
+
+        board4player = new Board(players);
     }
 
     public static TestSuite suite () {
