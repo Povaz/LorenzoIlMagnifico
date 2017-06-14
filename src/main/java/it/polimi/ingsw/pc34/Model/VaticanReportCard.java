@@ -7,7 +7,7 @@ public class VaticanReportCard{
 	private final int number;
 	private final int period;
 
-	private int coloredFamilyMemberModifier = 0;
+	private final int coloredFamilyMemberModifier;
 
 	private List<Reward> loseRewards;
 	private Map<ActionType, Integer> actionModifiers;
@@ -24,100 +24,70 @@ public class VaticanReportCard{
 	private boolean loseVictoryPointFromBuildingCost = false;
 	private boolean loseVictoryPointFromResource = false;
 
-	public VaticanReportCard (int number, int period, List<Reward> loseRewards, Map<ActionType, Integer> actionModifiers,
-							  String attribute, int value){
+	public VaticanReportCard (int number, int period, List<Reward> loseRewards, Map<ActionType, Integer> actionModifiers, List<String> booleans, int coloredFamilyMemberModifier){
 		this.number = number;
 		this.period = period;
 		this.loseRewards = loseRewards;
 		this.actionModifiers = actionModifiers;
-		switch(attribute){
-			case "coloredFamilyMemberModifier":
-				coloredFamilyMemberModifier = value;
-				break;
-			/*case "militaryPointsModifier":
-				militaryPointsModifier = value;
-				break;
-			case "coinModifier":
-				coinModifier = value;
-				break;
-			case "servantModifier":
-				servantModifier = value;
-				break;
-			case "resourceModifier":
-				woodModifier = value;
-				stoneModifier = value;
-				break;
-			case "harvestModifier":
-				harvestModifier = value;
-				break;
-			case "productionModifier":
-				productionModifier = value;
-				break;
-			case "territoryTowerModifier":
-				territoryTowerModifier = value;
-				break;
-			case "buildingTowerModifier":
-				buildingTowerModifier = value;
-				break;
-			case "characterTowerModifier":
-				characterTowerModifier = value;
-				break;
-			case "ventureTowerModifier":
-				ventureTowerModifier = value;
-				break;*/
-			case "cannotPlaceInMarket":
-				cannotPlaceInMarket = true;
-				break;
-			case "servantValueHalved":
-				servantValueHalved = true;
-				break;
-			case "jumpFirstRound":
-				jumpFirstRound = true;
-				break;
-			case "notEarnVictoryPointFromTerritory":
-				notEarnVictoryPointFromTerritory = true;
-				break;
-			case "notEarnVictoryPointFromCharacter":
-				notEarnVictoryPointFromCharacter = true;
-				break;
-			case "notEarnVictoryPointFromVenture":
-				notEarnVictoryPointFromVenture = true;
-				break;
-			case "loseVictoryPointFromVictoryPoint":
-				loseVictoryPointFromVictoryPoint = true;
-				break;
-			case "loseVictoryPointFromMilitaryPoint":
-				loseVictoryPointFromMilitaryPoint = true;
-				break;
-			case "loseVictoryPointFromBuildingCost":
-				loseVictoryPointFromBuildingCost = true;
-				break;
-			case "loseVictoryPointFromResource":
-				loseVictoryPointFromResource = true;
-				break;
+		this.coloredFamilyMemberModifier = coloredFamilyMemberModifier;
+		if(booleans!=(null)){
+			for(int i=0; i < booleans.size(); i++){
+				switch(booleans.get(i)){
+					case "cannotPlaceInMarket":
+						cannotPlaceInMarket = true;
+						break;
+					case "servantValueHalved":
+						servantValueHalved = true;
+						break;
+					case "jumpFirstRound":
+						jumpFirstRound = true;
+						break;
+					case "notEarnVictoryPointFromTerritory":
+						notEarnVictoryPointFromTerritory = true;
+						break;
+					case "notEarnVictoryPointFromCharacter":
+						notEarnVictoryPointFromCharacter = true;
+						break;
+					case "notEarnVictoryPointFromVenture":
+						notEarnVictoryPointFromVenture = true;
+						break;
+					case "loseVictoryPointFromVictoryPoint":
+						loseVictoryPointFromVictoryPoint = true;
+						break;
+					case "loseVictoryPointFromMilitaryPoint":
+						loseVictoryPointFromMilitaryPoint = true;
+						break;
+					case "loseVictoryPointFromBuildingCost":
+						loseVictoryPointFromBuildingCost = true;
+						break;
+					case "loseVictoryPointFromResource":
+						loseVictoryPointFromResource = true;
+						break;
+				}
+			}
 		}
+		
 	}
 	
 	public String toString(){
-		String cardString = super.toString();
-		cardString+="\nperiod: "+ period + "\n";
-		cardString+="number: "+ number + "\n";
-		cardString+="coloredFamilyMemberModifier: "+ coloredFamilyMemberModifier +"\n";
-		cardString+="cannotPlaceInMarket: "+ cannotPlaceInMarket + "\n";
-		cardString+="servantValueHalved: "+ servantValueHalved + "\n";
-		cardString+="jumpFirstRound: "+ jumpFirstRound + "\n";
-		cardString+="notEarnVictoryPointFromTerritory: "+ notEarnVictoryPointFromTerritory + "\n";
-		cardString+="notEarnVictoryPointFromCharacter: "+ notEarnVictoryPointFromCharacter + "\n";
-		cardString+="notEarnVictoryPointFromVenture: "+ notEarnVictoryPointFromVenture + "\n";
-		cardString+="loseVictoryPointFromVictoryPoint: "+ loseVictoryPointFromVictoryPoint + "\n";
-		cardString+="loseVictoryPointFromMilitaryPoint: "+ loseVictoryPointFromMilitaryPoint + "\n";
-		cardString+="loseVictoryPointFromBuildingCost: "+ loseVictoryPointFromBuildingCost + "\n";
-		cardString+="loseVictoryPointFromResource: "+ loseVictoryPointFromResource + "\n";
+		String cardString ="\nperiod: "+ period + "\n";
+		cardString +="number: "+ number + "\n";
+		cardString +="coloredFamilyMemberModifier: "+ coloredFamilyMemberModifier +"\n";
+		cardString +="cannotPlaceInMarket: "+ cannotPlaceInMarket + "\n";
+		cardString +="servantValueHalved: "+ servantValueHalved + "\n";
+		cardString +="jumpFirstRound: "+ jumpFirstRound + "\n";
+		cardString +="notEarnVictoryPointFromTerritory: "+ notEarnVictoryPointFromTerritory + "\n";
+		cardString +="notEarnVictoryPointFromCharacter: "+ notEarnVictoryPointFromCharacter + "\n";
+		cardString +="notEarnVictoryPointFromVenture: "+ notEarnVictoryPointFromVenture + "\n";
+		cardString +="loseVictoryPointFromVictoryPoint: "+ loseVictoryPointFromVictoryPoint + "\n";
+		cardString +="loseVictoryPointFromMilitaryPoint: "+ loseVictoryPointFromMilitaryPoint + "\n";
+		cardString +="loseVictoryPointFromBuildingCost: "+ loseVictoryPointFromBuildingCost + "\n";
+		cardString +="loseVictoryPointFromResource: "+ loseVictoryPointFromResource + "\n";
 
 		if(loseRewards != null){
 			cardString += "loseRewards:  ";
 			for(Reward r : loseRewards){
-				cardString += r.toString() + ";  ";
+				cardString += r.toString() + ";  \n";
 			}
 		}
 

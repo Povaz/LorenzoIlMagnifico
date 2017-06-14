@@ -2,7 +2,11 @@ package it.polimi.ingsw.pc34;
 
 
 import java.io.IOException;
+import java.util.List;
+import java.util.Map;
 
+import it.polimi.ingsw.pc34.Model.ActionType;
+import it.polimi.ingsw.pc34.Model.Reward;
 import it.polimi.ingsw.pc34.Model.VaticanReportCard;
 import org.json.JSONException;
 import org.junit.Test;
@@ -11,15 +15,11 @@ public class VaticanReportTest {
 		@Test
 	    public void testVaticanReport() throws JSONException, IOException{
 	        int period = 3;
-			int number = 2;
+			int number = 3;
 			VaticanReportCard testVatican = JSONUtility.getVaticanReportCard(period, number);
-			int period2 = 3;
-			int number2 = 2;
-			VaticanReportCard testVatican2 = JSONUtility.getVaticanReportCard(period2, number2);
 			
 	        System.out.println(testVatican.toString());
-	        System.out.println(testVatican2.toString());
-	        System.out.println(testVatican.equals(testVatican2));
+	        
 	    }
 }
 

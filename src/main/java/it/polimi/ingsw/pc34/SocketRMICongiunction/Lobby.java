@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
 import java.rmi.RemoteException;
 import java.util.*;
@@ -12,8 +13,8 @@ public class Lobby {
     private HashMap<String, ConnectionType> users;
     private Timer timer;
     private ServerLoginImpl serverRMI;
-    //Dichiara ServerSocket
-
+    private ServerSOC serverSoc
+    
     public Lobby () {
         this.users = new HashMap<>();
         this.timer = new Timer ();
@@ -27,8 +28,9 @@ public class Lobby {
         this.serverRMI = serverRMI;
     }
 
-    //setServerSocket
-
+    public void setServerSOCKET (ServerSOC serverSoc) {
+        this.serverSoc = serverSoc;
+    }
     public void setUsers(HashMap<String, ConnectionType> users) {
         this.users = users;
     }

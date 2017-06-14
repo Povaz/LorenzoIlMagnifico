@@ -220,7 +220,6 @@ public class JSONUtility {
 		}
 	}
 
-
 	private static Set<Reward> getActivationRewardCost(JSONObject card){
 		try {
 			JSONArray activationCardCost = card.getJSONArray("activationRewardCost");
@@ -393,7 +392,7 @@ public class JSONUtility {
 		}
 	}
 	
-	//Codice Di Lacieoz MERDA
+	//Codice Di Lacieoz
 	public static int getVaticanReportLength(int period) throws JSONException, IOException{
 		JSONObject cards = fromPathToJSONObject(vaticanReportCardPath);
 		JSONArray cardsArray = cards.getJSONArray("cards").getJSONObject(period - 1).getJSONArray("period");
@@ -403,24 +402,36 @@ public class JSONUtility {
 	public static VaticanReportCard getVaticanReportCard(int period, int number) throws JSONException, IOException{
 		JSONObject card = fromPathToJSONObject(vaticanReportCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
-		String attribute = getAttribute(card);
-		int value = getValue(card);
+		List<String> booleans = getBooleansAttributes(card);
 		List<Reward> loseRewards = getLoseRewards(card);
 		Map<ActionType, Integer> actionModifiers = getActionModifiers(card);
-
-		return new VaticanReportCard(number, period, loseRewards, actionModifiers,attribute, value);
+		int coloredFamilyMemberModifier;
+		try{
+			coloredFamilyMemberModifier = card.getInt("coloredFamilyMemberModifier");
+		}
+		catch(JSONException e){
+			coloredFamilyMemberModifier = 0;
+		}
+		return new VaticanReportCard(number, period, loseRewards, actionModifiers, booleans, coloredFamilyMemberModifier);
 	}
 	
-	private static String getAttribute (JSONObject card) throws JSONException {
-		return card.getString("attribute");
-	}
-	
-	private static int getValue (JSONObject card) throws JSONException {
-		return card.getInt("value");
+	private static List<String> getBooleansAttributes (JSONObject card) throws JSONException {
+		try{
+			JSONArray booleanEffects = card.getJSONArray("booleans");
+			List<String> attributes = new ArrayList<String>();
+			for(int i=0; i<booleanEffects.length(); i++){
+				JSONObject obj = booleanEffects.getJSONObject(i);
+				attributes.add(obj.getString("attribute"));
+			}
+			return attributes;
+		}
+		catch(JSONException e){
+			return null;
+		}
 	}
 	//Fine Codice Di Lacieoz
 
-	//Codice Lacieoz MERDA 2
+	//Codice Lacieoz 2
 	public static PersonalBonusTile getPersonalBonusTile (int number) throws IOException, JSONException{
 		//estrae file
 		JSONObject tile = fromPathToJSONObject(personalBonusTilePath);

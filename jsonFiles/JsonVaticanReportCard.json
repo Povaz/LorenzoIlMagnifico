@@ -55,8 +55,7 @@
 					]
 				},
 				{
-					"attribute": "coloredFamilyMemberModifier",
-					"value": -1
+					"coloredFamilyMemberModifier": -1
 				}
 			]
 		},
@@ -95,48 +94,78 @@
 					]
 				},
 				{
-					"attribute": "cannotPlaceInMarket",
-					"value": 0
+					"booleans" : [ 
+						{
+							"attribute": "cannotPlaceInMarket"
+						}
+					]
 				},
 				{
-					"attribute": "servantValueHalved",
-					"value": 0
+					"booleans" : [
+						{
+							"attribute": "servantValueHalved"
+						}
+					]
 				},
-				{
-					"attribute": "jumpFirstRound",
-					"value": 0
+				{	
+					"booleans" : [
+						{
+							"attribute": "jumpFirstRound"
+						}
+					]
 				}
 			]
 		},
 		{
 			"period": [
 				{	
-					"attribute": "notEarnVictoryPointFromCharacter",
-					"value": 0
+					"booleans" : [
+						{
+							"attribute": "notEarnVictoryPointFromCharacter"
+						}
+					]
 				},
 				{
-					"attribute": "notEarnVictoryPointFromVenture",
-					"value": 0
+					"booleans" : [
+						{
+							"attribute": "notEarnVictoryPointFromVenture"
+						}
+					]
 				},
 				{
-					"attribute": "notEarnVictoryPointFromTerritory",
-					"value": 0
+					"booleans" : [
+						{
+							"attribute": "notEarnVictoryPointFromTerritory"
+						}
+					]
 				},
 				{
-					"attribute": "loseVictoryPointFromVictoryPoint",
-					"value": 0
+					"booleans" : [
+						{
+							"attribute": "loseVictoryPointFromVictoryPoint"
+						}
+					]
 				},
 				{
-					"attribute": "loseVictoryPointFromMilitaryPoint",
-					"value": 0
+					"booleans" : [
+						{
+							"attribute": "loseVictoryPointFromMilitaryPoint"
+						}
+					]
 				},
 				{
-					"attribute": "loseVictoryPointFromBuildingCost",
-					"value": 0
+					"booleans" : [
+						{
+							"attribute": "loseVictoryPointFromBuildingCost"
+						}
+					]
 				},
 				{
-					"attribute": "loseVictoryPointFromResource",
-					"value": 0
+					"booleans" : [
+						{
+							"attribute": "loseVictoryPointFromResource"
+						}
+					]
 				}
 			]
 		}
