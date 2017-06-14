@@ -15,8 +15,6 @@ public class Server {
     private ServerSOC serverSoc;
     public static List <Game> gamesOnGoing;
     public static HashMap<String, ConnectionType> usersInGame;
-    public static HashMap<String, ConnectionType> usersInLobby;
-    public static Timer timer;
     
     public Server (ServerLoginImpl serverLoginRMI, ServerSOC serverSoc) {
         this.serverLoginRMI = serverLoginRMI;

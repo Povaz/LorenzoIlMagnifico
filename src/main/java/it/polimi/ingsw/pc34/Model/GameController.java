@@ -2,6 +2,7 @@ package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 
 import java.util.*;
@@ -12,10 +13,14 @@ import java.util.*;
 public class GameController{
     private final Board board;
     private final List<Player> players;
+    private final HashMap<String, ConnectionType> usersInGame;
 
-    public GameController(Game game){
+    public GameController(Game game, HashMap<String, ConnectionType> usersInGame) {
+        Thread threadGame = new Thread (game);
+        threadGame.start();
         this.board = game.getBoard();
         this.players = game.getPlayers();
+        this.usersInGame = usersInGame;
     }
 
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException {

@@ -1,11 +1,10 @@
 package it.polimi.ingsw.pc34;
 
 import it.polimi.ingsw.pc34.Model.Game;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import org.junit.Test;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.List;
+import java.util.*;
 
 import static org.junit.Assert.*;
 
@@ -16,8 +15,11 @@ public class GameTest{
     @Test
     public void startPeriodTest(){
         try {
-            List<String> usernames = new ArrayList<>(Arrays.asList("EriK", "Paolo", "Tom"));
-            Game game = new Game(usernames);
+            HashMap<String, ConnectionType> usersOfThisGame = new HashMap<>();
+            usersOfThisGame.put("Erick", ConnectionType.RMI);
+            usersOfThisGame.put("Tommaso", ConnectionType.SOCKET);
+            usersOfThisGame.put("PaoloCulo", ConnectionType.RMI);
+            Game game = new Game(usersOfThisGame);
             //game.startPeriod();
 
             System.out.println(Arrays.toString(game.getTerritoryCard()));

@@ -3,12 +3,16 @@ package it.polimi.ingsw.pc34.Model;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.Action.*;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import org.json.JSONException;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+
+import static it.polimi.ingsw.pc34.SocketRMICongiunction.Server.usersInGame;
 
 /**
  * Created by trill on 30/05/2017.
@@ -29,11 +33,6 @@ public class Game implements Runnable{
     private int[] characterCard;
     private int[] ventureCard;
 
-    public static void main(String[] args){
-        Thread game = new Thread(new Game(Arrays.asList("Affetti", "Cugola")));
-        game.start();
-    }
-
     public void run(){
         while(this.period <= this.PERIOD_NUMBER){
             this.startPeriod();
@@ -48,15 +47,16 @@ public class Game implements Runnable{
         System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
     }
 
-    public Game(List<String> usernames){
+    public Game(HashMap<String, ConnectionType> usersOfThisGame){
         this.turn = 1;
         this.period = 1;
-        this.usernames = usernames;
+        this.usernames = new ArrayList<String>();
+        usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();
         this.players = initializePlayers();
         this.board = new Board(players);
         initializePlayersRewards();
-        this.gameController = new GameController(this);
+        this.gameController = new GameController(this, usersOfThisGame);
     }
 
     private List<Player> initializePlayers(){

@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
+import it.polimi.ingsw.pc34.Model.Game;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
@@ -93,6 +94,10 @@ public class Lobby {
             public void run() {
                 try {
                     notifyAllUsers(NotificationType.STARTGAME);
+                    Game game = new Game(users);
+                    Server.gamesOnGoing.add(game);
+                    Thread threadGame = new Thread (game);
+                    threadGame.start();
                 }
                 catch (RemoteException e) {
                     e.printStackTrace();
