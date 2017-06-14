@@ -148,33 +148,6 @@ public class PlayerBoard {
         }
     }
 
-    public FamilyMember getViewFamilyMember() throws TooMuchTimeException{
-        FamilyColor familyColor = TerminalInput.chooseFamilyMemberColor();
-        for(FamilyMember fM : familyMembers){
-            if(fM.getColor() == familyColor){
-                fM.setServantUsed(TerminalInput.askNumberOfServant());
-                return fM;
-            }
-        }
-        return null;
-    }
-
-    public void changeLeaderCardInReward() throws TooMuchTimeException{
-        if(leaderCardsInHand.size() > 0){
-            int index = TerminalInput.askWhichCardChange(leaderCardsInHand);
-            counter.sum(leaderCardsInHand.get(index).getChangedRewards());
-            counter.round();
-            leaderCardsInHand.remove(index);
-        }
-    }
-
-    public void activeImmediateLeaderCard() throws TooMuchTimeException{
-        if(immediateLeaderCardsPositionated.size() > 0){
-            int index = TerminalInput.askWhichCardActivate(immediateLeaderCardsPositionated);
-
-        }
-    }
-
     public Player getPlayer() {
         return player;
     }

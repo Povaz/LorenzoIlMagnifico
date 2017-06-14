@@ -13,18 +13,17 @@ public class PlaceLeaderCard implements CommandPattern{
     private final Game game;
     private final Player player;
     private final Board board;
-    private final LeaderCard leaderCard;
     private final List<LeaderCard> leaderCardsInHand;
     private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
     private final List<PermanentLeaderCard> permanentLeaderCardsPositionated;
     private final Counter newCounter;
     private final Modifier modifier;
+    private LeaderCard leaderCard;
 
-    public PlaceLeaderCard(Game game, Player player, LeaderCard leaderCard){
+    public PlaceLeaderCard(Game game, Player player){
         this.game = game;
         this.player = player;
         this.board = game.getBoard();
-        this.leaderCard = leaderCard;
         this.leaderCardsInHand = player.getPlayerBoard().getLeaderCardsInHand();
         this.immediateLeaderCardsPositionated = player.getPlayerBoard().getImmediateLeaderCardsPositionated();
         this.permanentLeaderCardsPositionated = player.getPlayerBoard().getPermanentLeaderCardsPositionated();
@@ -33,6 +32,12 @@ public class PlaceLeaderCard implements CommandPattern{
     }
 
     public boolean canDoAction() throws TooMuchTimeException{
+        if(leaderCardsInHand.size() <= 0){
+            return false;
+        }
+
+        leaderCard = game.getGameController().askWhichCardPlace(leaderCardsInHand, player);
+
         if(!haveEnoughRewardToActive()){
             return false;
         }

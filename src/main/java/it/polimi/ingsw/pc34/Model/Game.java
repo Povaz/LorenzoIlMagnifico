@@ -23,6 +23,7 @@ public class Game implements Runnable{
     private final int playerNumber;
     private final Board board;
     private final List<Player> players;
+    private final GameController gameController;
     private int[] territoryCard;
     private int[] buildingCard;
     private int[] characterCard;
@@ -55,6 +56,7 @@ public class Game implements Runnable{
         this.players = initializePlayers();
         this.board = new Board(players);
         initializePlayersRewards();
+        this.gameController = new GameController(this);
     }
 
     // TODO aggiungi carte leader e personalBonusTile
@@ -110,8 +112,15 @@ public class Game implements Runnable{
     }
 
     private void churchSupport(){
+        VaticanReportSpot vaticanReportSpot = board.getVaticanReportSpot().get(period - 1);
         for(Player p : board.getOrder().getShown()){
-            board.getVaticanReportSpot().get(period - 1).support(p);
+            SupportVatican supportVatican = new SupportVatican(this, p, vaticanReportSpot);
+            if(supportVatican.canDoAction()){
+                supportVatican.canDoAction();
+            }
+            else{
+                vaticanReportSpot.report(p);
+            }
         }
     }
 
@@ -134,9 +143,9 @@ public class Game implements Runnable{
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(order.getCurrent().getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!   " + order.getCurrent().getColor() + "\n\n");
-                    actionSpot = board.getViewActionSpot();
+                    actionSpot = gameController.getViewActionSpot(order.getCurrent());
                     if(actionSpot != null){
-                        familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
+                        familyMember = gameController.getViewFamilyMember(order.getCurrent());
                     }
                 } while(!(placeFamilyMember(familyMember, actionSpot)));
             } catch(TooMuchTimeException e){
@@ -428,5 +437,9 @@ public class Game implements Runnable{
 
     public void setVentureCard(int[] ventureCard) {
         this.ventureCard = ventureCard;
+    }
+
+    public GameController getGameController(){
+        return gameController;
     }
 }

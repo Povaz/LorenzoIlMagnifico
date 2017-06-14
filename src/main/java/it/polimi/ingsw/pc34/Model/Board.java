@@ -108,33 +108,6 @@ public class Board {
         dices.add(new Dice(FamilyColor.BLACK));
     }
 
-    public ActionSpot getViewActionSpot() throws TooMuchTimeException {
-        ActionInput actionInput = TerminalInput.chooseAction(playerNumber);
-        if(actionInput == null){
-            return null;
-        }
-        switch(actionInput.getActionType()){
-            case TERRITORY_TOWER:
-                return territoryTower.getFloors().get(actionInput.getSpot());
-            case BUILDING_TOWER:
-                return buildingTower.getFloors().get(actionInput.getSpot());
-            case CHARACTER_TOWER:
-                return characterTower.getFloors().get(actionInput.getSpot());
-            case VENTURE_TOWER:
-                return ventureTower.getFloors().get(actionInput.getSpot());
-            case HARVEST:
-                return harvestArea.get(actionInput.getSpot());
-            case PRODUCE:
-                return productionArea.get(actionInput.getSpot());
-            case MARKET:
-                return market.get(actionInput.getSpot());
-            case COUNCIL_PALACE:
-                return councilPalace;
-            default:
-                return null;
-        }
-    }
-
     @Override
     public String toString(){
         String boardString = "";

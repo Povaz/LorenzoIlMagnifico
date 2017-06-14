@@ -18,7 +18,7 @@ public class VaticanReportSpot {
 		this.last = last;
 	}
 
-	public void support(Player player){
+	/*public void support(Player player){
 		Reward playerFaithPoint = player.getPlayerBoard().getCounter().getFaithPoint();
 		if(last){
 			if(playerFaithPoint.getQuantity() < faithPointNeeded.getQuantity()){
@@ -49,9 +49,9 @@ public class VaticanReportSpot {
 		counter.sum(victoryPoint);
 		// azzera i faithPoint
 		counter.subtract(counter.getFaithPoint());
-	}
+	}*/
 
-	private Reward calculateVictoryPointFromFaithPoint(Reward faithPoint){
+	public Reward calculateVictoryPointFromFaithPoint(Reward faithPoint){
 		int faith = faithPoint.getQuantity();
 		if(faith < 0){
 			return new Reward(RewardType.VICTORY_POINT, 0);
@@ -70,15 +70,15 @@ public class VaticanReportSpot {
 		}
 	}
 
-	private void earnRewardSupport(Player player){
+	/*private void earnRewardSupport(Player player){
 		Counter counter = player.getPlayerBoard().getCounter();
 		// guadagna le risorse aggiuntive
 		for(Reward r : player.getPlayerBoard().getModifier().getBonusChurchSupport()){
 			counter.sum(r);
 		}
-	}
+	}*/
 
-	private void getReported(Player player){
+	public void report(Player player){
 		reported.add(player);
 		player.getPlayerBoard().getModifier().update(vaticanReportCard);
 	}
@@ -86,5 +86,21 @@ public class VaticanReportSpot {
 	@Override
 	public String toString(){
 		return "ANCORA DA IMPLEMENTARE!!!\n";
+	}
+
+	public List<Player> getReported() {
+		return reported;
+	}
+
+	public VaticanReportCard getVaticanReportCard() {
+		return vaticanReportCard;
+	}
+
+	public Reward getFaithPointNeeded() {
+		return faithPointNeeded;
+	}
+
+	public boolean isLast() {
+		return last;
 	}
 }

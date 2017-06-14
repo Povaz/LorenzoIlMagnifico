@@ -127,7 +127,10 @@ public class BuyCard implements CommandPattern {
 
     // guadagna i reward della torre
     private void earnReward() throws TooMuchTimeException{
-        newCounter.sumWithLose(floor.getRewards(), modifier.getLoseRewards());
+        if(floor.getRewards() != null){
+            Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(floor.getRewards(), player);
+            newCounter.sumWithLose(rewards, modifier.getLoseRewards());
+        }
     }
 
     // controlla se ha abbastanza risorse per pagare la carta
@@ -135,7 +138,7 @@ public class BuyCard implements CommandPattern {
         if(card instanceof VentureCard){
             VentureCard vCard = (VentureCard) card;
             if(vCard.getCosts() != null && vCard.getMilitaryPointNeeded() != null && vCard.getMilitaryPointPrice() != null){
-                if(TerminalInput.wantToPayWithMilitaryPoint(vCard.getCosts(), vCard.getMilitaryPointNeeded(), vCard.getMilitaryPointPrice())){
+                if(game.getGameController().wantToPayWithMilitaryPoint(vCard.getCosts(), vCard.getMilitaryPointNeeded(), vCard.getMilitaryPointPrice(), player)){
                     return canPayMilitaryPoint(vCard);
                 }
                 else{
@@ -159,7 +162,7 @@ public class BuyCard implements CommandPattern {
 
     private boolean canPayNormalCost() throws TooMuchTimeException{
         List<List<Reward>> discountsSelectables = modifier.getDiscounts().get(floor.getTower().getType());
-        List<Reward> permanentDiscount = discountsSelectables.get(TerminalInput.askWhichDiscount(discountsSelectables));
+        List<Reward> permanentDiscount = game.getGameController().askWhichDiscount(discountsSelectables, player);
         List<Reward> discount = addRewardFromSet(permanentDiscount, familyMember.getDiscounts());
         newCounter.subtractWithDiscount(card.getCosts(), discount);
         if(!newCounter.check()){
@@ -200,15 +203,21 @@ public class BuyCard implements CommandPattern {
 
     // guadagna i fastReward della carta
     private void earnCardFastReward() throws TooMuchTimeException{
-        if(modifier.isDoubleFastRewardDevelopmentCard()){
-            Set<Reward> doubleReward = new HashSet<>();
-            for(Reward r : card.getFastRewards()){
-                doubleReward.add(r.multiplyQuantity(2));
+        if(card.getFastRewards() != null){
+            if(modifier.isDoubleFastRewardDevelopmentCard()){
+                Set<Reward> doubleReward = new HashSet<>();
+                for(Reward r : card.getFastRewards()){
+                    if(r.isResource()){
+                        doubleReward.add(r.multiplyQuantity(2));
+                    }
+                }
+                Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(doubleReward, player);
+                newCounter.sumWithLose(rewards, modifier.getLoseRewards());
             }
-            newCounter.sumWithLose(doubleReward, modifier.getLoseRewards());
-        }
-        else{
-            newCounter.sumWithLose(card.getFastRewards(), modifier.getLoseRewards());
+            else{
+                Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(card.getFastRewards(), player);
+                newCounter.sumWithLose(rewards, modifier.getLoseRewards());
+            }
         }
     }
 
@@ -297,9 +306,9 @@ public class BuyCard implements CommandPattern {
         do{
             System.out.println("AZIONE AGGIUNTIVA!!!");
             System.out.println(fM.getAction() + ":  " + fM.getValue());
-            actionSpot = board.getViewActionSpot();
+            actionSpot = game.getGameController().getViewActionSpot(player);
             if(actionSpot != null){
-                fM.setServantUsed(TerminalInput.askNumberOfServant());
+                fM.setServantUsed(game.getGameController().askNumberOfServant(player));
             }
         } while(!(game.placeFamilyMember(fM, actionSpot)));
     }

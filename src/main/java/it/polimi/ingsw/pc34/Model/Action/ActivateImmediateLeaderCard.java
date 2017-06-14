@@ -13,18 +13,17 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
     private final Game game;
     private final Player player;
     private final Board board;
-    private final ImmediateLeaderCard leaderCard;
     private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
     private final Counter newCounter;
     private final Modifier modifier;
+    private ImmediateLeaderCard leaderCard;
     private FamilyMember toChange;
     private int newValueFamilyMember;
 
-    public ActivateImmediateLeaderCard(Game game, Player player, ImmediateLeaderCard leaderCard){
+    public ActivateImmediateLeaderCard(Game game, Player player){
         this.game = game;
         this.player = player;
         this.board = game.getBoard();
-        this.leaderCard = leaderCard;
         this.immediateLeaderCardsPositionated = player.getPlayerBoard().getImmediateLeaderCardsPositionated();
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
         this.modifier = player.getPlayerBoard().getModifier();
@@ -33,6 +32,12 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
     }
 
     public boolean canDoAction() throws TooMuchTimeException{
+        if(immediateLeaderCardsPositionated.size() <= 0){
+            return false;
+        }
+
+        leaderCard = game.getGameController().askWhichCardActivate(immediateLeaderCardsPositionated, player);
+
         if(leaderCard.isActivated()){
             return false;
         }
@@ -47,15 +52,17 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
     }
 
     private void earnReward() throws TooMuchTimeException{
-        newCounter.sum(leaderCard.getReward());
+        if(leaderCard.getReward() != null){
+            newCounter.sum(leaderCard.getReward());
+        }
     }
 
     private boolean canChangeFamilyMemberValue() throws TooMuchTimeException{
         if(!leaderCard.isChangeColoredFamilyMamberValue()){
-            return false;
+            return true;
         }
         newValueFamilyMember = leaderCard.getNewValueColoredFamilyMember();
-        FamilyColor familyColor = TerminalInput.chooseFamilyMemberColorNotNeutral();
+        FamilyColor familyColor = game.getGameController().chooseFamilyMemberColorNotNeutral(player);
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
             if(fM.getColor() == familyColor){
                 toChange = fM;
@@ -71,6 +78,9 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         // aggiorna risorse giocatore
         player.getPlayerBoard().setCounter(newCounter);
 
+        // segna la carta come attivata
+        leaderCard.setActivated(true);
+
         // fai gli altri effetti
         doOtherEffect();
 
@@ -79,7 +89,9 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
     }
 
     private void doOtherEffect(){
-        toChange.setValue(newValueFamilyMember);
+        if(leaderCard.isChangeColoredFamilyMamberValue()){
+            toChange.setValue(newValueFamilyMember);
+        }
     }
 
     private void doBonusActions() throws TooMuchTimeException{
@@ -98,9 +110,9 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         do{
             System.out.println("AZIONE AGGIUNTIVA!!!");
             System.out.println(fM.getAction() + ":  " + fM.getValue());
-            actionSpot = board.getViewActionSpot();
+            actionSpot = game.getGameController().getViewActionSpot(player);
             if(actionSpot != null){
-                fM.setServantUsed(TerminalInput.askNumberOfServant());
+                fM.setServantUsed(game.getGameController().askNumberOfServant(player));
             }
         } while(!(game.placeFamilyMember(fM, actionSpot)));
     }

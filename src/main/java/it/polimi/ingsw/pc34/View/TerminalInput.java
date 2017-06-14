@@ -192,9 +192,9 @@ public class TerminalInput { //Metodi view: richieste ai Client
         return askNumber(0, immediateLeaderCardsPositionated.size() - 1);
     }
 
-    public static Reward askNumberOfServant() {
+    public static int askNumberOfServant() {
         System.out.println("How many Servant do you want to use?");
-        return new Reward(RewardType.SERVANT, askNumber(0, 7));
+        return askNumber(0, 7);
     }
 
     public static boolean wantToSupportVatican() {
