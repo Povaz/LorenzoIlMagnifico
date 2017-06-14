@@ -13,9 +13,9 @@ import java.util.*;
 public class GameController{
     private final Board board;
     private final List<Player> players;
-    private final HashMap<String, ConnectionType> usersInGame;
+    private final Map<String, ConnectionType> usersInGame;
 
-    public GameController(Game game, HashMap<String, ConnectionType> usersInGame) {
+    public GameController(Game game, Map<String, ConnectionType> usersInGame) {
         Thread threadGame = new Thread (game);
         threadGame.start();
         this.board = game.getBoard();

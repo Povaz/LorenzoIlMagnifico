@@ -7,12 +7,7 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.HashMap;
-import java.util.List;
-
-import static it.polimi.ingsw.pc34.SocketRMICongiunction.Server.usersInGame;
+import java.util.*;
 
 /**
  * Created by trill on 30/05/2017.
@@ -47,19 +42,19 @@ public class Game implements Runnable{
         System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
     }
 
-    public Game(HashMap<String, ConnectionType> usersOfThisGame){
+    public Game(Map<String, ConnectionType> usersOfThisGame){
         this.turn = 1;
         this.period = 1;
-        this.usernames = new ArrayList<String>();
+        this.usernames = new ArrayList<>();
         usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();
-        this.players = initializePlayers();
+        this.players = initializePlayers(usersOfThisGame);
         this.board = new Board(players);
         initializePlayersRewards();
         this.gameController = new GameController(this, usersOfThisGame);
     }
 
-    private List<Player> initializePlayers(){
+    private List<Player> initializePlayers(Map<String, ConnectionType> usersOfThisGame){
         List<Player> players = new ArrayList<>();
         int[] tiles = RandomUtility.randomIntArray(0, playerNumber - 1);
         for(int i = 0; i < playerNumber; i++){
@@ -72,7 +67,7 @@ public class Game implements Runnable{
                 personalBonusTile = null;
             }
             PlayerColor playerColor = PlayerColor.fromInt(i + 1);
-            players.add(new Player(usernames.get(i), playerColor, personalBonusTile, null));
+            players.add(new Player(usernames.get(i), usersOfThisGame.get(usernames.get(i)), playerColor, personalBonusTile, null));
         }
         return players;
     }

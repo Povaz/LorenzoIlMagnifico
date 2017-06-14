@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.JSONUtility;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.json.JSONException;
@@ -65,16 +66,16 @@ public class BoardTest extends TestCase {
         leaderCards.add(JSONUtility.getPermanentLeaderCard(0));
 
         players = new ArrayList<>();
-        players.add(new Player("Erick", PlayerColor.RED, personalBonusTile, leaderCards));
+        players.add(new Player("Erick", ConnectionType.RMI, PlayerColor.RED, personalBonusTile, leaderCards));
 
         board1player = new Board(players);
 
-        players.add(new Player("Erick", PlayerColor.BLUE, personalBonusTile, leaderCards));
-        players.add(new Player("Erick", PlayerColor.YELLOW, personalBonusTile, leaderCards));
+        players.add(new Player("Erick", ConnectionType.RMI, PlayerColor.BLUE, personalBonusTile, leaderCards));
+        players.add(new Player("Erick", ConnectionType.RMI, PlayerColor.YELLOW, personalBonusTile, leaderCards));
 
         board3player = new Board(players);
 
-        players.add(new Player("Erick", PlayerColor.GREEN, personalBonusTile, leaderCards));
+        players.add(new Player("Erick", ConnectionType.RMI, PlayerColor.GREEN, personalBonusTile, leaderCards));
 
         board4player = new Board(players);
     }

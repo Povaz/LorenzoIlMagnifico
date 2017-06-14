@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
+
 import java.util.List;
 
 /**
@@ -7,11 +9,13 @@ import java.util.List;
  */
 public class Player{
     private final String username;
+    private final ConnectionType connectionType;
     private final PlayerColor color;
     private final PlayerBoard playerBoard;
     
-    public Player(String username, PlayerColor color, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
+    public Player(String username, ConnectionType connectionType, PlayerColor color, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.username = username;
+        this.connectionType = connectionType;
         this.color = color;
         this.playerBoard = new PlayerBoard(this, personalBonusTile, leaderCards);
     }
