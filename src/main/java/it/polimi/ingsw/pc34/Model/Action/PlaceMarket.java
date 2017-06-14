@@ -3,6 +3,8 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.util.Set;
+
 /**
  * Created by trill on 10/06/2017.
  */
@@ -62,7 +64,8 @@ public class PlaceMarket implements CommandPattern{
 
     // guadagna i reward del CouncilPalace
     private void earnReward() throws TooMuchTimeException{
-        newCounter.sumWithLose(market.getRewards(), modifier.getLoseRewards());
+        Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(market.getRewards(), player);
+        newCounter.sumWithLose(rewards, modifier.getLoseRewards());
     }
 
     public void doAction(){

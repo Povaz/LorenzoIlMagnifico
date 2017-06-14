@@ -1,13 +1,8 @@
 package it.polimi.ingsw.pc34;
 
+import it.polimi.ingsw.pc34.Model.VaticanReportCard;
 
 import java.io.IOException;
-import java.util.List;
-import java.util.Map;
-
-import it.polimi.ingsw.pc34.Model.ActionType;
-import it.polimi.ingsw.pc34.Model.Reward;
-import it.polimi.ingsw.pc34.Model.VaticanReportCard;
 import org.json.JSONException;
 import org.junit.Test;
 

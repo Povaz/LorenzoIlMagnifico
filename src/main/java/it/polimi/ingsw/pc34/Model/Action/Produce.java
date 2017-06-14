@@ -72,7 +72,8 @@ public class Produce {
         if(tile != null) {
             if(tile.getProductionRewards() != null){
                 if(actionValue >= tile.getDiceProduction()){
-                    newCounter.sum(tile.getProductionRewards());
+                    Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(tile.getProductionRewards(), player);
+                    newCounter.sum(rewards);
                 }
             }
         }
@@ -84,19 +85,23 @@ public class Produce {
             BuildingCard bCard = (BuildingCard) card;
             if(actionValue >= bCard.getDiceProductionAction()){
                 if(bCard.getEarnings() != null){
-                    newCounter.sumWithLose(bCard.getEarnings(), modifier.getLoseRewards());
+                    Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(bCard.getEarnings(), player);
+                    newCounter.sumWithLose(rewards, modifier.getLoseRewards());
                 }
                 if(bCard.getRewardForCard() != null){
-                    newCounter.sumWithLose(convertRewardForReward(bCard.getRewardForReward()), modifier.getLoseRewards());
+                    Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(convertRewardForReward(bCard.getRewardForReward()), player);
+                    newCounter.sumWithLose(rewards, modifier.getLoseRewards());
                 }
                 if(bCard.getRewardForReward() != null){
-                    newCounter.sumWithLose(covertRewardForCard(bCard.getRewardForCard()), modifier.getLoseRewards());
+                    Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(covertRewardForCard(bCard.getRewardForCard()), player);
+                    newCounter.sumWithLose(rewards, modifier.getLoseRewards());
                 }
                 if(bCard.getTrades() != null){
-                    Trade trade = TerminalInput.chooseTrade(bCard);
+                    Trade trade = game.getGameController().chooseTrade(bCard, player);
                     copyForCosts.subtract(trade.getGive());
                     newCounter.subtract(trade.getGive());
-                    newCounter.sumWithLose(trade.getTake(), modifier.getLoseRewards());
+                    Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(trade.getTake(), player);
+                    newCounter.sumWithLose(rewards, modifier.getLoseRewards());
                 }
             }
         }

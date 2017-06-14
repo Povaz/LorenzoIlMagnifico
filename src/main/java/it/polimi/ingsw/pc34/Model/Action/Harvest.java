@@ -3,6 +3,8 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.util.Set;
+
 /**
  * Created by trill on 10/06/2017.
  */
@@ -66,7 +68,8 @@ public class Harvest implements CommandPattern{
         if(tile != null) {
             if(tile.getHarvestRewards() != null){
                 if(actionValue >= tile.getDiceHarvest()){
-                    newCounter.sum(tile.getHarvestRewards());
+                    Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(tile.getHarvestRewards(), player);
+                    newCounter.sum(rewards);
                 }
             }
         }
@@ -78,7 +81,8 @@ public class Harvest implements CommandPattern{
             TerritoryCard tCard = (TerritoryCard) card;
             if(actionValue >= tCard.getDiceHarvestAction()){
                 if(tCard.getEarnings() != null){
-                    newCounter.sumWithLose(tCard.getEarnings(), modifier.getLoseRewards());
+                    Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(tCard.getEarnings(), player);
+                    newCounter.sumWithLose(rewards, modifier.getLoseRewards());
                 }
             }
         }
