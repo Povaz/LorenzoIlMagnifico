@@ -10,14 +10,19 @@ import java.util.Set;
 import org.json.JSONException;
 
 import it.polimi.ingsw.pc34.JSONUtility;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 
 public class SeverLoginUser implements Runnable{
 	private String name;
 	private Socket socket;
+	private Lobby lobby;
+	private ServerSOC serverSoc;
 	
-	public SeverLoginUser(Socket socket){
+	public SeverLoginUser(Socket socket, Lobby lobby, ServerSOC serverSoc){
 		this.socket = socket; 
+		this.lobby = lobby;
+		this.serverSoc = serverSoc;
 	}
 	
 	public SeverLoginUser(String name, Socket socket){
@@ -54,30 +59,29 @@ public class SeverLoginUser implements Runnable{
 	}
 	
 
-	private boolean searchUserLogged (String name) throws RemoteException {
-        Set<String> usernames = null;//Server.usersInLobby.keySet();
-        for (String username : usernames) {
-            if ( (name.equals(username)) && (name.equals(username))) {
-                return true;
-            }
-        }
-        return false;
+	private boolean searchUserLogged (String username) throws RemoteException {
+        return lobby.searchUser(username);
     }
 	
 	synchronized public void run() {
 		String decision = null;
 		boolean logged = false;
+		boolean askDecision = true;
 		while(!logged){
-			try {
-				decision = receiveFromClient();
-			} catch (IOException e2) {
-				// TODO Auto-generated catch block
-				e2.printStackTrace();
+			if(askDecision){
+				try {
+					decision = receiveFromClient();
+				} catch (IOException e2) {
+					// TODO Auto-generated catch block
+					e2.printStackTrace();
+				}
 			}
+			askDecision = false;
 			String username = null;
 			try {
 				username = receiveFromClient();
 				if(username.equals("/back")){
+					askDecision=true;
 					continue;
 				}
 			} catch (IOException e) {
@@ -119,13 +123,18 @@ public class SeverLoginUser implements Runnable{
 					e.printStackTrace();
 				}
 				if(decision.equals("1")){
-					ServerSOC.addPlayer(username, socket);
+					try {
+						serverSoc.addPlayerLobby (username);
+					} catch (RemoteException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
 					logged= true;
 				}
 			}
-			else if(result==false){	
+			else if(!result){	
 				try {
-					sendToClient("Wrong Combination!");
+					sendToClient("wrong combination!");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
