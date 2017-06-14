@@ -55,8 +55,6 @@ public class Lobby {
         }
     }
 
-
-
     public void notifyAllUsers(NotificationType notificationType) throws RemoteException {
         String message;
         switch (notificationType) {

@@ -112,15 +112,8 @@ public class Game implements Runnable{
     }
 
     private void churchSupport(){
-        VaticanReportSpot vaticanReportSpot = board.getVaticanReportSpot().get(period - 1);
-        for(Player p : board.getOrder().getShown()){
-            SupportVatican supportVatican = new SupportVatican(this, p, vaticanReportSpot);
-            if(supportVatican.canDoAction()){
-                supportVatican.canDoAction();
-            }
-            else{
-                vaticanReportSpot.report(p);
-            }
+        for(Player p : board.getOrder().getShown()) {
+            board.getVaticanReportSpot().get(period - 1).support(p);
         }
     }
 
@@ -143,9 +136,9 @@ public class Game implements Runnable{
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(order.getCurrent().getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!   " + order.getCurrent().getColor() + "\n\n");
-                    actionSpot = gameController.getViewActionSpot(order.getCurrent());
-                    if(actionSpot != null){
-                        familyMember = gameController.getViewFamilyMember(order.getCurrent());
+                    actionSpot = board.getViewActionSpot();
+                    if(actionSpot != null) {
+                        familyMember = order.getCurrent().getPlayerBoard().getViewFamilyMember();
                     }
                 } while(!(placeFamilyMember(familyMember, actionSpot)));
             } catch(TooMuchTimeException e){

@@ -107,7 +107,7 @@ public class JSONUtility {
 		return cardsArray.length();
 	}
 
-	private static TerritoryCard getTerritoryCard(int period, int number) throws JSONException, IOException{
+	public static TerritoryCard getTerritoryCard(int period, int number) throws JSONException, IOException{
 		JSONObject card = fromPathToJSONObject(territoryCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
 
@@ -119,7 +119,7 @@ public class JSONUtility {
 		return new TerritoryCard(name, period, fastRewards, diceHarvestAction, earnings);
 	}
 
-	private static BuildingCard getBuildingCard(int period, int number) throws JSONException, IOException{
+	public static BuildingCard getBuildingCard(int period, int number) throws JSONException, IOException{
 		JSONObject card = fromPathToJSONObject(buildingCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
 
@@ -136,7 +136,7 @@ public class JSONUtility {
 				rewardForCard);
 	}
 
-	private static CharacterCard getCharacterCard(int period, int number) throws JSONException, IOException{
+	public static CharacterCard getCharacterCard(int period, int number) throws JSONException, IOException{
 		JSONObject card = fromPathToJSONObject(characterCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
 
@@ -154,7 +154,7 @@ public class JSONUtility {
 				rewardForReward, rewardForCard);
 	}
 
-	private static VentureCard getVentureCard(int period, int number) throws JSONException, IOException{
+	public static VentureCard getVentureCard(int period, int number) throws JSONException, IOException{
 		JSONObject card = fromPathToJSONObject(ventureCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
 

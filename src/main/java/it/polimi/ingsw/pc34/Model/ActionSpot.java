@@ -63,7 +63,7 @@ public abstract class ActionSpot {
 	public void placeFamilyMember(FamilyMember familyMember){
 		familyMember.setUsed(true);
 		occupiedBy.add(familyMember);
-		if(!unrestricted){
+		if(!unrestricted) {
 			busy = true;
 		}
 	}
@@ -80,5 +80,19 @@ public abstract class ActionSpot {
 			string += fM.toString1();
 		}
 		return string;
+	}
+
+	@Override
+	public boolean equals (Object o) {
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		ActionSpot that = (ActionSpot) o;
+
+		if (busy != that.busy) return false;
+		if (active != that.active) return false;
+		if (unrestricted != that.unrestricted) return false;
+		if (diceValue != that.diceValue) return false;
+		return occupiedBy != null ? occupiedBy.equals(that.occupiedBy) : that.occupiedBy == null;
 	}
 }

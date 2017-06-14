@@ -50,19 +50,19 @@ public class Board {
         initializeDices();
     }
 
-    private void initializeHarvestArea(int playerNumber){
+    void initializeHarvestArea(int playerNumber){
         harvestArea.add(new HarvestArea(true, false, 0, this));
         if(playerNumber >= 3)
             harvestArea.add(new HarvestArea(true, true, -3, this));
     }
 
-    private void initializeProductionArea(int playerNumber){
+    void initializeProductionArea(int playerNumber){
         productionArea.add(new ProductionArea(true, false, 0, this));
         if(playerNumber >= 3)
             productionArea.add(new ProductionArea(true, true, -3, this));
     }
 
-    private void initializeMarket(int playerNumber){
+    void initializeMarket(int playerNumber){
         Set<Reward> firstAreaReward = new HashSet<>();
         firstAreaReward.add(new Reward(RewardType.COIN, 5));
         market.add(new Market(true, false, 1, firstAreaReward));
@@ -83,7 +83,7 @@ public class Board {
         }
     }
 
-    private void initializeVaticanReportSpot(){
+    void initializeVaticanReportSpot(){
         try {
             for(int period = 1; period <= Game.PERIOD_NUMBER; period++) {
                 int cardNumber = RandomUtility.randomInt(0, JSONUtility.getVaticanReportLength(period) - 1);
@@ -102,7 +102,7 @@ public class Board {
         }
     }
 
-    private void initializeDices(){
+    void initializeDices(){
         dices.add(new Dice(FamilyColor.WHITE));
         dices.add(new Dice(FamilyColor.ORANGE));
         dices.add(new Dice(FamilyColor.BLACK));

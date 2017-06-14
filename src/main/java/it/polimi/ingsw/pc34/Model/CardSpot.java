@@ -8,7 +8,7 @@ import java.util.List;
  */
 public abstract class CardSpot{
     private final List<DevelopmentCard> cards;
-    private final int CARD_SPOT_CAPACITY = 6;
+    final int CARD_SPOT_CAPACITY = 6;
 
     public CardSpot(){
         this.cards = new ArrayList<>();

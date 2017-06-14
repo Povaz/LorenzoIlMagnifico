@@ -48,6 +48,7 @@ public class FamilyMember{
 	public FamilyMember(ActionType action, int value, Set<Reward> discounts){
 		this.used = false;
 		this.value = value;
+		this.servantUsed = new Reward(RewardType.SERVANT, 0); //AGGIUNTO DA ERICK PER TEST: causa NullPointer
 		this.ghost = true;
 		this.player = null;
 		this.color = FamilyColor.NEUTRAL;

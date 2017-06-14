@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
+import it.polimi.ingsw.pc34.Model.Game;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
@@ -12,6 +13,7 @@ import java.util.*;
 public class Server {
     private ServerLoginImpl serverLoginRMI;
     private ServerSOC serverSoc;
+    public static List <Game> gamesOnGoing;
     public static HashMap<String, ConnectionType> usersInGame;
     public static HashMap<String, ConnectionType> usersInLobby;
     public static Timer timer;
@@ -27,11 +29,6 @@ public class Server {
        serverLoginRMI.start();
        Thread serverSoc = new Thread(this.serverSoc);
        serverSoc.start();
-    }
-
-    public static void startServerGame () {
-        // Creazione Thread con istanza Game
-        // game.start();
     }
 
     public static void main (String[] args) throws RemoteException {
