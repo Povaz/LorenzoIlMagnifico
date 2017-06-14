@@ -110,22 +110,22 @@ public class CardSpotTest extends TestCase {
     public void setUp() throws JSONException, IOException {
         buildingCards = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            buildingCards.add(JSONUtility.getBuildingCard(1, i));
+            buildingCards.add(JSONUtility.getCard(1, i, CardType.BUILDING));
         }
 
         characterCards = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            characterCards.add(JSONUtility.getCharacterCard(1, i));
+            characterCards.add(JSONUtility.getCard(1, i, CardType.CHARACTER));
         }
 
         territoryCards = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            territoryCards.add(JSONUtility.getTerritoryCard(1, i));
+            territoryCards.add(JSONUtility.getCard(1, i, CardType.TERRITORY));
         }
 
         ventureCards = new ArrayList<>();
         for (int i = 0; i < 6; i++) {
-            ventureCards.add(JSONUtility.getVentureCard(1, i));
+            ventureCards.add(JSONUtility.getCard(1, i, CardType.VENTURE));
         }
 
         buildingSpot = new BuildingSpot();

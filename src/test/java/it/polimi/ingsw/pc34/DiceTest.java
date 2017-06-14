@@ -1,10 +1,10 @@
 package it.polimi.ingsw.pc34;
 
 import static org.junit.Assert.*;
+import org.junit.Test;
 
 import it.polimi.ingsw.pc34.Model.Dice;
 import it.polimi.ingsw.pc34.Model.FamilyColor;
-import org.junit.Test;
 
 import java.util.Arrays;
 
