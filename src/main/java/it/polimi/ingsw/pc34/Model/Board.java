@@ -86,7 +86,7 @@ public class Board {
     private void initializeVaticanReportSpot(){
         try {
             for(int period = 1; period <= Game.PERIOD_NUMBER; period++) {
-                int cardNumber = RandomUtility.randomInt(0, JSONUtility.getVaticanReportLength(period)) - 1;
+                int cardNumber = RandomUtility.randomInt(0, JSONUtility.getVaticanReportLength(period) - 1);
                 VaticanReportCard vaticanReportCard = JSONUtility.getVaticanReportCard(period, cardNumber);
                 if(period == Game.PERIOD_NUMBER){
                     vaticanReportSpot.add(new VaticanReportSpot(vaticanReportCard, new Reward(RewardType.FAITH_POINT, 5), true));

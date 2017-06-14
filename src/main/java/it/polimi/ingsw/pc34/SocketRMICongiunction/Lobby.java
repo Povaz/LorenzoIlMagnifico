@@ -13,7 +13,7 @@ public class Lobby {
     private HashMap<String, ConnectionType> users;
     private Timer timer;
     private ServerLoginImpl serverRMI;
-    private ServerSOC serverSoc
+    private ServerSOC serverSoc;
     
     public Lobby () {
         this.users = new HashMap<>();
