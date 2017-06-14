@@ -34,7 +34,7 @@ public class Server {
     public static void main (String[] args) throws RemoteException {
         Lobby lobby = new Lobby();
         ServerLoginImpl serverLoginRMI = new ServerLoginImpl(lobby);
-        ServerSOC serverSoc = new ServerSOC(1337);
+        ServerSOC serverSoc = new ServerSOC(1337, lobby);
         Server server = new Server(serverLoginRMI , serverSoc);
         server.startServers();
     }

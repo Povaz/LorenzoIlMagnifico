@@ -31,6 +31,7 @@ public class Lobby {
     public void setServerSOCKET (ServerSOC serverSoc) {
         this.serverSoc = serverSoc;
     }
+    
     public void setUsers(HashMap<String, ConnectionType> users) {
         this.users = users;
     }
@@ -55,27 +56,23 @@ public class Lobby {
         }
     }
 
-    public void notifyAllUsers(NotificationType notificationType) throws RemoteException {
-        String message;
+    synchronized public void notifyAllUsers(NotificationType notificationType) throws RemoteException {
+        String message = null;
         switch (notificationType) {
             case STARTGAME:
                 message = "The game is starting";
-                this.serverRMI.notifyRMIPlayers(message);
-                //this.ServerSocket
                 break;
             case USERLOGIN:
                 message = "A user is logged";
-                this.serverRMI.notifyRMIPlayers(message);
-                //this.ServerSocket
                 break;
             case USERLOGOUT:
                 message = "A user logged out";
-                this.serverRMI.notifyRMIPlayers(message);
-                //this.ServerSocket
                 break;
             default:
                 break;
         }
+        this.serverRMI.notifyRMIPlayers(message);
+        this.serverSoc.notifySOCPlayers(message);
     }
 
     public Timer getTimer() {

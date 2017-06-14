@@ -123,7 +123,7 @@ public class ClientSOC implements Runnable {
 					return username;
 				}
 			}
-			else if (receivedRespPass.equals("wrong combination")){
+			else if (receivedRespPass.equals("wrong combination!")){
 				if(decision.equals("1")){
 					System.out.println("Wrong combination, retry");
 					System.out.println("");

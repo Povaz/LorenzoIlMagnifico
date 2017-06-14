@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Scanner;
 import java.util.Timer;
@@ -11,17 +12,26 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.polimi.ingsw.pc34.RMI.UserLogin;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 
 public class ServerSOC implements Runnable {
 	private int port;
 	private ServerSocket serverSocket;
-	private static ArrayList <SeverLoginUser> utenti = new ArrayList <SeverLoginUser>(); 
-	private static int counter = 0;
+	private static ArrayList <SeverLoginUser> utenti; 
+	private static int counter;
+	private Lobby lobby;
 	
-	public ServerSOC(int port) {
+	
+	public ServerSOC(int port, Lobby lobby) {
 		this.port = port;
+		this.utenti = new ArrayList <>();
+        this.lobby = lobby;
+        this.lobby.setServerSOCKET(this);
+        this.counter = 0;
 	}
 	
 	public void run() {
@@ -41,7 +51,7 @@ public class ServerSOC implements Runnable {
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				utenti.add(new SeverLoginUser(socket));
+				utenti.add(new SeverLoginUser(socket, lobby, this));
 				executor.submit(utenti.get(counter));
 				counter++;
 			} 
@@ -51,56 +61,36 @@ public class ServerSOC implements Runnable {
 		}
 	}
 	
-	synchronized public static void addPlayer(String username, Socket socket) {
+	synchronized public void addPlayerLobby (String username) throws RemoteException {
 		
-		//crea nuovo utente
-		Server.usersInLobby.put(username, ConnectionType.SOCKET);
+		//crea nuovo utente nella Lobby
+		lobby.getUsers().put(username, ConnectionType.SOCKET);
 	
 		//notifica a tutti i giocatori
-		notifyPlayers (username + " joined the lobby!! Now in the lobby there are " + Server.usersInLobby.size() + " players");
-		
-		if(Server.usersInLobby.size() == 2){
-			notifyPlayers("In 10 seconds Game will start!!");
+		lobby.notifyAllUsers(NotificationType.USERLOGIN);
+	
+		if(lobby.getUsers().size() == 2){
+			lobby.notifyAllUsers(NotificationType.STARTGAME);
 			System.out.println("Timer Started");
-            Server.timer = new Timer();
-            Server.timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
-                    notifyPlayers("Game Started!!");
-                    clear();
-                    return;
-                }
-            }, 10000);
+			lobby.inizializeTimer();
+            lobby.startTimer();
 		}
 		
-		if(Server.usersInLobby.size()==5){
-			notifyPlayers("In 10 seconds Game will start!!");
-			Server.timer.cancel();
-			Server.timer = new Timer();
-			Server.timer.schedule(new TimerTask() {
-                @Override
-                public void run() {
-                    System.out.println("Start Game with: " + Server.usersInLobby.size() + "players");
-                    notifyPlayers("Game Started!!");
-                    clear();
-                    return;
-                }
-            }, 10000);
+		if(lobby.getUsers().size()==5){
+			lobby.stopTimer();
+            System.out.println("Start Game");
 		}
 		
 		//
 	}
-	
-	
-	synchronized public static void notifyPlayers (String message){
+		
+	synchronized public void notifySOCPlayers (String message){
 		System.out.println("INVIO NOTIFICA : " + message);
 		System.out.println("");
 		Socket instance;
 		PrintWriter out = null;
-		//MODIFICARE CON PLAYER IN LOBBY (NON POSSO ANCORA FARLO PERCHè LA GESTIONE UTENTI è INCOMPLETA) 
-		for(int i=0;i<utenti.size();i++){
-			instance = ((utenti.get(i)).getSocket());
+		for (SeverLoginUser user: utenti) {
+            instance = (user).getSocket();
 			try {
 				out = new PrintWriter(instance.getOutputStream(), true);
 			} catch (IOException e) {
@@ -114,18 +104,14 @@ public class ServerSOC implements Runnable {
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			
-		}
+        }
 	}
-	
-	
+		
 	synchronized public static void clear(){
 		System.out.println("Creating New Lobby");
 		System.out.println("");
 		utenti.clear();
-		Server.usersInLobby.clear();
 		counter=0;
-		Server.timer = new Timer();
 	}
 	
 }
