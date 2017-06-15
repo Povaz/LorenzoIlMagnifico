@@ -57,7 +57,7 @@ public class Lobby {
         }
     }
 
-    synchronized public void notifyAllUsers(NotificationType notificationType) throws RemoteException {
+    public void notifyAllUsers(NotificationType notificationType) throws RemoteException {
         String message = null;
         switch (notificationType) {
             case STARTGAME:

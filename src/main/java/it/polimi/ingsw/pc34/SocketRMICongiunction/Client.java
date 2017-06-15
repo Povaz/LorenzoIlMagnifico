@@ -31,7 +31,7 @@ public class Client {
     public ClientSOC getUserSoc() {
         return userSoc;
     }
-
+    
     public void startClientRMI() {
         Thread userLoginRMI = new Thread (this.userLoginRMI);
         userLoginRMI.start();

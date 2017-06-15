@@ -13,19 +13,19 @@ import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 
-public class SeverLoginUser implements Runnable{
+public class ServerLoginUser implements Runnable{
 	private String name;
 	private Socket socket;
 	private Lobby lobby;
 	private ServerSOC serverSoc;
 	
-	public SeverLoginUser(Socket socket, Lobby lobby, ServerSOC serverSoc){
+	public ServerLoginUser(Socket socket, Lobby lobby, ServerSOC serverSoc){
 		this.socket = socket; 
 		this.lobby = lobby;
 		this.serverSoc = serverSoc;
 	}
 	
-	public SeverLoginUser(String name, Socket socket){
+	public ServerLoginUser(String name, Socket socket){
 		this.socket = socket;
 		this.name = name; 
 	}
@@ -42,15 +42,13 @@ public class SeverLoginUser implements Runnable{
 		return name;
 	}
 	
-	synchronized public void sendToClient(String message) throws IOException{
+	synchronized private void sendToClient(String message) throws IOException{
 		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
 		socketOut.println(message);
 		socketOut.flush();
-		Scanner socketIn = new Scanner(socket.getInputStream());
-		String confirm = socketIn.nextLine();
 	}
 	
-	synchronized public String receiveFromClient() throws IOException{
+	synchronized private String receiveFromClient() throws IOException{
 		Scanner socketIn = new Scanner(socket.getInputStream());
 		String received = socketIn.nextLine();
 		System.out.println("RECEIVED : " + received);
@@ -58,12 +56,11 @@ public class SeverLoginUser implements Runnable{
 		return received;
 	}
 	
-
 	private boolean searchUserLogged (String username) throws RemoteException {
         return lobby.searchUser(username);
     }
 	
-	synchronized public void run() {
+	public void run() {
 		String decision = null;
 		boolean logged = false;
 		boolean askDecision = true;
@@ -72,14 +69,13 @@ public class SeverLoginUser implements Runnable{
 				try {
 					decision = receiveFromClient();
 				} catch (IOException e2) {
-					// TODO Auto-generated catch block
 					e2.printStackTrace();
 				}
 			}
 			askDecision = false;
 			String username = null;
 			try {
-				username = receiveFromClient();
+				username = receiveFromClient();	
 				if(username.equals("/back")){
 					askDecision=true;
 					continue;
@@ -104,7 +100,6 @@ public class SeverLoginUser implements Runnable{
 				try {
 					yetLogged = searchUserLogged(username);
 				} catch (RemoteException e) {
-					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
 			}
@@ -124,9 +119,8 @@ public class SeverLoginUser implements Runnable{
 				}
 				if(decision.equals("1")){
 					try {
-						serverSoc.addPlayerLobby (username);
+						serverSoc.addPlayer (this, username);
 					} catch (RemoteException e) {
-						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
 					logged= true;
@@ -147,6 +141,14 @@ public class SeverLoginUser implements Runnable{
 				}
 			}
 		}
+		//starta handler comunicazione 
+		ServerComunicationHandler handler = new ServerComunicationHandler(lobby, serverSoc, socket, name);
+		try {
+			handler.initialize();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
 	}
 	
 	

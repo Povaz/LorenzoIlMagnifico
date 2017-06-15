@@ -18,7 +18,7 @@ public class ClientSOC implements Runnable {
 		socketServer = new Socket (ip, port);
 	}
 
-	synchronized public void run() {
+	public void run() {
 		System.out.println("Connection established");
 		System.out.println("");
 		boolean logged = false;
@@ -30,28 +30,37 @@ public class ClientSOC implements Runnable {
 				e1.printStackTrace();
 			}
 		}
-		System.out.println("Waiting Game to Start. . .");
+		System.out.println("Waiting Game to Start. . . \nWrite '/logout' to logout ");
 		System.out.println("");
+		
+		ClientComunicationHandler sch = new ClientComunicationHandler (socketServer , this);
+		Thread output = new Thread(sch);
+		output.start();
 		
 		//sempre pronto a ricevere notifiche
 		String line = null;
-		synchronized(this){while (true){
-			try {
-				line = receiveFromServer();
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+		synchronized(this){
+			while (true){
+				try {
+					line = receiveFromServer();
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				System.out.println(line);
+				System.out.println("");
+				if(line.equals("Game Started")){
+					break;
+				}
+				else if(line.equals("logout")){
+					break;
+				}
 			}
-			System.out.println(line);
-			System.out.println("");
-			if(line.equals("Game Started")){
-				break;
-			}
-		}}
+		}
 		return;
 	}
 	
-	synchronized private boolean login() throws IOException{
+	private boolean login() throws IOException{
 		String decision = null;
 		boolean cycle = true;
 		while(cycle){
@@ -71,13 +80,12 @@ public class ClientSOC implements Runnable {
 		}
 	}
 	
-	synchronized private static String loginVsRegister (){
+	private static String loginVsRegister (){
 		Scanner in = new Scanner (System.in);
 		String decision;
 		while(true){
 			System.out.println("What you want to do? Insert number: \n 1-login \n 2-register");
 			decision = in.nextLine();
-			//prima era qua l'invio al server
 			if(decision.equals("1")){
 				System.out.println("LOGIN:");
 				break;
@@ -91,7 +99,7 @@ public class ClientSOC implements Runnable {
 		return decision;
 	}
 	
-	synchronized private static String sendDataLog ( String decision) throws IOException{
+	private static String sendDataLog ( String decision) throws IOException{
 		String username;
 		String password;
 		Scanner in = new Scanner (System.in); 
@@ -136,18 +144,18 @@ public class ClientSOC implements Runnable {
 		}
 	}
 	
-	synchronized public static void sendToServer(String message) throws IOException{
+	synchronized private static void sendToServer(String message) throws IOException{
 		PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
 		socketOut.println(message);
 		socketOut.flush();
 	}
 	
-	synchronized public static String receiveFromServer() throws IOException{
+	synchronized private static String receiveFromServer() throws IOException{
 		Scanner socketIn = new Scanner(socketServer.getInputStream());
 		String received = socketIn.nextLine();
-		PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
-		socketOut.println("ok");
-		socketOut.flush();
+		//PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
+		//socketOut.println("ok");
+		//socketOut.flush();
 		return received;
 		
 	}
@@ -209,6 +217,5 @@ public class ClientSOC implements Runnable {
 		}
 		return "";
 	}
-	
 	
 }

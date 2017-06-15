@@ -21,10 +21,10 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 public class ServerSOC implements Runnable {
 	private int port;
 	private ServerSocket serverSocket;
-	private static ArrayList <SeverLoginUser> utenti; 
+	private static ArrayList <ServerLoginUser> utenti; 
 	private static int counter;
 	private Lobby lobby;
-	
+	private ExecutorService executor = Executors.newCachedThreadPool();
 	
 	public ServerSOC(int port, Lobby lobby) {
 		this.port = port;
@@ -33,15 +33,12 @@ public class ServerSOC implements Runnable {
         this.lobby.setServerSOCKET(this);
         this.counter = 0;
 	}
-	
+
 	public void run() {
-		
-		ExecutorService executor = Executors.newCachedThreadPool();
 		
 		try {
 			serverSocket = new ServerSocket(port);
 		} catch (IOException e1) {
-			// TODO Auto-generated catch block
 			e1.printStackTrace();
 		}
 		
@@ -51,8 +48,8 @@ public class ServerSOC implements Runnable {
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				utenti.add(new SeverLoginUser(socket, lobby, this));
-				executor.submit(utenti.get(counter));
+				ServerLoginUser last = new ServerLoginUser(socket, lobby, this); 
+				executor.submit(last);
 				counter++;
 			} 
 			catch(IOException e) {
@@ -61,14 +58,16 @@ public class ServerSOC implements Runnable {
 		}
 	}
 	
-	synchronized public void addPlayerLobby (String username) throws RemoteException {
+	synchronized public void addPlayer (ServerLoginUser last, String username) throws RemoteException {
 		
 		//crea nuovo utente nella Lobby
 		lobby.getUsers().put(username, ConnectionType.SOCKET);
 	
 		//notifica a tutti i giocatori
 		lobby.notifyAllUsers(NotificationType.USERLOGIN);
-	
+		
+		utenti.add(last);
+		
 		if(lobby.getUsers().size() == 2){
 			lobby.notifyAllUsers(NotificationType.STARTGAME);
 			System.out.println("Timer Started");
@@ -81,15 +80,25 @@ public class ServerSOC implements Runnable {
             System.out.println("Start Game");
 		}
 		
-		//
 	}
-		
+
+
+	synchronized public void removePlayer (String username){
+		for (ServerLoginUser user: utenti) {
+            if(username.equals(user.getName())){
+            	utenti.remove(user);
+            	counter--;
+            	return;
+            }
+        }
+	}
+	
 	synchronized public void notifySOCPlayers (String message){
 		System.out.println("INVIO NOTIFICA : " + message);
 		System.out.println("");
 		Socket instance;
 		PrintWriter out = null;
-		for (SeverLoginUser user: utenti) {
+		for (ServerLoginUser user: utenti) {
             instance = (user).getSocket();
 			try {
 				out = new PrintWriter(instance.getOutputStream(), true);

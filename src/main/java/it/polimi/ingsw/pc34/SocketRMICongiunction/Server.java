@@ -36,4 +36,5 @@ public class Server {
         Server server = new Server(serverLoginRMI , serverSoc);
         server.startServers();
     }
+
 }
