@@ -29,7 +29,7 @@ public class Order{
 		this.current = 0;
 	}
 
-	private void calculateShownOrder(List<FamilyMember> councilPalaceOrder){
+	void calculateShownOrder(List<FamilyMember> councilPalaceOrder){
 		List<Player> newOrder = new ArrayList<>(shown);
 		for(int i = 0; i < councilPalaceOrder.size(); i++){
 			newOrder.add(i, councilPalaceOrder.get(i).getPlayer());
@@ -38,7 +38,7 @@ public class Order{
 		this.shown = newOrder;
 	}
 
-	private void calculateRealOrder(){
+	void calculateRealOrder(){
 		List<Player> real = new ArrayList<>();
 		int familyMemberNumber = 4;
 		for(int familyMember = 0; familyMember < familyMemberNumber; familyMember++){
@@ -47,18 +47,20 @@ public class Order{
 			}
 		}
 		// se hanno la scomunica saltano il primo round
+		int player = 0;
 		for(int i = 0; i < shown.size(); i++){
-			if(real.get(i).getPlayerBoard().getModifier().isJumpFirstRound()){
-				real.add(real.get(i));
-				real.remove(i);
-				i--;
+			if(real.get(player).getPlayerBoard().getModifier().isJumpFirstRound()){
+				real.add(real.get(player));
+				real.remove(player);
+				player--;
 			}
+			player++;
 		}
 		this.real = real;
 	}
 
 
-	private void removeBottomDuplicates(List<Player> list){
+	void removeBottomDuplicates(List<Player> list){
 		for(int i = 0; i < list.size() - 1; i++){
 			for(int j = i + 1; j < list.size(); j++){
 				if(list.get(i).sameColor(list.get(j))){
@@ -78,6 +80,14 @@ public class Order{
 
 	public Player getCurrent() {
 		return real.get(current);
+	}
+
+	public void setShown(List<Player> shown){
+		this.shown = shown;
+	}
+
+	public List<Player> getReal(){
+		return real;
 	}
 
 	public boolean nextOrder(){

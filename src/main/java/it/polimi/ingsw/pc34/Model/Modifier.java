@@ -377,4 +377,8 @@ public class Modifier{
 	public Map<ActionType, Integer> getActionModifiers() {
 		return actionModifiers;
 	}
+
+	public void setJumpFirstRound(boolean jumpFirstRound){
+		this.jumpFirstRound = jumpFirstRound;
+	}
 }
