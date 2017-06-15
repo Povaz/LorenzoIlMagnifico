@@ -4,7 +4,10 @@ import it.polimi.ingsw.pc34.Model.Game;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
+import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.*;
 
 /**
@@ -22,14 +25,21 @@ public class Server {
         usersInGame = new HashMap<>();
     }
 
-    private void startServers () {
-       Thread serverLoginRMI = new Thread(this.serverLoginRMI);
-       serverLoginRMI.start();
-       Thread serverSoc = new Thread(this.serverSoc);
-       serverSoc.start();
+    private void startServers () throws RemoteException, AlreadyBoundException{
+        System.out.println("Constructing server implementation...");
+
+        System.out.println("Binding Server implementation to registry...");
+        Registry registry = LocateRegistry.createRegistry(8000);
+        registry.bind("serverLogin", this.serverLoginRMI);
+
+        System.out.println("Waiting for invocations from clients...");
+
+
+        Thread serverSoc = new Thread(this.serverSoc);
+        serverSoc.start();
     }
 
-    public static void main (String[] args) throws RemoteException {
+    public static void main (String[] args) throws RemoteException, AlreadyBoundException {
         Lobby lobby = new Lobby();
         ServerLoginImpl serverLoginRMI = new ServerLoginImpl(lobby);
         ServerSOC serverSoc = new ServerSOC(1337, lobby);

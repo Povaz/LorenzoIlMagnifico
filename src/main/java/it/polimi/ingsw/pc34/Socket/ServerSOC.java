@@ -64,12 +64,12 @@ public class ServerSOC implements Runnable {
 		lobby.getUsers().put(username, ConnectionType.SOCKET);
 	
 		//notifica a tutti i giocatori
-		lobby.notifyAllUsers(NotificationType.USERLOGIN);
+		lobby.notifyAllUsers(NotificationType.USERLOGIN, last.getName());
 		
 		utenti.add(last);
 		
 		if(lobby.getUsers().size() == 2){
-			lobby.notifyAllUsers(NotificationType.STARTGAME);
+			lobby.notifyAllUsers(NotificationType.STARTGAME, "");
 			System.out.println("Timer Started");
 			lobby.inizializeTimer();
             lobby.startTimer();

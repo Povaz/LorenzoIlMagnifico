@@ -13,14 +13,12 @@ import java.util.*;
 public class GameController{
     private final Board board;
     private final List<Player> players;
-    private final Map<String, ConnectionType> usersInGame;
 
-    public GameController(Game game, Map<String, ConnectionType> usersInGame) {
+    public GameController(Game game) {
         Thread threadGame = new Thread (game);
         threadGame.start();
         this.board = game.getBoard();
         this.players = game.getPlayers();
-        this.usersInGame = usersInGame;
     }
 
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException {

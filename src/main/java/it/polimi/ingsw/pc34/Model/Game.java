@@ -45,13 +45,13 @@ public class Game implements Runnable{
     public Game(Map<String, ConnectionType> usersOfThisGame){
         this.turn = 1;
         this.period = 1;
-        this.usernames = new ArrayList<>();
+        this.usernames = new ArrayList<>(); //TODO Eliminazione usernames --> riferimenti a player
         usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();
         this.players = initializePlayers(usersOfThisGame);
         this.board = new Board(players);
         initializePlayersRewards();
-        this.gameController = new GameController(this, usersOfThisGame);
+        this.gameController = new GameController(this);
     }
 
     private List<Player> initializePlayers(Map<String, ConnectionType> usersOfThisGame){

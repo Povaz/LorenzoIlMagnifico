@@ -59,7 +59,7 @@ public class ServerComunicationHandler {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
 				}
-				lobby.notifyAllUsers(NotificationType.USERLOGOUT);
+				lobby.notifyAllUsers(NotificationType.USERLOGOUT, username);
 				break;
 			}
 		}

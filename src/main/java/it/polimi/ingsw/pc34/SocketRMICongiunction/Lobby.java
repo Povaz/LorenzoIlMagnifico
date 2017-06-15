@@ -57,17 +57,16 @@ public class Lobby {
         }
     }
 
-    public void notifyAllUsers(NotificationType notificationType) throws RemoteException {
-        String message = null;
+    public void notifyAllUsers(NotificationType notificationType, String message) throws RemoteException {
         switch (notificationType) {
             case STARTGAME:
                 message = "The game is starting";
                 break;
             case USERLOGIN:
-                message = "A user is logged";
+                message += " joined the lobby";
                 break;
             case USERLOGOUT:
-                message = "A user logged out";
+                message += " left the lobby";
                 break;
             default:
                 break;
@@ -93,7 +92,7 @@ public class Lobby {
             @Override
             public void run() {
                 try {
-                    notifyAllUsers(NotificationType.STARTGAME);
+                    notifyAllUsers(NotificationType.STARTGAME, "");
                     Game game = new Game(users);
                     Server.gamesOnGoing.add(game);
                     Thread threadGame = new Thread (game);

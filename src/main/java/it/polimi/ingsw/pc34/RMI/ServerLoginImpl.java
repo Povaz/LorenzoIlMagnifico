@@ -19,8 +19,8 @@ import java.util.*;
 /**
  * Created by Povaz on 24/05/2017.
  **/
-public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin, Runnable {
-    public static ArrayList<UserLogin> usersLoggedRMI;
+public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin {
+    private ArrayList<UserLogin> usersLoggedRMI;
     private Lobby lobby;
 
     public ServerLoginImpl (Lobby lobby) throws RemoteException {
@@ -43,9 +43,12 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
     public boolean loginServer (UserLogin userLogin) throws JSONException, IOException {
         if (!searchUserLogged(userLogin)) {
             if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getKeyword())) {
+                this.usersLoggedRMI.add(userLogin);
+
                 lobby.getUsers().put(userLogin.getUsername(), ConnectionType.RMI);
                 userLogin.sendMessage("Login Successful");
-                lobby.notifyAllUsers(NotificationType.USERLOGIN);
+                lobby.notifyAllUsers(NotificationType.USERLOGIN, userLogin.getUsername());
+
                 if (lobby.getUsers().size() == 2) {
                 	userLogin.sendMessage("Timer Started");
                     lobby.inizializeTimer();
@@ -54,7 +57,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
 
                 if (lobby.getUsers().size() == 5) {
                     lobby.stopTimer();
-                    System.out.println("Start Game");
+                    System.out.println("Start Game"); //TODO CREARE TIMER PERSONALIZZABILE PER FARLO SCATTARE IMMEDIATAMENTE
                 }
 
                 return true;
@@ -81,9 +84,13 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
         Set<String> usernames = lobby.getUsers().keySet();
         for (String user : usernames) {
             if ((userLogin.getUsername().equals(user))) {
-                lobby.removeUser(user);
                 usersLoggedRMI.remove(userLogin);
+
+                lobby.removeUser(user);
+
+                lobby.notifyAllUsers(NotificationType.USERLOGOUT, userLogin.getUsername());
                 userLogin.sendMessage("Logout successful");
+
                 if (lobby.getUsers().size() == 1) {
                     System.out.println(userLogin.getUsername() + "left the room");
                     lobby.stopTimer();
@@ -107,24 +114,6 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin,
     public void notifyRMIPlayers (String m) throws RemoteException {
         for (UserLogin user: usersLoggedRMI) {
             user.sendMessage(m);
-        }
-    }
-
-    public void run (){
-        try {
-            System.out.println("Constructing server implementation...");
-
-            System.out.println("Binding Server implementation to registry...");
-            Registry registry = LocateRegistry.createRegistry(8000);
-            registry.bind("serverLogin", this);
-
-            System.out.println("Waiting for invocations from clients...");
-        }
-        catch(RemoteException e) {
-            e.printStackTrace();
-        }
-        catch(AlreadyBoundException e) {
-            e.printStackTrace();
         }
     }
 }
