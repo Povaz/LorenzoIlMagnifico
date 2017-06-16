@@ -4,11 +4,12 @@ import org.junit.Test;
 
 import it.polimi.ingsw.pc34.Socket.ClientSOC;
 
-public class testAskAction {
-	@Test
+public class AskActionTest {
+
+	// TODO cambia! va in loop
+	/*@Test
 	public void testAction(){
-		// TODO cambia! va in loop
 		String message = ClientSOC.askAction();
 		System.out.println(message);
-	}
+	}*/
 }
