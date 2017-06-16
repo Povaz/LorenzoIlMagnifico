@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pc34.Model;
 
-import com.sun.org.apache.regexp.internal.RE;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.junit.Test;

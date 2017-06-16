@@ -69,7 +69,7 @@ public class ServerSOC implements Runnable {
 		utenti.add(last);
 		
 		if(lobby.getUsers().size() == 2){
-			lobby.notifyAllUsers(NotificationType.STARTGAME, "");
+			lobby.notifyAllUsers(NotificationType.TIMERSTARTED, "");
 			System.out.println("Timer Started");
 			lobby.inizializeTimer();
             lobby.startTimer();
@@ -77,11 +77,11 @@ public class ServerSOC implements Runnable {
 		
 		if(lobby.getUsers().size()==5){
 			lobby.stopTimer();
+			lobby.notifyAllUsers(NotificationType.TIMERSTARTED, "");
             System.out.println("Start Game");
 		}
 		
 	}
-
 
 	synchronized public void removePlayer (String username){
 		for (ServerLoginUser user: utenti) {

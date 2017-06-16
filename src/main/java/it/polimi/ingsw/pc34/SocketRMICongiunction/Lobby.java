@@ -59,7 +59,10 @@ public class Lobby {
 
     public void notifyAllUsers(NotificationType notificationType, String message) throws RemoteException {
         switch (notificationType) {
-            case STARTGAME:
+        	case TIMERSTARTED:
+        		message = "The timer is starting";
+        		break;
+        	case STARTGAME:
                 message = "The game is starting";
                 break;
             case USERLOGIN:

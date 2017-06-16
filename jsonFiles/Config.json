@@ -1,0 +1,461 @@
+{
+  "timeoutLobby": 180,
+  "timeoutTurn": 300,
+
+  "territorySpot":[
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 4
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 10
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 20
+        }
+      ]
+    }
+  ],
+
+  "buildingSpot":[
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    }
+  ],
+
+  "characterSpot":[
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 6
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 10
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 15
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 21
+        }
+      ]
+    }
+  ],
+
+  "ventureSpot":[
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[]
+    }
+  ],
+
+  "faithRoute":[
+    {
+      "rewards":[]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 2
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 4
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 7
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 9
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 11
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 13
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 15
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 17
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 19
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 22
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 25
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 30
+        }
+      ]
+    }
+  ],
+
+  "councilPalace":[
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "COIN",
+          "quantity": 1
+        },
+        {
+          "type": "COUNCIL_PRIVILEGE",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+
+  "market":[
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "COIN",
+          "quantity": 5
+        }
+      ]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "SERVANT",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "minimumPlayers": 4,
+      "rewards":[
+        {
+          "type": "COIN",
+          "quantity": 2
+        },
+        {
+          "type": "MILITARY_POINT",
+          "quantity": 3
+        }
+      ]
+    },
+    {
+      "minimumPlayers": 4,
+      "rewards":[
+        {
+          "type": "COUNCIL_PRIVILEGE",
+          "quantity": 2
+        }
+      ]
+    }
+  ],
+
+  "territoryTower":[
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "WOOD",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "WOOD",
+          "quantity": 2
+        }
+      ]
+    }
+  ],
+
+  "buildingTower":[
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "MILITARY_POINT",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "MILITARY_POINT",
+          "quantity": 2
+        }
+      ]
+    }
+  ],
+
+  "characterTower":[
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "STONE",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "STONE",
+          "quantity": 2
+        }
+      ]
+    }
+  ],
+
+  "ventureTower":[
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "COIN",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "minimumPlayers": 0,
+      "rewards":[
+        {
+          "type": "COIN",
+          "quantity": 2
+        }
+      ]
+    }
+  ],
+
+  "harvestSpot":[
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 3,
+      "rewards":[]
+    }
+  ],
+
+  "productionSpot":[
+    {
+      "minimumPlayers": 0,
+      "rewards":[]
+    },
+    {
+      "minimumPlayers": 3,
+      "rewards":[]
+    }
+  ]
+}
