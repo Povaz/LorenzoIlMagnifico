@@ -15,4 +15,6 @@ public interface ServerLogin extends Remote{
     void registrationServer(UserLogin userLogin) throws JSONException, IOException;
     boolean logoutServer(UserLogin userLogin) throws RemoteException;
     void printLoggedUsers () throws RemoteException;
+
+    void checkAction(UserLogin userLogin) throws RemoteException;
 }

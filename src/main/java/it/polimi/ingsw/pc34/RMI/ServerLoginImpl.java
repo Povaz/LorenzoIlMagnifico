@@ -1,15 +1,19 @@
 package it.polimi.ingsw.pc34.RMI;
 
 
+import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
 
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
+import it.polimi.ingsw.pc34.View.TerminalInput;
 import org.json.JSONException;
 
+import javax.swing.*;
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -23,10 +27,15 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
     private ArrayList<UserLogin> usersLoggedRMI;
     private Lobby lobby;
 
+    private String currentPlayer;
+    private boolean doAction;
+
     public ServerLoginImpl (Lobby lobby) throws RemoteException {
         this.usersLoggedRMI = new ArrayList<>();
         this.lobby = lobby;
         this.lobby.setServerRMI(this);
+        this.currentPlayer = "null";
+        this.doAction = false;
     }
 
     private boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
@@ -104,7 +113,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
     }
 
     @Override
-    public void printLoggedUsers () throws RemoteException{ // DA ELIMINARE ALLA FINE
+    public void printLoggedUsers () throws RemoteException{ // TODO DA ELIMINARE ALLA FINE
         Set<String> users = lobby.getUsers().keySet();
         for (String user: users) {
             System.out.println(user);
@@ -115,5 +124,42 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
         for (UserLogin user: usersLoggedRMI) {
             user.sendMessage(m);
         }
+    }
+
+    public boolean checkCurrentPlayer (UserLogin userLogin) throws RemoteException {
+        if (userLogin.getUsername().equals(currentPlayer)) {
+            return true;
+        }
+        else {
+            return false;
+        }
+    }
+
+
+    @Override
+    public void checkAction(UserLogin userLogin) throws RemoteException {
+        if (this.checkCurrentPlayer(userLogin)) {
+            this.doAction = true;
+        }
+        else {
+            userLogin.sendMessage("Non è il tuo turno, colione.");
+        }
+    }
+
+
+    public ActionInput askAction (int playerNumber, String username) throws RemoteException { //TODO PROVA
+        this.currentPlayer = username;
+        this.doAction = false;
+        while(!doAction){}
+
+        int choose = -1;
+        for (UserLogin user: usersLoggedRMI) {
+            if (user.getUsername().equals(username)) {
+                choose = user.chooseAction();
+            }
+        }
+        ActionInput actionInput = TerminalInput.chooseAction(playerNumber, choose);
+        this.doAction = false;
+        return actionInput;
     }
 }

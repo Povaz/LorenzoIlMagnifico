@@ -12,7 +12,7 @@ import java.util.*;
 /**
  * Created by Povaz on 06/06/2017.
  */
-public class TerminalInput { //Metodi view: richieste ai Client
+public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ESSERE SPOSTATI SOLAMENTE SU CLIENT SIDE
 
     public static boolean doYouWantToSkip () {
         System.out.println("Do you want to skip your action?\n  0. No\n  1. Yes");
@@ -209,18 +209,11 @@ public class TerminalInput { //Metodi view: richieste ai Client
     }
 
 
-    public static ActionInput chooseAction(int playerNumber) {
+    public static ActionInput chooseAction(int playerNumber, int choose) {
         ActionInput actionInput = new ActionInput();
         boolean correct = false;
         while(!correct) {
             try {
-                System.out.println("Which ActionSpot do you choose?\n" + "1. " + ActionType.TERRITORY_TOWER + "\n"
-                        + "2. " + ActionType.BUILDING_TOWER + "\n" + "3. " + ActionType.CHARACTER_TOWER + "\n" + "4. "
-                        + ActionType.VENTURE_TOWER + "\n" + "5. " + ActionType.HARVEST + "\n" + "6. " + ActionType.PRODUCE
-                        + "\n" + "7. " + ActionType.MARKET + "\n" + "8. " + ActionType.COUNCIL_PALACE + "\n" + "-1. SKIP ACTION \n");
-                Scanner inChoose = new Scanner(System.in);
-                int choose = inChoose.nextInt();
-
                 switch (choose) {
                     case 1:
                         actionInput.setActionType(ActionType.TERRITORY_TOWER);

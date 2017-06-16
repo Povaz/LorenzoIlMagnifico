@@ -4,6 +4,7 @@ import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 
+import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -74,7 +75,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         return true;
     }
 
-    public void doAction() throws TooMuchTimeException{
+    public void doAction() throws TooMuchTimeException, RemoteException{
         // aggiorna risorse giocatore
         player.getPlayerBoard().setCounter(newCounter);
 
@@ -94,7 +95,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         }
     }
 
-    private void doBonusActions() throws TooMuchTimeException{
+    private void doBonusActions() throws TooMuchTimeException, RemoteException{
         // TODO uguale a Game
         List<FamilyMember> actions = leaderCard.getActions();
         if(actions != null){
@@ -105,7 +106,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         }
     }
 
-    private void doBonusAction(FamilyMember fM) throws TooMuchTimeException{
+    private void doBonusAction(FamilyMember fM) throws TooMuchTimeException, RemoteException{
         ActionSpot actionSpot;
         do{
             System.out.println("AZIONE AGGIUNTIVA!!!");

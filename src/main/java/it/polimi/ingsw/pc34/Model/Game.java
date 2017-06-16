@@ -3,10 +3,12 @@ package it.polimi.ingsw.pc34.Model;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.Action.*;
+import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.rmi.RemoteException;
 import java.util.*;
 
 /**
@@ -28,21 +30,28 @@ public class Game implements Runnable{
     private int[] characterCard;
     private int[] ventureCard;
 
+    private ServerLoginImpl serverLogin;
+
     public void run(){
-        while(this.period <= this.PERIOD_NUMBER){
-            this.startPeriod();
-            while(this.turn <= this.TURNS_FOR_PERIOD){
-                this.startTurn();
-                this.playTurn();
-                this.endTurn();
+        try {
+            while (this.period <= this.PERIOD_NUMBER) {
+                this.startPeriod();
+                while (this.turn <= this.TURNS_FOR_PERIOD) {
+                    this.startTurn();
+                    this.playTurn();
+                    this.endTurn();
+                }
+                this.endPeriod();
             }
-            this.endPeriod();
+            Player winner = this.decreeWinner();
+            System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
         }
-        Player winner = this.decreeWinner();
-        System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
+        catch (RemoteException e) {
+            e.printStackTrace();
+        }
     }
 
-    public Game(Map<String, ConnectionType> usersOfThisGame){
+    public Game(Map<String, ConnectionType> usersOfThisGame, ServerLoginImpl serverLogin) {
         this.turn = 1;
         this.period = 1;
         this.usernames = new ArrayList<>(); //TODO Eliminazione usernames --> riferimenti a player
@@ -51,7 +60,7 @@ public class Game implements Runnable{
         this.players = initializePlayers(usersOfThisGame);
         this.board = new Board(players);
         initializePlayersRewards();
-        this.gameController = new GameController(this);
+        this.gameController = new GameController(this, serverLogin);
     }
 
     private List<Player> initializePlayers(Map<String, ConnectionType> usersOfThisGame){
@@ -124,7 +133,7 @@ public class Game implements Runnable{
         placeDevelopmentCard();
     }
 
-    private void playTurn(){
+    private void playTurn() throws RemoteException{
         System.out.println("\n\nBOARD:");
         System.out.println(board);
         Order order = board.getOrder();
@@ -150,7 +159,7 @@ public class Game implements Runnable{
         } while(board.getOrder().nextOrder());
     }
 
-    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException{
+    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException, RemoteException{
         if(actionSpot == null || familyMember == null){
             return true;
         }

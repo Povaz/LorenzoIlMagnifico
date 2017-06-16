@@ -24,6 +24,10 @@ public class Player{
         return color.equals(other.color);
     }
 
+    public ConnectionType getConnectionType() {
+        return connectionType;
+    }
+
     public String toString(){
     	String playerString = null;
     	playerString+="Username : " + username + "\n";

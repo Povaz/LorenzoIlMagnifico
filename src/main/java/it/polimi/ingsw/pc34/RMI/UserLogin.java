@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pc34.RMI;
 
+import it.polimi.ingsw.pc34.Controller.ActionInput;
+
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -10,4 +12,6 @@ public interface UserLogin extends Remote{
     String getUsername () throws RemoteException;
     String getKeyword() throws RemoteException;
     void sendMessage (String message) throws RemoteException;
+
+    int chooseAction () throws RemoteException;
 }

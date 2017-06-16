@@ -1,7 +1,10 @@
 package it.polimi.ingsw.pc34;
 
 import it.polimi.ingsw.pc34.Model.Game;
+import it.polimi.ingsw.pc34.RMI.ServerLogin;
+import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import org.junit.Test;
 
 import java.util.*;
@@ -19,7 +22,11 @@ public class GameTest{
             usersOfThisGame.put("Erick", ConnectionType.RMI);
             usersOfThisGame.put("Tommaso", ConnectionType.SOCKET);
             usersOfThisGame.put("PaoloCulo", ConnectionType.RMI);
-            Game game = new Game(usersOfThisGame);
+
+            Lobby lobby = new Lobby();
+            ServerLoginImpl serverLogin = new ServerLoginImpl(lobby);
+
+            Game game = new Game(usersOfThisGame, serverLogin);
             //game.startPeriod();
 
             System.out.println(Arrays.toString(game.getTerritoryCard()));

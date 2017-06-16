@@ -1,10 +1,17 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
+import com.sun.org.apache.regexp.internal.RE;
+import it.polimi.ingsw.pc34.RMI.ServerLogin;
 import it.polimi.ingsw.pc34.RMI.UserLoginImpl;
 import it.polimi.ingsw.pc34.Socket.ClientSOC;
 
 import java.io.IOException;
 import java.net.UnknownHostException;
+import java.rmi.AlreadyBoundException;
+import java.rmi.NotBoundException;
+import java.rmi.RemoteException;
+import java.rmi.registry.LocateRegistry;
+import java.rmi.registry.Registry;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -32,9 +39,14 @@ public class Client {
         return userSoc;
     }
     
-    public void startClientRMI() {
-        Thread userLoginRMI = new Thread (this.userLoginRMI);
-        userLoginRMI.start();
+    public void startClientRMI() throws IOException, AlreadyBoundException, NotBoundException {
+        Registry registry = LocateRegistry.getRegistry(8000);
+        ServerLogin serverLogin = (ServerLogin) registry.lookup("serverLogin");
+
+        this.userLoginRMI.loginHandler(serverLogin);
+        userLoginRMI.sendMessage("Waiting for the Game to Start");
+
+        this.userLoginRMI.gameHandler(serverLogin);
     }
 
     public void startClientSOC() {
@@ -42,7 +54,7 @@ public class Client {
         userSoc.start();
     }
 
-    public static void main (String[] args) throws InputMismatchException, UnknownHostException, IOException {
+    public static void main (String[] args) throws InputMismatchException, IOException, AlreadyBoundException, NotBoundException {
         Client client;
         boolean correct = false;
         while (!correct) {
