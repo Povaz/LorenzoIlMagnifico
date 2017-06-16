@@ -28,7 +28,10 @@ public class ClientComunicationHandler extends Thread{
 		while(true){
 			String message = null;
 			input = new Scanner(System.in);
-			message = input.nextLine(); 
+			message = input.nextLine();
+			if(!isInterrupted()){
+				break;
+			}
 			try {
 				sendToServer(message);
 			} catch (IOException e) {

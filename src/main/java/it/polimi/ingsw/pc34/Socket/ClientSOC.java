@@ -49,7 +49,9 @@ public class ClientSOC implements Runnable {
 				}
 				System.out.println(line);
 				System.out.println("");
-				if(line.equals("Game Started")){
+				if(line.equals("The game is starting")){
+					System.out.println("Scrivere qualsiasi cosa per iniziare la partita!");
+					output.interrupt();
 					break;
 				}
 				else if(line.equals("logout")){
@@ -57,6 +59,9 @@ public class ClientSOC implements Runnable {
 				}
 			}
 		}
+		while(output.isAlive()){
+		}
+		System.out.println("Inizio partita");
 		return;
 	}
 	
