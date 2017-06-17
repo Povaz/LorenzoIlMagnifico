@@ -24,7 +24,8 @@ public class VaticanReportCard{
 	private boolean loseVictoryPointFromBuildingCost = false;
 	private boolean loseVictoryPointFromResource = false;
 
-	public VaticanReportCard (int number, int period, List<Reward> loseRewards, Map<ActionType, Integer> actionModifiers, List<String> booleans, int coloredFamilyMemberModifier){
+	public VaticanReportCard (int number, int period, List<Reward> loseRewards, Map<ActionType, Integer> actionModifiers,
+							  List<String> booleans, int coloredFamilyMemberModifier){
 		this.number = number;
 		this.period = period;
 		this.loseRewards = loseRewards;
