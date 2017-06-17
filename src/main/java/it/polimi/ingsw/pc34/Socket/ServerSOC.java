@@ -124,4 +124,9 @@ public class ServerSOC implements Runnable {
 		counter=0;
 	}
 	
+	public void throwInGame(){
+		for(ServerHandler user : utenti){
+			user.setFase(1);
+		}
+	}
 }
