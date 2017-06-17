@@ -141,18 +141,20 @@ public class Game implements Runnable{
             try{
                 ActionSpot actionSpot;
                 FamilyMember familyMember = null;
+                order.getCurrent().setYourTurn(true);
                 do{
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(order.getCurrent().getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!   " + order.getCurrent().getColor() + "\n\n");
                     actionSpot = gameController.getViewActionSpot(order.getCurrent());
-                    if(actionSpot != null) {
+                    if(actionSpot != null){
                         familyMember = gameController.getViewFamilyMember(order.getCurrent());
                     }
-                } while(!(placeFamilyMember(familyMember, actionSpot)));
+                } while(order.getCurrent().isYourTurn()/*!(placeFamilyMember(familyMember, actionSpot))*/);
             } catch(TooMuchTimeException e){
                 // TODO addTimer
                 e.printStackTrace();
+                order.getCurrent().setYourTurn(false);
             }
             System.out.println("\n\nPLAYERBOARD:");
             System.out.println(order.getCurrent().getPlayerBoard());
