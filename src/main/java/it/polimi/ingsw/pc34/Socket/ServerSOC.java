@@ -21,7 +21,8 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 public class ServerSOC implements Runnable {
 	private int port;
 	private ServerSocket serverSocket;
-	private static ArrayList <ServerLoginUser> utenti; 
+	private static ArrayList <ServerHandler> utenti;
+	//private static ArrayList <ServerLoginUser> utenti; 
 	private static int counter;
 	private Lobby lobby;
 	private ExecutorService executor = Executors.newCachedThreadPool();
@@ -48,7 +49,7 @@ public class ServerSOC implements Runnable {
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
-				ServerLoginUser last = new ServerLoginUser(socket, lobby, this); 
+				ServerHandler last = new ServerHandler(socket, lobby, this); 
 				executor.submit(last);
 				counter++;
 			} 
@@ -58,7 +59,7 @@ public class ServerSOC implements Runnable {
 		}
 	}
 	
-	synchronized public void addPlayer (ServerLoginUser last, String username) throws RemoteException {
+	synchronized public void addPlayer (ServerHandler last, String username) throws RemoteException {
 		
 		//crea nuovo utente nella Lobby
 		lobby.getUsers().put(username, ConnectionType.SOCKET);
@@ -84,7 +85,7 @@ public class ServerSOC implements Runnable {
 	}
 
 	synchronized public void removePlayer (String username){
-		for (ServerLoginUser user: utenti) {
+		for (ServerHandler user: utenti) {
             if(username.equals(user.getName())){
             	utenti.remove(user);
             	counter--;
@@ -98,7 +99,7 @@ public class ServerSOC implements Runnable {
 		System.out.println("");
 		Socket instance;
 		PrintWriter out = null;
-		for (ServerLoginUser user: utenti) {
+		for (ServerHandler user: utenti) {
             instance = (user).getSocket();
 			try {
 				out = new PrintWriter(instance.getOutputStream(), true);
@@ -123,4 +124,9 @@ public class ServerSOC implements Runnable {
 		counter=0;
 	}
 	
+	public void throwInGame(){
+		for(ServerHandler user : utenti){
+			user.setFase(1);
+		}
+	}
 }

@@ -96,6 +96,7 @@ public class Lobby {
             public void run() {
                 try {
                     notifyAllUsers(NotificationType.STARTGAME, "");
+                    serverSoc.throwInGame();
                     Game game = new Game(users, serverRMI);
                     users.clear();
                     Server.gamesOnGoing.add(game);

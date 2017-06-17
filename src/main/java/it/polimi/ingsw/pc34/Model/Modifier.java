@@ -69,10 +69,6 @@ public class Modifier{
     public void update(VaticanReportCard vaticanReportCard){
 		this.coloredFamilyMemberModifier += vaticanReportCard.getColoredFamilyMemberModifier();
 
-		for(Reward r : vaticanReportCard.getLoseRewards()){
-			this.loseRewards.add(new Reward(r));
-		}
-
 		if(vaticanReportCard.isCannotPlaceInMarket()){
 			this.cannotPlaceInMarket = true;
 		}
@@ -163,7 +159,10 @@ public class Modifier{
 	}
 
 
-	private void updateActionModifiers(Map<ActionType, Integer> actionModifiersToAdd){
+	void updateActionModifiers(Map<ActionType, Integer> actionModifiersToAdd){
+		if(actionModifiersToAdd == null){
+			return;
+		}
 		for(ActionType aToAdd : actionModifiersToAdd.keySet()){
 			if(aToAdd != null){
 				if(aToAdd == ActionType.ALL){
@@ -185,14 +184,23 @@ public class Modifier{
 	}
 
 	private void updateLoseRewards(List<Reward> loseRewardsToAdd){
+		if(loseRewardsToAdd == null){
+			return;
+		}
 		addListToOtherList(loseRewards, loseRewardsToAdd);
 	}
 
 	private void updateBonusRewardChurchSupport(List<Reward> bonusToAdd){
+		if(bonusToAdd == null){
+			return;
+		}
 		addListToOtherList(bonusChurchSupport, bonusToAdd);
 	}
 
-	private void addListToOtherList(List<Reward> list, List<Reward> listToAdd){
+	void addListToOtherList(List<Reward> list, List<Reward> listToAdd){
+		if(list == null || listToAdd == null){
+			return;
+		}
 		for(int i = 0; i < listToAdd.size(); i++){
 			boolean added = false;
 			for(int j = 0; j < list.size(); j++){
@@ -208,15 +216,22 @@ public class Modifier{
 	}
 
 	// TODO TODOTODOTODO test!
-	public void updateCostDiscountDevelopmentCard(Map<CardType, List<List<Reward>>> discountsToAdd){
+	void updateCostDiscountDevelopmentCard(Map<CardType, List<List<Reward>>> discountsToAdd){
+		if(discountsToAdd == null){
+			return;
+		}
 		for(CardType cT : discountsToAdd.keySet()){
 			if(cT != null){
 				int nToCopy = discountsToAdd.get(cT).size();
 				int length = discounts.get(cT).size();
 				// copia gli elementi di discount tante quante sono le scelta da aggiungere
-				for(int i = 0; i < nToCopy; i++){
+				for(int i = 0; i < nToCopy - 1; i++){
 					for(int j = 0; j < length; j++){
-						discounts.get(cT).add(new ArrayList<>(discounts.get(cT).get(j)));
+						List<Reward> copy = new ArrayList<>();
+						for(Reward r : discounts.get(cT).get(j)){
+							copy.add(new Reward(r));
+						}
+						discounts.get(cT).add(new ArrayList<>(copy));
 					}
 				}
 				// aggiungi ad ogni sconto una scelta in modo che non vengano sommati gli stessi sconti più volte
@@ -228,8 +243,10 @@ public class Modifier{
 				// elimina i doppioni
 				for(int i = 0; i < discounts.get(cT).size() - 1; i++){
 					for(int j = i + 1; j < discounts.get(cT).size(); j++){
-						if(discounts.get(cT).get(i).equals(discounts.get(cT).get(j))){
-							discounts.remove(j);
+						Set<Reward> temp1 = new HashSet<>(discounts.get(cT).get(i));
+						Set<Reward> temp2 = new HashSet<>(discounts.get(cT).get(j));
+						if(temp1.equals(temp2)){
+							discounts.get(cT).remove(j);
 							j--;
 						}
 					}
@@ -238,7 +255,67 @@ public class Modifier{
 		}
 	}
 
-    @Override
+	@Override
+	public boolean equals(Object o){
+		if (this == o) return true;
+		if (o == null || getClass() != o.getClass()) return false;
+
+		Modifier modifier = (Modifier) o;
+
+		if (cannotPlaceInMarket != modifier.cannotPlaceInMarket) return false;
+		if (servantValueHalved != modifier.servantValueHalved) return false;
+		if (jumpFirstRound != modifier.jumpFirstRound) return false;
+		if (notEarnVictoryPointFromTerritory != modifier.notEarnVictoryPointFromTerritory) return false;
+		if (notEarnVictoryPointFromCharacter != modifier.notEarnVictoryPointFromCharacter) return false;
+		if (notEarnVictoryPointFromVenture != modifier.notEarnVictoryPointFromVenture) return false;
+		if (loseVictoryPointFromVictoryPoint != modifier.loseVictoryPointFromVictoryPoint) return false;
+		if (loseVictoryPointFromMilitaryPoint != modifier.loseVictoryPointFromMilitaryPoint) return false;
+		if (loseVictoryPointFromBuildingCost != modifier.loseVictoryPointFromBuildingCost) return false;
+		if (loseVictoryPointFromResource != modifier.loseVictoryPointFromResource) return false;
+		if (neutralFamilyMemberModifier != modifier.neutralFamilyMemberModifier) return false;
+		if (doubleFastRewardDevelopmentCard != modifier.doubleFastRewardDevelopmentCard) return false;
+		if (placeInBusyActionSpot != modifier.placeInBusyActionSpot) return false;
+		if (permanentDice != modifier.permanentDice) return false;
+		if (permanentDiceValue != modifier.permanentDiceValue) return false;
+		if (notSatisfyMilitaryPointForTerritory != modifier.notSatisfyMilitaryPointForTerritory) return false;
+		if (notPayTollBusyTower != modifier.notPayTollBusyTower) return false;
+		if (noBonusTowerResource != modifier.noBonusTowerResource) return false;
+		if (coloredFamilyMemberModifier != modifier.coloredFamilyMemberModifier) return false;
+		if (!loseRewards.equals(modifier.loseRewards)) return false;
+		if (!bonusChurchSupport.equals(modifier.bonusChurchSupport)) return false;
+		if (!discounts.equals(modifier.discounts)) return false;
+		return actionModifiers.equals(modifier.actionModifiers);
+	}
+
+	@Override
+	public int hashCode(){
+		int result = loseRewards.hashCode();
+		result = 31 * result + (cannotPlaceInMarket ? 1 : 0);
+		result = 31 * result + (servantValueHalved ? 1 : 0);
+		result = 31 * result + (jumpFirstRound ? 1 : 0);
+		result = 31 * result + (notEarnVictoryPointFromTerritory ? 1 : 0);
+		result = 31 * result + (notEarnVictoryPointFromCharacter ? 1 : 0);
+		result = 31 * result + (notEarnVictoryPointFromVenture ? 1 : 0);
+		result = 31 * result + (loseVictoryPointFromVictoryPoint ? 1 : 0);
+		result = 31 * result + (loseVictoryPointFromMilitaryPoint ? 1 : 0);
+		result = 31 * result + (loseVictoryPointFromBuildingCost ? 1 : 0);
+		result = 31 * result + (loseVictoryPointFromResource ? 1 : 0);
+		result = 31 * result + neutralFamilyMemberModifier;
+		result = 31 * result + (doubleFastRewardDevelopmentCard ? 1 : 0);
+		result = 31 * result + (placeInBusyActionSpot ? 1 : 0);
+		result = 31 * result + (permanentDice ? 1 : 0);
+		result = 31 * result + permanentDiceValue;
+		result = 31 * result + (notSatisfyMilitaryPointForTerritory ? 1 : 0);
+		result = 31 * result + (notPayTollBusyTower ? 1 : 0);
+		result = 31 * result + bonusChurchSupport.hashCode();
+		result = 31 * result + (noBonusTowerResource ? 1 : 0);
+		result = 31 * result + discounts.hashCode();
+		result = 31 * result + coloredFamilyMemberModifier;
+		result = 31 * result + actionModifiers.hashCode();
+		return result;
+	}
+
+	@Override
     public String toString(){
     	String modifierString = null;
     	modifierString += "neutralFamilyMemberModifier : " + neutralFamilyMemberModifier + "\n"; 
@@ -249,12 +326,6 @@ public class Modifier{
     	modifierString += "permanentDiceValue : " + permanentDiceValue + "\n";
     	modifierString += "notSatisfyMilitaryPointForTerritory : " + notSatisfyMilitaryPointForTerritory + "\n";
     	modifierString += "notPayTollBusyTower : " + notPayTollBusyTower + "\n";
-    	/*modifierString += "harvestModifier : " + harvestModifier +  "\n";
-    	modifierString += "productionModifier : " + productionModifier + "\n";
-    	modifierString += "territoryTowerModifier : " + territoryTowerModifier + "\n";
-    	modifierString += "buildingTowerModifier : " + buildingTowerModifier + "\n";
-    	modifierString += "characterTowerModifier : " + characterTowerModifier + "\n";
-    	modifierString += "ventureTowerModifier : " + ventureTowerModifier + "\n";*/
     	modifierString += "cannotPlaceInMarket : " + cannotPlaceInMarket + "\n";
     	modifierString += "servantValueHalved : " + servantValueHalved + "\n";
     	modifierString += "jumpFirstRound : " + jumpFirstRound + "\n";
@@ -266,23 +337,36 @@ public class Modifier{
     	modifierString += "loseVictoryPointFromBuildingCost : " + loseVictoryPointFromBuildingCost + "\n";
     	modifierString += "loseVictoryPointFromResource : " + loseVictoryPointFromResource + "\n";
     	modifierString += "noBonusTowerResource : " + noBonusTowerResource + "\n";
-    	int contatore=1;
-    	Reward element;
-    	Iterator<Reward> iteratorBonusChurchSupport= bonusChurchSupport.iterator();
-    	while(iteratorBonusChurchSupport.hasNext()){
-    	  element = (Reward) iteratorBonusChurchSupport.next();
-    	  modifierString += "Bonus Church Support n° " + contatore + " : " + element.toString() + "\n";
-    	  contatore++;
-    	}
-    	contatore=1;
-    	Iterator<Reward> iteratorLosePoints= loseRewards.iterator();
-    	while(iteratorLosePoints.hasNext()){
-    	  element = (Reward) iteratorLosePoints.next();
-    	  modifierString += "Lose Points n° " + contatore + " : " + element.toString() + "\n";
-    	  contatore++;
-    	}
-    	//Mancano i discount finali delle carte
-    	
+
+    	modifierString += "bonusChurchSupport:\n";
+    	for(Reward r : bonusChurchSupport){
+    		modifierString += "  " + r.toString() + "\n";
+		}
+
+		modifierString += "loseRewards:\n";
+    	for(Reward r : loseRewards){
+			modifierString += "  " + r.toString() + "\n";
+		}
+
+    	modifierString += "actionModifiers:\n";
+    	for(ActionType aT : actionModifiers.keySet()){
+    		modifierString += "  " + aT.toString() + ": " + actionModifiers.get(aT) + "\n";
+		}
+
+		modifierString += "discounts:\n";
+    	for(CardType cT : discounts.keySet()){
+    		modifierString += "  " + cT.toString() + ":\n";
+    		int i = 0;
+    		for(List<Reward> l : discounts.get(cT)){
+    			modifierString += "    " + i + ".";
+    			for(Reward r : l){
+    				modifierString += "  " + r.toString() + ";";
+				}
+				modifierString += "\n";
+				i++;
+			}
+		}
+
     	return modifierString;
     }
 
@@ -380,5 +464,13 @@ public class Modifier{
 
 	public void setJumpFirstRound(boolean jumpFirstRound){
 		this.jumpFirstRound = jumpFirstRound;
+	}
+
+	public void setCannotPlaceInMarket(boolean cannotPlaceInMarket){
+		this.cannotPlaceInMarket = cannotPlaceInMarket;
+	}
+
+	public void setColoredFamilyMemberModifier(int coloredFamilyMemberModifier){
+		this.coloredFamilyMemberModifier = coloredFamilyMemberModifier;
 	}
 }
