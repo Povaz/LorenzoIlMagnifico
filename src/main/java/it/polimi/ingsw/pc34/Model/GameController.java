@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model;
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.RMI.ActionInputCreated;
+import it.polimi.ingsw.pc34.RMI.IntegerCreated;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 
@@ -16,8 +17,9 @@ public class GameController{
     private final Board board;
     private final List<Player> players;
     private ServerLoginImpl serverLogin;
-    private ActionInput actionInput;
+
     private ActionInputCreated actionInputCreated;
+    private IntegerCreated integerCreated;
 
     public GameController(Game game, ServerLoginImpl serverLogin) {
         Thread threadGame = new Thread (game);
@@ -28,30 +30,30 @@ public class GameController{
         serverLogin.setGameController(this);
     }
 
-    public void setActionInput (ActionInput actionInput) {
-        this.actionInput = actionInput;
-    }
-
     public void setActionInputCreated (ActionInputCreated actionInputCreated) {
         this.actionInputCreated = actionInputCreated;
     }
 
-
+    public void setIntegerCreated (IntegerCreated integerCreated) {
+        this.integerCreated = integerCreated;
+    }
 
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
+        int whatToDo = 0;
         switch(player.getConnectionType()) {
             case RMI:
                 serverLogin.askNumber(0,3, player.getUsername());
+                whatToDo = integerCreated.get();
                 break;
             case SOCKET:
                 //Insert serverSocket
                 break;
         }
-        return TerminalInput.getWhatToDO();
+        return whatToDo;
     }
 
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
-        actionInput = new ActionInput();
+        ActionInput actionInput = new ActionInput();
         switch(player.getConnectionType()) {
             case RMI:
                 serverLogin.askAction(board.getPlayerNumber());

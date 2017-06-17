@@ -28,12 +28,13 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     private ArrayList<UserLogin> usersLoggedRMI;
     private Lobby lobby;
 
-
     private GameController gameController;
     private String currentPlayer;
     private int playerNumber;
     private ActionInputCreated actionInputCreated;
     private ActionInputProducer actionInputProducer;
+    private IntegerCreated integerCreated;
+    private IntegerProducer integerProducer;
 
     public ServerLoginImpl (Lobby lobby) throws RemoteException {
         this.usersLoggedRMI = new ArrayList<>();
@@ -178,6 +179,10 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     }
 
     public void createNewAction (UserLogin userLogin) throws RemoteException {
+        int choose = 0;
+        integerProducer.setChoose(choose);
+        integerProducer.start();
+
         ActionInput actionInput = this.chooseActionInput(playerNumber, userLogin);
         actionInputProducer.setActionInput(actionInput);
         actionInputProducer.start();
@@ -267,9 +272,12 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         return actionInput;
     }
 
-    public int askNumber(int min, int max, String currentPlayer) throws RemoteException {
+    public void askNumber(int min, int max, String currentPlayer) throws RemoteException {
         this.currentPlayer = currentPlayer;
-        return 0;
+
+        integerCreated = new IntegerCreated();
+        integerProducer = new IntegerProducer(integerCreated);
+        gameController.setIntegerCreated(integerCreated);
     }
 
     public int askSpot (int min, int max, UserLogin userLogin) throws RemoteException {
