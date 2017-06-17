@@ -150,7 +150,10 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
     public ActionInput askAction (int playerNumber, String username) throws RemoteException { //TODO PROVA
         this.currentPlayer = username;
         this.doAction = false;
-        while(!doAction){}
+        boolean exit = doAction;
+        while(!exit){
+            exit = doAction;
+        }
 
         int choose = -1;
         for (UserLogin user: usersLoggedRMI) {
