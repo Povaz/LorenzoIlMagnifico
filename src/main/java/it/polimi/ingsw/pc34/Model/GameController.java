@@ -2,10 +2,8 @@ package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
-import it.polimi.ingsw.pc34.RMI.ActionInputConsumer;
-import it.polimi.ingsw.pc34.RMI.ServerLogin;
+import it.polimi.ingsw.pc34.RMI.ActionInputCreated;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 
 import java.rmi.RemoteException;
@@ -19,7 +17,7 @@ public class GameController{
     private final List<Player> players;
     private ServerLoginImpl serverLogin;
     private ActionInput actionInput;
-    private ActionInputConsumer actionInputConsumer;
+    private ActionInputCreated actionInputCreated;
 
     public GameController(Game game, ServerLoginImpl serverLogin) {
         Thread threadGame = new Thread (game);
@@ -34,15 +32,21 @@ public class GameController{
         this.actionInput = actionInput;
     }
 
-    public ActionInputConsumer getActionInputConsumer () {
-        return this.actionInputConsumer;
+    public void setActionInputCreated (ActionInputCreated actionInputCreated) {
+        this.actionInputCreated = actionInputCreated;
     }
 
-    public void setActionInputConsumer (ActionInputConsumer actionInputConsumer) {
-        this.actionInputConsumer = actionInputConsumer;
-    }
 
-    public int getWhatToDo(Player player) throws TooMuchTimeException{
+
+    public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
+        switch(player.getConnectionType()) {
+            case RMI:
+                serverLogin.askNumber(0,3, player.getUsername());
+                break;
+            case SOCKET:
+                //Insert serverSocket
+                break;
+        }
         return TerminalInput.getWhatToDO();
     }
 
@@ -50,14 +54,14 @@ public class GameController{
         actionInput = new ActionInput();
         switch(player.getConnectionType()) {
             case RMI:
-                serverLogin.askAction(board.getPlayerNumber(), player.getUsername());
-                actionInputConsumer.start();
+                serverLogin.askAction(board.getPlayerNumber());
+                actionInput = actionInputCreated.get();
                 break;
             case SOCKET:
                 //Azione chiamata sul ServerSocket
                 break;
         }
-        if(actionInput == null){
+        if(actionInput == null) {
             return null;
         }
         switch(actionInput.getActionType()){

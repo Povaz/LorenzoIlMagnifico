@@ -101,7 +101,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     }
 
     @Override
-    public boolean logoutServer (UserLogin userLogin) throws RemoteException {
+    public boolean logoutServer (UserLogin userLogin) throws RemoteException {  //TODO IMPLEMENTAZIONE NUOVA
         Set<String> usernames = lobby.getUsers().keySet();
         for (String user : usernames) {
             if ((userLogin.getUsername().equals(user))) {
@@ -150,6 +150,9 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     @Override
     public void sendInput (String input, UserLogin userLogin) throws RemoteException{
         switch (input) {
+            case "/skip":
+                userLogin.sendMessage("Not Implemented yet");
+                break;
             case "/action" :
                 if (checkCurrentPlayer(userLogin)) {
                     this.createNewAction(userLogin);
@@ -157,6 +160,12 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                 else {
                     userLogin.sendMessage("Just wait mate, it's not your turn, you mad?");
                 }
+                break;
+            case "/drawleadercard":
+                userLogin.sendMessage("Not Implemented yet");
+                break;
+            case "/activateleadercard":
+                userLogin.sendMessage("Not Implemented yet");
                 break;
             case "/chat":
                 userLogin.sendMessage("Not implemented yet");
@@ -174,13 +183,11 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         actionInputProducer.start();
     }
 
-    public void askAction(int playerNumber, String currentPlayer) throws RemoteException {
-        this.currentPlayer = currentPlayer;
+    public void askAction(int playerNumber) throws RemoteException {
         this.playerNumber = playerNumber;
 
         actionInputCreated = new ActionInputCreated();
-        ActionInputConsumer actionInputConsumer = new ActionInputConsumer(actionInputCreated, gameController);
-        gameController.setActionInputConsumer(actionInputConsumer);
+        gameController.setActionInputCreated(actionInputCreated);
         actionInputProducer = new ActionInputProducer(actionInputCreated);
     }
 
@@ -192,7 +199,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
             String m = "Which ActionSpot do you choose? Type /action and then choose a number\n" + "1. " + "TERRYTORY TOWER" + "\n"
                     + "2. " + "BUILDING TOWER" + "\n" + "3. " + "CHARACTER TOWER" + "\n" + "4. "
                     + "VENTURE TOWER" + "\n" + "5. " + "HARVEST" + "\n" + "6. " + "PRODUCE"
-                    + "\n" + "7. " + "MARKET" + "\n" + "8. " + "COUNCILPALACE" + "\n" + "-1. SKIP ACTION \n";
+                    + "\n" + "7. " + "MARKET" + "\n" + "8. " + "COUNCILPALACE" + "\n";
             userLogin.sendMessage(m);
             choose = userLogin.setActionChoose();
             switch (choose) {
@@ -252,13 +259,6 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                     actionInput.setSpot(0);
                     correct = true;
                     break;
-            /*case -1:
-                boolean skip = doYouWantToSkip();
-                if (skip) {
-                return null;
-                }
-                else {
-                     break;*/
                 default:
                     System.out.println("Incorrect Answer");
                     break;
@@ -267,7 +267,12 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         return actionInput;
     }
 
-    private int askSpot (int min, int max, UserLogin userLogin) throws RemoteException {
+    public int askNumber(int min, int max, String currentPlayer) throws RemoteException {
+        this.currentPlayer = currentPlayer;
+        return 0;
+    }
+
+    public int askSpot (int min, int max, UserLogin userLogin) throws RemoteException {
         boolean correct = false;
         int choose = 0;
         while (!correct) {
