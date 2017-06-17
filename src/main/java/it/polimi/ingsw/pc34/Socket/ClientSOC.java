@@ -21,132 +21,16 @@ public class ClientSOC implements Runnable {
 	public void run() {
 		System.out.println("Connection established");
 		System.out.println("");
-		boolean logged = false;
-		while(!logged){
-			try {
-				logged=login();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			}
-		}
-		System.out.println("Waiting Game to Start. . . \nWrite '/logout' to logout ");
-		System.out.println("");
 		
-		ClientComunicationHandler sch = new ClientComunicationHandler (socketServer , this);
-		Thread output = new Thread(sch);
+		//output
+		ClientOutputHandler coh = new ClientOutputHandler (socketServer);
+		Thread output = new Thread(coh);
 		output.start();
 		
-		//sempre pronto a ricevere notifiche
-		String line = null;
-		synchronized(this){
-			while (true){
-				try {
-					line = receiveFromServer();
-				} catch (IOException e) {
-					// TODO Auto-generated catch block
-					e.printStackTrace();
-				}
-				System.out.println(line);
-				System.out.println("");
-				if(line.equals("The game is starting")){
-					System.out.println("Scrivere qualsiasi cosa per iniziare la partita!");
-					output.interrupt();
-					break;
-				}
-				else if(line.equals("logout")){
-					break;
-				}
-			}
-		}
-		while(output.isAlive()){
-		}
-		System.out.println("Inizio partita");
-		return;
-	}
-	
-	private boolean login() throws IOException{
-		String decision = null;
-		boolean cycle = true;
-		while(cycle){
-			decision = loginVsRegister();
-			Scanner in = new Scanner(System.in);
-			sendToServer(decision);
-			String username = sendDataLog(decision);
-			if(!username.equals("/back")){
-				cycle=false;
-			}
-		}
-		if(decision.equals("1")){
-			return true;
-		}
-		else{
-			return false;
-		}
-	}
-	
-	private static String loginVsRegister (){
-		Scanner in = new Scanner (System.in);
-		String decision;
-		while(true){
-			System.out.println("What you want to do? Insert number: \n 1-login \n 2-register");
-			decision = in.nextLine();
-			if(decision.equals("1")){
-				System.out.println("LOGIN:");
-				break;
-			}
-			else if(decision.equals("2")){
-				System.out.println("REGISTER:");
-				break;
-			}
-			System.out.println("Wrong input: Retry");
-		}
-		return decision;
-	}
-	
-	private static String sendDataLog ( String decision) throws IOException{
-		String username;
-		String password;
-		Scanner in = new Scanner (System.in); 
-		while(true){	
-			System.out.println("(write '/back' to go back to the previous selection)");
-			System.out.println("Username :");	
-			username = in.nextLine();
-			sendToServer(username);
-			if (username.equals("/back")){
-				return username;
-			}		
-			System.out.println("Password : ");
-			password = in.nextLine();
-			sendToServer(password);
-			String receivedRespPass=receiveFromServer();
-			System.out.println("");
-			System.out.println(receivedRespPass);
-			System.out.println("");
-			
-			if(receivedRespPass.equals("confirmed")){
-				if(decision.equals("1")){
-					System.out.println("Succesful Login! Welcome back " + username + "!");
-					System.out.println("");
-					return username;
-				}
-				else{
-					System.out.println("Successful Register! Welcome " + username + "!");
-					System.out.println("");
-					return username;
-				}
-			}
-			else if (receivedRespPass.equals("wrong combination!")){
-				if(decision.equals("1")){
-					System.out.println("Wrong combination, retry");
-					System.out.println("");
-				}
-				else{
-					System.out.println("Register failed! Retry");
-					System.out.println("");
-				}
-			}
-		}
+		//input
+		ClientInputHandler cih = new ClientInputHandler (socketServer);
+		Thread input = new Thread(cih);
+		input.start();
 	}
 	
 	synchronized private static void sendToServer(String message) throws IOException{
@@ -158,14 +42,11 @@ public class ClientSOC implements Runnable {
 	synchronized private static String receiveFromServer() throws IOException{
 		Scanner socketIn = new Scanner(socketServer.getInputStream());
 		String received = socketIn.nextLine();
-		//PrintWriter socketOut = new PrintWriter(socketServer.getOutputStream(), true);
-		//socketOut.println("ok");
-		//socketOut.flush();
 		return received;
 		
 	}
 	
-	@SuppressWarnings("resource")
+	/*@SuppressWarnings("resource")
 
 	synchronized public static String askAction(){
 		System.out.println("Select Action: \n 1-Set Family Member \n 2-Use Leader Card \n 3-Draw Leader Card \n 4-Lose your Turn");
@@ -221,6 +102,6 @@ public class ClientSOC implements Runnable {
 				return (Integer.toString(numberAction));
 		}
 		return "";
-	}
+	}*/
 	
 }
