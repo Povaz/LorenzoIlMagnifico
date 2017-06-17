@@ -16,5 +16,5 @@ public interface ServerLogin extends Remote{
     boolean logoutServer(UserLogin userLogin) throws RemoteException;
     void printLoggedUsers () throws RemoteException;
 
-    void checkAction(UserLogin userLogin) throws RemoteException;
+    void sendInput (String input, UserLogin userLogin) throws RemoteException;
 }

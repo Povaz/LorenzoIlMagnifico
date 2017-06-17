@@ -282,8 +282,7 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
                         }
                         else {
                             break;
-                        }
-                            default:
+                        }default:
                         System.out.println("Incorrect Answer");
 
                 }

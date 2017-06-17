@@ -5,7 +5,7 @@ import it.polimi.ingsw.pc34.Model.ActionType;
 /**
  * Created by Povaz on 07/06/2017.
  */
-public class ActionInput{
+public class ActionInput {
     private ActionType actionType;
     private int spot;
 

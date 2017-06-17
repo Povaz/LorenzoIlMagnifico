@@ -3,39 +3,51 @@ package it.polimi.ingsw.pc34.RMI;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.JSONUtility;
+import it.polimi.ingsw.pc34.Model.ActionType;
+import it.polimi.ingsw.pc34.Model.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
 
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 import org.json.JSONException;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
+import sun.rmi.server.UnicastServerRef;
 
-import javax.swing.*;
+import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
-import java.rmi.AlreadyBoundException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
 /**
  * Created by Povaz on 24/05/2017.
  **/
-public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin {
+public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     private ArrayList<UserLogin> usersLoggedRMI;
     private Lobby lobby;
 
+
+    private GameController gameController;
     private String currentPlayer;
-    private boolean doAction;
+    private int playerNumber;
+    private ActionInputCreated actionInputCreated;
+    private ActionInputProducer actionInputProducer;
 
     public ServerLoginImpl (Lobby lobby) throws RemoteException {
         this.usersLoggedRMI = new ArrayList<>();
         this.lobby = lobby;
         this.lobby.setServerRMI(this);
         this.currentPlayer = "null";
-        this.doAction = false;
+    }
+
+    public void setGameController (GameController gameController) {
+        this.gameController = gameController;
+    }
+
+    public void setCurrentPlayer (String currentPlayer) {
+        this.currentPlayer = currentPlayer;
     }
 
     private boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
@@ -135,32 +147,138 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin 
         }
     }
 
-
     @Override
-    public void checkAction(UserLogin userLogin) throws RemoteException {
-        if (this.checkCurrentPlayer(userLogin)) {
-            this.doAction = true;
-        }
-        else {
-            userLogin.sendMessage("Non è il tuo turno, colione.");
+    public void sendInput (String input, UserLogin userLogin) throws RemoteException{
+        switch (input) {
+            case "/action" :
+                if (checkCurrentPlayer(userLogin)) {
+                    this.createNewAction(userLogin);
+                }
+                else {
+                    userLogin.sendMessage("Just wait mate, it's not your turn, you mad?");
+                }
+                break;
+            case "/chat":
+                userLogin.sendMessage("Not implemented yet");
+                break;
+            case "/stampinfo":
+                userLogin.sendMessage("Not implemented yet");
+                break;
+            default: userLogin.sendMessage("Command Unknown");
         }
     }
 
+    public void createNewAction (UserLogin userLogin) throws RemoteException {
+        ActionInput actionInput = this.chooseActionInput(playerNumber, userLogin);
+        actionInputProducer.setActionInput(actionInput);
+        actionInputProducer.start();
+    }
 
-    public ActionInput askAction (int playerNumber, String username) throws RemoteException { //TODO PROVA
-        this.currentPlayer = username;
-        this.doAction = false;
+    public void askAction(int playerNumber, String currentPlayer) throws RemoteException {
+        this.currentPlayer = currentPlayer;
+        this.playerNumber = playerNumber;
 
-        while(!doAction){}
+        actionInputCreated = new ActionInputCreated();
+        ActionInputConsumer actionInputConsumer = new ActionInputConsumer(actionInputCreated, gameController);
+        gameController.setActionInputConsumer(actionInputConsumer);
+        actionInputProducer = new ActionInputProducer(actionInputCreated);
+    }
 
-        int choose = -1;
-        for (UserLogin user: usersLoggedRMI) {
-            if (user.getUsername().equals(username)) {
-                choose = user.chooseAction();
+    private ActionInput chooseActionInput (int playerNumber, UserLogin userLogin) throws RemoteException {
+        ActionInput actionInput = new ActionInput();
+        boolean correct = false;
+        int choose;
+        while (!correct) {
+            String m = "Which ActionSpot do you choose? Type /action and then choose a number\n" + "1. " + "TERRYTORY TOWER" + "\n"
+                    + "2. " + "BUILDING TOWER" + "\n" + "3. " + "CHARACTER TOWER" + "\n" + "4. "
+                    + "VENTURE TOWER" + "\n" + "5. " + "HARVEST" + "\n" + "6. " + "PRODUCE"
+                    + "\n" + "7. " + "MARKET" + "\n" + "8. " + "COUNCILPALACE" + "\n" + "-1. SKIP ACTION \n";
+            userLogin.sendMessage(m);
+            choose = userLogin.setActionChoose();
+            switch (choose) {
+                case 1:
+                    actionInput.setActionType(ActionType.TERRITORY_TOWER);
+                    userLogin.sendMessage("Which card?");
+                    actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                    correct = true;
+                    break;
+                case 2:
+                    actionInput.setActionType(ActionType.BUILDING_TOWER);
+                    userLogin.sendMessage("Which card?");
+                    actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                    break;
+                case 3:
+                    actionInput.setActionType(ActionType.CHARACTER_TOWER);
+                    userLogin.sendMessage("Which card?");
+                    actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                    correct = true;
+                    break;
+                case 4:
+                    actionInput.setActionType(ActionType.VENTURE_TOWER);
+                    userLogin.sendMessage("Which card?");
+                    actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                    correct = true;
+                    break;
+                case 5:
+                    actionInput.setActionType(ActionType.HARVEST);
+                    if (playerNumber > 2) {
+                        actionInput.setSpot(this.askSpot(0, 1, userLogin));
+                    } else {
+                        actionInput.setSpot(0);
+                    }
+                    correct = true;
+                    break;
+                case 6:
+                    actionInput.setActionType(ActionType.PRODUCE);
+                    if (playerNumber > 2) {
+                        actionInput.setSpot(this.askSpot(0, 1, userLogin));
+                    } else {
+                        actionInput.setSpot(0);
+                    }
+                    correct = true;
+                    break;
+                case 7:
+                    actionInput.setActionType(ActionType.MARKET);
+                    userLogin.sendMessage("Which Spot? 0.COIN(5)  1.SERVANT(5)   2.COIN(2) & MILITARY_POINT(3) 3.COUNCILPRIVILEGE(2)");
+                    if (playerNumber > 3) {
+                        actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                    } else {
+                        actionInput.setSpot(this.askSpot(0, 1, userLogin));
+                    }
+                    correct = true;
+                    break;
+                case 8:
+                    actionInput.setActionType(ActionType.COUNCIL_PALACE);
+                    actionInput.setSpot(0);
+                    correct = true;
+                    break;
+            /*case -1:
+                boolean skip = doYouWantToSkip();
+                if (skip) {
+                return null;
+                }
+                else {
+                     break;*/
+                default:
+                    System.out.println("Incorrect Answer");
+                    break;
             }
         }
-        ActionInput actionInput = TerminalInput.chooseAction(playerNumber, choose);
-        this.doAction = false;
         return actionInput;
+    }
+
+    private int askSpot (int min, int max, UserLogin userLogin) throws RemoteException {
+        boolean correct = false;
+        int choose = 0;
+        while (!correct) {
+            choose = userLogin.setActionChoose();
+            if (choose >= min && choose <= max) {
+                correct = true;
+            }
+            else {
+                userLogin.sendMessage("Invalid Answer");
+            }
+        }
+        return choose;
     }
 }

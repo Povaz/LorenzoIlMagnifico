@@ -2,6 +2,7 @@ package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
+import it.polimi.ingsw.pc34.RMI.ActionInputConsumer;
 import it.polimi.ingsw.pc34.RMI.ServerLogin;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
@@ -17,6 +18,8 @@ public class GameController{
     private final Board board;
     private final List<Player> players;
     private ServerLoginImpl serverLogin;
+    private ActionInput actionInput;
+    private ActionInputConsumer actionInputConsumer;
 
     public GameController(Game game, ServerLoginImpl serverLogin) {
         Thread threadGame = new Thread (game);
@@ -24,14 +27,28 @@ public class GameController{
         this.board = game.getBoard();
         this.players = game.getPlayers();
         this.serverLogin = serverLogin;
+        serverLogin.setGameController(this);
+    }
+
+    public void setActionInput (ActionInput actionInput) {
+        this.actionInput = actionInput;
+    }
+
+    public ActionInputConsumer getActionInputConsumer () {
+        return this.actionInputConsumer;
+    }
+
+    public void setActionInputConsumer (ActionInputConsumer actionInputConsumer) {
+        this.actionInputConsumer = actionInputConsumer;
     }
 
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
-        ActionInput actionInput = new ActionInput();
+        actionInput = new ActionInput();
         switch(player.getConnectionType()) {
             case RMI:
-               actionInput = serverLogin.askAction(board.getPlayerNumber(), player.getUsername());
-               break;
+                serverLogin.askAction(board.getPlayerNumber(), player.getUsername());
+                actionInputConsumer.start();
+                break;
             case SOCKET:
                 //Azione chiamata sul ServerSocket
                 break;

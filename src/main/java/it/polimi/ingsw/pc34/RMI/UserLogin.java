@@ -13,5 +13,5 @@ public interface UserLogin extends Remote{
     String getKeyword() throws RemoteException;
     void sendMessage (String message) throws RemoteException;
 
-    int chooseAction () throws RemoteException;
+    int setActionChoose () throws RemoteException;
 }
