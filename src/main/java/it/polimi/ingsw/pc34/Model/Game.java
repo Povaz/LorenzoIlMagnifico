@@ -138,22 +138,52 @@ public class Game implements Runnable{
         System.out.println(board);
         Order order = board.getOrder();
         do{
+            Player current = order.getCurrent();
             try{
                 ActionSpot actionSpot;
                 FamilyMember familyMember = null;
+                current.setYourTurn(true);
                 do{
                     System.out.println("\n\nPLAYERBOARD:");
-                    System.out.println(order.getCurrent().getPlayerBoard());
-                    System.out.println("\n\nIS YOUR TURN " + order.getCurrent().getUsername() + "!!!   " + order.getCurrent().getColor() + "\n\n");
-                    actionSpot = gameController.getViewActionSpot(order.getCurrent());
-                    if(actionSpot != null) {
-                        familyMember = gameController.getViewFamilyMember(order.getCurrent());
+                    System.out.println(current.getPlayerBoard());
+                    System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
+                    switch(gameController.getWhatToDo(current)){
+                        case 0:
+                            actionSpot = gameController.getViewActionSpot(current);
+                            familyMember = gameController.getViewFamilyMember(current);
+                            if(placeFamilyMember(familyMember, actionSpot)){
+                                current.setPlacedFamilyMember(true);
+                            }
+                            break;
+                        case 1:
+                            PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
+                            if(placeLeaderCard.canDoAction()){
+                                placeLeaderCard.doAction();
+                            }
+                            break;
+                        case 2:
+                            ActivateImmediateLeaderCard activateImmediateLeaderCard = new ActivateImmediateLeaderCard(this, current);
+                            if(activateImmediateLeaderCard.canDoAction()){
+                                activateImmediateLeaderCard.doAction();
+                            }
+                            break;
+                        case 3:
+                            ChangeLeaderCardInReward changeLeaderCardInReward = new ChangeLeaderCardInReward(this, current);
+                            if(changeLeaderCardInReward.canDoAction()){
+                                changeLeaderCardInReward.doAction();
+                            }
+                            break;
+                        case 4:
+                            current.setYourTurn(false);
+                            break;
                     }
-                } while(!(placeFamilyMember(familyMember, actionSpot)));
+                } while(current.isYourTurn());
             } catch(TooMuchTimeException e){
                 // TODO addTimer
                 e.printStackTrace();
             }
+            current.setYourTurn(false);
+            current.setPlacedFamilyMember(false);
             System.out.println("\n\nPLAYERBOARD:");
             System.out.println(order.getCurrent().getPlayerBoard());
         } while(board.getOrder().nextOrder());
@@ -161,7 +191,7 @@ public class Game implements Runnable{
 
     public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException, RemoteException{
         if(actionSpot == null || familyMember == null){
-            return true;
+            return false;
         }
         calculateRealValueFamilyMember(familyMember);
         if(actionSpot instanceof Market){

@@ -12,6 +12,8 @@ public class Player{
     private final ConnectionType connectionType;
     private final PlayerColor color;
     private final PlayerBoard playerBoard;
+    private boolean isYourTurn = false;
+    private boolean placedFamilyMember = false;
     
     public Player(String username, ConnectionType connectionType, PlayerColor color, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
         this.username = username;
@@ -45,5 +47,21 @@ public class Player{
 
     public PlayerBoard getPlayerBoard(){
         return playerBoard;
+    }
+
+    public boolean isYourTurn(){
+        return isYourTurn;
+    }
+
+    public void setYourTurn(boolean yourTurn){
+        isYourTurn = yourTurn;
+    }
+
+    public boolean isPlacedFamilyMember(){
+        return placedFamilyMember;
+    }
+
+    public void setPlacedFamilyMember(boolean placedFamilyMember){
+        this.placedFamilyMember = placedFamilyMember;
     }
 }

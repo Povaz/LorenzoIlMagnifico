@@ -25,6 +25,10 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
         }
     }
 
+    public static int getWhatToDO(){
+        System.out.println("0. Place FamilyMember\n1. Place LeaderCard\n2. Activate LeaderCard\n2. Sell LeaderCard\n4.Pass your turn");
+        return askNumber(0,4);
+    }
 
     public static int[] exchangeCouncilPrivilege(Reward councilPrivilege) {
         try {

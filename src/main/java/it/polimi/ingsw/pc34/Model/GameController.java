@@ -42,6 +42,10 @@ public class GameController{
         this.actionInputConsumer = actionInputConsumer;
     }
 
+    public int getWhatToDo(Player player) throws TooMuchTimeException{
+        return TerminalInput.getWhatToDO();
+    }
+
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
         actionInput = new ActionInput();
         switch(player.getConnectionType()) {
