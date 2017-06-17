@@ -462,15 +462,79 @@ public class Modifier{
 		return actionModifiers;
 	}
 
-	public void setJumpFirstRound(boolean jumpFirstRound){
-		this.jumpFirstRound = jumpFirstRound;
-	}
-
-	public void setCannotPlaceInMarket(boolean cannotPlaceInMarket){
+	public void setCannotPlaceInMarket(boolean cannotPlaceInMarket) {
 		this.cannotPlaceInMarket = cannotPlaceInMarket;
 	}
 
-	public void setColoredFamilyMemberModifier(int coloredFamilyMemberModifier){
+	public void setServantValueHalved(boolean servantValueHalved) {
+		this.servantValueHalved = servantValueHalved;
+	}
+
+	public void setJumpFirstRound(boolean jumpFirstRound) {
+		this.jumpFirstRound = jumpFirstRound;
+	}
+
+	public void setNotEarnVictoryPointFromTerritory(boolean notEarnVictoryPointFromTerritory) {
+		this.notEarnVictoryPointFromTerritory = notEarnVictoryPointFromTerritory;
+	}
+
+	public void setNotEarnVictoryPointFromCharacter(boolean notEarnVictoryPointFromCharacter) {
+		this.notEarnVictoryPointFromCharacter = notEarnVictoryPointFromCharacter;
+	}
+
+	public void setNotEarnVictoryPointFromVenture(boolean notEarnVictoryPointFromVenture) {
+		this.notEarnVictoryPointFromVenture = notEarnVictoryPointFromVenture;
+	}
+
+	public void setLoseVictoryPointFromVictoryPoint(boolean loseVictoryPointFromVictoryPoint) {
+		this.loseVictoryPointFromVictoryPoint = loseVictoryPointFromVictoryPoint;
+	}
+
+	public void setLoseVictoryPointFromMilitaryPoint(boolean loseVictoryPointFromMilitaryPoint) {
+		this.loseVictoryPointFromMilitaryPoint = loseVictoryPointFromMilitaryPoint;
+	}
+
+	public void setLoseVictoryPointFromBuildingCost(boolean loseVictoryPointFromBuildingCost) {
+		this.loseVictoryPointFromBuildingCost = loseVictoryPointFromBuildingCost;
+	}
+
+	public void setLoseVictoryPointFromResource(boolean loseVictoryPointFromResource) {
+		this.loseVictoryPointFromResource = loseVictoryPointFromResource;
+	}
+
+	public void setNeutralFamilyMemberModifier(int neutralFamilyMemberModifier) {
+		this.neutralFamilyMemberModifier = neutralFamilyMemberModifier;
+	}
+
+	public void setDoubleFastRewardDevelopmentCard(boolean doubleFastRewardDevelopmentCard) {
+		this.doubleFastRewardDevelopmentCard = doubleFastRewardDevelopmentCard;
+	}
+
+	public void setPlaceInBusyActionSpot(boolean placeInBusyActionSpot) {
+		this.placeInBusyActionSpot = placeInBusyActionSpot;
+	}
+
+	public void setPermanentDice(boolean permanentDice) {
+		this.permanentDice = permanentDice;
+	}
+
+	public void setPermanentDiceValue(int permanentDiceValue) {
+		this.permanentDiceValue = permanentDiceValue;
+	}
+
+	public void setNotSatisfyMilitaryPointForTerritory(boolean notSatisfyMilitaryPointForTerritory) {
+		this.notSatisfyMilitaryPointForTerritory = notSatisfyMilitaryPointForTerritory;
+	}
+
+	public void setNotPayTollBusyTower(boolean notPayTollBusyTower) {
+		this.notPayTollBusyTower = notPayTollBusyTower;
+	}
+
+	public void setNoBonusTowerResource(boolean noBonusTowerResource) {
+		this.noBonusTowerResource = noBonusTowerResource;
+	}
+
+	public void setColoredFamilyMemberModifier(int coloredFamilyMemberModifier) {
 		this.coloredFamilyMemberModifier = coloredFamilyMemberModifier;
 	}
 }

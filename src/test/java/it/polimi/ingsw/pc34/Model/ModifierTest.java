@@ -66,6 +66,138 @@ public class ModifierTest{
         assertEquals(expected, calculated);
     }
 
+    // With only int
+    @Test
+    public void updateTestPermanentLeaderCard1(){
+        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null,
+                2, 3, false, false,
+                null, true, 5, null,
+                false, false, false);
+
+        Modifier expected = new Modifier();
+        expected.setNeutralFamilyMemberModifier(2);
+        expected.setColoredFamilyMemberModifier(3);
+        expected.setPermanentDice(true);
+        expected.setPermanentDiceValue(5);
+
+        Modifier calculated = new Modifier();
+        calculated.update(permanentLeaderCard);
+
+        assertEquals(expected, calculated);
+    }
+
+    // With only boolean
+    @Test
+    public void updateTestPermanentLeaderCard2(){
+        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null,
+                0, 0, true, true,
+                null, false, 0, null,
+                true, true, false);
+
+        Modifier expected = new Modifier();
+        expected.setDoubleFastRewardDevelopmentCard(true);
+        expected.setPlaceInBusyActionSpot(true);
+        expected.setNotSatisfyMilitaryPointForTerritory(true);
+        expected.setNotPayTollBusyTower(true);
+
+        Modifier calculated = new Modifier();
+        calculated.update(permanentLeaderCard);
+
+        assertEquals(expected, calculated);
+    }
+
+    // With only bonusRewardChurchSupport
+    @Test
+    public void updateTestPermanentLeaderCard3(){
+        List<Reward> bonusChurchSupport = new ArrayList<>(Arrays.asList(new Reward(RewardType.VICTORY_POINT, 4)));
+        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null,
+                0, 0, false, false,
+                bonusChurchSupport, false, 0, null,
+                false, false, false);
+
+        Modifier expected = new Modifier();
+        expected.getBonusChurchSupport().add(new Reward(RewardType.VICTORY_POINT, 5));
+
+        Modifier calculated = new Modifier();
+        calculated.getBonusChurchSupport().add(new Reward(RewardType.VICTORY_POINT, 1));
+        calculated.update(permanentLeaderCard);
+
+        assertEquals(expected, calculated);
+    }
+
+    // With only discounts
+    @Test
+    public void updateTestPermanentLeaderCard4(){
+        Map<CardType, List<List<Reward>>> discounts = new HashMap<>();
+        discounts.put(CardType.TERRITORY, Arrays.asList(new ArrayList<>(Arrays.asList(new Reward(RewardType.COIN, 3)))));
+        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null,
+                0, 0, false, false,
+                null, false, 0, discounts,
+                false, false, false);
+
+        Modifier expected = new Modifier();
+        expected.getDiscounts().get(CardType.TERRITORY).add(new ArrayList<>(Arrays.asList(new Reward(RewardType.COIN, 5))));
+
+        Modifier calculated = new Modifier();
+        calculated.getDiscounts().get(CardType.TERRITORY).add(new ArrayList<>(Arrays.asList(new Reward(RewardType.COIN, 2))));
+        calculated.update(permanentLeaderCard);
+
+        assertEquals(expected, calculated);
+    }
+
+    // With only boolean
+    @Test
+    public void updateTestDevelopmentCard1(){
+        CharacterCard characterCard = new CharacterCard(null, 1, null, null, null,
+                true, null, null, null, null);
+
+        Modifier expected = new Modifier();
+        expected.setNoBonusTowerResource(true);
+
+        Modifier calculated = new Modifier();
+        calculated.update(characterCard);
+
+        assertEquals(expected, calculated);
+    }
+
+    // With only discounts
+    @Test
+    public void updateTestDevelopmentCard2(){
+        Map<CardType, List<List<Reward>>> discounts = new HashMap<>();
+        discounts.put(CardType.TERRITORY, Arrays.asList(new ArrayList<>(Arrays.asList(new Reward(RewardType.COIN, 3)))));
+        CharacterCard characterCard = new CharacterCard(null, 1, null, null, null,
+                false, discounts, null, null, null);
+
+        Modifier expected = new Modifier();
+        expected.getDiscounts().get(CardType.TERRITORY).add(new ArrayList<>(Arrays.asList(new Reward(RewardType.COIN, 5))));
+
+        Modifier calculated = new Modifier();
+        calculated.getDiscounts().get(CardType.TERRITORY).add(new ArrayList<>(Arrays.asList(new Reward(RewardType.COIN, 2))));
+        calculated.update(characterCard);
+
+        assertEquals(expected, calculated);
+    }
+
+    // With only actionModifiers
+    @Test
+    public void updateTestDevelopmentCard3(){
+        Map<ActionType, Integer> actionModifiers = new HashMap<>();
+        actionModifiers.put(ActionType.TERRITORY_TOWER, -4);
+        actionModifiers.put(ActionType.VENTURE_TOWER, -2);
+        CharacterCard characterCard = new CharacterCard(null, 1, null, null, null,
+                false, null, actionModifiers, null, null);
+
+        Modifier expected = new Modifier();
+        expected.getActionModifiers().replace(ActionType.TERRITORY_TOWER, -4);
+        expected.getActionModifiers().replace(ActionType.VENTURE_TOWER, -1);
+
+        Modifier calculated = new Modifier();
+        calculated.getActionModifiers().replace(ActionType.VENTURE_TOWER, 1);
+        calculated.update(characterCard);
+
+        assertEquals(expected, calculated);
+    }
+
     // ActionType != ALL && ActionType != ANY_TOWER
     @Test
     public void updateActionModifiersTest1(){
