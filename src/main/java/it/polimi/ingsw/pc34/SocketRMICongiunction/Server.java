@@ -16,7 +16,7 @@ import java.util.*;
 public class Server {
     private ServerLoginImpl serverLoginRMI;
     private ServerSOC serverSoc;
-    public static List <Game> gamesOnGoing;
+    public static List <Game> gamesOnGoing = new ArrayList<>();
     public static HashMap<String, ConnectionType> usersInGame;
     
     public Server (ServerLoginImpl serverLoginRMI, ServerSOC serverSoc) {

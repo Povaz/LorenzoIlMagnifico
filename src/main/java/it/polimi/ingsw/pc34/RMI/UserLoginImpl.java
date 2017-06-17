@@ -160,21 +160,10 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin {
     public void gameHandler (ServerLogin serverLogin) throws RemoteException {
         while (true) {
             try {
-                System.out.println("1. Scegli Azione (solo se è il tuo turno!) 2. Accedi alla Chat 3. Stampa info");
-                Scanner inChoose = new Scanner(System.in);
-                this.setChoose(inChoose.nextInt());
-
-                switch(this.getChoose()) {
-                    case 1: serverLogin.checkAction(this);
-                        break;
-                    case 2:
-                        break;
-                    case 3:
-                        break;
-                    default:
-                        System.out.println("Incorrect Answer");
-                        break;
-                }
+                System.out.println("Type /action for an Action; /chat for sending message; /stampinfo to stamp info");
+                Scanner inChoose = new Scanner (System.in);
+                String choose = inChoose.nextLine();
+                serverLogin.sendInput(choose, this);
             }
             catch (InputMismatchException e) {
                 System.out.println("InputError: Retry");
@@ -182,15 +171,23 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin {
         }
     }
 
-    public int chooseAction () throws RemoteException {
-        System.out.println("Which ActionSpot do you choose?\n" + "1. " + "TERRYTORY TOWER" + "\n"
-                + "2. " + "BUILDING TOWER" + "\n" + "3. " + "CHARACTER TOWER" + "\n" + "4. "
-                + "VENTURE TOWER" + "\n" + "5. " + "HARVEST" + "\n" + "6. " + "PRODUCE"
-                + "\n" + "7. " + "MARKET" + "\n" + "8. " + "COUNCILPALACE" + "\n" + "-1. SKIP ACTION \n");
-        Scanner inChoose = new Scanner(System.in);
-        int choose = inChoose.nextInt();
-        return choose;
+    @Override
+    public int setActionChoose () throws RemoteException {
+        int chooseAction = 0;
+        boolean correct = false;
+        while (!correct) {
+            try {
+                Scanner inChoose = new Scanner(System.in);
+                chooseAction = inChoose.nextInt();
+            } catch (InputMismatchException e) {
+                System.out.println("Invalid Input");
+                continue;
+            }
+            correct = true;
+        }
+        return chooseAction;
     }
+
 
 }
 
