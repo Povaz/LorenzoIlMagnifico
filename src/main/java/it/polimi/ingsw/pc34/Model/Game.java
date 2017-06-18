@@ -11,11 +11,15 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by trill on 30/05/2017.
  */
 public class Game implements Runnable{
+    private Logger LOGGER = Logger.getLogger(Game.class.getName());
+
     public static final int PERIOD_NUMBER = 3;
     public static final int TURNS_FOR_PERIOD = 2;
     public static final int CARD_FOR_TOWER = 4;
@@ -49,7 +53,7 @@ public class Game implements Runnable{
             System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
         }
         catch (RemoteException e) {
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "RemoteException in game", e);
         }
     }
 
@@ -64,25 +68,93 @@ public class Game implements Runnable{
         initializePlayersRewards();
         this.gameController = new GameController(this, serverLogin);
         initializeLeaderCards();
+        initializePersonalBonusTile();
         ServerSOC.setGameControllerSoc(this.gameController);
     }
 
     private List<Player> initializePlayers(Map<String, ConnectionType> usersOfThisGame){
         List<Player> players = new ArrayList<>();
-        int[] tiles = RandomUtility.randomIntArray(0, playerNumber - 1);
         for(int i = 0; i < playerNumber; i++){
-            PersonalBonusTile personalBonusTile = null;
-            try {
-                personalBonusTile = JSONUtility.getPersonalBonusTile(tiles[i]);
-            } catch(JSONException e){
-                personalBonusTile = null;
-            } catch(IOException e){
-                personalBonusTile = null;
-            }
             PlayerColor playerColor = PlayerColor.fromInt(i + 1);
-            players.add(new Player(usernames.get(i), usersOfThisGame.get(usernames.get(i)), playerColor, personalBonusTile));
+            players.add(new Player(usernames.get(i), usersOfThisGame.get(usernames.get(i)), playerColor));
         }
         return players;
+    }
+
+    private void initializePersonalBonusTile(){
+        int tileNum;
+        try{
+            tileNum = JSONUtility.getPersonalBonusTileLength();
+        } catch(JSONException e){
+            LOGGER.log(Level.WARNING, "PersonalBonusTile.json: Wrong format", e);
+            return;
+        } catch(IOException e){
+            LOGGER.log(Level.WARNING, "PersonalBonusTile.json: Incorrect path", e);
+            return;
+        }
+
+        // Se non ci sono abbastanza bonus tile non darle;
+        if(playerNumber > tileNum){
+            return;
+        }
+        int[] tiles = RandomUtility.randomIntArray(0, tileNum - 1, playerNumber);
+
+        for(int i = 0; i < tiles.length; i++){
+            try{
+                PersonalBonusTile tile = JSONUtility.getPersonalBonusTile(tiles[i]);
+                players.get(i).getPlayerBoard().setPersonalBonusTile(tile);
+            } catch(JSONException e){
+                LOGGER.log(Level.WARNING, "PersonalBonusTile.json: Wrong format", e);
+            } catch(IOException e){
+                LOGGER.log(Level.WARNING, "PersonalBonusTile.json: Incorrect path", e);
+            }
+        }
+    }
+
+    private void initializeLeaderCards(){
+        int permanentNum;
+        int immediateNum;
+        try{
+            permanentNum = JSONUtility.getPermanentLeaderCardLength();
+            immediateNum = JSONUtility.getImmediateLeaderCardLength();
+        } catch(JSONException e){
+            LOGGER.log(Level.WARNING, "ImmediateLeaderCard.json or PermanentLeaderCard.json: Wrong format", e);
+            return;
+        } catch(IOException e){
+            LOGGER.log(Level.WARNING, "ImmediateLeaderCard.json or PermanentLeaderCard.json: Incorrect path", e);
+            return;
+        }
+
+        // Se non ci sono abbastanza carte non darle;
+        if(playerNumber * LEADER_CARD_FOR_PLAYER > permanentNum + immediateNum){
+            return;
+        }
+
+        int[] leaderCards = RandomUtility.randomIntArray(0, permanentNum + immediateNum - 1, playerNumber * 4);
+        int playerNum = 0;
+        for(int i = 0; i < leaderCards.length; i++){
+            try{
+                LeaderCard card;
+                // sono carte leader permanenti
+                if(leaderCards[i] < permanentNum){
+                    card = JSONUtility.getPermanentLeaderCard(leaderCards[i]);
+                }
+                // sono carte leader immediate
+                else{
+                    card = JSONUtility.getImmediateLeaderCard(leaderCards[i] - permanentNum);
+                }
+                players.get(playerNum).getPlayerBoard().getLeaderCardsInHand().add(card);
+            }catch(JSONException e){
+                LOGGER.log(Level.WARNING, "ImmediateLeaderCard.json or PermanentLeaderCard.json: Wrong format", e);
+            } catch(IOException e){
+                LOGGER.log(Level.WARNING, "ImmediateLeaderCard.json or PermanentLeaderCard.json: Incorrect path", e);
+            }
+
+            if((i + 1) % LEADER_CARD_FOR_PLAYER == 0){
+                playerNum++;
+            }
+        }
+
     }
 
     private void initializePlayersRewards(){
@@ -94,52 +166,49 @@ public class Game implements Runnable{
         }
     }
 
-    private void initializeLeaderCards(){
-        try{
-            int permanentNum = JSONUtility.getPermanentLeaderCardLength();
-            int immediateNum = JSONUtility.getImmediateLeaderCardLength();
-            // Se non ci sono abbastanza carte non darle;
-            if(playerNumber * LEADER_CARD_FOR_PLAYER > permanentNum + immediateNum){
-                return;
-            }
-            int[] leaderCards = RandomUtility.randomIntArray(0, permanentNum + immediateNum - 1, playerNumber * 4);
-            int playerNum = 0;
-            for(int i = 0; i < leaderCards.length; i++){
-                LeaderCard card;
-                // sono carte leader permanenti
-                if(leaderCards[i] < permanentNum){
-                    card = JSONUtility.getPermanentLeaderCard(leaderCards[i]);
-                }
-                // sono carte leader immediate
-                else{
-                    card = JSONUtility.getImmediateLeaderCard(leaderCards[i] - permanentNum);
-                }
-                players.get(playerNum).getPlayerBoard().getLeaderCardsInHand().add(card);
-                if((i + 1) % LEADER_CARD_FOR_PLAYER == 0){
-                    playerNum++;
-                }
-            }
-        } catch(JSONException e){
-            e.printStackTrace();
-        } catch(IOException e){
-            e.printStackTrace();
-        }
-    }
-
     private void startPeriod(){
-        try {
+        try{
             territoryCard = RandomUtility.randomIntArray(0, JSONUtility.getCardLength(period, CardType.TERRITORY) - 1,
                     CARD_FOR_TOWER * 2);
+        } catch(JSONException e){
+            territoryCard = null;
+            LOGGER.log(Level.WARNING, "TerritoryCard.json: Wrong format", e);
+        } catch(IOException e){
+            territoryCard = null;
+            LOGGER.log(Level.WARNING, "TerritoryCard.json: Incorrect path", e);
+        }
+
+        try{
             buildingCard = RandomUtility.randomIntArray(0, JSONUtility.getCardLength(period, CardType.BUILDING) - 1,
                     CARD_FOR_TOWER * 2);
+        } catch(JSONException e){
+            buildingCard = null;
+            LOGGER.log(Level.WARNING, "BuildingCard.json: Wrong format", e);
+        } catch(IOException e){
+            buildingCard = null;
+            LOGGER.log(Level.WARNING, "BuildingCard.json: Incorrect path", e);
+        }
+
+        try{
             characterCard = RandomUtility.randomIntArray(0, JSONUtility.getCardLength(period, CardType.CHARACTER) - 1,
                     CARD_FOR_TOWER * 2);
+        } catch(JSONException e){
+            characterCard = null;
+            LOGGER.log(Level.WARNING, "CharacterCard.json: Wrong format", e);
+        } catch(IOException e){
+            characterCard = null;
+            LOGGER.log(Level.WARNING, "CharacterCard.json: Incorrect path", e);
+        }
+
+        try{
             ventureCard = RandomUtility.randomIntArray(0, JSONUtility.getCardLength(period, CardType.VENTURE) - 1,
                     CARD_FOR_TOWER * 2);
         } catch(JSONException e){
-            e.printStackTrace();
+            ventureCard = null;
+            LOGGER.log(Level.WARNING, "VentureCard.json: Wrong format", e);
         } catch(IOException e){
-            e.printStackTrace();
+            ventureCard = null;
+            LOGGER.log(Level.WARNING, "VentureCard.json: Incorrect path", e);
         }
     }
 
@@ -177,7 +246,7 @@ public class Game implements Runnable{
             Player current = order.getCurrent();
             try{
                 ActionSpot actionSpot;
-                FamilyMember familyMember = null;
+                FamilyMember familyMember;
                 current.setYourTurn(true);
                 do{
                     System.out.println("\n\nPLAYERBOARD:");
@@ -222,8 +291,8 @@ public class Game implements Runnable{
                     }
                 } while(current.isYourTurn());
             } catch(TooMuchTimeException e){
+                gameController.sendMessage(current, "Timout scaduto");
                 // TODO addTimer
-                e.printStackTrace();
             }
             current.setYourTurn(false);
             current.setPlacedFamilyMember(false);
@@ -385,23 +454,52 @@ public class Game implements Runnable{
     }
 
     private void placeDevelopmentCard(){
-        try {
-            List<Floor> territoryFloors = board.getTerritoryTower().getFloors();
-            List<Floor> buildingFloors = board.getBuildingTower().getFloors();
-            List<Floor> characterFloors = board.getCharacterTower().getFloors();
-            List<Floor> ventureFloors = board.getVentureTower().getFloors();
+        List<Floor> territoryFloors = board.getTerritoryTower().getFloors();
+        List<Floor> buildingFloors = board.getBuildingTower().getFloors();
+        List<Floor> characterFloors = board.getCharacterTower().getFloors();
+        List<Floor> ventureFloors = board.getVentureTower().getFloors();
 
-            for (int i = 0; i < CARD_FOR_TOWER; i++){
-                int index = i + CARD_FOR_TOWER*(turn - 1);
-                territoryFloors.get(i).setCard(JSONUtility.getCard(period, territoryCard[index], CardType.TERRITORY));
-                buildingFloors.get(i).setCard(JSONUtility.getCard(period, buildingCard[index], CardType.BUILDING));
-                characterFloors.get(i).setCard(JSONUtility.getCard(period, characterCard[index], CardType.CHARACTER));
-                ventureFloors.get(i).setCard(JSONUtility.getCard(period, ventureCard[index], CardType.VENTURE));
+        for (int i = 0; i < CARD_FOR_TOWER; i++){
+            int index = i + CARD_FOR_TOWER*(turn - 1);
+            if(territoryCard != null) {
+                try{
+                    territoryFloors.get(i).setCard(JSONUtility.getCard(period, territoryCard[index], CardType.TERRITORY));
+                } catch (JSONException e){
+                    LOGGER.log(Level.WARNING, "TerritoryCard.json: Wrong format", e);
+                } catch(IOException e){
+                    LOGGER.log(Level.WARNING, "TerritoryCard.json: Incorrect path", e);
+                }
             }
-        } catch (IOException e){
-            e.printStackTrace();
-        } catch (JSONException e){
-            e.printStackTrace();
+
+            if(buildingCard != null){
+                try{
+                    buildingFloors.get(i).setCard(JSONUtility.getCard(period, buildingCard[index], CardType.BUILDING));
+                } catch (JSONException e){
+                    LOGGER.log(Level.WARNING, "BuildingCard.json: Wrong format", e);
+                } catch(IOException e){
+                    LOGGER.log(Level.WARNING, "BuildingCard.json: Incorrect path", e);
+                }
+            }
+
+            if(characterCard != null){
+                try{
+                    characterFloors.get(i).setCard(JSONUtility.getCard(period, characterCard[index], CardType.CHARACTER));
+                } catch (JSONException e){
+                    LOGGER.log(Level.WARNING, "CharacterCard.json: Wrong format", e);
+                } catch(IOException e){
+                    LOGGER.log(Level.WARNING, "CharacterCard.json: Incorrect path", e);
+                }
+            }
+
+            if(ventureCard != null){
+                try{
+                    ventureFloors.get(i).setCard(JSONUtility.getCard(period, ventureCard[index], CardType.VENTURE));
+                } catch (JSONException e){
+                    LOGGER.log(Level.WARNING, "VentureCard.json: Wrong format", e);
+                } catch(IOException e){
+                    LOGGER.log(Level.WARNING, "VentureCard.json: Incorrect path", e);
+                }
+            }
         }
     }
 

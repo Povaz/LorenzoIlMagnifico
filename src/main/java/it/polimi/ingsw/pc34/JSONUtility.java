@@ -405,33 +405,33 @@ public class JSONUtility {
 		List<String> booleans = getBooleansAttributes(card);
 		List<Reward> loseRewards = getLoseRewards(card);
 		Map<ActionType, Integer> actionModifiers = getActionModifiers(card);
-		int coloredFamilyMemberModifier;
-		try{
-			coloredFamilyMemberModifier = card.getInt("coloredFamilyMemberModifier");
-		}
-		catch(JSONException e){
-			coloredFamilyMemberModifier = 0;
-		}
+		int coloredFamilyMemberModifier = getIntegerNoException(card, "coloredFamilyMemberModifier");
 		return new VaticanReportCard(number, period, loseRewards, actionModifiers, booleans, coloredFamilyMemberModifier);
 	}
 	
-	private static List<String> getBooleansAttributes (JSONObject card) throws JSONException {
+	private static List<String> getBooleansAttributes (JSONObject card){
+		List<String> attributes = new ArrayList<>();
 		try{
 			JSONArray booleanEffects = card.getJSONArray("booleans");
-			List<String> attributes = new ArrayList<String>();
-			for(int i=0; i<booleanEffects.length(); i++){
+			for(int i=0; i < booleanEffects.length(); i++){
 				JSONObject obj = booleanEffects.getJSONObject(i);
 				attributes.add(obj.getString("attribute"));
 			}
-			return attributes;
 		}
 		catch(JSONException e){
-			return null;
+			attributes = null;
 		}
+		return attributes;
 	}
 	//Fine Codice Di Lacieoz
 
 	//Codice Lacieoz 2
+	public static int getPersonalBonusTileLength() throws JSONException, IOException{
+		JSONObject cards = fromPathToJSONObject(personalBonusTilePath);
+		JSONArray cardsArray = cards.getJSONArray("PersonalBonusTile");
+		return cardsArray.length();
+	}
+
 	public static PersonalBonusTile getPersonalBonusTile (int number) throws IOException, JSONException{
 		//estrae file
 		JSONObject tile = fromPathToJSONObject(personalBonusTilePath);
@@ -443,7 +443,6 @@ public class JSONUtility {
 		Set<Reward> productionRewards = getRewards(tile, "productionRewards");
 		Set<Reward> harvestRewards = getRewards(tile, "harvestRewards");
 		return new PersonalBonusTile(diceProduction, diceHarvest, productionRewards, harvestRewards);
-		
 	}
 	
 	public static JSONObject getNumberTile(int number, JSONObject jsonObject) throws JSONException{
@@ -511,7 +510,7 @@ public class JSONUtility {
 				permanentColoredFamilyMember, permanentColoredFamilyMemberValue, actions);
 	}
 
-	private static Map<CardType, Integer> getActivationCardCost(JSONObject card) throws JSONException{
+	private static Map<CardType, Integer> getActivationCardCost(JSONObject card){
 		try{
 			JSONArray activationCardTypeRequirement = card.getJSONArray("activationCardCost");
 			return getCardTypeInteger(activationCardTypeRequirement);
@@ -521,7 +520,7 @@ public class JSONUtility {
 		}
 	}
 
-	private static Map<CardType, Integer> getCardTypeInteger(JSONArray jsonArrayCardTypeInteger) throws JSONException{
+	private static Map<CardType, Integer> getCardTypeInteger(JSONArray jsonArrayCardTypeInteger){
 		try {
 			Map<CardType, Integer> cardTypeInteger = new HashMap<>();
 			for(int i = 0; i < jsonArrayCardTypeInteger.length(); i++){
@@ -535,7 +534,7 @@ public class JSONUtility {
 		}
 	}
 
-	private static CardType getCardType(JSONObject jsonObject) throws JSONException{
+	private static CardType getCardType(JSONObject jsonObject){
 		try{
 			String cardTypeString = jsonObject.getString("type");
 			CardType cardType = CardType.valueOf(cardTypeString);

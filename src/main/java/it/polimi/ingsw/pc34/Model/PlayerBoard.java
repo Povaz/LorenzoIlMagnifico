@@ -10,7 +10,7 @@ public class PlayerBoard {
     private final PlayerColor color;
     private Counter counter;
     private final List<FamilyMember> familyMembers;
-    private final PersonalBonusTile personalBonusTile;
+    private PersonalBonusTile personalBonusTile;
     private final TerritorySpot territorySpot;
     private final BuildingSpot buildingSpot;
     private final CharacterSpot characterSpot;
@@ -20,12 +20,12 @@ public class PlayerBoard {
     private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
     private final List<PermanentLeaderCard> permanentLeaderCardsPositionated;
 
-    public PlayerBoard(Player player, PersonalBonusTile personalBonusTile){
+    public PlayerBoard(Player player){
         this.player = player;
         this.color = player.getColor();
         this.counter = new Counter();
         this.familyMembers = initializeFamilyMembers(player);
-        this.personalBonusTile = personalBonusTile;
+        this.personalBonusTile = null;
         this.territorySpot = new TerritorySpot();
         this.buildingSpot = new BuildingSpot();
         this.characterSpot = new CharacterSpot();
@@ -199,6 +199,10 @@ public class PlayerBoard {
 
     public void setCounter(Counter counter) {
         this.counter = counter;
+    }
+
+    public void setPersonalBonusTile(PersonalBonusTile personalBonusTile){
+        this.personalBonusTile = personalBonusTile;
     }
 
     @Override
