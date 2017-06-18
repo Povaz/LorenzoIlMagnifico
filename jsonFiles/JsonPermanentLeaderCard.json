@@ -149,7 +149,7 @@
       ],
       "costDiscounts": [
         {
-          "cardType": "ALL",
+          "cardType": "ANY",
           "options": [
             {
               "discounts": [

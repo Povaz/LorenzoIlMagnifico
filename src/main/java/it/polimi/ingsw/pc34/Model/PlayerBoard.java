@@ -1,8 +1,5 @@
 package it.polimi.ingsw.pc34.Model;
 
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
-import it.polimi.ingsw.pc34.View.TerminalInput;
-
 import java.util.*;
 
 /**
@@ -23,7 +20,7 @@ public class PlayerBoard {
     private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
     private final List<PermanentLeaderCard> permanentLeaderCardsPositionated;
 
-    public PlayerBoard(Player player, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
+    public PlayerBoard(Player player, PersonalBonusTile personalBonusTile){
         this.player = player;
         this.color = player.getColor();
         this.counter = new Counter();
@@ -34,7 +31,7 @@ public class PlayerBoard {
         this.characterSpot = new CharacterSpot();
         this.ventureSpot = new VentureSpot();
         this.modifier = new Modifier();
-        this.leaderCardsInHand = leaderCards;
+        this.leaderCardsInHand = new ArrayList<>();
         this.immediateLeaderCardsPositionated = new ArrayList<>();
         this.permanentLeaderCardsPositionated = new ArrayList<>();
     }

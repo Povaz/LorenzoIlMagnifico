@@ -19,6 +19,7 @@ public class Game implements Runnable{
     public static final int PERIOD_NUMBER = 3;
     public static final int TURNS_FOR_PERIOD = 2;
     public static final int CARD_FOR_TOWER = 4;
+    public static final int LEADER_CARD_FOR_PLAYER = 4;
     private int turn;
     private int period;
     private final List<String> usernames;
@@ -62,6 +63,7 @@ public class Game implements Runnable{
         this.board = new Board(players);
         initializePlayersRewards();
         this.gameController = new GameController(this, serverLogin);
+        initializeLeaderCards();
         ServerSOC.setGameControllerSoc(this.gameController);
     }
 
@@ -78,7 +80,7 @@ public class Game implements Runnable{
                 personalBonusTile = null;
             }
             PlayerColor playerColor = PlayerColor.fromInt(i + 1);
-            players.add(new Player(usernames.get(i), usersOfThisGame.get(usernames.get(i)), playerColor, personalBonusTile, null));
+            players.add(new Player(usernames.get(i), usersOfThisGame.get(usernames.get(i)), playerColor, personalBonusTile));
         }
         return players;
     }
@@ -89,6 +91,38 @@ public class Game implements Runnable{
         for(Player p : order){
             p.getPlayerBoard().setCounter(new Counter(i));
             i++;
+        }
+    }
+
+    private void initializeLeaderCards(){
+        try{
+            int permanentNum = JSONUtility.getPermanentLeaderCardLength();
+            int immediateNum = JSONUtility.getImmediateLeaderCardLength();
+            // Se non ci sono abbastanza carte non darle;
+            if(playerNumber * LEADER_CARD_FOR_PLAYER > permanentNum + immediateNum){
+                return;
+            }
+            int[] leaderCards = RandomUtility.randomIntArray(0, permanentNum + immediateNum - 1, playerNumber * 4);
+            int playerNum = 0;
+            for(int i = 0; i < leaderCards.length; i++){
+                LeaderCard card;
+                // sono carte leader permanenti
+                if(leaderCards[i] < permanentNum){
+                    card = JSONUtility.getPermanentLeaderCard(leaderCards[i]);
+                }
+                // sono carte leader immediate
+                else{
+                    card = JSONUtility.getImmediateLeaderCard(leaderCards[i] - permanentNum);
+                }
+                players.get(playerNum).getPlayerBoard().getLeaderCardsInHand().add(card);
+                if((i + 1) % LEADER_CARD_FOR_PLAYER == 0){
+                    playerNum++;
+                }
+            }
+        } catch(JSONException e){
+            e.printStackTrace();
+        } catch(IOException e){
+            e.printStackTrace();
         }
     }
 
@@ -154,7 +188,7 @@ public class Game implements Runnable{
                             if(!current.isPlacedFamilyMember()){
                                 actionSpot = gameController.getViewActionSpot(current);
                                 familyMember = gameController.getViewFamilyMember(current);
-                                if (placeFamilyMember(familyMember, actionSpot)){
+                                if(placeFamilyMember(familyMember, actionSpot)){
                                     current.setPlacedFamilyMember(true);
                                 }
                             }
