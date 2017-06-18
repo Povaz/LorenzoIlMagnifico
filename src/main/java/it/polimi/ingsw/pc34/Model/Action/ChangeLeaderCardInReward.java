@@ -30,6 +30,7 @@ public class ChangeLeaderCardInReward implements CommandPattern{
 
     public boolean canDoAction() throws TooMuchTimeException{
         if(leaderCardsInHand.size() <= 0){
+            game.getGameController().sendMessage(player, "You don't have any leader card in your hand!");
             return false;
         }
 

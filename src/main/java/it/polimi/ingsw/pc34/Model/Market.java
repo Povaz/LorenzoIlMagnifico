@@ -11,14 +11,15 @@ public class Market extends ActionSpot{
 	}
 
 	@Override
-	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot){
-		if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot)){
+	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController){
+		if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot, gameController)){
 			return false;
 		}
 
 		if(familyMember.isGhost()){
 			if(familyMember.getAction() != null){
 				if(familyMember.getAction() != ActionType.ALL && familyMember.getAction() != ActionType.MARKET){
+					gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
 					return false;
 				}
 			}

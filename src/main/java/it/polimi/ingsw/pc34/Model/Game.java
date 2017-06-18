@@ -192,6 +192,9 @@ public class Game implements Runnable{
                                     current.setPlacedFamilyMember(true);
                                 }
                             }
+                            else{
+                                gameController.sendMessage(current, "You have already placed a family member!");
+                            }
                             break;
                         case 1:
                             PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
@@ -214,6 +217,8 @@ public class Game implements Runnable{
                         case 4:
                             current.setYourTurn(false);
                             break;
+                        default:
+                            System.out.println("WAT???");
                     }
                 } while(current.isYourTurn());
             } catch(TooMuchTimeException e){

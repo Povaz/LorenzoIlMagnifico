@@ -47,6 +47,19 @@ public class GameController{
 
     public void setFamilyColorCreated (FamilyColorCreated familyColorCreated) {this.familyColorCreated = familyColorCreated;}
 
+    public void sendMessage(Player player, String message){
+        switch(player.getConnectionType()){
+            case RMI:
+                // TODO eriK :P
+                System.out.println(message);
+                break;
+            case SOCKET:
+                // TODO tom :P
+                System.out.println(message);
+                break;
+        }
+    }
+
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo = 0;
         serverLogin.setCurrentPlayer(player.getUsername());

@@ -33,6 +33,7 @@ public class PlaceLeaderCard implements CommandPattern{
 
     public boolean canDoAction() throws TooMuchTimeException{
         if(leaderCardsInHand.size() <= 0){
+            game.getGameController().sendMessage(player, "You don't have any leader card in your hand!");
             return false;
         }
 
@@ -50,7 +51,7 @@ public class PlaceLeaderCard implements CommandPattern{
     private boolean haveEnoughRewardToActive(){
         newCounter.subtract(leaderCard.getActivationRewardCost());
         if(!newCounter.check()){
-            System.out.println("Non hai abbastanza risorse per piazzare la carta");
+            game.getGameController().sendMessage(player, "You don't have enough resources to place the leader card!");
             return false;
         }
         return true;
@@ -62,25 +63,25 @@ public class PlaceLeaderCard implements CommandPattern{
             switch(cT){
                 case TERRITORY:
                     if(player.getPlayerBoard().getTerritorySpot().getCards().size() < cardNeeded.get(cT)){
-                        System.out.println("Non hai abbastanza territoryCard per piazzare la carta");
+                        game.getGameController().sendMessage(player, "You don't have enough territory card to place the leader card!");
                         return false;
                     }
                     break;
                 case BUILDING:
                     if(player.getPlayerBoard().getBuildingSpot().getCards().size() < cardNeeded.get(cT)){
-                        System.out.println("Non hai abbastanza buildingCard per piazzare la carta");
+                        game.getGameController().sendMessage(player, "You don't have enough building card to place the leader card!");
                         return false;
                     }
                     break;
                 case CHARACTER:
                     if(player.getPlayerBoard().getCharacterSpot().getCards().size() < cardNeeded.get(cT)){
-                        System.out.println("Non hai abbastanza characterCard per piazzare la carta");
+                        game.getGameController().sendMessage(player, "You don't have enough character card to place the leader card!");
                         return false;
                     }
                     break;
                 case VENTURE:
                     if(player.getPlayerBoard().getVentureSpot().getCards().size() < cardNeeded.get(cT)){
-                        System.out.println("Non hai abbastanza ventureCard per piazzare la carta");
+                        game.getGameController().sendMessage(player, "You don't have enough venture card to place the leader card!");
                         return false;
                     }
                     break;
@@ -99,7 +100,7 @@ public class PlaceLeaderCard implements CommandPattern{
                         enoughCard = true;
                     }
                     if(!enoughCard){
-                        System.out.println("Non hai abbastanza carte per piazzare la carta");
+                        game.getGameController().sendMessage(player, "You don't have enough card to place the leader card!");
                         return false;
                     }
                     break;

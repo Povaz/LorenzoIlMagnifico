@@ -11,14 +11,15 @@ public class HarvestArea extends ActionSpot{
     }
 
     @Override
-    public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot){
-        if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot)){
+    public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController){
+        if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot, gameController)){
             return false;
         }
 
         if(familyMember.isGhost()){
             if (familyMember.getAction() != null){
                 if (familyMember.getAction() != ActionType.HARVEST && familyMember.getAction() != ActionType.ALL){
+                    gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
                     return false;
                 }
             }
@@ -29,6 +30,7 @@ public class HarvestArea extends ActionSpot{
                 for(FamilyMember f : hA.occupiedBy){
                     if(familyMember.samePlayer(f)){
                         if(f.getColor() != FamilyColor.NEUTRAL){
+                            gameController.sendMessage(familyMember.getPlayer(), "There is already one of yours colored family member in the harvest area!");
                             return false;
                         }
                     }
