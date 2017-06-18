@@ -151,10 +151,12 @@ public class Game implements Runnable{
                     System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
                     switch(gameController.getWhatToDo(current)){
                         case 0:
-                            actionSpot = gameController.getViewActionSpot(current);
-                            familyMember = gameController.getViewFamilyMember(current);
-                            if(placeFamilyMember(familyMember, actionSpot)){
-                                current.setPlacedFamilyMember(true);
+                            if(!current.isPlacedFamilyMember()){
+                                actionSpot = gameController.getViewActionSpot(current);
+                                familyMember = gameController.getViewFamilyMember(current);
+                                if (placeFamilyMember(familyMember, actionSpot)){
+                                    current.setPlacedFamilyMember(true);
+                                }
                             }
                             break;
                         case 1:
