@@ -156,9 +156,11 @@ public class Game implements Runnable{
                             }
                             break;
                         case 1:
-                            PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
-                            if(placeLeaderCard.canDoAction()){
-                                placeLeaderCard.doAction();
+                            if(!current.isPlacedFamilyMember()){
+                                PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
+                                if(placeLeaderCard.canDoAction()){
+                                    placeLeaderCard.doAction();
+                                }
                             }
                             break;
                         case 2:
