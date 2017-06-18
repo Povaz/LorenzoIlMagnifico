@@ -17,7 +17,8 @@ public class GameController{
     private final Board board;
     private final List<Player> players;
     private ServerLoginImpl serverLogin;
-
+    private String currentPlayer;
+    
     private ActionInputCreated actionInputCreated;
     private IntegerCreated integerCreated;
 
@@ -28,6 +29,10 @@ public class GameController{
         this.players = game.getPlayers();
         this.serverLogin = serverLogin;
         serverLogin.setGameController(this);
+    }
+    
+    public String getCurrentPlayer(){
+    	return currentPlayer;
     }
 
     public void setActionInputCreated (ActionInputCreated actionInputCreated) {
@@ -47,6 +52,7 @@ public class GameController{
                 break;
             case SOCKET:
                 //Insert serverSocket
+            	currentPlayer = player.getUsername();
                 break;
         }
         return whatToDo;

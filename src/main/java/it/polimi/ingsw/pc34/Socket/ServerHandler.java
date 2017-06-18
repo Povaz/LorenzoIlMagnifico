@@ -10,16 +10,18 @@ import java.util.TimerTask;
 
 import org.json.JSONException;
 
+import it.polimi.ingsw.pc34.Model.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 
 public class ServerHandler implements Runnable{
 	private Socket socket;
 	private int fase; 
 	private LobbyFlow lobbyFlow;
-	private GameFlow gameFlow = new GameFlow();
+	private GameFlow gameFlow;
 	private String username;
 	private Lobby lobby;
 	private ServerSOC serverSoc;
+	private GameController gameController;
 	
 	public ServerHandler(Socket socket, Lobby lobby, ServerSOC serverSoc){
 		this.socket = socket;
@@ -31,6 +33,18 @@ public class ServerHandler implements Runnable{
 	
 	public void setFase(int fase){
 		this.fase = fase;
+		if(fase==1 && gameFlow == null){
+			gameFlow = new GameFlow();
+			try {
+				sendToClient("Type: /action for an Action;  /skip to skip this turn  /drawleadercard to use a LeaderCard  /activateleadercard to activate a Leader Card  /chat to send message;  /stampinfo to stamp info");
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	public void setGameController(GameController gameController){
+		this.gameController= gameController;
 	}
 	
 	public void setName(String username){
@@ -100,7 +114,12 @@ public class ServerHandler implements Runnable{
 			}
 			//game
 			if(fase==1){
-				answer = toGameHandler(line);
+				if(!gameController.getCurrentPlayer().equals(username) && !line.equals("/chat") && !line.equals("/stampinfo")){
+					answer = "Non è il tuo turno!";
+				}
+				else{
+					answer = toGameHandler(line);
+				}
 				try {
 					sendToClient(answer);
 				} catch (IOException e) {

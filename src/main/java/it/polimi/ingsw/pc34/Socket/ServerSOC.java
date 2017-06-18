@@ -12,6 +12,7 @@ import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.polimi.ingsw.pc34.Model.GameController;
 import it.polimi.ingsw.pc34.RMI.UserLogin;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
@@ -56,6 +57,12 @@ public class ServerSOC implements Runnable {
 			catch(IOException e) {
 				break; // entrerei qui se serverSocket venisse chiuso
 			}
+		}
+	}
+	
+	public static void setGameControllerSoc(GameController gameController){
+		for (ServerHandler user : utenti){
+			user.setGameController(gameController);
 		}
 	}
 	
