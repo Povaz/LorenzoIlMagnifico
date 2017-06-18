@@ -44,12 +44,12 @@ public class GameController{
 
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo = 0;
+        serverLogin.setCurrentPlayer(player.getUsername());
         switch(player.getConnectionType()) {
             case RMI:
-                serverLogin.askNumber(0,3, player.getUsername());
+                serverLogin.askNumber(0,3);
                 whatToDo = integerCreated.get();
                 System.out.println("Action chosen: " + whatToDo);
-
                 break;
             case SOCKET:
                 //Insert serverSocket
@@ -97,20 +97,27 @@ public class GameController{
 
     public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException{
         FamilyColor familyColor = FamilyColor.NEUTRAL;
-        System.out.println("Family Color default: " + familyColor);
         switch(player.getConnectionType()) {
             case RMI:
                 serverLogin.askFamilyColor();
                 familyColor = familyColorCreated.get();
-                System.out.println("Family Color chosen: " + familyColor);
                 break;
             case SOCKET:
                 break;
         }
-        System.out.println("Check");
+        int servant = 0;
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
             if(fM.getColor() == familyColor) {
-                fM.setServantUsed(new Reward(RewardType.SERVANT, TerminalInput.askNumberOfServant()));
+                switch(player.getConnectionType()) {
+                    case RMI:
+                        serverLogin.askNumberMinMax(0,10);
+                        servant = integerCreated.get();
+                        break;
+                    case SOCKET:
+                        //fm.setServantUsed(new Reward(RewardType.SERVANT, servant));
+                        break;
+                }
+                fM.setServantUsed(new Reward(RewardType.SERVANT, servant));
                 return fM;
             }
         }

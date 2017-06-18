@@ -188,22 +188,29 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         FamilyColor familyColor = this.chooseFamilyColor(userLogin);
         familyColorProducer.setFamilyColor(familyColor);
         familyColorProducer.start();
+
+        String m = "How many Servants do you want to use?";
+        int servant = this.chooseSpot(integerProducer.getMin(), integerProducer.getMax(), userLogin, m);
+        integerProducer.setChoose(servant);
+        integerProducer.start();
     }
 
-    public void askAction(int playerNumber) throws RemoteException {
-        this.playerNumber = playerNumber;
-
-        actionInputCreated = new ActionInputCreated();
-        gameController.setActionInputCreated(actionInputCreated);
-        actionInputProducer = new ActionInputProducer(actionInputCreated);
-    }
-
-    public void askNumber(int min, int max, String currentPlayer) throws RemoteException {
-        this.currentPlayer = currentPlayer;
-
+    public void askNumber(int min, int max) throws RemoteException {
         integerCreated = new IntegerCreated();
         integerProducer = new IntegerProducer(integerCreated);
         gameController.setIntegerCreated(integerCreated);
+    }
+
+    public void askNumberMinMax(int min, int max) throws RemoteException {
+        integerCreated = new IntegerCreated();
+        integerProducer = new IntegerProducer(integerCreated, min, max);
+        gameController.setIntegerCreated(integerCreated);
+    }
+
+    public void askAction(int playerNumber) throws RemoteException {
+        actionInputCreated = new ActionInputCreated();
+        gameController.setActionInputCreated(actionInputCreated);
+        actionInputProducer = new ActionInputProducer(actionInputCreated);
     }
 
     public void askFamilyColor() throws RemoteException {
@@ -221,37 +228,37 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                     + "2. " + "BUILDING TOWER" + "\n" + "3. " + "CHARACTER TOWER" + "\n" + "4. "
                     + "VENTURE TOWER" + "\n" + "5. " + "HARVEST" + "\n" + "6. " + "PRODUCE"
                     + "\n" + "7. " + "MARKET" + "\n" + "8. " + "COUNCILPALACE" + "\n";
+            String tower = "Which card? From 0 to 3";
+            String market = "Which Spot? 0.COIN(5)  1.SERVANT(5)   2.COIN(2) & MILITARY_POINT(3) 3.COUNCILPRIVILEGE(2)";
             userLogin.sendMessage(m);
             choose = userLogin.setActionChoose();
             switch (choose) {
                 case 1:
                     actionInput.setActionType(ActionType.TERRITORY_TOWER);
-                    userLogin.sendMessage("Which card?");
-                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
+                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin, tower));
                     correct = true;
                     break;
                 case 2:
                     actionInput.setActionType(ActionType.BUILDING_TOWER);
-                    userLogin.sendMessage("Which card?");
-                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
+                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin, tower));
                     correct = true;
                     break;
                 case 3:
                     actionInput.setActionType(ActionType.CHARACTER_TOWER);
                     userLogin.sendMessage("Which card?");
-                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
+                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin, tower));
                     correct = true;
                     break;
                 case 4:
                     actionInput.setActionType(ActionType.VENTURE_TOWER);
                     userLogin.sendMessage("Which card?");
-                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
+                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin, tower));
                     correct = true;
                     break;
                 case 5:
                     actionInput.setActionType(ActionType.HARVEST);
                     if (playerNumber > 2) {
-                        actionInput.setSpot(this.chooseSpot(0, 1, userLogin));
+                        actionInput.setSpot(this.chooseSpot(0, 1, userLogin, ""));
                     } else {
                         actionInput.setSpot(0);
                     }
@@ -260,7 +267,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                 case 6:
                     actionInput.setActionType(ActionType.PRODUCE);
                     if (playerNumber > 2) {
-                        actionInput.setSpot(this.chooseSpot(0, 1, userLogin));
+                        actionInput.setSpot(this.chooseSpot(0, 1, userLogin, ""));
                     } else {
                         actionInput.setSpot(0);
                     }
@@ -268,11 +275,10 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                     break;
                 case 7:
                     actionInput.setActionType(ActionType.MARKET);
-                    userLogin.sendMessage("Which Spot? 0.COIN(5)  1.SERVANT(5)   2.COIN(2) & MILITARY_POINT(3) 3.COUNCILPRIVILEGE(2)");
                     if (playerNumber > 3) {
-                        actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
+                        actionInput.setSpot(this.chooseSpot(0, 3, userLogin, market));
                     } else {
-                        actionInput.setSpot(this.chooseSpot(0, 1, userLogin));
+                        actionInput.setSpot(this.chooseSpot(0, 1, userLogin, market));
                     }
                     correct = true;
                     break;
@@ -289,10 +295,11 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         return actionInput;
     }
 
-    public int chooseSpot(int min, int max, UserLogin userLogin) throws RemoteException {
+    public int chooseSpot(int min, int max, UserLogin userLogin, String message) throws RemoteException {
         boolean correct = false;
         int choose = 0;
         while (!correct) {
+            userLogin.sendMessage(message);
             choose = userLogin.setActionChoose();
             if (choose >= min && choose <= max) {
                 correct = true;
@@ -309,10 +316,9 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         boolean correct = false;
         while (!correct) {
             try {
-                String m = ("Which FamilyMember do you choose?\n" + "1. " + FamilyColor.WHITE + "\n" + "2. " + FamilyColor.BLACK + "\n" + "3. " + FamilyColor.ORANGE + "\n" + "4. " + FamilyColor.NEUTRAL + "\n");
-                userLogin.sendMessage(m);
+                String m = "Which FamilyMember do you choose?\n" + "1. " + FamilyColor.WHITE + "\n" + "2. " + FamilyColor.BLACK + "\n" + "3. " + FamilyColor.ORANGE + "\n" + "4. " + FamilyColor.NEUTRAL + "\n";
 
-                int choose = this.chooseSpot(1, 4, userLogin);
+                int choose = this.chooseSpot(1, 4, userLogin, m);
 
                 switch (choose) {
                     case 1:
@@ -342,4 +348,6 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         }
         return familyColor;
     }
+
+
 }
