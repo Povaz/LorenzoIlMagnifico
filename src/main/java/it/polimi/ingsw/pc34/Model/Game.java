@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.Action.*;
+import it.polimi.ingsw.pc34.RMI.ServerGameRMI;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
@@ -36,7 +37,6 @@ public class Game implements Runnable{
     private int[] characterCard;
     private int[] ventureCard;
 
-    private ServerLoginImpl serverLogin;
 
     public void run(){
         try {
@@ -57,7 +57,7 @@ public class Game implements Runnable{
         }
     }
 
-    public Game(Map<String, ConnectionType> usersOfThisGame, ServerLoginImpl serverLogin) {
+    public Game(Map<String, ConnectionType> usersOfThisGame, ServerLoginImpl serverLogin, ServerGameRMI serverGameRMI) {
         this.turn = 1;
         this.period = 1;
         this.usernames = new ArrayList<>(); //TODO Eliminazione usernames --> riferimenti a player
@@ -66,6 +66,7 @@ public class Game implements Runnable{
         this.players = initializePlayers(usersOfThisGame);
         this.board = new Board(players);
         initializePlayersRewards();
+        this.gameController = new GameController(this, serverLogin, serverGameRMI);
         this.gameController = new GameController(this, serverLogin);
         initializeLeaderCards();
         initializePersonalBonusTile();
@@ -231,14 +232,14 @@ public class Game implements Runnable{
         }
     }
 
-    private void startTurn(){
+    private void startTurn() {
         throwDices();
         reinitializeFamilyMembers();
         reinitializeLeaderCards();
         placeDevelopmentCard();
     }
 
-    private void playTurn() throws RemoteException{
+    private void playTurn() throws RemoteException {
         System.out.println("\n\nBOARD:");
         System.out.println(board);
         Order order = board.getOrder();
@@ -340,7 +341,7 @@ public class Game implements Runnable{
         }
         if(actionSpot instanceof Floor){
             BuyCard buyCard = new BuyCard(this, actionSpot, familyMember);
-            if(buyCard.canDoAction()){
+            if(buyCard.canDoAction()) {
                 buyCard.doAction();
                 return true;
             }
@@ -402,7 +403,7 @@ public class Game implements Runnable{
             else if(current == firstMP){
                 first.add(p);
             }
-            else if(current < firstMP && current > secondMP){
+            else if(current < firstMP && current > secondMP) {
                 secondMP = current;
                 second = new ArrayList<>();
                 second.add(p);

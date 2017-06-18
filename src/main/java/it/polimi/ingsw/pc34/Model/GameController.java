@@ -2,10 +2,7 @@ package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
-import it.polimi.ingsw.pc34.RMI.ActionInputCreated;
-import it.polimi.ingsw.pc34.RMI.FamilyColorCreated;
-import it.polimi.ingsw.pc34.RMI.IntegerCreated;
-import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 
 import java.rmi.RemoteException;
@@ -20,17 +17,20 @@ public class GameController{
     private ServerLoginImpl serverLogin;
     private String currentPlayer;
     
+
+    private ServerGameRMI serverGameRMI;
     private ActionInputCreated actionInputCreated;
     private IntegerCreated integerCreated;
     private FamilyColorCreated familyColorCreated;
 
-    public GameController(Game game, ServerLoginImpl serverLogin) {
+    public GameController(Game game, ServerLoginImpl serverLogin, ServerGameRMI serverGameRMI) {
         Thread threadGame = new Thread (game);
         threadGame.start();
         this.board = game.getBoard();
         this.players = game.getPlayers();
         this.serverLogin = serverLogin;
-        serverLogin.setGameController(this);
+        this.serverGameRMI = serverGameRMI;
+        serverGameRMI.setGameController(this);
     }
     
     public String getCurrentPlayer(){
@@ -62,10 +62,10 @@ public class GameController{
 
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo = 0;
-        serverLogin.setCurrentPlayer(player.getUsername());
+        serverGameRMI.setCurrentPlayer(player);
         switch(player.getConnectionType()) {
             case RMI:
-                serverLogin.askNumber(0,3);
+                serverGameRMI.askNumberMinMax(0,4);
                 whatToDo = integerCreated.get();
                 System.out.println("Action chosen: " + whatToDo);
                 break;
@@ -81,7 +81,7 @@ public class GameController{
         ActionInput actionInput = new ActionInput();
         switch(player.getConnectionType()) {
             case RMI:
-                serverLogin.askAction(board.getPlayerNumber());
+                serverGameRMI.askAction(board.getPlayerNumber());
                 actionInput = actionInputCreated.get();
                 System.out.println("Action Input chosen: " + actionInput.toString());
                 break;
@@ -118,7 +118,7 @@ public class GameController{
         FamilyColor familyColor = FamilyColor.NEUTRAL;
         switch(player.getConnectionType()) {
             case RMI:
-                serverLogin.askFamilyColor();
+                serverGameRMI.askFamilyColor();
                 familyColor = familyColorCreated.get();
                 break;
             case SOCKET:
@@ -129,7 +129,7 @@ public class GameController{
             if(fM.getColor() == familyColor) {
                 switch(player.getConnectionType()) {
                     case RMI:
-                        serverLogin.askNumberMinMax(0,10);
+                        serverGameRMI.askNumberMinMax(0,10);
                         servant = integerCreated.get();
                         break;
                     case SOCKET:
