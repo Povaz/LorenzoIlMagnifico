@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model;
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.RMI.ActionInputCreated;
+import it.polimi.ingsw.pc34.RMI.FamilyColorCreated;
 import it.polimi.ingsw.pc34.RMI.IntegerCreated;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.View.TerminalInput;
@@ -20,6 +21,7 @@ public class GameController{
 
     private ActionInputCreated actionInputCreated;
     private IntegerCreated integerCreated;
+    private FamilyColorCreated familyColorCreated;
 
     public GameController(Game game, ServerLoginImpl serverLogin) {
         Thread threadGame = new Thread (game);
@@ -38,12 +40,16 @@ public class GameController{
         this.integerCreated = integerCreated;
     }
 
+    public void setFamilyColorCreated (FamilyColorCreated familyColorCreated) {this.familyColorCreated = familyColorCreated;}
+
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo = 0;
         switch(player.getConnectionType()) {
             case RMI:
                 serverLogin.askNumber(0,3, player.getUsername());
                 whatToDo = integerCreated.get();
+                System.out.println("Action chosen: " + whatToDo);
+
                 break;
             case SOCKET:
                 //Insert serverSocket
@@ -58,6 +64,7 @@ public class GameController{
             case RMI:
                 serverLogin.askAction(board.getPlayerNumber());
                 actionInput = actionInputCreated.get();
+                System.out.println("Action Input chosen: " + actionInput.toString());
                 break;
             case SOCKET:
                 //Azione chiamata sul ServerSocket
@@ -88,10 +95,21 @@ public class GameController{
         }
     }
 
-    public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException{
-        FamilyColor familyColor = TerminalInput.chooseFamilyMemberColor();
+    public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException{
+        FamilyColor familyColor = FamilyColor.NEUTRAL;
+        System.out.println("Family Color default: " + familyColor);
+        switch(player.getConnectionType()) {
+            case RMI:
+                serverLogin.askFamilyColor();
+                familyColor = familyColorCreated.get();
+                System.out.println("Family Color chosen: " + familyColor);
+                break;
+            case SOCKET:
+                break;
+        }
+        System.out.println("Check");
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
-            if(fM.getColor() == familyColor){
+            if(fM.getColor() == familyColor) {
                 fM.setServantUsed(new Reward(RewardType.SERVANT, TerminalInput.askNumberOfServant()));
                 return fM;
             }

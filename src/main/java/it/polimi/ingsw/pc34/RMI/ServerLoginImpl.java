@@ -4,19 +4,15 @@ package it.polimi.ingsw.pc34.RMI;
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.ActionType;
+import it.polimi.ingsw.pc34.Model.FamilyColor;
 import it.polimi.ingsw.pc34.Model.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
 
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
-import it.polimi.ingsw.pc34.View.TerminalInput;
 import org.json.JSONException;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
-import sun.rmi.server.UnicastServerRef;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
@@ -35,6 +31,8 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     private ActionInputProducer actionInputProducer;
     private IntegerCreated integerCreated;
     private IntegerProducer integerProducer;
+    private FamilyColorCreated familyColorCreated;
+    private FamilyColorProducer familyColorProducer;
 
     public ServerLoginImpl (Lobby lobby) throws RemoteException {
         this.usersLoggedRMI = new ArrayList<>();
@@ -186,6 +184,10 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         ActionInput actionInput = this.chooseActionInput(playerNumber, userLogin);
         actionInputProducer.setActionInput(actionInput);
         actionInputProducer.start();
+
+        FamilyColor familyColor = this.chooseFamilyColor(userLogin);
+        familyColorProducer.setFamilyColor(familyColor);
+        familyColorProducer.start();
     }
 
     public void askAction(int playerNumber) throws RemoteException {
@@ -194,6 +196,20 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         actionInputCreated = new ActionInputCreated();
         gameController.setActionInputCreated(actionInputCreated);
         actionInputProducer = new ActionInputProducer(actionInputCreated);
+    }
+
+    public void askNumber(int min, int max, String currentPlayer) throws RemoteException {
+        this.currentPlayer = currentPlayer;
+
+        integerCreated = new IntegerCreated();
+        integerProducer = new IntegerProducer(integerCreated);
+        gameController.setIntegerCreated(integerCreated);
+    }
+
+    public void askFamilyColor() throws RemoteException {
+        familyColorCreated = new FamilyColorCreated();
+        familyColorProducer = new FamilyColorProducer(familyColorCreated);
+        gameController.setFamilyColorCreated(familyColorCreated);
     }
 
     private ActionInput chooseActionInput (int playerNumber, UserLogin userLogin) throws RemoteException {
@@ -211,30 +227,31 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                 case 1:
                     actionInput.setActionType(ActionType.TERRITORY_TOWER);
                     userLogin.sendMessage("Which card?");
-                    actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
                     correct = true;
                     break;
                 case 2:
                     actionInput.setActionType(ActionType.BUILDING_TOWER);
                     userLogin.sendMessage("Which card?");
-                    actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
+                    correct = true;
                     break;
                 case 3:
                     actionInput.setActionType(ActionType.CHARACTER_TOWER);
                     userLogin.sendMessage("Which card?");
-                    actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
                     correct = true;
                     break;
                 case 4:
                     actionInput.setActionType(ActionType.VENTURE_TOWER);
                     userLogin.sendMessage("Which card?");
-                    actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                    actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
                     correct = true;
                     break;
                 case 5:
                     actionInput.setActionType(ActionType.HARVEST);
                     if (playerNumber > 2) {
-                        actionInput.setSpot(this.askSpot(0, 1, userLogin));
+                        actionInput.setSpot(this.chooseSpot(0, 1, userLogin));
                     } else {
                         actionInput.setSpot(0);
                     }
@@ -243,7 +260,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                 case 6:
                     actionInput.setActionType(ActionType.PRODUCE);
                     if (playerNumber > 2) {
-                        actionInput.setSpot(this.askSpot(0, 1, userLogin));
+                        actionInput.setSpot(this.chooseSpot(0, 1, userLogin));
                     } else {
                         actionInput.setSpot(0);
                     }
@@ -253,9 +270,9 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                     actionInput.setActionType(ActionType.MARKET);
                     userLogin.sendMessage("Which Spot? 0.COIN(5)  1.SERVANT(5)   2.COIN(2) & MILITARY_POINT(3) 3.COUNCILPRIVILEGE(2)");
                     if (playerNumber > 3) {
-                        actionInput.setSpot(this.askSpot(0, 3, userLogin));
+                        actionInput.setSpot(this.chooseSpot(0, 3, userLogin));
                     } else {
-                        actionInput.setSpot(this.askSpot(0, 1, userLogin));
+                        actionInput.setSpot(this.chooseSpot(0, 1, userLogin));
                     }
                     correct = true;
                     break;
@@ -272,15 +289,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         return actionInput;
     }
 
-    public void askNumber(int min, int max, String currentPlayer) throws RemoteException {
-        this.currentPlayer = currentPlayer;
-
-        integerCreated = new IntegerCreated();
-        integerProducer = new IntegerProducer(integerCreated);
-        gameController.setIntegerCreated(integerCreated);
-    }
-
-    public int askSpot (int min, int max, UserLogin userLogin) throws RemoteException {
+    public int chooseSpot(int min, int max, UserLogin userLogin) throws RemoteException {
         boolean correct = false;
         int choose = 0;
         while (!correct) {
@@ -293,5 +302,44 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
             }
         }
         return choose;
+    }
+
+    public FamilyColor chooseFamilyColor (UserLogin userLogin) throws RemoteException {
+        FamilyColor familyColor = FamilyColor.NEUTRAL;
+        boolean correct = false;
+        while (!correct) {
+            try {
+                String m = ("Which FamilyMember do you choose?\n" + "1. " + FamilyColor.WHITE + "\n" + "2. " + FamilyColor.BLACK + "\n" + "3. " + FamilyColor.ORANGE + "\n" + "4. " + FamilyColor.NEUTRAL + "\n");
+                userLogin.sendMessage(m);
+
+                int choose = this.chooseSpot(1, 4, userLogin);
+
+                switch (choose) {
+                    case 1:
+                        familyColor = FamilyColor.WHITE;
+                        correct = true;
+                        break;
+                    case 2:
+                        familyColor = FamilyColor.BLACK;
+                        correct = true;
+                        break;
+                    case 3:
+                        familyColor = FamilyColor.ORANGE;
+                        correct = true;
+                        break;
+                    case 4:
+                        familyColor = FamilyColor.NEUTRAL;
+                        correct = true;
+                        break;
+                    default:
+                        userLogin.sendMessage("Incorrect Answer");
+                }
+
+            } catch (InputMismatchException e) {
+                e.printStackTrace();
+                userLogin.sendMessage("Incorrect answer");
+            }
+        }
+        return familyColor;
     }
 }
