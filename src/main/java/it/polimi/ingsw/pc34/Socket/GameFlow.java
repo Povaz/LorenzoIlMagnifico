@@ -22,6 +22,7 @@ public class GameFlow {
 	private boolean servants;
 	private boolean drawLeader;
 	private boolean activateLeader;
+	private boolean actionDone;
 	private String actionSpot;
 	
 	private int playersNumber;
@@ -40,6 +41,7 @@ public class GameFlow {
 		drawLeader = false;
 		activateLeader = false;
 		familyMember = false;
+		actionDone = false;
 	}
 	
 	public void setController(GameController gameController) {
@@ -52,7 +54,7 @@ public class GameFlow {
 	
 	public void askNumber(int min, int max){
         integerCreated = new IntegerCreated();
-        integerProducer = new IntegerProducer(integerCreated);
+        integerProducer = new IntegerProducer(integerCreated, min, max);
         gameController.setIntegerCreated(integerCreated);
     }
 	
@@ -111,12 +113,8 @@ public class GameFlow {
     }
 	
 	public String flow (String asked){
-		if (asked.equals("/skip")){
-			
-			return "/skip non ancora implementato";
-		}
-		else if (asked.equals("/chat")){
-			
+		if (asked.equals("/chat")){
+			//PUO' ENTRARE SOLO SE E' IL FLOW ACTION E' FALSE
 			return "/chat non ancora implementato";
 		}
 		else if (asked.equals("/stampinfo")){
@@ -131,6 +129,10 @@ public class GameFlow {
 					integerProducer.setChoose(0);
 			        integerProducer.start();
 					return "Which ActionSpot do you choose? Choose a number : 1. TERRITORY TOWER 2. BUILDING TOWER 3. CHARACTER TOWER 4. VENTURE TOWER 5. HARVEST 6. PRODUCE 7. MARKET 8. COUNCILPALACE";
+				}
+				else if (asked.equals("/skip")){
+					//PUO' ENTRARE SOLO SE START TRUE E LE ALTRE ACTION SONO FALSE
+					return "/skip non ancora implementato";
 				}
 			}
 			else if(action){
@@ -309,6 +311,7 @@ public class GameFlow {
 					return "retry";
 				}
 			}
+			//SE L'AZIONE E' VALIDA: ACTIONDONE = TRUE CHE DIVENTA FALSE QUANDO SKIP VIENE ATTIVATO
 			else if(servants){
 				if (checkNumber(integerProducer.getMin(), integerProducer.getMax(), asked)){
 					integerProducer.setChoose(Integer.parseInt(asked));
