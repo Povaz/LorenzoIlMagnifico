@@ -73,16 +73,19 @@ public abstract class ActionSpot {
 
 	@Override
 	public String toString(){
-		String string = "";
-		string += "  busy: " + busy + "\n";
-		string += "  unrestricted: " + unrestricted + "\n";
-		string += "  diceValue: " + diceValue + "\n";
-		string += "  occupiedBy: ";
-		for(FamilyMember fM : occupiedBy){
-			string += "\n";
-			string += fM.toString1();
+		StringBuilder bld = new StringBuilder();
+
+		bld.append("  Busy: " + busy + "\n");
+		bld.append("  Unrestricted: " + unrestricted + "\n");
+		bld.append("  Dice value: " + diceValue + "\n");
+
+		if(!occupiedBy.isEmpty()){
+			bld.append("  Occupied by: ");
+			for(FamilyMember fM : occupiedBy){
+				bld.append(fM.toString1() + "\n");
+			}
 		}
-		return string;
+		return bld.toString();
 	}
 
 	@Override

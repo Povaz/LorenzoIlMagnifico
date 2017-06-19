@@ -60,11 +60,11 @@ public class Tower {
 
 	@Override
 	public String toString(){
-		String string = "";
+		StringBuilder bld = new StringBuilder();
 		for(Floor f : floors){
-			string += f.toString() + "\n";
+			bld.append(f.toString() + "\n");
 		}
-		return string;
+		return bld.toString();
 	}
 
 	public List<Floor> getFloors() {

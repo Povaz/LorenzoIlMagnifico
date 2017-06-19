@@ -15,16 +15,24 @@ public class FamilyMember{
 	private final Set<Reward> discounts;
 
 	public String toString(){
-		String familyMemberString = "";
-		if(!ghost) {
-			familyMemberString += "used : " + used + "\n";
-			familyMemberString += "color:" + color.toString() + "\n";
+		StringBuilder bld = new StringBuilder();
+		if(!ghost){
+			bld.append("Color:" + color.toString() + "\n");
+			bld.append("Used: " + used + "\n");
+			bld.append("Value: " + value + "\n");
 		}
-		else {
-			familyMemberString += "ActionType : " + action.toString() + "\n";
+		else{
+			bld.append("      Action type: " + action.toString() + "\n");
+			bld.append("      Value: " + value + "\n");
+			if(discounts != null){
+				bld.append("      Discounts: ");
+				for(Reward r : discounts){
+					bld.append(r.toString() + "; ");
+				}
+				bld.append("\n");
+			}
 		}
-		familyMemberString += "value : " + value + "\n";
-		return familyMemberString;
+		return bld.toString();
 	}
 
 	public String toString1(){

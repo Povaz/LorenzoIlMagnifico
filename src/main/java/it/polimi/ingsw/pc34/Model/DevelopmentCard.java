@@ -49,31 +49,33 @@ public abstract class DevelopmentCard {
 
 	@Override
 	public String toString(){
-		String cardString = "";
+		StringBuilder bld = new StringBuilder();
 
-		cardString += type.toString() + "\n";
-		cardString += "Name: " + name + "\n";
-		cardString += "Period: " + period + "\n";
+		bld.append("    Type: " + type.toString() + "\n");
+		bld.append("    Name: " + name + "\n");
+		bld.append("    Period: " + period + "\n");
 
 		if(costs != null){
-			cardString += "Costs:\n";
+			bld.append("    Costs: ");
 			for(Reward r: costs){
-				cardString += "  " + r.toString() + "\n";
+				bld.append(r.toString() + ";  ");
 			}
+			bld.append("\n");
 		}
 		if(fastRewards != null){
-			cardString += "Fast rewards:\n";
+			bld.append("    Fast rewards: ");
 			for(Reward r: fastRewards){
-				cardString +=  "  " + r.toString() + "\n";
+				bld.append(r.toString() + ";  ");
 			}
+			bld.append("\n");
 		}
 		if(actions != null){
-			cardString += "Actions:\n";
+			bld.append("    Actions:\n");
 			for (FamilyMember g : actions){
-				cardString += "  " + g.toString() + "\n";
+				bld.append(g.toString() + "\n");
 			}
 		}
-		return cardString;
+		return bld.toString();
 	}
 
 	public String getName(){

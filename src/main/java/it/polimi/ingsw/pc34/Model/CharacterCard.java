@@ -72,35 +72,39 @@ public class CharacterCard extends DevelopmentCard{
 
 	@Override
 	public String toString() {
-		String cardString = super.toString();
-		cardString += "No bonus tower resource: " + noBonusTowerResource + "\n";
+		StringBuilder bld = new StringBuilder();
+		bld.append(super.toString());
+
+		if(noBonusTowerResource){
+			bld.append("    No bonus tower resource: true\n");
+		}
+		if(rewardForReward != null){
+			bld.append("    Reward for reward: " + rewardForReward.toString() + "\n");
+		}
+		if(rewardForCard != null){
+			bld.append("    Reward for card: " + rewardForCard.toString() + "\n");
+		}
+		if(actionModifiers != null){
+			bld.append("    Dice modifiers:\n");
+			for(ActionType d : actionModifiers.keySet()) {
+				bld.append("      " + d.toString() + ": " + actionModifiers.get(d) + "\n");
+			}
+		}
 		if(discounts != null){
-			cardString += "Discounts:\n";
+			bld.append("    Discounts:\n");
 			for(CardType cT : discounts.keySet()){
-				cardString += "  " + cT + ":\n";
-				int i = 0;
-				for(List<Reward> l : discounts.get(cT)){
-					cardString += "    " + i + ".";
-					for(Reward r : l){
-						cardString += "  " + r.toString() + ";";
+				if(!discounts.get(cT).isEmpty()){
+					bld.append("      " + cT + ":\n");
+					for(List<Reward> l : discounts.get(cT)){
+						bld.append("        ");
+						for (Reward r : l){
+							bld.append(r.toString() + "; ");
+						}
+						bld.append("\n");
 					}
-					i++;
-					cardString += "\n";
 				}
 			}
 		}
-		if(actionModifiers != null){
-			cardString += "Dice modifiers:\n";
-			for(ActionType d : actionModifiers.keySet()) {
-				cardString += "  " + d.toString() + ": " + actionModifiers.get(d) + "\n";
-			}
-		}
-		if(rewardForReward != null){
-			cardString += "Reward for reward: " + rewardForReward.toString() + "\n";
-		}
-		if(rewardForCard != null){
-			cardString += "Reward for card: " + rewardForCard.toString() + "\n";
-		}
-		return cardString;
+		return bld.toString();
 	}
 }

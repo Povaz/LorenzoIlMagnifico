@@ -114,67 +114,67 @@ public class Board {
 
     @Override
     public String toString(){
-        String boardString = "";
-        if(harvestArea != null) {
-            boardString += "harvestArea:\n";
-            for (HarvestArea hA : harvestArea) {
-                boardString += hA.toString() + "\n\n";
+        StringBuilder bld = new StringBuilder();
+        if(harvestArea != null){
+            bld.append("Harvest area:\n");
+            for(HarvestArea hA : harvestArea){
+                bld.append(hA.toString() + "\n");
             }
-            boardString += "\n";
+            bld.append("\n");
         }
         if(productionArea != null){
-            boardString += "productionArea:\n";
+            bld.append("Production area:\n");
             for(ProductionArea pA : productionArea){
-                boardString += pA.toString() + "\n\n";
+                bld.append(pA.toString() + "\n");
             }
-            boardString += "\n";
+            bld.append("\n");
         }
         if(market != null){
-            boardString += "market:\n";
+            bld.append("Market:\n");
             for(Market m : market){
-                boardString += m.toString() + "\n\n";
+                bld.append(m.toString() + "\n");
             }
-            boardString += "\n";
+            bld.append("\n");
         }
         if(councilPalace != null){
-            boardString += "councilPalace:\n";
-            boardString += councilPalace + "\n\n\n";
+            bld.append("Council palace:\n");
+            bld.append(councilPalace + "\n\n\n");
         }
         if(territoryTower != null){
-            boardString += "territoryTower:\n";
-            boardString += territoryTower + "\n\n";
+            bld.append("Territory tower:\n");
+            bld.append(territoryTower + "\n");
         }
         if(buildingTower != null){
-            boardString += "buildingTower:\n";
-            boardString += buildingTower + "\n\n";
+            bld.append("Building tower:\n");
+            bld.append(buildingTower + "\n");
         }
         if(characterTower != null){
-            boardString += "characterTower:\n";
-            boardString += characterTower + "\n\n";
+            bld.append("Character tower:\n");
+            bld.append(characterTower + "\n");
         }
         if(ventureTower != null){
-            boardString += "ventureTower:\n";
-            boardString += ventureTower + "\n\n";
-        }
-        if(order != null){
-            boardString += "order: \n";
-            boardString += order.toString() + "\n";
-        }
-        if(dices != null){
-            boardString += "dices:\n";
-            for(Dice d : dices){
-                boardString += d.toString() + "\n";
-            }
-            boardString += "\n";
+            bld.append("Venture tower:\n");
+            bld.append(ventureTower + "\n");
         }
         if(vaticanReportSpot != null){
-            boardString += "vaticanReportSpot:\n";
+            bld.append("Vatican report spot:\n");
             for(VaticanReportSpot vRS : vaticanReportSpot){
-                boardString += "  " + vRS.toString() + "\n";
+                bld.append(vRS.toString() + "\n");
             }
-            boardString += "\n";
+            bld.append("\n");
         }
-        return boardString;
+        if(order != null){
+            bld.append("Order: \n");
+            bld.append(order.toString() + "\n");
+        }
+        if(dices != null){
+            bld.append("Dices:\n");
+            for(Dice d : dices){
+                bld.append(d.toString() + "\n");
+            }
+            bld.append("\n");
+        }
+        return bld.toString();
     }
 
     public List<HarvestArea> getHarvestArea() {

@@ -37,14 +37,17 @@ public class Market extends ActionSpot{
 
 	@Override
 	public String toString(){
-		String string = super.toString();
+		StringBuilder bld = new StringBuilder();
+		bld.append(super.toString());
+
 		if(rewards!= null) {
-			string += "\n  rewards: ";
-			for (Reward r : rewards) {
-				string += r.toString() + "   ";
+			bld.append("  Rewards: ");
+			for(Reward r : rewards){
+				bld.append(r.toString() + "; ");
 			}
+			bld.append("\n");
 		}
-		return string;
+		return bld.toString();
 	}
 
 	public Set<Reward> getRewards() {

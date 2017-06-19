@@ -46,9 +46,9 @@ public class Dice{
 
     @Override
     public String toString(){
-    	String diceString = "";
-    	diceString += "  value : " + value + "\n";
-    	diceString += "  color : " + color.toString() + "\n";
-    	return diceString;
+    	StringBuilder bld = new StringBuilder();
+        bld.append("  Value : " + value + "\n");
+        bld.append("  Color : " + color.toString() + "\n");
+    	return bld.toString();
     }
 }

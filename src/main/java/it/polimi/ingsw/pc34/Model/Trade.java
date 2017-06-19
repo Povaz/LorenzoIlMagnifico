@@ -31,15 +31,15 @@ public class Trade {
 
 	@Override
 	public String toString(){
-		String tradeString = "";
+		StringBuilder bld = new StringBuilder();
 		for(Reward r : give){
-			tradeString += r.toString() + "; ";
+			bld.append(r.toString() + "; ");
 		}
-		tradeString += "--> ";
+		bld.append("--> ");
 		for(Reward r : take){
-			tradeString += r.toString() + "; ";
+			bld.append(r.toString() + "; ");
 		}
-		return tradeString;
+		return bld.toString();
 	}
 
 	public Set<Reward> getGive() {

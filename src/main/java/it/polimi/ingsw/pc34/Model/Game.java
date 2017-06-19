@@ -39,6 +39,14 @@ public class Game implements Runnable{
 
     private ServerLoginImpl serverLogin;
     private ServerSOC serverSoc;
+    public static void main(String[] args) {
+        Map<String, ConnectionType> users = new HashMap<>();
+        users.put("Cugola", ConnectionType.RMI);
+        users.put("Affetti", ConnectionType.SOCKET);
+        users.put("Erik", ConnectionType.RMI);
+        users.put("Tomm", ConnectionType.SOCKET);
+        Thread thread = new Thread(new Game(users, null, null));
+    }
 
     public void run(){
         try {

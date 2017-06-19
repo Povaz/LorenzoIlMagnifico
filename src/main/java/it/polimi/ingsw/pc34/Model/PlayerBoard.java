@@ -210,13 +210,18 @@ public class PlayerBoard {
         String string = "";
         string += "username: " + player.getUsername() + "\n";
         string += "color: " + color + "\n";
-        string += "\npersonalBonusTile:\n" + getPersonalBonusTile().toString() + "\n";
+        if(personalBonusTile != null){
+            string += "\npersonalBonusTile:\n" + personalBonusTile.toString() + "\n";
+        }
         string += "\nleader card: DA FARE!!!\n\n";
         string += "territorySpot: \n" + territorySpot.toString();
         string += "buildingSpot: \n" + buildingSpot.toString();
         string += "characterSpot: \n" + characterSpot.toString();
         string += "ventureSpot: \n" + ventureSpot.toString();
         string += "\n" + counter.toString() + "\n";
+        if(leaderCardsInHand != null){
+
+        }
         string += "familyMembers:\n";
         for(FamilyMember fM : familyMembers){
             string += fM.toString() + "\n";

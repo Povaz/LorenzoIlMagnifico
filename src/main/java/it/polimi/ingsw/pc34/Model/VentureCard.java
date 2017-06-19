@@ -18,15 +18,14 @@ public class VentureCard extends DevelopmentCard{
 
 	@Override
 	public String toString(){
-		String cardString = super.toString();
-		if(militaryPointNeeded != null){
-			cardString += "Military point needed: " + militaryPointNeeded + "\n";
+		StringBuilder bld = new StringBuilder();
+		bld.append(super.toString());
+		if(militaryPointNeeded != null || militaryPointPrice != null){
+			bld.append("    Military point needed: " + militaryPointNeeded + "\n");
+			bld.append("    Military point price: " + militaryPointPrice + "\n");
 		}
-		if(militaryPointPrice != null){
-			cardString += "Military point price: " + militaryPointPrice + "\n";
-		}
-		cardString += "Victory point earned: "+ victoryPointEarned + "\n";
-		return cardString;
+		bld.append("    Victory point earned: "+ victoryPointEarned + "\n");
+		return bld.toString();
 	}
 
 	@Override

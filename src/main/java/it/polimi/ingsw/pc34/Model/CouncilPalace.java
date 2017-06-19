@@ -44,13 +44,15 @@ public class CouncilPalace extends ActionSpot{
 
 	@Override
 	public String toString(){
-		String string = super.toString();
+		StringBuilder bld = new StringBuilder();
+		bld.append(super.toString());
+
 		if(rewards != null){
-			string += "\n  rewards: ";
+			bld.append("  Rewards: ");
 			for (Reward r : rewards) {
-				string += r.toString() + "   ";
+				bld.append(r.toString() + "; ");
 			}
 		}
-		return string;
+		return bld.toString();
 	}
 }

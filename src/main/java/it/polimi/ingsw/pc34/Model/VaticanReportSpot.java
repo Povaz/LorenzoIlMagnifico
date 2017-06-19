@@ -1,7 +1,5 @@
 package it.polimi.ingsw.pc34.Model;
 
-import it.polimi.ingsw.pc34.View.TerminalInput;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -17,39 +15,6 @@ public class VaticanReportSpot {
 		this.faithPointNeeded = faithPointNeeded;
 		this.last = last;
 	}
-
-	/*public void support(Player player){
-		Reward playerFaithPoint = player.getPlayerBoard().getCounter().getFaithPoint();
-		if(last){
-			if(playerFaithPoint.getQuantity() < faithPointNeeded.getQuantity()){
-				getReported(player);
-			}
-			earnVictoryPointSupport(player);
-			if(playerFaithPoint.getQuantity() >= faithPointNeeded.getQuantity()){
-				earnRewardSupport(player);
-			}
-		}
-		else{
-			if(playerFaithPoint.getQuantity() >= faithPointNeeded.getQuantity()){
-				if(TerminalInput.wantToSupportVatican()){
-					earnVictoryPointSupport(player);
-					earnRewardSupport(player);
-				}
-				else{
-					getReported(player);
-				}
-			}
-		}
-	}
-
-	private void earnVictoryPointSupport(Player player){
-		Counter counter = player.getPlayerBoard().getCounter();
-		// guadagna i victoryPoint in base ai faithPoint che possiedi
-		Reward victoryPoint = calculateVictoryPointFromFaithPoint(counter.getFaithPoint());
-		counter.sum(victoryPoint);
-		// azzera i faithPoint
-		counter.subtract(counter.getFaithPoint());
-	}*/
 
 	public Reward calculateVictoryPointFromFaithPoint(Reward faithPoint){
 		int faith = faithPoint.getQuantity();
@@ -70,14 +35,6 @@ public class VaticanReportSpot {
 		}
 	}
 
-	/*private void earnRewardSupport(Player player){
-		Counter counter = player.getPlayerBoard().getCounter();
-		// guadagna le risorse aggiuntive
-		for(Reward r : player.getPlayerBoard().getModifier().getBonusChurchSupport()){
-			counter.sum(r);
-		}
-	}*/
-
 	public void report(Player player){
 		reported.add(player);
 		player.getPlayerBoard().getModifier().update(vaticanReportCard);
@@ -85,7 +42,21 @@ public class VaticanReportSpot {
 
 	@Override
 	public String toString(){
-		return "ANCORA DA IMPLEMENTARE!!!\n";
+		StringBuilder bld = new StringBuilder();
+		if(faithPointNeeded != null){
+			bld.append("  Faith point needed: " + faithPointNeeded.toString() + ";\n");
+		}
+		if(vaticanReportCard != null){
+			bld.append("  Vatican report card:\n" + vaticanReportCard.toString());
+		}
+		if(!reported.isEmpty()){
+			bld.append("  Players reported:\n");
+			for(Player p : reported){
+				bld.append("    " + p.getUsername() + p.getColor() + "\n");
+			}
+		}
+
+		return bld.toString();
 	}
 
 	public List<Player> getReported() {

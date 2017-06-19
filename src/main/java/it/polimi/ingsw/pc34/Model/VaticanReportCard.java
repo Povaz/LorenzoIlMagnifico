@@ -71,35 +71,60 @@ public class VaticanReportCard{
 	}
 	
 	public String toString(){
-		String cardString ="\nperiod: "+ period + "\n";
-		cardString +="number: "+ number + "\n";
-		cardString +="coloredFamilyMemberModifier: "+ coloredFamilyMemberModifier +"\n";
-		cardString +="cannotPlaceInMarket: "+ cannotPlaceInMarket + "\n";
-		cardString +="servantValueHalved: "+ servantValueHalved + "\n";
-		cardString +="jumpFirstRound: "+ jumpFirstRound + "\n";
-		cardString +="notEarnVictoryPointFromTerritory: "+ notEarnVictoryPointFromTerritory + "\n";
-		cardString +="notEarnVictoryPointFromCharacter: "+ notEarnVictoryPointFromCharacter + "\n";
-		cardString +="notEarnVictoryPointFromVenture: "+ notEarnVictoryPointFromVenture + "\n";
-		cardString +="loseVictoryPointFromVictoryPoint: "+ loseVictoryPointFromVictoryPoint + "\n";
-		cardString +="loseVictoryPointFromMilitaryPoint: "+ loseVictoryPointFromMilitaryPoint + "\n";
-		cardString +="loseVictoryPointFromBuildingCost: "+ loseVictoryPointFromBuildingCost + "\n";
-		cardString +="loseVictoryPointFromResource: "+ loseVictoryPointFromResource + "\n";
+		StringBuilder bld = new StringBuilder();
+		bld.append("    Period: "+ period + "\n");
+		bld.append("    Number: "+ number + "\n");
+
+		if(coloredFamilyMemberModifier != 0){
+			bld.append("    coloredFamilyMemberModifier: " + coloredFamilyMemberModifier + "\n");
+		}
+		if(cannotPlaceInMarket){
+			bld.append("    cannotPlaceInMarket: true\n");
+		}
+		if(servantValueHalved){
+			bld.append("    servantValueHalved: true\n");
+		}
+		if(jumpFirstRound){
+			bld.append("    jumpFirstRound: true\n");
+		}
+		if(notEarnVictoryPointFromTerritory){
+			bld.append("    notEarnVictoryPointFromTerritory: true\n");
+		}
+		if(notEarnVictoryPointFromCharacter){
+			bld.append("    notEarnVictoryPointFromCharacter: true\n");
+		}
+		if(notEarnVictoryPointFromVenture){
+			bld.append("    notEarnVictoryPointFromVenture: true\n");
+		}
+		if(loseVictoryPointFromVictoryPoint){
+			bld.append("    loseVictoryPointFromVictoryPoint: true\n");
+		}
+		if(loseVictoryPointFromMilitaryPoint){
+			bld.append("    loseVictoryPointFromMilitaryPoint: true\n");
+		}
+		if(loseVictoryPointFromBuildingCost){
+			bld.append("    loseVictoryPointFromBuildingCost: true\n");
+		}
+		if(loseVictoryPointFromResource){
+			bld.append("    loseVictoryPointFromResource: true\n");
+		}
 
 		if(loseRewards != null){
-			cardString += "loseRewards:  ";
+			bld.append("    LoseRewards:  ");
 			for(Reward r : loseRewards){
-				cardString += r.toString() + ";  \n";
+				bld.append(r.toString() + "; ");
 			}
+			bld.append("\n");
 		}
 
 		if(actionModifiers != null){
-			cardString += "actionModifiers:\n";
+			bld.append("    Action modifiers:\n");
 			for(ActionType aT : actionModifiers.keySet()){
-				cardString += aT + "  " + actionModifiers.get(aT) + "\n";
+				bld.append("      " + aT + "  " + actionModifiers.get(aT) + "\n");
 			}
 		}
 
-		return cardString;
+		return bld.toString();
 	}
 
 	@Override

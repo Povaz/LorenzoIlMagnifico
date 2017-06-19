@@ -49,27 +49,30 @@ public class BuildingCard extends DevelopmentCard{
 
 	@Override
 	public String toString(){
-		String cardString = super.toString();
-		cardString += "Dice production: " + diceProductionAction + "\n";
+		StringBuilder bld = new StringBuilder();
+		bld.append(super.toString());
+
+		bld.append("    Dice production: " + diceProductionAction + "\n");
 		if(earnings != null){
-			cardString += "Earnings:\n";
+			bld.append("    Earnings: ");
 			for(Reward r : earnings){
-				cardString += "  " + r.toString() + "\n";
+				bld.append(r.toString() + ";  ");
 			}
+			bld.append("\n");
 		}
 		if(trades != null){
-			cardString += "Trades:\n";
+			bld.append("    Trades:\n");
 			for(Trade t : trades){
-				cardString += "  " + t.toString() + "\n";
+				bld.append("      " + t.toString() + "\n");
 			}
 		}
 		if(rewardForReward != null){
-			cardString += "Reward for reward: " + rewardForReward.toString() + "\n";
+			bld.append("    Reward for reward: " + rewardForReward.toString() + "\n");
 		}
 		if(rewardForCard != null){
-			cardString += "Reward for card: " + rewardForCard.toString() + "\n";
+			bld.append("    Reward for card: " + rewardForCard.toString() + "\n");
 		}
-		return cardString;
+		return bld.toString();
 	}
 
 	public int getDiceProductionAction(){

@@ -34,15 +34,18 @@ public class TerritoryCard extends DevelopmentCard{
 
 	@Override
 	public String toString(){
-		String cardString = super.toString();
-		cardString += "Dice harvest: " + diceHarvestAction + "\n";
+		StringBuilder bld = new StringBuilder();
+		bld.append(super.toString());
+
+		bld.append("    Dice harvest: " + diceHarvestAction + "\n");
 		if(earnings != null){
-			cardString += "Earnings:\n";
+			bld.append("    Earnings: ");
 			for(Reward r : earnings){
-				cardString += "  " + r.toString() + "\n";
+				bld.append(r.toString() + ";  ");
 			}
+			bld.append("\n");
 		}
-		return cardString;
+		return bld.toString();
 	}
 
 	public int getDiceHarvestAction(){

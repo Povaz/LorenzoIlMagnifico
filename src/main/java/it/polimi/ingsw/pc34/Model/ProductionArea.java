@@ -49,8 +49,9 @@ public class ProductionArea extends ActionSpot{
 
 	@Override
 	public String toString(){
-		String string = super.toString();
-		string += "\n  diceModifier: " + diceModifier;
-		return string;
+		StringBuilder bld = new StringBuilder();
+		bld.append(super.toString());
+		bld.append("  Dice modifier: " + diceModifier + "\n");
+		return bld.toString();
 	}
 }
