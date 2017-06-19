@@ -59,23 +59,23 @@ public class PersonalBonusTile {
 
     @Override
     public String toString (){
-        String string = "";
-        string += "  diceHarvest: " + diceHarvest + "\n";
+        StringBuilder bld = new StringBuilder();
+        bld.append("  diceHarvest: " + diceHarvest + "\n");
         if(harvestRewards != null) {
-            string += "  harvestRewards: ";
+            bld.append("  harvestRewards:  ");
             for (Reward r : harvestRewards) {
-                string += r.toString() + "   ";
+                bld.append(r.toString() + "; ");
             }
-            string += "\n";
+            bld.append("\n");
         }
-        string += "  diceProduction: " + diceProduction + "\n";
+        bld.append("  diceProduction: " + diceProduction + "\n");
         if(productionRewards != null) {
-            string += "  productionRewards: ";
+            bld.append("  productionRewards:  ");
             for (Reward r : productionRewards) {
-                string += r.toString() + "   ";
+                bld.append(r.toString() + "; ");
             }
-            string += "\n";
+            bld.append("\n");
         }
-        return string;
+        return bld.toString();
     }
 }

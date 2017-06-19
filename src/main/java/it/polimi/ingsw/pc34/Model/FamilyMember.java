@@ -17,9 +17,9 @@ public class FamilyMember{
 	public String toString(){
 		StringBuilder bld = new StringBuilder();
 		if(!ghost){
-			bld.append("Color:" + color.toString() + "\n");
-			bld.append("Used: " + used + "\n");
-			bld.append("Value: " + value + "\n");
+			bld.append("  Color:" + color.toString() + "\n");
+			bld.append("  Used: " + used + "\n");
+			bld.append("  Value: " + value + "\n");
 		}
 		else{
 			bld.append("      Action type: " + action.toString() + "\n");

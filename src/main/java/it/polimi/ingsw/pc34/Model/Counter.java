@@ -279,14 +279,15 @@ public class Counter{
 
     @Override
     public String toString(){
-    	String counterString = "counter:\n";
-    	counterString += "  " + coin.toString() + "\n";
-    	counterString += "  " + wood.toString () + "\n";
-    	counterString += "  " + stone.toString() + "\n";
-    	counterString += "  " + servant.toString() + "\n";
-    	counterString += "  " + militaryPoint.toString() + "\n";
-    	counterString += "  " + faithPoint.toString() + "\n";
-    	counterString += "  " + victoryPoint.toString() + "\n";
-    	return counterString;
+    	StringBuilder bld = new StringBuilder();
+    	bld.append("Counter:\n");
+        bld.append("  " + coin.toString() + "\n");
+        bld.append("  " + wood.toString () + "\n");
+        bld.append("  " + stone.toString() + "\n");
+        bld.append("  " + servant.toString() + "\n");
+        bld.append("  " + militaryPoint.toString() + "\n");
+        bld.append("  " + faithPoint.toString() + "\n");
+        bld.append("  " + victoryPoint.toString() + "\n");
+    	return bld.toString();
     }
 }

@@ -4,7 +4,6 @@ import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.Action.*;
 import it.polimi.ingsw.pc34.RMI.ServerGameRMI;
-import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import org.json.JSONException;
@@ -71,17 +70,16 @@ public class Game implements Runnable{
     public Game(Map<String, ConnectionType> usersOfThisGame, ServerGameRMI serverGameRMI, ServerSOC serverSoc) {
         this.turn = 1;
         this.period = 1;
-        this.usernames = new ArrayList<>(); //TODO Eliminazione usernames --> riferimenti a player
+        this.usernames = new ArrayList<>();
         usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();
         this.players = initializePlayers(usersOfThisGame);
         this.board = new Board(players);
         initializePlayersRewards();
         this.serverSoc = serverSoc;
-        this.gameController = new GameController(this, serverGameRMI, serverSoc);
-        initializeLeaderCards();
         initializePersonalBonusTile();
         initializeLeaderCards();
+        this.gameController = new GameController(this, serverGameRMI, serverSoc);
         ServerSOC.setGameControllerSoc(this.gameController);
     }
 

@@ -22,12 +22,12 @@ public class PermanentLeaderCard extends LeaderCard {
     private final boolean notPayTollBusyTower;
 
     private final List<Reward> bonusRewardChurchSupport;
-    private Map<CardType, List<List<Reward>>> costDiscountDevelopmentCard;
+    private Map<CardType, List<List<Reward>>> discounts;
 
     public PermanentLeaderCard(String name, Set<Reward> activationRewardCost, Map<CardType, Integer> activationCardCost,
                                 int neutralFamilyMemberModifier, int coloredFamilyMemberModifier, boolean doubleFastRewardDevelopmentCard,
                                 boolean placeInBusyActionSpot, List<Reward> bonusRewardChurchSupport, boolean permanentDice,
-                                int permanentDiceValue, Map<CardType, List<List<Reward>>> costDiscountDevelopmentCard,
+                                int permanentDiceValue, Map<CardType, List<List<Reward>>> discounts,
                                 boolean notSatisfyMilitaryPointForTerritory, boolean notPayTollBusyTower, boolean copyOtherCard){
         super (name, activationRewardCost, activationCardCost);
         this.neutralFamilyMemberModifier = neutralFamilyMemberModifier;
@@ -37,7 +37,7 @@ public class PermanentLeaderCard extends LeaderCard {
         this.bonusRewardChurchSupport = bonusRewardChurchSupport;
         this.permanentDice = permanentDice;
         this.permanentDiceValue = permanentDiceValue;
-        this.costDiscountDevelopmentCard = costDiscountDevelopmentCard;
+        this.discounts = discounts;
         this.notSatisfyMilitaryPointForTerritory = notSatisfyMilitaryPointForTerritory;
         this.notPayTollBusyTower = notPayTollBusyTower;
         this.copyOtherCard = copyOtherCard;
@@ -45,56 +45,59 @@ public class PermanentLeaderCard extends LeaderCard {
 
     @Override
     public String toString () {
-        String permanentLeaderCardString = super.toString();
+        StringBuilder bld = new StringBuilder();
+        bld.append(super.toString());
 
-        if (neutralFamilyMemberModifier == 0) {
-            permanentLeaderCardString += "Neutral Family Member Modifier: " + neutralFamilyMemberModifier + "\n";
+        if(neutralFamilyMemberModifier != 0){
+            bld.append("  neutralFamilyMemberModifier: " + neutralFamilyMemberModifier + "\n");
+        }
+        if(coloredFamilyMemberModifier != 0){
+            bld.append("  coloredFamilyMemberModifier: " + coloredFamilyMemberModifier + "\n");
+        }
+        if (doubleFastRewardDevelopmentCard){
+            bld.append("  doubleFastRewardDevelopmentCard: true\n");
+        }
+        if (placeInBusyActionSpot){
+            bld.append("  placeInBusyActionSpot: true\n");
+        }
+        if (permanentDice){
+            bld.append("  permanentDiceValue: " + permanentDiceValue + "\n");
+        }
+        if (notSatisfyMilitaryPointForTerritory){
+            bld.append("  notSatisfyMilitaryPointForTerritory: true\n");
+        }
+        if (notPayTollBusyTower){
+            bld.append("  notPayTollBusyTower: true\n");
+        }
+        if (copyOtherCard){
+            bld.append("  copyOtherCard: true\n");
         }
 
-        if (coloredFamilyMemberModifier == 0) {
-            permanentLeaderCardString += "Colored Family Member Modifier: " + coloredFamilyMemberModifier + "\n";
+        if(bonusRewardChurchSupport != null){
+            bld.append("  Bonus Reward Church Support:  ");
+            for(Reward r: bonusRewardChurchSupport){
+                bld.append(r.toString() + "; ");
+            }
+            bld.append("\n");
         }
 
-        if (doubleFastRewardDevelopmentCard) {
-            permanentLeaderCardString += "Double Fast Reward Development Card: " + doubleFastRewardDevelopmentCard + "\n";
-        }
-
-        if (placeInBusyActionSpot) {
-            permanentLeaderCardString += "Place in busy Action Spot: " + placeInBusyActionSpot + "\n";
-        }
-
-        if (bonusRewardChurchSupport != null) {
-            permanentLeaderCardString += "Bonus Reward Church Support: \n";
-            for (Reward r: bonusRewardChurchSupport) {
-                permanentLeaderCardString += "  Rewards: " + r.toString() + "\n";
+        if(discounts != null){
+            bld.append("    Discounts:\n");
+            for(CardType cT : discounts.keySet()){
+                if(!discounts.get(cT).isEmpty()){
+                    bld.append("      " + cT + ":\n");
+                    for(List<Reward> l : discounts.get(cT)){
+                        bld.append("        ");
+                        for (Reward r : l){
+                            bld.append(r.toString() + "; ");
+                        }
+                        bld.append("\n");
+                    }
+                }
             }
         }
 
-        if (permanentDice) {
-            permanentLeaderCardString += "Permanent Dice Value: " + permanentDiceValue + "\n";
-        }
-
-        /* TODO TODOTODO risistema
-        if (costDiscountDevelopmentCard != null) {
-            permanentLeaderCardString += "Cost Discount Development Card: \n";
-            for (Reward r: costDiscountDevelopmentCard){
-                permanentLeaderCardString += "  Discount: " + r.toString() + "\n";
-            }
-        }*/
-
-        if (notSatisfyMilitaryPointForTerritory) {
-            permanentLeaderCardString += "Not Satisfy Military Point for Territory: " + notSatisfyMilitaryPointForTerritory + "\n";
-        }
-
-        if (notPayTollBusyTower) {
-            permanentLeaderCardString += "Not Pay toll Busy Tower: " + notPayTollBusyTower + "\n";
-        }
-
-        if (copyOtherCard) {
-            permanentLeaderCardString += "Copy other Card: " + copyOtherCard + "\n";
-        }
-
-        return permanentLeaderCardString;
+        return bld.toString();
     }
 
     @Override
@@ -115,7 +118,7 @@ public class PermanentLeaderCard extends LeaderCard {
         if (notSatisfyMilitaryPointForTerritory != that.notSatisfyMilitaryPointForTerritory) return false;
         if (notPayTollBusyTower != that.notPayTollBusyTower) return false;
         if (!bonusRewardChurchSupport.equals(that.bonusRewardChurchSupport)) return false;
-        return costDiscountDevelopmentCard.equals(that.costDiscountDevelopmentCard);
+        return discounts.equals(that.discounts);
     }
 
     @Override
@@ -131,7 +134,7 @@ public class PermanentLeaderCard extends LeaderCard {
         result = 31 * result + (notSatisfyMilitaryPointForTerritory ? 1 : 0);
         result = 31 * result + (notPayTollBusyTower ? 1 : 0);
         result = 31 * result + bonusRewardChurchSupport.hashCode();
-        result = 31 * result + costDiscountDevelopmentCard.hashCode();
+        result = 31 * result + discounts.hashCode();
         return result;
     }
 
@@ -175,7 +178,7 @@ public class PermanentLeaderCard extends LeaderCard {
         return bonusRewardChurchSupport;
     }
 
-    public Map<CardType, List<List<Reward>>> getCostDiscountDevelopmentCard() {
-        return costDiscountDevelopmentCard;
+    public Map<CardType, List<List<Reward>>> getDiscounts() {
+        return discounts;
     }
 }

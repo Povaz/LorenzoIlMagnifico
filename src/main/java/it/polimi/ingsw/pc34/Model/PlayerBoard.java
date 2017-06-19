@@ -207,25 +207,50 @@ public class PlayerBoard {
 
     @Override
     public String toString (){
-        String string = "";
-        string += "username: " + player.getUsername() + "\n";
-        string += "color: " + color + "\n";
+        StringBuilder bld = new StringBuilder();
+        bld.append("Username: " + player.getUsername() + "\n");
+        bld.append("color: " + color + "\n\n\n");
         if(personalBonusTile != null){
-            string += "\npersonalBonusTile:\n" + personalBonusTile.toString() + "\n";
+            bld.append("Personal bonus tile:\n" + personalBonusTile.toString() + "\n\n");
         }
-        string += "\nleader card: DA FARE!!!\n\n";
-        string += "territorySpot: \n" + territorySpot.toString();
-        string += "buildingSpot: \n" + buildingSpot.toString();
-        string += "characterSpot: \n" + characterSpot.toString();
-        string += "ventureSpot: \n" + ventureSpot.toString();
-        string += "\n" + counter.toString() + "\n";
-        if(leaderCardsInHand != null){
-
+        if(!leaderCardsInHand.isEmpty()){
+            bld.append("Leader cards in hand:\n");
+            for(LeaderCard c : leaderCardsInHand){
+                bld.append(c.toString() + "\n");
+            }
+            bld.append("\n");
         }
-        string += "familyMembers:\n";
+        if(!permanentLeaderCardsPositionated.isEmpty()){
+            bld.append("Permanent leader cards positionated:\n");
+            for(PermanentLeaderCard p : permanentLeaderCardsPositionated){
+                bld.append(p.toString() + "\n");
+            }
+            bld.append("\n");
+        }
+        if(!immediateLeaderCardsPositionated.isEmpty()){
+            bld.append("Immediate leader cards positionated:\n");
+            for(ImmediateLeaderCard i : immediateLeaderCardsPositionated){
+                bld.append(i.toString() + "\n");
+            }
+            bld.append("\n");
+        }
+        if(!territorySpot.getCards().isEmpty()){
+            bld.append("Territory spot:\n" + territorySpot.toString() + "\n\n");
+        }
+        if(!buildingSpot.getCards().isEmpty()){
+            bld.append("Building spot:\n" + buildingSpot.toString() + "\n\n");
+        }
+        if(!characterSpot.getCards().isEmpty()){
+            bld.append("Character spot:\n" + characterSpot.toString() + "\n\n");
+        }
+        if(!ventureSpot.getCards().isEmpty()){
+            bld.append("Venture spot:\n" + ventureSpot.toString() + "\n\n");
+        }
+        bld.append(counter.toString() + "\n\n");
+        bld.append("Family members:\n");
         for(FamilyMember fM : familyMembers){
-            string += fM.toString() + "\n";
+            bld.append(fM.toString() + "\n");
         }
-        return string;
+        return bld.toString();
     }
 }

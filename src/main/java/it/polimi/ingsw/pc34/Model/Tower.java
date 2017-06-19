@@ -61,6 +61,7 @@ public class Tower {
 	@Override
 	public String toString(){
 		StringBuilder bld = new StringBuilder();
+		bld.append("Occupied: "+ occupied + "\n");
 		for(Floor f : floors){
 			bld.append(f.toString() + "\n");
 		}

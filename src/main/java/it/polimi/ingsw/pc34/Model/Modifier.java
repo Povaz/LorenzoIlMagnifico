@@ -130,7 +130,7 @@ public class Modifier{
 		}
 
 		updateBonusRewardChurchSupport(permanentLeaderCard.getBonusRewardChurchSupport());
-		updateCostDiscountDevelopmentCard(permanentLeaderCard.getCostDiscountDevelopmentCard());
+		updateCostDiscountDevelopmentCard(permanentLeaderCard.getDiscounts());
 	}
 
 	public void update(DevelopmentCard developmentCard){
@@ -215,7 +215,6 @@ public class Modifier{
 		}
 	}
 
-	// TODO TODOTODOTODO test!
 	void updateCostDiscountDevelopmentCard(Map<CardType, List<List<Reward>>> discountsToAdd){
 		if(discountsToAdd == null){
 			return;

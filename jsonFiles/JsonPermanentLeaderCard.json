@@ -149,7 +149,46 @@
       ],
       "costDiscounts": [
         {
-          "cardType": "ANY",
+          "cardType": "TERRITORY",
+          "options": [
+            {
+              "discounts": [
+                {
+                  "type": "COIN",
+                  "quantity": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cardType": "BUILDING",
+          "options": [
+            {
+              "discounts": [
+                {
+                  "type": "COIN",
+                  "quantity": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cardType": "CHARACTER",
+          "options": [
+            {
+              "discounts": [
+                {
+                  "type": "COIN",
+                  "quantity": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "cardType": "VENTURE",
           "options": [
             {
               "discounts": [

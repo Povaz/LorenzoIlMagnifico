@@ -165,7 +165,19 @@ public class BuyCard implements CommandPattern {
 
     private boolean canPayNormalCost() throws TooMuchTimeException, RemoteException{
         List<List<Reward>> discountsSelectables = modifier.getDiscounts().get(floor.getTower().getType());
-        List<Reward> permanentDiscount = game.getGameController().askWhichDiscount(discountsSelectables, player);
+
+        // choose which permanent discount use
+        List<Reward> permanentDiscount;
+        if(discountsSelectables.isEmpty()){
+            permanentDiscount = new ArrayList<>();
+        }
+        else if(discountsSelectables.size() == 1){
+            permanentDiscount = discountsSelectables.get(0);
+        }
+        else{
+            permanentDiscount = game.getGameController().askWhichDiscount(discountsSelectables, player);
+        }
+
         List<Reward> discount = addRewardFromSet(permanentDiscount, familyMember.getDiscounts());
         newCounter.subtractWithDiscount(card.getCosts(), discount);
         if(!newCounter.check()){

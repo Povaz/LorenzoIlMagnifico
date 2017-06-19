@@ -44,25 +44,27 @@ public class ImmediateLeaderCard extends LeaderCard {
 
     @Override
     public String toString () {
-        String immediateLeaderCardString = super.toString();
-        immediateLeaderCardString += "Activated: " + activated + "\n";
-        if (reward != null) {
-            immediateLeaderCardString += "Reward: \n";
+        StringBuilder bld = new StringBuilder();
+        bld.append(super.toString());
+
+        bld.append("  Activated: " + activated + "\n");
+        if(reward != null){
+            bld.append("  Reward:  ");
             for (Reward r: reward) {
-                immediateLeaderCardString += "  " + r.toString() + "\n";
+                bld.append(r.toString() + "; ");
+            }
+            bld.append("\n");
+        }
+        if(changeColoredFamilyMamberValue){
+            bld.append("  newValueColoredFamilyMember: " + newValueColoredFamilyMember + "\n");
+        }
+        if(actions != null){
+            bld.append("  Actions:\n");
+            for (FamilyMember a : actions) {
+                bld.append(a.toString() + "\n");
             }
         }
-        if (changeColoredFamilyMamberValue) {
-            immediateLeaderCardString += "Change Color Family Member Value: " + changeColoredFamilyMamberValue + "\n";
-            immediateLeaderCardString += "New Color Family Member Value: " + newValueColoredFamilyMember + "\n";
-        }
-        if (actions != null) {
-            immediateLeaderCardString += "Actions: \n";
-            for (FamilyMember g: actions) {
-                immediateLeaderCardString += "  " + g.toString() + "\n";
-            }
-        }
-        return immediateLeaderCardString;
+        return bld.toString();
     }
 
     @Override
