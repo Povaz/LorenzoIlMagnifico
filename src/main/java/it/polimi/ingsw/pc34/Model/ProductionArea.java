@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
+import java.rmi.RemoteException;
+
 public class ProductionArea extends ActionSpot{
 	private final int diceModifier;
 	private final Board board;
@@ -11,7 +13,7 @@ public class ProductionArea extends ActionSpot{
     }
 
 	@Override
-	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController){
+	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws RemoteException{
 		if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot, gameController)){
 			return false;
 		}

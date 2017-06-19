@@ -4,6 +4,7 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.junit.Test;
 
+import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class ActionSpotTest extends TestCase {
     }
 
     @Test
-    public void testIsPlaceable() {
+    public void testIsPlaceable() throws RemoteException{
         Set<Reward> rewards = new HashSet<>();
         rewards.add(new Reward(RewardType.COIN, 5));
         FamilyMember familyMember = new FamilyMember(ActionType.MARKET, 6, rewards);

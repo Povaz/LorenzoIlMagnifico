@@ -32,7 +32,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         this.newValueFamilyMember = 0;
     }
 
-    public boolean canDoAction() throws TooMuchTimeException{
+    public boolean canDoAction() throws TooMuchTimeException, RemoteException{
         if(immediateLeaderCardsPositionated.isEmpty()){
             game.getGameController().sendMessage(player, "You don't have any leader card placed!");
             return false;

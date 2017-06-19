@@ -25,11 +25,11 @@ import java.util.*;
 public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     private ArrayList<UserLogin> usersLoggedRMI;
     private Lobby lobby;
-    private ArrayList<ServerGameRMI> gamesOnGoingRMI;
+    private static ArrayList<ServerGameRMI> gamesOnGoingRMI;
 
     public ServerLoginImpl (Lobby lobby) throws RemoteException {
         this.usersLoggedRMI = new ArrayList<>();
-        this.gamesOnGoingRMI = new ArrayList<>();
+        gamesOnGoingRMI = new ArrayList<>();
         this.lobby = lobby;
         this.lobby.setServerRMI(this);
     }
@@ -128,17 +128,22 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         }
     }
 
+    // FINE GESTIONE LOBBY
+
+
     public void notifyRMIPlayers (String m) throws RemoteException {
         for (UserLogin user: usersLoggedRMI) {
             user.sendMessage(m);
         }
     }
 
+    //INIZIO GESTIONE GAME
+
     private ServerGameRMI searchCurrentServerGameRMI (UserLogin userLogin) throws RemoteException {
-        for (ServerGameRMI serverGame : gamesOnGoingRMI) {
-            for (UserLogin user : serverGame.getPlayersInThisGame()) {
+        for (int i = 0; i < gamesOnGoingRMI.size(); i++) {
+            for (UserLogin user : gamesOnGoingRMI.get(i).getPlayersInThisGame()) {
                 if (user.getUsername().equals(userLogin.getUsername())) {
-                    return serverGame;
+                    return gamesOnGoingRMI.get(i);
                 }
             }
         }
@@ -147,15 +152,8 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
 
     @Override
     public void sendInput (String input, UserLogin userLogin) throws RemoteException{
-        ServerGameRMI serverGameRMI;
-        try {
-            serverGameRMI = searchCurrentServerGameRMI(userLogin);
-        }
-        catch (NullPointerException e) {
-            userLogin.sendMessage("You're not currently in Game");
-            return;
-        }
-            switch (input) {
+        ServerGameRMI serverGameRMI = this.searchCurrentServerGameRMI(userLogin);
+        switch (input) {
             case "/skip":
                 serverGameRMI.skipTurn();
                 break;

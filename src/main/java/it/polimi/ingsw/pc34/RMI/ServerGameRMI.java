@@ -1,15 +1,15 @@
 package it.polimi.ingsw.pc34.RMI;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
-import it.polimi.ingsw.pc34.Model.ActionType;
-import it.polimi.ingsw.pc34.Model.FamilyColor;
-import it.polimi.ingsw.pc34.Model.GameController;
-import it.polimi.ingsw.pc34.Model.Player;
+import it.polimi.ingsw.pc34.Exception.IllegalNumberOf;
+import it.polimi.ingsw.pc34.Exception.SameChooseErrorException;
+import it.polimi.ingsw.pc34.Model.*;
 
 import java.awt.image.AreaAveragingScaleFilter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
+import java.util.Scanner;
 
 /**
  * Created by Povaz on 18/06/2017.
@@ -32,7 +32,7 @@ public class ServerGameRMI {
     }
 
     public ArrayList<UserLogin> getPlayersInThisGame () {
-        return this.playersInThisGame;
+        return playersInThisGame;
     }
 
     public GameController getGameController() {
@@ -145,6 +145,13 @@ public class ServerGameRMI {
         String m = "How many Servants do you want to use?";
         int servant = this.chooseSpot(integerProducer.getMin(), integerProducer.getMax(), userLogin, m);
         integerProducer.setChoose(servant);
+        integerProducer.start();
+    }
+
+
+    public void skipTurn() throws RemoteException {
+        int choose = 4;
+        integerProducer.setChoose(choose);
         integerProducer.start();
     }
 
@@ -287,10 +294,62 @@ public class ServerGameRMI {
         return familyColor;
     }
 
-    public void skipTurn() throws RemoteException {
-        int choose = 4;
-        integerProducer.setChoose(choose);
-        integerProducer.start();
+    public int[] chooseCouncilPrivilegeReward (Reward councilPrivilege) {
+        try {
+            if (councilPrivilege.getQuantity() > 5) {
+                throw new IllegalNumberOf(councilPrivilege);
+            }
+            int[] choose = new int[councilPrivilege.getQuantity()];
+            for (int i = 0; i < councilPrivilege.getQuantity(); i++) {
+                try {
+                    try {
+                        System.out.println("1. 1 WOOD 1 Stone   2. 2 SERVANT    3. 2 COIN   4. 2 MILITARY_POINT  5. 1 FAITH_POINT \n" +
+                                "Don't choose the sameType reward as before" + "\n");
+                        Scanner inChoose = new Scanner(System.in);
+                        choose[i] = inChoose.nextInt();
+
+                        if (choose[i] < 1 || choose[i] > 5) {
+                            throw new InputMismatchException();
+                        }
+                        else {
+                            boolean contains = false;
+                            for (int j = 0; j < i; j++) {
+                                if (choose[i] == choose[j]) {
+                                    contains = true;
+                                }
+                            }
+
+                            if (contains) {
+                                throw new SameChooseErrorException(councilPrivilege);
+                            }
+                        }
+                    }
+                    catch (InputMismatchException e) {
+                        e.printStackTrace();
+                        --i;
+                        System.out.println("Incorrect answer");
+                    }
+                } catch (SameChooseErrorException e) {
+                    e.printStackTrace();
+                    --i;
+                }
+            }
+            return choose;
+        }
+        catch (IllegalNumberOf e) {
+            e.printStackTrace();
+            int [] choose = new int[] {1, 2, 3, 4, 5};
+            return choose;
+        }
     }
+
+    public void sendMessage(Player player, String message) throws RemoteException {
+        for(int i = 0; i < playersInThisGame.size(); i++) {
+            if (player.getUsername().equals(playersInThisGame.get(i))) {
+                playersInThisGame.get(i).sendMessage(message);
+            }
+        }
+    }
+
 
 }

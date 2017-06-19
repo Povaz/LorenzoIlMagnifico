@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.SocketRMICongiunction;
 import it.polimi.ingsw.pc34.Model.Game;
 import it.polimi.ingsw.pc34.RMI.ServerGameRMI;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.RMI.UserLogin;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
 import java.rmi.RemoteException;
@@ -97,13 +98,15 @@ public class Lobby {
             public void run() {
                 try {
                     //Socket Start
-                    notifyAllUsers(NotificationType.STARTGAME, "");
                     serverSoc.throwInGame();
 
                     //RMI Start
-                    ServerGameRMI serverGameRMI = new ServerGameRMI(serverRMI.getUsersLoggedRMI());
+                    ArrayList<UserLogin> prova = serverRMI.getUsersLoggedRMI();
+                    ServerGameRMI serverGameRMI = new ServerGameRMI(prova);
                     serverRMI.flushUsersLoggedRMI();
                     serverRMI.addServerGameRMI(serverGameRMI);
+
+                    notifyAllUsers(NotificationType.STARTGAME, "");
 
                     //Game Start
                     Game game = new Game(users, serverRMI, serverGameRMI, serverSoc);

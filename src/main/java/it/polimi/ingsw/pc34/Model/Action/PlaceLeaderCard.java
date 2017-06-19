@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Map;
 
@@ -31,7 +32,7 @@ public class PlaceLeaderCard implements CommandPattern{
         this.modifier = player.getPlayerBoard().getModifier();
     }
 
-    public boolean canDoAction() throws TooMuchTimeException{
+    public boolean canDoAction() throws TooMuchTimeException, RemoteException{
         if(leaderCardsInHand.isEmpty()){
             game.getGameController().sendMessage(player, "You don't have any leader card in your hand!");
             return false;
@@ -48,7 +49,7 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    private boolean haveEnoughRewardToActive(){
+    private boolean haveEnoughRewardToActive() throws RemoteException{
         newCounter.subtract(leaderCard.getActivationRewardCost());
         if(!newCounter.check()){
             game.getGameController().sendMessage(player, "You don't have enough resources to place the leader card!");
@@ -57,7 +58,7 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    private boolean haveEnoughCardToActive(){
+    private boolean haveEnoughCardToActive() throws RemoteException{
         Map<CardType, Integer> cardNeeded = leaderCard.getActivationCardCost();
         for(CardType cT : cardNeeded.keySet()){
             switch(cT){

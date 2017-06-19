@@ -4,6 +4,7 @@ import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 
+import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Set;
 
@@ -28,7 +29,7 @@ public class ChangeLeaderCardInReward implements CommandPattern{
         this.modifier = player.getPlayerBoard().getModifier();
     }
 
-    public boolean canDoAction() throws TooMuchTimeException{
+    public boolean canDoAction() throws TooMuchTimeException, RemoteException{
         if(leaderCardsInHand.isEmpty()){
             game.getGameController().sendMessage(player, "You don't have any leader card in your hand!");
             return false;

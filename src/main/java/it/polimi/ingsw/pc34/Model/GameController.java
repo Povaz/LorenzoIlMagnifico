@@ -59,10 +59,10 @@ public class GameController{
     	this.familyColorCreated = familyColorCreated;
     }
 
-    public void sendMessage(Player player, String message){
+    public void sendMessage(Player player, String message) throws RemoteException {
         switch(player.getConnectionType()){
             case RMI:
-                // TODO eriK :P
+                serverGameRMI.sendMessage(player, message);
                 System.out.println(message);
                 break;
             case SOCKET:

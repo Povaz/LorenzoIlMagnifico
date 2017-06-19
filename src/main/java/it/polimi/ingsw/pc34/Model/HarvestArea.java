@@ -1,5 +1,8 @@
 package it.polimi.ingsw.pc34.Model;
 
+import java.rmi.Remote;
+import java.rmi.RemoteException;
+
 public class HarvestArea extends ActionSpot{
     private final int diceModifier;
     private final Board board;
@@ -11,7 +14,7 @@ public class HarvestArea extends ActionSpot{
     }
 
     @Override
-    public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController){
+    public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws RemoteException {
         if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot, gameController)){
             return false;
         }
@@ -19,7 +22,12 @@ public class HarvestArea extends ActionSpot{
         if(familyMember.isGhost()){
             if (familyMember.getAction() != null){
                 if (familyMember.getAction() != ActionType.HARVEST && familyMember.getAction() != ActionType.ALL){
-                    gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+                    try {
+                        gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+                    }
+                    catch (RemoteException e) {
+                        e.printStackTrace();
+                    }
                     return false;
                 }
             }
@@ -30,7 +38,12 @@ public class HarvestArea extends ActionSpot{
                 for(FamilyMember f : hA.occupiedBy){
                     if(familyMember.samePlayer(f)){
                         if(f.getColor() != FamilyColor.NEUTRAL){
-                            gameController.sendMessage(familyMember.getPlayer(), "There is already one of yours colored family member in the harvest area!");
+                            try {
+                                gameController.sendMessage(familyMember.getPlayer(), "There is already one of yours colored family member in the harvest area!");
+                            }
+                            catch (RemoteException e) {
+                                e.printStackTrace();
+                            }
                             return false;
                         }
                     }
