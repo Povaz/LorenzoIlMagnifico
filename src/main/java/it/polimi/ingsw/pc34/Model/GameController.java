@@ -233,6 +233,11 @@ public class GameController{
         return leaderCardsInHand.get(index);
     }
 
+    public LeaderCard askWhichCardCopy(List<LeaderCard> leaderCards, Player player){
+        int index = TerminalInput.askWhichCardCopy(leaderCards);
+        return leaderCards.get(index);
+    }
+
     public ImmediateLeaderCard askWhichCardActivate(List<ImmediateLeaderCard> immediateLeaderCardsPositionated, Player player){
         int index = TerminalInput.askWhichCardActivate(immediateLeaderCardsPositionated);
         return immediateLeaderCardsPositionated.get(index);
