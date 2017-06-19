@@ -60,7 +60,7 @@ public class BuyCard implements CommandPattern {
             return false;
         }
 
-        if(!floor.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot())){
+        if(!floor.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot(), game.getGameController())){
             return false;
         }
 
@@ -101,6 +101,7 @@ public class BuyCard implements CommandPattern {
             cardSpot = player.getPlayerBoard().getCardSpot(card.getType());
             return true;
         }
+        game.getGameController().sendMessage(player, "There isn't any Card in this Floor!");
         return false;
     }
 
@@ -108,7 +109,7 @@ public class BuyCard implements CommandPattern {
     private boolean haveEnoughServant(){
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
-            System.out.println("Hai usato più servant di quelli che possiedi!");
+            game.getGameController().sendMessage(player, "You don't have enough servant!");
             return false;
         }
         return true;
@@ -120,7 +121,7 @@ public class BuyCard implements CommandPattern {
             newCounter.subtract(floor.getTower().getOccupiedTax());
         }
         if(!newCounter.check()){
-            System.out.println("Non hai abbastanza coin per pagare la tassa della torre!");
+            game.getGameController().sendMessage(player, "You cannot pay the tower tax!");
             return false;
         }
         return true;
@@ -167,7 +168,7 @@ public class BuyCard implements CommandPattern {
         List<Reward> discount = addRewardFromSet(permanentDiscount, familyMember.getDiscounts());
         newCounter.subtractWithDiscount(card.getCosts(), discount);
         if(!newCounter.check()){
-            System.out.println("Non hai abbastanza risorse per pagare i costi della carta!");
+            game.getGameController().sendMessage(player, "You cannot pay the card cost!");
             return false;
         }
         return true;
@@ -198,7 +199,7 @@ public class BuyCard implements CommandPattern {
                 return true;
             }
         }
-        System.out.println("Non hai abbastanza militaryPoint per pagare i costi della carta!");
+        game.getGameController().sendMessage(player, "You don't have enough military point to buy the card!");
         return false;
     }
 
@@ -228,7 +229,7 @@ public class BuyCard implements CommandPattern {
     */
     private boolean canBePlacedInCardSpot(){
         if(!cardSpot.canPlaceCard()){
-            System.out.println("Non hai abbastanza spazio nel CardSpot per poter piazzare la carta");
+            game.getGameController().sendMessage(player, "You don't have enough space in the card spot!");
             return false;
         }
         if(!modifier.isNotSatisfyMilitaryPointForTerritory()) {
@@ -247,25 +248,25 @@ public class BuyCard implements CommandPattern {
                 return true;
             case  2:
                 if(newCounter.getMilitaryPoint().getQuantity() < 3){
-                    System.out.println("Non hai abbastanza militaryPoint per poter piazzare la carta");
+                    game.getGameController().sendMessage(player, "You don't have enough military point to place in the card spot!");
                     return false;
                 }
                 return true;
             case  3:
                 if(newCounter.getMilitaryPoint().getQuantity() < 7){
-                    System.out.println("Non hai abbastanza militaryPoint per poter piazzare la carta");
+                    game.getGameController().sendMessage(player, "You don't have enough military point to place in the card spot!");
                     return false;
                 }
                 return true;
             case  4:
                 if(newCounter.getMilitaryPoint().getQuantity() < 12){
-                    System.out.println("Non hai abbastanza militaryPoint per poter piazzare la carta");
+                    game.getGameController().sendMessage(player, "You don't have enough military point to place in the card spot!");
                     return false;
                 }
                 return true;
             case  5:
                 if(newCounter.getMilitaryPoint().getQuantity() < 18){
-                    System.out.println("Non hai abbastanza militaryPoint per poter piazzare la carta");
+                    game.getGameController().sendMessage(player, "You don't have enough military point to place in the card spot!");
                     return false;
                 }
                 return true;

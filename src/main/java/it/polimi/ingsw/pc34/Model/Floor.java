@@ -41,8 +41,8 @@ public class Floor extends ActionSpot{
   		- non ci possono essere due familiari dello stesso giocatore non neutrali nella stessa torre
     */
 	@Override
-	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot){
-		if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot)){
+	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController){
+		if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot, gameController)){
 			return false;
 		}
 
@@ -50,6 +50,7 @@ public class Floor extends ActionSpot{
 			if(familyMember.getAction() != null){
 				if(familyMember.getAction() != ActionType.ALL){
 					if(!tower.getType().sameType(familyMember.getAction())){
+						gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
 						return false;
 					}
 				}
@@ -61,6 +62,7 @@ public class Floor extends ActionSpot{
 				for(FamilyMember fM : f.occupiedBy){
 					if(familyMember.samePlayer(fM)){
 						if(fM.getColor() != FamilyColor.NEUTRAL){
+							gameController.sendMessage(familyMember.getPlayer(), "There is already one of yours colored family member in this tower!");
 							return false;
 						}
 					}

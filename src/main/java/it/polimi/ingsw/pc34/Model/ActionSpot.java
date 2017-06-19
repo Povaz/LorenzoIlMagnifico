@@ -47,14 +47,17 @@ public abstract class ActionSpot {
 		this.occupiedBy = new LinkedList<>();
 	}
 
-	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot){
+	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController){
 		if(familyMember.isUsed()){
+			gameController.sendMessage(familyMember.getPlayer(), "This family member is alreay used!");
 			return false;
 		}
 		if(busy && !canPlaceInBusyActionSpot){
+			gameController.sendMessage(familyMember.getPlayer(), "This action spot is busy!");
 			return false;
 		}
 		if(diceValue > familyMember.getValue() + familyMember.getServantUsed().getQuantity()){
+			gameController.sendMessage(familyMember.getPlayer(), "Your family member's value is too low!");
 			return false;
 		}
 		return true;

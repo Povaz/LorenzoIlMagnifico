@@ -2,10 +2,7 @@ package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
-import it.polimi.ingsw.pc34.RMI.ActionInputCreated;
-import it.polimi.ingsw.pc34.RMI.FamilyColorCreated;
-import it.polimi.ingsw.pc34.RMI.IntegerCreated;
-import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.View.TerminalInput;
@@ -24,11 +21,13 @@ public class GameController{
     private String currentPlayer;
     private ArrayList<ServerHandler> usersSoc;
     
+
+    private ServerGameRMI serverGameRMI;
     private ActionInputCreated actionInputCreated;
     private IntegerCreated integerCreated;
     private FamilyColorCreated familyColorCreated;
 
-    public GameController(Game game, ServerLoginImpl serverLogin, ServerSOC serverSoc) {
+    public GameController(Game game, ServerLoginImpl serverLogin, ServerGameRMI serverGameRMI, ServerSOC serverSoc) {
         Thread threadGame = new Thread (game);
         threadGame.start();
         this.board = game.getBoard();
@@ -36,7 +35,9 @@ public class GameController{
         this.serverLogin = serverLogin;
         this.serverSoc = serverSoc;
         this.usersSoc = serverSoc.getUsers();
+        this.serverGameRMI = serverGameRMI;
         serverLogin.setGameController(this);
+        serverGameRMI.setGameController(this);
     }
     
     public int getNumberPlayers(){
@@ -59,12 +60,25 @@ public class GameController{
     	this.familyColorCreated = familyColorCreated;
     }
 
+    public void sendMessage(Player player, String message){
+        switch(player.getConnectionType()){
+            case RMI:
+                // TODO eriK :P
+                System.out.println(message);
+                break;
+            case SOCKET:
+                // TODO tom :P
+                System.out.println(message);
+                break;
+        }
+    }
+
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo = 0;
-        serverLogin.setCurrentPlayer(player.getUsername());
+        serverGameRMI.setCurrentPlayer(player);
         switch(player.getConnectionType()) {
             case RMI:
-                serverLogin.askNumber(0,3);
+                serverGameRMI.askNumberMinMax(0,4);
                 whatToDo = integerCreated.get();
                 System.out.println("Action chosen: " + whatToDo);
                 break;
@@ -86,7 +100,7 @@ public class GameController{
         ActionInput actionInput = new ActionInput();
         switch(player.getConnectionType()) {
             case RMI:
-                serverLogin.askAction(board.getPlayerNumber());
+                serverGameRMI.askAction(board.getPlayerNumber());
                 actionInput = actionInputCreated.get();
                 System.out.println("Action Input chosen: " + actionInput.toString());
                 break;
@@ -129,7 +143,7 @@ public class GameController{
         FamilyColor familyColor = FamilyColor.NEUTRAL;
         switch(player.getConnectionType()) {
             case RMI:
-                serverLogin.askFamilyColor();
+                serverGameRMI.askFamilyColor();
                 familyColor = familyColorCreated.get();
                 break;
             case SOCKET:
@@ -146,7 +160,7 @@ public class GameController{
             if(fM.getColor() == familyColor) {
                 switch(player.getConnectionType()) {
                     case RMI:
-                        serverLogin.askNumberMinMax(0,10);
+                        serverGameRMI.askNumberMinMax(0,10);
                         servant = integerCreated.get();
                         break;
                     case SOCKET:

@@ -11,11 +11,11 @@ import java.util.List;
  * Created by trill on 22/05/2017.
  */
 public class OrderTest{
-    private Player paolo = new Player("Paolo", null, PlayerColor.BLUE, null, null);
-    private Player tommaso = new Player("Tommaso", null, PlayerColor.GREEN, null, null);
-    private Player erick = new Player("Erick", null, PlayerColor.YELLOW, null, null);
-    private Player cugola = new Player("Cugola", null, PlayerColor.PURPLE, null, null);
-    private Player affetti = new Player("Affetti", null, PlayerColor.RED, null, null);
+    private Player paolo = new Player("Paolo", null, PlayerColor.BLUE);
+    private Player tommaso = new Player("Tommaso", null, PlayerColor.GREEN);
+    private Player erick = new Player("Erick", null, PlayerColor.YELLOW);
+    private Player cugola = new Player("Cugola", null, PlayerColor.PURPLE);
+    private Player affetti = new Player("Affetti", null, PlayerColor.RED);
 
     // Without councilPalaceOrder
     @Test

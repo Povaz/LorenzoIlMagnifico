@@ -8,11 +8,15 @@ import it.polimi.ingsw.pc34.View.TerminalInput;
 import org.json.JSONException;
 import java.io.IOException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by trill on 22/05/2017.
  */
 public class Board {
+    private Logger LOGGER = Logger.getLogger(Game.class.getName());
+
     private final int playerNumber;
     private final List<HarvestArea> harvestArea;
     private final List<ProductionArea> productionArea;
@@ -96,9 +100,9 @@ public class Board {
                 }
             }
         } catch(JSONException e){
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "VaticanReportCard.json: Wrong format", e);
         } catch(IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "VaticanReportCard.json: Incorrect path", e);
         }
     }
 

@@ -1,8 +1,5 @@
 package it.polimi.ingsw.pc34.Model;
 
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
-import it.polimi.ingsw.pc34.View.TerminalInput;
-
 import java.util.*;
 
 /**
@@ -13,7 +10,7 @@ public class PlayerBoard {
     private final PlayerColor color;
     private Counter counter;
     private final List<FamilyMember> familyMembers;
-    private final PersonalBonusTile personalBonusTile;
+    private PersonalBonusTile personalBonusTile;
     private final TerritorySpot territorySpot;
     private final BuildingSpot buildingSpot;
     private final CharacterSpot characterSpot;
@@ -23,18 +20,18 @@ public class PlayerBoard {
     private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
     private final List<PermanentLeaderCard> permanentLeaderCardsPositionated;
 
-    public PlayerBoard(Player player, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
+    public PlayerBoard(Player player){
         this.player = player;
         this.color = player.getColor();
         this.counter = new Counter();
         this.familyMembers = initializeFamilyMembers(player);
-        this.personalBonusTile = personalBonusTile;
+        this.personalBonusTile = null;
         this.territorySpot = new TerritorySpot();
         this.buildingSpot = new BuildingSpot();
         this.characterSpot = new CharacterSpot();
         this.ventureSpot = new VentureSpot();
         this.modifier = new Modifier();
-        this.leaderCardsInHand = leaderCards;
+        this.leaderCardsInHand = new ArrayList<>();
         this.immediateLeaderCardsPositionated = new ArrayList<>();
         this.permanentLeaderCardsPositionated = new ArrayList<>();
     }
@@ -202,6 +199,10 @@ public class PlayerBoard {
 
     public void setCounter(Counter counter) {
         this.counter = counter;
+    }
+
+    public void setPersonalBonusTile(PersonalBonusTile personalBonusTile){
+        this.personalBonusTile = personalBonusTile;
     }
 
     @Override

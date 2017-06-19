@@ -36,15 +36,15 @@ public class PlaceMarket implements CommandPattern{
 
     public boolean canDoAction() throws TooMuchTimeException{
         if(modifier.isCannotPlaceInMarket()){
+            game.getGameController().sendMessage(player, "You cannot place in the market!");
             return false;
         }
 
-        if(!market.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot())){
+        if(!market.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot(), game.getGameController())){
             return false;
         }
 
         if(!haveEnoughServant()){
-            System.out.println("Hai usato più servant di quelli che possiedi!");
             return false;
         }
 
@@ -59,7 +59,11 @@ public class PlaceMarket implements CommandPattern{
     // controlla se ha più servant di quelli che ha usato per fare l'azione
     private boolean haveEnoughServant(){
         newCounter.subtract(familyMember.getServantUsed());
-        return newCounter.check();
+        if(!newCounter.check()){
+            game.getGameController().sendMessage(player, "You don't have enough servant!");
+            return false;
+        }
+        return true;
     }
 
     // guadagna i reward del CouncilPalace

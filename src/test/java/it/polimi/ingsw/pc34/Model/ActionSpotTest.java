@@ -42,18 +42,18 @@ public class ActionSpotTest extends TestCase {
         actionSpot.setBusy(false);
         canPlaceInBusyActionSpot = true;
         familyMember.setValue(6);
-        assertTrue("Familiare posizionato", actionSpot.isPlaceable(familyMember, canPlaceInBusyActionSpot));
+        assertTrue("Familiare posizionato", actionSpot.isPlaceable(familyMember, canPlaceInBusyActionSpot, null));
 
         familyMember.setUsed(true);
-        assertFalse("Familiare già usato", actionSpot.isPlaceable(familyMember, canPlaceInBusyActionSpot));
+        assertFalse("Familiare già usato", actionSpot.isPlaceable(familyMember, canPlaceInBusyActionSpot, null));
 
         familyMember.setUsed(false);
         actionSpot.setBusy(true);
         canPlaceInBusyActionSpot = false;
-        assertFalse("ActionSpot occupato", actionSpot.isPlaceable(familyMember, canPlaceInBusyActionSpot));
+        assertFalse("ActionSpot occupato", actionSpot.isPlaceable(familyMember, canPlaceInBusyActionSpot, null));
 
         diceValue = 5;
-        assertFalse("Dado troppo basso", actionSpot.isPlaceable(familyMember, canPlaceInBusyActionSpot));
+        assertFalse("Dado troppo basso", actionSpot.isPlaceable(familyMember, canPlaceInBusyActionSpot, null));
 
     }
 

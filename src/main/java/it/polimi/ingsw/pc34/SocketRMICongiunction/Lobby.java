@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
 import it.polimi.ingsw.pc34.Model.Game;
+import it.polimi.ingsw.pc34.RMI.ServerGameRMI;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
@@ -95,9 +96,17 @@ public class Lobby {
             @Override
             public void run() {
                 try {
+                    //Socket Start
                     notifyAllUsers(NotificationType.STARTGAME, "");
                     serverSoc.throwInGame();
-                    Game game = new Game(users, serverRMI, serverSoc);
+
+                    //RMI Start
+                    ServerGameRMI serverGameRMI = new ServerGameRMI(serverRMI.getUsersLoggedRMI());
+                    serverRMI.flushUsersLoggedRMI();
+                    serverRMI.addServerGameRMI(serverGameRMI);
+
+                    //Game Start
+                    Game game = new Game(users, serverRMI, serverGameRMI, serverSoc);
                     users.clear();
                     Server.gamesOnGoing.add(game);
                     Thread threadGame = new Thread (game);

@@ -41,18 +41,19 @@ public class Produce {
     }
 
     public boolean canDoAction() throws TooMuchTimeException{
-        if(!productionArea.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot())){
+        if(!productionArea.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot(), game.getGameController())){
             return false;
         }
 
         if(!haveEnoughServant()){
-            System.out.println("Hai usato più servant di quelli che possiedi!");
             return false;
         }
 
         earnTileReward();
 
-        earnProductionReward();
+        if(!earnProductionReward()){
+            return false;
+        }
 
         // correggi i limiti di risorse
         newCounter.round();
@@ -63,7 +64,11 @@ public class Produce {
     // controlla se ha più servant di quelli che ha usato per fare l'azione
     private boolean haveEnoughServant(){
         newCounter.subtract(familyMember.getServantUsed());
-        return newCounter.check();
+        if(!newCounter.check()){
+            game.getGameController().sendMessage(player, "You don't have enough servant!");
+            return false;
+        }
+        return true;
     }
 
     // guadagna i reward del PersonalBonusTile
@@ -106,9 +111,11 @@ public class Produce {
             }
         }
         if(!copyForCosts.check()){
+            game.getGameController().sendMessage(player, "You don't have enough resources to do all the trades!");
             return false;
         }
         if(!newCounter.check()){
+            game.getGameController().sendMessage(player, "You don't have enough resources to do all the trades!");
             return false;
         }
         return true;

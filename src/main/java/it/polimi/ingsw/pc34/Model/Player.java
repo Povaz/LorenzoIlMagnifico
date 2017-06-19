@@ -15,11 +15,11 @@ public class Player{
     private boolean isYourTurn = false;
     private boolean placedFamilyMember = false;
     
-    public Player(String username, ConnectionType connectionType, PlayerColor color, PersonalBonusTile personalBonusTile, List<LeaderCard> leaderCards){
+    public Player(String username, ConnectionType connectionType, PlayerColor color){
         this.username = username;
         this.connectionType = connectionType;
         this.color = color;
-        this.playerBoard = new PlayerBoard(this, personalBonusTile, leaderCards);
+        this.playerBoard = new PlayerBoard(this);
     }
 
     public boolean sameColor(Player other){
