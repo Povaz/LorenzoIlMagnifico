@@ -30,7 +30,7 @@ public class GameTest{
             ServerLoginImpl serverLogin = new ServerLoginImpl(lobby);
             ServerSOC serverSoc = new ServerSOC(1337, lobby);
             ServerGameRMI serverGameRMI = new ServerGameRMI(new ArrayList<UserLogin>());
-            Game game = new Game(usersOfThisGame, serverLogin, serverGameRMI, serverSoc);
+            Game game = new Game(usersOfThisGame, serverGameRMI, serverSoc);
             //game.startPeriod();
 
             System.out.println(Arrays.toString(game.getTerritoryCard()));

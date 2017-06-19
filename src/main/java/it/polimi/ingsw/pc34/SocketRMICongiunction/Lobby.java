@@ -109,7 +109,7 @@ public class Lobby {
                     notifyAllUsers(NotificationType.STARTGAME, "");
 
                     //Game Start
-                    Game game = new Game(users, serverRMI, serverGameRMI, serverSoc);
+                    Game game = new Game(users, serverGameRMI, serverSoc);
                     users.clear();
                     Server.gamesOnGoing.add(game);
                     Thread threadGame = new Thread (game);

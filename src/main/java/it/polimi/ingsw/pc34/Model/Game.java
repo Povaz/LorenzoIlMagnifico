@@ -37,15 +37,16 @@ public class Game implements Runnable{
     private int[] characterCard;
     private int[] ventureCard;
 
-    private ServerLoginImpl serverLogin;
+    private ServerGameRMI serverGameRMI;
     private ServerSOC serverSoc;
+
     public static void main(String[] args) {
         Map<String, ConnectionType> users = new HashMap<>();
         users.put("Cugola", ConnectionType.RMI);
         users.put("Affetti", ConnectionType.SOCKET);
         users.put("Erik", ConnectionType.RMI);
         users.put("Tomm", ConnectionType.SOCKET);
-        Thread thread = new Thread(new Game(users, null, null, null));
+        Thread thread = new Thread(new Game(users, null, null));
     }
 
     public void run(){
@@ -67,7 +68,7 @@ public class Game implements Runnable{
         }
     }
 
-    public Game(Map<String, ConnectionType> usersOfThisGame, ServerLoginImpl serverLogin, ServerGameRMI serverGameRMI, ServerSOC serverSoc) {
+    public Game(Map<String, ConnectionType> usersOfThisGame, ServerGameRMI serverGameRMI, ServerSOC serverSoc) {
         this.turn = 1;
         this.period = 1;
         this.usernames = new ArrayList<>(); //TODO Eliminazione usernames --> riferimenti a player
@@ -77,7 +78,7 @@ public class Game implements Runnable{
         this.board = new Board(players);
         initializePlayersRewards();
         this.serverSoc = serverSoc;
-        this.gameController = new GameController(this, serverLogin, serverGameRMI, serverSoc);
+        this.gameController = new GameController(this, serverGameRMI, serverSoc);
         initializeLeaderCards();
         initializePersonalBonusTile();
         initializeLeaderCards();

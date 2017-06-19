@@ -16,7 +16,6 @@ import java.util.*;
 public class GameController{
     private final Board board;
     private final List<Player> players;
-    private ServerLoginImpl serverLogin;
     private ServerSOC serverSoc;
     private String currentPlayer;
     private ArrayList<ServerHandler> usersSoc;
@@ -27,12 +26,11 @@ public class GameController{
     private IntegerCreated integerCreated;
     private FamilyColorCreated familyColorCreated;
 
-    public GameController(Game game, ServerLoginImpl serverLogin, ServerGameRMI serverGameRMI, ServerSOC serverSoc) {
+    public GameController(Game game, ServerGameRMI serverGameRMI, ServerSOC serverSoc) {
         Thread threadGame = new Thread (game);
         threadGame.start();
         this.board = game.getBoard();
         this.players = game.getPlayers();
-        this.serverLogin = serverLogin;
         this.serverSoc = serverSoc;
         this.usersSoc = serverSoc.getUsers();
         this.serverGameRMI = serverGameRMI;
