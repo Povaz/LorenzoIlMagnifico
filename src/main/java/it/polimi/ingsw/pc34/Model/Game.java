@@ -45,7 +45,7 @@ public class Game implements Runnable{
         users.put("Affetti", ConnectionType.SOCKET);
         users.put("Erik", ConnectionType.RMI);
         users.put("Tomm", ConnectionType.SOCKET);
-        Thread thread = new Thread(new Game(users, null, null));
+        Thread thread = new Thread(new Game(users, null, null, null));
     }
 
     public void run(){
