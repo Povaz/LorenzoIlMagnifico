@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -129,7 +130,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // guadagna i reward della torre
-    private void earnReward() throws TooMuchTimeException{
+    private void earnReward() throws TooMuchTimeException, RemoteException{
         if(floor.getRewards() != null){
             Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(floor.getRewards(), player);
             newCounter.sumWithLose(rewards, modifier.getLoseRewards());
@@ -217,7 +218,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // guadagna i fastReward della carta
-    private void earnCardFastReward() throws TooMuchTimeException{
+    private void earnCardFastReward() throws TooMuchTimeException, RemoteException{
         if(card.getFastRewards() != null){
             if(modifier.isDoubleFastRewardDevelopmentCard()){
                 Set<Reward> doubleReward = new HashSet<>();

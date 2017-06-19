@@ -73,7 +73,7 @@ public class Produce {
     }
 
     // guadagna i reward del PersonalBonusTile
-    private void earnTileReward() throws TooMuchTimeException{
+    private void earnTileReward() throws TooMuchTimeException, RemoteException{
         PersonalBonusTile tile = player.getPlayerBoard().getPersonalBonusTile();
         if(tile != null) {
             if(tile.getProductionRewards() != null){

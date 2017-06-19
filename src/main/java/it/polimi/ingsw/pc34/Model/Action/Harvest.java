@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Set;
 
@@ -67,7 +68,7 @@ public class Harvest implements CommandPattern{
     }
 
     // guadagna i reward del PersonalBonusTile
-    private void earnTileReward() throws TooMuchTimeException{
+    private void earnTileReward() throws TooMuchTimeException, RemoteException{
         PersonalBonusTile tile = player.getPlayerBoard().getPersonalBonusTile();
         if(tile != null) {
             if(tile.getHarvestRewards() != null){
@@ -80,7 +81,7 @@ public class Harvest implements CommandPattern{
     }
 
     // guadagna i reward delle TerritoryCard
-    private void earnHarvestReward() throws TooMuchTimeException{
+    private void earnHarvestReward() throws TooMuchTimeException, RemoteException{
         for(DevelopmentCard card : player.getPlayerBoard().getTerritorySpot().getCards()){
             TerritoryCard tCard = (TerritoryCard) card;
             if(actionValue >= tCard.getDiceHarvestAction()){

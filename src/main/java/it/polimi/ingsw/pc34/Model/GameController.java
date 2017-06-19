@@ -7,6 +7,7 @@ import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -21,20 +22,20 @@ public class GameController{
     private ArrayList<ServerHandler> usersSoc;
     
 
-    private ServerGameRMI serverGameRMI;
+    private ServerLoginImpl serverLoginImpl;
     private ActionInputCreated actionInputCreated;
     private IntegerCreated integerCreated;
     private FamilyColorCreated familyColorCreated;
+    private ArrayIntegerCreated arrayIntegerCreated;
 
-    public GameController(Game game, ServerGameRMI serverGameRMI, ServerSOC serverSoc) {
+    public GameController(Game game, ServerLoginImpl serverLoginImpl, ServerSOC serverSoc) {
         Thread threadGame = new Thread (game);
         threadGame.start();
         this.board = game.getBoard();
         this.players = game.getPlayers();
         this.serverSoc = serverSoc;
         this.usersSoc = serverSoc.getUsers();
-        this.serverGameRMI = serverGameRMI;
-        serverGameRMI.setGameController(this);
+        this.serverLoginImpl = serverLoginImpl;
     }
     
     public int getNumberPlayers(){
@@ -60,7 +61,7 @@ public class GameController{
     public void sendMessage(Player player, String message) throws RemoteException {
         switch(player.getConnectionType()){
             case RMI:
-                serverGameRMI.sendMessage(player, message);
+                //serverGameRMI.sendMessage(player, message); //TODO
                 System.out.println(message);
                 break;
             case SOCKET:
@@ -72,10 +73,10 @@ public class GameController{
 
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo = 0;
-        serverGameRMI.setCurrentPlayer(player);
+        //serverGameRMI.setCurrentPlayer(player);
         switch(player.getConnectionType()) {
             case RMI:
-                serverGameRMI.askNumberMinMax(0,4);
+                //serverGameRMI.askNumberMinMax(0,4);
                 whatToDo = integerCreated.get();
                 System.out.println("Action chosen: " + whatToDo);
                 break;
@@ -97,7 +98,7 @@ public class GameController{
         ActionInput actionInput = new ActionInput();
         switch(player.getConnectionType()) {
             case RMI:
-                serverGameRMI.askAction(board.getPlayerNumber());
+                //serverGameRMI.askAction(board.getPlayerNumber());
                 actionInput = actionInputCreated.get();
                 System.out.println("Action Input chosen: " + actionInput.toString());
                 break;
@@ -140,7 +141,7 @@ public class GameController{
         FamilyColor familyColor = FamilyColor.NEUTRAL;
         switch(player.getConnectionType()) {
             case RMI:
-                serverGameRMI.askFamilyColor();
+                //serverGameRMI.askFamilyColor();
                 familyColor = familyColorCreated.get();
                 break;
             case SOCKET:
@@ -157,7 +158,7 @@ public class GameController{
             if(fM.getColor() == familyColor) {
                 switch(player.getConnectionType()) {
                     case RMI:
-                        serverGameRMI.askNumberMinMax(0,10);
+                        //serverGameRMI.askNumberMinMax(0,10);
                         servant = integerCreated.get();
                         break;
                     case SOCKET:
@@ -180,7 +181,11 @@ public class GameController{
         return new Reward(RewardType.SERVANT, TerminalInput.askNumberOfServant());
     }
 
-    public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException{
+    public void setArrayIntegerCreated (ArrayIntegerCreated arrayIntegerCreated) {
+        this.arrayIntegerCreated = arrayIntegerCreated;
+    }
+
+    public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{
         if(rewards == null){
             return null;
         }
@@ -191,6 +196,14 @@ public class GameController{
             }
             else{
                 int[] rewardArray = TerminalInput.exchangeCouncilPrivilege(r);
+                switch (player.getConnectionType()) {
+                    case RMI:
+                        //serverGameRMI.askArrayInt();
+                        rewardArray = arrayIntegerCreated.get();
+                        break;
+                    case SOCKET:
+                        break;
+                }
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
                         case 1:

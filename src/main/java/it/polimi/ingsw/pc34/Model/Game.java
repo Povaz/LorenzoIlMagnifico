@@ -4,6 +4,7 @@ import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.Action.*;
 import it.polimi.ingsw.pc34.RMI.ServerGameRMI;
+import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import org.json.JSONException;
@@ -36,7 +37,7 @@ public class Game implements Runnable{
     private int[] characterCard;
     private int[] ventureCard;
 
-    private ServerGameRMI serverGameRMI;
+    private ServerLoginImpl serverLoginImpl;
     private ServerSOC serverSoc;
 
     public static void main(String[] args) {
@@ -67,7 +68,7 @@ public class Game implements Runnable{
         }
     }
 
-    public Game(Map<String, ConnectionType> usersOfThisGame, ServerGameRMI serverGameRMI, ServerSOC serverSoc) {
+    public Game(Map<String, ConnectionType> usersOfThisGame, ServerLoginImpl serverLoginImpl, ServerSOC serverSoc) {
         this.turn = 1;
         this.period = 1;
         this.usernames = new ArrayList<>();
@@ -76,10 +77,11 @@ public class Game implements Runnable{
         this.players = initializePlayers(usersOfThisGame);
         this.board = new Board(players);
         initializePlayersRewards();
-        this.serverSoc = serverSoc;
         initializePersonalBonusTile();
         initializeLeaderCards();
-        this.gameController = new GameController(this, serverGameRMI, serverSoc);
+        this.serverSoc = serverSoc;
+        this.serverLoginImpl = serverLoginImpl;
+        this.gameController = new GameController(this, serverLoginImpl, serverSoc);
         ServerSOC.setGameControllerSoc(this.gameController);
     }
 
