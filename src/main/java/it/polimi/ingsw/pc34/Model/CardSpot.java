@@ -33,10 +33,10 @@ public abstract class CardSpot{
 
     @Override
     public String toString(){
-        String string = "";
+        StringBuilder bld = new StringBuilder();
         for(DevelopmentCard dC : cards){
-            string += dC.toString();
+            bld.append(dC.toString());
         }
-        return string;
+        return bld.toString();
     }
 }

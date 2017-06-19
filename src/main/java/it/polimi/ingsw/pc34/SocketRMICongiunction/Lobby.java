@@ -101,15 +101,10 @@ public class Lobby {
                     serverSoc.throwInGame();
 
                     //RMI Start
-                    ArrayList<UserLogin> prova = serverRMI.getUsersLoggedRMI();
-                    ServerGameRMI serverGameRMI = new ServerGameRMI(prova);
-                    serverRMI.flushUsersLoggedRMI();
-                    serverRMI.addServerGameRMI(serverGameRMI);
-
-                    notifyAllUsers(NotificationType.STARTGAME, "");
+                    notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");
 
                     //Game Start
-                    Game game = new Game(users, serverGameRMI, serverSoc);
+                    Game game = new Game(users, serverRMI, serverSoc);
                     users.clear();
                     Server.gamesOnGoing.add(game);
                     Thread threadGame = new Thread (game);

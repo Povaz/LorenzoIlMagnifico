@@ -19,7 +19,7 @@ import static org.junit.Assert.*;
  */
 public class GameTest{
     @Test
-    public void startPeriodTest(){
+    public void startPeriodTest() {
         try {
             HashMap<String, ConnectionType> usersOfThisGame = new HashMap<>();
             usersOfThisGame.put("Erick", ConnectionType.RMI);
@@ -29,8 +29,7 @@ public class GameTest{
             Lobby lobby = new Lobby();
             ServerLoginImpl serverLogin = new ServerLoginImpl(lobby);
             ServerSOC serverSoc = new ServerSOC(1337, lobby);
-            ServerGameRMI serverGameRMI = new ServerGameRMI(new ArrayList<UserLogin>());
-            Game game = new Game(usersOfThisGame, serverGameRMI, serverSoc);
+            Game game = new Game(usersOfThisGame, serverLogin, serverSoc);
             //game.startPeriod();
 
             System.out.println(Arrays.toString(game.getTerritoryCard()));

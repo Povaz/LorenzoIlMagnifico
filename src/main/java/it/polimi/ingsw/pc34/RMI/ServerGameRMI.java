@@ -5,11 +5,9 @@ import it.polimi.ingsw.pc34.Exception.IllegalNumberOf;
 import it.polimi.ingsw.pc34.Exception.SameChooseErrorException;
 import it.polimi.ingsw.pc34.Model.*;
 
-import java.awt.image.AreaAveragingScaleFilter;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
-import java.util.Scanner;
 
 /**
  * Created by Povaz on 18/06/2017.
@@ -24,6 +22,8 @@ public class ServerGameRMI {
     private IntegerProducer integerProducer;
     private FamilyColorCreated familyColorCreated;
     private FamilyColorProducer familyColorProducer;
+    private ArrayIntegerCreated arrayIntegerCreated;
+    private ArrayIntegerProducer arrayIntegerProducer;
 
     private ArrayList <UserLogin> playersInThisGame;
 
@@ -123,6 +123,12 @@ public class ServerGameRMI {
         familyColorCreated = new FamilyColorCreated();
         familyColorProducer = new FamilyColorProducer(familyColorCreated);
         gameController.setFamilyColorCreated(familyColorCreated);
+    }
+
+    public void askArrayInt() throws RemoteException {
+        arrayIntegerCreated = new ArrayIntegerCreated();
+        arrayIntegerProducer = new ArrayIntegerProducer(arrayIntegerCreated);
+        gameController.setArrayIntegerCreated(arrayIntegerCreated);
     }
 
     public boolean checkAlreadyPlaced () throws RemoteException {
@@ -294,7 +300,7 @@ public class ServerGameRMI {
         return familyColor;
     }
 
-    public int[] chooseCouncilPrivilegeReward (Reward councilPrivilege) {
+    public int[] chooseCouncilPrivilegeReward (Reward councilPrivilege, UserLogin userLogin) throws RemoteException {
         try {
             if (councilPrivilege.getQuantity() > 5) {
                 throw new IllegalNumberOf(councilPrivilege);
@@ -302,32 +308,18 @@ public class ServerGameRMI {
             int[] choose = new int[councilPrivilege.getQuantity()];
             for (int i = 0; i < councilPrivilege.getQuantity(); i++) {
                 try {
-                    try {
-                        System.out.println("1. 1 WOOD 1 Stone   2. 2 SERVANT    3. 2 COIN   4. 2 MILITARY_POINT  5. 1 FAITH_POINT \n" +
-                                "Don't choose the sameType reward as before" + "\n");
-                        Scanner inChoose = new Scanner(System.in);
-                        choose[i] = inChoose.nextInt();
+                    String exchange = "1. 1 WOOD 1 Stone   2. 2 SERVANT    3. 2 COIN   4. 2 MILITARY_POINT  5. 1 FAITH_POINT \n" +
+                            "Don't choose the sameType reward as before" + "\n";
+                    this.chooseSpot(1, 5, userLogin, exchange);
 
-                        if (choose[i] < 1 || choose[i] > 5) {
-                            throw new InputMismatchException();
-                        }
-                        else {
-                            boolean contains = false;
-                            for (int j = 0; j < i; j++) {
-                                if (choose[i] == choose[j]) {
-                                    contains = true;
-                                }
-                            }
-
-                            if (contains) {
-                                throw new SameChooseErrorException(councilPrivilege);
-                            }
+                    boolean contains = false;
+                    for (int j = 0; j < i; j++) {
+                        if (choose[i] == choose[j]) {
+                            contains = true;
                         }
                     }
-                    catch (InputMismatchException e) {
-                        e.printStackTrace();
-                        --i;
-                        System.out.println("Incorrect answer");
+                    if (contains) {
+                        throw new SameChooseErrorException(councilPrivilege);
                     }
                 } catch (SameChooseErrorException e) {
                     e.printStackTrace();

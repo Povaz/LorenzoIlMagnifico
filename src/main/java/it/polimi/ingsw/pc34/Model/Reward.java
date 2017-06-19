@@ -50,7 +50,9 @@ public class Reward{
 
     @Override
     public String toString(){
-        return "" + quantity + " " + type.toString();
+        StringBuilder bld = new StringBuilder();
+        bld.append(quantity + " " + type.toString());
+        return bld.toString();
     }
 
     public void sumQuantity(Reward other){

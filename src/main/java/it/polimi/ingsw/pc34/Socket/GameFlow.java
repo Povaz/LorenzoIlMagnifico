@@ -35,7 +35,7 @@ public class GameFlow {
 	private GameController gameController;
 	ActionInput actionInput;
 	
-	public GameFlow(){
+	public GameFlow() {
 		start = true;
 		action = false;
 		drawLeader = false;
@@ -52,7 +52,7 @@ public class GameFlow {
 		this.playersNumber = playersNumber;
 	}
 	
-	public void askNumber(int min, int max){
+	public void askNumber(int min, int max) {
         integerCreated = new IntegerCreated();
         integerProducer = new IntegerProducer(integerCreated, min, max);
         gameController.setIntegerCreated(integerCreated);
@@ -122,7 +122,7 @@ public class GameFlow {
 			return "/stampinfo non ancora implementato";
 		}
 		else{
-			if(start){
+			if(start) {
 				if(asked.equals("/action")){
 					start = false;
 					action = true;
@@ -139,7 +139,7 @@ public class GameFlow {
 				if(actionSpot == null && checkNumber(1, 8, asked)){
 					actionInput = new ActionInput();
 					actionSpot = asked;
-					switch(actionSpot){ 
+					switch(actionSpot) {
 						case "1":
 							actionInput.setActionType(ActionType.TERRITORY_TOWER);
 							return "Which card? From 0 to 3";
@@ -167,7 +167,6 @@ public class GameFlow {
 							actionInputProducer.setActionInput(actionInput);
 							actionInputProducer.start();
 							return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-						
 					}
 				}
 				else if(actionSpot!=null){

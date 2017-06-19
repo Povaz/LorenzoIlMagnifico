@@ -4,6 +4,7 @@ import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
 import java.rmi.RemoteException;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +21,7 @@ public class PlaceLeaderCard implements CommandPattern{
     private final Counter newCounter;
     private final Modifier modifier;
     private LeaderCard leaderCard;
+    private LeaderCard toCopy = null;
 
     public PlaceLeaderCard(Game game, Player player){
         this.game = game;
@@ -44,6 +46,9 @@ public class PlaceLeaderCard implements CommandPattern{
             return false;
         }
         if(!haveEnoughCardToActive()){
+            return false;
+        }
+        if(!canCopyOtherCard()){
             return false;
         }
         return true;
@@ -110,23 +115,52 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    public void doAction(){
-        if(leaderCard instanceof ImmediateLeaderCard){
-            placeImmediateLeaderCard();
+    private boolean canCopyOtherCard(){
+        List<LeaderCard> canBeCopied = new ArrayList<>();
+        for(Player p : game.getPlayers()){
+            if(!player.equals(p)){
+                for(PermanentLeaderCard pLC : p.getPlayerBoard().getPermanentLeaderCardsPositionated()){
+                    canBeCopied.add(pLC);
+                }
+                for(ImmediateLeaderCard iLC : p.getPlayerBoard().getImmediateLeaderCardsPositionated()){
+                    canBeCopied.add(iLC);
+                }
+            }
         }
-        else if(leaderCard instanceof PermanentLeaderCard){
-            placePermanentLeaderCard();
+        if(canBeCopied.isEmpty()){
+            return false;
+        }
+        toCopy = game.getGameController().askWhichCardCopy(canBeCopied, player);
+        return true;
+    }
+
+    public void doAction(){
+        if(toCopy == null){
+            if(leaderCard instanceof ImmediateLeaderCard){
+                placeImmediateLeaderCard(leaderCard);
+            }
+            else if(leaderCard instanceof PermanentLeaderCard){
+                placePermanentLeaderCard(leaderCard);
+            }
+        }
+        else{
+            if(toCopy instanceof ImmediateLeaderCard){
+                placeImmediateLeaderCard(toCopy);
+            }
+            else if(toCopy instanceof PermanentLeaderCard){
+                placePermanentLeaderCard(toCopy);
+            }
         }
         removeLeaderCardFromHand();
     }
 
-    private void placeImmediateLeaderCard(){
-        immediateLeaderCardsPositionated.add((ImmediateLeaderCard) leaderCard);
+    private void placeImmediateLeaderCard(LeaderCard card){
+        immediateLeaderCardsPositionated.add((ImmediateLeaderCard) card);
     }
 
-    private void placePermanentLeaderCard(){
-        permanentLeaderCardsPositionated.add((PermanentLeaderCard) leaderCard);
-        modifier.update((PermanentLeaderCard) leaderCard);
+    private void placePermanentLeaderCard(LeaderCard card){
+        permanentLeaderCardsPositionated.add((PermanentLeaderCard) card);
+        modifier.update((PermanentLeaderCard) card);
     }
 
     private void removeLeaderCardFromHand(){

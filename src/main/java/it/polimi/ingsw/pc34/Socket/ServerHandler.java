@@ -120,7 +120,7 @@ public class ServerHandler implements Runnable{
 			}
 			//game
 			if(fase==1){
-				if(!gameController.getCurrentPlayer().equals(username) && !line.equals("/chat") && !line.equals("/stampinfo")){
+				if(!gameController.getCurrentPlayer().equals(username) && !line.equals("/chat") && !line.equals("/stampinfo")) {
 					answer = "Non è il tuo turno!";
 				}
 				else{

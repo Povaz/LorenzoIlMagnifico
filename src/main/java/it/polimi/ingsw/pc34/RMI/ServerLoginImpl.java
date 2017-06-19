@@ -25,25 +25,11 @@ import java.util.*;
 public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     private ArrayList<UserLogin> usersLoggedRMI;
     private Lobby lobby;
-    private static ArrayList<ServerGameRMI> gamesOnGoingRMI;
 
     public ServerLoginImpl (Lobby lobby) throws RemoteException {
         this.usersLoggedRMI = new ArrayList<>();
-        gamesOnGoingRMI = new ArrayList<>();
         this.lobby = lobby;
         this.lobby.setServerRMI(this);
-    }
-
-    public ArrayList<UserLogin> getUsersLoggedRMI () {
-        return this.usersLoggedRMI;
-    }
-
-    public void flushUsersLoggedRMI() {
-        this.usersLoggedRMI.clear();
-    }
-
-    public void addServerGameRMI(ServerGameRMI serverGameRMI) {
-        gamesOnGoingRMI.add(serverGameRMI);
     }
 
     private boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
@@ -139,41 +125,11 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
 
     //INIZIO GESTIONE GAME
 
-    private ServerGameRMI searchCurrentServerGameRMI (UserLogin userLogin) throws RemoteException {
-        for (int i = 0; i < gamesOnGoingRMI.size(); i++) {
-            for (UserLogin user : gamesOnGoingRMI.get(i).getPlayersInThisGame()) {
-                if (user.getUsername().equals(userLogin.getUsername())) {
-                    return gamesOnGoingRMI.get(i);
-                }
-            }
-        }
-        return null;
-    }
-
     @Override
     public void sendInput (String input, UserLogin userLogin) throws RemoteException{
-        ServerGameRMI serverGameRMI = this.searchCurrentServerGameRMI(userLogin);
-        switch (input) {
-            case "/skip":
-                serverGameRMI.skipTurn();
-                break;
-            case "/action" :
-                if (serverGameRMI.checkCurrentPlayer(userLogin)) {
-                    if (!serverGameRMI.checkAlreadyPlaced()) {
-                        serverGameRMI.createNewAction(userLogin);
-                    }
-                    else {
-                        userLogin.sendMessage("You already placed a family member");
-                    }
-                }
-                else {
-                    userLogin.sendMessage("Just wait mate, it's not your turn, you mad?");
-                }
-                break;
-            case "/drawleadercard":
-                userLogin.sendMessage("Not Implemented yet");
-                break;
-            case "/activateleadercard":
+        //TODO COLLEGAMENTO AL GAMEFLOW
+        /*switch (input) {
+            case "/playTurn":
                 userLogin.sendMessage("Not Implemented yet");
                 break;
             case "/chat":
@@ -183,6 +139,14 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                 userLogin.sendMessage("Not implemented yet");
                 break;
             default: userLogin.sendMessage("Command Unknown");
+        }*/
+    }
+
+    public void sendMessage(Player player, String message) throws RemoteException {
+        for(int i = 0; i < usersLoggedRMI.size(); i++) {
+            if (player.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
+                usersLoggedRMI.get(i).sendMessage(message);
+            }
         }
     }
 }

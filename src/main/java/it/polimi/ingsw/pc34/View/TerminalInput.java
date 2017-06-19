@@ -187,6 +187,15 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
         return askNumber(0, leaderCardsInHand.size() - 1);
     }
 
+    public static int askWhichCardCopy(List<LeaderCard> leaderCards){
+        System.out.println("Scegli la carta da copiare: ");
+        for(int i = 0; i < leaderCards.size(); i++){
+            System.out.println(i + ".");
+            System.out.println(leaderCards.get(i).toString());
+        }
+        return askNumber(0, leaderCards.size() - 1);
+    }
+
     public static int askWhichCardActivate(List<ImmediateLeaderCard> immediateLeaderCardsPositionated){
         System.out.println("Scegli la carta da piazzare: ");
         for(int i = 0; i < immediateLeaderCardsPositionated.size(); i++){
