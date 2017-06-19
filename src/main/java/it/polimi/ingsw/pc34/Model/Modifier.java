@@ -316,57 +316,57 @@ public class Modifier{
 
 	@Override
     public String toString(){
-    	String modifierString = null;
-    	modifierString += "neutralFamilyMemberModifier : " + neutralFamilyMemberModifier + "\n"; 
-    	modifierString += "coloredFamilyMemberModifier : " + coloredFamilyMemberModifier + "\n";
-    	modifierString += "doubleFastRewardDevelopmentCard : " + doubleFastRewardDevelopmentCard + "\n";
-    	modifierString += "placeInBusyActionSpot : " +  placeInBusyActionSpot + "\n";
-    	modifierString += "permanentDice : " + permanentDice + "\n";
-    	modifierString += "permanentDiceValue : " + permanentDiceValue + "\n";
-    	modifierString += "notSatisfyMilitaryPointForTerritory : " + notSatisfyMilitaryPointForTerritory + "\n";
-    	modifierString += "notPayTollBusyTower : " + notPayTollBusyTower + "\n";
-    	modifierString += "cannotPlaceInMarket : " + cannotPlaceInMarket + "\n";
-    	modifierString += "servantValueHalved : " + servantValueHalved + "\n";
-    	modifierString += "jumpFirstRound : " + jumpFirstRound + "\n";
-    	modifierString += "notEarnVictoryPointFromTerritory : " + notEarnVictoryPointFromTerritory + "\n";
-    	modifierString += "notEarnVictoryPointFromCharacter : " + notEarnVictoryPointFromCharacter + "\n";
-    	modifierString += "notEarnVictoryPointFromVenture : " + notEarnVictoryPointFromVenture + "\n";
-    	modifierString += "loseVictoryPointFromVictoryPoint : " + loseVictoryPointFromVictoryPoint + "\n";
-    	modifierString += "loseVictoryPointFromMilitaryPoint : " + loseVictoryPointFromMilitaryPoint + "\n";
-    	modifierString += "loseVictoryPointFromBuildingCost : " + loseVictoryPointFromBuildingCost + "\n";
-    	modifierString += "loseVictoryPointFromResource : " + loseVictoryPointFromResource + "\n";
-    	modifierString += "noBonusTowerResource : " + noBonusTowerResource + "\n";
+    	StringBuilder bld = new StringBuilder();
+    	bld.append("neutralFamilyMemberModifier: " + neutralFamilyMemberModifier + "\n");
+		bld.append("coloredFamilyMemberModifier: " + coloredFamilyMemberModifier + "\n");
+		bld.append("doubleFastRewardDevelopmentCard: " + doubleFastRewardDevelopmentCard + "\n");
+		bld.append("placeInBusyActionSpot: " +  placeInBusyActionSpot + "\n");
+		bld.append("permanentDice: " + permanentDice + "\n");
+		bld.append("permanentDiceValue: " + permanentDiceValue + "\n");
+		bld.append("notSatisfyMilitaryPointForTerritory: " + notSatisfyMilitaryPointForTerritory + "\n");
+		bld.append("notPayTollBusyTower: " + notPayTollBusyTower + "\n");
+		bld.append("cannotPlaceInMarket: " + cannotPlaceInMarket + "\n");
+		bld.append("servantValueHalved: " + servantValueHalved + "\n");
+		bld.append("jumpFirstRound: " + jumpFirstRound + "\n");
+		bld.append("notEarnVictoryPointFromTerritory: " + notEarnVictoryPointFromTerritory + "\n");
+		bld.append("notEarnVictoryPointFromCharacter: " + notEarnVictoryPointFromCharacter + "\n");
+		bld.append("notEarnVictoryPointFromVenture: " + notEarnVictoryPointFromVenture + "\n");
+		bld.append("loseVictoryPointFromVictoryPoint: " + loseVictoryPointFromVictoryPoint + "\n");
+		bld.append("loseVictoryPointFromMilitaryPoint: " + loseVictoryPointFromMilitaryPoint + "\n");
+		bld.append("loseVictoryPointFromBuildingCost: " + loseVictoryPointFromBuildingCost + "\n");
+		bld.append("loseVictoryPointFromResource: " + loseVictoryPointFromResource + "\n");
+		bld.append("noBonusTowerResource: " + noBonusTowerResource + "\n");
 
-    	modifierString += "bonusChurchSupport:\n";
+		bld.append("bonusChurchSupport:\n");
     	for(Reward r : bonusChurchSupport){
-    		modifierString += "  " + r.toString() + "\n";
+			bld.append("  " + r.toString() + "\n");
 		}
 
-		modifierString += "loseRewards:\n";
+		bld.append("loseRewards:\n");
     	for(Reward r : loseRewards){
-			modifierString += "  " + r.toString() + "\n";
+			bld.append("  " + r.toString() + "\n");
 		}
 
-    	modifierString += "actionModifiers:\n";
+		bld.append("actionModifiers:\n");
     	for(ActionType aT : actionModifiers.keySet()){
-    		modifierString += "  " + aT.toString() + ": " + actionModifiers.get(aT) + "\n";
+			bld.append("  " + aT.toString() + ": " + actionModifiers.get(aT) + "\n");
 		}
 
-		modifierString += "discounts:\n";
+		bld.append("discounts:\n");
     	for(CardType cT : discounts.keySet()){
-    		modifierString += "  " + cT.toString() + ":\n";
+			bld.append("  " + cT.toString() + ":\n");
     		int i = 0;
     		for(List<Reward> l : discounts.get(cT)){
-    			modifierString += "    " + i + ".";
+				bld.append("    " + i + ".");
     			for(Reward r : l){
-    				modifierString += "  " + r.toString() + ";";
+					bld.append("  " + r.toString() + ";");
 				}
-				modifierString += "\n";
+				bld.append("\n");
 				i++;
 			}
 		}
 
-    	return modifierString;
+    	return bld.toString();
     }
 
 	public List<Reward> getLoseRewards() {

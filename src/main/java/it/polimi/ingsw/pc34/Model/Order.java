@@ -99,11 +99,10 @@ public class Order{
 	}
 
 	public String toString() {
-		String string = "";
+		StringBuilder bld = new StringBuilder();
 		for(Player p : shown){
-			string += "  " + p.getUsername() + "\n";
+			bld.append("  " + p.getUsername() + "\n");
 		}
-		string += "\n";
-		return string;
+		return bld.toString();
 	}
 }

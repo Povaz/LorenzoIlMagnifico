@@ -2,7 +2,9 @@ package it.polimi.ingsw.pc34;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.util.*;
 
 import it.polimi.ingsw.pc34.Model.*;
@@ -66,7 +68,9 @@ public class JSONUtility {
 			byte[] encryptedByte = messageDigest.digest(stringByte);
 			String encrypted = new String(encryptedByte, "UTF-8");
 			return encrypted;
-		} catch(Exception e){
+		} catch(UnsupportedEncodingException e){
+			return string;
+		} catch(NoSuchAlgorithmException e){
 			return string;
 		}
 	}
