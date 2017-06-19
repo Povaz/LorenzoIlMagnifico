@@ -36,7 +36,6 @@ public class GameController{
         this.serverSoc = serverSoc;
         this.usersSoc = serverSoc.getUsers();
         this.serverGameRMI = serverGameRMI;
-        serverLogin.setGameController(this);
         serverGameRMI.setGameController(this);
     }
     

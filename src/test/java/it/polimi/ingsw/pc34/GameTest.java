@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.RMI.ServerGameRMI;
 import it.polimi.ingsw.pc34.RMI.ServerLogin;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.RMI.UserLogin;
+import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import org.junit.Test;
@@ -27,8 +28,9 @@ public class GameTest{
 
             Lobby lobby = new Lobby();
             ServerLoginImpl serverLogin = new ServerLoginImpl(lobby);
+            ServerSOC serverSoc = new ServerSOC(1337, lobby);
             ServerGameRMI serverGameRMI = new ServerGameRMI(new ArrayList<UserLogin>());
-            Game game = new Game(usersOfThisGame, serverLogin, serverGameRMI);
+            Game game = new Game(usersOfThisGame, serverLogin, serverGameRMI, serverSoc);
             //game.startPeriod();
 
             System.out.println(Arrays.toString(game.getTerritoryCard()));

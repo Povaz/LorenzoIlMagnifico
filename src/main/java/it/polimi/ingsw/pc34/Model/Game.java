@@ -69,8 +69,7 @@ public class Game implements Runnable{
         this.board = new Board(players);
         initializePlayersRewards();
         this.serverSoc = serverSoc;
-        this.gameController = new GameController(this, serverLogin, serverGameRMI);
-         this.gameController = new GameController(this, serverLogin, serverSoc);
+        this.gameController = new GameController(this, serverLogin, serverGameRMI, serverSoc);
         initializeLeaderCards();
         initializePersonalBonusTile();
         initializeLeaderCards();
