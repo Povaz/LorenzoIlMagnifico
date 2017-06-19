@@ -349,5 +349,4 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         return familyColor;
     }
 
-
 }

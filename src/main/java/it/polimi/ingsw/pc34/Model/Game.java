@@ -32,6 +32,7 @@ public class Game implements Runnable{
     private int[] ventureCard;
 
     private ServerLoginImpl serverLogin;
+    private ServerSOC serverSoc;
 
     public void run(){
         try {
@@ -52,7 +53,7 @@ public class Game implements Runnable{
         }
     }
 
-    public Game(Map<String, ConnectionType> usersOfThisGame, ServerLoginImpl serverLogin) {
+    public Game(Map<String, ConnectionType> usersOfThisGame, ServerLoginImpl serverLogin, ServerSOC serverSoc) {
         this.turn = 1;
         this.period = 1;
         this.usernames = new ArrayList<>(); //TODO Eliminazione usernames --> riferimenti a player
@@ -61,7 +62,8 @@ public class Game implements Runnable{
         this.players = initializePlayers(usersOfThisGame);
         this.board = new Board(players);
         initializePlayersRewards();
-        this.gameController = new GameController(this, serverLogin);
+        this.gameController = new GameController(this, serverLogin, serverSoc);
+        this.serverSoc = serverSoc;
         ServerSOC.setGameControllerSoc(this.gameController);
     }
 

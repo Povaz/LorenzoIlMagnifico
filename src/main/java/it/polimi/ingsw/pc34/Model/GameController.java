@@ -6,6 +6,8 @@ import it.polimi.ingsw.pc34.RMI.ActionInputCreated;
 import it.polimi.ingsw.pc34.RMI.FamilyColorCreated;
 import it.polimi.ingsw.pc34.RMI.IntegerCreated;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.Socket.ServerHandler;
+import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.View.TerminalInput;
 
 import java.rmi.RemoteException;
@@ -18,19 +20,27 @@ public class GameController{
     private final Board board;
     private final List<Player> players;
     private ServerLoginImpl serverLogin;
+    private ServerSOC serverSoc;
     private String currentPlayer;
+    private ArrayList<ServerHandler> usersSoc;
     
     private ActionInputCreated actionInputCreated;
     private IntegerCreated integerCreated;
     private FamilyColorCreated familyColorCreated;
 
-    public GameController(Game game, ServerLoginImpl serverLogin) {
+    public GameController(Game game, ServerLoginImpl serverLogin, ServerSOC serverSoc) {
         Thread threadGame = new Thread (game);
         threadGame.start();
         this.board = game.getBoard();
         this.players = game.getPlayers();
         this.serverLogin = serverLogin;
+        this.serverSoc = serverSoc;
+        this.usersSoc = serverSoc.getUsers();
         serverLogin.setGameController(this);
+    }
+    
+    public int getNumberPlayers(){
+    	return board.getPlayerNumber();
     }
     
     public String getCurrentPlayer(){
@@ -45,7 +55,9 @@ public class GameController{
         this.integerCreated = integerCreated;
     }
 
-    public void setFamilyColorCreated (FamilyColorCreated familyColorCreated) {this.familyColorCreated = familyColorCreated;}
+    public void setFamilyColorCreated (FamilyColorCreated familyColorCreated) {
+    	this.familyColorCreated = familyColorCreated;
+    }
 
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo = 0;
@@ -57,9 +69,15 @@ public class GameController{
                 System.out.println("Action chosen: " + whatToDo);
                 break;
             case SOCKET:
-                //Insert serverSocket
             	currentPlayer = player.getUsername();
-                break;
+            	for (ServerHandler user : usersSoc){
+            		if(user.getName().equals(currentPlayer)){
+            			user.getGameFlow().askNumber(0,3);
+            		}
+            	}
+            	whatToDo = integerCreated.get();
+            	System.out.println("Action chosen: " + whatToDo);
+            	break;
         }
         return whatToDo;
     }
@@ -73,8 +91,14 @@ public class GameController{
                 System.out.println("Action Input chosen: " + actionInput.toString());
                 break;
             case SOCKET:
-                //Azione chiamata sul ServerSocket
-                break;
+               for (ServerHandler user : usersSoc){
+            		if(user.getName().equals(currentPlayer)){
+            			user.getGameFlow().askAction();
+            		}
+               }
+               actionInput = actionInputCreated.get();
+               System.out.println("Action Input chosen: " + actionInput.toString());
+               break;
         }
         if(actionInput == null) {
             return null;
@@ -109,6 +133,12 @@ public class GameController{
                 familyColor = familyColorCreated.get();
                 break;
             case SOCKET:
+            	for (ServerHandler user : usersSoc){
+            		if(user.getName().equals(currentPlayer)){
+            			user.getGameFlow().askFamilyColor();
+            		}
+            	}
+            	familyColor = familyColorCreated.get();
                 break;
         }
         int servant = 0;
@@ -120,7 +150,12 @@ public class GameController{
                         servant = integerCreated.get();
                         break;
                     case SOCKET:
-                        //fm.setServantUsed(new Reward(RewardType.SERVANT, servant));
+                    	for (ServerHandler user : usersSoc){
+                    		if(user.getName().equals(currentPlayer)){
+                    			user.getGameFlow().askNumberMinMax(0,10);
+                    		}
+                    	}
+                    	servant = integerCreated.get();
                         break;
                 }
                 fM.setServantUsed(new Reward(RewardType.SERVANT, servant));

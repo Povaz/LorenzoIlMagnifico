@@ -212,7 +212,6 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
         }
     }
 
-
     public static ActionInput chooseAction(int playerNumber, int choose) {
         ActionInput actionInput = new ActionInput();
         boolean correct = false;
@@ -297,7 +296,6 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
         }
         return actionInput;
     }
-
 
     public static Trade chooseTrade (BuildingCard buildingCard) {
         while (true) {

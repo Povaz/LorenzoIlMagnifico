@@ -22,6 +22,7 @@ public class ServerHandler implements Runnable{
 	private Lobby lobby;
 	private ServerSOC serverSoc;
 	private GameController gameController;
+	private Integer numberPlayers;
 	
 	public ServerHandler(Socket socket, Lobby lobby, ServerSOC serverSoc){
 		this.socket = socket;
@@ -45,6 +46,7 @@ public class ServerHandler implements Runnable{
 	
 	public void setGameController(GameController gameController){
 		this.gameController= gameController;
+		gameFlow.setController(gameController);
 	}
 	
 	public void setName(String username){
@@ -57,6 +59,10 @@ public class ServerHandler implements Runnable{
 	
 	public Socket getSocket(){
 		return socket;
+	}
+	
+	public GameFlow getGameFlow(){
+		return gameFlow;
 	}
 	
 	private void sendToClient(String message) throws IOException{
@@ -118,6 +124,10 @@ public class ServerHandler implements Runnable{
 					answer = "Non è il tuo turno!";
 				}
 				else{
+					if(numberPlayers==null){
+						numberPlayers=gameController.getNumberPlayers();
+						gameFlow.setPlayerNumber(numberPlayers);
+					}
 					answer = toGameHandler(line);
 				}
 				try {

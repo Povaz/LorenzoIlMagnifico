@@ -36,6 +36,10 @@ public class ServerSOC implements Runnable {
         this.counter = 0;
 	}
 
+	public ArrayList<ServerHandler> getUsers(){
+		return utenti;
+	}
+	
 	public void run() {
 		
 		try {
