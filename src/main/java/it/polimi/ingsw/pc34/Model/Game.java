@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.Action.*;
@@ -265,8 +266,10 @@ public class Game implements Runnable{
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(current.getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
+                    current.putFirst_State(PlayerState.PLAY_TURN);
                     switch(gameController.getWhatToDo(current)){
                         case 0:
+                            current.putSecond_State(PlayerState.ACTION);
                             if(!current.isPlacedFamilyMember()){
                                 actionSpot = gameController.getViewActionSpot(current);
                                 familyMember = gameController.getViewFamilyMember(current);
@@ -276,27 +279,32 @@ public class Game implements Runnable{
                             }
                             else{
                                 gameController.sendMessage(current, "You have already placed a family member!");
+                                current.putSecond_State(PlayerState.ACTION);
                             }
                             break;
                         case 1:
+                            current.putSecond_State(PlayerState.PLACE_LEADER_CARD);
                             PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
                             if(placeLeaderCard.canDoAction()){
                                 placeLeaderCard.doAction();
                             }
                             break;
                         case 2:
+                            current.putSecond_State(PlayerState.ACTIVATE_LEADER_CARD);
                             ActivateImmediateLeaderCard activateImmediateLeaderCard = new ActivateImmediateLeaderCard(this, current);
                             if(activateImmediateLeaderCard.canDoAction()){
                                 activateImmediateLeaderCard.doAction();
                             }
                             break;
                         case 3:
+                            current.putSecond_State(PlayerState.EXCHANGE_LEADER_CARD);
                             ChangeLeaderCardInReward changeLeaderCardInReward = new ChangeLeaderCardInReward(this, current);
                             if(changeLeaderCardInReward.canDoAction()){
                                 changeLeaderCardInReward.doAction();
                             }
                             break;
                         case 4:
+                            current.putFirst_State(PlayerState.WAITING);
                             current.setYourTurn(false);
                             break;
                         default:
@@ -304,7 +312,7 @@ public class Game implements Runnable{
                     }
                 } while(current.isYourTurn());
             } catch(TooMuchTimeException e){
-                gameController.sendMessage(current, "Timout scaduto");
+                gameController.sendMessage(current, "Timeout expired");
                 // TODO addTimer
             }
             current.setYourTurn(false);

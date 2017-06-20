@@ -4,6 +4,7 @@ import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 
 import java.util.List;
+import java.util.function.IntToDoubleFunction;
 
 /**
  * Created by trill on 30/05/2017.
@@ -16,10 +17,14 @@ public class Player{
     private boolean isYourTurn = false;
     private boolean placedFamilyMember = false;
 
-    public PlayerState first_state;
-    public PlayerState second_state;
-    public PlayerState third_state;
-    public PlayerState fourth_state;
+    private PlayerState first_state;
+    public boolean firstStateAvailable = false;
+    private PlayerState second_state;
+    public boolean secondStateAvailable = false;
+    private PlayerState third_state;
+    public boolean thirdStateAvailable = false;
+    private PlayerState fourth_state;
+    public boolean fourthStateAvailable = false;
 
 
     public Player(String username, ConnectionType connectionType, PlayerColor color){
@@ -74,5 +79,109 @@ public class Player{
 
     public void setPlacedFamilyMember(boolean placedFamilyMember){
         this.placedFamilyMember = placedFamilyMember;
+    }
+
+    public synchronized PlayerState getFirst_state() {
+        while (firstStateAvailable == false) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();;
+            }
+        }
+        firstStateAvailable = false;
+        notifyAll();
+        return first_state;
+    }
+
+    public synchronized PlayerState getSecond_state() {
+        while (secondStateAvailable == false) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        secondStateAvailable = false;
+        notifyAll();
+        return second_state;
+    }
+
+    public synchronized PlayerState getThird_state() {
+        while (thirdStateAvailable == false) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        thirdStateAvailable = false;
+        notifyAll();
+        return third_state;
+    }
+
+    public synchronized PlayerState getFourth_state () {
+        while (fourthStateAvailable == false) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        fourthStateAvailable = false;
+        notifyAll();
+        return fourth_state;
+    }
+
+    public synchronized void putFirst_State(PlayerState first_state) {
+        while (firstStateAvailable == true) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        this.first_state = first_state;
+        firstStateAvailable = true;
+        notifyAll();
+    }
+
+    public synchronized void putSecond_State(PlayerState second_state) {
+        while (secondStateAvailable == true) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        this.second_state = second_state;
+        secondStateAvailable = true;
+        notifyAll();
+    }
+
+    public synchronized void putThird_State(PlayerState third_state) {
+        while (thirdStateAvailable == true) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        this.third_state = third_state;
+        thirdStateAvailable = true;
+        notifyAll();
+    }
+
+    public synchronized void putFourth_State(PlayerState fourth_state) {
+        while(fourthStateAvailable = true) {
+            try {
+                wait();
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+        }
+        this.fourth_state = fourth_state;
+        fourthStateAvailable = true;
+        notifyAll();
     }
 }
