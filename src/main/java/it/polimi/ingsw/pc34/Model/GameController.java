@@ -310,7 +310,7 @@ public class GameController{
 		    				case EXCHANGE_COUNCIL_PRIVILEGE :
 		    				case CHOOSE_TRADE :
 		    				case ASK_WHICH_DISCOUNT :
-		    				case WANT_TO_PAY_MILITARY_POINT :
+		    				case PAY_WITH_MILITARY_POINT :
 		    				default:
 		    					return "State not handled";
 	        			}
