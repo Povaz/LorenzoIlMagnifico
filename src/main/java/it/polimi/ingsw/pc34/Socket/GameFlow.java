@@ -112,6 +112,10 @@ public class GameFlow {
         */
     }
 	
+	public static setPlayerPlayUrTurn{
+		game.setCurrentPlayerIsTurn;
+	}
+	
 	public String flow (String asked){
 		if (asked.equals("/chat")){
 			//PUO' ENTRARE SOLO SE E' IL FLOW ACTION E' FALSE

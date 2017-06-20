@@ -23,6 +23,8 @@ public class ServerHandler implements Runnable{
 	private ServerSOC serverSoc;
 	private GameController gameController;
 	private Integer numberPlayers;
+	private String stateGame;
+	
 	
 	public ServerHandler(Socket socket, Lobby lobby, ServerSOC serverSoc){
 		this.socket = socket;
@@ -30,6 +32,7 @@ public class ServerHandler implements Runnable{
 		this.lobby = lobby;
 		this.lobbyFlow = new LobbyFlow(lobby, serverSoc, this);
 		this.serverSoc = serverSoc;
+		this.stateGame = null;
 	}
 	
 	public void setFase(int fase){
@@ -66,6 +69,10 @@ public class ServerHandler implements Runnable{
 	}
 	
 	private void sendToClient(String message) throws IOException{
+		if(message.equals("Action has been executed")){
+			stateGame = null;
+			message += message + " Insert new command: /playturn, /chat, /stampinfo";
+		}
 		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
 		socketOut.println(message);
 		socketOut.flush();
@@ -85,7 +92,7 @@ public class ServerHandler implements Runnable{
 	}
 	
 	private String toGameHandler(String asked){
-		String answer=gameFlow.flow(asked);
+		String answer=gameController.flow(asked, username);
 		return answer;
 	}
 	
@@ -120,15 +127,40 @@ public class ServerHandler implements Runnable{
 			}
 			//game
 			if(fase==1){
-				if(!gameController.getCurrentPlayer().equals(username) && !line.equals("/chat") && !line.equals("/stampinfo")) {
-					answer = "Non è il tuo turno!";
-				}
-				else{
-					if(numberPlayers==null){
-						numberPlayers=gameController.getNumberPlayers();
-						gameFlow.setPlayerNumber(numberPlayers);
+				if(stateGame==null){
+					switch (line){
+						case "/playturn" :
+							answer = toGameHandler(line);
+							if(answer.equals("What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip")){
+								stateGame = line;
+							}
+							break;
+						case "/chat" :
+							answer = "Insert a message : ";
+							stateGame = line;
+							break;
+						//SI PUO' METTERE ANCHE FUORI
+						case "/stampinfo" : 
+							answer = toStampInfoHandler(line);
+							break;
+						
 					}
-					answer = toGameHandler(line);
+				}
+				else {
+					switch (stateGame){
+						case "/playturn" :
+							answer = toGameHandler(line);
+							//LE CONFERME DEL CAMBIO DI STATO DA SERVER HANDLER LE SI DEVONO GESTIRE DA GAME
+							break;
+						case "/chat" : 
+							answer = toChatHandler(line);
+							stateGame = null;
+							break;
+						//PROBLEMA STATE GAME PER ENTRARE NEL CASE VATICAN SUPPORT DEVE ESSERE SETTATO DA GAME
+						case "/vaticansupport" :
+							answer = toGameHandler(line);
+							break;
+					}
 				}
 				try {
 					sendToClient(answer);
