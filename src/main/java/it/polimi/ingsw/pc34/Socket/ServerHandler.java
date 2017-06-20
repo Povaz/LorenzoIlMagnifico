@@ -17,7 +17,6 @@ public class ServerHandler implements Runnable{
 	private Socket socket;
 	private int fase; 
 	private LobbyFlow lobbyFlow;
-	private GameFlow gameFlow;
 	private String username;
 	private Lobby lobby;
 	private ServerSOC serverSoc;
@@ -37,8 +36,7 @@ public class ServerHandler implements Runnable{
 	
 	public void setFase(int fase){
 		this.fase = fase;
-		if(fase==1 && gameFlow == null){
-			gameFlow = new GameFlow();
+		if(fase==1){
 			try {
 				sendToClient("Type: /action for an Action;  /skip to skip this turn  /drawleadercard to use a LeaderCard  /activateleadercard to activate a Leader Card  /chat to send message;  /stampinfo to stamp info");
 			} catch (IOException e) {
@@ -49,7 +47,6 @@ public class ServerHandler implements Runnable{
 	
 	public void setGameController(GameController gameController){
 		this.gameController= gameController;
-		gameFlow.setController(gameController);
 	}
 	
 	public void setName(String username){
@@ -62,10 +59,6 @@ public class ServerHandler implements Runnable{
 	
 	public Socket getSocket(){
 		return socket;
-	}
-	
-	public GameFlow getGameFlow(){
-		return gameFlow;
 	}
 	
 	private void sendToClient(String message) throws IOException{
@@ -141,7 +134,7 @@ public class ServerHandler implements Runnable{
 							break;
 						//SI PUO' METTERE ANCHE FUORI
 						case "/stampinfo" : 
-							answer = toStampInfoHandler(line);
+							//answer = toStampInfoHandler(line);
 							break;
 						
 					}
@@ -153,7 +146,7 @@ public class ServerHandler implements Runnable{
 							//LE CONFERME DEL CAMBIO DI STATO DA SERVER HANDLER LE SI DEVONO GESTIRE DA GAME
 							break;
 						case "/chat" : 
-							answer = toChatHandler(line);
+							answer = //toChatHandler(line);
 							stateGame = null;
 							break;
 						//PROBLEMA STATE GAME PER ENTRARE NEL CASE VATICAN SUPPORT DEVE ESSERE SETTATO DA GAME
