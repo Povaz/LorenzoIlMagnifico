@@ -2,7 +2,6 @@ package it.polimi.ingsw.pc34.Model.Action;
 
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
-import it.polimi.ingsw.pc34.View.TerminalInput;
 
 import java.rmi.RemoteException;
 import java.util.List;
@@ -34,11 +33,11 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
 
     public boolean canDoAction() throws TooMuchTimeException, RemoteException{
         if(immediateLeaderCardsPositionated.isEmpty()){
-            game.getGameController().sendMessage(player, "You don't have any leader card placed!");
+            game.getGameController().sendMessageCLI(player, "You don't have any leader card placed!");
             return false;
         }
 
-        leaderCard = game.getGameController().askWhichCardActivate(immediateLeaderCardsPositionated, player);
+        leaderCard = game.getGameController().askWhichImmediateCardActivate(immediateLeaderCardsPositionated, player);
 
         if(leaderCard.isActivated()){
             return false;
@@ -114,7 +113,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
             System.out.println(fM.getAction() + ":  " + fM.getValue());
             actionSpot = game.getGameController().getViewActionSpot(player);
             if(actionSpot != null){
-                fM.setServantUsed(game.getGameController().askNumberOfServant(player));
+                fM.setServantUsed(new Reward(RewardType.SERVANT, game.getGameController().getHowManyServants(player)));
             }
         } while(!(game.placeFamilyMember(fM, actionSpot)));
     }

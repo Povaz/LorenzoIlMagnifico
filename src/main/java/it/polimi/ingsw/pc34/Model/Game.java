@@ -4,7 +4,6 @@ import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.Action.*;
-import it.polimi.ingsw.pc34.RMI.ServerGameRMI;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
@@ -226,13 +225,13 @@ public class Game implements Runnable{
         }
     }
 
-    private void endPeriod(){
+    private void endPeriod() throws RemoteException{
         churchSupport();
         period++;
         turn = 1;
     }
 
-    private void churchSupport(){
+    private void churchSupport() throws RemoteException{
         VaticanReportSpot vaticanReportSpot = board.getVaticanReportSpot().get(period - 1);
         for(Player p : board.getOrder().getShown()){
             SupportVatican supportVatican = new SupportVatican(this, p, vaticanReportSpot);
@@ -271,14 +270,16 @@ public class Game implements Runnable{
                         case 0:
                             current.putSecond_State(PlayerState.ACTION);
                             if(!current.isPlacedFamilyMember()){
+                                current.putThird_State(PlayerState.ACTION_INPUT);
                                 actionSpot = gameController.getViewActionSpot(current);
+                                current.putThird_State(PlayerState.FAMILY_MEMBER);
                                 familyMember = gameController.getViewFamilyMember(current);
                                 if(placeFamilyMember(familyMember, actionSpot)){
                                     current.setPlacedFamilyMember(true);
                                 }
                             }
                             else{
-                                gameController.sendMessage(current, "You have already placed a family member!");
+                                gameController.sendMessageCLI(current, "You have already placed a family member!");
                                 current.putSecond_State(PlayerState.ACTION);
                             }
                             break;
@@ -312,7 +313,7 @@ public class Game implements Runnable{
                     }
                 } while(current.isYourTurn());
             } catch(TooMuchTimeException e){
-                gameController.sendMessage(current, "Timeout expired");
+                gameController.sendMessageCLI(current, "Timeout expired");
                 // TODO addTimer
             }
             current.setYourTurn(false);

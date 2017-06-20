@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pc34.Model;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 public class HarvestArea extends ActionSpot{
@@ -23,7 +22,7 @@ public class HarvestArea extends ActionSpot{
             if (familyMember.getAction() != null){
                 if (familyMember.getAction() != ActionType.HARVEST && familyMember.getAction() != ActionType.ALL){
                     try {
-                        gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+                        gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
                     }
                     catch (RemoteException e) {
                         e.printStackTrace();
@@ -39,7 +38,7 @@ public class HarvestArea extends ActionSpot{
                     if(familyMember.samePlayer(f)){
                         if(f.getColor() != FamilyColor.NEUTRAL){
                             try {
-                                gameController.sendMessage(familyMember.getPlayer(), "There is already one of yours colored family member in the harvest area!");
+                                gameController.sendMessageCLI(familyMember.getPlayer(), "There is already one of yours colored family member in the harvest area!");
                             }
                             catch (RemoteException e) {
                                 e.printStackTrace();

@@ -1,10 +1,7 @@
 package it.polimi.ingsw.pc34;
 
 import it.polimi.ingsw.pc34.Model.Game;
-import it.polimi.ingsw.pc34.RMI.ServerGameRMI;
-import it.polimi.ingsw.pc34.RMI.ServerLogin;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
-import it.polimi.ingsw.pc34.RMI.UserLogin;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;

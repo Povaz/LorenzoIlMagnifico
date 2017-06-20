@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
+import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
@@ -26,7 +27,9 @@ public class GameController{
     private ActionInputCreated actionInputCreated;
     private IntegerCreated integerCreated;
     private FamilyColorCreated familyColorCreated;
+    private BooleanCreated booleanCreated;
     private ArrayIntegerCreated arrayIntegerCreated;
+    private TradeCreated tradeCreated;
 
     public GameController(Game game, ServerLoginImpl serverLoginImpl, ServerSOC serverSoc) {
         Thread threadGame = new Thread (game);
@@ -58,10 +61,10 @@ public class GameController{
     	this.familyColorCreated = familyColorCreated;
     }
 
-    public void sendMessage(Player player, String message) throws RemoteException {
+    public void sendMessageCLI(Player player, String message) throws RemoteException {
         switch(player.getConnectionType()){
             case RMI:
-                //serverGameRMI.sendMessage(player, message); //TODO
+                serverLoginImpl.sendMessage(player, message);
                 System.out.println(message);
                 break;
             case SOCKET:
@@ -71,47 +74,27 @@ public class GameController{
         }
     }
 
-    public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
-        int whatToDo = 0;
-        //serverGameRMI.setCurrentPlayer(player);
-        switch(player.getConnectionType()) {
+    /*public void sendMessageGUI(Player player, String message) throws RemoteException {
+        switch(player.getConnectionType()){
             case RMI:
-                //serverGameRMI.askNumberMinMax(0,4);
-                whatToDo = integerCreated.get();
-                System.out.println("Action chosen: " + whatToDo);
+                serverLoginImpl.sendMessage(player, message);
+                System.out.println(message);
                 break;
             case SOCKET:
-            	currentPlayer = player.getUsername();
-            	for (ServerHandler user : usersSoc){
-            		if(user.getName().equals(currentPlayer)){
-            			user.getGameFlow().askNumber(0,3);
-            		}
-            	}
-            	whatToDo = integerCreated.get();
-            	System.out.println("Action chosen: " + whatToDo);
-            	break;
+                // TODO tom :P
+                System.out.println(message);
+                break;
         }
+    }*/
+
+    public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
+        int whatToDo;
+        whatToDo = integerCreated.get();
         return whatToDo;
     }
 
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
-        ActionInput actionInput = new ActionInput();
-        switch(player.getConnectionType()) {
-            case RMI:
-                //serverGameRMI.askAction(board.getPlayerNumber());
-                actionInput = actionInputCreated.get();
-                System.out.println("Action Input chosen: " + actionInput.toString());
-                break;
-            case SOCKET:
-               for (ServerHandler user : usersSoc){
-            		if(user.getName().equals(currentPlayer)){
-            			user.getGameFlow().askAction();
-            		}
-               }
-               actionInput = actionInputCreated.get();
-               System.out.println("Action Input chosen: " + actionInput.toString());
-               break;
-        }
+        ActionInput actionInput = actionInputCreated.get();
         if(actionInput == null) {
             return null;
         }
@@ -138,51 +121,22 @@ public class GameController{
     }
 
     public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException{
-        FamilyColor familyColor = FamilyColor.NEUTRAL;
-        switch(player.getConnectionType()) {
-            case RMI:
-                //serverGameRMI.askFamilyColor();
-                familyColor = familyColorCreated.get();
-                break;
-            case SOCKET:
-            	for (ServerHandler user : usersSoc){
-            		if(user.getName().equals(currentPlayer)){
-            			user.getGameFlow().askFamilyColor();
-            		}
-            	}
-            	familyColor = familyColorCreated.get();
-                break;
-        }
+        FamilyColor familyColor = familyColorCreated.get();
         int servant = 0;
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
             if(fM.getColor() == familyColor) {
-                switch(player.getConnectionType()) {
-                    case RMI:
-                        //serverGameRMI.askNumberMinMax(0,10);
-                        servant = integerCreated.get();
-                        break;
-                    case SOCKET:
-                    	for (ServerHandler user : usersSoc){
-                    		if(user.getName().equals(currentPlayer)){
-                    			user.getGameFlow().askNumberMinMax(0,10);
-                    		}
-                    	}
-                    	servant = integerCreated.get();
-                        break;
-                }
-                fM.setServantUsed(new Reward(RewardType.SERVANT, servant));
-                return fM;
+                servant = getHowManyServants(player);
             }
+            fM.setServantUsed(new Reward(RewardType.SERVANT, servant));
+            return fM;
         }
         return null;
     }
 
-    public Reward askNumberOfServant(Player player){
-        return new Reward(RewardType.SERVANT, TerminalInput.askNumberOfServant());
-    }
-
-    public void setArrayIntegerCreated (ArrayIntegerCreated arrayIntegerCreated) {
-        this.arrayIntegerCreated = arrayIntegerCreated;
+    public int getHowManyServants (Player player) {
+        player.putThird_State(PlayerState.SERVANTS);
+        int index = integerCreated.get();
+        return index;
     }
 
     public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{
@@ -195,15 +149,8 @@ public class GameController{
                 newRewards.add(r);
             }
             else{
-                int[] rewardArray = TerminalInput.exchangeCouncilPrivilege(r);
-                switch (player.getConnectionType()) {
-                    case RMI:
-                        //serverGameRMI.askArrayInt();
-                        rewardArray = arrayIntegerCreated.get();
-                        break;
-                    case SOCKET:
-                        break;
-                }
+                player.putThird_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
+                int[] rewardArray = rewardArray = arrayIntegerCreated.get();
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
                         case 1:
@@ -233,35 +180,46 @@ public class GameController{
     }
 
     public FamilyColor chooseFamilyMemberColorNotNeutral(Player player){
-        return TerminalInput.chooseFamilyMemberColorNotNeutral();
+        player.putThird_State(PlayerState.FAMILY_MEMBER);
+        return familyColorCreated.get();
     }
 
-    public LeaderCard askWhichCardChange(List<LeaderCard> leaderCardsInHand, Player player){
-        int index =  TerminalInput.askWhichCardChange(leaderCardsInHand);
+    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws RemoteException {
+        String message = "";
+        for (int i = 0; i < leaderCardsInHand.size(); i++) {
+            message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
+        }
+        this.sendMessageCLI(player, message);
+        int index = integerCreated.get();
         return leaderCardsInHand.get(index);
     }
 
-    public LeaderCard askWhichCardPlace(List<LeaderCard> leaderCardsInHand, Player player){
-        int index = TerminalInput.askWhichCardPlace(leaderCardsInHand);
+    public ImmediateLeaderCard askWhichImmediateCardActivate(List<ImmediateLeaderCard> leaderCardsInHand, Player player) throws RemoteException {
+        String message = "";
+        for (int i = 0; i < leaderCardsInHand.size(); i++) {
+            message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
+        }
+        this.sendMessageCLI(player, message);
+        int index = integerCreated.get();
         return leaderCardsInHand.get(index);
     }
 
-    public LeaderCard askWhichCardCopy(List<LeaderCard> leaderCards, Player player){
-        int index = TerminalInput.askWhichCardCopy(leaderCards);
-        return leaderCards.get(index);
+    public boolean wantToSupportVatican(Player player) throws RemoteException{
+        String message = "Do you support Vatican?";
+        this.sendMessageCLI(player, message);
+        boolean choose = booleanCreated.get();
+        return  choose;
     }
 
-    public ImmediateLeaderCard askWhichCardActivate(List<ImmediateLeaderCard> immediateLeaderCardsPositionated, Player player){
-        int index = TerminalInput.askWhichCardActivate(immediateLeaderCardsPositionated);
-        return immediateLeaderCardsPositionated.get(index);
-    }
-
-    public boolean wantToSupportVatican(Player player){
-        return  TerminalInput.wantToSupportVatican();
-    }
-
-    public Trade chooseTrade(BuildingCard buildingCard, Player player){
-        return TerminalInput.chooseTrade(buildingCard);
+    public Trade chooseTrade(BuildingCard buildingCard, Player player) throws RemoteException{
+        String message = "";
+        for (int i = 0; i < buildingCard.getTrades().size(); i++) {
+            message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
+        }
+        this.sendMessageCLI(player, message);
+        player.putThird_State(PlayerState.CHOOSE_TRADE);
+        Trade trade = tradeCreated.get();
+        return trade;
     }
 
     public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player){

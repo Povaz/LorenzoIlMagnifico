@@ -127,8 +127,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
 
     @Override
     public void sendInput (String input, UserLogin userLogin) throws RemoteException{
-        //TODO COLLEGAMENTO AL GAMEFLOW
-        /*switch (input) {
+        switch (input) {
             case "/playTurn":
                 userLogin.sendMessage("Not Implemented yet");
                 break;
@@ -139,7 +138,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
                 userLogin.sendMessage("Not implemented yet");
                 break;
             default: userLogin.sendMessage("Command Unknown");
-        }*/
+        }
     }
 
     public void sendMessage(Player player, String message) throws RemoteException {

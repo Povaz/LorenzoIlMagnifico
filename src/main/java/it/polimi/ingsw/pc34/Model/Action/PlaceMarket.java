@@ -3,7 +3,6 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.Set;
 
@@ -38,7 +37,7 @@ public class PlaceMarket implements CommandPattern{
 
     public boolean canDoAction() throws TooMuchTimeException, RemoteException{
         if(modifier.isCannotPlaceInMarket()){
-            game.getGameController().sendMessage(player, "You cannot place in the market!");
+            game.getGameController().sendMessageCLI(player, "You cannot place in the market!");
             return false;
         }
 
@@ -62,7 +61,7 @@ public class PlaceMarket implements CommandPattern{
     private boolean haveEnoughServant() throws RemoteException{
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
-            game.getGameController().sendMessage(player, "You don't have enough servant!");
+            game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
             return false;
         }
         return true;

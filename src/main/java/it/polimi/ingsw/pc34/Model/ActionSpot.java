@@ -50,15 +50,15 @@ public abstract class ActionSpot {
 
 	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws RemoteException{
 		if(familyMember.isUsed()){
-			gameController.sendMessage(familyMember.getPlayer(), "This family member is alreay used!");
+			gameController.sendMessageCLI(familyMember.getPlayer(), "This family member is alreay used!");
 			return false;
 		}
 		if(busy && !canPlaceInBusyActionSpot){
-			gameController.sendMessage(familyMember.getPlayer(), "This action spot is busy!");
+			gameController.sendMessageCLI(familyMember.getPlayer(), "This action spot is busy!");
 			return false;
 		}
 		if(diceValue > familyMember.getValue() + familyMember.getServantUsed().getQuantity()){
-			gameController.sendMessage(familyMember.getPlayer(), "Your family member's value is too low!");
+			gameController.sendMessageCLI(familyMember.getPlayer(), "Your family member's value is too low!");
 			return false;
 		}
 		return true;

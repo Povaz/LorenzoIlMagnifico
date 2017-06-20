@@ -2,7 +2,6 @@ package it.polimi.ingsw.pc34.Model.Action;
 
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
-import it.polimi.ingsw.pc34.View.TerminalInput;
 
 import java.rmi.RemoteException;
 import java.util.HashSet;
@@ -66,7 +65,7 @@ public class Produce {
     private boolean haveEnoughServant() throws RemoteException{
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
-            game.getGameController().sendMessage(player, "You don't have enough servant!");
+            game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
             return false;
         }
         return true;
@@ -112,11 +111,11 @@ public class Produce {
             }
         }
         if(!copyForCosts.check()){
-            game.getGameController().sendMessage(player, "You don't have enough resources to do all the trades!");
+            game.getGameController().sendMessageCLI(player, "You don't have enough resources to do all the trades!");
             return false;
         }
         if(!newCounter.check()){
-            game.getGameController().sendMessage(player, "You don't have enough resources to do all the trades!");
+            game.getGameController().sendMessageCLI(player, "You don't have enough resources to do all the trades!");
             return false;
         }
         return true;

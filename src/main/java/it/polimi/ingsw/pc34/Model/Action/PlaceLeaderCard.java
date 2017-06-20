@@ -36,11 +36,11 @@ public class PlaceLeaderCard implements CommandPattern{
 
     public boolean canDoAction() throws TooMuchTimeException, RemoteException{
         if(leaderCardsInHand.isEmpty()){
-            game.getGameController().sendMessage(player, "You don't have any leader card in your hand!");
+            game.getGameController().sendMessageCLI(player, "You don't have any leader card in your hand!");
             return false;
         }
 
-        leaderCard = game.getGameController().askWhichCardPlace(leaderCardsInHand, player);
+        leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player);
 
         if(!haveEnoughRewardToActive()){
             return false;
@@ -61,7 +61,7 @@ public class PlaceLeaderCard implements CommandPattern{
     private boolean haveEnoughRewardToActive() throws RemoteException{
         newCounter.subtract(leaderCard.getActivationRewardCost());
         if(!newCounter.check()){
-            game.getGameController().sendMessage(player, "You don't have enough resources to place the leader card!");
+            game.getGameController().sendMessageCLI(player, "You don't have enough resources to place the leader card!");
             return false;
         }
         return true;
@@ -73,25 +73,25 @@ public class PlaceLeaderCard implements CommandPattern{
             switch(cT){
                 case TERRITORY:
                     if(player.getPlayerBoard().getTerritorySpot().getCards().size() < cardNeeded.get(cT)){
-                        game.getGameController().sendMessage(player, "You don't have enough territory card to place the leader card!");
+                        game.getGameController().sendMessageCLI(player, "You don't have enough territory card to place the leader card!");
                         return false;
                     }
                     break;
                 case BUILDING:
                     if(player.getPlayerBoard().getBuildingSpot().getCards().size() < cardNeeded.get(cT)){
-                        game.getGameController().sendMessage(player, "You don't have enough building card to place the leader card!");
+                        game.getGameController().sendMessageCLI(player, "You don't have enough building card to place the leader card!");
                         return false;
                     }
                     break;
                 case CHARACTER:
                     if(player.getPlayerBoard().getCharacterSpot().getCards().size() < cardNeeded.get(cT)){
-                        game.getGameController().sendMessage(player, "You don't have enough character card to place the leader card!");
+                        game.getGameController().sendMessageCLI(player, "You don't have enough character card to place the leader card!");
                         return false;
                     }
                     break;
                 case VENTURE:
                     if(player.getPlayerBoard().getVentureSpot().getCards().size() < cardNeeded.get(cT)){
-                        game.getGameController().sendMessage(player, "You don't have enough venture card to place the leader card!");
+                        game.getGameController().sendMessageCLI(player, "You don't have enough venture card to place the leader card!");
                         return false;
                     }
                     break;
@@ -110,7 +110,7 @@ public class PlaceLeaderCard implements CommandPattern{
                         enoughCard = true;
                     }
                     if(!enoughCard){
-                        game.getGameController().sendMessage(player, "You don't have enough card to place the leader card!");
+                        game.getGameController().sendMessageCLI(player, "You don't have enough card to place the leader card!");
                         return false;
                     }
                     break;
@@ -119,7 +119,7 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    private boolean canCopyOtherCard(){
+    private boolean canCopyOtherCard() throws RemoteException {
         List<LeaderCard> canBeCopied = new ArrayList<>();
         for(Player p : game.getPlayers()){
             if(!player.equals(p)){
@@ -134,7 +134,7 @@ public class PlaceLeaderCard implements CommandPattern{
         if(canBeCopied.isEmpty()){
             return false;
         }
-        toCopy = game.getGameController().askWhichCardCopy(canBeCopied, player);
+        toCopy = game.getGameController().askWhichCardPlaceChangeCopyActivate(canBeCopied, player);
         return true;
     }
 
