@@ -158,6 +158,7 @@ public class GameController{
         return index;
     }
 
+    //COME SI FA A SAPERE QUANTI REWARDS DEVE SCEGLIERE?
     public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{
         if(rewards == null){
             return null;
@@ -300,6 +301,7 @@ public class GameController{
         		if(state2.equals(PlayerState.WAITING)){
         			switch (state1){ 
 	    				case ACTION :
+	    					//DA FARE
 	    					return null;
 	    				case PLACE_LEADER_CARD :
 	    					integerCreated.put(Integer.parseInt(asked));
@@ -324,22 +326,46 @@ public class GameController{
 		    				case FAMILY_MEMBER :
 		    				case EXCHANGE_COUNCIL_PRIVILEGE :
 		    				case CHOOSE_TRADE :
-		    				case ASK_WHICH_DISCOUNT :
+		    				case ASK_WHICH_DISCOUNT :			
 		    				case PAY_WITH_MILITARY_POINT :
+		    					if(asked.equals("yes")){
+		    		    			booleanCreated.put(true);
+		    		    			return null;
+		    		    		}
+		    		    		else if(asked.equals("no")){
+		    		    			booleanCreated.put(false);
+		    		    			return null;
+		    		    		}
+		    		    		return "Input error";
 		    				default:
 		    					return "State not handled";
 	        			}
     				case ACTIVATE_LEADER_CARD :
     					switch (state2){ 
 		    				case FAMILY_MEMBER_NOT_NEUTRAL :
-		    					
+		    					switch (asked){
+									case "0" :
+										familyColorCreated.put(FamilyColor.WHITE);
+										return null;
+									case "1" :
+										familyColorCreated.put(FamilyColor.BLACK);
+										return null;
+									case "2" :
+										familyColorCreated.put(FamilyColor.ORANGE);
+										return null;
+									default : return "Error input";
+		    					}
 		    				case ASK_WHICH_CARD_COPY :
+		    					integerCreated.put(Integer.parseInt(asked));
+		    					//GESTIRE TUTTI GLI ERRORI DI PARSEINT
+		    					return null;
 		    				default:
 		    					return "State not handled";
     					}
     				case EXCHANGE_LEADER_CARD :
     					switch (state2){ 
 		    				case EXCHANGE_COUNCIL_PRIVILEGE :
+		    					//PROBLEMA CHE NON SO QUANTI PRIVILEGI DEVO CHIEDERE
 		    				default:
 		    					return "State not handled";
 						}
@@ -349,10 +375,16 @@ public class GameController{
         		}
         	}
     	}
+    	
     	//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
     	else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
-    		if(asked.equals("yes") || asked.equals("no")){
-    			//CREA INTEGER CHE SI ASPETTA
+    		if(asked.equals("yes")){
+    			booleanCreated.put(true);
+    			return null;
+    		}
+    		else if(asked.equals("no")){
+    			booleanCreated.put(false);
+    			return null;
     		}
     		return "Input error";
     	}
@@ -361,12 +393,6 @@ public class GameController{
     	else{
     		return "It isn't your turn";
     	}
-    	
-    	
-    	
-    	
-    	
-    	
     }
     
 }
