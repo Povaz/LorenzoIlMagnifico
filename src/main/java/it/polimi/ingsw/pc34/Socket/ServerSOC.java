@@ -35,35 +35,20 @@ public class ServerSOC implements Runnable {
         this.lobby.setServerSOCKET(this);
         this.counter = 0;
 	}
-
+	
+	public ServerHandler getServerHandler (String username){
+		for(ServerHandler serverHandler : utenti){
+			if ((serverHandler.getName()).equals(username)){
+				return serverHandler;
+			}
+		}
+		return null;
+	}
+	
 	public ArrayList<ServerHandler> getUsers(){
 		return utenti;
 	}
-	
-	public void run() {
-		
-		try {
-			serverSocket = new ServerSocket(port);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
-		
-		System.out.println("Server Socket ready");
-		System.out.println("");
-		
-		while (true) {
-			try {
-				Socket socket = serverSocket.accept();
-				ServerHandler last = new ServerHandler(socket, lobby, this); 
-				executor.submit(last);
-				counter++;
-			} 
-			catch(IOException e) {
-				break; // entrerei qui se serverSocket venisse chiuso
-			}
-		}
-	}
-	
+
 	public static void setGameControllerSoc(GameController gameController){
 		for (ServerHandler user : utenti){
 			user.setGameController(gameController);
@@ -138,6 +123,30 @@ public class ServerSOC implements Runnable {
 	public void throwInGame(){
 		for(ServerHandler user : utenti){
 			user.setFase(1);
+		}
+	}
+	
+	public void run() {
+		
+		try {
+			serverSocket = new ServerSocket(port);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		
+		System.out.println("Server Socket ready");
+		System.out.println("");
+		
+		while (true) {
+			try {
+				Socket socket = serverSocket.accept();
+				ServerHandler last = new ServerHandler(socket, lobby, this); 
+				executor.submit(last);
+				counter++;
+			} 
+			catch(IOException e) {
+				break; // entrerei qui se serverSocket venisse chiuso
+			}
 		}
 	}
 }

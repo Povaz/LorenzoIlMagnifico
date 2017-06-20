@@ -100,7 +100,8 @@ public class GameController{
                 System.out.println(message);
                 break;
             case SOCKET:
-                // TODO tom :P
+                ServerHandler serverHandler = serverSoc.getServerHandler(username);
+                serverHandler.sendToClient(message);
                 System.out.println(message);
                 break;
         }
@@ -290,7 +291,8 @@ public class GameController{
     					integerCreated.put(4);
     					// PULISCE TUTTI  DATI
     					// skip();
-    					return "You skipped your turn!";   	
+    					//RETURN TEORICAMENTE A NULL, MOLTO TEORICAMENTE
+    					return "You skipped your turn!"; 
     				default :
     					return "Input error";
     			}
@@ -301,7 +303,8 @@ public class GameController{
         		if(state2.equals(PlayerState.WAITING)){
         			switch (state1){ 
 	    				case ACTION :
-	    					//DA FARE
+	    					
+	    					//QUI SI CHIEDONO SIA ACTION INPUT CHE ACTION SPOT, SI SETTA SOLO UN BOOLEANO PER IF
 	    					return null;
 	    				case PLACE_LEADER_CARD :
 	    					integerCreated.put(Integer.parseInt(asked));
@@ -319,58 +322,89 @@ public class GameController{
         		}
         		else {
         			switch (state1){ 
-    				case ACTION :
-    					switch (state2) {
-		    				case ACTION_INPUT :
-		    					//CHECK SE SEI A TYPE O A SPOT
-		    				case FAMILY_MEMBER :
-		    				case EXCHANGE_COUNCIL_PRIVILEGE :
-		    				case CHOOSE_TRADE :
-		    				case ASK_WHICH_DISCOUNT :			
-		    				case PAY_WITH_MILITARY_POINT :
-		    					if(asked.equals("yes")){
-		    		    			booleanCreated.put(true);
-		    		    			return null;
-		    		    		}
-		    		    		else if(asked.equals("no")){
-		    		    			booleanCreated.put(false);
-		    		    			return null;
-		    		    		}
-		    		    		return "Input error";
-		    				default:
-		    					return "State not handled";
-	        			}
-    				case ACTIVATE_LEADER_CARD :
-    					switch (state2){ 
-		    				case FAMILY_MEMBER_NOT_NEUTRAL :
-		    					switch (asked){
-									case "0" :
-										familyColorCreated.put(FamilyColor.WHITE);
-										return null;
-									case "1" :
-										familyColorCreated.put(FamilyColor.BLACK);
-										return null;
-									case "2" :
-										familyColorCreated.put(FamilyColor.ORANGE);
-										return null;
-									default : return "Error input";
-		    					}
-		    				case ASK_WHICH_CARD_COPY :
-		    					integerCreated.put(Integer.parseInt(asked));
-		    					//GESTIRE TUTTI GLI ERRORI DI PARSEINT
-		    					return null;
-		    				default:
-		    					return "State not handled";
-    					}
-    				case EXCHANGE_LEADER_CARD :
-    					switch (state2){ 
-		    				case EXCHANGE_COUNCIL_PRIVILEGE :
-		    					//PROBLEMA CHE NON SO QUANTI PRIVILEGI DEVO CHIEDERE
-		    				default:
-		    					return "State not handled";
-						}
-    				default:
-    					return "State not handled";
+	    				case ACTION :
+	    					switch (state2) {
+			    				case FAMILY_MEMBER :
+			    				
+			    				
+			    				
+			    				
+			    				
+			    				case EXCHANGE_COUNCIL_PRIVILEGE :
+			    					/* METODO CHE FACCIA LA SIZE DELL'ARRAY
+			    					if(asked.lenght()==size){
+			    						Integer [] integerProduced = new Integer [size]; 
+			    						for(int i = 0; i < size; i++){
+			    							integerProduced.add(Integer.PaseInt(asked[i]));
+			    						}
+			    						integerCreated.put(integerProduced);
+			    					}
+			    					*/
+			    					return "Input error";
+			    				case CHOOSE_TRADE :
+			    					
+			    					
+			    					
+			    					
+			    					
+			    				case ASK_WHICH_DISCOUNT :			
+			    					integerCreated.put(Integer.parseInt(asked));
+			    					//GESTIRE ERRORE PARSE INT
+			    					return null;
+			    				case PAY_WITH_MILITARY_POINT :
+			    					if(asked.equals("yes")){
+			    		    			booleanCreated.put(true);
+			    		    			return null;
+			    		    		}
+			    		    		else if(asked.equals("no")){
+			    		    			booleanCreated.put(false);
+			    		    			return null;
+			    		    		}
+			    		    		return "Input error";
+			    				default:
+			    					return "State not handled";
+		        			}
+	    				case ACTIVATE_LEADER_CARD :
+	    					switch (state2){ 
+			    				case FAMILY_MEMBER_NOT_NEUTRAL :
+			    					switch (asked){
+										case "0" :
+											familyColorCreated.put(FamilyColor.WHITE);
+											return null;
+										case "1" :
+											familyColorCreated.put(FamilyColor.BLACK);
+											return null;
+										case "2" :
+											familyColorCreated.put(FamilyColor.ORANGE);
+											return null;
+										default : return "Error input";
+			    					}
+			    				case ASK_WHICH_CARD_COPY :
+			    					integerCreated.put(Integer.parseInt(asked));
+			    					//GESTIRE TUTTI GLI ERRORI DI PARSEINT
+			    					return null;
+			    				default:
+			    					return "State not handled";
+	    					}
+	    				case EXCHANGE_LEADER_CARD :
+	    					switch (state2){ 
+			    				case EXCHANGE_COUNCIL_PRIVILEGE :
+			    					/* METODO CHE FACCIA LA SIZE DELL'ARRAY
+			    					Integer [] integerProduced = new Integer [size]; 
+			    					if(asked.lenght()==size){
+			    						Integer [size] integerProduced = new Integer []; 
+			    						for(int i = 0; i < size; i++){
+			    							integerProduced.add(Integer.PaseInt(asked[i]));
+			    						}
+			    						integerCreated.put(integerProduced);
+			    					}
+			    					*/
+			    					return "Input error";
+			    				default:
+			    					return "State not handled";
+							}
+	    				default:
+	    					return "State not handled";
         			}
         		}
         	}
