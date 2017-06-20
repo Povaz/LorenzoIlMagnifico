@@ -48,8 +48,12 @@ public class PlaceLeaderCard implements CommandPattern{
         if(!haveEnoughCardToActive()){
             return false;
         }
-        if(!canCopyOtherCard()){
-            return false;
+        if(leaderCard instanceof PermanentLeaderCard){
+            if(((PermanentLeaderCard) leaderCard).isCopyOtherCard()){
+                if(!canCopyOtherCard()){
+                    return false;
+                }
+            }
         }
         return true;
     }
