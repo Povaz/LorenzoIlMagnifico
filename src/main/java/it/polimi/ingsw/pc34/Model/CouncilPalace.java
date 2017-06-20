@@ -27,7 +27,7 @@ public class CouncilPalace extends ActionSpot{
 		if(familyMember.isGhost()){
 			if(familyMember.getAction() != null){
 				if(familyMember.getAction() != ActionType.ALL && familyMember.getAction() != ActionType.COUNCIL_PALACE){
-					gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+					gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
 					return false;
 				}
 			}

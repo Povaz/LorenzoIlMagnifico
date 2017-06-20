@@ -20,7 +20,7 @@ public class Market extends ActionSpot{
 		if(familyMember.isGhost()){
 			if(familyMember.getAction() != null){
 				if(familyMember.getAction() != ActionType.ALL && familyMember.getAction() != ActionType.MARKET){
-					gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+					gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
 					return false;
 				}
 			}

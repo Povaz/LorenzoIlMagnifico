@@ -1,9 +1,7 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
 import it.polimi.ingsw.pc34.Model.Game;
-import it.polimi.ingsw.pc34.RMI.ServerGameRMI;
 import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
-import it.polimi.ingsw.pc34.RMI.UserLogin;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
 import java.rmi.RemoteException;

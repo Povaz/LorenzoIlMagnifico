@@ -21,7 +21,7 @@ public class ProductionArea extends ActionSpot{
 		if(familyMember.isGhost()){
 			if(familyMember.getAction() != null){
 				if(familyMember.getAction() != ActionType.PRODUCE && familyMember.getAction() != ActionType.ALL){
-					gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+					gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
 					return false;
 				}
 			}
@@ -32,7 +32,7 @@ public class ProductionArea extends ActionSpot{
 				for(FamilyMember f : pA.occupiedBy){
 					if(familyMember.samePlayer(f)){
 						if(f.getColor() != FamilyColor.NEUTRAL){
-							gameController.sendMessage(familyMember.getPlayer(), "There is already one of yours colored family member in the production area!");
+							gameController.sendMessageCLI(familyMember.getPlayer(), "There is already one of yours colored family member in the production area!");
 							return false;
 						}
 					}

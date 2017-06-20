@@ -1,6 +1,10 @@
 package it.polimi.ingsw.pc34.Model.Action;
 
+import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Model.*;
+
+import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  * Created by trill on 14/06/2017.
@@ -22,7 +26,7 @@ public class SupportVatican implements CommandPattern{
         this.modifier = player.getPlayerBoard().getModifier();
     }
 
-    public boolean canDoAction(){
+    public boolean canDoAction() throws RemoteException{
         Reward playerFaithPoint = player.getPlayerBoard().getCounter().getFaithPoint();
         int faithPointNeeded = vaticanReportSpot.getFaithPointNeeded().getQuantity();
         if(vaticanReportSpot.isLast()){
@@ -40,6 +44,7 @@ public class SupportVatican implements CommandPattern{
         }
         else{
             if(playerFaithPoint.getQuantity() >= faithPointNeeded){
+                player.putFirst_State(PlayerState.SUPPORT_VATICAN);
                 if(game.getGameController().wantToSupportVatican(player)){
                     return true;
                 }

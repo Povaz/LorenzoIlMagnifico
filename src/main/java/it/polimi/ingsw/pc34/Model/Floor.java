@@ -51,7 +51,7 @@ public class Floor extends ActionSpot{
 			if(familyMember.getAction() != null){
 				if(familyMember.getAction() != ActionType.ALL){
 					if(!tower.getType().sameType(familyMember.getAction())){
-						gameController.sendMessage(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+						gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
 						return false;
 					}
 				}
@@ -63,7 +63,7 @@ public class Floor extends ActionSpot{
 				for(FamilyMember fM : f.occupiedBy){
 					if(familyMember.samePlayer(fM)){
 						if(fM.getColor() != FamilyColor.NEUTRAL){
-							gameController.sendMessage(familyMember.getPlayer(), "There is already one of yours colored family member in this tower!");
+							gameController.sendMessageCLI(familyMember.getPlayer(), "There is already one of yours colored family member in this tower!");
 							return false;
 						}
 					}
