@@ -19,9 +19,7 @@ public class GameController{
     private final Board board;
     private final List<Player> players;
     private ServerSOC serverSoc;
-    private String currentPlayer;
     private ArrayList<ServerHandler> usersSoc;
-    
 
     private ServerLoginImpl serverLoginImpl;
     private ActionInputCreated actionInputCreated;
@@ -45,10 +43,31 @@ public class GameController{
     	return board.getPlayerNumber();
     }
     
-    public String getCurrentPlayer(){
-    	return currentPlayer;
+    public PlayerState getState (int number, String username){
+    	for(Player player : players){
+    		if(player.getUsername().equals(username)){
+    			switch (number) {
+    				case 1 :
+    					return player.getFirst_state();	
+    				case 2 :
+    					return player.getSecond_state();
+    				case 3 :
+    					return player.getThird_state();
+    			}
+    		}
+    	}
+		return null;
     }
-
+    
+    public boolean checkCurrentPlayer(String username){
+    	for(Player player : players){
+    		if(player.getUsername().equals(username)){
+    			return player.isYourTurn();
+    		}
+    	}
+		return false;
+    }
+    
     public void setActionInputCreated (ActionInputCreated actionInputCreated) {
         this.actionInputCreated = actionInputCreated;
     }
@@ -229,4 +248,110 @@ public class GameController{
     public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player){
         return TerminalInput.wantToPayWithMilitaryPoint(costs, militaryPointNeeded, militaryPointPrice);
     }
+
+    public String flow (String asked, String username){
+    	PlayerState state1 = getState(1 , username);
+    	//ENTER HERE IF IT'S YOUR TURN
+    	if(checkCurrentPlayer(username)){
+    		//ENTER HERE IF STATE1 STILL NOT DEFINED
+    		if(state1.equals(PlayerState.WAITING)){
+    			switch (asked){ 
+    				case "/playturn" :
+    					return "What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip";
+    				case "1" :
+    					integerCreated.put(0);
+    			        return "Which ActionSpot do you choose? Choose a number : 1. TERRITORY TOWER 2. BUILDING TOWER 3. CHARACTER TOWER 4. VENTURE TOWER 5. HARVEST 6. PRODUCE 7. MARKET 8. COUNCILPALACE";
+    				case "2" :
+    					integerCreated.put(1);
+    					return "Which Leader Card to place? From 0 to 3";
+    				case "3" :
+    					integerCreated.put(2); 
+    					return "Which Leader Card to activate? From 0 to 3";
+    				case "4" :
+    					integerCreated.put(3);
+    					return "Which Leader Card to exchange? From 0 to 3";
+    				case "5" :
+    					integerCreated.put(4);
+    					// PULISCE TUTTI  DATI
+    					// skip();
+    					return "You skipped your turn!";   	
+    				default :
+    					return "Input error";
+    			}
+        	}
+    		//ENTER HERE IF STATE1 IS DEFINED
+    		else{
+    			PlayerState state2 = getState(2 , username);
+        		if(state2.equals(PlayerState.WAITING)){
+        			switch (state1){ 
+	    				case ACTION :
+	    					return null;
+	    				case PLACE_LEADER_CARD :
+	    					integerCreated.put(Integer.parseInt(asked));
+	    					return null;
+	    				case ACTIVATE_LEADER_CARD :
+	    					integerCreated.put(Integer.parseInt(asked));
+	    					return null;
+	    				case EXCHANGE_LEADER_CARD :
+	    					integerCreated.put(Integer.parseInt(asked));
+	    					return null;
+	    					//COUNCIL PRIVILEGE DA' IN INGRESSO TUTTI GLI INTERI INSIEME
+	    				default:
+	    					return "State not handled";
+        			}
+        		}
+        		else {
+        			switch (state1){ 
+    				case ACTION :
+    					switch (state2){ 
+		    				case ACTION_INPUT :
+		    					//CHECK SE SEI A TYPE O A SPOT
+		    				case FAMILY_MEMBER :
+		    				case EXCHANGE_COUNCIL_PRIVILEGE :
+		    				case CHOOSE_TRADE :
+		    				case ASK_WHICH_DISCOUNT :
+		    				case WANT_TO_PAY_MILITARY_POINT :
+		    				default:
+		    					return "State not handled";
+	        			}
+    				case ACTIVATE_LEADER_CARD :
+    					switch (state2){ 
+		    				case FAMILY_MEMBER_NOT_NEUTRAL :
+		    					
+		    				case ASK_WHICH_CARD_COPY :
+		    				default:
+		    					return "State not handled";
+    					}
+    				case EXCHANGE_LEADER_CARD :
+    					switch (state2){ 
+		    				case EXCHANGE_COUNCIL_PRIVILEGE :
+		    				default:
+		    					return "State not handled";
+						}
+    				default:
+    					return "State not handled";
+        			}
+        		}
+        	}
+    	}
+    	//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
+    	else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
+    		if(asked.equals("yes") || asked.equals("no")){
+    			//CREA INTEGER CHE SI ASPETTA
+    		}
+    		return "Input error";
+    	}
+    	
+    	//ENTER HERE IF IT ISN'T YOUR TURN
+    	else{
+    		return "It isn't your turn";
+    	}
+    	
+    	
+    	
+    	
+    	
+    	
+    }
+    
 }
