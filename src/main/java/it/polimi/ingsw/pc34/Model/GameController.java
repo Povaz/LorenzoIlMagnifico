@@ -271,4 +271,47 @@ public class GameController{
     public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player){
         return TerminalInput.wantToPayWithMilitaryPoint(costs, militaryPointNeeded, militaryPointPrice);
     }
+
+    public String flow (String asked){
+    	//GET STATO 1 quello che dice se sei di turno o meno
+    	//GET STATO 2 playturn, chat, stampinfo
+    	//GET STATO 3
+    	//GET STATO 4
+    	if(stato2.isWaiting){
+			if(state1.equals(SEIDITURNO)){
+    			switch (asked){ 
+					case "/playturn" :
+						//set playturn state2
+						return "What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip";
+					case "/chat" :
+		    			//set chat state2
+		    			return "What you want to write?";
+		    		case "/stampinfo" :
+		    			//fa l'azione
+		    			return "What you want to do? /playturn  /chat  /stampinfo";
+    			}
+			}
+    		else{
+    			switch (asked){ 
+	    			case "/chat" :
+		    			//set chat state2
+		    			return "What you want to write?";
+		    		case "/stampinfo" :
+		    			//fa l'azione
+		    			return "What you want to do? /playturn  /chat  /stampinfo";
+	    		}
+    		}
+			return "Input error";
+    	}
+    	else{
+    		if(state3.isWaiting){
+    			
+    		}
+    		else{
+    			
+    		}
+    	}
+    	
+    }
+    
 }
