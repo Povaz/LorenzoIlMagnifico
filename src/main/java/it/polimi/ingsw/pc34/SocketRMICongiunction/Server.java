@@ -34,7 +34,6 @@ public class Server {
 
         System.out.println("Waiting for invocations from clients...");
 
-
         Thread serverSoc = new Thread(this.serverSoc);
         serverSoc.start();
     }

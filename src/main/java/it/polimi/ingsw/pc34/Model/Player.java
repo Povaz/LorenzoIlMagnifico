@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 
 import java.util.List;
@@ -14,12 +15,22 @@ public class Player{
     private final PlayerBoard playerBoard;
     private boolean isYourTurn = false;
     private boolean placedFamilyMember = false;
-    
+
+    public PlayerState first_state;
+    public PlayerState second_state;
+    public PlayerState third_state;
+    public PlayerState fourth_state;
+
+
     public Player(String username, ConnectionType connectionType, PlayerColor color){
         this.username = username;
         this.connectionType = connectionType;
         this.color = color;
         this.playerBoard = new PlayerBoard(this);
+        this.first_state = PlayerState.WAITING;
+        this.second_state = PlayerState.WAITING;
+        this.third_state = PlayerState.WAITING;
+        this.fourth_state = PlayerState.WAITING;
     }
 
     public boolean sameColor(Player other){
