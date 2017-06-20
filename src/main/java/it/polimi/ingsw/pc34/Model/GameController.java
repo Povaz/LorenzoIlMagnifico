@@ -242,6 +242,7 @@ public class GameController{
     }
 
     public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException{
+
         String message = "";
         for (int j = 0; j < discounts.size(); j++) {
             message += j + ". ";
@@ -255,8 +256,12 @@ public class GameController{
         return discounts.get(index);
     }
 
-    public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player){
-        return TerminalInput.wantToPayWithMilitaryPoint(costs, militaryPointNeeded, militaryPointPrice);
+    public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException{
+        String message = "Do you want to pay with militaryPoint? You need " + militaryPointNeeded + "military Point and it costs + " + militaryPointPrice + "militaryPoint";
+        this.sendMessageCLI(player, message);
+        player.putThird_State(PlayerState.PAY_WITH_MILITARY_POINT);
+        boolean choose = booleanCreated.get();
+        return choose;
     }
 
     public String flow (String asked, String username){
