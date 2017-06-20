@@ -241,8 +241,18 @@ public class GameController{
         return trade;
     }
 
-    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player){
-        return discounts.get(TerminalInput.askWhichDiscount(discounts));
+    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException{
+        String message = "";
+        for (int j = 0; j < discounts.size(); j++) {
+            message += j + ". ";
+            for (int i = 0; i < discounts.get(j).size(); i++) {
+                message += discounts.get(j).get(i).toString();
+            }
+            message += "\n";
+        }
+        this.sendMessageCLI(player, message);
+        int index = integerCreated.get();
+        return discounts.get(index);
     }
 
     public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player){
@@ -303,7 +313,7 @@ public class GameController{
         		else {
         			switch (state1){ 
     				case ACTION :
-    					switch (state2){ 
+    					switch (state2) {
 		    				case ACTION_INPUT :
 		    					//CHECK SE SEI A TYPE O A SPOT
 		    				case FAMILY_MEMBER :
