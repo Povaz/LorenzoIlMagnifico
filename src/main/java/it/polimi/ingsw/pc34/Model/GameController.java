@@ -32,7 +32,7 @@ public class GameController{
     private int tradesSize;
     
     private String actionSpot;
-    private ActionInput actionInput;
+    private ActionInput actionInput = new ActionInput();
     private boolean inFlow = false;
     
     
@@ -361,9 +361,9 @@ public class GameController{
 	        		else {
 	        			switch (state1){ 
 		    				case ACTION :
-		    					actionInput = new ActionInput();
 		    					switch (state2) {
 		    						case ACTION_INPUT : 
+		    						System.out.println("entra");
 		    							if(actionSpot==null){
 		    								actionSpot = asked;
 			    							switch(actionSpot) {
@@ -403,6 +403,7 @@ public class GameController{
 			    							}
 		    							}
 		    							else{
+		    								System.out.println("entra");
 		    								switch(actionSpot){ 
 			    								case "1":
 			    									if(checkNumber(0, 3, asked)){
