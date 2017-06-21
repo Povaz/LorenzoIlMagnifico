@@ -122,12 +122,14 @@ public class GameController{
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo;
         whatToDo = integerCreated.get();
+        System.out.println("WhatToDo taken: " + whatToDo);
         setInFlow();
         return whatToDo;
     }
 
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
         ActionInput actionInput = actionInputCreated.get();
+        System.out.println("Action Input taken from +" + player.getUsername() + ": " + actionInput.toString());
         setInFlow();
         if(actionInput == null) {
             return null;

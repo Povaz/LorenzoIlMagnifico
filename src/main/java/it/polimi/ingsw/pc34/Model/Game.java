@@ -269,11 +269,14 @@ public class Game implements Runnable{
                     switch(gameController.getWhatToDo(current)){
                         case 0:
                             current.putFirst_State(PlayerState.ACTION);
+                            System.out.println("State 1 of " + current.getUsername() + " is now " + PlayerState.ACTION);
                             if(!current.isPlacedFamilyMember()) {
                                 current.putSecond_State(PlayerState.ACTION_INPUT);
                                 actionSpot = gameController.getViewActionSpot(current);
+                                System.out.println("State 2 of " + current.getUsername() + " is now " + PlayerState.ACTION_INPUT);
                                 current.putSecond_State(PlayerState.FAMILY_MEMBER);
                                 familyMember = gameController.getViewFamilyMember(current);
+                                System.out.println("State 2 of " + current.getUsername() + " is now " + PlayerState.FAMILY_MEMBER);
                                 if(placeFamilyMember(familyMember, actionSpot)) {
                                     current.setPlacedFamilyMember(true);
                                 }
