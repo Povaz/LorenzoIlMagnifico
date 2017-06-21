@@ -28,6 +28,8 @@ public class GameController{
     private BooleanCreated booleanCreated;
     private ArrayIntegerCreated arrayIntegerCreated;
     private TradeCreated tradeCreated;
+    private int councilRewardsSize;
+    private int tradesSize;
 
     public GameController(Game game, ServerLoginImpl serverLoginImpl, ServerSOC serverSoc) {
         Thread threadGame = new Thread (game);
@@ -154,14 +156,14 @@ public class GameController{
     }
 
     public int getHowManyServants (Player player) {
-        player.putThird_State(PlayerState.SERVANTS);
+        player.putSecond_State(PlayerState.SERVANTS);
         int index = integerCreated.get();
         return index;
     }
 
     //COME SI FA A SAPERE QUANTI REWARDS DEVE SCEGLIERE?
     public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{
-        if(rewards == null){
+        if(rewards == null) {
             return null;
         }
         Set<Reward> newRewards = new HashSet<>();
@@ -170,7 +172,8 @@ public class GameController{
                 newRewards.add(r);
             }
             else{
-                player.putThird_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
+                this.councilRewardsSize = rewards.size();
+                player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
                 int[] rewardArray = arrayIntegerCreated.get();
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
@@ -201,7 +204,7 @@ public class GameController{
     }
 
     public FamilyColor chooseFamilyMemberColorNotNeutral(Player player){
-        player.putThird_State(PlayerState.FAMILY_MEMBER);
+        player.putSecond_State(PlayerState.FAMILY_MEMBER);
         return familyColorCreated.get();
     }
 
@@ -238,13 +241,14 @@ public class GameController{
             message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
         }
         this.sendMessageCLI(player, message);
-        player.putThird_State(PlayerState.CHOOSE_TRADE);
-        Trade trade = tradeCreated.get();
-        return trade;
+        this.tradesSize = buildingCard.getTrades().size();
+        player.putSecond_State(PlayerState.CHOOSE_TRADE);
+        int choose = integerCreated.get();
+        return buildingCard.getTrades().get(choose);
     }
 
     public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException{
-        player.putThird_State(PlayerState.ASK_WHICH_DISCOUNT);
+        player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
         String message = "";
         for (int j = 0; j < discounts.size(); j++) {
             message += j + ". ";
@@ -261,7 +265,7 @@ public class GameController{
     public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException{
         String message = "Do you want to pay with militaryPoint? You need " + militaryPointNeeded + "military Point and it costs + " + militaryPointPrice + "militaryPoint";
         this.sendMessageCLI(player, message);
-        player.putThird_State(PlayerState.PAY_WITH_MILITARY_POINT);
+        player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
         boolean choose = booleanCreated.get();
         return choose;
     }

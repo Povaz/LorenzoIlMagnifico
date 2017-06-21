@@ -265,14 +265,13 @@ public class Game implements Runnable{
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(current.getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
-                    current.putFirst_State(PlayerState.PLAY_TURN);
                     switch(gameController.getWhatToDo(current)){
                         case 0:
-                            current.putSecond_State(PlayerState.ACTION);
+                            current.putFirst_State(PlayerState.ACTION);
                             if(!current.isPlacedFamilyMember()){
-                                current.putThird_State(PlayerState.ACTION_INPUT);
+                                current.putFirst_State(PlayerState.ACTION_INPUT);
                                 actionSpot = gameController.getViewActionSpot(current);
-                                current.putThird_State(PlayerState.FAMILY_MEMBER);
+                                current.putFirst_State(PlayerState.FAMILY_MEMBER);
                                 familyMember = gameController.getViewFamilyMember(current);
                                 if(placeFamilyMember(familyMember, actionSpot)){
                                     current.setPlacedFamilyMember(true);
@@ -280,32 +279,31 @@ public class Game implements Runnable{
                             }
                             else{
                                 gameController.sendMessageCLI(current, "You have already placed a family member!");
-                                current.putSecond_State(PlayerState.ACTION);
+                                current.putFirst_State(PlayerState.ACTION);
                             }
                             break;
                         case 1:
-                            current.putSecond_State(PlayerState.PLACE_LEADER_CARD);
+                            current.putFirst_State(PlayerState.PLACE_LEADER_CARD);
                             PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
                             if(placeLeaderCard.canDoAction()){
                                 placeLeaderCard.doAction();
                             }
                             break;
                         case 2:
-                            current.putSecond_State(PlayerState.ACTIVATE_LEADER_CARD);
+                            current.putFirst_State(PlayerState.ACTIVATE_LEADER_CARD);
                             ActivateImmediateLeaderCard activateImmediateLeaderCard = new ActivateImmediateLeaderCard(this, current);
                             if(activateImmediateLeaderCard.canDoAction()){
                                 activateImmediateLeaderCard.doAction();
                             }
                             break;
                         case 3:
-                            current.putSecond_State(PlayerState.EXCHANGE_LEADER_CARD);
+                            current.putFirst_State(PlayerState.EXCHANGE_LEADER_CARD);
                             ChangeLeaderCardInReward changeLeaderCardInReward = new ChangeLeaderCardInReward(this, current);
                             if(changeLeaderCardInReward.canDoAction()){
                                 changeLeaderCardInReward.doAction();
                             }
                             break;
                         case 4:
-                            current.putFirst_State(PlayerState.WAITING);
                             current.setYourTurn(false);
                             break;
                         default:

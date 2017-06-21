@@ -13,8 +13,11 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 import org.json.JSONException;
+import org.omg.PortableInterceptor.USER_EXCEPTION;
 
+import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
@@ -125,8 +128,27 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
 
     //INIZIO GESTIONE GAME
 
+    public GameController searchGame (UserLogin userLogin) throws RemoteException {
+        for (int i = 0; i < Server.gamesOnGoing.size(); i++) {
+            for (int j = 0; j < Server.gamesOnGoing.get(i).getPlayers().size(); j++) {
+                if (userLogin.getUsername().equals(Server.gamesOnGoing.get(i).getPlayers().get(j).getUsername())) {
+                    return Server.gamesOnGoing.get(i).getGameController();
+                }
+            }
+        }
+        return null;
+    }
+
+
     @Override
     public void sendInput (String input, UserLogin userLogin) throws RemoteException{
+        try {
+            GameController gameController = searchGame(userLogin);
+        }
+        catch (NullPointerException e) {
+            userLogin.sendMessage("You're not currently in game");
+            e.printStackTrace();
+        }
         switch (input) {
             case "/playTurn":
                 userLogin.sendMessage("Not Implemented yet");
