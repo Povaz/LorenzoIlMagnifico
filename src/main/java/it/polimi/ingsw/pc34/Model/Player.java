@@ -82,28 +82,10 @@ public class Player{
     }
 
     public synchronized PlayerState getFirst_state() {
-        while (firstStateAvailable == false) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();;
-            }
-        }
-        firstStateAvailable = false;
-        notifyAll();
         return first_state;
     }
 
     public synchronized PlayerState getSecond_state() {
-        while (secondStateAvailable == false) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        secondStateAvailable = false;
-        notifyAll();
         return second_state;
     }
 
@@ -134,29 +116,11 @@ public class Player{
     }
 
     public synchronized void putFirst_State(PlayerState first_state) {
-        while (firstStateAvailable == true) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         this.first_state = first_state;
-        firstStateAvailable = true;
-        notifyAll();
     }
 
     public synchronized void putSecond_State(PlayerState second_state) {
-        while (secondStateAvailable == true) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
         this.second_state = second_state;
-        secondStateAvailable = true;
-        notifyAll();
     }
 
     public synchronized void putThird_State(PlayerState third_state) {

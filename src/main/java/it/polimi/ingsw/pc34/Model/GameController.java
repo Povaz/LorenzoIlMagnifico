@@ -159,6 +159,7 @@ public class GameController{
 
     public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException{
         FamilyColor familyColor = familyColorCreated.get();
+        setInFlow();
         int servant = 0;
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
             if(fM.getColor() == familyColor) {
@@ -173,6 +174,7 @@ public class GameController{
     public int getHowManyServants (Player player) {
         player.putSecond_State(PlayerState.SERVANTS);
         int index = integerCreated.get();
+        setInFlow();
         return index;
     }
 
@@ -308,7 +310,7 @@ public class GameController{
     
     public String flow (String asked, String username){
     	//ENTER HERE IF IT'S YOUR TURN
-    	if(inFlow == false){
+    	if(inFlow == false) {
     		inFlow = true;
     		PlayerState state1 = getState(1 , username);
     		if(checkCurrentPlayer(username)){
@@ -341,8 +343,10 @@ public class GameController{
 	        	}
 	    		//ENTER HERE IF STATE1 IS DEFINED
 	    		else{
+	    			System.out.println("Before GetState");
 	    			PlayerState state2 = getState(2 , username);
-	        		if(state2.equals(PlayerState.WAITING)){
+					System.out.println("After GetState");
+					if(state2.equals(PlayerState.WAITING)){
 	        			switch (state1) {
 		    				case PLACE_LEADER_CARD :
 		    					integerCreated.put(Integer.parseInt(asked));
@@ -361,9 +365,11 @@ public class GameController{
 	        		else {
 	        			switch (state1){ 
 		    				case ACTION :
+		    					System.out.println("ACTION confirmed");
 		    					switch (state2) {
-		    						case ACTION_INPUT : 
-		    						System.out.println("entra");
+		    						case ACTION_INPUT :
+		    							System.out.println("ACTION_INPUT confirmed");
+		    						System.out.println("entra" + actionSpot);
 		    							if(actionSpot==null){
 		    								actionSpot = asked;
 		    								System.out.println("Ora setto l'ActionType");
@@ -479,21 +485,26 @@ public class GameController{
 		    								switch (asked){
 		    									case "0" :
 		    										familyColorCreated.put(FamilyColor.WHITE);
+		    										setInFlow();
 		    										return "How many Servants do you want to use?";
 		    									case "1" :
 		    										familyColorCreated.put(FamilyColor.BLACK);
-		    										return "How many Servants do you want to use?";
+													setInFlow();
+													return "How many Servants do you want to use?";
 		    									case "2" :
 		    										familyColorCreated.put(FamilyColor.ORANGE);
-		    										return "How many Servants do you want to use?";
+													setInFlow();
+													return "How many Servants do you want to use?";
 		    									case "3" :
 		    										familyColorCreated.put(FamilyColor.NEUTRAL);
-		    										return "How many Servants do you want to use?";
+													setInFlow();
+													return "How many Servants do you want to use?";
 		    								}
 		    							}
 		    						case SERVANTS :
 		    							integerCreated.put(Integer.parseInt(asked));
-		    						    return null;
+		    							setInFlow();
+		    						    return "We did it man";
 				    				case EXCHANGE_COUNCIL_PRIVILEGE :
 				    					if(asked.length()==councilRewardsSize){
 				    						int [] integerProduced = new int [councilRewardsSize]; 
