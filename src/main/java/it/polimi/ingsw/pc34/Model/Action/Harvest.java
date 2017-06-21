@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Set;
 
@@ -37,7 +38,7 @@ public class Harvest implements CommandPattern{
         familyMember.setRealValue(realValue);
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException{
+    public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException{
         if(!harvestArea.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot(), game.getGameController())){
             return false;
         }
@@ -57,7 +58,7 @@ public class Harvest implements CommandPattern{
     }
 
     // controlla se ha più servant di quelli che ha usato per fare l'azione
-    private boolean haveEnoughServant() throws RemoteException {
+    private boolean haveEnoughServant() throws RemoteException, IOException {
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
             game.getGameController().sendMessageCLI(player, "You don't have enough servant!");

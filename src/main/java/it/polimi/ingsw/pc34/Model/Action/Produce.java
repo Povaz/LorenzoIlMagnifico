@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.HashSet;
 import java.util.Set;
@@ -40,7 +41,7 @@ public class Produce {
         familyMember.setRealValue(realValue);
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException{
+    public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException{
         if(!productionArea.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot(), game.getGameController())){
             return false;
         }
@@ -62,7 +63,7 @@ public class Produce {
     }
 
     // controlla se ha più servant di quelli che ha usato per fare l'azione
-    private boolean haveEnoughServant() throws RemoteException{
+    private boolean haveEnoughServant() throws RemoteException, IOException{
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
             game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
@@ -85,7 +86,7 @@ public class Produce {
     }
 
     // guadagna i reward delle BuildingCard
-    private boolean earnProductionReward() throws TooMuchTimeException, RemoteException{
+    private boolean earnProductionReward() throws TooMuchTimeException, RemoteException, IOException{
         for(DevelopmentCard card : player.getPlayerBoard().getBuildingSpot().getCards()){
             BuildingCard bCard = (BuildingCard) card;
             if(actionValue >= bCard.getDiceProductionAction()){

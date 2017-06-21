@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
@@ -34,7 +35,7 @@ public class PlaceLeaderCard implements CommandPattern{
         this.modifier = player.getPlayerBoard().getModifier();
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException{
+    public boolean canDoAction() throws TooMuchTimeException, RemoteException,IOException{
         if(leaderCardsInHand.isEmpty()){
             game.getGameController().sendMessageCLI(player, "You don't have any leader card in your hand!");
             return false;
@@ -58,7 +59,7 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    private boolean haveEnoughRewardToActive() throws RemoteException{
+    private boolean haveEnoughRewardToActive() throws RemoteException, IOException{
         newCounter.subtract(leaderCard.getActivationRewardCost());
         if(!newCounter.check()){
             game.getGameController().sendMessageCLI(player, "You don't have enough resources to place the leader card!");
@@ -67,7 +68,7 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    private boolean haveEnoughCardToActive() throws RemoteException{
+    private boolean haveEnoughCardToActive() throws RemoteException, IOException{
         Map<CardType, Integer> cardNeeded = leaderCard.getActivationCardCost();
         for(CardType cT : cardNeeded.keySet()){
             switch(cT){
@@ -119,7 +120,7 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    private boolean canCopyOtherCard() throws RemoteException {
+    private boolean canCopyOtherCard() throws RemoteException, IOException {
         List<LeaderCard> canBeCopied = new ArrayList<>();
         for(Player p : game.getPlayers()){
             if(!player.equals(p)){

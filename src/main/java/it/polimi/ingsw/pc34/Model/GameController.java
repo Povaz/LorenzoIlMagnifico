@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.Model;
 
+import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
 import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
@@ -92,14 +93,15 @@ public class GameController{
     	this.familyColorCreated = familyColorCreated;
     }
 
-    public void sendMessageCLI(Player player, String message) throws RemoteException {
+    public void sendMessageCLI(Player player, String message) throws RemoteException, IOException {
         switch(player.getConnectionType()){
             case RMI:
                 serverLoginImpl.sendMessage(player, message);
                 System.out.println(message);
                 break;
             case SOCKET:
-                // TODO tom :P
+				ServerHandler serverHandler = serverSoc.getServerHandler(player.getUsername());
+				serverHandler.sendToClient(message);
                 System.out.println(message);
                 break;
         }
@@ -164,9 +166,9 @@ public class GameController{
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
             if(fM.getColor() == familyColor) {
                 servant = getHowManyServants(player);
+                fM.setServantUsed(new Reward(RewardType.SERVANT, servant));
+				return fM;
             }
-            fM.setServantUsed(new Reward(RewardType.SERVANT, servant));
-            return fM;
         }
         return null;
     }
@@ -224,7 +226,7 @@ public class GameController{
         return familyColorCreated.get();
     }
 
-    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws RemoteException {
+    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws RemoteException, IOException{
         String message = "";
         for (int i = 0; i < leaderCardsInHand.size(); i++) {
             message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
@@ -234,7 +236,7 @@ public class GameController{
         return leaderCardsInHand.get(index);
     }
 
-    public ImmediateLeaderCard askWhichImmediateCardActivate(List<ImmediateLeaderCard> leaderCardsInHand, Player player) throws RemoteException {
+    public ImmediateLeaderCard askWhichImmediateCardActivate(List<ImmediateLeaderCard> leaderCardsInHand, Player player) throws RemoteException, IOException {
         String message = "";
         for (int i = 0; i < leaderCardsInHand.size(); i++) {
             message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
@@ -244,14 +246,14 @@ public class GameController{
         return leaderCardsInHand.get(index);
     }
 
-    public boolean wantToSupportVatican(Player player) throws RemoteException{
+    public boolean wantToSupportVatican(Player player) throws RemoteException, IOException{
         String message = "Do you support Vatican?";
         this.sendMessageCLI(player, message);
         boolean choose = booleanCreated.get();
         return  choose;
     }
 
-    public Trade chooseTrade(BuildingCard buildingCard, Player player) throws RemoteException{
+    public Trade chooseTrade(BuildingCard buildingCard, Player player) throws RemoteException, IOException{
         String message = "";
         for (int i = 0; i < buildingCard.getTrades().size(); i++) {
             message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
@@ -263,7 +265,7 @@ public class GameController{
         return buildingCard.getTrades().get(choose);
     }
 
-    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException{
+    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException, IOException{
         player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
         String message = "";
         for (int j = 0; j < discounts.size(); j++) {
@@ -278,7 +280,7 @@ public class GameController{
         return discounts.get(index);
     }
 
-    public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException{
+    public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{
         String message = "Do you want to pay with militaryPoint? You need " + militaryPointNeeded + "military Point and it costs + " + militaryPointPrice + "militaryPoint";
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
@@ -304,8 +306,8 @@ public class GameController{
 	}
     
     private void skip (){
-    	String actionSpot = null;
-    	ActionInput actionInput = null;
+    	actionSpot = null;
+    	actionInput = new ActionInput();
     }
     
     public String flow (String asked, String username){
@@ -369,7 +371,7 @@ public class GameController{
 		    					switch (state2) {
 		    						case ACTION_INPUT :
 		    							System.out.println("ACTION_INPUT confirmed");
-		    						System.out.println("entra" + actionSpot);
+		    							System.out.println("entra" + actionSpot);
 		    							if(actionSpot==null){
 		    								actionSpot = asked;
 		    								System.out.println("Ora setto l'ActionType");

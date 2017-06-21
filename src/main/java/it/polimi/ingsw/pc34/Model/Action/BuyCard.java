@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -53,7 +54,7 @@ public class BuyCard implements CommandPattern {
         familyMember.setRealValue(realValue);
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException {
+    public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException {
 
         if(!floorHaveCard()){
             return false;
@@ -94,7 +95,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // deve esserci la carta nell'actionSpot (se c'è inizializza card e cardSpot)
-    private boolean floorHaveCard() throws RemoteException{
+    private boolean floorHaveCard() throws RemoteException, IOException{
         if(floor.getCard() != null){
             card = floor.getCard();
             cardSpot = player.getPlayerBoard().getCardSpot(card.getType());
@@ -105,7 +106,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // controlla se ha più servant di quelli che ha usato per fare l'azione
-    private boolean haveEnoughServant() throws RemoteException{
+    private boolean haveEnoughServant() throws RemoteException, IOException{
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
             game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
@@ -115,7 +116,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // controlla se ha abbastanza coin per pagare la tassa sulla torre nel caso sia già occupata
-    private boolean canPayTowerTax() throws RemoteException{
+    private boolean canPayTowerTax() throws RemoteException, IOException{
         if(floor.getTower().isOccupied()){
             newCounter.subtract(floor.getTower().getOccupiedTax());
         }
@@ -135,7 +136,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // controlla se ha abbastanza risorse per pagare la carta
-    private boolean canPayCardCost() throws TooMuchTimeException, RemoteException{
+    private boolean canPayCardCost() throws TooMuchTimeException, RemoteException, IOException{
         if(card instanceof VentureCard){
             VentureCard vCard = (VentureCard) card;
             if(vCard.getCosts() != null && vCard.getMilitaryPointNeeded() != null && vCard.getMilitaryPointPrice() != null){
@@ -161,7 +162,7 @@ public class BuyCard implements CommandPattern {
         return true;
     }
 
-    private boolean canPayNormalCost() throws TooMuchTimeException, RemoteException{
+    private boolean canPayNormalCost() throws TooMuchTimeException, RemoteException, IOException{
         List<List<Reward>> discountsSelectables = modifier.getDiscounts().get(floor.getTower().getType());
 
         // choose which permanent discount use
@@ -202,7 +203,7 @@ public class BuyCard implements CommandPattern {
         return copyOfReward;
     }
 
-    private boolean canPayMilitaryPoint(VentureCard vCard) throws RemoteException{
+    private boolean canPayMilitaryPoint(VentureCard vCard) throws RemoteException, IOException{
         Reward militaryPoint = newCounter.giveSameReward(vCard.getMilitaryPointNeeded());
         if(militaryPoint.getQuantity() >= vCard.getMilitaryPointNeeded().getQuantity()){
             newCounter.subtract(vCard.getMilitaryPointPrice());
@@ -238,7 +239,7 @@ public class BuyCard implements CommandPattern {
         - c'è abbastanza spazio nella plancia del giocatore;
         - se è una carta territorio ha abbastanza militaryPoint
     */
-    private boolean canBePlacedInCardSpot() throws RemoteException{
+    private boolean canBePlacedInCardSpot() throws RemoteException, IOException{
         if(!cardSpot.canPlaceCard()){
             game.getGameController().sendMessageCLI(player, "You don't have enough space in the card spot!");
             return false;
@@ -252,7 +253,7 @@ public class BuyCard implements CommandPattern {
         return true;
     }
 
-    private boolean haveEnoughtMilitaryPoint(TerritorySpot tSpot) throws RemoteException{
+    private boolean haveEnoughtMilitaryPoint(TerritorySpot tSpot) throws RemoteException, IOException{
         switch(tSpot.getCards().size()){
             case 0:
             case 1:
@@ -286,7 +287,7 @@ public class BuyCard implements CommandPattern {
         }
     }
 
-    public void doAction() throws TooMuchTimeException, RemoteException{
+    public void doAction() throws TooMuchTimeException, RemoteException, IOException{
         // aggiorna risorse giocatore
         player.getPlayerBoard().setCounter(newCounter);
 
@@ -303,7 +304,7 @@ public class BuyCard implements CommandPattern {
         doBonusActions();
     }
 
-    private void doBonusActions() throws TooMuchTimeException, RemoteException{
+    private void doBonusActions() throws TooMuchTimeException, RemoteException, IOException{
         // TODO uguale a Game
         List<FamilyMember> actions = card.getActions();
         if(actions != null){
@@ -314,7 +315,7 @@ public class BuyCard implements CommandPattern {
         }
     }
 
-    private void doBonusAction(FamilyMember fM) throws TooMuchTimeException, RemoteException{
+    private void doBonusAction(FamilyMember fM) throws TooMuchTimeException, RemoteException, IOException{
         ActionSpot actionSpot;
         do{
             System.out.println("AZIONE AGGIUNTIVA!!!");

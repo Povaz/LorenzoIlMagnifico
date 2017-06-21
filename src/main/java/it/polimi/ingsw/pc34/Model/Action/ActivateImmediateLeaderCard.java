@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.List;
 
@@ -31,7 +32,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         this.newValueFamilyMember = 0;
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException{
+    public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException{
         if(immediateLeaderCardsPositionated.isEmpty()){
             game.getGameController().sendMessageCLI(player, "You don't have any leader card placed!");
             return false;
@@ -75,7 +76,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         return true;
     }
 
-    public void doAction() throws TooMuchTimeException, RemoteException{
+    public void doAction() throws TooMuchTimeException, RemoteException, IOException{
         // aggiorna risorse giocatore
         player.getPlayerBoard().setCounter(newCounter);
 
@@ -95,7 +96,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         }
     }
 
-    private void doBonusActions() throws TooMuchTimeException, RemoteException{
+    private void doBonusActions() throws TooMuchTimeException, RemoteException, IOException{
         // TODO uguale a Game
         List<FamilyMember> actions = leaderCard.getActions();
         if(actions != null){
@@ -106,7 +107,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         }
     }
 
-    private void doBonusAction(FamilyMember fM) throws TooMuchTimeException, RemoteException{
+    private void doBonusAction(FamilyMember fM) throws TooMuchTimeException, RemoteException, IOException{
         ActionSpot actionSpot;
         do{
             System.out.println("AZIONE AGGIUNTIVA!!!");

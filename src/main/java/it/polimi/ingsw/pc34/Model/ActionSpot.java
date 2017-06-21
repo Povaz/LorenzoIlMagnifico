@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.Model;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
@@ -48,7 +49,7 @@ public abstract class ActionSpot {
 		this.occupiedBy = new LinkedList<>();
 	}
 
-	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws RemoteException{
+	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws RemoteException, IOException{
 		if(familyMember.isUsed()){
 			gameController.sendMessageCLI(familyMember.getPlayer(), "This family member is alreay used!");
 			return false;

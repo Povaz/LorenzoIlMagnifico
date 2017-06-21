@@ -50,22 +50,27 @@ public class Game implements Runnable{
     }
 
     public void run(){
-        try {
-            while (this.period <= this.PERIOD_NUMBER) {
-                this.startPeriod();
-                while (this.turn <= this.TURNS_FOR_PERIOD) {
-                    this.startTurn();
+        while (this.period <= this.PERIOD_NUMBER) {
+            this.startPeriod();
+            while (this.turn <= this.TURNS_FOR_PERIOD) {
+                this.startTurn();
+                try {
                     this.playTurn();
-                    this.endTurn();
                 }
+                catch (IOException e) {
+                    e.printStackTrace();
+                }
+                this.endTurn();
+            }
+            try {
                 this.endPeriod();
             }
-            Player winner = this.decreeWinner();
-            System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
+            catch (IOException e) {
+                e.printStackTrace();
+            }
         }
-        catch (RemoteException e) {
-            LOGGER.log(Level.WARNING, "RemoteException in game", e);
-        }
+        Player winner = this.decreeWinner();
+        System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
     }
 
     public Game(Map<String, ConnectionType> usersOfThisGame, ServerLoginImpl serverLoginImpl, ServerSOC serverSoc) {
@@ -225,13 +230,13 @@ public class Game implements Runnable{
         }
     }
 
-    private void endPeriod() throws RemoteException{
+    private void endPeriod() throws RemoteException, IOException{
         churchSupport();
         period++;
         turn = 1;
     }
 
-    private void churchSupport() throws RemoteException{
+    private void churchSupport() throws RemoteException, IOException{
         VaticanReportSpot vaticanReportSpot = board.getVaticanReportSpot().get(period - 1);
         for(Player p : board.getOrder().getShown()){
             SupportVatican supportVatican = new SupportVatican(this, p, vaticanReportSpot);
@@ -251,7 +256,7 @@ public class Game implements Runnable{
         placeDevelopmentCard();
     }
 
-    private void playTurn() throws RemoteException {
+    private void playTurn() throws RemoteException, IOException {
         System.out.println("\n\nBOARD:");
         System.out.println(board);
         Order order = board.getOrder();
@@ -265,7 +270,6 @@ public class Game implements Runnable{
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(current.getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
-                    current.putFirst_State(PlayerState.WAITING);
                     switch(gameController.getWhatToDo(current)){
                         case 0:
                             current.putFirst_State(PlayerState.ACTION);
@@ -316,17 +320,23 @@ public class Game implements Runnable{
                             break;
                         case 4:
                             current.setYourTurn(false);
+                            gameController.setInFlow();
                             gameController.sendMessageCLI(current, "Action has been executed");
-
                             break;
                         default:
                             System.out.println("WAT???");
                     }
+                    current.putFirst_State(PlayerState.WAITING);
+                    current.putSecond_State(PlayerState.WAITING);
                 } while(current.isYourTurn());
-            } catch(TooMuchTimeException e){
+            } catch(TooMuchTimeException e) {
                 gameController.sendMessageCLI(current, "Timeout expired");
+                current.putFirst_State(PlayerState.WAITING);
+                current.putSecond_State(PlayerState.WAITING);
                 // TODO addTimer
             }
+            current.putFirst_State(PlayerState.WAITING);
+            current.putSecond_State(PlayerState.WAITING);
             current.setYourTurn(false);
             current.setPlacedFamilyMember(false);
             System.out.println("\n\nPLAYERBOARD:");
@@ -334,7 +344,7 @@ public class Game implements Runnable{
         } while(board.getOrder().nextOrder());
     }
 
-    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException, RemoteException{
+    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException, RemoteException, IOException{
         if(actionSpot == null || familyMember == null){
             return false;
         }

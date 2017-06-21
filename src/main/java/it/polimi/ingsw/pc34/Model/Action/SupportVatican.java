@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Model.Action;
 import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Model.*;
 
+import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 
@@ -26,7 +27,7 @@ public class SupportVatican implements CommandPattern{
         this.modifier = player.getPlayerBoard().getModifier();
     }
 
-    public boolean canDoAction() throws RemoteException{
+    public boolean canDoAction() throws RemoteException, IOException{
         Reward playerFaithPoint = player.getPlayerBoard().getCounter().getFaithPoint();
         int faithPointNeeded = vaticanReportSpot.getFaithPointNeeded().getQuantity();
         if(vaticanReportSpot.isLast()){
