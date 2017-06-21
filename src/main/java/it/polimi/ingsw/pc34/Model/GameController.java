@@ -33,6 +33,7 @@ public class GameController{
     
     private String actionSpot;
     private ActionInput actionInput;
+    private boolean inFlow = false;
     
     
 
@@ -48,6 +49,10 @@ public class GameController{
     
     public int getNumberPlayers(){
     	return board.getPlayerNumber();
+    }
+    
+    public void setInFlow(){
+    	this.inFlow = false;
     }
     
     public PlayerState getState (int number, String username){
@@ -297,262 +302,268 @@ public class GameController{
     }
     
     public String flow (String asked, String username){
-    	PlayerState state1 = getState(1 , username);
-    	//ENTER HERE IF IT'S YOUR TURN
-    	if(checkCurrentPlayer(username)){
-    		//ENTER HERE IF STATE1 STILL NOT DEFINED
-    		if(state1.equals(PlayerState.WAITING)){
-    			switch (asked) {
-    				case "/playturn" :
-    					return "What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip";
-    				case "1" :
-    					integerCreated.put(0);
-    			        return "Which ActionSpot do you choose? Choose a number : 1. TERRITORY TOWER 2. BUILDING TOWER 3. CHARACTER TOWER 4. VENTURE TOWER 5. HARVEST 6. PRODUCE 7. MARKET 8. COUNCILPALACE";
-    				case "2" :
-    					integerCreated.put(1);
-    					return "Which Leader Card to place? From 0 to 3";
-    				case "3" :
-    					integerCreated.put(2); 
-    					return "Which Leader Card to activate? From 0 to 3";
-    				case "4" :
-    					integerCreated.put(3);
-    					return "Which Leader Card to exchange? From 0 to 3";
-    				case "5" :
-    					integerCreated.put(4);
-    					skip();
-    					return "You skipped your turn!"; 
-    				default :
-    					return "Input error";
-    			}
-        	}
-    		//ENTER HERE IF STATE1 IS DEFINED
-    		else{
-    			PlayerState state2 = getState(2 , username);
-        		if(state2.equals(PlayerState.WAITING)){
-        			switch (state1){ 
-	    				case PLACE_LEADER_CARD :
-	    					integerCreated.put(Integer.parseInt(asked));
-	    					return null;
-	    				case ACTIVATE_LEADER_CARD :
-	    					integerCreated.put(Integer.parseInt(asked));
-	    					return null;
-	    				case EXCHANGE_LEADER_CARD :
-	    					integerCreated.put(Integer.parseInt(asked));
-	    					return null;
-	    				default:
-	    					return "State not handled";
-        			}
-        		}
-        		else {
-        			switch (state1){ 
-	    				case ACTION :
-	    					actionInput = new ActionInput();
-	    					switch (state2) {
-	    						case ACTION_INPUT : 
-	    							if(actionSpot==null){
-	    								actionSpot = asked;
-		    							switch(actionSpot) {
-		    								case "1":
-		    									actionInput.setActionType(ActionType.TERRITORY_TOWER);
-		    									return "Which card? From 0 to 3";
-		    								case "2":
-		    									actionInput.setActionType(ActionType.BUILDING_TOWER);
-		    									return "Which card? From 0 to 3";
-		    								case "3":
-		    									actionInput.setActionType(ActionType.CHARACTER_TOWER);
-		    									return "Which card? From 0 to 3";
-		    								case "4":
-		    									actionInput.setActionType(ActionType.VENTURE_TOWER);
-		    									return "Which card? From 0 to 3";
-		    								case "5":
-		    									actionInput.setActionType(ActionType.HARVEST);
-		    									return "Which spot? 0 or 1";
-		    								case "6":
-		    									actionInput.setActionType(ActionType.PRODUCE);
-		    									return "Which spot? 0 or 1";
-		    								case "7":
-		    									actionInput.setActionType(ActionType.MARKET);
-		    									return "Which Spot? 0.COIN(5)  1.SERVANT(5)   2.COIN(2) & MILITARY_POINT(3) 3.COUNCILPRIVILEGE(2)";
-		    								case "8":
-		    									actionInput.setActionType(ActionType.COUNCIL_PALACE);
-		    									actionInput.setSpot(0);
-		    									actionInputCreated.put(actionInput);
-		    									return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+    	if(inFlow == false){
+    		inFlow = true;
+    		PlayerState state1 = getState(1 , username);
+	    	//ENTER HERE IF IT'S YOUR TURN
+	    	if(checkCurrentPlayer(username)){
+	    		//ENTER HERE IF STATE1 STILL NOT DEFINED
+	    		if(state1.equals(PlayerState.WAITING)){
+	    			switch (asked) {
+	    				case "/playturn" :
+	    					return "What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip";
+	    				case "1" :
+	    					integerCreated.put(0);
+	    			        return "Which ActionSpot do you choose? Choose a number : 1. TERRITORY TOWER 2. BUILDING TOWER 3. CHARACTER TOWER 4. VENTURE TOWER 5. HARVEST 6. PRODUCE 7. MARKET 8. COUNCILPALACE";
+	    				case "2" :
+	    					integerCreated.put(1);
+	    					return "Which Leader Card to place? From 0 to 3";
+	    				case "3" :
+	    					integerCreated.put(2); 
+	    					return "Which Leader Card to activate? From 0 to 3";
+	    				case "4" :
+	    					integerCreated.put(3);
+	    					return "Which Leader Card to exchange? From 0 to 3";
+	    				case "5" :
+	    					integerCreated.put(4);
+	    					skip();
+	    					return "You skipped your turn!"; 
+	    				default :
+	    					return "Input error";
+	    			}
+	        	}
+	    		//ENTER HERE IF STATE1 IS DEFINED
+	    		else{
+	    			PlayerState state2 = getState(2 , username);
+	        		if(state2.equals(PlayerState.WAITING)){
+	        			switch (state1){ 
+		    				case PLACE_LEADER_CARD :
+		    					integerCreated.put(Integer.parseInt(asked));
+		    					return null;
+		    				case ACTIVATE_LEADER_CARD :
+		    					integerCreated.put(Integer.parseInt(asked));
+		    					return null;
+		    				case EXCHANGE_LEADER_CARD :
+		    					integerCreated.put(Integer.parseInt(asked));
+		    					return null;
+		    				default:
+		    					return "State not handled";
+	        			}
+	        		}
+	        		else {
+	        			switch (state1){ 
+		    				case ACTION :
+		    					actionInput = new ActionInput();
+		    					switch (state2) {
+		    						case ACTION_INPUT : 
+		    							if(actionSpot==null){
+		    								actionSpot = asked;
+			    							switch(actionSpot) {
+			    								case "1":
+			    									actionInput.setActionType(ActionType.TERRITORY_TOWER);
+			    									return "Which card? From 0 to 3";
+			    								case "2":
+			    									actionInput.setActionType(ActionType.BUILDING_TOWER);
+			    									return "Which card? From 0 to 3";
+			    								case "3":
+			    									actionInput.setActionType(ActionType.CHARACTER_TOWER);
+			    									return "Which card? From 0 to 3";
+			    								case "4":
+			    									actionInput.setActionType(ActionType.VENTURE_TOWER);
+			    									return "Which card? From 0 to 3";
+			    								case "5":
+			    									actionInput.setActionType(ActionType.HARVEST);
+			    									return "Which spot? 0 or 1";
+			    								case "6":
+			    									actionInput.setActionType(ActionType.PRODUCE);
+			    									return "Which spot? 0 or 1";
+			    								case "7":
+			    									actionInput.setActionType(ActionType.MARKET);
+			    									return "Which Spot? 0.COIN(5)  1.SERVANT(5)   2.COIN(2) & MILITARY_POINT(3) 3.COUNCILPRIVILEGE(2)";
+			    								case "8":
+			    									actionInput.setActionType(ActionType.COUNCIL_PALACE);
+			    									actionInput.setSpot(0);
+			    									actionInputCreated.put(actionInput);
+			    									return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    							}
 		    							}
-	    							}
-	    							else{
-	    								switch(actionSpot){ 
-		    								case "1":
-		    									if(checkNumber(0, 3, asked)){
-		    										actionInput.setSpot(Integer.parseInt(asked));
-		    										actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    									}
-		    								case "2":
-		    									if(checkNumber(0, 3, asked)){
-		    										actionInput.setSpot(Integer.parseInt(asked));
-		    										actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    									}
-		    								case "3":
-		    									if(checkNumber(0, 3, asked)){
-		    										actionInput.setSpot(Integer.parseInt(asked));
-		    										actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    									}
-		    								case "4":
-		    									if(checkNumber(0, 3, asked)){
-		    										actionInput.setSpot(Integer.parseInt(asked));
-		    										actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    									}
-		    								case "5":
-		    									if (players.size() > 2 && checkNumber(0, 1, asked)) {
-		    										actionInput.setSpot(Integer.parseInt(asked));
-		    										actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    				                    } else if(players.size() == 2 && checkNumber(0, 0, asked)){
-		    				                        actionInput.setSpot(0);
-		    				                        actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    				                    }
-		    				                    else{
-		    				                    	return "retry";
-		    				                    }
-		    								case "6":
-		    									if (players.size() > 2 && checkNumber(0, 1, asked)) {
-		    										actionInput.setSpot(Integer.parseInt(asked));
-		    										actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    				                    } else if(players.size() == 2 && checkNumber(0, 0, asked)){
-		    				                        actionInput.setSpot(0);
-		    				                        actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    				                    }
-		    				                    else{
-		    				                    	return "retry";
-		    				                    }
-		    								case "7":
-		    									if (players.size() > 3 && checkNumber(0, 3, asked)) {
-		    										actionInput.setSpot(Integer.parseInt(asked));
-		    										actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    				                    } else if(players.size() <= 3 && checkNumber(0, 1, asked)){
-		    				                        actionInput.setSpot(0);
-		    				                        actionInputCreated.put(actionInput);
-		    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
-		    				                    }
-		    				                    else{
-		    				                    	return "retry";
-		    				                    }
+		    							else{
+		    								switch(actionSpot){ 
+			    								case "1":
+			    									if(checkNumber(0, 3, asked)){
+			    										actionInput.setSpot(Integer.parseInt(asked));
+			    										actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    									}
+			    								case "2":
+			    									if(checkNumber(0, 3, asked)){
+			    										actionInput.setSpot(Integer.parseInt(asked));
+			    										actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    									}
+			    								case "3":
+			    									if(checkNumber(0, 3, asked)){
+			    										actionInput.setSpot(Integer.parseInt(asked));
+			    										actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    									}
+			    								case "4":
+			    									if(checkNumber(0, 3, asked)){
+			    										actionInput.setSpot(Integer.parseInt(asked));
+			    										actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    									}
+			    								case "5":
+			    									if (players.size() > 2 && checkNumber(0, 1, asked)) {
+			    										actionInput.setSpot(Integer.parseInt(asked));
+			    										actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    				                    } else if(players.size() == 2 && checkNumber(0, 0, asked)){
+			    				                        actionInput.setSpot(0);
+			    				                        actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    				                    }
+			    				                    else{
+			    				                    	return "retry";
+			    				                    }
+			    								case "6":
+			    									if (players.size() > 2 && checkNumber(0, 1, asked)) {
+			    										actionInput.setSpot(Integer.parseInt(asked));
+			    										actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    				                    } else if(players.size() == 2 && checkNumber(0, 0, asked)){
+			    				                        actionInput.setSpot(0);
+			    				                        actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    				                    }
+			    				                    else{
+			    				                    	return "retry";
+			    				                    }
+			    								case "7":
+			    									if (players.size() > 3 && checkNumber(0, 3, asked)) {
+			    										actionInput.setSpot(Integer.parseInt(asked));
+			    										actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    				                    } else if(players.size() <= 3 && checkNumber(0, 1, asked)){
+			    				                        actionInput.setSpot(0);
+			    				                        actionInputCreated.put(actionInput);
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    				                    }
+			    				                    else{
+			    				                    	return "retry";
+			    				                    }
+			    							}
 		    							}
-	    							}
-	    						case FAMILY_MEMBER :
-	    							if (checkNumber(0, 3, asked)){
-	    								switch (asked){
-	    									case "0" :
-	    										familyColorCreated.put(FamilyColor.WHITE);
-	    										return "How many Servants do you want to use?";
-	    									case "1" :
-	    										familyColorCreated.put(FamilyColor.BLACK);
-	    										return "How many Servants do you want to use?";
-	    									case "2" :
-	    										familyColorCreated.put(FamilyColor.ORANGE);
-	    										return "How many Servants do you want to use?";
-	    									case "3" :
-	    										familyColorCreated.put(FamilyColor.NEUTRAL);
-	    										return "How many Servants do you want to use?";
-	    								}
-	    							}
-	    						case SERVANTS :
-	    							integerCreated.put(Integer.parseInt(asked));
-	    						    return null;
-			    				case EXCHANGE_COUNCIL_PRIVILEGE :
-			    					if(asked.length()==councilRewardsSize){
-			    						int [] integerProduced = new int [councilRewardsSize]; 
-			    						int value ;
-			    						for(int i = 0; i < councilRewardsSize; i++){
-			    							value = Character.getNumericValue(asked.charAt(i));
-			    							integerProduced[i] = value;
-			    						}
-			    						arrayIntegerCreated.put(integerProduced);
-			    						return null;
-			    					}
-			    					return "Input error";
-			    				case CHOOSE_TRADE :
-			    					integerCreated.put(Integer.parseInt(asked));
-			    					return null;
-			    				case ASK_WHICH_DISCOUNT :			
-			    					integerCreated.put(Integer.parseInt(asked));
-			    					//GESTIRE ERRORE PARSE INT
-			    					return null;
-			    				case PAY_WITH_MILITARY_POINT :
-			    					if(asked.equals("yes")){
-			    		    			booleanCreated.put(true);
-			    		    			return null;
-			    		    		}
-			    		    		else if(asked.equals("no")){
-			    		    			booleanCreated.put(false);
-			    		    			return null;
-			    		    		}
-			    		    		return "Input error";
-			    				default:
-			    					return "State not handled";
-		        			}
-	    				case ACTIVATE_LEADER_CARD :
-	    					switch (state2){ 
-			    				case FAMILY_MEMBER_NOT_NEUTRAL :
-			    					switch (asked){
-										case "0" :
-											familyColorCreated.put(FamilyColor.WHITE);
-											return null;
-										case "1" :
-											familyColorCreated.put(FamilyColor.BLACK);
-											return null;
-										case "2" :
-											familyColorCreated.put(FamilyColor.ORANGE);
-											return null;
-										default : return "Error input";
-			    					}
-			    				case ASK_WHICH_CARD_COPY :
-			    					integerCreated.put(Integer.parseInt(asked));
-			    					//GESTIRE TUTTI GLI ERRORI DI PARSEINT
-			    					return null;
-			    				default:
-			    					return "State not handled";
-	    					}
-	    				case EXCHANGE_LEADER_CARD :
-	    					switch (state2){ 
-			    				case EXCHANGE_COUNCIL_PRIVILEGE :
-			    					integerCreated.put(Integer.parseInt(asked));
-			    					return null;
-			    				default:
-			    					return "State not handled";
-							}
-	    				default:
-	    					return "State not handled";
-        			}
-        		}
-        	}
+		    						case FAMILY_MEMBER :
+		    							if (checkNumber(0, 3, asked)){
+		    								switch (asked){
+		    									case "0" :
+		    										familyColorCreated.put(FamilyColor.WHITE);
+		    										return "How many Servants do you want to use?";
+		    									case "1" :
+		    										familyColorCreated.put(FamilyColor.BLACK);
+		    										return "How many Servants do you want to use?";
+		    									case "2" :
+		    										familyColorCreated.put(FamilyColor.ORANGE);
+		    										return "How many Servants do you want to use?";
+		    									case "3" :
+		    										familyColorCreated.put(FamilyColor.NEUTRAL);
+		    										return "How many Servants do you want to use?";
+		    								}
+		    							}
+		    						case SERVANTS :
+		    							integerCreated.put(Integer.parseInt(asked));
+		    						    return null;
+				    				case EXCHANGE_COUNCIL_PRIVILEGE :
+				    					if(asked.length()==councilRewardsSize){
+				    						int [] integerProduced = new int [councilRewardsSize]; 
+				    						int value ;
+				    						for(int i = 0; i < councilRewardsSize; i++){
+				    							value = Character.getNumericValue(asked.charAt(i));
+				    							integerProduced[i] = value;
+				    						}
+				    						arrayIntegerCreated.put(integerProduced);
+				    						return null;
+				    					}
+				    					return "Input error";
+				    				case CHOOSE_TRADE :
+				    					integerCreated.put(Integer.parseInt(asked));
+				    					return null;
+				    				case ASK_WHICH_DISCOUNT :			
+				    					integerCreated.put(Integer.parseInt(asked));
+				    					//GESTIRE ERRORE PARSE INT
+				    					return null;
+				    				case PAY_WITH_MILITARY_POINT :
+				    					if(asked.equals("yes")){
+				    		    			booleanCreated.put(true);
+				    		    			return null;
+				    		    		}
+				    		    		else if(asked.equals("no")){
+				    		    			booleanCreated.put(false);
+				    		    			return null;
+				    		    		}
+				    		    		return "Input error";
+				    				default:
+				    					return "State not handled";
+			        			}
+		    				case ACTIVATE_LEADER_CARD :
+		    					switch (state2){ 
+				    				case FAMILY_MEMBER_NOT_NEUTRAL :
+				    					switch (asked){
+											case "0" :
+												familyColorCreated.put(FamilyColor.WHITE);
+												return null;
+											case "1" :
+												familyColorCreated.put(FamilyColor.BLACK);
+												return null;
+											case "2" :
+												familyColorCreated.put(FamilyColor.ORANGE);
+												return null;
+											default : return "Error input";
+				    					}
+				    				case ASK_WHICH_CARD_COPY :
+				    					integerCreated.put(Integer.parseInt(asked));
+				    					//GESTIRE TUTTI GLI ERRORI DI PARSEINT
+				    					return null;
+				    				default:
+				    					return "State not handled";
+		    					}
+		    				case EXCHANGE_LEADER_CARD :
+		    					switch (state2){ 
+				    				case EXCHANGE_COUNCIL_PRIVILEGE :
+				    					integerCreated.put(Integer.parseInt(asked));
+				    					return null;
+				    				default:
+				    					return "State not handled";
+								}
+		    				default:
+		    					return "State not handled";
+	        			}
+	        		}
+	        	}
+	    	}
+	    	
+	    	//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
+	    	else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
+	    		if(asked.equals("yes")){
+	    			booleanCreated.put(true);
+	    			return null;
+	    		}
+	    		else if(asked.equals("no")){
+	    			booleanCreated.put(false);
+	    			return null;
+	    		}
+	    		return "Input error";
+	    	}
+	    	
+	    	//ENTER HERE IF IT ISN'T YOUR TURN
+	    	else{
+	    		return "It isn't your turn";
+	    	}
     	}
-    	
-    	//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
-    	else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
-    		if(asked.equals("yes")){
-    			booleanCreated.put(true);
-    			return null;
-    		}
-    		else if(asked.equals("no")){
-    			booleanCreated.put(false);
-    			return null;
-    		}
-    		return "Input error";
-    	}
-    	
-    	//ENTER HERE IF IT ISN'T YOUR TURN
     	else{
-    		return "It isn't your turn";
-    	}
+	    	return "I am still processing a request";
+	   	}
     }
     
 }
