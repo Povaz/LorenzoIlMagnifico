@@ -265,7 +265,7 @@ public class Game implements Runnable{
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(current.getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
-
+                    current.putFirst_State(PlayerState.WAITING);
                     switch(gameController.getWhatToDo(current)){
                         case 0:
                             current.putFirst_State(PlayerState.ACTION);

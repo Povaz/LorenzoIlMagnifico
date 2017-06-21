@@ -128,7 +128,8 @@ public class GameController{
     }
 
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
-        ActionInput actionInput = actionInputCreated.get();
+        System.out.println("Aspetto un actioninput");
+    	ActionInput actionInput = actionInputCreated.get();
         System.out.println("Action Input taken from +" + player.getUsername() + ": " + actionInput.toString());
         setInFlow();
         if(actionInput == null) {
@@ -342,7 +343,7 @@ public class GameController{
 	    		else{
 	    			PlayerState state2 = getState(2 , username);
 	        		if(state2.equals(PlayerState.WAITING)){
-	        			switch (state1){ 
+	        			switch (state1) {
 		    				case PLACE_LEADER_CARD :
 		    					integerCreated.put(Integer.parseInt(asked));
 		    					return null;
