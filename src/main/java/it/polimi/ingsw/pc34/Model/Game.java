@@ -315,7 +315,6 @@ public class Game implements Runnable{
                             if(changeLeaderCardInReward.canDoAction()){
                                 changeLeaderCardInReward.doAction();
                                 gameController.sendMessageCLI(current, "Action has been executed");
-
                             }
                             break;
                         case 4:

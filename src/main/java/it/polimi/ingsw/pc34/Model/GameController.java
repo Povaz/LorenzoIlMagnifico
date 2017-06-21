@@ -233,6 +233,7 @@ public class GameController{
         }
         this.sendMessageCLI(player, message);
         int index = integerCreated.get();
+        setInFlow();
         return leaderCardsInHand.get(index);
     }
 
@@ -571,9 +572,9 @@ public class GameController{
 				    				case EXCHANGE_COUNCIL_PRIVILEGE :
 				    					integerCreated.put(Integer.parseInt(asked));
 				    					return null;
-				    				default:
-				    					setInFlow();
-				    					return "State not handled";
+				    				case WAITING:
+				    					integerCreated.put(Integer.parseInt(asked));
+				    					return null;
 								}
 		    				default:
 		    					setInFlow();
