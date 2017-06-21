@@ -303,10 +303,10 @@ public class GameController{
     
     public String flow (String asked, String username){
     	//ENTER HERE IF IT'S YOUR TURN
-    	PlayerState state1 = getState(1 , username);
-    	if(checkCurrentPlayer(username)){
-    		if(inFlow == false){
-        		inFlow = true;
+    	if(inFlow == false){
+    		inFlow = true;
+    		PlayerState state1 = getState(1 , username);
+    		if(checkCurrentPlayer(username)){
 	    		//ENTER HERE IF STATE1 STILL NOT DEFINED
 	    		if(state1.equals(PlayerState.WAITING)){
 	    			switch (asked) {
@@ -562,31 +562,29 @@ public class GameController{
 	        		}
 	        	}
     		}
+    		//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
+    		else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
+        		if(asked.equals("yes")){
+        			booleanCreated.put(true);
+        			return null;
+        		}
+        		else if(asked.equals("no")){
+        			booleanCreated.put(false);
+        			return null;
+        		}
+        		setInFlow();
+        		return "Input error";
+        	}
+        	
+        	//ENTER HERE IF IT ISN'T YOUR TURN
         	else{
-    	    	return "I am still processing a request";
-    	   	}
+        		setInFlow();
+        		return "It isn't your turn";
+        	}
     	}
-    	
-    	//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
-    	else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
-    		if(asked.equals("yes")){
-    			booleanCreated.put(true);
-    			return null;
-    		}
-    		else if(asked.equals("no")){
-    			booleanCreated.put(false);
-    			return null;
-    		}
-    		setInFlow();
-    		return "Input error";
-    	}
-    	
-    	//ENTER HERE IF IT ISN'T YOUR TURN
     	else{
-    		setInFlow();
-    		return "It isn't your turn";
-    	}
-    	
+	    	return "I am still processing a request";
+	   	}
     }
     
 }
