@@ -146,8 +146,8 @@ public class ServerHandler implements Runnable{
 							//LE CONFERME DEL CAMBIO DI STATO DA SERVER HANDLER LE SI DEVONO GESTIRE DA GAME
 							break;
 						case "/chat" : 
-							answer = //toChatHandler(line);
 							stateGame = null;
+							answer = "Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
 							break;
 						//PROBLEMA STATE GAME PER ENTRARE NEL CASE VATICAN SUPPORT DEVE ESSERE SETTATO DA GAME
 						case "/vaticansupport" :
