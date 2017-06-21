@@ -122,13 +122,11 @@ public class GameController{
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo;
         whatToDo = integerCreated.get();
-        setInFlow();
         return whatToDo;
     }
 
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
         ActionInput actionInput = actionInputCreated.get();
-        setInFlow();
         if(actionInput == null) {
             return null;
         }
@@ -156,7 +154,6 @@ public class GameController{
 
     public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException{
         FamilyColor familyColor = familyColorCreated.get();
-		setInFlow();
         int servant = 0;
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
             if(fM.getColor() == familyColor) {
@@ -170,7 +167,6 @@ public class GameController{
 
     public int getHowManyServants (Player player) {
         player.putSecond_State(PlayerState.SERVANTS);
-        setInFlow();
         int index = integerCreated.get();
         return index;
     }
@@ -188,7 +184,6 @@ public class GameController{
                 this.councilRewardsSize = rewards.size();
                 player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
                 int[] rewardArray = arrayIntegerCreated.get();
-                setInFlow();
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
                         case 1:
@@ -219,9 +214,7 @@ public class GameController{
 
     public FamilyColor chooseFamilyMemberColorNotNeutral(Player player){
         player.putSecond_State(PlayerState.FAMILY_MEMBER);
-        FamilyColor familyColor = familyColorCreated.get();
-        setInFlow();
-        return familyColor;
+        return familyColorCreated.get();
     }
 
     public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws RemoteException {
@@ -231,7 +224,6 @@ public class GameController{
         }
         this.sendMessageCLI(player, message);
         int index = integerCreated.get();
-        setInFlow();
         return leaderCardsInHand.get(index);
     }
 
@@ -242,7 +234,6 @@ public class GameController{
         }
         this.sendMessageCLI(player, message);
         int index = integerCreated.get();
-        setInFlow();
         return leaderCardsInHand.get(index);
     }
 
@@ -250,7 +241,6 @@ public class GameController{
         String message = "Do you support Vatican?";
         this.sendMessageCLI(player, message);
         boolean choose = booleanCreated.get();
-        setInFlow();
         return  choose;
     }
 
@@ -263,7 +253,6 @@ public class GameController{
         this.tradesSize = buildingCard.getTrades().size();
         player.putSecond_State(PlayerState.CHOOSE_TRADE);
         int choose = integerCreated.get();
-        setInFlow();
         return buildingCard.getTrades().get(choose);
     }
 
@@ -279,7 +268,6 @@ public class GameController{
         }
         this.sendMessageCLI(player, message);
         int index = integerCreated.get();
-        setInFlow();
         return discounts.get(index);
     }
 
@@ -288,7 +276,6 @@ public class GameController{
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
         boolean choose = booleanCreated.get();
-        setInFlow();
         return choose;
     }
     
