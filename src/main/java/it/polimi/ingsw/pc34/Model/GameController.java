@@ -171,7 +171,7 @@ public class GameController{
             }
             else{
                 player.putThird_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
-                int[] rewardArray = rewardArray = arrayIntegerCreated.get();
+                int[] rewardArray = arrayIntegerCreated.get();
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
                         case 1:
@@ -244,7 +244,7 @@ public class GameController{
     }
 
     public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException{
-
+        player.putThird_State(PlayerState.ASK_WHICH_DISCOUNT);
         String message = "";
         for (int j = 0; j < discounts.size(); j++) {
             message += j + ". ";
