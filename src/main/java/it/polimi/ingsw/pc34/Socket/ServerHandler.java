@@ -120,7 +120,7 @@ public class ServerHandler implements Runnable{
 			}
 			//game
 			if(fase==1){
-				if(stateGame==null){
+				if(stateGame==null) {
 					switch (line){
 						case "/playturn" :
 							answer = toGameHandler(line);

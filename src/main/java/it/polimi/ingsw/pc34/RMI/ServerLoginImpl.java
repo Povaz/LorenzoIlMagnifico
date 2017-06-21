@@ -26,11 +26,11 @@ import java.util.*;
  * Created by Povaz on 24/05/2017.
  **/
 public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
-    private ArrayList<UserLogin> usersLoggedRMI;
+    private HashMap<UserLogin, String> usersLoggedRMI;
     private Lobby lobby;
 
     public ServerLoginImpl (Lobby lobby) throws RemoteException {
-        this.usersLoggedRMI = new ArrayList<>();
+        this.usersLoggedRMI = new HashMap<>();
         this.lobby = lobby;
         this.lobby.setServerRMI(this);
     }
@@ -49,7 +49,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     public boolean loginServer (UserLogin userLogin) throws JSONException, IOException {
         if (!searchUserLogged(userLogin)) {
             if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getKeyword())) {
-                this.usersLoggedRMI.add(userLogin);
+                this.usersLoggedRMI.put(userLogin, null);
 
                 lobby.getUsers().put(userLogin.getUsername(), ConnectionType.RMI);
                 userLogin.sendMessage("Login Successful");
@@ -121,7 +121,7 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
 
 
     public void notifyRMIPlayers (String m) throws RemoteException {
-        for (UserLogin user: usersLoggedRMI) {
+        for (UserLogin user: usersLoggedRMI.keySet()) {
             user.sendMessage(m);
         }
     }
@@ -142,31 +142,62 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
 
     @Override
     public void sendInput (String input, UserLogin userLogin) throws RemoteException{
+        GameController gameController = null;
         try {
-            GameController gameController = searchGame(userLogin);
+            gameController = searchGame(userLogin);
         }
         catch (NullPointerException e) {
             userLogin.sendMessage("You're not currently in game");
             e.printStackTrace();
         }
-        switch (input) {
-            case "/playTurn":
-                userLogin.sendMessage("Not Implemented yet");
-                break;
-            case "/chat":
-                userLogin.sendMessage("Not implemented yet");
-                break;
-            case "/stampinfo":
-                userLogin.sendMessage("Not implemented yet");
-                break;
-            default: userLogin.sendMessage("Command Unknown");
+
+        for (Map.Entry<UserLogin, String> entry: usersLoggedRMI.entrySet()) {
+            if (userLogin.getUsername().equals(entry.getKey().getUsername())) {
+                if (entry.getValue() == null) {
+                    switch (input) {
+                        case "/playturn":
+                            userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
+                            entry.setValue(input);
+                            break;
+                        case "/chat":
+                            userLogin.sendMessage("Insert a Message: ");
+                            entry.setValue(input);
+                            break;
+                        case "/stampinfo":
+                            userLogin.sendMessage("Not implemented yet, man, eccheccazzo");
+                            break;
+                        default:
+                            userLogin.sendMessage("Command Unknown");
+                    }
+                } else {
+                    switch (entry.getValue()) {
+                        case "/playturn":
+                            userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
+                            break;
+                        case "/chat":
+                            entry.setValue(null);
+                            notifyRMIPlayers(input);
+                            userLogin.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
+                            break;
+                        case "/vaticansupport":
+                            userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
+                            break;
+                        default:
+                            userLogin.sendMessage("Wrong state game. How did you do it? Explain it.");
+                            break;
+                    }
+                }
+            }
         }
     }
 
     public void sendMessage(Player player, String message) throws RemoteException {
-        for(int i = 0; i < usersLoggedRMI.size(); i++) {
-            if (player.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
-                usersLoggedRMI.get(i).sendMessage(message);
+        for (Map.Entry<UserLogin, String> entry: usersLoggedRMI.entrySet()) {
+            if (player.getUsername().equals(entry.getKey().getUsername())) {
+                if (message.equals("Action has been exectuted")) {
+                    entry.setValue(null);
+                }
+                entry.getKey().sendMessage(message);
             }
         }
     }

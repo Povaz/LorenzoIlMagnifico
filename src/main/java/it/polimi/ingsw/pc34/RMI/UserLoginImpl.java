@@ -160,7 +160,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin {
     public void gameHandler (ServerLogin serverLogin) throws RemoteException {
         while (true) {
             try {
-                System.out.println("Type: /playTurn for an Action;\n /chat to send message; \n/stampinfo to stamp info");
+                System.out.println("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
                 Scanner inChoose = new Scanner (System.in);
                 String choose = inChoose.nextLine();
                 serverLogin.sendInput(choose, this);
