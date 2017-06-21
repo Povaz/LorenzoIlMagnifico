@@ -265,19 +265,20 @@ public class Game implements Runnable{
                     System.out.println("\n\nPLAYERBOARD:");
                     System.out.println(current.getPlayerBoard());
                     System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
-
+                    current.putFirst_State(PlayerState.WAITING);
                     switch(gameController.getWhatToDo(current)){
                         case 0:
                             current.putFirst_State(PlayerState.ACTION);
                             if(!current.isPlacedFamilyMember()) {
-                                current.putFirst_State(PlayerState.ACTION_INPUT);
+                                current.putSecond_State(PlayerState.ACTION_INPUT);
                                 actionSpot = gameController.getViewActionSpot(current);
-                                current.putFirst_State(PlayerState.FAMILY_MEMBER);
+                                current.putSecond_State(PlayerState.FAMILY_MEMBER);
                                 familyMember = gameController.getViewFamilyMember(current);
                                 if(placeFamilyMember(familyMember, actionSpot)) {
                                     current.setPlacedFamilyMember(true);
                                 }
                                 gameController.sendMessageCLI(current, "Action has been executed");
+                                current.putFirst_State(PlayerState.WAITING);
                             }
                             else{
                                 gameController.sendMessageCLI(current, "You have already placed a family member!");
