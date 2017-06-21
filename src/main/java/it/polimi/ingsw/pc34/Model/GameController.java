@@ -302,15 +302,16 @@ public class GameController{
     }
     
     public String flow (String asked, String username){
-    	if(inFlow == false){
-    		inFlow = true;
-    		PlayerState state1 = getState(1 , username);
-	    	//ENTER HERE IF IT'S YOUR TURN
-	    	if(checkCurrentPlayer(username)){
+    	//ENTER HERE IF IT'S YOUR TURN
+    	if(checkCurrentPlayer(username)){
+    		if(inFlow == false){
+        		inFlow = true;
+        		PlayerState state1 = getState(1 , username);
 	    		//ENTER HERE IF STATE1 STILL NOT DEFINED
 	    		if(state1.equals(PlayerState.WAITING)){
 	    			switch (asked) {
 	    				case "/playturn" :
+	    					setInFlow();
 	    					return "What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip";
 	    				case "1" :
 	    					integerCreated.put(0);
@@ -329,6 +330,7 @@ public class GameController{
 	    					skip();
 	    					return "You skipped your turn!"; 
 	    				default :
+	    					setInFlow();
 	    					return "Input error";
 	    			}
 	        	}
@@ -347,6 +349,7 @@ public class GameController{
 		    					integerCreated.put(Integer.parseInt(asked));
 		    					return null;
 		    				default:
+		    					setInFlow();
 		    					return "State not handled";
 	        			}
 	        		}
@@ -361,24 +364,31 @@ public class GameController{
 			    							switch(actionSpot) {
 			    								case "1":
 			    									actionInput.setActionType(ActionType.TERRITORY_TOWER);
+			    									setInFlow();
 			    									return "Which card? From 0 to 3";
 			    								case "2":
 			    									actionInput.setActionType(ActionType.BUILDING_TOWER);
+			    									setInFlow();
 			    									return "Which card? From 0 to 3";
 			    								case "3":
 			    									actionInput.setActionType(ActionType.CHARACTER_TOWER);
+			    									setInFlow();
 			    									return "Which card? From 0 to 3";
 			    								case "4":
 			    									actionInput.setActionType(ActionType.VENTURE_TOWER);
+			    									setInFlow();
 			    									return "Which card? From 0 to 3";
 			    								case "5":
 			    									actionInput.setActionType(ActionType.HARVEST);
+			    									setInFlow();
 			    									return "Which spot? 0 or 1";
 			    								case "6":
 			    									actionInput.setActionType(ActionType.PRODUCE);
+			    									setInFlow();
 			    									return "Which spot? 0 or 1";
 			    								case "7":
 			    									actionInput.setActionType(ActionType.MARKET);
+			    									setInFlow();
 			    									return "Which Spot? 0.COIN(5)  1.SERVANT(5)   2.COIN(2) & MILITARY_POINT(3) 3.COUNCILPRIVILEGE(2)";
 			    								case "8":
 			    									actionInput.setActionType(ActionType.COUNCIL_PALACE);
@@ -424,6 +434,7 @@ public class GameController{
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    }
 			    				                    else{
+			    				                    	setInFlow();
 			    				                    	return "retry";
 			    				                    }
 			    								case "6":
@@ -437,6 +448,7 @@ public class GameController{
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    }
 			    				                    else{
+			    				                    	setInFlow();
 			    				                    	return "retry";
 			    				                    }
 			    								case "7":
@@ -450,6 +462,7 @@ public class GameController{
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    }
 			    				                    else{
+			    				                    	setInFlow();
 			    				                    	return "retry";
 			    				                    }
 			    							}
@@ -502,8 +515,10 @@ public class GameController{
 				    		    			booleanCreated.put(false);
 				    		    			return null;
 				    		    		}
+				    					setInFlow();
 				    		    		return "Input error";
 				    				default:
+				    					setInFlow();
 				    					return "State not handled";
 			        			}
 		    				case ACTIVATE_LEADER_CARD :
@@ -519,13 +534,16 @@ public class GameController{
 											case "2" :
 												familyColorCreated.put(FamilyColor.ORANGE);
 												return null;
-											default : return "Error input";
+											default : 
+												setInFlow();
+												return "Error input";
 				    					}
 				    				case ASK_WHICH_CARD_COPY :
 				    					integerCreated.put(Integer.parseInt(asked));
 				    					//GESTIRE TUTTI GLI ERRORI DI PARSEINT
 				    					return null;
 				    				default:
+				    					setInFlow();
 				    					return "State not handled";
 		    					}
 		    				case EXCHANGE_LEADER_CARD :
@@ -534,36 +552,41 @@ public class GameController{
 				    					integerCreated.put(Integer.parseInt(asked));
 				    					return null;
 				    				default:
+				    					setInFlow();
 				    					return "State not handled";
 								}
 		    				default:
+		    					setInFlow();
 		    					return "State not handled";
 	        			}
 	        		}
 	        	}
-	    	}
-	    	
-	    	//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
-	    	else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
-	    		if(asked.equals("yes")){
-	    			booleanCreated.put(true);
-	    			return null;
-	    		}
-	    		else if(asked.equals("no")){
-	    			booleanCreated.put(false);
-	    			return null;
-	    		}
-	    		return "Input error";
-	    	}
-	    	
-	    	//ENTER HERE IF IT ISN'T YOUR TURN
-	    	else{
-	    		return "It isn't your turn";
-	    	}
+    		}
+        	else{
+    	    	return "I am still processing a request";
+    	   	}
     	}
+    	
+    	//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
+    	else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
+    		if(asked.equals("yes")){
+    			booleanCreated.put(true);
+    			return null;
+    		}
+    		else if(asked.equals("no")){
+    			booleanCreated.put(false);
+    			return null;
+    		}
+    		setInFlow();
+    		return "Input error";
+    	}
+    	
+    	//ENTER HERE IF IT ISN'T YOUR TURN
     	else{
-	    	return "I am still processing a request";
-	   	}
+    		setInFlow();
+    		return "It isn't your turn";
+    	}
+    	
     }
     
 }
