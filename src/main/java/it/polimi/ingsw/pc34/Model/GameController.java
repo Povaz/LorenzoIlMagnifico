@@ -366,6 +366,7 @@ public class GameController{
 		    						System.out.println("entra");
 		    							if(actionSpot==null){
 		    								actionSpot = asked;
+		    								System.out.println("Ora setto l'ActionType");
 			    							switch(actionSpot) {
 			    								case "1":
 			    									actionInput.setActionType(ActionType.TERRITORY_TOWER);
