@@ -64,7 +64,7 @@ public class ServerHandler implements Runnable{
 	public void sendToClient(String message) throws IOException{
 		if(message.equals("Action has been executed")){
 			stateGame = null;
-			message += message + " Insert new command: /playturn, /chat, /stampinfo";
+			message += " Insert new command: /playturn, /chat, /stampinfo";
 		}
 		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
 		socketOut.println(message);
@@ -135,6 +135,10 @@ public class ServerHandler implements Runnable{
 						//SI PUO' METTERE ANCHE FUORI
 						case "/stampinfo" : 
 							//answer = toStampInfoHandler(line);
+							answer = "command still not implemented, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
+							break;
+						default :
+							answer = "Wrong input, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
 							break;
 						
 					}
@@ -152,6 +156,9 @@ public class ServerHandler implements Runnable{
 						//PROBLEMA STATE GAME PER ENTRARE NEL CASE VATICAN SUPPORT DEVE ESSERE SETTATO DA GAME
 						case "/vaticansupport" :
 							answer = toGameHandler(line);
+							break;
+						default :
+							answer = "Wrong input, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
 							break;
 					}
 				}
