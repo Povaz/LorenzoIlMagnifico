@@ -303,10 +303,10 @@ public class GameController{
     
     public String flow (String asked, String username){
     	//ENTER HERE IF IT'S YOUR TURN
+    	PlayerState state1 = getState(1 , username);
     	if(checkCurrentPlayer(username)){
     		if(inFlow == false){
         		inFlow = true;
-        		PlayerState state1 = getState(1 , username);
 	    		//ENTER HERE IF STATE1 STILL NOT DEFINED
 	    		if(state1.equals(PlayerState.WAITING)){
 	    			switch (asked) {
