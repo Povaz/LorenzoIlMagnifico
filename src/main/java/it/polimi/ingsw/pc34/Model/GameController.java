@@ -276,7 +276,7 @@ public class GameController{
     	if(checkCurrentPlayer(username)){
     		//ENTER HERE IF STATE1 STILL NOT DEFINED
     		if(state1.equals(PlayerState.WAITING)){
-    			switch (asked){ 
+    			switch (asked) {
     				case "/playturn" :
     					return "What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip";
     				case "1" :

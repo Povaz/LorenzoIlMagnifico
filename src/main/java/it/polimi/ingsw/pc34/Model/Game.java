@@ -276,6 +276,7 @@ public class Game implements Runnable{
                                 if(placeFamilyMember(familyMember, actionSpot)){
                                     current.setPlacedFamilyMember(true);
                                 }
+                                gameController.sendMessageCLI(current, "Action has been executed");
                             }
                             else{
                                 gameController.sendMessageCLI(current, "You have already placed a family member!");
@@ -287,6 +288,8 @@ public class Game implements Runnable{
                             PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
                             if(placeLeaderCard.canDoAction()){
                                 placeLeaderCard.doAction();
+                                gameController.sendMessageCLI(current, "Action has been executed");
+
                             }
                             break;
                         case 2:
@@ -294,6 +297,8 @@ public class Game implements Runnable{
                             ActivateImmediateLeaderCard activateImmediateLeaderCard = new ActivateImmediateLeaderCard(this, current);
                             if(activateImmediateLeaderCard.canDoAction()){
                                 activateImmediateLeaderCard.doAction();
+                                gameController.sendMessageCLI(current, "Action has been executed");
+
                             }
                             break;
                         case 3:
@@ -301,10 +306,14 @@ public class Game implements Runnable{
                             ChangeLeaderCardInReward changeLeaderCardInReward = new ChangeLeaderCardInReward(this, current);
                             if(changeLeaderCardInReward.canDoAction()){
                                 changeLeaderCardInReward.doAction();
+                                gameController.sendMessageCLI(current, "Action has been executed");
+
                             }
                             break;
                         case 4:
                             current.setYourTurn(false);
+                            gameController.sendMessageCLI(current, "Action has been executed");
+
                             break;
                         default:
                             System.out.println("WAT???");
