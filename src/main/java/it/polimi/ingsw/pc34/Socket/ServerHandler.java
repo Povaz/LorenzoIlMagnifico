@@ -38,7 +38,7 @@ public class ServerHandler implements Runnable{
 		this.fase = fase;
 		if(fase==1){
 			try {
-				sendToClient("Type: /action for an Action;  /skip to skip this turn  /drawleadercard to use a LeaderCard  /activateleadercard to activate a Leader Card  /chat to send message;  /stampinfo to stamp info");
+				sendToClient("Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -61,7 +61,7 @@ public class ServerHandler implements Runnable{
 		return socket;
 	}
 	
-	private void sendToClient(String message) throws IOException{
+	public void sendToClient(String message) throws IOException{
 		if(message.equals("Action has been executed")){
 			stateGame = null;
 			message += message + " Insert new command: /playturn, /chat, /stampinfo";
