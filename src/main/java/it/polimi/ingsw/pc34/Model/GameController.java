@@ -23,12 +23,11 @@ public class GameController{
     private ArrayList<ServerHandler> usersSoc;
 
     private ServerLoginImpl serverLoginImpl;
-    private ActionInputCreated actionInputCreated;
-    private IntegerCreated integerCreated;
-    private FamilyColorCreated familyColorCreated;
-    private BooleanCreated booleanCreated;
-    private ArrayIntegerCreated arrayIntegerCreated;
-    private TradeCreated tradeCreated;
+    private ActionInputCreated actionInputCreated = new ActionInputCreated();
+    private IntegerCreated integerCreated = new IntegerCreated();
+    private FamilyColorCreated familyColorCreated = new FamilyColorCreated();
+    private BooleanCreated booleanCreated = new BooleanCreated();
+    private ArrayIntegerCreated arrayIntegerCreated = new ArrayIntegerCreated();
     private int councilRewardsSize;
     private int tradesSize;
     
