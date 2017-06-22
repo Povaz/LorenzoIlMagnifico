@@ -28,7 +28,13 @@ public class ClientSOC implements Runnable {
 		output.start();
 		
 		//input
-		ClientInputHandler cih = new ClientInputHandler (socketServer);
+		ClientInputHandler cih = null;
+		try {
+			cih = new ClientInputHandler (socketServer);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 		Thread input = new Thread(cih);
 		input.start();
 	}

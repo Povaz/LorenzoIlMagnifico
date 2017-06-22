@@ -7,13 +7,14 @@ import java.util.Scanner;
 
 public class ClientInputHandler extends Thread{
 	Socket socketServer;
+	Scanner socketIn;
 	
-	public ClientInputHandler (Socket socketServer){
+	public ClientInputHandler (Socket socketServer) throws IOException{
 		this.socketServer = socketServer; 
+		this.socketIn = new Scanner(socketServer.getInputStream());
 	}
 
-	private static String receiveFromServer(Socket socketServer) throws IOException{
-		Scanner socketIn = new Scanner(socketServer.getInputStream());
+	private String receiveFromServer(Socket socketServer) throws IOException{
 		String received = socketIn.nextLine();
 		return received;	
 	}
@@ -29,7 +30,6 @@ public class ClientInputHandler extends Thread{
 				e.printStackTrace();
 			}
 			System.out.println(line);
-			System.out.println("");
 		}
 	}
 
