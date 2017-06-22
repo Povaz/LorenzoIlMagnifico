@@ -141,53 +141,50 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
 
 
     @Override
-    public void sendInput (String input, UserLogin userLogin) throws RemoteException{
+    public void sendInput (String input, UserLogin userLogin) throws RemoteException {
         GameController gameController = null;
         try {
             gameController = searchGame(userLogin);
-        }
-        catch (NullPointerException e) {
-            userLogin.sendMessage("You're not currently in game");
-            e.printStackTrace();
-        }
-
-        for (Map.Entry<UserLogin, String> entry: usersLoggedRMI.entrySet()) {
-            if (userLogin.getUsername().equals(entry.getKey().getUsername())) {
-                if (entry.getValue() == null) {
-                    switch (input) {
-                        case "/playturn":
-                            userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
-                            entry.setValue(input);
-                            break;
-                        case "/chat":
-                            userLogin.sendMessage("Insert a Message: ");
-                            entry.setValue(input);
-                            break;
-                        case "/stampinfo":
-                            userLogin.sendMessage("Not implemented yet, man, eccheccazzo");
-                            break;
-                        default:
-                            userLogin.sendMessage("Command Unknown");
-                    }
-                } else {
-                    switch (entry.getValue()) {
-                        case "/playturn":
-                            userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
-                            break;
-                        case "/chat":
-                            entry.setValue(null);
-                            notifyRMIPlayers(input);
-                            userLogin.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
-                            break;
-                        case "/vaticansupport":
-                            userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
-                            break;
-                        default:
-                            userLogin.sendMessage("Wrong state game. How did you do it? Explain it.");
-                            break;
+            for (Map.Entry<UserLogin, String> entry : usersLoggedRMI.entrySet()) {
+                if (userLogin.getUsername().equals(entry.getKey().getUsername())) {
+                    if (entry.getValue() == null) {
+                        switch (input) {
+                            case "/playturn":
+                                userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
+                                entry.setValue(input);
+                                break;
+                            case "/chat":
+                                userLogin.sendMessage("Insert a Message: ");
+                                entry.setValue(input);
+                                break;
+                            case "/stampinfo":
+                                userLogin.sendMessage("Not implemented yet, man, eccheccazzo");
+                                break;
+                            default:
+                                userLogin.sendMessage("Command Unknown");
+                        }
+                    } else {
+                        switch (entry.getValue()) {
+                            case "/playturn":
+                                userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
+                                break;
+                            case "/chat":
+                                entry.setValue(null);
+                                notifyRMIPlayers(input);
+                                userLogin.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
+                                break;
+                            case "/vaticansupport":
+                                userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
+                                break;
+                            default:
+                                userLogin.sendMessage("Wrong state game. How did you do it? Explain it.");
+                                break;
+                        }
                     }
                 }
             }
+        } catch (NullPointerException e) {
+            userLogin.sendMessage("The Game isn't started yet");
         }
     }
 

@@ -193,6 +193,7 @@ public class GameController{
                 this.councilRewardsSize = rewards.size();
                 player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
                 int[] rewardArray = arrayIntegerCreated.get();
+                setInFlow();
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
                         case 1:
@@ -484,21 +485,21 @@ public class GameController{
 			    							}
 		    							}
 		    						case FAMILY_MEMBER :
-		    							if (checkNumber(0, 3, asked)){
+		    							if (checkNumber(1, 4, asked)){
 		    								switch (asked){
-		    									case "0" :
+		    									case "1" :
 		    										familyColorCreated.put(FamilyColor.WHITE);
 		    										setInFlow();
 		    										return "How many Servants do you want to use?";
-		    									case "1" :
+		    									case "2" :
 		    										familyColorCreated.put(FamilyColor.BLACK);
 													setInFlow();
 													return "How many Servants do you want to use?";
-		    									case "2" :
+		    									case "3" :
 		    										familyColorCreated.put(FamilyColor.ORANGE);
 													setInFlow();
 													return "How many Servants do you want to use?";
-		    									case "3" :
+		    									case "4" :
 		    										familyColorCreated.put(FamilyColor.NEUTRAL);
 													setInFlow();
 													return "How many Servants do you want to use?";
@@ -509,6 +510,7 @@ public class GameController{
 		    							setInFlow();
 		    						    return "We did it man";
 				    				case EXCHANGE_COUNCIL_PRIVILEGE :
+				    					System.out.println(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE + " confirmed");
 				    					if(asked.length()==councilRewardsSize){
 				    						int [] integerProduced = new int [councilRewardsSize]; 
 				    						int value ;
