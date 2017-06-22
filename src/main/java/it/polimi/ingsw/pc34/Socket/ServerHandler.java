@@ -64,7 +64,11 @@ public class ServerHandler implements Runnable{
 	public void sendToClient(String message) throws IOException{
 		if(message.equals("Action has been executed")){
 			stateGame = null;
-			message += " Insert new command: /playturn, /chat, /stampinfo";
+			message += "\nInsert new command: /playturn, /chat, /stampinfo";
+		}
+		else if(message.equals("You have already placed a family member!")){
+			stateGame = null;
+			message += "\nInsert new command: /playturn, /chat, /stampinfo";
 		}
 		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
 		socketOut.println(message);
