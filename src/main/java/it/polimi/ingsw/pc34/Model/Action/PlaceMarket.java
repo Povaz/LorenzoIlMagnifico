@@ -75,6 +75,10 @@ public class PlaceMarket implements CommandPattern{
     }
 
     public void doAction(){
+        // aggiorna risorse giocatore
+        player.getPlayerBoard().setCounter(newCounter);
 
+        // posiziona il familiare nell'ActionSpot
+        market.placeFamilyMember(familyMember);
     }
 }
