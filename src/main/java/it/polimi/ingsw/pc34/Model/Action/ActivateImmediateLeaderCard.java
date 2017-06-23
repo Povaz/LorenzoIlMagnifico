@@ -34,7 +34,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
 
     public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException{
         if(immediateLeaderCardsPositionated.isEmpty()){
-            game.getGameController().sendMessageCLI(player, "You don't have any leader card placed!");
+            game.getGameController().sendMessageCLI(player, "You don't have any leader card placed! \nWhat action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip");
             return false;
         }
 

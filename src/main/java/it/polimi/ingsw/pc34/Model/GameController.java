@@ -353,14 +353,32 @@ public class GameController{
 					if(state2.equals(PlayerState.WAITING)){
 	        			switch (state1) {
 		    				case PLACE_LEADER_CARD :
-		    					integerCreated.put(Integer.parseInt(asked));
-		    					return null;
+		    					if(checkNumber(0, 3, asked)){
+		    						integerCreated.put(Integer.parseInt(asked));
+		    						return null;
+		    					}
+		    					else{
+		    						setInFlow();
+		    						return "Input error";
+		    					}
 		    				case ACTIVATE_LEADER_CARD :
-		    					integerCreated.put(Integer.parseInt(asked));
-		    					return null;
+		    					if(checkNumber(0, 3, asked)){
+		    						integerCreated.put(Integer.parseInt(asked));
+		    						return null;
+		    					}
+		    					else{
+		    						setInFlow();
+		    						return "Input error";
+		    					}
 		    				case EXCHANGE_LEADER_CARD :
-		    					integerCreated.put(Integer.parseInt(asked));
-		    					return null;
+		    					if(checkNumber(0, 3, asked)){
+		    						integerCreated.put(Integer.parseInt(asked));
+		    						return "scegli il reward ora! \n1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT";
+		    					}
+		    					else{
+		    						setInFlow();
+		    						return "Input error";
+		    					}
 		    				default:
 		    					setInFlow();
 		    					return "State not handled";
@@ -374,7 +392,7 @@ public class GameController{
 		    						case ACTION_INPUT :
 		    							System.out.println("ACTION_INPUT confirmed");
 		    							System.out.println("entra" + actionSpot);
-		    							if(actionSpot==null){
+		    							if(actionSpot==null && checkNumber(1, 8, asked)){
 		    								actionSpot = asked;
 		    								System.out.println("Ora setto l'ActionType");
 			    							switch(actionSpot) {
@@ -413,7 +431,7 @@ public class GameController{
 			    									return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    							}
 		    							}
-		    							else{
+		    							else if(actionSpot!=null){
 		    								System.out.println("entra");
 		    								switch(actionSpot){ 
 			    								case "1":
@@ -466,7 +484,7 @@ public class GameController{
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
-			    				                    	return "retry";
+			    				                    	return "Input error";
 			    				                    }
 			    								case "7":
 			    									if (players.size() > 3 && checkNumber(0, 3, asked)) {
@@ -480,9 +498,13 @@ public class GameController{
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
-			    				                    	return "retry";
+			    				                    	return "Input error";
 			    				                    }
 			    							}
+		    							}
+		    							else {
+		    								setInFlow();
+		    								return "Input error";
 		    							}
 		    						case FAMILY_MEMBER :
 		    							if (checkNumber(1, 4, asked)){
@@ -505,10 +527,21 @@ public class GameController{
 													return "How many Servants do you want to use?";
 		    								}
 		    							}
+		    							else{
+		    								setInFlow();
+		    								return "Input error";
+		    							}
 		    						case SERVANTS :
-		    							integerCreated.put(Integer.parseInt(asked));
-		    							setInFlow();
-		    						    return "We did it man";
+		    							if(checkNumber(0, 1000, asked)){
+		    								integerCreated.put(Integer.parseInt(asked));
+		    								setInFlow();
+			    						    return "We did it man";
+		    							}
+		    							else{
+		    								setInFlow();
+			    						    return "Input error";
+		    							}
+		    							
 				    				case EXCHANGE_COUNCIL_PRIVILEGE :
 				    					System.out.println(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE + " confirmed");
 				    					if(asked.length()==councilRewardsSize){
@@ -521,6 +554,7 @@ public class GameController{
 				    						arrayIntegerCreated.put(integerProduced);
 				    						return null;
 				    					}
+				    					setInFlow();
 				    					return "Input error";
 				    				case CHOOSE_TRADE :
 				    					integerCreated.put(Integer.parseInt(asked));
@@ -572,8 +606,16 @@ public class GameController{
 		    				case EXCHANGE_LEADER_CARD :
 		    					switch (state2){ 
 				    				case EXCHANGE_COUNCIL_PRIVILEGE :
-				    					integerCreated.put(Integer.parseInt(asked));
-				    					return null;
+				    					if(asked.length()==1){
+				    						int [] integerProduced = new int [1]; 
+				    						int value ;
+				    						value = Character.getNumericValue(asked.charAt(0));
+				    						integerProduced[0] = value;
+				    						arrayIntegerCreated.put(integerProduced);
+				    						return null;
+				    					}
+				    					setInFlow();
+				    					return "Input error";
 				    				case WAITING:
 				    					integerCreated.put(Integer.parseInt(asked));
 				    					return null;
