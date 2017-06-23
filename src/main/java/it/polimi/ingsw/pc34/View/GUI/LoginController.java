@@ -27,6 +27,7 @@ public class LoginController {
         boolean logged = false;
         if(usernameTextField.getText().equals("Paolo") && passwordTextField.getText().equals("Trilli")){
             logged = true;
+            main.showGame();
         }
         if(logged){
             loginMessageText.setText("Successfully logged");

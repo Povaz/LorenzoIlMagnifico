@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
@@ -18,6 +19,8 @@ public class Main extends Application {
     private BorderPane rootLayout;
 
     private ObservableList<PersonalBoardView> personalBoardViews = FXCollections.observableArrayList();
+
+    private boolean logged = false;
 
     /*public static Parent root;
     public static Scene scene;
@@ -50,6 +53,7 @@ public class Main extends Application {
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Lorenzo il Magnifico");
+        this.primaryStage.getIcons().add(new Image("it/polimi/ingsw/pc34/View/GUI/pngFiles/Icon.png"));
 
         initRootLayout();
 
@@ -91,11 +95,38 @@ public class Main extends Application {
         }
     }
 
+    public void showGame(){
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("Game.fxml"));
+            // TODO: AnchorPane login = (AnchorPane) loader.load();
+            AnchorPane game = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(game);
+
+            // Give the controller access to the main app.
+            GameViewController gameController = loader.getController();
+            gameController.setMain(this);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
     public static void main(String[] args){
         launch(args);
     }
 
     public ObservableList<PersonalBoardView> getPersonalBoardViews(){
         return personalBoardViews;
+    }
+
+    public boolean isLogged(){
+        return logged;
+    }
+
+    public void setLogged(boolean logged){
+        this.logged = logged;
     }
 }
