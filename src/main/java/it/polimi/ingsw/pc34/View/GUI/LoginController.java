@@ -25,9 +25,9 @@ public class LoginController {
 
     @FXML protected void loginClick(ActionEvent event) throws Exception{
         boolean logged = false;
-        if(usernameTextField.getText().equals("Paolo") && passwordTextField.getText().equals("Trilli")){
+        if(usernameTextField.getText().equals("") && passwordTextField.getText().equals("")){
             logged = true;
-            main.showGame();
+            main.showWaitingRoom();
         }
         if(logged){
             loginMessageText.setText("Successfully logged");

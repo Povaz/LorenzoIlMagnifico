@@ -10,6 +10,8 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -70,6 +72,13 @@ public class Main extends Application {
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
+
+            // Set attributes
+            primaryStage.setResizable(false);
+            primaryStage.sizeToScene();
+
+            primaryStage.show();
+
             primaryStage.show();
         } catch(IOException e){
             e.printStackTrace();
@@ -81,15 +90,36 @@ public class Main extends Application {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("Login.fxml"));
-            // TODO: AnchorPane login = (AnchorPane) loader.load();
-            Pane login = (Pane) loader.load();
+            AnchorPane login = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(login);
+            primaryStage.setWidth(500);
+            primaryStage.setHeight(835);
 
             // Give the controller access to the main app.
             LoginController loginController = loader.getController();
             loginController.setMain(this);
+        } catch (IOException e){
+            e.printStackTrace();
+        }
+    }
+
+    public void showWaitingRoom(){
+        try {
+            // Load person overview.
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("WaitingRoom.fxml"));
+            AnchorPane waitingRoom = (AnchorPane) loader.load();
+
+            // Set person overview into the center of root layout.
+            rootLayout.setCenter(waitingRoom);
+            primaryStage.setWidth(500);
+            primaryStage.setHeight(835);
+
+            // Give the controller access to the main app.
+            WaitingRoomController waitingRoomController = loader.getController();
+            waitingRoomController.setMain(this);
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -100,11 +130,12 @@ public class Main extends Application {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
             loader.setLocation(Main.class.getResource("Game.fxml"));
-            // TODO: AnchorPane login = (AnchorPane) loader.load();
             AnchorPane game = (AnchorPane) loader.load();
 
             // Set person overview into the center of root layout.
             rootLayout.setCenter(game);
+            primaryStage.setWidth(1280);
+            primaryStage.setHeight(795);
 
             // Give the controller access to the main app.
             GameViewController gameController = loader.getController();
@@ -118,15 +149,15 @@ public class Main extends Application {
         launch(args);
     }
 
+    public Stage getPrimaryStage(){
+        return primaryStage;
+    }
+
+    public BorderPane getRootLayout(){
+        return rootLayout;
+    }
+
     public ObservableList<PersonalBoardView> getPersonalBoardViews(){
         return personalBoardViews;
-    }
-
-    public boolean isLogged(){
-        return logged;
-    }
-
-    public void setLogged(boolean logged){
-        this.logged = logged;
     }
 }

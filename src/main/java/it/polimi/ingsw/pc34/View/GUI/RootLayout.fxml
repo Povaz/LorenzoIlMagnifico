@@ -11,5 +11,43 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" />
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.RootLayoutController">
+   <top>
+      <MenuBar BorderPane.alignment="CENTER">
+        <menus>
+          <Menu mnemonicParsing="false" text="File">
+            <items>
+                  <Menu mnemonicParsing="false" text="Music">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#setTrack1" text="Track 1" />
+                        <MenuItem mnemonicParsing="false" onAction="#setTrack2" text="Track 2" />
+                        <SeparatorMenuItem mnemonicParsing="false" />
+                    <MenuItem mnemonicParsing="false" onAction="#setMute" text="Mute" />
+                    </items>
+                  </Menu>
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="View">
+            <items>
+                  <Menu mnemonicParsing="false" text="Resolution">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="1280x720" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Full screen">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#setFullScreenOn" text="On" />
+                    <MenuItem mnemonicParsing="false" onAction="#setFullScreenOff" text="Off" />
+                    </items>
+                  </Menu>
+            </items>
+          </Menu>
+          <Menu mnemonicParsing="false" text="Help">
+            <items>
+              <MenuItem mnemonicParsing="false" text="About" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
+   </top>
+</BorderPane>
