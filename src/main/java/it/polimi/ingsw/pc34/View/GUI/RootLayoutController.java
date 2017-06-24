@@ -22,8 +22,8 @@ public class RootLayoutController {
 
     @FXML private void initialize(){
         try {
-            List<Media> music = new LinkedList<>();
-            music.add(new Media(RootLayoutController.class.getResource("mp3Files/track3.mp3").toURI().toString()));
+            List<MediaPlayer> music = new LinkedList<>();
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track3.mp3").toURI().toString())));
 
             playMusic(music);
         } catch(URISyntaxException e){
@@ -33,11 +33,11 @@ public class RootLayoutController {
 
     @FXML private void setTrack1(){
         try {
-            List<Media> music = new LinkedList<>();
-            music.add(new Media(RootLayoutController.class.getResource("mp3Files/track1_1.mp3").toURI().toString()));
-            music.add(new Media(RootLayoutController.class.getResource("mp3Files/track1_2.mp3").toURI().toString()));
-            music.add(new Media(RootLayoutController.class.getResource("mp3Files/track1_3.mp3").toURI().toString()));
-            music.add(new Media(RootLayoutController.class.getResource("mp3Files/track1_4.mp3").toURI().toString()));
+            List<MediaPlayer> music = new LinkedList<>();
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_1.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_2.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_3.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_4.mp3").toURI().toString())));
 
             playMusic(music);
         } catch(URISyntaxException e){
@@ -47,8 +47,8 @@ public class RootLayoutController {
 
     @FXML private void setTrack2(){
         try {
-            List<Media> music = new LinkedList<>();
-            music.add(new Media(RootLayoutController.class.getResource("mp3Files/track2.mp3").toURI().toString()));
+            List<MediaPlayer> music = new LinkedList<>();
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track2.mp3").toURI().toString())));
 
             playMusic(music);
         } catch(URISyntaxException e){
@@ -56,15 +56,15 @@ public class RootLayoutController {
         }
     }
 
-    private void playMusic(List<Media> music){
+    private void playMusic(List<MediaPlayer> music){
         if(music == null || music.size() <= 0){
             return;
         }
         stopMusic();
-        mediaPlayer = new MediaPlayer(music.get(0));
+        mediaPlayer = music.get(0);
         mediaPlayer.play();
         for(int i = 0; i < music.size(); i++){
-            final MediaPlayer nextPlayer = new MediaPlayer(music.get((i + 1) % music.size()));
+            final MediaPlayer nextPlayer = music.get((i + 1) % music.size());
             mediaPlayer.setOnEndOfMedia(() -> {
                 stopMusic();
                 mediaPlayer = nextPlayer;
