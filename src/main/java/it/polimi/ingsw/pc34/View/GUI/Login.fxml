@@ -11,26 +11,26 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<Pane fx:id="pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.LoginController">
-    <children>
-      <AnchorPane prefHeight="770.0" prefWidth="500.0">
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="770.0" prefWidth="500.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.LoginController">
+   <children>
+      <ImageView fitHeight="770.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <image>
+            <Image url="@pngFiles/LoginBackground.png" />
+         </image>
+      </ImageView>
+      <AnchorPane layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-            <ImageView fitHeight="770.0" fitWidth="500.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@/it/polimi/ingsw/pc34/View/GUI/pngFiles/LoginBackground.png" />
-               </image>
-            </ImageView>
+              <TextField fx:id="usernameTextField" layoutX="141.0" layoutY="72.0" prefHeight="31.0" prefWidth="220.0" promptText="Username" />
+              <PasswordField fx:id="passwordTextField" layoutX="141.0" layoutY="127.0" prefHeight="31.0" prefWidth="220.0" promptText="Password" />
+              <Button fx:id="registerButton" layoutX="279.0" layoutY="188.0" mnemonicParsing="false" onAction="#registerClick" prefHeight="31.0" prefWidth="82.0" text="Register" />
+            <Text fx:id="loginMessageText" fill="WHITE" layoutX="58.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="385.0">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </Text>
+              <Button fx:id="loginButton" layoutX="141.0" layoutY="188.0" mnemonicParsing="false" onAction="#loginClick" prefHeight="31.0" prefWidth="82.0" text="Login" />
          </children>
       </AnchorPane>
-        <TextField fx:id="usernameTextField" layoutX="140.0" layoutY="544.0" prefHeight="31.0" prefWidth="220.0" />
-        <PasswordField fx:id="passwordTextField" layoutX="140.0" layoutY="608.0" prefHeight="31.0" prefWidth="220.0" />
-        <Button fx:id="loginButton" layoutX="140.0" layoutY="659.0" mnemonicParsing="false" onAction="#loginClick" prefHeight="31.0" prefWidth="82.0" text="Login" />
-        <Button fx:id="registerButton" layoutX="278.0" layoutY="659.0" mnemonicParsing="false" onAction="#registerClick" prefHeight="31.0" prefWidth="82.0" text="Register" />
-      <Text layoutX="140.0" layoutY="539.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Username" />
-      <Text layoutX="140.0" layoutY="603.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Password" />
-      <Text fx:id="loginMessageText" fill="WHITE" layoutX="58.0" layoutY="730.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="385.0">
-         <font>
-            <Font name="System Bold" size="15.0" />
-         </font></Text>
-    </children>
-</Pane>
+   </children>
+</AnchorPane>
