@@ -19,6 +19,7 @@ import java.io.IOException;
 public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
+    private boolean canBeFullScreen = false;
 
     private ObservableList<PersonalBoardView> personalBoardViews = FXCollections.observableArrayList();
 
@@ -69,6 +70,10 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
+            // Give the controller access to the main app.
+            RootLayoutController rootLayoutController = loader.getController();
+            rootLayoutController.setMain(this);
+
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
             primaryStage.setScene(scene);
@@ -92,7 +97,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("Login.fxml"));
             AnchorPane login = (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout.
+            // Set login into the center of root layout.
             rootLayout.setCenter(login);
             primaryStage.setWidth(500);
             primaryStage.setHeight(835);
@@ -100,6 +105,9 @@ public class Main extends Application {
             // Give the controller access to the main app.
             LoginController loginController = loader.getController();
             loginController.setMain(this);
+
+            // Cannot be full screen
+            canBeFullScreen = false;
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -112,7 +120,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("WaitingRoom.fxml"));
             AnchorPane waitingRoom = (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout.
+            // Set waiting room into the center of root layout.
             rootLayout.setCenter(waitingRoom);
             primaryStage.setWidth(500);
             primaryStage.setHeight(835);
@@ -120,6 +128,9 @@ public class Main extends Application {
             // Give the controller access to the main app.
             WaitingRoomController waitingRoomController = loader.getController();
             waitingRoomController.setMain(this);
+
+            // Cannot be full screen
+            canBeFullScreen = false;
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -132,7 +143,7 @@ public class Main extends Application {
             loader.setLocation(Main.class.getResource("Game.fxml"));
             AnchorPane game = (AnchorPane) loader.load();
 
-            // Set person overview into the center of root layout.
+            // Set game into the center of root layout.
             rootLayout.setCenter(game);
             primaryStage.setWidth(1280);
             primaryStage.setHeight(795);
@@ -140,6 +151,9 @@ public class Main extends Application {
             // Give the controller access to the main app.
             GameViewController gameController = loader.getController();
             gameController.setMain(this);
+
+            // Can be full screen
+            canBeFullScreen = true;
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -159,5 +173,13 @@ public class Main extends Application {
 
     public ObservableList<PersonalBoardView> getPersonalBoardViews(){
         return personalBoardViews;
+    }
+
+    public boolean isCanBeFullScreen(){
+        return canBeFullScreen;
+    }
+
+    public void setCanBeFullScreen(boolean canBeFullScreen){
+        this.canBeFullScreen = canBeFullScreen;
     }
 }

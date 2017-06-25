@@ -19,7 +19,6 @@ public class GameViewController {
     @FXML private Button bt;
 
     @FXML private void initialize(){
-        // TODO inizializza
     }
 
     @FXML private void zoomCard(){

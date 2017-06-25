@@ -84,7 +84,9 @@ public class RootLayoutController {
     }
 
     @FXML private void setFullScreenOn(){
-        main.getPrimaryStage().setFullScreen(true);
+        if(main.isCanBeFullScreen()){
+            main.getPrimaryStage().setFullScreen(true);
+        }
     }
 
     @FXML private void setFullScreenOff(){
