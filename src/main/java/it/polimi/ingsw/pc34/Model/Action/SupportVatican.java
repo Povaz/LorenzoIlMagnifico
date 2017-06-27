@@ -1,10 +1,10 @@
 package it.polimi.ingsw.pc34.Model.Action;
 
+import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Model.*;
 
 import java.io.IOException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 
 /**

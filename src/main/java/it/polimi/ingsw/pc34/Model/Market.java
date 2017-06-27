@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.Controller.GameController;
+
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.Set;
