@@ -1,16 +1,13 @@
-package it.polimi.ingsw.pc34.RMI;
-
-import it.polimi.ingsw.pc34.Controller.ActionInput;
-import it.polimi.ingsw.pc34.Model.ActionType;
+package it.polimi.ingsw.pc34.Controller;
 
 /**
- * Created by Povaz on 17/06/2017.
+ * Created by Povaz on 19/06/2017.
  */
-public class ActionInputCreated {
-    private ActionInput actionInput;
+public class ArrayIntegerCreated {
+    private int[] rewardArray;
     private boolean available = false;
 
-    public synchronized ActionInput get() {
+    public synchronized int[] get (){
         while (available == false) {
             try {
                 wait();
@@ -20,10 +17,10 @@ public class ActionInputCreated {
         }
         available = false;
         notifyAll();
-        return actionInput;
+        return rewardArray;
     }
 
-    public synchronized void put(ActionInput actionInput) {
+    public synchronized void put (int[] rewardArray ) {
         while(available == true) {
             try {
                 wait();
@@ -31,7 +28,7 @@ public class ActionInputCreated {
                 e.printStackTrace();
             }
         }
-        this.actionInput = actionInput;
+        this.rewardArray = rewardArray;
         available = true;
         notifyAll();
     }

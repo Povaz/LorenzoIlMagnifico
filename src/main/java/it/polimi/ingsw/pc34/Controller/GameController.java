@@ -1,16 +1,12 @@
-package it.polimi.ingsw.pc34.Model;
+package it.polimi.ingsw.pc34.Controller;
 
-import com.sun.xml.internal.ws.policy.privateutil.PolicyUtils;
-import it.polimi.ingsw.pc34.Controller.ActionInput;
-import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
+import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
-import it.polimi.ingsw.pc34.View.TerminalInput;
 
 import java.io.IOException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -23,7 +19,7 @@ public class GameController{
     private ServerSOC serverSoc;
     private ArrayList<ServerHandler> usersSoc;
 
-    private ServerLoginImpl serverLoginImpl;
+    private ServerRMIImpl serverLoginImpl;
     private ActionInputCreated actionInputCreated = new ActionInputCreated();
     private IntegerCreated integerCreated = new IntegerCreated();
     private FamilyColorCreated familyColorCreated = new FamilyColorCreated();
@@ -38,7 +34,7 @@ public class GameController{
     
     
 
-    public GameController(Game game, ServerLoginImpl serverLoginImpl, ServerSOC serverSoc) {
+    public GameController(Game game, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
         Thread threadGame = new Thread (game);
         threadGame.start();
         this.board = game.getBoard();
@@ -106,6 +102,12 @@ public class GameController{
                 break;
         }
     }
+
+    public void sendMessageChat(String message) throws IOException {
+		for (int i = 0; i < players.size(); i++) {
+			sendMessageCLI(players.get(i), message);
+		}
+	}
 
     public void sendMessageGUI(Player player, String message) throws IOException {
         switch(player.getConnectionType()){

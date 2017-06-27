@@ -1,7 +1,7 @@
 package it.polimi.ingsw.pc34;
 
-import it.polimi.ingsw.pc34.Model.Game;
-import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.Controller.Game;
+import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
@@ -24,7 +24,7 @@ public class GameTest{
             usersOfThisGame.put("PaoloCulo", ConnectionType.RMI);
 
             Lobby lobby = new Lobby();
-            ServerLoginImpl serverLogin = new ServerLoginImpl(lobby);
+            ServerRMIImpl serverLogin = new ServerRMIImpl(lobby);
             ServerSOC serverSoc = new ServerSOC(1337, lobby);
             Game game = new Game(usersOfThisGame, serverLogin, serverSoc);
             //game.startPeriod();

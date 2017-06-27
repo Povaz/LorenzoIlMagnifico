@@ -1,14 +1,14 @@
-package it.polimi.ingsw.pc34.RMI;
+package it.polimi.ingsw.pc34.Controller;
 
 /**
- * Created by Povaz on 19/06/2017.
+ * Created by Povaz on 20/06/2017.
  */
-public class ArrayIntegerCreated {
-    private int[] rewardArray;
+public class BooleanCreated {
+    private boolean choose;
     private boolean available = false;
 
-    public synchronized int[] get (){
-        while (available == false) {
+    public synchronized boolean get() {
+        while(available == false) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -17,18 +17,18 @@ public class ArrayIntegerCreated {
         }
         available = false;
         notifyAll();
-        return rewardArray;
+        return choose;
     }
 
-    public synchronized void put (int[] rewardArray ) {
-        while(available == true) {
+    public synchronized void put(boolean choose) {
+        while (available == true) {
             try {
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        this.rewardArray = rewardArray;
+        this.choose = choose;
         available = true;
         notifyAll();
     }

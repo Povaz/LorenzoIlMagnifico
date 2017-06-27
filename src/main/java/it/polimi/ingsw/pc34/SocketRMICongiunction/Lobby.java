@@ -1,9 +1,10 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
-import it.polimi.ingsw.pc34.Model.Game;
-import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.Controller.Game;
+import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
+import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -13,7 +14,7 @@ import java.util.*;
 public class Lobby {
     private HashMap<String, ConnectionType> users;
     private Timer timer;
-    private ServerLoginImpl serverRMI;
+    private ServerRMIImpl serverRMI;
     private ServerSOC serverSoc;
     
     public Lobby () {
@@ -25,7 +26,7 @@ public class Lobby {
         return users;
     }
 
-    public void setServerRMI (ServerLoginImpl serverRMI) {
+    public void setServerRMI (ServerRMIImpl serverRMI) {
         this.serverRMI = serverRMI;
     }
 
@@ -99,9 +100,22 @@ public class Lobby {
                     serverSoc.throwInGame();
 
                     //RMI Start
-                    notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");
+                    Set<String> usersRMI = new HashSet<>();
+                    for (Map.Entry<String, ConnectionType> entry : users.entrySet()) {
+                        if(entry.getValue().equals(ConnectionType.RMI)) {
+                            usersRMI.add(entry.getKey());
+                        }
+                    }
+                    try {
+                        if (usersRMI.size() > 0) {
+                            serverRMI.throwInGame(usersRMI);
+                        }
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
 
                     //Game Start
+                    notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");
                     Game game = new Game(users, serverRMI, serverSoc);
                     users.clear();
                     Server.gamesOnGoing.add(game);

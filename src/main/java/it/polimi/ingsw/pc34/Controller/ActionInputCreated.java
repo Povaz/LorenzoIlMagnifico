@@ -1,16 +1,17 @@
-package it.polimi.ingsw.pc34.RMI;
+package it.polimi.ingsw.pc34.Controller;
 
-import java.nio.channels.InterruptedByTimeoutException;
+import it.polimi.ingsw.pc34.Controller.ActionInput;
+import it.polimi.ingsw.pc34.Model.ActionType;
 
 /**
  * Created by Povaz on 17/06/2017.
  */
-public class IntegerCreated {
-    private int choose;
+public class ActionInputCreated {
+    private ActionInput actionInput;
     private boolean available = false;
 
-    public synchronized int get () {
-        while(available == false) {
+    public synchronized ActionInput get() {
+        while (available == false) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -19,18 +20,18 @@ public class IntegerCreated {
         }
         available = false;
         notifyAll();
-        return choose;
+        return actionInput;
     }
 
-    public synchronized void put (int choose) {
-        while (available == true) {
+    public synchronized void put(ActionInput actionInput) {
+        while(available == true) {
             try {
                 wait();
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
         }
-        this.choose = choose;
+        this.actionInput = actionInput;
         available = true;
         notifyAll();
     }

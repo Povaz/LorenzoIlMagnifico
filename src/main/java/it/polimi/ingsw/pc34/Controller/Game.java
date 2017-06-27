@@ -1,10 +1,10 @@
-package it.polimi.ingsw.pc34.Model;
+package it.polimi.ingsw.pc34.Controller;
 
-import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
+import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.Model.Action.*;
-import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import org.json.JSONException;
@@ -37,7 +37,7 @@ public class Game implements Runnable{
     private int[] characterCard;
     private int[] ventureCard;
 
-    private ServerLoginImpl serverLoginImpl;
+    private ServerRMIImpl serverLoginImpl;
     private ServerSOC serverSoc;
 
     public static void main(String[] args) {
@@ -73,7 +73,7 @@ public class Game implements Runnable{
         System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
     }
 
-    public Game(Map<String, ConnectionType> usersOfThisGame, ServerLoginImpl serverLoginImpl, ServerSOC serverSoc) {
+    public Game(Map<String, ConnectionType> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
         this.turn = 1;
         this.period = 1;
         this.usernames = new ArrayList<>();

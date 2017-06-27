@@ -1,7 +1,7 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
-import it.polimi.ingsw.pc34.Model.Game;
-import it.polimi.ingsw.pc34.RMI.ServerLoginImpl;
+import it.polimi.ingsw.pc34.Controller.Game;
+import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
 import java.rmi.AlreadyBoundException;
@@ -14,11 +14,11 @@ import java.util.*;
  * Created by Povaz on 10/06/2017.
  */
 public class Server {
-    private ServerLoginImpl serverLoginRMI;
+    private ServerRMIImpl serverLoginRMI;
     private ServerSOC serverSoc;
     public static List <Game> gamesOnGoing = new ArrayList<>();
     
-    public Server (ServerLoginImpl serverLoginRMI, ServerSOC serverSoc) {
+    public Server (ServerRMIImpl serverLoginRMI, ServerSOC serverSoc) {
         this.serverLoginRMI = serverLoginRMI;
         this.serverSoc = serverSoc;
     }
@@ -28,7 +28,7 @@ public class Server {
 
         System.out.println("Binding Server implementation to registry...");
         Registry registry = LocateRegistry.createRegistry(8000);
-        registry.bind("serverLogin", this.serverLoginRMI);
+        registry.bind("serverRMI", this.serverLoginRMI);
 
         System.out.println("Waiting for invocations from clients...");
 
@@ -38,7 +38,7 @@ public class Server {
 
     public static void main (String[] args) throws RemoteException, AlreadyBoundException {
         Lobby lobby = new Lobby();
-        ServerLoginImpl serverLoginRMI = new ServerLoginImpl(lobby);
+        ServerRMIImpl serverLoginRMI = new ServerRMIImpl(lobby);
         ServerSOC serverSoc = new ServerSOC(1337, lobby);
         Server server = new Server(serverLoginRMI , serverSoc);
         server.startServers();

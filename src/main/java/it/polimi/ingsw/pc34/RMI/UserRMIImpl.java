@@ -1,17 +1,10 @@
 package it.polimi.ingsw.pc34.RMI;
 
-import it.polimi.ingsw.pc34.Controller.ActionInput;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
-import it.polimi.ingsw.pc34.View.TerminalInput;
+import it.polimi.ingsw.pc34.Controller.BooleanCreated;
 import org.json.JSONException;
 
-import javax.swing.*;
 import java.io.IOException;
-import java.rmi.NotBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.rmi.registry.LocateRegistry;
-import java.rmi.registry.Registry;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.InputMismatchException;
 import java.util.Scanner;
@@ -20,17 +13,18 @@ import java.util.Scanner;
  * Created by Povaz on 24/05/2017.
  **/
 
-public class UserLoginImpl extends UnicastRemoteObject implements UserLogin {
+public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private String username;
     private String keyword;
     private boolean logged;
-    private int choose;
+    private String choose;
+    private BooleanCreated gameIsStarting = new BooleanCreated();
 
-    public UserLoginImpl() throws RemoteException {
+    public UserRMIImpl() throws RemoteException {
         this.username = "Null";
         this.keyword = "Null";
         this.logged = false;
-        this.choose = 1;
+        this.choose = "null";
     }
 
     @Override
@@ -38,7 +32,7 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin {
         if (this == obj) return true;
         if (obj == null ||  getClass() != obj.getClass()) return false;
 
-        UserLoginImpl that = (UserLoginImpl) obj;
+        UserRMIImpl that = (UserRMIImpl) obj;
 
         if (username != that.username) return false;
         return keyword == that.keyword;
@@ -78,11 +72,11 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin {
         this.logged = logged;
     }
 
-    private int getChoose() {
+    private String getChoose() {
         return choose;
     }
 
-    private void setChoose(int choose) {
+    private void setChoose(String choose) {
         this.choose = choose;
     }
 
@@ -100,51 +94,51 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin {
         this.setKeyword(inPassword.nextLine());
     }
 
-    private void login(ServerLogin serverLogin) throws JSONException, IOException{
+    private void login(ServerRMI serverRMI) throws JSONException, IOException{
         this.insertData();
-        this.setLogged(serverLogin.loginServer(this));
+        this.setLogged(serverRMI.loginServer(this));
     }
 
-    private void registration(ServerLogin serverLogin) throws JSONException, IOException {
+    private void registration(ServerRMI serverRMI) throws JSONException, IOException {
         this.insertData();
-        serverLogin.registrationServer(this);
+        serverRMI.registrationServer(this);
     }
 
-    private void logout(ServerLogin serverLogin) throws RemoteException {
-        this.setLogged(serverLogin.logoutServer(this));
+    private void logout(ServerRMI serverRMI) throws RemoteException {
+        this.setLogged(serverRMI.logoutServer(this));
     }
 
-    private void printUsers(ServerLogin serverLogin) throws RemoteException {
-        serverLogin.printLoggedUsers();
+    private void printUsers(ServerRMI serverRMI) throws RemoteException {
+        serverRMI.printLoggedUsers();
     }
 
-    public void loginHandler (ServerLogin serverLogin) throws IOException {
+    public void loginHandler (ServerRMI serverRMI) throws IOException {
         boolean correct = false;
+        System.out.println("Insert: /login to login, /registration to registrate a new user or /exit to close to application");
         while (!correct) {
             try {
-                System.out.println("1. Login; 2. SignUp; 3. Quit     -   Logged: " + this.isLogged());
                 Scanner inChoose = new Scanner(System.in);
-                this.setChoose(inChoose.nextInt());
+                this.setChoose(inChoose.nextLine());
 
                 switch (this.getChoose()) {
-                    case 1:
-                        this.login(serverLogin);
+                    case "/login":
+                        this.login(serverRMI);
                         if (this.isLogged()) {
                             correct = true;
                         }
                         break;
-                    case 2:
+                    case "/registration":
                         if (!this.isLogged()) {
-                            this.registration(serverLogin);
+                            this.registration(serverRMI);
                         } else {
                             System.out.println("You have to log out if you want to register another user");
                         }
                         break;
-                    case 3:
+                    case "/exit":
                         System.exit(0);
                         break;
-                    case 4:
-                        this.printUsers(serverLogin); //TODO ELIMINARE
+                    case "/print":
+                        this.printUsers(serverRMI); //TODO ELIMINARE
                         break;
                     default:
                         System.out.println("Incorrect answer");
@@ -157,13 +151,13 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin {
         }
     }
 
-    public void gameHandler (ServerLogin serverLogin) throws RemoteException {
+    public void gameHandler (ServerRMI serverRMI) throws IOException {
         while (true) {
             try {
                 System.out.println("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
                 Scanner inChoose = new Scanner (System.in);
                 String choose = inChoose.nextLine();
-                serverLogin.sendInput(choose, this);
+                serverRMI.sendInput(choose, this);
             }
             catch (InputMismatchException e) {
                 System.out.println("InputError: Retry");
@@ -172,22 +166,12 @@ public class UserLoginImpl extends UnicastRemoteObject implements UserLogin {
     }
 
     @Override
-    public int setActionChoose () throws RemoteException {
-        int chooseAction = 0;
-        boolean correct = false;
-        while (!correct) {
-            try {
-                Scanner inChoose = new Scanner(System.in);
-                chooseAction = inChoose.nextInt();
-            } catch (InputMismatchException e) {
-                System.out.println("Invalid Input");
-                continue;
-            }
-            correct = true;
-        }
-        return chooseAction;
+    public void startGameHandler() throws IOException {
+        gameIsStarting.put(true);
     }
 
-
+    public BooleanCreated getGameIsStarting () {
+        return gameIsStarting;
+    }
 }
 

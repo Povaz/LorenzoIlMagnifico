@@ -3,14 +3,11 @@ package it.polimi.ingsw.pc34.Socket;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 
 import org.json.JSONException;
 
-import it.polimi.ingsw.pc34.Model.GameController;
+import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 
 public class ServerHandler implements Runnable{

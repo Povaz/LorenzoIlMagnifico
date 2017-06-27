@@ -1,11 +1,8 @@
 package it.polimi.ingsw.pc34.RMI;
 
 
-import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.JSONUtility;
-import it.polimi.ingsw.pc34.Model.ActionType;
-import it.polimi.ingsw.pc34.Model.FamilyColor;
-import it.polimi.ingsw.pc34.Model.GameController;
+import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.Model.Player;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
@@ -13,11 +10,8 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 import org.json.JSONException;
-import org.omg.PortableInterceptor.USER_EXCEPTION;
 
-import javax.jws.soap.SOAPBinding;
 import java.io.IOException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
@@ -25,20 +19,20 @@ import java.util.*;
 /**
  * Created by Povaz on 24/05/2017.
  **/
-public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
-    private HashMap<UserLogin, String> usersLoggedRMI;
+public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
+    private HashMap<UserRMI, String> usersLoggedRMI;
     private Lobby lobby;
 
-    public ServerLoginImpl (Lobby lobby) throws RemoteException {
+    public ServerRMIImpl(Lobby lobby) throws RemoteException {
         this.usersLoggedRMI = new HashMap<>();
         this.lobby = lobby;
         this.lobby.setServerRMI(this);
     }
 
-    private boolean searchUserLogged (UserLogin userLogin) throws RemoteException {
+    private boolean searchUserLogged (UserRMI userRMI) throws RemoteException {
         Set<String> usernames = lobby.getUsers().keySet();
         for (String username : usernames) {
-            if ((userLogin.getUsername().equals(username))) {
+            if ((userRMI.getUsername().equals(username))) {
                 return true;
             }
         }
@@ -46,17 +40,17 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
     }
 
     @Override
-    public boolean loginServer (UserLogin userLogin) throws JSONException, IOException {
-        if (!searchUserLogged(userLogin)) {
-            if (JSONUtility.checkLogin(userLogin.getUsername(), userLogin.getKeyword())) {
-                this.usersLoggedRMI.put(userLogin, null);
+    public boolean loginServer (UserRMI userRMI) throws JSONException, IOException {
+        if (!searchUserLogged(userRMI)) {
+            if (JSONUtility.checkLogin(userRMI.getUsername(), userRMI.getKeyword())) {
+                this.usersLoggedRMI.put(userRMI, null);
 
-                lobby.getUsers().put(userLogin.getUsername(), ConnectionType.RMI);
-                userLogin.sendMessage("Login Successful");
-                lobby.notifyAllUsers(NotificationType.USERLOGIN, userLogin.getUsername());
+                lobby.getUsers().put(userRMI.getUsername(), ConnectionType.RMI);
+                userRMI.sendMessage("Login Successful");
+                lobby.notifyAllUsers(NotificationType.USERLOGIN, userRMI.getUsername());
 
                 if (lobby.getUsers().size() == 2) {
-                	userLogin.sendMessage("Timer Started");
+                	userRMI.sendMessage("Timer Started");
                     lobby.inizializeTimer();
                     lobby.startTimer();
                 }
@@ -68,44 +62,44 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
 
                 return true;
             }
-            userLogin.sendMessage("Incorrect Username or password");
+            userRMI.sendMessage("Incorrect Username or password");
             return false;
         }
-        userLogin.sendMessage("User already logged");
+        userRMI.sendMessage("User already logged");
         return false;
     }
 
     @Override
-    public void registrationServer (UserLogin userLogin) throws JSONException, IOException {
-        if (JSONUtility.checkRegister(userLogin.getUsername(), userLogin.getKeyword())) {
-            userLogin.sendMessage("Registration Successful");
+    public void registrationServer (UserRMI userRMI) throws JSONException, IOException {
+        if (JSONUtility.checkRegister(userRMI.getUsername(), userRMI.getKeyword())) {
+            userRMI.sendMessage("Registration Successful");
         }
         else {
-            userLogin.sendMessage("Registration Failed: Username already taken");
+            userRMI.sendMessage("Registration Failed: Username already taken");
         }
     }
 
     @Override
-    public boolean logoutServer (UserLogin userLogin) throws RemoteException {  //TODO IMPLEMENTAZIONE NUOVA
+    public boolean logoutServer (UserRMI userRMI) throws RemoteException {  //TODO IMPLEMENTAZIONE NUOVA
         Set<String> usernames = lobby.getUsers().keySet();
         for (String user : usernames) {
-            if ((userLogin.getUsername().equals(user))) {
-                usersLoggedRMI.remove(userLogin);
+            if ((userRMI.getUsername().equals(user))) {
+                usersLoggedRMI.remove(userRMI);
 
                 lobby.removeUser(user);
 
-                lobby.notifyAllUsers(NotificationType.USERLOGOUT, userLogin.getUsername());
-                userLogin.sendMessage("Logout successful");
+                lobby.notifyAllUsers(NotificationType.USERLOGOUT, userRMI.getUsername());
+                userRMI.sendMessage("Logout successful");
 
                 if (lobby.getUsers().size() == 1) {
-                    System.out.println(userLogin.getUsername() + "left the room");
+                    System.out.println(userRMI.getUsername() + "left the room");
                     lobby.stopTimer();
                 }
 
                 return false;
             }
         }
-        userLogin.sendMessage("Logout Failed");
+        userRMI.sendMessage("Logout Failed");
         return true;
     }
 
@@ -121,17 +115,17 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
 
 
     public void notifyRMIPlayers (String m) throws RemoteException {
-        for (UserLogin user: usersLoggedRMI.keySet()) {
+        for (UserRMI user: usersLoggedRMI.keySet()) {
             user.sendMessage(m);
         }
     }
 
     //INIZIO GESTIONE GAME
 
-    public GameController searchGame (UserLogin userLogin) throws RemoteException {
+    public GameController searchGame (UserRMI userRMI) throws RemoteException {
         for (int i = 0; i < Server.gamesOnGoing.size(); i++) {
             for (int j = 0; j < Server.gamesOnGoing.get(i).getPlayers().size(); j++) {
-                if (userLogin.getUsername().equals(Server.gamesOnGoing.get(i).getPlayers().get(j).getUsername())) {
+                if (userRMI.getUsername().equals(Server.gamesOnGoing.get(i).getPlayers().get(j).getUsername())) {
                     return Server.gamesOnGoing.get(i).getGameController();
                 }
             }
@@ -139,59 +133,70 @@ public class ServerLoginImpl extends UnicastRemoteObject implements ServerLogin{
         return null;
     }
 
+    public void throwInGame (Set<String> users) throws IOException {
+        Set<UserRMI> usersRMI = usersLoggedRMI.keySet();
+        for(String user : users) {
+            for (UserRMI userRMI : usersRMI) {
+                if (user.equals(userRMI.getUsername())) {
+                    userRMI.startGameHandler();
+                }
+            }
+        }
+    }
 
     @Override
-    public void sendInput (String input, UserLogin userLogin) throws RemoteException {
+    public void sendInput (String input, UserRMI userRMI) throws IOException {
         GameController gameController = null;
         try {
-            gameController = searchGame(userLogin);
-            for (Map.Entry<UserLogin, String> entry : usersLoggedRMI.entrySet()) {
-                if (userLogin.getUsername().equals(entry.getKey().getUsername())) {
+            gameController = searchGame(userRMI);
+            for (Map.Entry<UserRMI, String> entry : usersLoggedRMI.entrySet()) {
+                if (userRMI.getUsername().equals(entry.getKey().getUsername())) {
                     if (entry.getValue() == null) {
                         switch (input) {
                             case "/playturn":
-                                userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
+                                userRMI.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
                                 entry.setValue(input);
                                 break;
                             case "/chat":
-                                userLogin.sendMessage("Insert a Message: ");
+                                userRMI.sendMessage("Insert a Message: ");
+                                gameController.sendMessageChat(input);
                                 entry.setValue(input);
                                 break;
                             case "/stampinfo":
-                                userLogin.sendMessage("Not implemented yet, man, eccheccazzo");
+                                userRMI.sendMessage("Not implemented yet, man, eccheccazzo");
                                 break;
                             default:
-                                userLogin.sendMessage("Command Unknown");
+                                userRMI.sendMessage("Command Unknown");
                         }
                     } else {
                         switch (entry.getValue()) {
                             case "/playturn":
-                                userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
+                                userRMI.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
                                 break;
                             case "/chat":
                                 entry.setValue(null);
-                                notifyRMIPlayers(input);
-                                userLogin.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
+                                gameController.sendMessageChat(input);
+                                userRMI.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
                                 break;
                             case "/vaticansupport":
-                                userLogin.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
+                                userRMI.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
                                 break;
                             default:
-                                userLogin.sendMessage("Wrong state game. How did you do it? Explain it.");
+                                userRMI.sendMessage("Wrong state game. How did you do it? Explain it.");
                                 break;
                         }
                     }
                 }
             }
         } catch (NullPointerException e) {
-            userLogin.sendMessage("The Game isn't started yet");
+            userRMI.sendMessage("The Game isn't started yet");
         }
     }
 
     public void sendMessage(Player player, String message) throws RemoteException {
-        for (Map.Entry<UserLogin, String> entry: usersLoggedRMI.entrySet()) {
+        for (Map.Entry<UserRMI, String> entry: usersLoggedRMI.entrySet()) {
             if (player.getUsername().equals(entry.getKey().getUsername())) {
-                if (message.equals("Action has been exectuted")) {
+                if (message.equals("Action has been executed")) {
                     entry.setValue(null);
                 }
                 entry.getKey().sendMessage(message);

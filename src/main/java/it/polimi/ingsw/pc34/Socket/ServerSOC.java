@@ -7,17 +7,13 @@ import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.Scanner;
-import java.util.Timer;
-import java.util.TimerTask;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
-import it.polimi.ingsw.pc34.Model.GameController;
-import it.polimi.ingsw.pc34.RMI.UserLogin;
+import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 
 public class ServerSOC implements Runnable {
 	private int port;

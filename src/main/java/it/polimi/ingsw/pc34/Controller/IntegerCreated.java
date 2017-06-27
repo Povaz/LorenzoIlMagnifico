@@ -1,13 +1,15 @@
-package it.polimi.ingsw.pc34.RMI;
+package it.polimi.ingsw.pc34.Controller;
+
+import java.nio.channels.InterruptedByTimeoutException;
 
 /**
- * Created by Povaz on 20/06/2017.
+ * Created by Povaz on 17/06/2017.
  */
-public class BooleanCreated {
-    private boolean choose;
+public class IntegerCreated {
+    private int choose;
     private boolean available = false;
 
-    public synchronized boolean get() {
+    public synchronized int get () {
         while(available == false) {
             try {
                 wait();
@@ -20,7 +22,7 @@ public class BooleanCreated {
         return choose;
     }
 
-    public synchronized void put(boolean choose) {
+    public synchronized void put (int choose) {
         while (available == true) {
             try {
                 wait();

@@ -1,4 +1,4 @@
-package it.polimi.ingsw.pc34.RMI;
+package it.polimi.ingsw.pc34.Controller;
 
 import it.polimi.ingsw.pc34.Model.FamilyColor;
 
