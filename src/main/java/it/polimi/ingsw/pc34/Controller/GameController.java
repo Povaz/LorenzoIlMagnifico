@@ -183,7 +183,14 @@ public class GameController{
     }
 
     public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{
-        if(rewards == null) {
+		for(Reward reward : rewards) {
+			if (reward.getType().equals(RewardType.COUNCIL_PRIVILEGE)) {
+				this.councilRewardsSize++;
+			}
+		}
+		player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
+		setInFlow();
+		if(rewards == null) {
             return null;
         }
         Set<Reward> newRewards = new HashSet<>();
@@ -192,8 +199,6 @@ public class GameController{
                 newRewards.add(r);
             }
             else{
-                this.councilRewardsSize = rewards.size();
-                player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
                 int[] rewardArray = arrayIntegerCreated.get();
                 setInFlow();
                 for(int i = 0; i < rewardArray.length; i++) {
@@ -375,6 +380,7 @@ public class GameController{
 		    				case EXCHANGE_LEADER_CARD :
 		    					if(checkNumber(0, 3, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
+		    						setInFlow();
 		    						return "scegli il reward ora! \n1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT";
 		    					}
 		    					else{
