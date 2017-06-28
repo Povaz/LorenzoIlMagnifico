@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -254,14 +255,30 @@ public class GameController{
         int index = integerCreated.get();
         return leaderCardsInHand.get(index);
     }
-
+     
+    //FARE CASO RMI
     public boolean wantToSupportVatican(Player player) throws RemoteException, IOException{
-        String message = "Do you support Vatican?";
+    	String message = "Do you support Vatican?";
+    	ServerHandler currPlayer = null;
+    	if(player.getConnectionType().equals(ConnectionType.SOCKET)){
+        	currPlayer = getServerHandler(player.getUsername());
+        	currPlayer.setStateGame("/vaticansupport");
+        }
         this.sendMessageCLI(player, message);
         boolean choose = booleanCreated.get();
+        currPlayer.setStateGame(null);
         return  choose;
     }
-
+    
+    public ServerHandler getServerHandler (String username){
+    	for(ServerHandler handler : usersSoc){
+    		if(handler.getName().equals(username)){
+    			return handler;
+    		}
+    	}
+		return null;
+    }
+    
     public Trade chooseTrade(BuildingCard buildingCard, Player player) throws RemoteException, IOException{
         String message = "";
         for (int i = 0; i < buildingCard.getTrades().size(); i++) {
@@ -421,6 +438,7 @@ public class GameController{
 			    									setInFlow();
 			    									return "Which card? From 0 to 3";
 			    								case "5":
+			    									System.out.println("si sono entrato proprio qua");
 			    									actionInput.setActionType(ActionType.HARVEST);
 			    									setInFlow();
 			    									return "Which spot? 0 or 1";
@@ -639,10 +657,12 @@ public class GameController{
     		else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
         		if(asked.equals("yes")){
         			booleanCreated.put(true);
+        			setInFlow();
         			return null;
         		}
         		else if(asked.equals("no")){
         			booleanCreated.put(false);
+        			setInFlow();
         			return null;
         		}
         		setInFlow();

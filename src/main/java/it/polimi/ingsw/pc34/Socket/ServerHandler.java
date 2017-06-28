@@ -50,6 +50,11 @@ public class ServerHandler implements Runnable{
 		this.username = username;
 	}
 	
+	public void setStateGame(String stateGame){
+		this.stateGame = stateGame;
+		System.out.println("settato a " + stateGame);
+	}
+
 	public String getName(){
 		return username;
 	}

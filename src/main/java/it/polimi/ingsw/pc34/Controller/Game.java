@@ -39,7 +39,8 @@ public class Game implements Runnable{
 
     private ServerRMIImpl serverLoginImpl;
     private ServerSOC serverSoc;
-
+    
+    //SERVE ANCORA?
     public static void main(String[] args) {
         Map<String, ConnectionType> users = new HashMap<>();
         users.put("Cugola", ConnectionType.RMI);
@@ -241,7 +242,7 @@ public class Game implements Runnable{
         for(Player p : board.getOrder().getShown()){
             SupportVatican supportVatican = new SupportVatican(this, p, vaticanReportSpot);
             if(supportVatican.canDoAction()){
-                supportVatican.canDoAction();
+                supportVatican.doAction();
             }
             else{
                 vaticanReportSpot.report(p);

@@ -47,10 +47,12 @@ public class SupportVatican implements CommandPattern{
             if(playerFaithPoint.getQuantity() >= faithPointNeeded){
                 player.putFirst_State(PlayerState.SUPPORT_VATICAN);
                 if(game.getGameController().wantToSupportVatican(player)){
+                	player.putFirst_State(PlayerState.WAITING);
                     return true;
                 }
                 else{
-                    return false;
+                	player.putFirst_State(PlayerState.WAITING);
+                	return false;
                 }
             }
             return false;
