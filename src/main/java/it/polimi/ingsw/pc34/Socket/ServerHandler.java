@@ -59,7 +59,10 @@ public class ServerHandler implements Runnable{
 	}
 	
 	public void sendToClient(String message) throws IOException{
-		if(message.equals("Action has been executed")){
+		if(message==null){
+			return;
+		}
+		else if(message.equals("Action has been executed")){
 			stateGame = null;
 			message += "\nInsert new command: /playturn, /chat, /stampinfo";
 		}
@@ -148,13 +151,11 @@ public class ServerHandler implements Runnable{
 					switch (stateGame){
 						case "/playturn" :
 							answer = toGameHandler(line);
-							//LE CONFERME DEL CAMBIO DI STATO DA SERVER HANDLER LE SI DEVONO GESTIRE DA GAME
 							break;
 						case "/chat" : 
 							stateGame = null;
 							answer = "Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
 							break;
-						//PROBLEMA STATE GAME PER ENTRARE NEL CASE VATICAN SUPPORT DEVE ESSERE SETTATO DA GAME
 						case "/vaticansupport" :
 							answer = toGameHandler(line);
 							break;
