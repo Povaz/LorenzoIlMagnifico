@@ -22,6 +22,7 @@ public class GameController{
 
     private ServerRMIImpl serverLoginImpl;
     private ActionInputCreated actionInputCreated = new ActionInputCreated();
+    private IntegerCreated whatToDoCreated = new IntegerCreated();
     private IntegerCreated integerCreated = new IntegerCreated();
     private FamilyColorCreated familyColorCreated = new FamilyColorCreated();
     private BooleanCreated booleanCreated = new BooleanCreated();
@@ -126,7 +127,7 @@ public class GameController{
 
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo;
-        whatToDo = integerCreated.get();
+        whatToDo = whatToDoCreated.get();
         System.out.println("WhatToDo taken: " + whatToDo);
         setInFlow();
         return whatToDo;
@@ -349,19 +350,19 @@ public class GameController{
 	    					setInFlow();
 	    					return "What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip";
 	    				case "1" :
-	    					integerCreated.put(0);
+	    					whatToDoCreated.put(0);
 	    			        return "Which ActionSpot do you choose? Choose a number : 1. TERRITORY TOWER 2. BUILDING TOWER 3. CHARACTER TOWER 4. VENTURE TOWER 5. HARVEST 6. PRODUCE 7. MARKET 8. COUNCILPALACE";
 	    				case "2" :
-	    					integerCreated.put(1);
+	    					whatToDoCreated.put(1);
 	    					return "Which Leader Card to place? From 0 to 3";
 	    				case "3" :
-	    					integerCreated.put(2); 
+	    					whatToDoCreated.put(2); 
 	    					return "Which Leader Card to activate? From 0 to 3";
 	    				case "4" :
-	    					integerCreated.put(3);
+	    					whatToDoCreated.put(3);
 	    					return "Which Leader Card to exchange? From 0 to 3";
 	    				case "5" :
-	    					integerCreated.put(4);
+	    					whatToDoCreated.put(4);
 	    					skip();
 	    					return "You skipped your turn!"; 
 	    				default :
