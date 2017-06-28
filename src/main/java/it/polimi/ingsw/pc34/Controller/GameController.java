@@ -105,8 +105,9 @@ public class GameController{
         }
     }
 
-    public void sendMessageChat(String message) throws IOException {
-		for (int i = 0; i < players.size(); i++) {
+    public void sendMessageChat(String message, String username) throws IOException {
+		message = username + " sent a message : " + message;
+    	for (int i = 0; i < players.size(); i++) {
 			sendMessageCLI(players.get(i), message);
 		}
 	}

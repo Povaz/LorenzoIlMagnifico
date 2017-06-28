@@ -37,18 +37,18 @@ public class LobbyFlow {
 	
 	public String flow (String asked) throws JSONException, IOException{
 		if(start){
-			if(asked.equals("login")){
+			if(asked.equals("/login")){
 				login = true;
 				start = false;
-				return "Ok dammi username : ('/back' per tornare indietro)";
+				return "Ok tell me username : ('/back' to go back)";
 			}
-			else if(asked.equals("register")){
+			else if(asked.equals("/register")){
 				register = true;
 				start = false;
-				return "Ok dammi username :";
+				return "Ok tell me username :";
 			}
 			else{
-				return "Input non valido. Inserisci login o register";
+				return "Not valid input. /login or /register";
 			}
 		}
 		else if(login){
@@ -56,11 +56,11 @@ public class LobbyFlow {
 				if(asked.equals("/back")){
 					start = true;
 					login = false;
-					return("login o register?");
+					return("/login or /register?");
 				}
 				else{
 					username = asked;
-					return "Ok dammi password";	
+					return "Ok tell me password";	
 				}
 			}
 			else{
@@ -75,17 +75,17 @@ public class LobbyFlow {
 					logged = true;
 					serverHandler.setName(username);
 					serverSoc.addPlayer (serverHandler, username);
-					return "loggato ('/logout' per fare... indovina?? :D)";
+					return "logged ('/logout' to log out)";
 				}
 				else if(!result){	
 					username = null;
 					password = null;
-					return "wrong combination! Dammi username : ";
+					return "wrong combination! Tell me username : ";
 				}
 				else {	
 					username = null;
 					password = null;
-					return "User yet Logged! Dammi username : ";
+					return "User yet Logged! Tell me username : ";
 				}
 			}
 		}
@@ -94,11 +94,11 @@ public class LobbyFlow {
 				if(asked.equals("/back")){
 					start = true;
 					register = false;
-					return("login o register?");
+					return("/login or /register?");
 				}
 				else{
 					username = asked;
-					return "Ok dammi password";	
+					return "Ok tell me password";	
 				}
 			}
 			else{
@@ -109,10 +109,10 @@ public class LobbyFlow {
 				if(result){	
 					start = true;
 					register = false;
-					return "Registrazione andata a buon fine! Inserisci login o register";
+					return "Registration successful! /login or /register";
 				}
 				else{	
-					return "Registrazione fallita, riprova! Dammi username : ";
+					return "Registration failed, retry! Tell me username : ";
 				}
 			}
 		}
@@ -127,9 +127,9 @@ public class LobbyFlow {
 				if(lobby.getUsers().size() == 1) {
 					lobby.stopTimer();
 		        }
-				return "Logged out . . . Cosa vuoi fare: login o register?";
+				return "Logged out . . . What you want to do? /login or /register?";
 			}
 		}
-		return "Sei loggato cazzo vuoi??";
+		return "You are logged yet...";
 	}
 }

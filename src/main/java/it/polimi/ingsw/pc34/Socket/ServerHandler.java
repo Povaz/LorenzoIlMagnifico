@@ -101,7 +101,7 @@ public class ServerHandler implements Runnable{
 	public void run(){
 		String line = null;
 		try {
-			sendToClient("Fai la tua scelta : login o register?");
+			sendToClient("Take your decision : /login or /register?");
 		} catch (IOException e2) {
 			e2.printStackTrace();
 		}
@@ -159,6 +159,11 @@ public class ServerHandler implements Runnable{
 							break;
 						case "/chat" : 
 							stateGame = null;
+							try {
+								gameController.sendMessageChat(line, username);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 							answer = "Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
 							break;
 						case "/vaticansupport" :

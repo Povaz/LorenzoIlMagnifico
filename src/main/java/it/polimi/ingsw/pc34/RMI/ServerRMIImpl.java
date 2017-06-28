@@ -159,7 +159,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                 break;
                             case "/chat":
                                 userRMI.sendMessage("Insert a Message: ");
-                                gameController.sendMessageChat(input);
                                 entry.setValue(input);
                                 break;
                             case "/stampinfo":
@@ -175,7 +174,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                 break;
                             case "/chat":
                                 entry.setValue(null);
-                                gameController.sendMessageChat(input);
+                                gameController.sendMessageChat(input, userRMI.getUsername());
                                 userRMI.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
                                 break;
                             case "/vaticansupport":
