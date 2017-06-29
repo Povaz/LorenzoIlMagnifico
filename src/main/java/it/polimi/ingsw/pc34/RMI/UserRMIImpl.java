@@ -68,7 +68,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         return logged;
     }
 
-    private void setLogged(boolean logged) {
+    @Override
+    public void setLogged(boolean logged) {
         this.logged = logged;
     }
 
@@ -152,7 +153,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     }
 
     public void gameHandler (ServerRMI serverRMI) throws IOException {
-        while (true) {
+        while (logged) {
             try {
                 System.out.println("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
                 Scanner inChoose = new Scanner (System.in);
@@ -163,6 +164,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 System.out.println("InputError: Retry");
             }
         }
+        this.loginHandler(serverRMI);
     }
 
     @Override
