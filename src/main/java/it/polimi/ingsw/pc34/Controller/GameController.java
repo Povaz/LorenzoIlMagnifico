@@ -87,6 +87,7 @@ public class GameController{
     	}
 		return false;
     }
+    
     public void sendMessageCLI(Player player, String message) throws RemoteException, IOException {
         switch(player.getConnectionType()){
             case RMI:
@@ -350,7 +351,7 @@ public class GameController{
     	actionInput = new ActionInput();
     }
     
-    public String flow (String asked, String username){
+	public String flow (String asked, String username){
     	if(asked.equals("/afk")){
     		switch(afkVar){
     			case("whatToDo"):
