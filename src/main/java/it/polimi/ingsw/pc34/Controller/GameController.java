@@ -62,8 +62,6 @@ public class GameController{
     					return player.getFirst_state();	
     				case 2 :
     					return player.getSecond_state();
-    				case 3 :
-    					return player.getThird_state();
     			}
     		}
     	}
@@ -625,7 +623,7 @@ public class GameController{
 				    					}
 				    				case ASK_WHICH_CARD_COPY :
 				    					integerCreated.put(Integer.parseInt(asked));
-				    					//GESTIRE TUTTI GLI ERRORI DI PARSEINT
+				    					//TODO GESTIRE TUTTI GLI ERRORI DI PARSEINT
 				    					return null;
 				    				default:
 				    					setInFlow();
@@ -634,6 +632,7 @@ public class GameController{
 		    				case EXCHANGE_LEADER_CARD :
 		    					switch (state2){ 
 				    				case EXCHANGE_COUNCIL_PRIVILEGE :
+				    					System.out.println("Trololol");
 				    					if(asked.length()==1){
 				    						int [] integerProduced = new int [1]; 
 				    						int value ;

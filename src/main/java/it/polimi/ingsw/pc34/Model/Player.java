@@ -16,15 +16,10 @@ public class Player{
     private final PlayerBoard playerBoard;
     private boolean isYourTurn = false;
     private boolean placedFamilyMember = false;
+    private boolean disconnected = false;
 
     private PlayerState first_state;
-    public boolean firstStateAvailable = false;
     private PlayerState second_state;
-    public boolean secondStateAvailable = false;
-    private PlayerState third_state;
-    public boolean thirdStateAvailable = false;
-    private PlayerState fourth_state;
-    public boolean fourthStateAvailable = false;
 
 
     public Player(String username, ConnectionType connectionType, PlayerColor color){
@@ -34,8 +29,6 @@ public class Player{
         this.playerBoard = new PlayerBoard(this);
         this.first_state = PlayerState.WAITING;
         this.second_state = PlayerState.WAITING;
-        this.third_state = PlayerState.WAITING;
-        this.fourth_state = PlayerState.WAITING;
     }
 
     public boolean sameColor(Player other){
@@ -89,32 +82,6 @@ public class Player{
         return second_state;
     }
 
-    public synchronized PlayerState getThird_state() {
-        while (thirdStateAvailable == false) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        thirdStateAvailable = false;
-        notifyAll();
-        return third_state;
-    }
-
-    public synchronized PlayerState getFourth_state () {
-        while (fourthStateAvailable == false) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        fourthStateAvailable = false;
-        notifyAll();
-        return fourth_state;
-    }
-
     public synchronized void putFirst_State(PlayerState first_state) {
         this.first_state = first_state;
     }
@@ -123,29 +90,11 @@ public class Player{
         this.second_state = second_state;
     }
 
-    public synchronized void putThird_State(PlayerState third_state) {
-        while (thirdStateAvailable == true) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        this.third_state = third_state;
-        thirdStateAvailable = true;
-        notifyAll();
+    public boolean isDisconnected() {
+        return disconnected;
     }
 
-    public synchronized void putFourth_State(PlayerState fourth_state) {
-        while(fourthStateAvailable = true) {
-            try {
-                wait();
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-        }
-        this.fourth_state = fourth_state;
-        fourthStateAvailable = true;
-        notifyAll();
+    public void setDisconnected(boolean disconnected) {
+        this.disconnected = disconnected;
     }
 }

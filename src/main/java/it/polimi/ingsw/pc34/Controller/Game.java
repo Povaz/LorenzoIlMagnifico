@@ -39,8 +39,10 @@ public class Game implements Runnable{
 
     private ServerRMIImpl serverLoginImpl;
     private ServerSOC serverSoc;
-    
-    //SERVE ANCORA?
+
+    private Timer timer;
+    private TimerTask timerTask;
+
     public static void main(String[] args) {
         Map<String, ConnectionType> users = new HashMap<>();
         users.put("Cugola", ConnectionType.RMI);
@@ -257,7 +259,7 @@ public class Game implements Runnable{
         placeDevelopmentCard();
     }
 
-    private void playTurn() throws RemoteException, IOException {
+    private void playTurn() throws IOException {
         System.out.println("\n\nBOARD:");
         System.out.println(board);
         Order order = board.getOrder();
