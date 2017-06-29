@@ -278,6 +278,7 @@ public class Game implements Runnable{
                         Integer whatToDo = gameController.getWhatToDo(current);
                         if(whatToDo == null){
                         	gameController.sendMessageCLI(current, "Sei AFK");
+                        	current.setDisconnected(true);
                         	whatToDo = 4;
                         }
                         switch (whatToDo) {
