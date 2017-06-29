@@ -164,10 +164,13 @@ public class GameController{
     	afkVar= "familyColor";
         FamilyColor familyColor = familyColorCreated.get();
         setInFlow();
-        int servant = 0;
+        Integer servant = 0;
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
             if(fM.getColor() == familyColor) {
                 servant = getHowManyServants(player);
+                if (servant == null){
+                	return null;
+                }
                 fM.setServantUsed(new Reward(RewardType.SERVANT, servant));
 				return fM;
             }
@@ -175,10 +178,10 @@ public class GameController{
         return null;
     }
 
-    public int getHowManyServants (Player player) {
+    public Integer getHowManyServants (Player player) {
         player.putSecond_State(PlayerState.SERVANTS);
         afkVar = "integer";
-        int index = integerCreated.get();
+        Integer index = integerCreated.get();
         setInFlow();
         return index;
     }
@@ -261,10 +264,10 @@ public class GameController{
     }
      
     //FARE CASO RMI
-    public boolean wantToSupportVatican(Player player) throws IOException{
+    public Boolean wantToSupportVatican(Player player) throws IOException{
     	String message = "Do you support Vatican?";
     	ServerHandler currPlayer = null;
-    	boolean choose = false;
+    	Boolean choose = false;
     	switch (player.getConnectionType()) {
 			case SOCKET:
 				currPlayer = getServerHandler(player.getUsername());
@@ -277,7 +280,7 @@ public class GameController{
 				serverRMI.setStateGame(player,null);
 		}
         this.sendMessageCLI(player, message);
-        afkVar = "boolean";
+        afkVar = "booleanVat";
         choose = booleanCreated.get();
         return  choose;
     }
@@ -320,12 +323,12 @@ public class GameController{
         return discounts.get(index);
     }
 
-    public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{
+    public Boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{
         String message = "Do you want to pay with militaryPoint? You need " + militaryPointNeeded + "military Point and it costs + " + militaryPointPrice + "militaryPoint";
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
         afkVar = "boolean";
-        boolean choose = booleanCreated.get();
+        Boolean choose = booleanCreated.get();
         return choose;
     }
     
@@ -371,11 +374,12 @@ public class GameController{
     				setInFlow();	
     				return null;
     			case("intArray"):
+    				//inizializzare un array con uno 0 e passarlo
     				arrayIntegerCreated.put(null);
     				setInFlow();
     				return null;
-    			case("boolean"):
-    				booleanCreated.put((Boolean) null);
+    			case("booleanVat"):
+    				booleanCreated.put(null);
     				setInFlow();
     				return null;
     		}
