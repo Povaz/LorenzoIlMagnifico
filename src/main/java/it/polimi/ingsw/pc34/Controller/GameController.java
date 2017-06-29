@@ -52,7 +52,11 @@ public class GameController{
     	this.timerTillTheEnd.schedule(new TimerTask() {
 			@Override
 			public void run() {
-				flow("/afk", "ripperino");
+				try {
+					flow("/afk", "ripperino");
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			}
 		}, 100000);
 	}
@@ -357,7 +361,7 @@ public class GameController{
     	actionInput = new ActionInput();
     }
     
-	public String flow (String asked, String username){
+	public String flow (String asked, String username) throws IOException{
     	//ENTER HERE IF IT'S YOUR TURN
     	if(inFlow == false) {
     		inFlow = true;
@@ -724,9 +728,8 @@ public class GameController{
         	else{
         		//AFK PER PLAYER DI CUI NON E' IL TURNO
         		if(asked.equals("/afk")){
-    	    		//rendere giocatore disconnesso
-        			
-        			return "This Client has been disconnected";
+    	    		Player player = this.searchPlayerWithUsername(username);
+					disconnectPlayer(player);
     	    	}
         		setInFlow();
         		return "It isn't your turn";
@@ -736,5 +739,19 @@ public class GameController{
 	    	return "I am still processing a request";
 	   	}
     }
-    
+
+    public Player searchPlayerWithUsername (String username) throws IOException {
+		for (Player player : players) {
+			if (player.getUsername().equals(username)) {
+				return player;
+			}
+		}
+		return null;
+	}
+
+	public void disconnectPlayer (Player player) throws IOException {
+		player.setDisconnected(true);
+		this.sendMessageCLI(player, "This Client has been disconnected");
+		this.sendMessageChat("has disconnected.", player.getUsername());
+	}
 }

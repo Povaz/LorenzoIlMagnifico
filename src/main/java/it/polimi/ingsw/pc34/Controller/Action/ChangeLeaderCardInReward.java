@@ -39,9 +39,7 @@ public class ChangeLeaderCardInReward implements CommandPattern{
         leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player);
 
         if (leaderCard == null) { //AGGIUNTO DA ERICK PER TIMER
-            player.setDisconnected(true);
-            game.getGameController().sendMessageCLI(player, "This Client has been disconnected");
-            game.getGameController().sendMessageChat(" has disconnected.", player.getUsername());
+            game.getGameController().disconnectPlayer(player);
             return false;
         }
 
