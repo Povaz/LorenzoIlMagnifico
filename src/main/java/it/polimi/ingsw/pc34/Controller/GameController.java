@@ -189,7 +189,7 @@ public class GameController{
         return index;
     }
 
-    public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{ //TODO
+    public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{
 		for(Reward reward : rewards) {
 			if (reward.getType().equals(RewardType.COUNCIL_PRIVILEGE)) {
 				this.councilRewardsSize++;
@@ -211,7 +211,7 @@ public class GameController{
                 setInFlow();
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
-						case 0: 
+						case 0:
 							newRewards.add(new Reward(RewardType.SERVANT, 0));
                         case 1:
                             newRewards.add(new Reward(RewardType.WOOD, 1));
@@ -252,7 +252,7 @@ public class GameController{
         }
         this.sendMessageCLI(player, message);
         afkVar = "integer";
-        int index = integerCreated.get();
+        Integer index = integerCreated.get();
         setInFlow();
         return leaderCardsInHand.get(index);
     }
@@ -264,11 +264,10 @@ public class GameController{
         }
         this.sendMessageCLI(player, message);
         afkVar = "integer";  
-        int index = integerCreated.get();
+        Integer index = integerCreated.get();
         return leaderCardsInHand.get(index);
     }
-     
-    //FARE CASO RMI
+
     public Boolean wantToSupportVatican(Player player) throws IOException{
     	String message = "Do you support Vatican?";
     	ServerHandler currPlayer = null;
@@ -298,7 +297,7 @@ public class GameController{
 		return null;
     }
     
-    public Trade chooseTrade(BuildingCard buildingCard, Player player) throws RemoteException, IOException{
+    public Trade chooseTrade(BuildingCard buildingCard, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO
         String message = "";
         for (int i = 0; i < buildingCard.getTrades().size(); i++) {
             message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
@@ -311,7 +310,7 @@ public class GameController{
         return buildingCard.getTrades().get(choose);
     }
 
-    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException, IOException{
+    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO
         player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
         String message = "";
         for (int j = 0; j < discounts.size(); j++) {
@@ -327,7 +326,7 @@ public class GameController{
         return discounts.get(index);
     }
 
-    public Boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{
+    public Boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO
         String message = "Do you want to pay with militaryPoint? You need " + militaryPointNeeded + "military Point and it costs + " + militaryPointPrice + "militaryPoint";
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
