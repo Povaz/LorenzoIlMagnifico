@@ -170,10 +170,16 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                     case "/stampinfo":
                                         userRMI.sendMessage("Not implemented yet, man, eccheccazzo");
                                         break;
+                                    case "/afk" :
+                                        gameController.flow(input, entry.getKey().getUsername());
+                                        break;
                                     default:
                                         userRMI.sendMessage("Command Unknown");
                                 }
                             } else {
+                                if (input.equals("/afk")) {
+                                    gameController.flow(input, entry.getKey().getUsername());
+                                }
                                 switch (entry.getValue()) {
                                     case "/playturn":
                                         userRMI.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
@@ -209,6 +215,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     entry.getKey().sendMessage(message);
                 }
                 if(message.equals("This Client has been disconnected")) {
+                    entry.getKey().sendMessage(message);
                     usersLoggedRMI.remove(entry.getKey(), entry.getValue());
                 }
             }

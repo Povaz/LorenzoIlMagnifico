@@ -54,7 +54,7 @@ public class GameController{
 			public void run() {
 				flow("/afk", "ripperino");
 			}
-		}, 180000);
+		}, 1000);
 	}
 
 	public void stopTimer() {
