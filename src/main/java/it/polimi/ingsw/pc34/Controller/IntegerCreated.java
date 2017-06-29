@@ -9,7 +9,7 @@ public class IntegerCreated {
     private int choose;
     private boolean available = false;
 
-    public synchronized int get () {
+    public synchronized Integer get () {
         while(available == false) {
             try {
                 wait();
@@ -22,7 +22,7 @@ public class IntegerCreated {
         return choose;
     }
 
-    public synchronized void put (int choose) {
+    public synchronized void put (Integer choose) {
         while (available == true) {
             try {
                 wait();

@@ -67,6 +67,10 @@ public class ServerHandler implements Runnable{
 		if(message==null){
 			return;
 		}
+		else if(message.equals("This Client has been disconnected")){
+			//GESTIRE RIFERIMENTI A CLIENT ANCHE MULTI PARTITA
+			stateGame = null;
+		}
 		else if(message.equals("Action has been executed")){
 			stateGame = null;
 			message += "\nInsert new command: /playturn, /chat, /stampinfo";
