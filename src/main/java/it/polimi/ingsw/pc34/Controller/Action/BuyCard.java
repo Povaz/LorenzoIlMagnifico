@@ -137,7 +137,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // controlla se ha abbastanza risorse per pagare la carta
-    private boolean canPayCardCost() throws TooMuchTimeException, RemoteException, IOException{
+    private boolean canPayCardCost() throws TooMuchTimeException, RemoteException, IOException{ //TODO CHECKARE CON PAOLO
         if(card instanceof VentureCard){
             VentureCard vCard = (VentureCard) card;
             if(vCard.getCosts() != null && vCard.getMilitaryPointNeeded() != null && vCard.getMilitaryPointPrice() != null){

@@ -54,7 +54,7 @@ public class GameController{
 			public void run() {
 				flow("/afk", "ripperino");
 			}
-		}, 1000);
+		}, 100000);
 	}
 
 	public void stopTimer() {
@@ -163,6 +163,9 @@ public class GameController{
     public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException{
     	afkVar= "familyColor";
         FamilyColor familyColor = familyColorCreated.get();
+        if (familyColor == null) {
+        	return null;
+		}
         setInFlow();
         Integer servant = 0;
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
@@ -277,7 +280,6 @@ public class GameController{
 			case RMI:
 				serverRMI.setStateGame(player, "/vaticansupport");
 				serverRMI.setStateGame(player, null);
-				serverRMI.setStateGame(player,null);
 		}
         this.sendMessageCLI(player, message);
         afkVar = "booleanVat";
