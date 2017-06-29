@@ -58,7 +58,6 @@ public class Client {
         while (!correct) {
             try {
                 System.out.println("Which Connection Type do you want to use? 1. RMI 2. Socket");
-
                 Scanner inChoose = new Scanner(System.in);
                 int choose = inChoose.nextInt();
 
