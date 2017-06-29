@@ -6,7 +6,7 @@ import java.nio.channels.InterruptedByTimeoutException;
  * Created by Povaz on 17/06/2017.
  */
 public class IntegerCreated {
-    private int choose;
+    private Integer choose;
     private boolean available = false;
 
     public synchronized Integer get () {

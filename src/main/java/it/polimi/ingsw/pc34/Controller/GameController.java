@@ -123,8 +123,8 @@ public class GameController{
         }
     }*/
 
-    public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
-        int whatToDo;
+    public Integer getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
+        Integer whatToDo;
         afkVar = "whatToDo";
         whatToDo = whatToDoCreated.get();
         System.out.println("WhatToDo taken: " + whatToDo);
@@ -355,7 +355,7 @@ public class GameController{
     	if(asked.equals("/afk")){
     		switch(afkVar){
     			case("whatToDo"):
-    				whatToDoCreated.put((Integer) null);
+    				whatToDoCreated.put(null);
     				setInFlow();
     				return null;
     			case("actionInput"):
@@ -367,7 +367,7 @@ public class GameController{
     				setInFlow();
     				return null;
     			case("integer"):
-    				integerCreated.put((Integer) null);
+    				integerCreated.put(null);
     				setInFlow();	
     				return null;
     			case("intArray"):

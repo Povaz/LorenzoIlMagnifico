@@ -275,8 +275,13 @@ public class Game implements Runnable{
                         System.out.println("\n\nPLAYERBOARD:");
                         System.out.println(current.getPlayerBoard());
                         System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
-                        switch (gameController.getWhatToDo(current)) {
-                            case 0:
+                        Integer whatToDo = gameController.getWhatToDo(current);
+                        if(whatToDo == null){
+                        	gameController.sendMessageCLI(current, "Sei AFK");
+                        	whatToDo = 4;
+                        }
+                        switch (whatToDo) {
+                        	case 0:
                                 current.putFirst_State(PlayerState.ACTION);
 
                                 if (!current.isPlacedFamilyMember()) {
