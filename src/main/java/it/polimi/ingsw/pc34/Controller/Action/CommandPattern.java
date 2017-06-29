@@ -1,4 +1,4 @@
-package it.polimi.ingsw.pc34.Model.Action;
+package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 
