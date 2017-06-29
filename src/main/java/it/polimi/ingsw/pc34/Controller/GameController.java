@@ -33,7 +33,7 @@ public class GameController{
     private String actionSpot;
     private ActionInput actionInput = new ActionInput();
     private boolean inFlow = false;
-    
+    private String afkVar;
     
 
     public GameController(Game game, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
@@ -128,6 +128,7 @@ public class GameController{
 
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo;
+        afkVar = "whatToDo";
         whatToDo = whatToDoCreated.get();
         System.out.println("WhatToDo taken: " + whatToDo);
         setInFlow();
@@ -136,6 +137,7 @@ public class GameController{
 
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
         System.out.println("Aspetto un actioninput");
+        afkVar = "actionInput";
     	ActionInput actionInput = actionInputCreated.get();
         System.out.println("Action Input taken from +" + player.getUsername() + ": " + actionInput.toString());
         setInFlow();
@@ -165,6 +167,7 @@ public class GameController{
     }
 
     public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException{
+    	afkVar= "familyColor";
         FamilyColor familyColor = familyColorCreated.get();
         setInFlow();
         int servant = 0;
@@ -180,6 +183,7 @@ public class GameController{
 
     public int getHowManyServants (Player player) {
         player.putSecond_State(PlayerState.SERVANTS);
+        afkVar = "integer";
         int index = integerCreated.get();
         setInFlow();
         return index;
@@ -202,6 +206,7 @@ public class GameController{
                 newRewards.add(r);
             }
             else{
+            	afkVar = "intArray";
                 int[] rewardArray = arrayIntegerCreated.get();
                 setInFlow();
                 for(int i = 0; i < rewardArray.length; i++) {
@@ -233,6 +238,7 @@ public class GameController{
     }
 
     public FamilyColor chooseFamilyMemberColorNotNeutral(Player player){
+    	afkVar = "familyColor";
         player.putSecond_State(PlayerState.FAMILY_MEMBER);
         return familyColorCreated.get();
     }
@@ -243,6 +249,7 @@ public class GameController{
             message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
         }
         this.sendMessageCLI(player, message);
+        afkVar = "integer";
         int index = integerCreated.get();
         setInFlow();
         return leaderCardsInHand.get(index);
@@ -254,6 +261,7 @@ public class GameController{
             message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
         }
         this.sendMessageCLI(player, message);
+        afkVar = "integer";  
         int index = integerCreated.get();
         return leaderCardsInHand.get(index);
     }
@@ -267,6 +275,7 @@ public class GameController{
         	currPlayer.setStateGame("/vaticansupport");
         }
         this.sendMessageCLI(player, message);
+        afkVar = "boolean";
         boolean choose = booleanCreated.get();
         currPlayer.setStateGame(null);
         return  choose;
@@ -289,6 +298,7 @@ public class GameController{
         this.sendMessageCLI(player, message);
         this.tradesSize = buildingCard.getTrades().size();
         player.putSecond_State(PlayerState.CHOOSE_TRADE);
+        afkVar = "integer";
         int choose = integerCreated.get();
         return buildingCard.getTrades().get(choose);
     }
@@ -304,6 +314,7 @@ public class GameController{
             message += "\n";
         }
         this.sendMessageCLI(player, message);
+        afkVar = "integer";
         int index = integerCreated.get();
         return discounts.get(index);
     }
@@ -312,6 +323,7 @@ public class GameController{
         String message = "Do you want to pay with militaryPoint? You need " + militaryPointNeeded + "military Point and it costs + " + militaryPointPrice + "militaryPoint";
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
+        afkVar = "boolean";
         boolean choose = booleanCreated.get();
         return choose;
     }
@@ -339,6 +351,35 @@ public class GameController{
     }
     
     public String flow (String asked, String username){
+    	if(asked.equals("/afk")){
+    		switch(afkVar){
+    			case("whatToDo"):
+    				whatToDoCreated.put((Integer) null);
+    				setInFlow();
+    				return null;
+    			case("actionInput"):
+    				actionInputCreated.put(null);
+    				setInFlow();
+    				return null;
+    			case("familyColor"):
+    				familyColorCreated.put(null);
+    				setInFlow();
+    				return null;
+    			case("integer"):
+    				integerCreated.put((Integer) null);
+    				setInFlow();	
+    				return null;
+    			case("intArray"):
+    				arrayIntegerCreated.put(null);
+    				setInFlow();
+    				return null;
+    			case("boolean"):
+    				booleanCreated.put((Boolean) null);
+    				setInFlow();
+    				return null;
+    		}
+    		return "not handled case";
+    	}
     	//ENTER HERE IF IT'S YOUR TURN
     	if(inFlow == false) {
     		inFlow = true;
@@ -373,9 +414,7 @@ public class GameController{
 	        	}
 	    		//ENTER HERE IF STATE1 IS DEFINED
 	    		else{
-	    			System.out.println("Before GetState");
 	    			PlayerState state2 = getState(2 , username);
-					System.out.println("After GetState");
 					if(state2.equals(PlayerState.WAITING)){
 	        			switch (state1) {
 		    				case PLACE_LEADER_CARD :

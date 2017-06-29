@@ -137,6 +137,10 @@ public class ServerHandler implements Runnable{
 								stateGame = line;
 							}
 							break;
+						case "/afk" : 
+							answer = toGameHandler(line);
+							stateGame = null;
+							break;
 						case "/chat" :
 							answer = "Insert a message : ";
 							stateGame = line;
@@ -153,6 +157,16 @@ public class ServerHandler implements Runnable{
 					}
 				}
 				else {
+					if(line.equals("/afk")){ 
+						answer = toGameHandler(line);
+						stateGame = null;
+						try {
+							sendToClient(answer);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+						break;
+					}
 					switch (stateGame){
 						case "/playturn" :
 							answer = toGameHandler(line);
