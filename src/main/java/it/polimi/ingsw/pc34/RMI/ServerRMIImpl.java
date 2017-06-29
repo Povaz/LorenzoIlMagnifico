@@ -22,7 +22,7 @@ import java.util.*;
 /**
  * Created by Povaz on 24/05/2017.
  **/
-public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI, Unreferenced {
+public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     private HashMap<UserRMI, String> usersLoggedRMI;
     private Lobby lobby;
 
@@ -30,11 +30,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI, Unr
         this.usersLoggedRMI = new HashMap<>();
         this.lobby = lobby;
         this.lobby.setServerRMI(this);
-    }
-
-    @Override
-    public void unreferenced() {
-
     }
 
     private boolean searchUserLogged (UserRMI userRMI) throws RemoteException {
@@ -169,7 +164,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI, Unr
                                         break;
                                     case "/chat":
                                         userRMI.sendMessage("Insert a Message: ");
-                                        gameController.sendMessageChat(input);
+                                        gameController.sendMessageChat(input, entry.getKey().getUsername());
                                         entry.setValue(input);
                                         break;
                                     case "/stampinfo":
@@ -185,7 +180,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI, Unr
                                         break;
                                     case "/chat":
                                         entry.setValue(null);
-                                        gameController.sendMessageChat(input);
+                                        gameController.sendMessageChat(input, entry.getKey().getUsername());
                                         userRMI.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
                                         break;
                                     case "/vaticansupport":
@@ -211,8 +206,19 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI, Unr
             if (player.getUsername().equals(entry.getKey().getUsername())) {
                 if (message.equals("Action has been executed")) {
                     entry.setValue(null);
+                    entry.getKey().sendMessage(message);
                 }
-                entry.getKey().sendMessage(message);
+                if(message.equals("This Client has been disconnected")) {
+                    usersLoggedRMI.remove(entry.getKey(), entry.getValue());
+                }
+            }
+        }
+    }
+
+    public void setStateGame (Player player, String state) throws RemoteException {
+        for (Map.Entry<UserRMI, String> entry: usersLoggedRMI.entrySet()) {
+            if (player.getUsername().equals(entry.getKey().getUsername())) {
+                entry.setValue(state);
             }
         }
     }

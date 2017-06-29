@@ -265,77 +265,94 @@ public class Game implements Runnable{
         Order order = board.getOrder();
         do{
             Player current = order.getCurrent();
-            try{
-                ActionSpot actionSpot;
-                FamilyMember familyMember;
-                current.setYourTurn(true);
-                do{
-                    System.out.println("\n\nPLAYERBOARD:");
-                    System.out.println(current.getPlayerBoard());
-                    System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
-                    switch(gameController.getWhatToDo(current)){
-                        case 0:
-                            current.putFirst_State(PlayerState.ACTION);
-                            System.out.println("State 1 of " + current.getUsername() + " is now " + PlayerState.ACTION);
-                            if(!current.isPlacedFamilyMember()) {
-                                current.putSecond_State(PlayerState.ACTION_INPUT);
-                                actionSpot = gameController.getViewActionSpot(current);
-                                System.out.println("State 2 of " + current.getUsername() + " is now " + PlayerState.ACTION_INPUT);
-                                current.putSecond_State(PlayerState.FAMILY_MEMBER);
-                                familyMember = gameController.getViewFamilyMember(current);
-                                System.out.println("State 2 of " + current.getUsername() + " is now " + PlayerState.FAMILY_MEMBER);
-                                if(placeFamilyMember(familyMember, actionSpot)) {
-                                    current.setPlacedFamilyMember(true);
-                                }
-                                gameController.sendMessageCLI(current, "Action has been executed");
-                            }
-                            else{
-                                gameController.sendMessageCLI(current, "You have already placed a family member!");
+            if (!current.isDisconnected()) {
+                try {
+                    ActionSpot actionSpot;
+                    FamilyMember familyMember;
+                    current.setYourTurn(true);
+                    gameController.startTimer();
+                    do {
+                        System.out.println("\n\nPLAYERBOARD:");
+                        System.out.println(current.getPlayerBoard());
+                        System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
+                        switch (gameController.getWhatToDo(current)) {
+                            case 0:
                                 current.putFirst_State(PlayerState.ACTION);
-                            }
-                            break;
-                        case 1:
-                            current.putFirst_State(PlayerState.PLACE_LEADER_CARD);
-                            PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
-                            if(placeLeaderCard.canDoAction()){
-                                placeLeaderCard.doAction();
-                                gameController.sendMessageCLI(current, "Action has been executed");
 
-                            }
-                            break;
-                        case 2:
-                            current.putFirst_State(PlayerState.ACTIVATE_LEADER_CARD);
-                            ActivateImmediateLeaderCard activateImmediateLeaderCard = new ActivateImmediateLeaderCard(this, current);
-                            if(activateImmediateLeaderCard.canDoAction()){
-                                activateImmediateLeaderCard.doAction();
-                                gameController.sendMessageCLI(current, "Action has been executed");
+                                if (!current.isPlacedFamilyMember()) {
 
-                            }
-                            break;
-                        case 3:
-                            current.putFirst_State(PlayerState.EXCHANGE_LEADER_CARD);
-                            ChangeLeaderCardInReward changeLeaderCardInReward = new ChangeLeaderCardInReward(this, current);
-                            if(changeLeaderCardInReward.canDoAction()){
-                                changeLeaderCardInReward.doAction();
+                                    current.putSecond_State(PlayerState.ACTION_INPUT);
+                                    actionSpot = gameController.getViewActionSpot(current);
+                                    if (actionSpot == null) {
+                                        current.setDisconnected(true);
+                                        gameController.sendMessageCLI(current, "This Client has been disconnected");
+                                        gameController.sendMessageChat(" has disconnected.", current.getUsername());
+                                        break;
+                                    }
+
+                                    current.putSecond_State(PlayerState.FAMILY_MEMBER);
+                                    familyMember = gameController.getViewFamilyMember(current);
+                                    if (familyMember == null) {
+                                        current.setDisconnected(true);
+                                        gameController.sendMessageCLI(current, "This Client has been disconnected");
+                                        gameController.sendMessageChat(" has disconnected.", current.getUsername());
+                                        break;
+                                    }
+
+                                    if (placeFamilyMember(familyMember, actionSpot)) {
+                                        current.setPlacedFamilyMember(true);
+                                    }
+
+                                    gameController.sendMessageCLI(current, "Action has been executed");
+
+                                } else {
+                                    gameController.sendMessageCLI(current, "You have already placed a family member!");
+                                    current.putFirst_State(PlayerState.ACTION);
+                                }
+                                break;
+                            case 1:
+                                current.putFirst_State(PlayerState.PLACE_LEADER_CARD);
+                                PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
+                                if (placeLeaderCard.canDoAction()) {
+                                    placeLeaderCard.doAction();
+                                    gameController.sendMessageCLI(current, "Action has been executed");
+
+                                }
+                                break;
+                            case 2:
+                                current.putFirst_State(PlayerState.ACTIVATE_LEADER_CARD);
+                                ActivateImmediateLeaderCard activateImmediateLeaderCard = new ActivateImmediateLeaderCard(this, current);
+                                if (activateImmediateLeaderCard.canDoAction()) {
+                                    activateImmediateLeaderCard.doAction();
+                                    gameController.sendMessageCLI(current, "Action has been executed");
+
+                                }
+                                break;
+                            case 3:
+                                current.putFirst_State(PlayerState.EXCHANGE_LEADER_CARD);
+                                ChangeLeaderCardInReward changeLeaderCardInReward = new ChangeLeaderCardInReward(this, current);
+                                if (changeLeaderCardInReward.canDoAction()) {
+                                    changeLeaderCardInReward.doAction();
+                                    gameController.sendMessageCLI(current, "Action has been executed");
+                                }
+                                break;
+                            case 4:
+                                current.setYourTurn(false);
+                                gameController.stopTimer();
+                                gameController.setInFlow();
                                 gameController.sendMessageCLI(current, "Action has been executed");
-                            }
-                            break;
-                        case 4:
-                            current.setYourTurn(false);
-                            gameController.setInFlow();
-                            gameController.sendMessageCLI(current, "Action has been executed");
-                            break;
-                        default:
-                            System.out.println("WAT???");
-                    }
+                                break;
+                            default:
+                                System.out.println("WAT???");
+                        }
+                        current.putFirst_State(PlayerState.WAITING);
+                        current.putSecond_State(PlayerState.WAITING);
+                    } while (current.isYourTurn());
+                } catch (TooMuchTimeException e) {
+                    gameController.sendMessageCLI(current, "Timeout expired");
                     current.putFirst_State(PlayerState.WAITING);
                     current.putSecond_State(PlayerState.WAITING);
-                } while(current.isYourTurn());
-            } catch(TooMuchTimeException e) {
-                gameController.sendMessageCLI(current, "Timeout expired");
-                current.putFirst_State(PlayerState.WAITING);
-                current.putSecond_State(PlayerState.WAITING);
-                // TODO addTimer
+                }
             }
             current.putFirst_State(PlayerState.WAITING);
             current.putSecond_State(PlayerState.WAITING);

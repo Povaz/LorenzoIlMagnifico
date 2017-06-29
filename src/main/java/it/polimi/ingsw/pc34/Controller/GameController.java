@@ -5,7 +5,6 @@ import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -20,7 +19,7 @@ public class GameController{
     private ServerSOC serverSoc;
     private ArrayList<ServerHandler> usersSoc;
 
-    private ServerRMIImpl serverLoginImpl;
+    private ServerRMIImpl serverRMI;
     private ActionInputCreated actionInputCreated = new ActionInputCreated();
     private IntegerCreated whatToDoCreated = new IntegerCreated();
     private IntegerCreated integerCreated = new IntegerCreated();
@@ -36,20 +35,32 @@ public class GameController{
     private String afkVar;
     
 
-    public GameController(Game game, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
+    private Timer timerTillTheEnd;
+
+    public GameController(Game game, ServerRMIImpl serverRMI, ServerSOC serverSoc) {
         Thread threadGame = new Thread (game);
         threadGame.start();
         this.board = game.getBoard();
         this.players = game.getPlayers();
         this.serverSoc = serverSoc;
         this.usersSoc = serverSoc.getUsers();
-        this.serverLoginImpl = serverLoginImpl;
+        this.serverRMI = serverRMI;
     }
-    
-    public int getNumberPlayers(){
-    	return board.getPlayerNumber();
-    }
-    
+
+    public void startTimer() {
+    	this.timerTillTheEnd = new Timer();
+    	this.timerTillTheEnd.schedule(new TimerTask() {
+			@Override
+			public void run() {
+				flow("/afk", "ripperino");
+			}
+		}, 180000);
+	}
+
+	public void stopTimer() {
+    	this.timerTillTheEnd.cancel();
+	}
+
     public void setInFlow(){
     	this.inFlow = false;
     }
@@ -76,23 +87,10 @@ public class GameController{
     	}
 		return false;
     }
-    
-    public void setActionInputCreated (ActionInputCreated actionInputCreated) {
-        this.actionInputCreated = actionInputCreated;
-    }
-
-    public void setIntegerCreated (IntegerCreated integerCreated) {
-        this.integerCreated = integerCreated;
-    }
-
-    public void setFamilyColorCreated (FamilyColorCreated familyColorCreated) {
-    	this.familyColorCreated = familyColorCreated;
-    }
-
     public void sendMessageCLI(Player player, String message) throws RemoteException, IOException {
         switch(player.getConnectionType()){
             case RMI:
-                serverLoginImpl.sendMessage(player, message);
+                serverRMI.sendMessage(player, message);
                 System.out.println(message);
                 break;
             case SOCKET:
@@ -104,16 +102,16 @@ public class GameController{
     }
 
     public void sendMessageChat(String message, String username) throws IOException {
-		message = username + " sent a message : " + message;
+		message = username + ": " + message;
     	for (int i = 0; i < players.size(); i++) {
 			sendMessageCLI(players.get(i), message);
 		}
 	}
 
-    public void sendMessageGUI(Player player, String message) throws IOException {
+    /*public void sendMessageGUI(Player player, String message) throws IOException {
         switch(player.getConnectionType()){
             case RMI:
-                serverLoginImpl.sendMessage(player, message);
+                serverRMI.sendMessage(player, message);
                 System.out.println(message);
                 break;
             case SOCKET:
@@ -122,7 +120,7 @@ public class GameController{
                 System.out.println(message);
                 break;
         }
-    }
+    }*/
 
     public int getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
         int whatToDo;
@@ -139,9 +137,6 @@ public class GameController{
     	ActionInput actionInput = actionInputCreated.get();
         System.out.println("Action Input taken from +" + player.getUsername() + ": " + actionInput.toString());
         setInFlow();
-        if(actionInput == null) {
-            return null;
-        }
         switch(actionInput.getActionType()){
             case TERRITORY_TOWER:
                 return board.getTerritoryTower().getFloors().get(actionInput.getSpot());
@@ -265,13 +260,22 @@ public class GameController{
     }
      
     //FARE CASO RMI
-    public boolean wantToSupportVatican(Player player) throws RemoteException, IOException{
+    public boolean wantToSupportVatican(Player player) throws IOException{
     	String message = "Do you support Vatican?";
     	ServerHandler currPlayer = null;
-    	if(player.getConnectionType().equals(ConnectionType.SOCKET)){
-        	currPlayer = getServerHandler(player.getUsername());
-        	currPlayer.setStateGame("/vaticansupport");
-        }
+    	boolean choose = false;
+    	switch (player.getConnectionType()) {
+			case SOCKET:
+				currPlayer = getServerHandler(player.getUsername());
+				currPlayer.setStateGame("/vaticansupport");
+				choose = booleanCreated.get();
+				currPlayer.setStateGame(null);
+				break;
+			case RMI:
+				serverRMI.setStateGame(player, "/vaticansupport");
+				choose = booleanCreated.get();
+				serverRMI.setStateGame(player, null);
+		}
         this.sendMessageCLI(player, message);
         afkVar = "boolean";
         boolean choose = booleanCreated.get();
