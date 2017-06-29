@@ -359,41 +359,42 @@ public class GameController{
     }
     
 	public String flow (String asked, String username){
-    	if(asked.equals("/afk")){
-    		switch(afkVar){
-    			case("whatToDo"):
-    				whatToDoCreated.put(null);
-    				setInFlow();
-    				return null;
-    			case("actionInput"):
-    				actionInputCreated.put(null);
-    				setInFlow();
-    				return null;
-    			case("familyColor"):
-    				familyColorCreated.put(null);
-    				setInFlow();
-    				return null;
-    			case("integer"):
-    				integerCreated.put(null);
-    				setInFlow();	
-    				return null;
-    			case("intArray"):
-    				//inizializzare un array con uno 0 e passarlo
-    				arrayIntegerCreated.put(null);
-    				setInFlow();
-    				return null;
-    			case("booleanVat"):
-    				booleanCreated.put(null);
-    				setInFlow();
-    				return null;
-    		}
-    		return "not handled case";
-    	}
     	//ENTER HERE IF IT'S YOUR TURN
     	if(inFlow == false) {
     		inFlow = true;
     		PlayerState state1 = getState(1 , username);
     		if(checkCurrentPlayer(username)){
+    			//AFK PER PLAYER DI CUI E' IL TURNO
+    			if(asked.equals("/afk")){
+    	    		switch(afkVar){
+    	    			case("whatToDo"):
+    	    				whatToDoCreated.put(null);
+    	    				setInFlow();
+    	    				return null;
+    	    			case("actionInput"):
+    	    				actionInputCreated.put(null);
+    	    				setInFlow();
+    	    				return null;
+    	    			case("familyColor"):
+    	    				familyColorCreated.put(null);
+    	    				setInFlow();
+    	    				return null;
+    	    			case("integer"):
+    	    				integerCreated.put(null);
+    	    				setInFlow();	
+    	    				return null;
+    	    			case("intArray"):
+    	    				//inizializzare un array con uno 0 e passarlo
+    	    				arrayIntegerCreated.put(null);
+    	    				setInFlow();
+    	    				return null;
+    	    			case("booleanVat"):
+    	    				booleanCreated.put(null);
+    	    				setInFlow();
+    	    				return null;
+    	    		}
+    	    		return "not handled case";
+    	    	}
 	    		//ENTER HERE IF STATE1 STILL NOT DEFINED
 	    		if(state1.equals(PlayerState.WAITING)){
 	    			switch (asked) {
@@ -722,6 +723,12 @@ public class GameController{
         	
         	//ENTER HERE IF IT ISN'T YOUR TURN
         	else{
+        		//AFK PER PLAYER DI CUI NON E' IL TURNO
+        		if(asked.equals("/afk")){
+    	    		//rendere giocatore disconnesso
+        			
+        			return "This Client has been disconnected";
+    	    	}
         		setInFlow();
         		return "It isn't your turn";
         	}

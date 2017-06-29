@@ -277,7 +277,7 @@ public class Game implements Runnable{
                         System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
                         Integer whatToDo = gameController.getWhatToDo(current);
                         if(whatToDo == null){
-                        	gameController.sendMessageCLI(current, "Sei AFK");
+                        	gameController.sendMessageCLI(current, "This Client has been disconnected");
                         	current.setDisconnected(true);
                         	whatToDo = 4;
                         }
