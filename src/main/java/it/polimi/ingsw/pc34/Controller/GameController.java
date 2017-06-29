@@ -268,18 +268,16 @@ public class GameController{
 			case SOCKET:
 				currPlayer = getServerHandler(player.getUsername());
 				currPlayer.setStateGame("/vaticansupport");
-				choose = booleanCreated.get();
 				currPlayer.setStateGame(null);
 				break;
 			case RMI:
 				serverRMI.setStateGame(player, "/vaticansupport");
-				choose = booleanCreated.get();
 				serverRMI.setStateGame(player, null);
+				serverRMI.setStateGame(player,null);
 		}
         this.sendMessageCLI(player, message);
         afkVar = "boolean";
-        boolean choose = booleanCreated.get();
-        currPlayer.setStateGame(null);
+        choose = booleanCreated.get();
         return  choose;
     }
     
