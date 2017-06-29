@@ -3,7 +3,7 @@ package it.polimi.ingsw.pc34.Controller;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.*;
-import it.polimi.ingsw.pc34.Model.Action.*;
+import it.polimi.ingsw.pc34.Controller.Action.*;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
