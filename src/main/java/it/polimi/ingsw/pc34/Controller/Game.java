@@ -290,18 +290,14 @@ public class Game implements Runnable{
                                     current.putSecond_State(PlayerState.ACTION_INPUT);
                                     actionSpot = gameController.getViewActionSpot(current);
                                     if (actionSpot == null) {
-                                        current.setDisconnected(true);
-                                        gameController.sendMessageCLI(current, "This Client has been disconnected");
-                                        gameController.sendMessageChat(" has disconnected.", current.getUsername());
+                                        gameController.disconnectPlayer(current);
                                         break;
                                     }
 
                                     current.putSecond_State(PlayerState.FAMILY_MEMBER);
                                     familyMember = gameController.getViewFamilyMember(current);
                                     if (familyMember == null) {
-                                        current.setDisconnected(true);
-                                        gameController.sendMessageCLI(current, "This Client has been disconnected");
-                                        gameController.sendMessageChat(" has disconnected.", current.getUsername());
+                                        gameController.disconnectPlayer(current);
                                         break;
                                     }
 

@@ -215,7 +215,8 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     entry.getKey().sendMessage(message);
                 }
                 if(message.equals("This Client has been disconnected")) {
-                    entry.getKey().sendMessage(message);
+                    entry.getKey().setLogged(false);
+                    entry.getKey().sendMessage(message + "; Press any key to start over");
                     usersLoggedRMI.remove(entry.getKey(), entry.getValue());
                 }
             }

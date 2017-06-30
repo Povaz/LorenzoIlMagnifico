@@ -45,9 +45,7 @@ public class PlaceLeaderCard implements CommandPattern{
         leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player);
 
         if (leaderCard == null) { //AGGIUNTO DA ERICK PER IL TIMER
-            player.setDisconnected(true);
-            game.getGameController().sendMessageCLI(player, "This Client has been disconnected");
-            game.getGameController().sendMessageChat(" has disconnected.", player.getUsername());
+            game.getGameController().disconnectPlayer(player);
             return false;
         }
 

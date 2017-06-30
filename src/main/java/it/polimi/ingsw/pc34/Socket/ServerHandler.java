@@ -97,7 +97,7 @@ public class ServerHandler implements Runnable{
 		return answer;
 	}
 	
-	private String toGameHandler(String asked){
+	private String toGameHandler(String asked) throws IOException{
 		String answer=gameController.flow(asked, username);
 		return answer;
 	}
@@ -136,13 +136,21 @@ public class ServerHandler implements Runnable{
 				if(stateGame==null) {
 					switch (line){
 						case "/playturn" :
-							answer = toGameHandler(line);
+							try {
+								answer = toGameHandler(line);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 							if(answer.equals("What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip")){
 								stateGame = line;
 							}
 							break;
-						case "/afk" : 
-							answer = toGameHandler(line);
+						case "/afk" :
+							try {
+								answer = toGameHandler(line);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 							stateGame = null;
 							break;
 						case "/chat" :
@@ -161,8 +169,12 @@ public class ServerHandler implements Runnable{
 					}
 				}
 				else {
-					if(line.equals("/afk")){ 
-						answer = toGameHandler(line);
+					if(line.equals("/afk")){
+						try {
+							answer = toGameHandler(line);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
 						stateGame = null;
 						try {
 							sendToClient(answer);
@@ -173,7 +185,11 @@ public class ServerHandler implements Runnable{
 					}
 					switch (stateGame){
 						case "/playturn" :
-							answer = toGameHandler(line);
+							try {
+								answer = toGameHandler(line);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 							break;
 						case "/chat" : 
 							stateGame = null;
@@ -185,7 +201,11 @@ public class ServerHandler implements Runnable{
 							answer = "Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
 							break;
 						case "/vaticansupport" :
-							answer = toGameHandler(line);
+							try {
+								answer = toGameHandler(line);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
 							break;
 						default :
 							answer = "Wrong input, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
