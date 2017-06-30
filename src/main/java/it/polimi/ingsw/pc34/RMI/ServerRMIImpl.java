@@ -205,7 +205,8 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                         }
                     }
                 } catch (ServerException e) {
-                    e.printStackTrace();
+                    /*usersLoggedRMI.remove(entry.getKey(), entry.getValue());*/
+                    this.sendInput(input, userRMI);
                 }
             } catch (NullPointerException e) {
                 userRMI.sendMessage("The Game isn't started yet");
