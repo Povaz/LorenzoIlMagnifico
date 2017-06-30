@@ -40,11 +40,7 @@ public class Client {
     public void startClientRMI() throws IOException, AlreadyBoundException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry(8000);
         ServerRMI serverRMI = (ServerRMI) registry.lookup("serverRMI");
-
         this.userLoginRMI.loginHandler(serverRMI);
-        userLoginRMI.sendMessage("Waiting for the Game to Start");
-        userLoginRMI.getGameIsStarting().get();
-        userLoginRMI.gameHandler(serverRMI);
     }
 
     public void startClientSOC() {

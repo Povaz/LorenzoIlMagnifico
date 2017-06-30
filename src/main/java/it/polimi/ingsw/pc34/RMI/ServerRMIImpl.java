@@ -55,7 +55,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     this.usersLoggedRMI.put(userRMI, null);
                     lobby.setUser(userRMI.getUsername(), ConnectionType.RMI);
                     userRMI.sendMessage("Login successful");
-                    lobby.notifyAllUsers(NotificationType.USERLOGOUT, userRMI.getUsername());
+                    lobby.notifyAllUsers(NotificationType.USERLOGIN, userRMI.getUsername());
 
                     if (lobby.getUsers().size() == 2) {
                         userRMI.sendMessage("Timer Started");
@@ -65,15 +65,15 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
                     if (lobby.getUsers().size() == 5) {
                         lobby.stopTimer();
-                        System.out.println("Start Game"); //TODO CREARE TIMER PERSONALIZZABILE PER FARLO SCATTARE IMMEDIATAMENTE
+                        System.out.println("The Game is Starting"); //TODO CREARE TIMER PERSONALIZZABILE PER FARLO SCATTARE IMMEDIATAMENTE
                     }
                     return true;
                 }
                 else {
-                    if (true/*server.checkDisconnected()*/) {
+                    if (server.isDisconnected(userRMI.getUsername())) {
                         this.usersLoggedRMI.put(userRMI, null);
+                        server.reconnected(userRMI.getUsername());
                         userRMI.sendMessage("Reconnected");
-                        //TODO SET DISCONNECTED FALSE
                         return true;
                     }
                     else {
@@ -100,7 +100,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     }
 
     @Override
-    public boolean logoutServer (UserRMI userRMI) throws RemoteException {  //TODO IMPLEMENTAZIONE NUOVA
+    public boolean logoutServer (UserRMI userRMI) throws RemoteException {
         Set<String> usernames = lobby.getUsers().keySet();
         for (String user : usernames) {
             if ((userRMI.getUsername().equals(user))) {
@@ -153,17 +153,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         return null;
     }
 
-    public void throwInGame (Set<String> users) throws IOException {
-        Set<UserRMI> usersRMI = usersLoggedRMI.keySet();
-        for(String user : users) {
-            for (UserRMI userRMI : usersRMI) {
-                if (user.equals(userRMI.getUsername())) {
-                    userRMI.startGameHandler();
-                }
-            }
-        }
-    }
-
     @Override
     public void sendInput (String input, UserRMI userRMI) throws IOException {
             GameController gameController = null;
@@ -171,7 +160,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                 gameController = searchGame(userRMI);
                 try {
                     for (Map.Entry<UserRMI, String> entry : usersLoggedRMI.entrySet()) {
-                        UserRMI currentUser = entry.getKey();
                         if (userRMI.getUsername().equals(entry.getKey().getUsername())) {
                             if (entry.getValue() == null) {
                                 switch (input) {
@@ -230,11 +218,13 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                 if (message.equals("Action has been executed")) {
                     entry.setValue(null);
                     entry.getKey().sendMessage(message);
+                    break;
                 }
                 if(message.equals("This Client has been disconnected")) {
                     entry.getKey().setLogged(false);
                     entry.getKey().sendMessage(message + "; Press any key to start over");
                     usersLoggedRMI.remove(entry.getKey(), entry.getValue());
+                    break;
                 }
             }
         }

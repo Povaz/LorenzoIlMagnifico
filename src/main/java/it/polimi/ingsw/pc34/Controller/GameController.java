@@ -66,7 +66,7 @@ public class GameController{
 			@Override
 			public void run() {
 				try {
-					flow("/afk", "ripperino");
+					flow("/afk", "GameController");
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

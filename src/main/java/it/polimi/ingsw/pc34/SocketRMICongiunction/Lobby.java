@@ -100,19 +100,7 @@ public class Lobby {
                     serverSoc.throwInGame();
 
                     //RMI Start
-                    Set<String> usersRMI = new HashSet<>();
-                    for (Map.Entry<String, ConnectionType> entry : users.entrySet()) {
-                        if(entry.getValue().equals(ConnectionType.RMI)) {
-                            usersRMI.add(entry.getKey());
-                        }
-                    }
-                    try {
-                        if (usersRMI.size() > 0) {
-                            serverRMI.throwInGame(usersRMI);
-                        }
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    }
+
 
                     //Game Start
                     notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");

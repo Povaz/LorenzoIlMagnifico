@@ -6,6 +6,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
+import java.util.ConcurrentModificationException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
@@ -17,14 +18,13 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private String username;
     private String keyword;
     private boolean logged;
-    private String choose;
-    private BooleanCreated gameIsStarting = new BooleanCreated();
+    private boolean startingGame;
 
     public UserRMIImpl() throws RemoteException {
         this.username = "Null";
         this.keyword = "Null";
         this.logged = false;
-        this.choose = "null";
+        this.startingGame = false;
     }
 
     @Override
@@ -73,17 +73,33 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.logged = logged;
     }
 
-    private String getChoose() {
-        return choose;
+    public boolean isStartingGame() {
+        return startingGame;
     }
 
-    private void setChoose(String choose) {
-        this.choose = choose;
+    public void setStartingGame(boolean startingGame) {
+        this.startingGame = startingGame;
     }
 
     @Override
     public void sendMessage (String message) throws RemoteException {
-        System.out.println(message);
+        switch (message) {
+            case "The game is starting":
+                this.setStartingGame(true);
+                System.out.println("Starting game:" + startingGame);
+                System.out.println("Logged: " + logged);
+                System.out.println(message + ". Press any key to start!");
+                break;
+            case "Reconnected":
+                this.setStartingGame(true);
+                this.setLogged(true);
+                System.out.println("Starting game:" + startingGame);
+                System.out.println("Logged: " + logged);
+                System.out.println(message + ". Press any key to start!");
+                break;
+            default:
+                System.out.println(message);
+        }
     }
 
     private void insertData() {
@@ -114,18 +130,28 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     }
 
     public void loginHandler (ServerRMI serverRMI) throws IOException {
-        boolean correct = false;
-        System.out.println("Insert: /login to login, /registration to registrate a new user or /exit to close to application");
-        while (!correct) {
+        String choose;
+        while (!startingGame) {
             try {
+                System.out.println("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application      - Logged: " + this.isLogged());
                 Scanner inChoose = new Scanner(System.in);
-                this.setChoose(inChoose.nextLine());
+                choose = inChoose.nextLine();
 
-                switch (this.getChoose()) {
+                switch (choose) {
                     case "/login":
-                        this.login(serverRMI);
                         if (this.isLogged()) {
-                            correct = true;
+                            System.out.println("You're already logged");
+                        }
+                        else {
+                            this.login(serverRMI);
+                        }
+                        break;
+                    case "/logout":
+                        if (this.isLogged()) {
+                            this.logout(serverRMI);
+                        }
+                        else {
+                            System.out.println("You're not logged yet");
                         }
                         break;
                     case "/registration":
@@ -142,7 +168,14 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                         this.printUsers(serverRMI); //TODO ELIMINARE
                         break;
                     default:
-                        System.out.println("Incorrect answer");
+                        System.out.println(startingGame);
+                        if (startingGame) {
+                            startingGame = false;
+                            this.gameHandler(serverRMI);
+                        }
+                        else {
+                            System.out.println("Incorrect answer");
+                        }
                 }
             } catch (InputMismatchException e) {
                 System.out.println("InputError: Retry");
@@ -163,17 +196,11 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
             catch (InputMismatchException e) {
                 System.out.println("InputError: Retry");
             }
+            catch (ConcurrentModificationException e) {
+                this.loginHandler(serverRMI);
+            }
         }
         this.loginHandler(serverRMI);
-    }
-
-    @Override
-    public void startGameHandler() throws IOException {
-        gameIsStarting.put(true);
-    }
-
-    public BooleanCreated getGameIsStarting () {
-        return gameIsStarting;
     }
 }
 
