@@ -746,6 +746,7 @@ public class GameController{
         		if(asked.equals("/afk")){
     	    		Player player = this.searchPlayerWithUsername(username);
 					disconnectPlayer(player);
+					setInFlow();
 					return null;
     	    	}
         		setInFlow();
