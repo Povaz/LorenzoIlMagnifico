@@ -14,6 +14,7 @@ import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 
 public class ServerSOC implements Runnable {
 	private int port;
@@ -21,6 +22,7 @@ public class ServerSOC implements Runnable {
 	private static ArrayList <ServerHandler> utenti;
 	//private static ArrayList <ServerLoginUser> utenti; 
 	private static int counter;
+	private Server server;
 	private Lobby lobby;
 	private ExecutorService executor = Executors.newCachedThreadPool();
 	
@@ -30,6 +32,14 @@ public class ServerSOC implements Runnable {
         this.lobby = lobby;
         this.lobby.setServerSOCKET(this);
         this.counter = 0;
+	}
+	
+	public Server getServer () {
+		return this.server;
+	}
+	
+	public void setServer(Server server){
+		this.server = server;
 	}
 	
 	public ServerHandler getServerHandler (String username){

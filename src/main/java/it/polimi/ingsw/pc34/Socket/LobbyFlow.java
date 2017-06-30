@@ -32,7 +32,10 @@ public class LobbyFlow {
 	}
 	
 	private boolean searchUserLogged (String username) throws RemoteException {
-        return lobby.searchUser(username);
+        boolean loggedInLobby = lobby.searchUser(username);
+        boolean loggedInGame = serverSoc.getServer().searchLogged(username);
+        
+        return loggedInLobby||loggedInGame;
     }
 	
 	public String flow (String asked) throws JSONException, IOException{

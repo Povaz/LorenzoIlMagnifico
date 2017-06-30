@@ -20,9 +20,22 @@ public class Server {
     
     public Server (ServerRMIImpl serverLoginRMI, ServerSOC serverSoc) {
         this.serverLoginRMI = serverLoginRMI;
+        serverSoc.setServer(this);
         this.serverSoc = serverSoc;
     }
 
+    public boolean searchLogged(String username){
+    	for (Game game : gamesOnGoing){
+    		List<String> usernames = game.getUsernames();
+    		for(String username1 : usernames){
+    			if(username1.equals(username)){
+    				return true;
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
     private void startServers () throws RemoteException, AlreadyBoundException{
         System.out.println("Constructing server implementation...");
 
