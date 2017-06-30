@@ -142,7 +142,6 @@ public class ServerSOC implements Runnable {
 		}
 	}
 	
-	
 	public void run() {
 		
 		try {

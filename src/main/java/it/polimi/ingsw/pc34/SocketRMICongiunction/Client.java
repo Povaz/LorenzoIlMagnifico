@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
-import it.polimi.ingsw.pc34.Controller.BooleanCreated;
 import it.polimi.ingsw.pc34.RMI.ServerRMI;
 import it.polimi.ingsw.pc34.RMI.UserRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ClientSOC;
@@ -54,7 +53,8 @@ public class Client {
         while (!correct) {
             try {
                 System.out.println("Which Connection Type do you want to use? 1. RMI 2. Socket");
-                Scanner inChoose = new Scanner(System.in);
+                @SuppressWarnings("resource")
+				Scanner inChoose = new Scanner(System.in);
                 int choose = inChoose.nextInt();
 
                 switch (choose) {
