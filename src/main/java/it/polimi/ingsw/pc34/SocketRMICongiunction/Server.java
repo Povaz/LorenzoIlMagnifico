@@ -51,9 +51,20 @@ public class Server {
     	return false;
     }
     
+    public void disconnectPlayerSoc(String username) throws IOException{
+    	for (Game game : gamesOnGoing){
+    		List<String> usernames = game.getUsernames();
+    		for(String username1 : usernames){
+    			if(username1.equals(username)){
+    				game.getGameController().deleteServerHandler(username);
+    			}
+    		}
+    	}
+    }
+    
     public void reconnectedSoc(String username, ServerHandler newHandler) throws IOException{
     	Game game = reconnected(username);
-    	game.getGameController().replaceServerHandler(newHandler);
+    	game.getGameController().addServerHandler(newHandler);
     }
     
     public Game reconnected(String username) throws IOException{

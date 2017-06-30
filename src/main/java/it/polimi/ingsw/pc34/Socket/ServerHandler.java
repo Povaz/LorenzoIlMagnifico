@@ -69,7 +69,9 @@ public class ServerHandler implements Runnable{
 		}
 		else if(message.equals("This Client has been disconnected")){
 			setFase(0);
-			sendToClient("Take your decision : /login or /register?");
+			//todo togliere riferimento in GameController
+			serverSoc.getServer().disconnectPlayerSoc(username);
+			message += "\nTake your decision : /login or /register?";
 			lobbyFlow.reset();
 			stateGame = null;
 		}

@@ -47,12 +47,14 @@ public class GameController{
         this.serverRMI = serverRMI;
     }
 
-    public void replaceServerHandler(ServerHandler newHandler) throws IOException{
+    public void addServerHandler(ServerHandler newHandler) throws IOException{
+    	usersSoc.add(newHandler);
+    }
+    
+    public void deleteServerHandler(String username) throws IOException{
     	for(ServerHandler userSoc : usersSoc){
-    		if(userSoc.getName().equals(newHandler.getName())){
+    		if(userSoc.getName().equals(username)){
     			usersSoc.remove(userSoc);
-    			usersSoc.add(newHandler);
-    			sendMessageChat(newHandler.getName() + " si è riconnesso!", "Game");
     			return;
     		}
     	}
@@ -111,6 +113,9 @@ public class GameController{
                 break;
             case SOCKET:
 				ServerHandler serverHandler = serverSoc.getServerHandler(player.getUsername());
+				if(serverHandler == null){
+					break;
+				}
 				serverHandler.sendToClient(message);
                 System.out.println(message);
                 break;
