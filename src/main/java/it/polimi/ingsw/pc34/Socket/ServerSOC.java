@@ -87,7 +87,7 @@ public class ServerSOC implements Runnable {
 	}
 
 	synchronized public void reconnect (String username, ServerHandler newHandler) throws IOException{
-		server.reconnected(username, newHandler);
+		server.reconnectedSoc(username, newHandler);
 	}
 	
 	synchronized public void removePlayer (String username){

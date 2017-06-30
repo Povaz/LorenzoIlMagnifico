@@ -51,17 +51,22 @@ public class Server {
     	return false;
     }
     
-    public void reconnected(String username, ServerHandler newHandler) throws IOException{
+    public void reconnectedSoc(String username, ServerHandler newHandler) throws IOException{
+    	Game game = reconnected(username);
+    	game.getGameController().replaceServerHandler(newHandler);
+    }
+    
+    public Game reconnected(String username) throws IOException{
     	for (Game game : gamesOnGoing){
     		List<Player> players = game.getPlayers();
     		for(Player player : players){
     			if(player.getUsername().equals(username)){
     				player.setDisconnected(false);
-    				game.getGameController().replaceServerHandler(newHandler);
-    				
+    				return game;
     			}
     		}
     	}
+		return null;
     }
     
     private void startServers () throws RemoteException, AlreadyBoundException{

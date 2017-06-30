@@ -77,7 +77,7 @@ public class ServerHandler implements Runnable{
 			setFase(1);
 			stateGame = null;
 		}
-		else if(message.equals("Action has been executed")){
+		else if(message.equals("Action has been executed")&&fase==1){
 			stateGame = null;
 			message += "\nInsert new command: /playturn, /chat, /stampinfo";
 		}
