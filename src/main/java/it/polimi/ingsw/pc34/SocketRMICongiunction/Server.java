@@ -23,8 +23,9 @@ public class Server {
     
     public Server (ServerRMIImpl serverLoginRMI, ServerSOC serverSoc) {
         this.serverLoginRMI = serverLoginRMI;
-        serverSoc.setServer(this);
+        serverLoginRMI.setServer(this);
         this.serverSoc = serverSoc;
+        serverSoc.setServer(this);
     }
 
     public boolean isDisconnected(String username){
@@ -68,7 +69,9 @@ public class Server {
     	}
 		return null;
     }
-    
+
+
+
     private void startServers () throws RemoteException, AlreadyBoundException{
         System.out.println("Constructing server implementation...");
 
@@ -86,7 +89,7 @@ public class Server {
         Lobby lobby = new Lobby();
         ServerRMIImpl serverLoginRMI = new ServerRMIImpl(lobby);
         ServerSOC serverSoc = new ServerSOC(1337, lobby);
-        Server server = new Server(serverLoginRMI , serverSoc);
+        Server server = new Server(serverLoginRMI, serverSoc);
         server.startServers();
     }
 }

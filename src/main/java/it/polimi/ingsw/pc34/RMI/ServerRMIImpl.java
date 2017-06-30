@@ -12,11 +12,9 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.ServerException;
 import java.rmi.server.UnicastRemoteObject;
-import java.rmi.server.Unreferenced;
 import java.util.*;
 
 /**
@@ -24,6 +22,7 @@ import java.util.*;
  **/
 public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     private HashMap<UserRMI, String> usersLoggedRMI;
+    private Server server;
     private Lobby lobby;
 
     public ServerRMIImpl(Lobby lobby) throws RemoteException {
@@ -32,7 +31,11 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         this.lobby.setServerRMI(this);
     }
 
-    private boolean searchUserLogged (UserRMI userRMI) throws RemoteException {
+    public void setServer (Server server) {
+        this.server = server;
+    }
+
+    private boolean searchUserLobby(UserRMI userRMI) throws RemoteException {
         Set<String> usernames = lobby.getUsers().keySet();
         for (String username : usernames) {
             if ((userRMI.getUsername().equals(username))) {
@@ -42,33 +45,47 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         return false;
     }
 
+
+
     @Override
     public boolean loginServer (UserRMI userRMI) throws JSONException, IOException {
-        if (!searchUserLogged(userRMI)) {
-            if (JSONUtility.checkLogin(userRMI.getUsername(), userRMI.getKeyword())) {
-                this.usersLoggedRMI.put(userRMI, null);
+        if (JSONUtility.checkLogin(userRMI.getUsername(), userRMI.getKeyword())) {
+            if(!searchUserLobby(userRMI)) {
+                if (!server.searchLogged(userRMI.getUsername())) {
+                    this.usersLoggedRMI.put(userRMI, null);
+                    lobby.setUser(userRMI.getUsername(), ConnectionType.RMI);
+                    userRMI.sendMessage("Login successful");
+                    lobby.notifyAllUsers(NotificationType.USERLOGOUT, userRMI.getUsername());
 
-                lobby.getUsers().put(userRMI.getUsername(), ConnectionType.RMI);
-                userRMI.sendMessage("Login Successful");
-                lobby.notifyAllUsers(NotificationType.USERLOGIN, userRMI.getUsername());
+                    if (lobby.getUsers().size() == 2) {
+                        userRMI.sendMessage("Timer Started");
+                        lobby.inizializeTimer();
+                        lobby.startTimer();
+                    }
 
-                if (lobby.getUsers().size() == 2) {
-                	userRMI.sendMessage("Timer Started");
-                    lobby.inizializeTimer();
-                    lobby.startTimer();
+                    if (lobby.getUsers().size() == 5) {
+                        lobby.stopTimer();
+                        System.out.println("Start Game"); //TODO CREARE TIMER PERSONALIZZABILE PER FARLO SCATTARE IMMEDIATAMENTE
+                    }
+                    return true;
                 }
-
-                if (lobby.getUsers().size() == 5) {
-                    lobby.stopTimer();
-                    System.out.println("Start Game"); //TODO CREARE TIMER PERSONALIZZABILE PER FARLO SCATTARE IMMEDIATAMENTE
+                else {
+                    if (true/*server.checkDisconnected()*/) {
+                        this.usersLoggedRMI.put(userRMI, null);
+                        userRMI.sendMessage("Reconnected");
+                        //TODO SET DISCONNECTED FALSE
+                        return true;
+                    }
+                    else {
+                        userRMI.sendMessage("User already logged");
+                        return false;
+                    }
                 }
-
-                return true;
             }
-            userRMI.sendMessage("Incorrect Username or password");
+            userRMI.sendMessage("User already logged");
             return false;
         }
-        userRMI.sendMessage("User already logged");
+        userRMI.sendMessage("Incorrect username or password");
         return false;
     }
 
