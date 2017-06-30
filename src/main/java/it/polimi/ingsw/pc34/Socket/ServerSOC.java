@@ -6,7 +6,6 @@ import java.net.ServerSocket;
 import java.net.Socket;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
-import java.util.Scanner;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
@@ -19,31 +18,34 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 public class ServerSOC implements Runnable {
 	private int port;
 	private ServerSocket serverSocket;
-	private static ArrayList <ServerHandler> utenti;
-	//private static ArrayList <ServerLoginUser> utenti; 
-	private static int counter;
+	private static ArrayList <ServerHandler> users;
+	private static ArrayList <ServerHandler> usersInLobby; 
 	private Server server;
 	private Lobby lobby;
 	private ExecutorService executor = Executors.newCachedThreadPool();
 	
 	public ServerSOC(int port, Lobby lobby) {
 		this.port = port;
-		this.utenti = new ArrayList <>();
-        this.lobby = lobby;
+		ServerSOC.users = new ArrayList <>();
+		ServerSOC.usersInLobby = new ArrayList <>();
+		this.lobby = lobby;
         this.lobby.setServerSOCKET(this);
-        this.counter = 0;
 	}
 	
+	//set and get
 	public Server getServer () {
 		return this.server;
 	}
+	
 	
 	public void setServer(Server server){
 		this.server = server;
 	}
 	
+	
+	//giving an username return his linked ServerHandler
 	public ServerHandler getServerHandler (String username){
-		for(ServerHandler serverHandler : utenti){
+		for(ServerHandler serverHandler : users){
 			if ((serverHandler.getName()).equals(username)){
 				return serverHandler;
 			}
@@ -51,16 +53,29 @@ public class ServerSOC implements Runnable {
 		return null;
 	}
 	
+	//return all users of the Socket Server
 	public ArrayList<ServerHandler> getUsers(){
-		return utenti;
-	}
-
-	public static void setGameControllerSoc(GameController gameController){
-		for (ServerHandler user : utenti){
-			user.setGameController(gameController);
-		}
+		return users;
 	}
 	
+	//set the Gamecontroller related to a specific ServerHandler(when enter in a game from a lobby) and move user from lobby's arrylist to ingame's arraylist
+	public static void setGameControllerSoc(GameController gameController){
+		for (ServerHandler user : usersInLobby){
+			user.setGameController(gameController);
+		}
+		return;
+	}
+	
+	//move elements of usersInLobby in users(entrano in quelli in game)
+	public synchronized void fromLobbytoInGame(){
+		for (ServerHandler user : usersInLobby){
+			users.add(user);
+		}
+		usersInLobby.clear();
+		return;
+	}
+	
+	//call when a player login 
 	synchronized public void addPlayer (ServerHandler last, String username) throws RemoteException {
 		
 		//crea nuovo utente nella Lobby
@@ -69,7 +84,8 @@ public class ServerSOC implements Runnable {
 		//notifica a tutti i giocatori
 		lobby.notifyAllUsers(NotificationType.USERLOGIN, last.getName());
 		
-		utenti.add(last);
+		//add user in arraylist of players in lobby
+		usersInLobby.add(last);
 		
 		if(lobby.getUsers().size() == 2){
 			lobby.notifyAllUsers(NotificationType.TIMERSTARTED, "");
@@ -86,26 +102,28 @@ public class ServerSOC implements Runnable {
 		
 	}
 
+	//call when a player reconnect
 	synchronized public void reconnect (String username, ServerHandler newHandler) throws IOException{
 		server.reconnectedSoc(username, newHandler);
 	}
 	
+	//remove a player from the list if disconnected
 	synchronized public void removePlayer (String username){
-		for (ServerHandler user: utenti) {
+		for (ServerHandler user: users) {
             if(username.equals(user.getName())){
-            	utenti.remove(user);
-            	counter--;
+            	users.remove(user);
             	return;
             }
         }
 	}
 	
+	//notify players in lobby
 	synchronized public void notifySOCPlayers (String message){
 		System.out.println("INVIO NOTIFICA : " + message);
 		System.out.println("");
 		Socket instance;
 		PrintWriter out = null;
-		for (ServerHandler user: utenti) {
+		for (ServerHandler user: usersInLobby) {
             instance = (user).getSocket();
 			try {
 				out = new PrintWriter(instance.getOutputStream(), true);
@@ -114,27 +132,16 @@ public class ServerSOC implements Runnable {
 			}
 			out.println(message);
 			out.flush();
-			Scanner socketIn = null;
-			try {
-				socketIn = new Scanner(instance.getInputStream());
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
         }
-	}
-		
-	synchronized public static void clear(){
-		System.out.println("Creating New Lobby");
-		System.out.println("");
-		utenti.clear();
-		counter=0;
-	}
-	
+	}		
+
+	//setFase for ServerHandler so they reach the Game's Handler
 	public void throwInGame(){
-		for(ServerHandler user : utenti){
+		for(ServerHandler user : usersInLobby){
 			user.setFase(1);
 		}
 	}
+	
 	
 	public void run() {
 		
@@ -147,12 +154,12 @@ public class ServerSOC implements Runnable {
 		System.out.println("Server Socket ready");
 		System.out.println("");
 		
+		//always ready to accept Socket's client
 		while (true) {
 			try {
 				Socket socket = serverSocket.accept();
 				ServerHandler last = new ServerHandler(socket, lobby, this); 
 				executor.submit(last);
-				counter++;
 			} 
 			catch(IOException e) {
 				break; // entrerei qui se serverSocket venisse chiuso

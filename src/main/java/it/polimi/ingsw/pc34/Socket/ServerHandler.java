@@ -10,27 +10,26 @@ import org.json.JSONException;
 import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 
+//class that is assigned one per one to a client, and has to deal with server's comunication with the client
 public class ServerHandler implements Runnable{
 	private Socket socket;
 	private int fase; 
 	private LobbyFlow lobbyFlow;
 	private String username;
-	private Lobby lobby;
 	private ServerSOC serverSoc;
 	private GameController gameController;
-	private Integer numberPlayers;
 	private String stateGame;
 	
 	
 	public ServerHandler(Socket socket, Lobby lobby, ServerSOC serverSoc){
 		this.socket = socket;
 		this.fase = 0;
-		this.lobby = lobby;
 		this.lobbyFlow = new LobbyFlow(lobby, serverSoc, this);
 		this.serverSoc = serverSoc;
 		this.stateGame = null;
 	}
 	
+	//set Fase, a variable used to direct the messages to a specific flow(lobby or game)
 	public void setFase(int fase){
 		this.fase = fase;
 		if(fase==1){
@@ -42,6 +41,7 @@ public class ServerHandler implements Runnable{
 		}
 	}
 	
+	//other sets and gets
 	public void setGameController(GameController gameController){
 		this.gameController= gameController;
 	}
@@ -63,6 +63,7 @@ public class ServerHandler implements Runnable{
 		return socket;
 	}
 	
+	//method to send messages to client
 	public void sendToClient(String message) throws IOException{
 		if(message==null){
 			return;
@@ -92,19 +93,21 @@ public class ServerHandler implements Runnable{
 		socketOut.flush();
 	}
 	
+	//method to receive messages from client
 	private String receiveFromClient() throws IOException{
+		@SuppressWarnings("resource")
 		Scanner socketIn = new Scanner(socket.getInputStream());
 		String received = socketIn.nextLine();
-		System.out.println("RECEIVED : " + received);
-		System.out.println("");
 		return received;
 	}
 	
+	//directs input to the Lobby Flow
 	private String toLobbyHandler(String asked) throws JSONException, IOException{
 		String answer=lobbyFlow.flow(asked);
 		return answer;
 	}
 	
+	//directs input to the Game Flow
 	private String toGameHandler(String asked) throws IOException{
 		String answer=gameController.flow(asked, username);
 		return answer;
@@ -124,7 +127,8 @@ public class ServerHandler implements Runnable{
 				e.printStackTrace();
 			}
 			String answer = null;
-			//lobby
+			
+			//to lobby flow
 			if(fase==0){
 				try {
 					answer = toLobbyHandler(line);
@@ -134,8 +138,9 @@ public class ServerHandler implements Runnable{
 					e1.printStackTrace();
 				}
 			}
-			//game
+			//to game flow
 			if(fase==1){
+				//have to decide the type of action
 				if(stateGame==null) {
 					switch (line){
 						case "/playturn" :
@@ -172,6 +177,7 @@ public class ServerHandler implements Runnable{
 					}
 				}
 				else {
+					//you can always type /afk
 					if(line.equals("/afk")){
 						try {
 							answer = toGameHandler(line);
@@ -186,6 +192,8 @@ public class ServerHandler implements Runnable{
 						}
 						break;
 					}
+					
+					//you have decided yet the type of action to perform
 					switch (stateGame){
 						case "/playturn" :
 							try {
@@ -216,6 +224,8 @@ public class ServerHandler implements Runnable{
 					}
 				}
 			}
+			
+			//send to client the answer
 			try {
 				sendToClient(answer);
 			} catch (IOException e) {

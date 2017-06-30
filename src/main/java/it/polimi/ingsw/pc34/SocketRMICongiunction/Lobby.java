@@ -105,6 +105,7 @@ public class Lobby {
                     //Game Start
                     notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");
                     Game game = new Game(users, serverRMI, serverSoc);
+                    serverSoc.fromLobbytoInGame();
                     users.clear();
                     Server.gamesOnGoing.add(game);
                     Thread threadGame = new Thread (game);

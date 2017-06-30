@@ -1,10 +1,10 @@
 package it.polimi.ingsw.pc34.Socket;
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+//class that deals whit input from server: receives messages and prints them to the client
 public class ClientInputHandler extends Thread{
 	Socket socketServer;
 	Scanner socketIn;
@@ -19,7 +19,6 @@ public class ClientInputHandler extends Thread{
 		return received;	
 	}
 	
-	@SuppressWarnings("resource")
 	public void run(){
 		String line = null;
 		while (true){

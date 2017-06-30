@@ -23,6 +23,7 @@ public class ClientComunicationHandler extends Thread{
 		out.flush();
 	}
 	
+	@SuppressWarnings("resource")
 	public void run(){
 		Scanner input;
 		while(true){

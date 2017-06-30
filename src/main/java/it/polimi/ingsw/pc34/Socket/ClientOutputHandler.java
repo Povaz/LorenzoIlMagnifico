@@ -5,6 +5,7 @@ import java.io.PrintWriter;
 import java.net.Socket;
 import java.util.Scanner;
 
+//class that deals whit output to the server: gets input lines and sends them to the server
 public class ClientOutputHandler extends Thread{
 	Socket socketServer;
 	

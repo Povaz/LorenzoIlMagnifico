@@ -8,11 +8,14 @@ import org.json.JSONException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 
+//a class that is a state machine, based on state do differents things
 public class LobbyFlow {
+	//states
 	private boolean start;
 	private boolean login;
 	private boolean register;
 	private boolean logged;
+	
 	private String username;
 	private String password;
 	private Lobby lobby;
@@ -31,24 +34,30 @@ public class LobbyFlow {
 		this.serverHandler = serverHandler;
 	}
 	
+	//reset machine for users that go afk in the game
 	public void reset(){
 		username = null;
 		password = null;
 		logged = false;
 	}
 	
+	//function that search if a user is logged in a game or in a lobby
 	private boolean searchUserLogged (String username) throws RemoteException {
         boolean loggedInLobby = lobby.searchUser(username);
         boolean loggedInGame = serverSoc.getServer().searchLogged(username);
         return loggedInLobby||loggedInGame;
     }
 	
+	//check if the user went afk in the game
 	private boolean checkUserDisconnected (String username) throws RemoteException {
         boolean disconnected = serverSoc.getServer().isDisconnected(username);
         return disconnected;
     }
 	
+	//flow of the state machine
 	public String flow (String asked) throws JSONException, IOException{
+		
+		//state start
 		if(start){
 			if(asked.equals("/login")){
 				login = true;
@@ -64,8 +73,12 @@ public class LobbyFlow {
 				return "Not valid input. /login or /register";
 			}
 		}
+		
+		//state login
 		else if(login){
+			//user input is a username
 			if(username==null){
+				//write /back to go back to login or register decision
 				if(asked.equals("/back")){
 					start = true;
 					login = false;
@@ -76,6 +89,7 @@ public class LobbyFlow {
 					return "Ok tell me password";	
 				}
 			}
+			//user input is a password
 			else{
 				password = asked;
 				boolean result;
@@ -87,6 +101,7 @@ public class LobbyFlow {
 				}
 
 				result = JSONUtility.checkLogin(username, password);
+				//user logged yet but afk
 				if(result && yetLogged && disconnected){
 					login = false;
 					logged = true;
@@ -94,6 +109,8 @@ public class LobbyFlow {
 					serverSoc.reconnect(username, serverHandler);
 					return "Reconnecting to the game...";
 				}
+				
+				//user logging in
 				else if(result && !yetLogged){
 					start = true;
 					login = false;
@@ -102,11 +119,15 @@ public class LobbyFlow {
 					serverSoc.addPlayer (serverHandler, username);
 					return "logged ('/logout' to log out)";
 				}
+				
+				//failed combination
 				else if(!result){	
 					username = null;
 					password = null;
 					return "wrong combination! Tell me username : ";
 				}
+				
+				//user logged yet
 				else {	
 					username = null;
 					password = null;
@@ -114,8 +135,12 @@ public class LobbyFlow {
 				}
 			}
 		}
+		
+		//state register
 		else if(register){
+			//user input is a username
 			if(username==null){
+				//write /back to go back to login or register decision
 				if(asked.equals("/back")){
 					start = true;
 					register = false;
@@ -126,11 +151,14 @@ public class LobbyFlow {
 					return "Ok tell me password";	
 				}
 			}
+			//user input is a password
 			else{
 				password = asked;
 				boolean result = JSONUtility.checkRegister(username, password);
 				username = null;
 				password = null;
+				
+				//result of the registratiom
 				if(result){	
 					start = true;
 					register = false;
@@ -141,7 +169,11 @@ public class LobbyFlow {
 				}
 			}
 		}
+		
+		//state logged
 		else if(logged){
+			
+			//process of logout from lobby
 			if(asked.equals("/logout")){
 				logged = false;
 				start = true;
@@ -155,6 +187,8 @@ public class LobbyFlow {
 				return "Logged out . . . What you want to do? /login or /register?";
 			}
 		}
+		
+		//return if logged and input different from /logout
 		return "You are logged yet...";
 	}
 }
