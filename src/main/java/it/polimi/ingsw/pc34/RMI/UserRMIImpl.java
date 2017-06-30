@@ -92,7 +92,6 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 break;
             case "Reconnected":
                 this.setStartingGame(true);
-                this.setLogged(true);
                 System.out.println("Starting game:" + startingGame);
                 System.out.println("Logged: " + logged);
                 System.out.println(message + ". Press any key to start!");
@@ -183,6 +182,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 e.printStackTrace();
             }
         }
+        this.gameHandler(serverRMI);
     }
 
     public void gameHandler (ServerRMI serverRMI) throws IOException {
