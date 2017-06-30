@@ -270,13 +270,13 @@ public class Game implements Runnable{
                     ActionSpot actionSpot;
                     FamilyMember familyMember;
                     current.setYourTurn(true);
-                    gameController.startTimer();
+                    gameController.startTimer(current.getUsername());
                     do {
                         System.out.println("\n\nPLAYERBOARD:");
                         System.out.println(current.getPlayerBoard());
                         System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
                         Integer whatToDo = gameController.getWhatToDo(current);
-                        if(whatToDo == null){
+                        if(whatToDo == null) {
                         	gameController.sendMessageCLI(current, "This Client has been disconnected");
                         	current.setDisconnected(true);
                         	whatToDo = 4;

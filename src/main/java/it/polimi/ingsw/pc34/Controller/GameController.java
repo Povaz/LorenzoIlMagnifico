@@ -60,13 +60,13 @@ public class GameController{
     	}
     }
     
-    public void startTimer() {
+    public void startTimer(String username) {
     	this.timerTillTheEnd = new Timer();
     	this.timerTillTheEnd.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				try {
-					flow("/afk", "GameController");
+					final String flow = flow("/afk", username);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
