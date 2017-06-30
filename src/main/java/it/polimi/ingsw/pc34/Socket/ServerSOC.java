@@ -86,6 +86,10 @@ public class ServerSOC implements Runnable {
 		
 	}
 
+	synchronized public void reconnect (String username, ServerHandler newHandler) throws IOException{
+		server.reconnected(username, newHandler);
+	}
+	
 	synchronized public void removePlayer (String username){
 		for (ServerHandler user: utenti) {
             if(username.equals(user.getName())){

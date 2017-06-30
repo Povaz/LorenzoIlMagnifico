@@ -640,6 +640,15 @@ public class Game implements Runnable{
         return board;
     }
 
+    public boolean isDisconnected(String username){
+    	for(Player player : players){
+    		if(player.getUsername().equals(username)){
+    			return player.isDisconnected();
+    		}
+    	}
+		return false;
+    }
+    
     public List<Player> getPlayers() {
         return players;
     }

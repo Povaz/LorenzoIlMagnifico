@@ -31,11 +31,21 @@ public class LobbyFlow {
 		this.serverHandler = serverHandler;
 	}
 	
+	public void reset(){
+		username = null;
+		password = null;
+		logged = false;
+	}
+	
 	private boolean searchUserLogged (String username) throws RemoteException {
         boolean loggedInLobby = lobby.searchUser(username);
         boolean loggedInGame = serverSoc.getServer().searchLogged(username);
-        
         return loggedInLobby||loggedInGame;
+    }
+	
+	private boolean checkUserDisconnected (String username) throws RemoteException {
+        boolean disconnected = serverSoc.getServer().isDisconnected(username);
+        return disconnected;
     }
 	
 	public String flow (String asked) throws JSONException, IOException{
@@ -70,10 +80,22 @@ public class LobbyFlow {
 				password = asked;
 				boolean result;
 				boolean yetLogged;
+				boolean disconnected = false;
 				yetLogged = searchUserLogged(username);
+				if(yetLogged){
+					disconnected = checkUserDisconnected(username);
+				}
+
 				result = JSONUtility.checkLogin(username, password);
-				
-				if(result && !yetLogged){
+				if(result && yetLogged && disconnected){
+					login = false;
+					logged = true;
+					serverHandler.setName(username);
+					serverSoc.reconnect(username, serverHandler);
+					return "Reconnecting to the game...";
+				}
+				else if(result && !yetLogged){
+					start = true;
 					login = false;
 					logged = true;
 					serverHandler.setName(username);

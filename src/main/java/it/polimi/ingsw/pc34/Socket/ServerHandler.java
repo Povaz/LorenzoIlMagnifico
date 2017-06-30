@@ -68,7 +68,13 @@ public class ServerHandler implements Runnable{
 			return;
 		}
 		else if(message.equals("This Client has been disconnected")){
-			//GESTIRE RIFERIMENTI A CLIENT ANCHE MULTI PARTITA
+			setFase(0);
+			sendToClient("Take your decision : /login or /register?");
+			lobbyFlow.reset();
+			stateGame = null;
+		}
+		else if(message.equals("Reconnecting to the game...")){
+			setFase(1);
 			stateGame = null;
 		}
 		else if(message.equals("Action has been executed")){
@@ -124,11 +130,6 @@ public class ServerHandler implements Runnable{
 					e1.printStackTrace();
 				} catch (IOException e1) {
 					e1.printStackTrace();
-				}
-				try {
-					sendToClient(answer);
-				} catch (IOException e) {
-					e.printStackTrace();
 				}
 			}
 			//game
@@ -212,11 +213,11 @@ public class ServerHandler implements Runnable{
 							break;
 					}
 				}
-				try {
-					sendToClient(answer);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
+			}
+			try {
+				sendToClient(answer);
+			} catch (IOException e) {
+				e.printStackTrace();
 			}
 		}
 	}

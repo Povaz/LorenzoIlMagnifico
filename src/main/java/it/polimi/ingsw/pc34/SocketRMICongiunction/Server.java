@@ -1,9 +1,12 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
 import it.polimi.ingsw.pc34.Controller.Game;
+import it.polimi.ingsw.pc34.Model.Player;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
+import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
+import java.io.IOException;
 import java.rmi.AlreadyBoundException;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
@@ -24,6 +27,18 @@ public class Server {
         this.serverSoc = serverSoc;
     }
 
+    public boolean isDisconnected(String username){
+    	for (Game game : gamesOnGoing){
+    		List<String> usernames = game.getUsernames();
+    		for(String username1 : usernames){
+    			if(username1.equals(username)){
+    				return game.isDisconnected(username1);
+    			}
+    		}
+    	}
+    	return false;
+    }
+    
     public boolean searchLogged(String username){
     	for (Game game : gamesOnGoing){
     		List<String> usernames = game.getUsernames();
@@ -34,6 +49,19 @@ public class Server {
     		}
     	}
     	return false;
+    }
+    
+    public void reconnected(String username, ServerHandler newHandler) throws IOException{
+    	for (Game game : gamesOnGoing){
+    		List<Player> players = game.getPlayers();
+    		for(Player player : players){
+    			if(player.getUsername().equals(username)){
+    				player.setDisconnected(false);
+    				game.getGameController().replaceServerHandler(newHandler);
+    				
+    			}
+    		}
+    	}
     }
     
     private void startServers () throws RemoteException, AlreadyBoundException{

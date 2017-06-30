@@ -47,6 +47,17 @@ public class GameController{
         this.serverRMI = serverRMI;
     }
 
+    public void replaceServerHandler(ServerHandler newHandler) throws IOException{
+    	for(ServerHandler userSoc : usersSoc){
+    		if(userSoc.getName().equals(newHandler.getName())){
+    			usersSoc.remove(userSoc);
+    			usersSoc.add(newHandler);
+    			sendMessageChat(newHandler.getName() + " si è riconnesso!", "Game");
+    			return;
+    		}
+    	}
+    }
+    
     public void startTimer() {
     	this.timerTillTheEnd = new Timer();
     	this.timerTillTheEnd.schedule(new TimerTask() {
@@ -730,6 +741,7 @@ public class GameController{
         		if(asked.equals("/afk")){
     	    		Player player = this.searchPlayerWithUsername(username);
 					disconnectPlayer(player);
+					return null;
     	    	}
         		setInFlow();
         		return "It isn't your turn";
