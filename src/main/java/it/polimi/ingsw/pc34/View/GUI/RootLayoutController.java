@@ -1,10 +1,15 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
 import javafx.event.ActionEvent;
+import javafx.event.EventType;
+import javafx.event.EventType.*;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.InputEvent;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
@@ -83,6 +88,12 @@ public class RootLayoutController {
         }
     }
 
+    @FXML private void keyPressed(KeyEvent event){
+        if(event.getCode() == KeyCode.ESCAPE){
+            setFullScreenOff();
+        }
+    }
+
     @FXML private void setFullScreenOn(){
         if(main.isCanBeFullScreen()){
             main.getPrimaryStage().setFullScreen(true);
@@ -90,7 +101,13 @@ public class RootLayoutController {
     }
 
     @FXML private void setFullScreenOff(){
-        main.getPrimaryStage().setFullScreen(false);
+        if(main.isCanBeFullScreen()){
+            main.getPrimaryStage().setFullScreen(false);
+            main.getPrimaryStage().setWidth(main.getWindowWidth());
+            main.getPrimaryStage().setHeight(main.getWindowHeight());
+            main.getPrimaryStage().setX(0);
+            main.getPrimaryStage().setY(0);
+        }
     }
 
     public void setMain(Main main) {

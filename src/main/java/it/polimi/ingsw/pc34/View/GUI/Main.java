@@ -19,7 +19,10 @@ import java.io.IOException;
 public class Main extends Application {
     private Stage primaryStage;
     private BorderPane rootLayout;
+
     private boolean canBeFullScreen = false;
+    private int windowWidth = 0;
+    private int windowHeight = 0;
 
     private ObservableList<PersonalBoardView> personalBoardViews = FXCollections.observableArrayList();
 
@@ -99,8 +102,10 @@ public class Main extends Application {
 
             // Set login into the center of root layout.
             rootLayout.setCenter(login);
-            primaryStage.setWidth(500);
-            primaryStage.setHeight(835);
+            windowWidth = 500;
+            windowHeight = 835;
+            primaryStage.setWidth(windowWidth);
+            primaryStage.setHeight(windowHeight);
 
             // Give the controller access to the main app.
             LoginController loginController = loader.getController();
@@ -122,8 +127,10 @@ public class Main extends Application {
 
             // Set waiting room into the center of root layout.
             rootLayout.setCenter(waitingRoom);
-            primaryStage.setWidth(500);
-            primaryStage.setHeight(835);
+            windowWidth = 500;
+            windowHeight = 835;
+            primaryStage.setWidth(windowWidth);
+            primaryStage.setHeight(windowHeight);
 
             // Give the controller access to the main app.
             WaitingRoomController waitingRoomController = loader.getController();
@@ -145,8 +152,11 @@ public class Main extends Application {
 
             // Set game into the center of root layout.
             rootLayout.setCenter(game);
-            primaryStage.setWidth(1280);
-            primaryStage.setHeight(795);
+            windowWidth = 1920;
+            windowHeight = 1080;
+            primaryStage.setWidth(windowWidth);
+            primaryStage.setHeight(windowHeight);
+            primaryStage.setFullScreen(true);
 
             // Give the controller access to the main app.
             GameViewController gameController = loader.getController();
@@ -181,5 +191,13 @@ public class Main extends Application {
 
     public void setCanBeFullScreen(boolean canBeFullScreen){
         this.canBeFullScreen = canBeFullScreen;
+    }
+
+    public int getWindowWidth(){
+        return windowWidth;
+    }
+
+    public int getWindowHeight(){
+        return windowHeight;
     }
 }
