@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
 import java.io.IOException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -24,6 +25,26 @@ public class Lobby {
 
     public HashMap<String, ConnectionType> getUsers() {
         return users;
+    }
+
+    public ArrayList<String> getRMIUsers () {
+        ArrayList<String> rmiUsers = new ArrayList<>();
+        for (Map.Entry<String, ConnectionType> entry : users.entrySet()) {
+            if (entry.getValue().equals(ConnectionType.RMI)) {
+                rmiUsers.add(entry.getKey());
+            }
+        }
+        return rmiUsers;
+    }
+
+    public ArrayList<String> getSocketUsers () {
+        ArrayList<String> socketUsers = new ArrayList<>();
+        for (Map.Entry<String, ConnectionType> entry : users.entrySet()) {
+            if (entry.getValue().equals(ConnectionType.SOCKET)) {
+                socketUsers.add(entry.getKey());
+            }
+        }
+        return socketUsers;
     }
 
     public void setServerRMI (ServerRMIImpl serverRMI) {
@@ -52,7 +73,7 @@ public class Lobby {
         return false;
     }
 
-    public void removeUser (String username) {
+    public synchronized void removeUser (String username) {
         if(this.searchUser(username)) {
             this.getUsers().remove(username);
         }
@@ -79,6 +100,12 @@ public class Lobby {
         this.serverSoc.notifySOCPlayers(message);
     }
 
+    public void checkUsersLogged() throws RemoteException {
+        System.out.println("checkUsersLogged Entered");
+        serverRMI.checkUsersLogged();
+        //ServerSocket
+    }
+
     public Timer getTimer() {
         return timer;
     }
@@ -96,6 +123,12 @@ public class Lobby {
             @Override
             public void run() {
                 try {
+                    //Check Users Activity
+                    checkUsersLogged();
+                    if (users.size() == 1) {
+                        return;
+                    }
+
                     //Socket Start
                     serverSoc.throwInGame();
 
@@ -115,7 +148,7 @@ public class Lobby {
                     e.printStackTrace();
                 }
             }
-        }, 1000);
+        }, 10000);
     }
 
     public void stopTimer() {

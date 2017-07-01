@@ -12,6 +12,7 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.lang.reflect.Array;
 import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.ServerException;
@@ -48,7 +49,38 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         return false;
     }
 
+    public void checkUsersLogged () throws RemoteException {
+        ArrayList<String> usersRMI = lobby.getRMIUsers();
+        HashMap<String, Integer> usersDisconnected = new HashMap<>();
+        for (String user : usersRMI) {
+            for (int i = 0; i < usernames.size(); i++) {
+                try {
+                    System.out.println("usersLoggedRMI size: " + usersLoggedRMI.size());
+                    System.out.println("usernames size: " + usernames.size());
+                    if (usernames.get(i).equals(user)) {
+                        usersLoggedRMI.get(i).sendMessage("Are you still there?");
+                    }
+                } catch (RemoteException e) {
+                    usersDisconnected.put(user, i);
+                }
+            }
+        }
+        for (Map.Entry<String, Integer> entry : usersDisconnected.entrySet()) {
+            System.out.println(entry.getKey() + " was disconnected with force");
+            forcedLogoutServer(entry.getKey(), entry.getValue());
+        }
+    }
 
+
+    public void forcedLogoutServer (String username, int i) throws RemoteException {
+        System.out.println("ForcedLogoutServer Entered \n");
+        lobby.removeUser(username);
+        usersLoggedRMI.remove(i);
+        usernames.remove(i);
+        lobby.notifyAllUsers(NotificationType.USERLOGOUT, username);
+
+        System.out.println(lobby.getUsers().toString() + "\n");
+    }
 
     @Override
     public boolean loginServer (UserRMI userRMI) throws JSONException, IOException {
