@@ -42,6 +42,10 @@ public class GameViewController {
     @FXML private Button ventureTowerCard2;
     @FXML private Button ventureTowerCard3;
 
+    @FXML private Button vaticanReportCard1;
+    @FXML private Button vaticanReportCard2;
+    @FXML private Button vaticanReportCard3;
+
     @FXML private Button territorySpotCard0;
     @FXML private Button territorySpotCard1;
     @FXML private Button territorySpotCard2;
@@ -254,6 +258,18 @@ public class GameViewController {
         ventureTowerCard3.setBackground(background);
         ventureTowerCard3.setDisable(false);
         ventureTowerCard3.setVisible(true);
+
+        vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 109, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        vaticanReportCard1.setDisable(false);
+        vaticanReportCard1.setVisible(true);
+
+        vaticanReportCard2.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport2_1.png", 56, 103, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        vaticanReportCard2.setDisable(false);
+        vaticanReportCard2.setVisible(true);
+
+        vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 109, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        vaticanReportCard3.setDisable(false);
+        vaticanReportCard3.setVisible(true);
     }
 
     public void setMain(Main main) {
