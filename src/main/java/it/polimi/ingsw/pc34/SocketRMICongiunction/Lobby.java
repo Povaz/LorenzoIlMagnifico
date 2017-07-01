@@ -125,7 +125,7 @@ public class Lobby {
                 try {
                     //Check Users Activity
                     checkUsersLogged();
-                    if (users.size() == 1) {
+                    if (users.size() < 2) {
                         return;
                     }
 
