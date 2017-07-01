@@ -14,4 +14,6 @@ public interface UserRMI extends Remote{
     String getKeyword() throws RemoteException;
     void sendMessage (String message) throws RemoteException;
     void setLogged (boolean logged) throws RemoteException;
+    void setGameState(String gameState) throws RemoteException;
+    String getGameState() throws RemoteException;
 }

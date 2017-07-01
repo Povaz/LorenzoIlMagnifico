@@ -12,6 +12,7 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.rmi.ConnectException;
 import java.rmi.RemoteException;
 import java.rmi.ServerException;
 import java.rmi.server.UnicastRemoteObject;
@@ -21,12 +22,14 @@ import java.util.*;
  * Created by Povaz on 24/05/2017.
  **/
 public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
-    private HashMap<UserRMI, String> usersLoggedRMI;
+    private ArrayList<UserRMI> usersLoggedRMI;
+    private ArrayList<String> usernames;
     private Server server;
     private Lobby lobby;
 
     public ServerRMIImpl(Lobby lobby) throws RemoteException {
-        this.usersLoggedRMI = new HashMap<>();
+        this.usersLoggedRMI = new ArrayList<>();
+        this.usernames = new ArrayList<>();
         this.lobby = lobby;
         this.lobby.setServerRMI(this);
     }
@@ -52,7 +55,9 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         if (JSONUtility.checkLogin(userRMI.getUsername(), userRMI.getKeyword())) {
             if(!searchUserLobby(userRMI)) {
                 if (!server.searchLogged(userRMI.getUsername())) {
-                    this.usersLoggedRMI.put(userRMI, null);
+                    this.usersLoggedRMI.add(userRMI);
+                    this.usernames.add(userRMI.getUsername());
+
                     lobby.setUser(userRMI.getUsername(), ConnectionType.RMI);
                     userRMI.sendMessage("Login successful");
                     lobby.notifyAllUsers(NotificationType.USERLOGIN, userRMI.getUsername());
@@ -71,7 +76,9 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                 }
                 else {
                     if (server.isDisconnected(userRMI.getUsername())) {
-                        this.usersLoggedRMI.put(userRMI, null);
+                        this.usersLoggedRMI.add(userRMI);
+                        this.usernames.add(userRMI.getUsername());
+
                         server.reconnected(userRMI.getUsername());
                         userRMI.sendMessage("Reconnected");
                         return true;
@@ -103,8 +110,9 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     public boolean logoutServer (UserRMI userRMI) throws RemoteException {
         Set<String> usernames = lobby.getUsers().keySet();
         for (String user : usernames) {
-            if ((userRMI.getUsername().equals(user))) {
+            if (userRMI.getUsername().equals(user)) {
                 usersLoggedRMI.remove(userRMI);
+                usernames.remove(userRMI.getUsername());
 
                 lobby.removeUser(user);
 
@@ -135,8 +143,8 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
 
     public void notifyRMIPlayers (String m) throws RemoteException {
-        for (UserRMI user: usersLoggedRMI.keySet()) {
-            user.sendMessage(m);
+        for (int i = 0; i < usersLoggedRMI.size(); i++) {
+            usersLoggedRMI.get(i).sendMessage(m);
         }
     }
 
@@ -155,76 +163,79 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
     @Override
     public void sendInput (String input, UserRMI userRMI) throws IOException {
-            GameController gameController = null;
+        int i = 0;
+        GameController gameController = null;
+        try {
+            gameController = searchGame(userRMI);
             try {
-                gameController = searchGame(userRMI);
-                try {
-                    for (Map.Entry<UserRMI, String> entry : usersLoggedRMI.entrySet()) {
-                        if (userRMI.getUsername().equals(entry.getKey().getUsername())) {
-                            if (entry.getValue() == null) {
-                                switch (input) {
-                                    case "/playturn":
-                                        userRMI.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
-                                        entry.setValue(input);
-                                        break;
-                                    case "/chat":
-                                        userRMI.sendMessage("Insert a Message: ");
-                                        gameController.sendMessageChat(input, entry.getKey().getUsername());
-                                        entry.setValue(input);
-                                        break;
-                                    case "/stampinfo":
-                                        userRMI.sendMessage("Not implemented yet, man, eccheccazzo");
-                                        break;
-                                    case "/afk" :
-                                        gameController.flow(input, entry.getKey().getUsername());
-                                        break;
-                                    default:
-                                        userRMI.sendMessage("Command Unknown");
-                                }
-                            } else {
-                                if (input.equals("/afk")) {
-                                    gameController.flow(input, entry.getKey().getUsername());
-                                }
-                                switch (entry.getValue()) {
-                                    case "/playturn":
-                                        userRMI.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
-                                        break;
-                                    case "/chat":
-                                        entry.setValue(null);
-                                        gameController.sendMessageChat(input, entry.getKey().getUsername());
-                                        userRMI.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
-                                        break;
-                                    case "/vaticansupport":
-                                        userRMI.sendMessage(gameController.flow(input, entry.getKey().getUsername()));
-                                        break;
-                                    default:
-                                        userRMI.sendMessage("Wrong state game. How did you do it? Explain it.");
-                                        break;
-                                }
+                for (i = 0; i < usersLoggedRMI.size(); i++) {
+                    if (userRMI.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
+                        if (userRMI.getGameState() == null) {
+                            switch (input) {
+                                case "/playturn":
+                                    userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
+                                    userRMI.setGameState(input);
+                                    break;
+                                case "/chat":
+                                    userRMI.sendMessage("Insert a Message: ");
+                                    gameController.sendMessageChat(input, userRMI.getUsername());
+                                    userRMI.setGameState(input);
+                                    break;
+                                case "/stampinfo":
+                                    userRMI.sendMessage("Not implemented yet, man, eccheccazzo");
+                                    break;
+                                case "/afk":
+                                    gameController.flow(input, userRMI.getUsername());
+                                    break;
+                                default:
+                                    userRMI.sendMessage("Command Unknown");
+                            }
+                        } else {
+                            if (input.equals("/afk")) {
+                                gameController.flow(input, userRMI.getUsername());
+                            }
+                            switch (userRMI.getGameState()) {
+                                case "/playturn":
+                                    userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
+                                    break;
+                                case "/chat":
+                                    userRMI.setGameState(null);
+                                    gameController.sendMessageChat(input, userRMI.getUsername());
+                                    userRMI.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
+                                    break;
+                                case "/vaticansupport":
+                                    userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
+                                    break;
+                                default:
+                                    userRMI.sendMessage("Wrong state game. How did you do it? Explain it.");
+                                    break;
                             }
                         }
                     }
-                } catch (ServerException e) {
-                    /*usersLoggedRMI.remove(entry.getKey(), entry.getValue());*/
-                    this.sendInput(input, userRMI);
                 }
-            } catch (NullPointerException e) {
-                userRMI.sendMessage("The Game isn't started yet");
+            } catch (RemoteException e) {
+                usersLoggedRMI.remove(i);
+                gameController.flow("/afk", usernames.get(i));
+                usernames.remove(i);
+                this.sendInput(input, userRMI);
             }
+        } catch (NullPointerException e) {
+            userRMI.sendMessage("The Game isn't started yet");
+        }
     }
 
     public void sendMessage(Player player, String message) throws RemoteException {
-        for (Map.Entry<UserRMI, String> entry: usersLoggedRMI.entrySet()) {
-            if (player.getUsername().equals(entry.getKey().getUsername())) {
+        for (int i = 0; i < usersLoggedRMI.size(); i++) {
+            if (player.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
                 if (message.equals("Action has been executed")) {
-                    entry.setValue(null);
-                    entry.getKey().sendMessage(message);
+                    usersLoggedRMI.get(i).setGameState(null);
+                    usersLoggedRMI.get(i).sendMessage(message);
                     break;
                 }
                 if(message.equals("This Client has been disconnected")) {
-                    entry.getKey().setLogged(false);
-                    entry.getKey().sendMessage(message + "; Press any key to start over");
-                    usersLoggedRMI.remove(entry.getKey(), entry.getValue());
+                    usersLoggedRMI.get(i).setLogged(false);
+                    usersLoggedRMI.get(i).sendMessage(message + "; Press any key to start over");
+                    usersLoggedRMI.remove(i);
                     break;
                 }
             }
@@ -232,9 +243,9 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     }
 
     public void setStateGame (Player player, String state) throws RemoteException {
-        for (Map.Entry<UserRMI, String> entry: usersLoggedRMI.entrySet()) {
-            if (player.getUsername().equals(entry.getKey().getUsername())) {
-                entry.setValue(state);
+        for (int i = 0; i < usersLoggedRMI.size(); i++) {
+            if (player.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
+                usersLoggedRMI.get(i).setGameState(state);
             }
         }
     }

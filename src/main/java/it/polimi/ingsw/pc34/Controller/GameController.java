@@ -288,7 +288,7 @@ public class GameController{
         return leaderCardsInHand.get(index);
     }
 
-    public Boolean wantToSupportVatican(Player player) throws IOException{
+    public Boolean wantToSupportVatican(Player player) throws IOException{ //TODO DUBBI SUI SETSTATE GAME
     	String message = "Do you support Vatican?";
     	ServerHandler currPlayer = null;
     	Boolean choose = false;
@@ -301,6 +301,7 @@ public class GameController{
 			case RMI:
 				serverRMI.setStateGame(player, "/vaticansupport");
 				serverRMI.setStateGame(player, null);
+				break;
 		}
         this.sendMessageCLI(player, message);
         afkVar = "booleanVat";

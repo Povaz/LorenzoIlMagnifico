@@ -17,6 +17,7 @@ import java.util.Scanner;
 public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private String username;
     private String keyword;
+    private String gameState;
     private boolean logged;
     private boolean startingGame;
 
@@ -79,6 +80,15 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     public void setStartingGame(boolean startingGame) {
         this.startingGame = startingGame;
+    }
+
+    @Override
+    public String getGameState() {
+        return gameState;
+    }
+    @Override
+    public void setGameState(String gameState) {
+        this.gameState = gameState;
     }
 
     @Override
