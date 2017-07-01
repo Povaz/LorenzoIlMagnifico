@@ -63,7 +63,7 @@ public class BoardTest extends TestCase {
     public void setUp () throws JSONException, IOException {
         Set<Reward> personalBonusTileRewards =  new HashSet<>();
         personalBonusTileRewards.add(new Reward(RewardType.COIN, 1));
-        PersonalBonusTile personalBonusTile = new PersonalBonusTile(1, 1, personalBonusTileRewards, personalBonusTileRewards);
+        PersonalBonusTile personalBonusTile = new PersonalBonusTile(null, 1, 1, personalBonusTileRewards, personalBonusTileRewards);
 
         List<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(JSONUtility.getPermanentLeaderCard(0));

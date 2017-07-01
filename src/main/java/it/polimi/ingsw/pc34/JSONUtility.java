@@ -116,11 +116,12 @@ public class JSONUtility {
 		card = getPeriodAndNumberCard(period, number, card);
 
 		String name = getName(card);
+		String path = getPath(card);
 		Set<Reward> fastRewards = getFastRewards(card);
 		int diceHarvestAction = card.getInt("diceHarvestAction");
 		Set<Reward> earnings = getEarnings(card);
 
-		return new TerritoryCard(name, period, fastRewards, diceHarvestAction, earnings);
+		return new TerritoryCard(name, path, period, fastRewards, diceHarvestAction, earnings);
 	}
 
 	private static BuildingCard getBuildingCard(int period, int number) throws JSONException, IOException{
@@ -128,6 +129,7 @@ public class JSONUtility {
 		card = getPeriodAndNumberCard(period, number, card);
 
 		String name = getName(card);
+		String path = getPath(card);
 		Set<Reward> costs = getCosts(card);
 		Set<Reward> fastRewards = getFastRewards(card);
 		int diceProductionAction = card.getInt("diceProductionAction");
@@ -136,7 +138,7 @@ public class JSONUtility {
 		RewardForReward rewardForReward = getRewardForReward(card);
 		RewardForCard rewardForCard = getRewardForCard(card);
 
-		return new BuildingCard(name, period, costs, fastRewards, diceProductionAction, earnings, trades, rewardForReward,
+		return new BuildingCard(name, path, period, costs, fastRewards, diceProductionAction, earnings, trades, rewardForReward,
 				rewardForCard);
 	}
 
@@ -145,6 +147,7 @@ public class JSONUtility {
 		card = getPeriodAndNumberCard(period, number, card);
 
 		String name = getName(card);
+		String path = getPath(card);
 		Set<Reward> costs = getCosts(card);
 		Set<Reward> fastRewards = getFastRewards(card);
 		List<FamilyMember> actions = getActions(card);
@@ -154,7 +157,7 @@ public class JSONUtility {
 		RewardForReward rewardForReward = getRewardForReward(card);
 		RewardForCard rewardForCard = getRewardForCard(card);
 
-		return new CharacterCard(name, period, costs, fastRewards, actions, noBonusTowerResource, discounts, actionModifiers,
+		return new CharacterCard(name, path, period, costs, fastRewards, actions, noBonusTowerResource, discounts, actionModifiers,
 				rewardForReward, rewardForCard);
 	}
 
@@ -163,6 +166,7 @@ public class JSONUtility {
 		card = getPeriodAndNumberCard(period, number, card);
 
 		String name = getName(card);
+		String path = getPath(card);
 		Set<Reward> costs = getCosts(card);
 		Set<Reward> fastRewards = getFastRewards(card);
 		List<FamilyMember> actions = getActions(card);
@@ -177,7 +181,7 @@ public class JSONUtility {
 		}
 		Reward victoryPointEarned = new Reward(RewardType.VICTORY_POINT, card.getInt("victoryPointEarned"));
 
-		return new VentureCard(name, period, costs, fastRewards, actions, militaryPointNeeded, militaryPointPrice,
+		return new VentureCard(name, path, period, costs, fastRewards, actions, militaryPointNeeded, militaryPointPrice,
 				victoryPointEarned);
 	}
 
@@ -195,6 +199,10 @@ public class JSONUtility {
 
 	private static String getName(JSONObject card) throws JSONException{
 		return card.getString("name");
+	}
+
+	private static String getPath(JSONObject card) throws JSONException{
+		return card.getString("path");
 	}
 
 	private static Set<Reward> getCosts(JSONObject card){
@@ -406,11 +414,12 @@ public class JSONUtility {
 	public static VaticanReportCard getVaticanReportCard(int period, int number) throws JSONException, IOException{
 		JSONObject card = fromPathToJSONObject(vaticanReportCardPath);
 		card = getPeriodAndNumberCard(period, number, card);
+		String path = getPath(card);
 		List<String> booleans = getBooleansAttributes(card);
 		List<Reward> loseRewards = getLoseRewards(card);
 		Map<ActionType, Integer> actionModifiers = getActionModifiers(card);
 		int coloredFamilyMemberModifier = getIntegerNoException(card, "coloredFamilyMemberModifier");
-		return new VaticanReportCard(number, period, loseRewards, actionModifiers, booleans, coloredFamilyMemberModifier);
+		return new VaticanReportCard(number, period, path, loseRewards, actionModifiers, booleans, coloredFamilyMemberModifier);
 	}
 	
 	private static List<String> getBooleansAttributes (JSONObject card){
@@ -442,11 +451,12 @@ public class JSONUtility {
 		//estrae oggetto
 		tile = getNumberTile(number, tile);
 		//estrae parametri
+		String path = getPath(tile);
 		int diceProduction = tile.getInt("diceProduction");   
 		int diceHarvest = tile.getInt("diceHarvest");   
 		Set<Reward> productionRewards = getRewards(tile, "productionRewards");
 		Set<Reward> harvestRewards = getRewards(tile, "harvestRewards");
-		return new PersonalBonusTile(diceProduction, diceHarvest, productionRewards, harvestRewards);
+		return new PersonalBonusTile(path, diceProduction, diceHarvest, productionRewards, harvestRewards);
 	}
 	
 	public static JSONObject getNumberTile(int number, JSONObject jsonObject) throws JSONException{
@@ -472,6 +482,7 @@ public class JSONUtility {
 		card = getNumberCard(number, card);
 
 		String name = getName(card);
+		String path = getPath(card);
 		Set<Reward> activationRewardCost = getActivationRewardCost(card);
 		Map<CardType, Integer> activationCardCost = getActivationCardCost(card);
 		int neutralFamilyMemberModifier = getIntegerNoException(card, "neutralFamilyMemberModifier");
@@ -486,7 +497,7 @@ public class JSONUtility {
 		Map<CardType, List<List<Reward>>> discounts = getDiscounts(card);
 		boolean notSatisfyMilitaryPointForTerritory = getBooleanNoException(card, "notSatisfyMilitaryPointForTerritory");
 
-		return new PermanentLeaderCard(name, activationRewardCost, activationCardCost, neutralFamilyMemberModifier,
+		return new PermanentLeaderCard(name, path, activationRewardCost, activationCardCost, neutralFamilyMemberModifier,
 				coloredFamilyMemberModifier, doubleFastRewardDevelopmentCard, placeInBusyActionSpot,
 				bonusRewardChurchSupport, permanentDice, permanentDiceValue, discounts,
 				notSatisfyMilitaryPointForTerritory, notPayTollBusyTower, copyOtherCard);
@@ -503,6 +514,7 @@ public class JSONUtility {
 		card = getNumberCard(number, card);
 
 		String name = getName(card);
+		String path = getPath(card);
 		Set<Reward> activationRewardCost = getActivationRewardCost(card);
 		Map<CardType, Integer> activationCardCost = getActivationCardCost(card);
 		Set<Reward> earnings = getEarnings(card);
@@ -510,7 +522,7 @@ public class JSONUtility {
 		int permanentColoredFamilyMemberValue = getIntegerNoException(card, "permanentColoredFamilyMemberValue");
 		List<FamilyMember> actions = getActions(card);
 
-		return new ImmediateLeaderCard (name, activationRewardCost, activationCardCost, earnings,
+		return new ImmediateLeaderCard (name, path, activationRewardCost, activationCardCost, earnings,
 				permanentColoredFamilyMember, permanentColoredFamilyMemberValue, actions);
 	}
 

@@ -5,13 +5,15 @@ import java.util.Set;
 /**
  * Created by trill on 24/05/2017.
  */
-public class PersonalBonusTile {
+public class PersonalBonusTile{
+    private final String path;
     private final int diceHarvest;
     private final Set<Reward> harvestRewards;
     private final int diceProduction;
     private final Set<Reward> productionRewards;
 
-    public PersonalBonusTile(int diceProduction, int diceHarvest, Set<Reward> productionRewards, Set<Reward> harvestRewards){
+    public PersonalBonusTile(String path, int diceProduction, int diceHarvest, Set<Reward> productionRewards, Set<Reward> harvestRewards){
+        this.path = path;
         this.diceProduction = diceProduction;
         this.diceHarvest = diceHarvest;
         this.harvestRewards = harvestRewards;

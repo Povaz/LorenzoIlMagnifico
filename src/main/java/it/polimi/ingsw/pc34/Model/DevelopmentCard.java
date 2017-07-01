@@ -5,15 +5,17 @@ import java.util.Set;
 
 public abstract class DevelopmentCard {
 	private final String name;
+	private final String path;
 	private final CardType type;
 	private final int period;
 	private final Set<Reward> costs;
 	private final Set<Reward> fastRewards;
 	private final List<FamilyMember> actions;
 
-	public DevelopmentCard(String name, CardType type, int period, Set<Reward> costs, Set<Reward> fastRewards,
+	public DevelopmentCard(String name, String path, CardType type, int period, Set<Reward> costs, Set<Reward> fastRewards,
 						   List<FamilyMember> actions){
 		this.name = name;
+		this.path = path;
 		this.type = type;
 		this.period = period;
 		this.costs = costs;
@@ -100,5 +102,9 @@ public abstract class DevelopmentCard {
 
 	public List<FamilyMember> getActions(){
 		return actions;
+	}
+
+	public String getPath(){
+		return path;
 	}
 }
