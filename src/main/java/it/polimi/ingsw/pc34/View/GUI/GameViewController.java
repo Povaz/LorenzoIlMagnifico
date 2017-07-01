@@ -32,6 +32,24 @@ public class GameViewController {
     @FXML private Button buildingSpotCard3;
     @FXML private Button buildingSpotCard4;
     @FXML private Button buildingSpotCard5;
+    @FXML private Button territorySpotCard0;
+    @FXML private Button territorySpotCard1;
+    @FXML private Button territorySpotCard2;
+    @FXML private Button territorySpotCard3;
+    @FXML private Button territorySpotCard4;
+    @FXML private Button territorySpotCard5;
+    @FXML private Button characterSpotCard0;
+    @FXML private Button characterSpotCard1;
+    @FXML private Button characterSpotCard2;
+    @FXML private Button characterSpotCard3;
+    @FXML private Button characterSpotCard4;
+    @FXML private Button characterSpotCard5;
+    @FXML private Button ventureSpotCard0;
+    @FXML private Button ventureSpotCard1;
+    @FXML private Button ventureSpotCard2;
+    @FXML private Button ventureSpotCard3;
+    @FXML private Button ventureSpotCard4;
+    @FXML private Button ventureSpotCard5;
 
     @FXML private void initialize(){
     	// add in .fxml per settare le dimensioni dell'immagine
@@ -69,9 +87,93 @@ public class GameViewController {
         buildingSpotCard1.setDisable(false);
         buildingSpotCard1.setVisible(true);
 
+        buildingSpotCard2.setBackground(background);
+        buildingSpotCard2.setDisable(false);
+        buildingSpotCard2.setVisible(true);
+
         buildingSpotCard3.setBackground(background);
         buildingSpotCard3.setDisable(false);
         buildingSpotCard3.setVisible(true);
+
+        buildingSpotCard4.setBackground(background);
+        buildingSpotCard4.setDisable(false);
+        buildingSpotCard4.setVisible(true);
+
+        buildingSpotCard5.setBackground(background);
+        buildingSpotCard5.setDisable(false);
+        buildingSpotCard5.setVisible(true);
+
+        territorySpotCard0.setBackground(background);
+        territorySpotCard0.setDisable(false);
+        territorySpotCard0.setVisible(true);
+
+        territorySpotCard1.setBackground(background);
+        territorySpotCard1.setDisable(false);
+        territorySpotCard1.setVisible(true);
+
+        territorySpotCard2.setBackground(background);
+        territorySpotCard2.setDisable(false);
+        territorySpotCard2.setVisible(true);
+
+        territorySpotCard3.setBackground(background);
+        territorySpotCard3.setDisable(false);
+        territorySpotCard3.setVisible(true);
+
+        territorySpotCard4.setBackground(background);
+        territorySpotCard4.setDisable(false);
+        territorySpotCard4.setVisible(true);
+
+        territorySpotCard5.setBackground(background);
+        territorySpotCard5.setDisable(false);
+        territorySpotCard5.setVisible(true);
+
+        characterSpotCard0.setBackground(background);
+        characterSpotCard0.setDisable(false);
+        characterSpotCard0.setVisible(true);
+
+        characterSpotCard1.setBackground(background);
+        characterSpotCard1.setDisable(false);
+        characterSpotCard1.setVisible(true);
+
+        characterSpotCard2.setBackground(background);
+        characterSpotCard2.setDisable(false);
+        characterSpotCard2.setVisible(true);
+
+        characterSpotCard3.setBackground(background);
+        characterSpotCard3.setDisable(false);
+        characterSpotCard3.setVisible(true);
+
+        characterSpotCard4.setBackground(background);
+        characterSpotCard4.setDisable(false);
+        characterSpotCard4.setVisible(true);
+
+        characterSpotCard5.setBackground(background);
+        characterSpotCard5.setDisable(false);
+        characterSpotCard5.setVisible(true);
+
+        ventureSpotCard0.setBackground(background);
+        ventureSpotCard0.setDisable(false);
+        ventureSpotCard0.setVisible(true);
+
+        ventureSpotCard1.setBackground(background);
+        ventureSpotCard1.setDisable(false);
+        ventureSpotCard1.setVisible(true);
+
+        ventureSpotCard2.setBackground(background);
+        ventureSpotCard2.setDisable(false);
+        ventureSpotCard2.setVisible(true);
+
+        ventureSpotCard3.setBackground(background);
+        ventureSpotCard3.setDisable(false);
+        ventureSpotCard3.setVisible(true);
+
+        ventureSpotCard4.setBackground(background);
+        ventureSpotCard4.setDisable(false);
+        ventureSpotCard4.setVisible(true);
+
+        ventureSpotCard5.setBackground(background);
+        ventureSpotCard5.setDisable(false);
+        ventureSpotCard5.setVisible(true);
     }
 
     public void setMain(Main main) {
