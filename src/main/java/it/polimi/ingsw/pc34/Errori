@@ -6,7 +6,7 @@ GameController afk:
 5. chooseFamilyMemberColorNotNeutral ritorna null;
 6. askWhichCardPlaceDrawActivate ritorna -1 invece che null;
 7. askWhichImmediateCardActivate ritona -1 invece che null;
-8. wantToSupportVatican ritorna -1 invece che il booleano (0: false, 1: vero);
+8. wantToSupportVatican ritorna 1 invece che il booleano (0: false, 1: vero);
 9. chooseTrade ritorna -1;
 10. askWhichDiscount ritorna -1;
 11. wantToPayWithMilitaryPoint ritorna -1 invece che il booleano (0: false; 1: vero);
