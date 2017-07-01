@@ -17,9 +17,9 @@
         <items>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1046.0" prefWidth="716.0" SplitPane.resizableWithParent="false">
                <children>
-                  <ImageView fitHeight="1046.0" fitWidth="716.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ImageView fx:id="boardImage" fitHeight="1046.0" fitWidth="716.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <image>
-                        <Image url="@pngFiles/Board.png" />
+                        <Image requestedHeight="1046.0" requestedWidth="716.0" url="@pngFiles/Board.png" />
                      </image>
                      <viewport>
                         <Rectangle2D height="1046.0" width="716.0" />
@@ -30,66 +30,40 @@
             </AnchorPane>
           <AnchorPane>
                <children>
-                  <TabPane layoutX="100.0" layoutY="103.0" prefHeight="718.0" prefWidth="712.0" tabClosingPolicy="UNAVAILABLE" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                    <tabs>
-                      <Tab text="Player_1">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                  <SplitPane dividerPositions="0.3400383141762452, 0.6111111111111112" orientation="VERTICAL" prefHeight="679.0" prefWidth="777.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <items>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                           <children>
+                              <Button fx:id="bt" layoutX="26.0" layoutY="14.0" mnemonicParsing="false" onAction="#bTP" prefHeight="56.0" prefWidth="157.0" text="Button" />
+                           </children>
+                        </AnchorPane>
+                        <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="402.0" prefWidth="1192.0" SplitPane.resizableWithParent="false">
+                           <children>
+                              <ImageView fitHeight="402.0" fitWidth="1192.0" layoutX="166.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+                                 <image>
+                                    <Image url="@pngFiles/PB+PBT.png" />
+                                 </image>
+                              </ImageView>
+                              <ImageView fitHeight="402.0" fitWidth="200.0" layoutX="32.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
+                                 <image>
+                                    <Image url="@pngFiles/PersonalBonusTile/PersonalBonusTile4.png" />
+                                 </image>
+                              </ImageView>
+                              <AnchorPane layoutX="30.0" layoutY="104.0" maxWidth="-Infinity" mouseTransparent="true" prefHeight="90.0" prefWidth="56.0">
                                  <children>
-                                    <SplitPane dividerPositions="0.29246676514032494, 0.6070901033973413" layoutX="184.0" layoutY="167.0" orientation="VERTICAL" prefHeight="679.0" prefWidth="777.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                      <items>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
-                                             <children>
-                                                <Button fx:id="bt" layoutX="121.0" layoutY="82.0" mnemonicParsing="false" onAction="#bTP" text="Button" />
-                                             </children></AnchorPane>
-                                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                                          <AnchorPane prefHeight="121.0" prefWidth="158.0">
-                                             <children>
-                                                <ImageView fitHeight="262.0" fitWidth="777.0" layoutX="166.0" layoutY="48.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
-                                                   <image>
-                                                      <Image url="@pngFiles/PB+PBT.png" />
-                                                   </image>
-                                                </ImageView>
-                                                <ImageView fitHeight="262.0" fitWidth="200.0" layoutX="32.0" layoutY="21.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0">
-                                                   <image>
-                                                      <Image url="@pngFiles/PersonalBonusTile/PersonalBonusTile4.png" />
-                                                   </image></ImageView>
-                                                <AnchorPane layoutX="30.0" layoutY="104.0" maxWidth="-Infinity" mouseTransparent="true" prefHeight="90.0" prefWidth="56.0">
-                                                   <children>
-                                                      <ImageView fx:id="territorySpot0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                                   </children>
-                                                </AnchorPane>
-                                             </children></AnchorPane>
-                                      </items>
-                                    </SplitPane>
-                                 </children></AnchorPane>
-                        </content>
-                      </Tab>
-                      <Tab text="Player_2">
-                        <content>
-                          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                        </content>
-                      </Tab>
-                        <Tab text="Player_3">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                        <Tab text="Player_4">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                        <Tab text="Player_5">
-                          <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-                          </content>
-                        </Tab>
-                    </tabs>
-                  </TabPane>
+                                    <ImageView fx:id="territorySpot0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                 </children>
+                              </AnchorPane>
+                              <Button fx:id="buildingSpotCard0" disable="true" layoutX="47.0" layoutY="1.0" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="137.0" prefWidth="90.0" text="Building0" textFill="#ffffff00" visible="false" />
+                           </children>
+                        </AnchorPane>
+                    </items>
+                  </SplitPane>                    
                </children>
             </AnchorPane>
         </items>
       </SplitPane>
+      <Button fx:id="zoomedCard" disable="true" mnemonicParsing="false" onMouseClicked="#zoomOut" prefHeight="1048.0" prefWidth="1920.0" text="ZoomedImage" textFill="#ffffff00" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
    </children>
 </AnchorPane>

@@ -26,14 +26,15 @@ public class RootLayoutController {
     private MediaPlayer mediaPlayer;
 
     @FXML private void initialize(){
-        try {
+        // TODO togli commento giu
+        /*try {
             List<MediaPlayer> music = new LinkedList<>();
             music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track3.mp3").toURI().toString())));
 
             playMusic(music);
         } catch(URISyntaxException e){
             e.printStackTrace();
-        }
+        }*/
     }
 
     @FXML private void setTrack1(){
