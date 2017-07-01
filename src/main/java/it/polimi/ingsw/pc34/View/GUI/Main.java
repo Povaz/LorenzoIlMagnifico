@@ -63,7 +63,8 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showLogin();
+        // TODO rimetti: showLogin();
+        showGame();
     }
 
     private void initRootLayout(){

@@ -21,23 +21,43 @@ import java.util.List;
 public class GameViewController {
     private Main main;
 
-    @FXML private Button zoomedCard;
-
-    @FXML private AnchorPane territoryTowerCard3;
     @FXML private Button bt;
 
-    @FXML private Button buildingSpotCard0;
-    @FXML private Button buildingSpotCard1;
-    @FXML private Button buildingSpotCard2;
-    @FXML private Button buildingSpotCard3;
-    @FXML private Button buildingSpotCard4;
-    @FXML private Button buildingSpotCard5;
+    @FXML private Button zoomedCard;
+
+    @FXML private Button territoryTowerCard0;
+    @FXML private Button territoryTowerCard1;
+    @FXML private Button territoryTowerCard2;
+    @FXML private Button territoryTowerCard3;
+    @FXML private Button buildingTowerCard0;
+    @FXML private Button buildingTowerCard1;
+    @FXML private Button buildingTowerCard2;
+    @FXML private Button buildingTowerCard3;
+    @FXML private Button characterTowerCard0;
+    @FXML private Button characterTowerCard1;
+    @FXML private Button characterTowerCard2;
+    @FXML private Button characterTowerCard3;
+    @FXML private Button ventureTowerCard0;
+    @FXML private Button ventureTowerCard1;
+    @FXML private Button ventureTowerCard2;
+    @FXML private Button ventureTowerCard3;
+
+    @FXML private Button vaticanReportCard1;
+    @FXML private Button vaticanReportCard2;
+    @FXML private Button vaticanReportCard3;
+
     @FXML private Button territorySpotCard0;
     @FXML private Button territorySpotCard1;
     @FXML private Button territorySpotCard2;
     @FXML private Button territorySpotCard3;
     @FXML private Button territorySpotCard4;
     @FXML private Button territorySpotCard5;
+    @FXML private Button buildingSpotCard0;
+    @FXML private Button buildingSpotCard1;
+    @FXML private Button buildingSpotCard2;
+    @FXML private Button buildingSpotCard3;
+    @FXML private Button buildingSpotCard4;
+    @FXML private Button buildingSpotCard5;
     @FXML private Button characterSpotCard0;
     @FXML private Button characterSpotCard1;
     @FXML private Button characterSpotCard2;
@@ -174,6 +194,82 @@ public class GameViewController {
         ventureSpotCard5.setBackground(background);
         ventureSpotCard5.setDisable(false);
         ventureSpotCard5.setVisible(true);
+
+        territoryTowerCard0.setBackground(background);
+        territoryTowerCard0.setDisable(false);
+        territoryTowerCard0.setVisible(true);
+
+        territoryTowerCard1.setBackground(background);
+        territoryTowerCard1.setDisable(false);
+        territoryTowerCard1.setVisible(true);
+
+        territoryTowerCard2.setBackground(background);
+        territoryTowerCard2.setDisable(false);
+        territoryTowerCard2.setVisible(true);
+
+        territoryTowerCard3.setBackground(background);
+        territoryTowerCard3.setDisable(false);
+        territoryTowerCard3.setVisible(true);
+
+        buildingTowerCard0.setBackground(background);
+        buildingTowerCard0.setDisable(false);
+        buildingTowerCard0.setVisible(true);
+
+        buildingTowerCard1.setBackground(background);
+        buildingTowerCard1.setDisable(false);
+        buildingTowerCard1.setVisible(true);
+
+        buildingTowerCard2.setBackground(background);
+        buildingTowerCard2.setDisable(false);
+        buildingTowerCard2.setVisible(true);
+
+        buildingTowerCard3.setBackground(background);
+        buildingTowerCard3.setDisable(false);
+        buildingTowerCard3.setVisible(true);
+
+        characterTowerCard0.setBackground(background);
+        characterTowerCard0.setDisable(false);
+        characterTowerCard0.setVisible(true);
+
+        characterTowerCard1.setBackground(background);
+        characterTowerCard1.setDisable(false);
+        characterTowerCard1.setVisible(true);
+
+        characterTowerCard2.setBackground(background);
+        characterTowerCard2.setDisable(false);
+        characterTowerCard2.setVisible(true);
+
+        characterTowerCard3.setBackground(background);
+        characterTowerCard3.setDisable(false);
+        characterTowerCard3.setVisible(true);
+
+        ventureTowerCard0.setBackground(background);
+        ventureTowerCard0.setDisable(false);
+        ventureTowerCard0.setVisible(true);
+
+        ventureTowerCard1.setBackground(background);
+        ventureTowerCard1.setDisable(false);
+        ventureTowerCard1.setVisible(true);
+
+        ventureTowerCard2.setBackground(background);
+        ventureTowerCard2.setDisable(false);
+        ventureTowerCard2.setVisible(true);
+
+        ventureTowerCard3.setBackground(background);
+        ventureTowerCard3.setDisable(false);
+        ventureTowerCard3.setVisible(true);
+
+        vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 109, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        vaticanReportCard1.setDisable(false);
+        vaticanReportCard1.setVisible(true);
+
+        vaticanReportCard2.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport2_1.png", 56, 103, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        vaticanReportCard2.setDisable(false);
+        vaticanReportCard2.setVisible(true);
+
+        vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 109, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        vaticanReportCard3.setDisable(false);
+        vaticanReportCard3.setVisible(true);
     }
 
     public void setMain(Main main) {
