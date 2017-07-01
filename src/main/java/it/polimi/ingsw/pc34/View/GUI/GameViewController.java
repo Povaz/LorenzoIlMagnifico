@@ -71,6 +71,10 @@ public class GameViewController {
     @FXML private Button ventureSpotCard4;
     @FXML private Button ventureSpotCard5;
 
+    @FXML private Text blackDice;
+    @FXML private Text whiteDice;
+    @FXML private Text orangeDice;
+
     @FXML private void initialize(){
     	// add in .fxml per settare le dimensioni dell'immagine
     	// <Image url="@pngFiles/Board.png" requestedHeight="1046.0" requestedWidth="716.0" />

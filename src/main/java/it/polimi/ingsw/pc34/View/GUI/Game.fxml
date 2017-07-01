@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
 <?import javafx.collections.*?>
 <?import javafx.scene.image.*?>
 <?import javafx.scene.text.*?>
@@ -15,38 +16,53 @@
    <children>
       <SplitPane dividerPositions="0.4880083420229406" layoutX="232.0" layoutY="171.0" prefHeight="1048.0" prefWidth="1920.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
         <items>
-          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1046.0" prefWidth="716.0" SplitPane.resizableWithParent="false">
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1048.0" prefWidth="716.0" SplitPane.resizableWithParent="false">
                <children>
-                  <ImageView fitHeight="1046.0" fitWidth="716.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <ImageView fitHeight="1048.0" fitWidth="716.0" pickOnBounds="true" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <image>
-                        <Image requestedHeight="1046.0" requestedWidth="716.0" url="@pngFiles/Board.png" />
+                        <Image requestedHeight="1048.0" requestedWidth="716.0" url="@pngFiles/Board.png" />
                      </image>
                      <viewport>
-                        <Rectangle2D height="1046.0" width="716.0" />
+                        <Rectangle2D height="1048.0" width="716.0" />
                      </viewport>
                   </ImageView>
-                  <Button fx:id="territoryTowerCard0" disable="true" layoutX="21.0" layoutY="447.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Territory0" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="territoryTowerCard1" disable="true" layoutX="21.0" layoutY="309.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Territory1" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="territoryTowerCard2" disable="true" layoutX="21.0" layoutY="171.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Territory2" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="territoryTowerCard3" disable="true" layoutX="21.0" layoutY="33.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Territory3" textFill="#ffffff00" visible="false" />                 
-                  <Button fx:id="buildingTowerCard0" disable="true" layoutX="170.0" layoutY="447.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Building0" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="buildingTowerCard1" disable="true" layoutX="170.0" layoutY="309.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Building1" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="buildingTowerCard2" disable="true" layoutX="170.0" layoutY="171.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Building2" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="buildingTowerCard3" disable="true" layoutX="170.0" layoutY="33.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Building3" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="characterTowerCard0" disable="true" layoutX="319.0" layoutY="447.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Character0" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="characterTowerCard1" disable="true" layoutX="319.0" layoutY="309.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Character1" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="characterTowerCard2" disable="true" layoutX="319.0" layoutY="171.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Character2" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="characterTowerCard3" disable="true" layoutX="319.0" layoutY="33.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Character3" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="ventureTowerCard0" disable="true" layoutX="468.0" layoutY="447.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Venture0" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="ventureTowerCard1" disable="true" layoutX="468.0" layoutY="309.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Venture1" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="ventureTowerCard2" disable="true" layoutX="468.0" layoutY="171.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Venture2" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="ventureTowerCard3" disable="true" layoutX="468.0" layoutY="33.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Venture3" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="vaticanReportCard1" disable="true" layoutX="115.0" layoutY="637.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="111.0" prefWidth="56.0" text="Report1" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="vaticanReportCard2" disable="true" layoutX="174.0" layoutY="650.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="105.0" prefWidth="56.0" text="Report2" textFill="#ffffff00" visible="false" />
-                  <Button fx:id="vaticanReportCard3" disable="true" layoutX="233.0" layoutY="637.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="111.0" prefWidth="56.0" text="Report3" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="territoryTowerCard0" disable="true" layoutX="21.0" layoutY="449.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Territory0" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="territoryTowerCard1" disable="true" layoutX="21.0" layoutY="311.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Territory1" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="territoryTowerCard2" disable="true" layoutX="21.0" layoutY="173.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Territory2" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="territoryTowerCard3" disable="true" layoutX="21.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Territory3" textFill="#ffffff00" visible="false" />                 
+                  <Button fx:id="buildingTowerCard0" disable="true" layoutX="170.0" layoutY="449.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Building0" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="buildingTowerCard1" disable="true" layoutX="170.0" layoutY="311.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Building1" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="buildingTowerCard2" disable="true" layoutX="170.0" layoutY="173.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Building2" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="buildingTowerCard3" disable="true" layoutX="170.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Building3" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="characterTowerCard0" disable="true" layoutX="319.0" layoutY="449.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Character0" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="characterTowerCard1" disable="true" layoutX="319.0" layoutY="311.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Character1" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="characterTowerCard2" disable="true" layoutX="319.0" layoutY="173.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Character2" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="characterTowerCard3" disable="true" layoutX="319.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Character3" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="ventureTowerCard0" disable="true" layoutX="468.0" layoutY="449.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Venture0" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="ventureTowerCard1" disable="true" layoutX="468.0" layoutY="311.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Venture1" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="ventureTowerCard2" disable="true" layoutX="468.0" layoutY="173.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Venture2" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="ventureTowerCard3" disable="true" layoutX="468.0" layoutY="35.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Venture3" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="vaticanReportCard1" disable="true" layoutX="115.0" layoutY="639.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="111.0" prefWidth="56.0" text="Report1" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="vaticanReportCard2" disable="true" layoutX="174.0" layoutY="652.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="105.0" prefWidth="56.0" text="Report2" textFill="#ffffff00" visible="false" />
+                  <Button fx:id="vaticanReportCard3" disable="true" layoutX="233.0" layoutY="639.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="111.0" prefWidth="56.0" text="Report3" textFill="#ffffff00" visible="false" />
+                  <Text fx:id="blackDice" fill="GOLD" layoutX="384.0" layoutY="1005.0" stroke="#2c2c2c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="0.0" strokeType="OUTSIDE" text="1" textAlignment="CENTER">
+                     <font>
+                        <Font name="Georgia Bold Italic" size="40.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="whiteDice" fill="GOLD" layoutX="455.0" layoutY="1005.0" stroke="#2c2c2c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="0.0" strokeType="OUTSIDE" text="4" textAlignment="CENTER">
+                     <font>
+                        <Font name="Georgia Bold Italic" size="40.0" />
+                     </font>
+                  </Text>
+                  <Text fx:id="orangeDice" fill="GOLD" layoutX="526.0" layoutY="1005.0" stroke="#2c2c2c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="0.0" strokeType="OUTSIDE" text="6" textAlignment="CENTER">
+                     <font>
+                        <Font name="Georgia Bold Italic" size="40.0" />
+                     </font>
+                  </Text>
                </children>
             </AnchorPane>
-          <AnchorPane>
+          <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1048.0" prefWidth="1194.0" SplitPane.resizableWithParent="false">
                <children>
                   <SplitPane dividerPositions="0.3400383141762452, 0.6111111111111112" orientation="VERTICAL" prefHeight="679.0" prefWidth="777.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <items>
