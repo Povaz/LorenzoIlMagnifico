@@ -23,10 +23,15 @@ public class GameViewController {
 
     @FXML private Button zoomedCard;
 
-    @FXML private ImageView territorySpot0;
     @FXML private AnchorPane territoryTowerCard3;
     @FXML private Button bt;
+
     @FXML private Button buildingSpotCard0;
+    @FXML private Button buildingSpotCard1;
+    @FXML private Button buildingSpotCard2;
+    @FXML private Button buildingSpotCard3;
+    @FXML private Button buildingSpotCard4;
+    @FXML private Button buildingSpotCard5;
 
     @FXML private void initialize(){
     	// add in .fxml per settare le dimensioni dell'immagine
@@ -54,21 +59,19 @@ public class GameViewController {
     }
 
     @FXML private void bTP(){
-        Image image = new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/devcards_f_en_c_1.png", 100, 100, false, false);
+        Image image = new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/devcards_f_en_c_1.png", 85, 126, false, false);
         Background background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         buildingSpotCard0.setBackground(background);
         buildingSpotCard0.setDisable(false);
         buildingSpotCard0.setVisible(true);
-    }
 
-    @FXML public void upgrade(String string){
-        if(string.equals("")){
-            territorySpot0.setVisible(false);
-        }
-        else{
-            territorySpot0.setImage(new Image("it/polimi/ingsw/pc34/View/GUI/pngFiles/devcards_f_en_c_1.png"));
-            territorySpot0.setVisible(true);
-        }
+        buildingSpotCard1.setBackground(background);
+        buildingSpotCard1.setDisable(false);
+        buildingSpotCard1.setVisible(true);
+
+        buildingSpotCard3.setBackground(background);
+        buildingSpotCard3.setDisable(false);
+        buildingSpotCard3.setVisible(true);
     }
 
     public void setMain(Main main) {
