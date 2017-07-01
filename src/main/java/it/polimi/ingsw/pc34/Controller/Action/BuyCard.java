@@ -141,11 +141,15 @@ public class BuyCard implements CommandPattern {
         if(card instanceof VentureCard){
             VentureCard vCard = (VentureCard) card;
             if(vCard.getCosts() != null && vCard.getMilitaryPointNeeded() != null && vCard.getMilitaryPointPrice() != null){
-                if(game.getGameController().wantToPayWithMilitaryPoint(vCard.getCosts(), vCard.getMilitaryPointNeeded(), vCard.getMilitaryPointPrice(), player)){
+                int payWithMilitaryPoint = game.getGameController().wantToPayWithMilitaryPoint(vCard.getCosts(), vCard.getMilitaryPointNeeded(), vCard.getMilitaryPointPrice(), player);
+                if(payWithMilitaryPoint == 1){
                     return canPayMilitaryPoint(vCard);
                 }
-                else{
+                else if(payWithMilitaryPoint == 0){
                     return canPayNormalCost();
+                }
+                else{
+                    return false;
                 }
             }
             else if(vCard.getCosts() != null){

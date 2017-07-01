@@ -4,6 +4,7 @@ import javafx.beans.property.*;
 import javafx.collections.ObservableList;
 
 import javax.smartcardio.Card;
+import java.util.List;
 
 /**
  * Created by trill on 22/06/2017.
@@ -25,6 +26,9 @@ public class PersonalBoardView{
     private ListProperty<StringProperty> buildingCards;
     private ListProperty<StringProperty> characterCards;
     private ListProperty<StringProperty> ventureCards;
+    private List<String> leaderCards;
+    private List<String> leaderCardsState;
+    private String personalBonusTile;
 
     // FamilyMembers
     private ListProperty<StringProperty> familyMembers;
