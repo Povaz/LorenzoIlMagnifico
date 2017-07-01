@@ -4,6 +4,7 @@
 			"period": [
 				{
 					"name": "Hiring Recruits",
+					"path" : "VentureCard1",
 					"costs": [
 						{
 							"type": "COIN",
@@ -20,6 +21,7 @@
 				},
 				{
 					"name": "Repairing the Church",
+					"path" : "VentureCard2",
 					"costs": [
 						{
 							"type": "COIN",
@@ -44,6 +46,7 @@
 				},
 				{
 					"name": "Buildings the Walls",
+					"path" : "VentureCard3",
 					"costs": [
 						{
 							"type": "STONE",
@@ -64,6 +67,7 @@
 				},
 				{
 					"name": "Raising a Statue",
+					"path" : "VentureCard4",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -84,6 +88,7 @@
 				},
 				{
 					"name": "Military Campaign",
+					"path" : "VentureCard5",
 					"militaryPointPrice": 2,
 					"militaryPointNeeded": 3,
 					"fastRewards": [
@@ -96,6 +101,7 @@
 				},
 				{
 					"name": "Hosting Panhandlers",
+					"path" : "VentureCard6",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -112,6 +118,7 @@
 				},
 				{
 					"name": "Fighting Heresies",
+					"path" : "VentureCard7",
 					"militaryPointPrice": 3,
 					"militaryPointNeeded": 5,
 					"fastRewards": [
@@ -124,6 +131,7 @@
 				},
 				{
 					"name": "Support to the Bishop",
+					"path" : "VentureCard8",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -154,6 +162,7 @@
 			"period": [
 				{
 					"name": "Hiring Soldiers",
+					"path" : "VentureCard9",
 					"costs": [
 						{
 							"type": "COIN",
@@ -170,6 +179,7 @@
 				},
 				{
 					"name": "Repairing the Abbey",
+					"path" : "VentureCard10",
 					"costs": [
 						{
 							"type": "COIN",
@@ -194,6 +204,7 @@
 				},
 				{
 					"name": "Building the Bastions",
+					"path" : "VentureCard11",
 					"costs": [
 						{
 							"type": "STONE",
@@ -214,6 +225,7 @@
 				},
 				{
 					"name": "Support to the King",
+					"path" : "VentureCard12",
 					"militaryPointPrice": 3,
 					"militaryPointNeeded": 6,
 					"fastRewards": [
@@ -230,6 +242,7 @@
 				},
 				{
 					"name": "Improving the Canals",
+					"path" : "VentureCard13",
 					"costs": [
 						{
 							"type": "SERVANT",
@@ -250,6 +263,7 @@
 				},
 				{
 					"name": "Hosting Foreigners",
+					"path" : "VentureCard14",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -266,6 +280,7 @@
 				},
 				{
 					"name": "Crusade",
+					"path" : "VentureCard15",
 					"militaryPointPrice": 4,
 					"militaryPointNeeded": 8,
 					"fastRewards": [
@@ -282,6 +297,7 @@
 				},
 				{
 					"name": "Support to the Cardinal",
+					"path" : "VentureCard16",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -312,6 +328,7 @@
 			"period": [
 				{
 					"name": "Hiring Mercenaries",
+					"path" : "VentureCard17",
 					"costs": [
 						{
 							"type": "COIN",
@@ -328,6 +345,7 @@
 				},
 				{
 					"name": "Repairing the Cathedral",
+					"path" : "VentureCard18",
 					"costs": [
 						{
 							"type": "COIN",
@@ -358,6 +376,7 @@
 				},
 				{
 					"name": "Building the Towers",
+					"path" : "VentureCard19",
 					"costs": [
 						{
 							"type": "STONE",
@@ -378,6 +397,7 @@
 				},
 				{
 					"name": "Promoting Sacred Art",
+					"path" : "VentureCard20",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -394,6 +414,7 @@
 				},
 				{
 					"name": "Military Conquest",
+					"path" : "VentureCard21",
 					"militaryPointPrice": 6,
 					"militaryPointNeeded": 12,
 					"fastRewards": [
@@ -414,6 +435,7 @@
 				},
 				{
 					"name": "Improving the Roads",
+					"path" : "VentureCard22",
 					"costs": [
 						{
 							"type": "SERVANT",
@@ -434,6 +456,7 @@
 				},
 				{
 					"name": "Sacred War",
+					"path" : "VentureCard23",
 					"militaryPointPrice": 8,
 					"militaryPointNeeded": 15,
 					"fastRewards": [
@@ -446,6 +469,7 @@
 				},
 				{
 					"name": "Support to the Pope",
+					"path" : "VentureCard24",
 					"costs": [
 						{
 							"type": "WOOD",

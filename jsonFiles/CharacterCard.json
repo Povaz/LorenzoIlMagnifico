@@ -4,6 +4,7 @@
 			"period": [
 				{
 					"name": "Warlord",
+					"path" : "CharacterCard1",
 					"costs": [
 						{
 							"type": "COIN",
@@ -25,6 +26,7 @@
 				},
 				{
 					"name": "Stonemason",
+					"path" : "CharacterCard2",
 					"costs": [
 						{
 							"type": "COIN",
@@ -63,6 +65,7 @@
 				},
 				{
 					"name": "Dame",
+					"path" : "CharacterCard3",
 					"costs": [
 						{
 							"type": "COIN",
@@ -93,6 +96,7 @@
 				},
 				{
 					"name": "Knight",
+					"path" : "CharacterCard4",
 					"costs": [
 						{
 							"type": "COIN",
@@ -114,6 +118,7 @@
 				},
 				{
 					"name": "Farmer",
+					"path" : "CharacterCard5",
 					"costs": [
 						{
 							"type": "COIN",
@@ -129,6 +134,7 @@
 				},
 				{
 					"name": "Artisan",
+					"path" : "CharacterCard6",
 					"costs": [
 						{
 							"type": "COIN",
@@ -144,6 +150,7 @@
 				},
 				{
 					"name": "Preacher",
+					"path" : "CharacterCard7",
 					"costs": [
 						{
 							"type": "COIN",
@@ -160,6 +167,7 @@
 				},
 				{
 					"name": "Abbess",
+					"path" : "CharacterCard8",
 					"costs": [
 						{
 							"type": "COIN",
@@ -185,6 +193,7 @@
 			"period": [
 				{
 					"name": "Captain",
+					"path" : "CharacterCard9",
 					"costs": [
 						{
 							"type": "COIN",
@@ -206,6 +215,7 @@
 				},
 				{
 					"name": "Architect",
+					"path" : "CharacterCard10",
 					"costs": [
 						{
 							"type": "COIN",
@@ -231,6 +241,7 @@
 				},
 				{
 					"name": "Patron",
+					"path" : "CharacterCard11",
 					"costs": [
 						{
 							"type": "COIN",
@@ -252,6 +263,7 @@
 				},
 				{
 					"name": "Hero",
+					"path" : "CharacterCard12",
 					"costs": [
 						{
 							"type": "COIN",
@@ -273,6 +285,7 @@
 				},
 				{
 					"name": "Peasant",
+					"path" : "CharacterCard13",
 					"costs": [
 						{
 							"type": "COIN",
@@ -288,6 +301,7 @@
 				},
 				{
 					"name": "Scholar",
+					"path" : "CharacterCard14",
 					"costs": [
 						{
 							"type": "COIN",
@@ -303,6 +317,7 @@
 				},
 				{
 					"name": "Papal Messenger",
+					"path" : "CharacterCard15",
 					"costs": [
 						{
 							"type": "COIN",
@@ -318,6 +333,7 @@
 				},
 				{
 					"name": "Royal Messenger",
+					"path" : "CharacterCard16",
 					"costs": [
 						{
 							"type": "COIN",
@@ -337,6 +353,7 @@
 			"period": [
 				{
 					"name": "Noble",
+					"path" : "CharacterCard17",
 					"costs": [
 						{
 							"type": "COIN",
@@ -355,6 +372,7 @@
 				},
 				{
 					"name": "Governor",
+					"path" : "CharacterCard18",
 					"costs": [
 						{
 							"type": "COIN",
@@ -373,6 +391,7 @@
 				},
 				{
 					"name": "Paramour",
+					"path" : "CharacterCard19",
 					"costs": [
 						{
 							"type": "COIN",
@@ -391,6 +410,7 @@
 				},
 				{
 					"name": "Herald",
+					"path" : "CharacterCard20",
 					"costs": [
 						{
 							"type": "COIN",
@@ -409,6 +429,7 @@
 				},
 				{
 					"name": "Cardinal",
+					"path" : "CharacterCard21",
 					"costs": [
 						{
 							"type": "COIN",
@@ -430,6 +451,7 @@
 				},
 				{
 					"name": "Bishop",
+					"path" : "CharacterCard22",
 					"costs": [
 						{
 							"type": "COIN",
@@ -451,6 +473,7 @@
 				},
 				{
 					"name": "General",
+					"path" : "CharacterCard23",
 					"costs": [
 						{
 							"type": "COIN",
@@ -472,6 +495,7 @@
 				},
 				{
 					"name": "Ambassador",
+					"path" : "CharacterCard24",
 					"costs": [
 						{
 							"type": "COIN",

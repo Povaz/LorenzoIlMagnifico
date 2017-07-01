@@ -2,6 +2,7 @@
   "cards" : [
     {
       "name": "Ludovico Ariosto",
+      "path": "LeaderCard2",
       "activationCardCost": [
         {
           "type": "CHARACTER",
@@ -12,6 +13,7 @@
     },
     {
       "name": "Sigismondo Malatesta",
+      "path": "LeaderCard14",
       "activationRewardCost": [
         {
           "type": "MILITARY_POINT",
@@ -26,6 +28,7 @@
     },
     {
       "name": "Filippo Brunelleschi",
+      "path": "LeaderCard3",
       "activationCardCost": [
         {
           "type": "BUILDING",
@@ -36,6 +39,7 @@
     },
     {
       "name": "Ludovico il Moro",
+      "path": "LeaderCard16",
       "activationCardCost": [
         {
           "type": "TERRITORY",
@@ -59,6 +63,7 @@
     },
     {
       "name": "Lucrezia Borgia",
+      "path": "LeaderCard13",
       "activationCardCost": [
         {
           "type": "ANY",
@@ -69,6 +74,7 @@
     },
     {
       "name": "Lorenzo de' Medici",
+      "path": "LeaderCard15",
       "activationRewardCost": [
         {
           "type": "VICTORY_POINT",
@@ -79,6 +85,7 @@
     },
     {
       "name": "Sisto IV",
+      "path": "LeaderCard12",
       "number": 0,
       "activationRewardCost": [
         {
@@ -107,6 +114,7 @@
     },
     {
       "name": "Cesare Borgia",
+      "path": "LeaderCard17",
       "activationRewardCost": [
         {
           "type": "COIN",
@@ -127,6 +135,7 @@
     },
     {
       "name": "Santa Rita",
+      "path": "LeaderCard18",
       "activationRewardCost": [
         {
           "type": "FAITH_POINT",
@@ -137,6 +146,7 @@
     },
     {
       "name": "Pico della Mirandola",
+      "path": "LeaderCard11",
       "activationCardCost": [
         {
           "type": "BUILDING",

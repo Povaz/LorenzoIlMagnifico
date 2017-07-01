@@ -4,6 +4,7 @@
 			"period": [
 				{
 					"name": "Mint",
+					"path" : "BuildingCard1",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -33,6 +34,7 @@
 				},
 				{
 					"name": "Tax Office",
+					"path" : "BuildingCard2",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -62,6 +64,7 @@
 				},
 				{
 					"name": "Triumphal Arch",
+					"path" : "BuildingCard3",
 					"costs": [
 						{
 							"type": "COIN",
@@ -91,6 +94,7 @@
 				},
 				{
 					"name": "Theater",
+					"path" : "BuildingCard4",
 					"costs": [
 						{
 							"type": "COIN",
@@ -120,6 +124,7 @@
 				},
 				{
 					"name": "Carpenter's Shop",
+					"path" : "BuildingCard5",
 					"costs": [
 						{
 							"type": "COIN",
@@ -170,6 +175,7 @@
 				},
 				{
 					"name": "Stonemason's Shop",
+					"path" : "BuildingCard6",
 					"costs": [
 						{
 							"type": "COIN",
@@ -220,6 +226,7 @@
 				},
 				{
 					"name": "Chapel",
+					"path" : "BuildingCard7",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -252,6 +259,7 @@
 				},
 				{
 					"name": "Residence",
+					"path" : "BuildingCard8",
 					"costs": [
 						{
 							"type": "STONE",
@@ -288,6 +296,7 @@
 			"period": [
 				{
 					"name": "Marketplace",
+					"path" : "BuildingCard9",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -328,6 +337,7 @@
 				},
 				{
 					"name": "Treasury",
+					"path" : "BuildingCard10",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -374,6 +384,7 @@
 				},
 				{
 					"name": "Painters's Guild",
+					"path" : "BuildingCard11",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -420,6 +431,7 @@
 				},
 				{
 					"name": "Sculptors' Guild",
+					"path" : "BuildingCard12",
 					"costs": [
 						{
 							"type": "STONE",
@@ -466,6 +478,7 @@
 				},
 				{
 					"name": "Stonemasons' Guild",
+					"path" : "BuildingCard13",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -510,6 +523,7 @@
 				},
 				{
 					"name": "Baptistery",
+					"path" : "BuildingCard14",
 					"costs": [
 						{
 							"type": "STONE",
@@ -550,6 +564,7 @@
 				},
 				{
 					"name": "Barracks",
+					"path" : "BuildingCard15",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -586,6 +601,7 @@
 				},
 				{
 					"name": "Stronghold",
+					"path" : "BuildingCard16",
 					"costs": [
 						{
 							"type": "COIN",
@@ -624,6 +640,7 @@
 			"period": [
 				{
 					"name": "Bank",
+					"path" : "BuildingCard17",
 					"costs": [
 						{
 							"type": "COIN",
@@ -654,6 +671,7 @@
 				},
 				{
 					"name": "Fair",
+					"path" : "BuildingCard18",
 					"costs": [
 						{
 							"type": "COIN",
@@ -694,6 +712,7 @@
 				},
 				{
 					"name": "Garden",
+					"path" : "BuildingCard19",
 					"costs": [
 						{
 							"type": "SERVANT",
@@ -724,6 +743,7 @@
 				},
 				{
 					"name": "Fortress",
+					"path" : "BuildingCard20",
 					"costs": [
 						{
 							"type": "COIN",
@@ -758,6 +778,7 @@
 				},
 				{
 					"name": "Palace",
+					"path" : "BuildingCard21",
 					"costs": [
 						{
 							"type": "COIN",
@@ -802,6 +823,7 @@
 				},
 				{
 					"name": "Church",
+					"path" : "BuildingCard22",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -856,6 +878,7 @@
 				},
 				{
 					"name": "Military Academy",
+					"path" : "BuildingCard23",
 					"costs": [
 						{
 							"type": "SERVANT",
@@ -901,6 +924,7 @@
 				},
 				{
 					"name": "Cathedral",
+					"path" : "BuildingCard24",
 					"costs": [
 						{
 							"type": "WOOD",

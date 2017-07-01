@@ -34,7 +34,7 @@ public class ServerHandler implements Runnable{
 		this.fase = fase;
 		if(fase==1){
 			try {
-				sendToClient("Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info");
+				sendToClient("Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game");
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
@@ -82,11 +82,11 @@ public class ServerHandler implements Runnable{
 		}
 		else if(message.equals("Action has been executed")&&fase==1){
 			stateGame = null;
-			message += "\nInsert new command: /playturn, /chat, /stampinfo";
+			message += "\nInsert new command: /playturn, /chat, /stampinfo, /afk";
 		}
 		else if(message.equals("You have already placed a family member!")){
 			stateGame = null;
-			message += "\nInsert new command: /playturn, /chat, /stampinfo";
+			message += "\nInsert new command: /playturn, /chat, /stampinfo, /afk";
 		}
 		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
 		socketOut.println(message);
@@ -168,10 +168,10 @@ public class ServerHandler implements Runnable{
 						//SI PUO' METTERE ANCHE FUORI
 						case "/stampinfo" : 
 							//answer = toStampInfoHandler(line);
-							answer = "command still not implemented, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
+							answer = "command still not implemented, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game";
 							break;
 						default :
-							answer = "Wrong input, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
+							answer = "Wrong input, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game";
 							break;
 						
 					}
@@ -209,7 +209,7 @@ public class ServerHandler implements Runnable{
 							} catch (IOException e) {
 								e.printStackTrace();
 							}
-							answer = "Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
+							answer = "Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game";
 							break;
 						case "/vaticansupport" :
 							try {
@@ -219,7 +219,7 @@ public class ServerHandler implements Runnable{
 							}
 							break;
 						default :
-							answer = "Wrong input, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info";
+							answer = "Wrong input, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game";
 							break;
 					}
 				}
