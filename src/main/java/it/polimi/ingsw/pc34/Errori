@@ -7,6 +7,10 @@ GameController afk:
 6. askWhichCardPlaceDrawActivate ritorna -1 invece che null;
 7. askWhichImmediateCardActivate ritona -1 invece che null;
 8. wantToSupportVatican ritorna 1 invece che il booleano (0: false, 1: vero);
+    In questo ho deciso di tenere il boolean, a livello logico non ha senso
+    avere una "terza scelta neutra". Anche se il giocatore è offline la scelta
+    non può essere annullata, se torna cosa fa? siccome si è disconnesso si è liberato
+    del Vaticano? Non ha senso. Se si disconnette Supporta il vaticano in automatico.
 9. chooseTrade ritorna -1;
 10. askWhichDiscount ritorna -1;
 11. wantToPayWithMilitaryPoint ritorna -1 invece che il booleano (0: false; 1: vero);

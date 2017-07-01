@@ -352,12 +352,12 @@ public class GameController{
         return discount;
     }
 
-    public boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO: null
+    public int wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO: null
         String message = "Do you want to pay with militaryPoint? You need " + militaryPointNeeded + "military Point and it costs + " + militaryPointPrice + "militaryPoint";
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
         afkVar = "boolean";
-        boolean choose = booleanCreated.get();
+        int choose = integerCreated.get();
         setInFlow();
         return choose;
     }
