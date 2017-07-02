@@ -28,4 +28,10 @@ public class BoardView{
     private List<List<String>> characterTower;
     private List<List<String>> ventureTower;
     private List<List<String>> market;
+    private List<List<String>> harvestArea;
+    private List<List<String>> productionaArea;
+
+    public BoardView(int numberOfPlayers){
+        // TODO costruttore
+    }
 }

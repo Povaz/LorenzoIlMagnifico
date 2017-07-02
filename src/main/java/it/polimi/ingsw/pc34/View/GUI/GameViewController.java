@@ -1,9 +1,13 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -15,9 +19,14 @@ import java.util.List;
 
 public class GameViewController {
     private Main main;
-    private String currentPplayerShown;
+    private String currentPlayerShown;
     private List<PersonalBoardView> players;
+    private ObservableList<PersonalBoardView> observablePlayers;
     private BoardView board;
+
+    // drag and drop attributes
+    private Button dragButton = null;
+    private Button dropButton = null;
 
     @FXML private Button bt;
 
@@ -28,6 +37,11 @@ public class GameViewController {
     @FXML private Button player2;
     @FXML private Button player3;
     @FXML private Button player4;
+
+    @FXML private GridPane territoryTower;
+    @FXML private GridPane characterTower;
+    @FXML private GridPane buildingTower;
+    @FXML private GridPane ventureTower;
 
     @FXML private Button territoryTowerCard0;
     @FXML private Button territoryTowerCard1;
@@ -49,6 +63,11 @@ public class GameViewController {
     @FXML private Button vaticanReportCard1;
     @FXML private Button vaticanReportCard2;
     @FXML private Button vaticanReportCard3;
+
+    @FXML private GridPane buildingSpot;
+    @FXML private GridPane territorySpot;
+    @FXML private GridPane characterSpot;
+    @FXML private GridPane ventureSpot;
 
     @FXML private Button territorySpotCard0;
     @FXML private Button territorySpotCard1;
@@ -85,11 +104,11 @@ public class GameViewController {
     }
 
     public void initializeView(){
-        System.out.println(players.size());
         if(players.size() > 0){
             player0.setText(players.get(0).getUsername());
             player0.setDisable(false);
             player0.setVisible(true);
+            currentPlayerShown = players.get(0).getUsername();
         }
         if(players.size() > 1){
             player1.setText(players.get(1).getUsername());
@@ -114,22 +133,29 @@ public class GameViewController {
     }
 
     public void initializeObservable(){
-        players.get(0).coinProperty().addListener((obsVal, oldVal, newVal) -> {
-                System.out.println("Coin has changed!");
+        observablePlayers = FXCollections.observableArrayList(players);
+
+        observablePlayers.addListener((ListChangeListener) obs -> {
+                ObservableList<PersonalBoardView> playersObs = (ObservableList<PersonalBoardView>) obs.getList();
+
             }
         );
 
-        players.get(0).territoryCardsProperty().addListener((obsVal, oldVal, newVal) -> {
-            String folder = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
-            if(newVal.size() == 6){
-                updateButton(territorySpotCard0, folder, newVal.get(0));
-                updateButton(territorySpotCard1, folder, newVal.get(1));
-                updateButton(territorySpotCard2, folder, newVal.get(2));
-                updateButton(territorySpotCard3, folder, newVal.get(3));
-                updateButton(territorySpotCard4, folder, newVal.get(4));
-                updateButton(territorySpotCard5, folder, newVal.get(5));
+        /*players.get(0).addListener((obsVal, oldVal, newVal) -> {
+            PersonalBoardView pB = (PersonalBoardView) newVal;
+            if(!pB.getUsername().equals(currentPlayerShown)){
+                return;
             }
-        });
+            String folder = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
+            if(pB.getTerritoryCards().size() == 6){
+                updateButton(territorySpotCard0, folder, pB.getTerritoryCards().get(0));
+                updateButton(territorySpotCard1, folder, pB.getTerritoryCards().get(1));
+                updateButton(territorySpotCard2, folder, pB.getTerritoryCards().get(2));
+                updateButton(territorySpotCard3, folder, pB.getTerritoryCards().get(3));
+                updateButton(territorySpotCard4, folder, pB.getTerritoryCards().get(4));
+                updateButton(territorySpotCard5, folder, pB.getTerritoryCards().get(5));
+            }
+        });*/
 
         players.get(0).setCoin(5);
     }
@@ -151,11 +177,15 @@ public class GameViewController {
     @FXML private void playerPressed(MouseEvent event){
         Button button = (Button) event.getSource();
         String username = button.getText();
-        currentPplayerShown = username;
+        currentPlayerShown = username;
 
+        updateView();
+    }
+
+    private void updateView(){
         PersonalBoardView toShow = null;
         for(PersonalBoardView p : players){
-            if(p.getUsername().equals(username)){
+            if(p.getUsername().equals(currentPlayerShown)){
                 toShow = p;
             }
         }
@@ -163,34 +193,17 @@ public class GameViewController {
             return;
         }
 
+        // update board
+        //for(int i = 0; i < board.)
+
+        // update personal board
         String folder = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
-        updateButton(territorySpotCard0, folder, toShow.getTerritoryCards().get(0));
-        updateButton(territorySpotCard1, folder, toShow.getTerritoryCards().get(1));
-        updateButton(territorySpotCard2, folder, toShow.getTerritoryCards().get(2));
-        updateButton(territorySpotCard3, folder, toShow.getTerritoryCards().get(3));
-        updateButton(territorySpotCard4, folder, toShow.getTerritoryCards().get(4));
-        updateButton(territorySpotCard5, folder, toShow.getTerritoryCards().get(5));
-        System.out.println(toShow.getTerritoryCards().get(2));
-        updateButton(buildingSpotCard0, folder, toShow.getBuildingCards().get(0));
-        updateButton(buildingSpotCard1, folder, toShow.getBuildingCards().get(1));
-        updateButton(buildingSpotCard2, folder, toShow.getBuildingCards().get(2));
-        updateButton(buildingSpotCard3, folder, toShow.getBuildingCards().get(3));
-        updateButton(buildingSpotCard4, folder, toShow.getBuildingCards().get(4));
-        updateButton(buildingSpotCard5, folder, toShow.getBuildingCards().get(5));
-        System.out.println(toShow.getBuildingCards().get(2));
-        updateButton(characterSpotCard0, folder, toShow.getCharacterCards().get(0));
-        updateButton(characterSpotCard1, folder, toShow.getCharacterCards().get(1));
-        updateButton(characterSpotCard2, folder, toShow.getCharacterCards().get(2));
-        updateButton(characterSpotCard3, folder, toShow.getCharacterCards().get(3));
-        updateButton(characterSpotCard4, folder, toShow.getCharacterCards().get(4));
-        updateButton(characterSpotCard5, folder, toShow.getCharacterCards().get(5));
-        System.out.println(toShow.getCharacterCards().get(2));
-        updateButton(ventureSpotCard0, folder, toShow.getBuildingCards().get(0));
-        updateButton(ventureSpotCard1, folder, toShow.getBuildingCards().get(1));
-        updateButton(ventureSpotCard2, folder, toShow.getBuildingCards().get(2));
-        updateButton(ventureSpotCard3, folder, toShow.getBuildingCards().get(3));
-        updateButton(ventureSpotCard4, folder, toShow.getBuildingCards().get(4));
-        updateButton(ventureSpotCard5, folder, toShow.getBuildingCards().get(5));
+        for(int i = 0; i < 6; i++){
+            updateButton((Button)territorySpot.getChildren().get(i), folder, toShow.getTerritoryCards().get(i));
+            updateButton((Button)buildingSpot.getChildren().get(i), folder, toShow.getBuildingCards().get(i));
+            updateButton((Button)characterSpot.getChildren().get(i), folder, toShow.getCharacterCards().get(i));
+            updateButton((Button)ventureSpot.getChildren().get(i), folder, toShow.getVentureCards().get(i));
+        }
     }
 
     @FXML private void zoomCard(MouseEvent event){
@@ -215,169 +228,45 @@ public class GameViewController {
 
     @FXML private void bTP(){
         players.get(0).getTerritoryCards().set(2, "TerritoryCard15.png");
-        players.get(2).getVentureCards().set(1, "VentureCard15.png");
+        updateView();
 
-        /*Image image = new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/devcards_f_en_c_1.png", 85, 126, false, false);
-        Background background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
-        buildingSpotCard0.setBackground(background);
-        buildingSpotCard0.setDisable(false);
-        buildingSpotCard0.setVisible(true);
+        // tower
+        for(int i = 1; i <= 4; i++){
+            ((Button)territoryTower.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/TerritoryCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            territoryTower.getChildren().get(i - 1).setDisable(false);
+            territoryTower.getChildren().get(i - 1).setVisible(true);
 
-        buildingSpotCard1.setBackground(background);
-        buildingSpotCard1.setDisable(false);
-        buildingSpotCard1.setVisible(true);
+            ((Button)characterTower.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/CharacterCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            characterTower.getChildren().get(i - 1).setDisable(false);
+            characterTower.getChildren().get(i - 1).setVisible(true);
 
-        buildingSpotCard2.setBackground(background);
-        buildingSpotCard2.setDisable(false);
-        buildingSpotCard2.setVisible(true);
+            ((Button)buildingTower.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/BuildingCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            buildingTower.getChildren().get(i - 1).setDisable(false);
+            buildingTower.getChildren().get(i - 1).setVisible(true);
 
-        buildingSpotCard3.setBackground(background);
-        buildingSpotCard3.setDisable(false);
-        buildingSpotCard3.setVisible(true);
+            ((Button)ventureTower.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/VentureCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            ventureTower.getChildren().get(i - 1).setDisable(false);
+            ventureTower.getChildren().get(i - 1).setVisible(true);
+        }
 
-        buildingSpotCard4.setBackground(background);
-        buildingSpotCard4.setDisable(false);
-        buildingSpotCard4.setVisible(true);
+        // spot
+        for(int i = 1; i <= 6; i++){
+            ((Button)buildingSpot.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/BuildingCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            buildingSpot.getChildren().get(i - 1).setDisable(false);
+            buildingSpot.getChildren().get(i - 1).setVisible(true);
 
-        buildingSpotCard5.setBackground(background);
-        buildingSpotCard5.setDisable(false);
-        buildingSpotCard5.setVisible(true);
+            ((Button)territorySpot.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/TerritoryCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            territorySpot.getChildren().get(i - 1).setDisable(false);
+            territorySpot.getChildren().get(i - 1).setVisible(true);
 
-        territorySpotCard0.setBackground(background);
-        territorySpotCard0.setDisable(false);
-        territorySpotCard0.setVisible(true);
+            ((Button)characterSpot.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/CharacterCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            characterSpot.getChildren().get(i - 1).setDisable(false);
+            characterSpot.getChildren().get(i - 1).setVisible(true);
 
-        territorySpotCard1.setBackground(background);
-        territorySpotCard1.setDisable(false);
-        territorySpotCard1.setVisible(true);
-
-        territorySpotCard2.setBackground(background);
-        territorySpotCard2.setDisable(false);
-        territorySpotCard2.setVisible(true);
-
-        territorySpotCard3.setBackground(background);
-        territorySpotCard3.setDisable(false);
-        territorySpotCard3.setVisible(true);
-
-        territorySpotCard4.setBackground(background);
-        territorySpotCard4.setDisable(false);
-        territorySpotCard4.setVisible(true);
-
-        territorySpotCard5.setBackground(background);
-        territorySpotCard5.setDisable(false);
-        territorySpotCard5.setVisible(true);
-
-        characterSpotCard0.setBackground(background);
-        characterSpotCard0.setDisable(false);
-        characterSpotCard0.setVisible(true);
-
-        characterSpotCard1.setBackground(background);
-        characterSpotCard1.setDisable(false);
-        characterSpotCard1.setVisible(true);
-
-        characterSpotCard2.setBackground(background);
-        characterSpotCard2.setDisable(false);
-        characterSpotCard2.setVisible(true);
-
-        characterSpotCard3.setBackground(background);
-        characterSpotCard3.setDisable(false);
-        characterSpotCard3.setVisible(true);
-
-        characterSpotCard4.setBackground(background);
-        characterSpotCard4.setDisable(false);
-        characterSpotCard4.setVisible(true);
-
-        characterSpotCard5.setBackground(background);
-        characterSpotCard5.setDisable(false);
-        characterSpotCard5.setVisible(true);
-
-        ventureSpotCard0.setBackground(background);
-        ventureSpotCard0.setDisable(false);
-        ventureSpotCard0.setVisible(true);
-
-        ventureSpotCard1.setBackground(background);
-        ventureSpotCard1.setDisable(false);
-        ventureSpotCard1.setVisible(true);
-
-        ventureSpotCard2.setBackground(background);
-        ventureSpotCard2.setDisable(false);
-        ventureSpotCard2.setVisible(true);
-
-        ventureSpotCard3.setBackground(background);
-        ventureSpotCard3.setDisable(false);
-        ventureSpotCard3.setVisible(true);
-
-        ventureSpotCard4.setBackground(background);
-        ventureSpotCard4.setDisable(false);
-        ventureSpotCard4.setVisible(true);
-
-        ventureSpotCard5.setBackground(background);
-        ventureSpotCard5.setDisable(false);
-        ventureSpotCard5.setVisible(true);
-
-        territoryTowerCard0.setBackground(background);
-        territoryTowerCard0.setDisable(false);
-        territoryTowerCard0.setVisible(true);
-
-        territoryTowerCard1.setBackground(background);
-        territoryTowerCard1.setDisable(false);
-        territoryTowerCard1.setVisible(true);
-
-        territoryTowerCard2.setBackground(background);
-        territoryTowerCard2.setDisable(false);
-        territoryTowerCard2.setVisible(true);
-
-        territoryTowerCard3.setBackground(background);
-        territoryTowerCard3.setDisable(false);
-        territoryTowerCard3.setVisible(true);
-
-        buildingTowerCard0.setBackground(background);
-        buildingTowerCard0.setDisable(false);
-        buildingTowerCard0.setVisible(true);
-
-        buildingTowerCard1.setBackground(background);
-        buildingTowerCard1.setDisable(false);
-        buildingTowerCard1.setVisible(true);
-
-        buildingTowerCard2.setBackground(background);
-        buildingTowerCard2.setDisable(false);
-        buildingTowerCard2.setVisible(true);
-
-        buildingTowerCard3.setBackground(background);
-        buildingTowerCard3.setDisable(false);
-        buildingTowerCard3.setVisible(true);
-
-        characterTowerCard0.setBackground(background);
-        characterTowerCard0.setDisable(false);
-        characterTowerCard0.setVisible(true);
-
-        characterTowerCard1.setBackground(background);
-        characterTowerCard1.setDisable(false);
-        characterTowerCard1.setVisible(true);
-
-        characterTowerCard2.setBackground(background);
-        characterTowerCard2.setDisable(false);
-        characterTowerCard2.setVisible(true);
-
-        characterTowerCard3.setBackground(background);
-        characterTowerCard3.setDisable(false);
-        characterTowerCard3.setVisible(true);
-
-        ventureTowerCard0.setBackground(background);
-        ventureTowerCard0.setDisable(false);
-        ventureTowerCard0.setVisible(true);
-
-        ventureTowerCard1.setBackground(background);
-        ventureTowerCard1.setDisable(false);
-        ventureTowerCard1.setVisible(true);
-
-        ventureTowerCard2.setBackground(background);
-        ventureTowerCard2.setDisable(false);
-        ventureTowerCard2.setVisible(true);
-
-        ventureTowerCard3.setBackground(background);
-        ventureTowerCard3.setDisable(false);
-        ventureTowerCard3.setVisible(true);
+            ((Button)ventureSpot.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/VentureCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            ventureSpot.getChildren().get(i - 1).setDisable(false);
+            ventureSpot.getChildren().get(i - 1).setVisible(true);
+        }
 
         vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard1.setDisable(false);
@@ -389,7 +278,39 @@ public class GameViewController {
 
         vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard3.setDisable(false);
-        vaticanReportCard3.setVisible(true);*/
+        vaticanReportCard3.setVisible(true);
+    }
+
+    @FXML private void startDrag(MouseEvent event){
+        System.out.println("startDrag");
+        dragButton = (Button) event.getSource();
+        dropButton = null;
+        System.out.println("" + dragButton + dropButton);
+    }
+
+    @FXML private void stopDrag(MouseEvent event){
+        System.out.println("stopDrag");
+        dragButton = null;
+        dropButton = null;
+        System.out.println("" + dragButton + dropButton);
+    }
+
+    @FXML private void stopDrop(MouseEvent event){
+        System.out.println("stopDrop");
+        dragButton = null;
+        dropButton = null;
+        System.out.println("" + dragButton + dropButton);
+    }
+
+    @FXML private void startDrop(MouseEvent event){
+        System.out.println("startDrop");
+        dropButton = (Button) event.getSource();
+        System.out.println("" + dragButton + dropButton);
+        if(dragButton == null || dropButton == null){
+            return;
+        }
+        System.out.println("YES");
+        dropButton.setBackground(new Background(new BackgroundFill(new Color(150,150,150,1), null, null)));
     }
 
     public void setMain(Main main){

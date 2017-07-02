@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application{
-    private BoardView board = new BoardView();
+    private BoardView board = new BoardView(2);
     private List<PersonalBoardView> players = new ArrayList<>();
 
     private Stage primaryStage;
@@ -29,13 +29,9 @@ public class Main extends Application{
 
     private boolean logged = false;
 
-    /*public static Parent root;
-    public static Scene scene;
-    public static Stage primaryStage;*/
-
     public Main(){
         players.add(new PersonalBoardView("ciccio"));
-        players.add(new PersonalBoardView("WWWWWWWWWWWWWWWWWWWW"));
+        players.add(new PersonalBoardView("WWWWWWWWWWWWWWW"));
     }
 
     @Override

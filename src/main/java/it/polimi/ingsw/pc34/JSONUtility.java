@@ -26,10 +26,12 @@ public class JSONUtility {
 	private static String personalBonusTilePath = "jsonFiles/PersonalBonusTile.json";
 	
 	public static synchronized boolean checkLogin(String username, String password) throws JSONException, IOException{
+		if(username.length() > 15 || password.length() > 15){
+			return false;
+		}
 		JSONObject users = fromPathToJSONObject(userPath);
 		username = encryptString(username);
 		password = encryptString(password);
-
 		if(users.has(username)){
 			return password.equals(getPassword(users, username));
 		}

@@ -1,79 +1,79 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-
-import javafx.beans.property.*;
-import javafx.beans.value.ObservableStringValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableArrayBase;
-import javafx.collections.ObservableList;
-
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Observable;
 
 /**
  * Created by trill on 22/06/2017.
  */
-public class PersonalBoardView extends Observable{
+public class PersonalBoardView{
     private final String username;
 
     // Rewards
-    private IntegerProperty coin;
-    private IntegerProperty wood;
-    private IntegerProperty stone;
-    private IntegerProperty servant;
-    private IntegerProperty faithPoint;
-    private IntegerProperty militaryPoint;
-    private IntegerProperty victoryPoint;
+    private int coin;
+    private int wood;
+    private int stone;
+    private int servant;
+    private int faithPoint;
+    private int militaryPoint;
+    private int victoryPoint;
 
     // Cards
-    private ListProperty<String> territoryCards;
-    private ListProperty<String> buildingCards;
-    private ListProperty<String> characterCards;
-    private ListProperty<String> ventureCards;
-    private ListProperty<String> leaderCards;
-    private ListProperty<String> leaderCardsState;
-    private StringProperty personalBonusTile;
+    private List<String> territoryCards;
+    private List<String> buildingCards;
+    private List<String> characterCards;
+    private List<String> ventureCards;
+    private List<String> leaderCards;
+    private List<String> leaderCardsState;
+    private String personalBonusTile;
 
     // FamilyMembers
-    private ListProperty<String> familyMembers;
+    private List<String> familyMembers;
 
     public PersonalBoardView(String username){
         this.username = username;
-        coin = new SimpleIntegerProperty(0);
-        wood = new SimpleIntegerProperty(0);
-        stone = new SimpleIntegerProperty(0);
-        servant = new SimpleIntegerProperty(0);
-        faithPoint = new SimpleIntegerProperty(0);
-        militaryPoint = new SimpleIntegerProperty(0);
-        victoryPoint = new SimpleIntegerProperty(0);
+        coin = 0;
+        wood = 0;
+        stone = 0;
+        servant = 0;
+        faithPoint = 0;
+        militaryPoint = 0;
+        victoryPoint = 0;
 
-        List<String> tCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
-        ObservableList<String> obsTCards = FXCollections.observableArrayList(tCards);
-        territoryCards = new SimpleListProperty<>(obsTCards);
-        List<String> bCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
-        ObservableList<String> obsBCards = FXCollections.observableArrayList(bCards);
-        buildingCards = new SimpleListProperty<>(obsBCards);
-        List<String> cCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
-        ObservableList<String> obsCCards = FXCollections.observableArrayList(cCards);
-        characterCards= new SimpleListProperty<>(obsCCards);
-        List<String> vCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
-        ObservableList<String> obsVCards = FXCollections.observableArrayList(vCards);
-        ventureCards = new SimpleListProperty<>(obsVCards);
+        territoryCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
+        buildingCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
+        characterCards= new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
+        ventureCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
 
-        List<String> leader = new ArrayList<>(Arrays.asList("", "", "", ""));
-        ObservableList<String> obsLeader = FXCollections.observableArrayList(leader);
-        leaderCards = new SimpleListProperty<>(obsLeader);
-        List<String> leaderState = new ArrayList<>(Arrays.asList("", "", "", ""));
-        ObservableList<String> obsLeaderState = FXCollections.observableArrayList(leaderState);
-        leaderCardsState = new SimpleListProperty<>(obsLeaderState);
+        leaderCards = new ArrayList<>(Arrays.asList("", "", "", ""));
+        leaderCardsState = new ArrayList<>(Arrays.asList("", "", "", ""));
 
-        List<String> family = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
-        ObservableList<String> obsFamily = FXCollections.observableArrayList(family);
-        familyMembers = new SimpleListProperty<>(obsFamily);
+        familyMembers = new ArrayList<>(Arrays.asList("", "", ""));
 
-        personalBonusTile = new SimpleStringProperty("");
+        personalBonusTile = "";
+    }
+
+    public void setValues(PersonalBoardView other){
+        this.coin = other.coin;
+        this.wood = other.wood;
+        this.stone = other.stone;
+        this.servant = other.servant;
+        this.faithPoint = other.faithPoint;
+        this.militaryPoint = other.militaryPoint;
+        this.victoryPoint = other.victoryPoint;
+
+        this.territoryCards = other.territoryCards;
+        this.buildingCards = other.buildingCards;
+        this.characterCards= other.characterCards;
+        this.ventureCards = other.ventureCards;
+
+        this.leaderCards = other.leaderCards;
+        this.leaderCardsState = other.leaderCardsState;
+
+        this.familyMembers = other.familyMembers;
+
+        this.personalBonusTile = other.personalBonusTile;
     }
 
     public String getUsername(){
@@ -81,182 +81,66 @@ public class PersonalBoardView extends Observable{
     }
 
     public int getCoin(){
-        return coin.get();
-    }
-
-    public IntegerProperty coinProperty(){
         return coin;
     }
 
-    public void setCoin(int coin){
-        this.coin.set(coin);
-    }
-
     public int getWood(){
-        return wood.get();
-    }
-
-    public IntegerProperty woodProperty(){
         return wood;
     }
 
-    public void setWood(int wood){
-        this.wood.set(wood);
-    }
-
     public int getStone(){
-        return stone.get();
-    }
-
-    public IntegerProperty stoneProperty(){
         return stone;
     }
 
-    public void setStone(int stone){
-        this.stone.set(stone);
-    }
-
     public int getServant(){
-        return servant.get();
-    }
-
-    public IntegerProperty servantProperty(){
         return servant;
     }
 
-    public void setServant(int servant){
-        this.servant.set(servant);
-    }
-
     public int getFaithPoint(){
-        return faithPoint.get();
-    }
-
-    public IntegerProperty faithPointProperty(){
         return faithPoint;
     }
 
-    public void setFaithPoint(int faithPoint){
-        this.faithPoint.set(faithPoint);
-    }
-
     public int getMilitaryPoint(){
-        return militaryPoint.get();
-    }
-
-    public IntegerProperty militaryPointProperty(){
         return militaryPoint;
     }
 
-    public void setMilitaryPoint(int militaryPoint){
-        this.militaryPoint.set(militaryPoint);
-    }
-
     public int getVictoryPoint(){
-        return victoryPoint.get();
-    }
-
-    public IntegerProperty victoryPointProperty(){
         return victoryPoint;
     }
 
-    public void setVictoryPoint(int victoryPoint){
-        this.victoryPoint.set(victoryPoint);
-    }
-
-    public ObservableList<String> getTerritoryCards(){
-        return territoryCards.get();
-    }
-
-    public ListProperty<String> territoryCardsProperty(){
+    public List<String> getTerritoryCards(){
         return territoryCards;
     }
 
-    public void setTerritoryCards(ObservableList<String> territoryCards){
-        this.territoryCards.set(territoryCards);
-    }
-
-    public ObservableList<String> getBuildingCards(){
-        return buildingCards.get();
-    }
-
-    public ListProperty<String> buildingCardsProperty(){
+    public List<String> getBuildingCards(){
         return buildingCards;
     }
 
-    public void setBuildingCards(ObservableList<String> buildingCards){
-        this.buildingCards.set(buildingCards);
-    }
-
-    public ObservableList<String> getCharacterCards(){
-        return characterCards.get();
-    }
-
-    public ListProperty<String> characterCardsProperty(){
+    public List<String> getCharacterCards(){
         return characterCards;
     }
 
-    public void setCharacterCards(ObservableList<String> characterCards){
-        this.characterCards.set(characterCards);
-    }
-
-    public ObservableList<String> getVentureCards(){
-        return ventureCards.get();
-    }
-
-    public ListProperty<String> ventureCardsProperty(){
+    public List<String> getVentureCards(){
         return ventureCards;
     }
 
-    public void setVentureCards(ObservableList<String> ventureCards){
-        this.ventureCards.set(ventureCards);
-    }
-
-    public ObservableList<String> getFamilyMembers(){
-        return familyMembers.get();
-    }
-
-    public ListProperty<String> familyMembersProperty(){
-        return familyMembers;
-    }
-
-    public void setFamilyMembers(ObservableList<String> familyMembers){
-        this.familyMembers.set(familyMembers);
-    }
-
-    public ObservableList<String> getLeaderCards(){
-        return leaderCards.get();
-    }
-
-    public ListProperty<String> leaderCardsProperty(){
+    public List<String> getLeaderCards(){
         return leaderCards;
     }
 
-    public void setLeaderCards(ObservableList<String> leaderCards){
-        this.leaderCards.set(leaderCards);
-    }
-
-    public ObservableList<String> getLeaderCardsState(){
-        return leaderCardsState.get();
-    }
-
-    public ListProperty<String> leaderCardsStateProperty(){
+    public List<String> getLeaderCardsState(){
         return leaderCardsState;
     }
 
-    public void setLeaderCardsState(ObservableList<String> leaderCardsState){
-        this.leaderCardsState.set(leaderCardsState);
-    }
-
     public String getPersonalBonusTile(){
-        return personalBonusTile.get();
-    }
-
-    public StringProperty personalBonusTileProperty(){
         return personalBonusTile;
     }
 
-    public void setPersonalBonusTile(String personalBonusTile){
-        this.personalBonusTile.set(personalBonusTile);
+    public List<String> getFamilyMembers(){
+        return familyMembers;
+    }
+
+    public void setCoin(int coin){
+        this.coin = coin;
     }
 }
