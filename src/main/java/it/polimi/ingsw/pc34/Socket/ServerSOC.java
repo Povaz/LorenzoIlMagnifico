@@ -117,6 +117,10 @@ public class ServerSOC implements Runnable {
         }
 	}
 	
+	synchronized public void removePlayerLobby (ServerHandler user){
+		usersInLobby.remove(user);
+	}
+	
 	//notify players in lobby
 	synchronized public void notifySOCPlayers (String message){
 		System.out.println("INVIO NOTIFICA : " + message);
@@ -139,6 +143,20 @@ public class ServerSOC implements Runnable {
 	public void throwInGame(){
 		for(ServerHandler user : usersInLobby){
 			user.setFase(1);
+		}
+	}
+	
+	public void checkUsersLogged(){
+		ArrayList <ServerHandler> toRemove = new ArrayList<>();
+		for (ServerHandler user : usersInLobby){
+			boolean notConnected = user.isNotConnected();
+			if(notConnected){
+				toRemove.add(user);
+			}
+		}
+		for(ServerHandler userToRemove : toRemove){
+			lobby.removeUser(userToRemove.getName());
+			removePlayerLobby(userToRemove);
 		}
 	}
 	

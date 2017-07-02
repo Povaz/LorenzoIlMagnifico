@@ -3,12 +3,19 @@ package it.polimi.ingsw.pc34.Socket;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.Scanner;
+import java.util.Timer;
+import java.util.TimerTask;
 
 import org.json.JSONException;
 
+import it.polimi.ingsw.pc34.Controller.BooleanCreated;
+import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 
 //class that is assigned one per one to a client, and has to deal with server's comunication with the client
 public class ServerHandler implements Runnable{
@@ -20,6 +27,8 @@ public class ServerHandler implements Runnable{
 	private GameController gameController;
 	private String stateGame;
 	
+	private BooleanCreated isNotConnect = new BooleanCreated();
+	private String answer = null;
 	
 	public ServerHandler(Socket socket, Lobby lobby, ServerSOC serverSoc){
 		this.socket = socket;
@@ -33,11 +42,7 @@ public class ServerHandler implements Runnable{
 	public void setFase(int fase){
 		this.fase = fase;
 		if(fase==1){
-			try {
-				sendToClient("Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game");
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			sendToClient("Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game");
 		}
 	}
 	
@@ -64,14 +69,18 @@ public class ServerHandler implements Runnable{
 	}
 	
 	//method to send messages to client
-	public void sendToClient(String message) throws IOException{
+	public void sendToClient(String message) {
 		if(message==null){
 			return;
 		}
 		else if(message.equals("This Client has been disconnected")){
 			setFase(0);
 			//todo togliere riferimento in GameController
-			serverSoc.getServer().disconnectPlayerSoc(username);
+			try {
+				serverSoc.getServer().disconnectPlayerSoc(username);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 			message += "\nTake your decision : /login or /register?";
 			lobbyFlow.reset();
 			stateGame = null;
@@ -88,7 +97,12 @@ public class ServerHandler implements Runnable{
 			stateGame = null;
 			message += "\nInsert new command: /playturn, /chat, /stampinfo, /afk";
 		}
-		PrintWriter socketOut = new PrintWriter(socket.getOutputStream(), true);
+		PrintWriter socketOut = null;
+		try {
+			socketOut = new PrintWriter(socket.getOutputStream(), true);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 		socketOut.println(message);
 		socketOut.flush();
 	}
@@ -98,6 +112,9 @@ public class ServerHandler implements Runnable{
 		@SuppressWarnings("resource")
 		Scanner socketIn = new Scanner(socket.getInputStream());
 		String received = socketIn.nextLine();
+		if(answer!=null && received.equals("yes")){
+			answer=received;
+		}
 		return received;
 	}
 	
@@ -115,16 +132,15 @@ public class ServerHandler implements Runnable{
 	
 	public void run(){
 		String line = null;
-		try {
-			sendToClient("Take your decision : /login or /register?");
-		} catch (IOException e2) {
-			e2.printStackTrace();
-		}
+		sendToClient("Take your decision : /login or /register?");
 		while (true){
 			try {
 				line = receiveFromClient();
 			} catch (IOException e) {
 				e.printStackTrace();
+			}
+			if(answer!=null && line.equals("yes")){
+				continue;
 			}
 			String answer = null;
 			
@@ -185,11 +201,7 @@ public class ServerHandler implements Runnable{
 							e.printStackTrace();
 						}
 						stateGame = null;
-						try {
-							sendToClient(answer);
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
+						sendToClient(answer);
 						break;
 					}
 					
@@ -225,13 +237,31 @@ public class ServerHandler implements Runnable{
 				}
 			}
 			
-			//send to client the answer
-			try {
-				sendToClient(answer);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+			sendToClient(answer);
 		}
+	}
+
+	public boolean isNotConnected() {
+		boolean result;
+		answer = "waiting";
+		sendToClient("Are you connected?");
+		Timer timer = new Timer();
+		timer.schedule(new TimerTask() {
+            @Override
+            public void run() {
+            	if(answer.equals("waiting")){
+            		isNotConnect.put(true);
+            		answer=null;
+            	}
+            	else{
+            		isNotConnect.put(false);
+            		answer = null;
+            	}
+            }
+        }, 2000);
+		
+		result = isNotConnect.get();
+		return result;
 	}
 
 }

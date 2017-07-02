@@ -7,13 +7,13 @@ import java.util.Scanner;
 
 //class that deals whit output to the server: gets input lines and sends them to the server
 public class ClientOutputHandler extends Thread{
-	Socket socketServer;
+	static Socket socketServer;
 	
 	public ClientOutputHandler (Socket socketServer){
 		this.socketServer = socketServer; 
 	}
 
-	private void sendToServer(String message) throws IOException{
+	static void sendToServer(String message) throws IOException{
 		PrintWriter out = new PrintWriter(socketServer.getOutputStream(), true);
 		out.println(message);
 		out.flush();

@@ -16,6 +16,10 @@ public class ClientInputHandler extends Thread{
 
 	private String receiveFromServer(Socket socketServer) throws IOException{
 		String received = socketIn.nextLine();
+		if(received.equals("Are you connected?")){
+			ClientOutputHandler.sendToServer("yes");
+			return null;
+		}
 		return received;	
 	}
 	
@@ -27,7 +31,9 @@ public class ClientInputHandler extends Thread{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-			System.out.println(line);
+			if(line!=null){
+				System.out.println(line);
+			}
 		}
 	}
 

@@ -93,6 +93,9 @@ public class Lobby {
             case USERLOGOUT:
                 message += " left the lobby";
                 break;
+            case TIMERBLOCKED:
+            	message = "Timer deleted, you are now back to the lobby waiting for new players";
+                break;
             default:
                 break;
         }
@@ -100,10 +103,9 @@ public class Lobby {
         this.serverSoc.notifySOCPlayers(message);
     }
 
-    public void checkUsersLogged() throws RemoteException {
-        System.out.println("checkUsersLogged Entered");
+    public void checkUsersLogged() throws IOException {
         serverRMI.checkUsersLogged();
-        //ServerSocket
+        serverSoc.checkUsersLogged();
     }
 
     public Timer getTimer() {
@@ -125,7 +127,9 @@ public class Lobby {
                 try {
                     //Check Users Activity
                     checkUsersLogged();
-                    if (users.size() == 1) {
+                    
+                    if (users.size() <= 1) {
+                    	notifyAllUsers(NotificationType.TIMERBLOCKED, "Timer annullato, di nuovo in lobby in attesa di nuovi players");
                         return;
                     }
 
@@ -146,7 +150,9 @@ public class Lobby {
                 }
                 catch (RemoteException e) {
                     e.printStackTrace();
-                }
+                } catch (IOException e) {
+					e.printStackTrace();
+				}
             }
         }, 10000);
     }
