@@ -127,9 +127,7 @@ public class Lobby {
                 try {
                     //Check Users Activity
                     checkUsersLogged();
-                    
-                    if (users.size() <= 1) {
-                    	notifyAllUsers(NotificationType.TIMERBLOCKED, "Timer annullato, di nuovo in lobby in attesa di nuovi players");
+                    if (users.size() < 2) {
                         return;
                     }
 

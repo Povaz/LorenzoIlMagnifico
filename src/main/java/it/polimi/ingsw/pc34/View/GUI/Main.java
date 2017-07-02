@@ -4,19 +4,20 @@ import javafx.application.Application;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.media.Media;
-import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
-public class Main extends Application {
+public class Main extends Application{
+    private BoardView board = new BoardView();
+    private List<PersonalBoardView> players = new ArrayList<>();
+
     private Stage primaryStage;
     private BorderPane rootLayout;
 
@@ -33,7 +34,8 @@ public class Main extends Application {
     public static Stage primaryStage;*/
 
     public Main(){
-        // costruttore
+        players.add(new PersonalBoardView("ciccio"));
+        players.add(new PersonalBoardView("WWWWWWWWWWWWWWWWWWWW"));
     }
 
     @Override
@@ -63,7 +65,8 @@ public class Main extends Application {
 
         initRootLayout();
 
-        showLogin();
+        // TODO rimetti: showLogin();
+        showGame();
     }
 
     private void initRootLayout(){
@@ -161,6 +164,10 @@ public class Main extends Application {
             // Give the controller access to the main app.
             GameViewController gameController = loader.getController();
             gameController.setMain(this);
+            gameController.setPlayersView(players);
+            gameController.setBoardView(board);
+            gameController.initializeView();
+            gameController.initializeObservable();
 
             // Can be full screen
             canBeFullScreen = true;

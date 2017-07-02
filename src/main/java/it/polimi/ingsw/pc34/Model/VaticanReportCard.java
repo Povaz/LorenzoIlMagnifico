@@ -6,6 +6,7 @@ import java.util.Map;
 public class VaticanReportCard{
 	private final int number;
 	private final int period;
+	private final String path;
 
 	private final int coloredFamilyMemberModifier;
 
@@ -24,10 +25,11 @@ public class VaticanReportCard{
 	private boolean loseVictoryPointFromBuildingCost = false;
 	private boolean loseVictoryPointFromResource = false;
 
-	public VaticanReportCard (int number, int period, List<Reward> loseRewards, Map<ActionType, Integer> actionModifiers,
+	public VaticanReportCard (int number, int period, String path, List<Reward> loseRewards, Map<ActionType, Integer> actionModifiers,
 							  List<String> booleans, int coloredFamilyMemberModifier){
 		this.number = number;
 		this.period = period;
+		this.path = path;
 		this.loseRewards = loseRewards;
 		this.actionModifiers = actionModifiers;
 		this.coloredFamilyMemberModifier = coloredFamilyMemberModifier;
@@ -229,5 +231,9 @@ public class VaticanReportCard{
 
 	public boolean isLoseVictoryPointFromResource() {
 		return loseVictoryPointFromResource;
+	}
+
+	public String getPath(){
+		return path;
 	}
 }

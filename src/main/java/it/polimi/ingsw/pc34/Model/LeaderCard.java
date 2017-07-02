@@ -9,12 +9,14 @@ import java.util.Set;
  */
 public abstract class LeaderCard {
     private final String name;
+    private final String path;
     private final Set<Reward> activationRewardCost;
     private final Map<CardType, Integer> activationCardCost;
     private final Set<Reward> changedRewards;
 
-    public LeaderCard (String name, Set<Reward> activationRewardCost, Map<CardType, Integer> activationCardCost) {
+    public LeaderCard (String name, String path, Set<Reward> activationRewardCost, Map<CardType, Integer> activationCardCost) {
         this.name = name;
+        this.path = path;
         this.activationRewardCost = activationRewardCost;
         this.activationCardCost = activationCardCost;
         this.changedRewards = new HashSet<>();

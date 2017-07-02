@@ -6,8 +6,8 @@ public class TerritoryCard extends DevelopmentCard{
 	private final int diceHarvestAction;
 	private final Set<Reward> earnings;
 
-	public TerritoryCard(String name, int period, Set<Reward> fastRewards, int diceHarvestAction, Set<Reward> earnings){
-		super(name, CardType.TERRITORY, period, null, fastRewards, null);
+	public TerritoryCard(String name, String path, int period, Set<Reward> fastRewards, int diceHarvestAction, Set<Reward> earnings){
+		super(name, path, CardType.TERRITORY, period, null, fastRewards, null);
 		this.diceHarvestAction = diceHarvestAction;
 		this.earnings = earnings;
 	}

@@ -1,15 +1,22 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
+
 import javafx.beans.property.*;
+import javafx.beans.value.ObservableStringValue;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableArrayBase;
 import javafx.collections.ObservableList;
 
-import javax.smartcardio.Card;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Observable;
 
 /**
  * Created by trill on 22/06/2017.
  */
-public class PersonalBoardView{
-    private StringProperty username;
+public class PersonalBoardView extends Observable{
+    private final String username;
 
     // Rewards
     private IntegerProperty coin;
@@ -21,16 +28,19 @@ public class PersonalBoardView{
     private IntegerProperty victoryPoint;
 
     // Cards
-    private ListProperty<StringProperty> territoryCards;
-    private ListProperty<StringProperty> buildingCards;
-    private ListProperty<StringProperty> characterCards;
-    private ListProperty<StringProperty> ventureCards;
+    private ListProperty<String> territoryCards;
+    private ListProperty<String> buildingCards;
+    private ListProperty<String> characterCards;
+    private ListProperty<String> ventureCards;
+    private ListProperty<String> leaderCards;
+    private ListProperty<String> leaderCardsState;
+    private StringProperty personalBonusTile;
 
     // FamilyMembers
-    private ListProperty<StringProperty> familyMembers;
+    private ListProperty<String> familyMembers;
 
-    public PersonalBoardView(){
-        username = new SimpleStringProperty("");
+    public PersonalBoardView(String username){
+        this.username = username;
         coin = new SimpleIntegerProperty(0);
         wood = new SimpleIntegerProperty(0);
         stone = new SimpleIntegerProperty(0);
@@ -39,21 +49,35 @@ public class PersonalBoardView{
         militaryPoint = new SimpleIntegerProperty(0);
         victoryPoint = new SimpleIntegerProperty(0);
 
-        territoryCards = new SimpleListProperty<>();
-        buildingCards = new SimpleListProperty<>();
-        characterCards= new SimpleListProperty<>();
-        ventureCards = new SimpleListProperty<>();
-        for(int i = 0; i < 6; i++){
-            territoryCards.add(new SimpleStringProperty(""));
-            buildingCards.add(new SimpleStringProperty(""));
-            characterCards.add(new SimpleStringProperty(""));
-            ventureCards.add(new SimpleStringProperty(""));
-        }
+        List<String> tCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
+        ObservableList<String> obsTCards = FXCollections.observableArrayList(tCards);
+        territoryCards = new SimpleListProperty<>(obsTCards);
+        List<String> bCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
+        ObservableList<String> obsBCards = FXCollections.observableArrayList(bCards);
+        buildingCards = new SimpleListProperty<>(obsBCards);
+        List<String> cCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
+        ObservableList<String> obsCCards = FXCollections.observableArrayList(cCards);
+        characterCards= new SimpleListProperty<>(obsCCards);
+        List<String> vCards = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
+        ObservableList<String> obsVCards = FXCollections.observableArrayList(vCards);
+        ventureCards = new SimpleListProperty<>(obsVCards);
 
-        familyMembers = new SimpleListProperty<>();
-        for(int i = 0; i < 3; i++){
-            familyMembers.add(new SimpleStringProperty(""));
-        }
+        List<String> leader = new ArrayList<>(Arrays.asList("", "", "", ""));
+        ObservableList<String> obsLeader = FXCollections.observableArrayList(leader);
+        leaderCards = new SimpleListProperty<>(obsLeader);
+        List<String> leaderState = new ArrayList<>(Arrays.asList("", "", "", ""));
+        ObservableList<String> obsLeaderState = FXCollections.observableArrayList(leaderState);
+        leaderCardsState = new SimpleListProperty<>(obsLeaderState);
+
+        List<String> family = new ArrayList<>(Arrays.asList("", "", "", "", "", ""));
+        ObservableList<String> obsFamily = FXCollections.observableArrayList(family);
+        familyMembers = new SimpleListProperty<>(obsFamily);
+
+        personalBonusTile = new SimpleStringProperty("");
+    }
+
+    public String getUsername(){
+        return username;
     }
 
     public int getCoin(){
@@ -140,63 +164,99 @@ public class PersonalBoardView{
         this.victoryPoint.set(victoryPoint);
     }
 
-    public ObservableList<StringProperty> getTerritoryCards(){
+    public ObservableList<String> getTerritoryCards(){
         return territoryCards.get();
     }
 
-    public ListProperty<StringProperty> territoryCardsProperty(){
+    public ListProperty<String> territoryCardsProperty(){
         return territoryCards;
     }
 
-    public void setTerritoryCards(ObservableList<StringProperty> territoryCards){
+    public void setTerritoryCards(ObservableList<String> territoryCards){
         this.territoryCards.set(territoryCards);
     }
 
-    public ObservableList<StringProperty> getBuildingCards(){
+    public ObservableList<String> getBuildingCards(){
         return buildingCards.get();
     }
 
-    public ListProperty<StringProperty> buildingCardsProperty(){
+    public ListProperty<String> buildingCardsProperty(){
         return buildingCards;
     }
 
-    public void setBuildingCards(ObservableList<StringProperty> buildingCards){
+    public void setBuildingCards(ObservableList<String> buildingCards){
         this.buildingCards.set(buildingCards);
     }
 
-    public ObservableList<StringProperty> getCharacterCards(){
+    public ObservableList<String> getCharacterCards(){
         return characterCards.get();
     }
 
-    public ListProperty<StringProperty> characterCardsProperty(){
+    public ListProperty<String> characterCardsProperty(){
         return characterCards;
     }
 
-    public void setCharacterCards(ObservableList<StringProperty> characterCards){
+    public void setCharacterCards(ObservableList<String> characterCards){
         this.characterCards.set(characterCards);
     }
 
-    public ObservableList<StringProperty> getVentureCards(){
+    public ObservableList<String> getVentureCards(){
         return ventureCards.get();
     }
 
-    public ListProperty<StringProperty> ventureCardsProperty(){
+    public ListProperty<String> ventureCardsProperty(){
         return ventureCards;
     }
 
-    public void setVentureCards(ObservableList<StringProperty> ventureCards){
+    public void setVentureCards(ObservableList<String> ventureCards){
         this.ventureCards.set(ventureCards);
     }
 
-    public ObservableList<StringProperty> getFamilyMembers(){
+    public ObservableList<String> getFamilyMembers(){
         return familyMembers.get();
     }
 
-    public ListProperty<StringProperty> familyMembersProperty(){
+    public ListProperty<String> familyMembersProperty(){
         return familyMembers;
     }
 
-    public void setFamilyMembers(ObservableList<StringProperty> familyMembers){
+    public void setFamilyMembers(ObservableList<String> familyMembers){
         this.familyMembers.set(familyMembers);
+    }
+
+    public ObservableList<String> getLeaderCards(){
+        return leaderCards.get();
+    }
+
+    public ListProperty<String> leaderCardsProperty(){
+        return leaderCards;
+    }
+
+    public void setLeaderCards(ObservableList<String> leaderCards){
+        this.leaderCards.set(leaderCards);
+    }
+
+    public ObservableList<String> getLeaderCardsState(){
+        return leaderCardsState.get();
+    }
+
+    public ListProperty<String> leaderCardsStateProperty(){
+        return leaderCardsState;
+    }
+
+    public void setLeaderCardsState(ObservableList<String> leaderCardsState){
+        this.leaderCardsState.set(leaderCardsState);
+    }
+
+    public String getPersonalBonusTile(){
+        return personalBonusTile.get();
+    }
+
+    public StringProperty personalBonusTileProperty(){
+        return personalBonusTile;
+    }
+
+    public void setPersonalBonusTile(String personalBonusTile){
+        this.personalBonusTile.set(personalBonusTile);
     }
 }

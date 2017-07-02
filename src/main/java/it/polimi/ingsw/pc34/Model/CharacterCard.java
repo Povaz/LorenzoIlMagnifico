@@ -11,10 +11,10 @@ public class CharacterCard extends DevelopmentCard{
 	private final RewardForReward rewardForReward;
 	private final RewardForCard rewardForCard;
 	
-	public CharacterCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<FamilyMember> actions,
+	public CharacterCard(String name, String path, int period, Set<Reward> costs, Set<Reward> fastRewards, List<FamilyMember> actions,
 						 boolean noBonusTowerResource, Map<CardType, List<List<Reward>>> discounts,
 						 Map<ActionType, Integer> actionModifiers, RewardForReward rewardForReward, RewardForCard rewardForCard){
-		super(name, CardType.CHARACTER, period, costs, fastRewards, actions);
+		super(name, path, CardType.CHARACTER, period, costs, fastRewards, actions);
 		this.noBonusTowerResource = noBonusTowerResource;
 		this.discounts = discounts;
 		this.actionModifiers = actionModifiers;

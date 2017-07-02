@@ -8,9 +8,9 @@ public class VentureCard extends DevelopmentCard{
 	private final Reward militaryPointNeeded;
 	private final Reward victoryPointEarned;
 	
-	public VentureCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, List<FamilyMember> actions,
+	public VentureCard(String name, String path, int period, Set<Reward> costs, Set<Reward> fastRewards, List<FamilyMember> actions,
 					   Reward militaryPointNeeded, Reward militaryPointPrice, Reward victoryPointEarned){
-		super(name, CardType.VENTURE, period, costs, fastRewards, actions);
+		super(name, path, CardType.VENTURE, period, costs, fastRewards, actions);
 		this.militaryPointNeeded = militaryPointNeeded;
 		this.militaryPointPrice = militaryPointPrice;
 		this.victoryPointEarned = victoryPointEarned;

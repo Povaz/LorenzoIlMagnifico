@@ -201,25 +201,21 @@ public class GameController{
         return null;
     }
 
-    public Integer getHowManyServants (Player player) {
+    public Integer getHowManyServants (Player player) { //TODO setta -1 al posto di Null
         player.putSecond_State(PlayerState.SERVANTS);
         afkVar = "integer";
-        Integer index = integerCreated.get();
+        int index = integerCreated.get();
         setInFlow();
         return index;
     }
 
-    public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{
+    public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{ //TODO setta a Null
 		for(Reward reward : rewards) {
 			if (reward.getType().equals(RewardType.COUNCIL_PRIVILEGE)) {
 				this.councilRewardsSize++;
 			}
 		}
 		player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
-		setInFlow();
-		if(rewards == null) {
-            return null;
-        }
         Set<Reward> newRewards = new HashSet<>();
         for(Reward r : rewards){
             if(r.getType() != RewardType.COUNCIL_PRIVILEGE){
@@ -229,6 +225,9 @@ public class GameController{
             	afkVar = "intArray";
                 int[] rewardArray = arrayIntegerCreated.get();
                 setInFlow();
+                if (rewardArray == null) {
+                	return null;
+				}
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
 						case 0:
@@ -262,17 +261,19 @@ public class GameController{
     public FamilyColor chooseFamilyMemberColorNotNeutral(Player player){
     	afkVar = "familyColor";
         player.putSecond_State(PlayerState.FAMILY_MEMBER);
-        return familyColorCreated.get();
+        FamilyColor familyColor = familyColorCreated.get();
+        setInFlow();
+        return familyColor;
     }
 
-    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws RemoteException, IOException{
+    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws RemoteException, IOException{ //TODO setta -1 invece che null
         String message = "";
         for (int i = 0; i < leaderCardsInHand.size(); i++) {
             message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
         }
         this.sendMessageCLI(player, message);
         afkVar = "integer";
-        Integer index = integerCreated.get();
+        int index = integerCreated.get();
         setInFlow();
         return leaderCardsInHand.get(index);
     }
@@ -284,14 +285,13 @@ public class GameController{
         }
         this.sendMessageCLI(player, message);
         afkVar = "integer";  
-        Integer index = integerCreated.get();
+        int index = integerCreated.get();
         return leaderCardsInHand.get(index);
     }
 
-    public Boolean wantToSupportVatican(Player player) throws IOException{ //TODO DUBBI SUI SETSTATE GAME
+    public boolean wantToSupportVatican(Player player) throws IOException{ //TODO DUBBI SUI SETSTATE GAME
     	String message = "Do you support Vatican?";
     	ServerHandler currPlayer = null;
-    	Boolean choose = false;
     	switch (player.getConnectionType()) {
 			case SOCKET:
 				currPlayer = getServerHandler(player.getUsername());
@@ -305,7 +305,8 @@ public class GameController{
 		}
         this.sendMessageCLI(player, message);
         afkVar = "booleanVat";
-        choose = booleanCreated.get();
+        boolean choose = booleanCreated.get();
+        setInFlow();
         return  choose;
     }
     
@@ -318,7 +319,7 @@ public class GameController{
 		return null;
     }
     
-    public Trade chooseTrade(BuildingCard buildingCard, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO
+    public Trade chooseTrade (BuildingCard buildingCard, Player player) throws RemoteException, IOException{ //TODO Need check
         String message = "";
         for (int i = 0; i < buildingCard.getTrades().size(); i++) {
             message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
@@ -328,10 +329,12 @@ public class GameController{
         player.putSecond_State(PlayerState.CHOOSE_TRADE);
         afkVar = "integer";
         int choose = integerCreated.get();
-        return buildingCard.getTrades().get(choose);
+        Trade trade = buildingCard.getTrades().get(choose);
+        setInFlow();
+        return trade;
     }
 
-    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO
+    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO: -1
         player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
         String message = "";
         for (int j = 0; j < discounts.size(); j++) {
@@ -344,15 +347,18 @@ public class GameController{
         this.sendMessageCLI(player, message);
         afkVar = "integer";
         int index = integerCreated.get();
-        return discounts.get(index);
+        List<Reward> discount = discounts.get(index);
+        setInFlow();
+        return discount;
     }
 
-    public Boolean wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO
+    public int wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO: null
         String message = "Do you want to pay with militaryPoint? You need " + militaryPointNeeded + "military Point and it costs + " + militaryPointPrice + "militaryPoint";
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
         afkVar = "boolean";
-        Boolean choose = booleanCreated.get();
+        int choose = integerCreated.get();
+        setInFlow();
         return choose;
     }
     
@@ -388,7 +394,7 @@ public class GameController{
     			if(asked.equals("/afk")){
     	    		switch(afkVar){
     	    			case("whatToDo"):
-    	    				whatToDoCreated.put(null);
+    	    				whatToDoCreated.put(4);
     	    				setInFlow();
     	    				return null;
     	    			case("actionInput"):
@@ -400,16 +406,15 @@ public class GameController{
     	    				setInFlow();
     	    				return null;
     	    			case("integer"):
-    	    				integerCreated.put(null);
+    	    				integerCreated.put(-1);
     	    				setInFlow();	
     	    				return null;
     	    			case("intArray"):
-    	    				//inizializzare un array con uno 0 e passarlo
     	    				arrayIntegerCreated.put(null);
     	    				setInFlow();
     	    				return null;
     	    			case("booleanVat"):
-    	    				booleanCreated.put(null);
+    	    				booleanCreated.put(true);
     	    				setInFlow();
     	    				return null;
     	    		}

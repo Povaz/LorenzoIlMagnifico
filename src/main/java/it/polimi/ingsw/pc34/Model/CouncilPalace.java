@@ -22,7 +22,7 @@ public class CouncilPalace extends ActionSpot{
 	}
 
 	@Override
-	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws RemoteException, IOException{
+	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws IOException{
 		if(!super.isPlaceable(familyMember, canPlaceInBusyActionSpot, gameController)){
 			return false;
 		}
@@ -35,7 +35,6 @@ public class CouncilPalace extends ActionSpot{
 				}
 			}
 		}
-
 		return true;
 	}
 

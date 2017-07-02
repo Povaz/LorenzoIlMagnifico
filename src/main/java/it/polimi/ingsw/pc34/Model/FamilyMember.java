@@ -149,4 +149,6 @@ public class FamilyMember{
 	public void setRealValue(int realValue) {
 		this.realValue = realValue;
 	}
+
+
 }

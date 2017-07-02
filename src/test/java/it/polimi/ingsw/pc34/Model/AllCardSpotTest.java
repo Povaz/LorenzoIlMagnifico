@@ -1,21 +1,18 @@
 package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.JSONUtility;
-import junit.framework.Test;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Vector;
 
 /**
  * Created by Povaz on 14/06/2017.
  */
-public class CardSpotTest extends TestCase {
+public class AllCardSpotTest extends TestCase {
     private BuildingSpot buildingSpot;
     private CharacterSpot characterSpot;
     private TerritorySpot territorySpot;
@@ -26,7 +23,7 @@ public class CardSpotTest extends TestCase {
     private List<DevelopmentCard> territoryCards;
     private List<DevelopmentCard> ventureCards;
 
-    public CardSpotTest (String name) {
+    public AllCardSpotTest(String name) {
         super(name);
     }
 
@@ -136,12 +133,12 @@ public class CardSpotTest extends TestCase {
 
     public static TestSuite suite () {
         TestSuite suite = new TestSuite();
-        suite.addTest( new CardSpotTest("testPlaceCard"));
-        suite.addTest( new CardSpotTest("testCanPlaceCard"));
-        suite.addTest( new CardSpotTest("testEstimateVictoryPointBuilding"));
-        suite.addTest( new CardSpotTest("testEstimateVictoryPointCharacter"));
-        suite.addTest( new CardSpotTest("testEstimateVictoryPointTerritory"));
-        suite.addTest( new CardSpotTest("testEstimateVictoryPointVenture"));
+        suite.addTest( new AllCardSpotTest("testPlaceCard"));
+        suite.addTest( new AllCardSpotTest("testCanPlaceCard"));
+        suite.addTest( new AllCardSpotTest("testEstimateVictoryPointBuilding"));
+        suite.addTest( new AllCardSpotTest("testEstimateVictoryPointCharacter"));
+        suite.addTest( new AllCardSpotTest("testEstimateVictoryPointTerritory"));
+        suite.addTest( new AllCardSpotTest("testEstimateVictoryPointVenture"));
         return suite;
     }
 

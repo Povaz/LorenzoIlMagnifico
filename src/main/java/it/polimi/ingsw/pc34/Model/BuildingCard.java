@@ -10,9 +10,9 @@ public class BuildingCard extends DevelopmentCard{
 	private final RewardForReward rewardForReward;
 	private final RewardForCard rewardForCard;
 
-	public BuildingCard(String name, int period, Set<Reward> costs, Set<Reward> fastRewards, int diceProductionAction,
+	public BuildingCard(String name, String path, int period, Set<Reward> costs, Set<Reward> fastRewards, int diceProductionAction,
 						Set<Reward> earnings, List<Trade> trades, RewardForReward rewardForReward, RewardForCard rewardForCard){
-		super(name, CardType.BUILDING, period, costs, fastRewards, null);
+		super(name, path, CardType.BUILDING, period, costs, fastRewards, null);
 		this.diceProductionAction = diceProductionAction;
 		this.earnings = earnings;
 		this.trades = trades;

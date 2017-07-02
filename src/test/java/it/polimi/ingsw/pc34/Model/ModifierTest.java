@@ -14,7 +14,7 @@ public class ModifierTest{
     @Test
     public void updateTestVaticanReportCard1(){
         List<String> booleans = new ArrayList<>(Arrays.asList("cannotPlaceInMarket", "jumpFirstRound"));
-        VaticanReportCard vaticanReportCard = new VaticanReportCard(0, 1, null, null,
+        VaticanReportCard vaticanReportCard = new VaticanReportCard(0, 1, null, null, null,
                 booleans, -1);
 
         Modifier expected = new Modifier();
@@ -32,7 +32,7 @@ public class ModifierTest{
     @Test
     public void updateTestVaticanReportCard2(){
         List<Reward> loseRewards = new ArrayList<>(Arrays.asList(new Reward(RewardType.STONE, 1), new Reward(RewardType.WOOD, 2)));
-        VaticanReportCard vaticanReportCard = new VaticanReportCard(0, 1,
+        VaticanReportCard vaticanReportCard = new VaticanReportCard(0, 1, null,
                 loseRewards, null, null, 0);
 
         Modifier expected = new Modifier();
@@ -52,7 +52,7 @@ public class ModifierTest{
         Map<ActionType, Integer> actionModifiers = new HashMap<>();
         actionModifiers.put(ActionType.TERRITORY_TOWER, -4);
         actionModifiers.put(ActionType.VENTURE_TOWER, -2);
-        VaticanReportCard vaticanReportCard = new VaticanReportCard(0, 1,
+        VaticanReportCard vaticanReportCard = new VaticanReportCard(0, 1, null,
                 null, actionModifiers, null, 0);
 
         Modifier expected = new Modifier();
@@ -69,7 +69,7 @@ public class ModifierTest{
     // With only int
     @Test
     public void updateTestPermanentLeaderCard1(){
-        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null,
+        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null, null,
                 2, 3, false, false,
                 null, true, 5, null,
                 false, false, false);
@@ -89,7 +89,7 @@ public class ModifierTest{
     // With only boolean
     @Test
     public void updateTestPermanentLeaderCard2(){
-        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null,
+        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null, null,
                 0, 0, true, true,
                 null, false, 0, null,
                 true, true, false);
@@ -110,7 +110,7 @@ public class ModifierTest{
     @Test
     public void updateTestPermanentLeaderCard3(){
         List<Reward> bonusChurchSupport = new ArrayList<>(Arrays.asList(new Reward(RewardType.VICTORY_POINT, 4)));
-        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null,
+        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null, null,
                 0, 0, false, false,
                 bonusChurchSupport, false, 0, null,
                 false, false, false);
@@ -130,7 +130,7 @@ public class ModifierTest{
     public void updateTestPermanentLeaderCard4(){
         Map<CardType, List<List<Reward>>> discounts = new HashMap<>();
         discounts.put(CardType.TERRITORY, Arrays.asList(new ArrayList<>(Arrays.asList(new Reward(RewardType.COIN, 3)))));
-        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null,
+        PermanentLeaderCard permanentLeaderCard = new PermanentLeaderCard(null, null, null, null,
                 0, 0, false, false,
                 null, false, 0, discounts,
                 false, false, false);
@@ -148,7 +148,7 @@ public class ModifierTest{
     // With only boolean
     @Test
     public void updateTestDevelopmentCard1(){
-        CharacterCard characterCard = new CharacterCard(null, 1, null, null, null,
+        CharacterCard characterCard = new CharacterCard(null, null, 1, null, null, null,
                 true, null, null, null, null);
 
         Modifier expected = new Modifier();
@@ -165,7 +165,7 @@ public class ModifierTest{
     public void updateTestDevelopmentCard2(){
         Map<CardType, List<List<Reward>>> discounts = new HashMap<>();
         discounts.put(CardType.TERRITORY, Arrays.asList(new ArrayList<>(Arrays.asList(new Reward(RewardType.COIN, 3)))));
-        CharacterCard characterCard = new CharacterCard(null, 1, null, null, null,
+        CharacterCard characterCard = new CharacterCard(null, null, 1, null, null, null,
                 false, discounts, null, null, null);
 
         Modifier expected = new Modifier();
@@ -184,7 +184,7 @@ public class ModifierTest{
         Map<ActionType, Integer> actionModifiers = new HashMap<>();
         actionModifiers.put(ActionType.TERRITORY_TOWER, -4);
         actionModifiers.put(ActionType.VENTURE_TOWER, -2);
-        CharacterCard characterCard = new CharacterCard(null, 1, null, null, null,
+        CharacterCard characterCard = new CharacterCard(null, null, 1, null, null, null,
                 false, null, actionModifiers, null, null);
 
         Modifier expected = new Modifier();

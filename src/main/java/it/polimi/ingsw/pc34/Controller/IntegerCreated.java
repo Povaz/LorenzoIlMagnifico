@@ -6,7 +6,7 @@ import java.nio.channels.InterruptedByTimeoutException;
  * Created by Povaz on 17/06/2017.
  */
 public class IntegerCreated {
-    private Integer choose;
+    private int choose;
     private boolean available = false;
 
     public synchronized Integer get () {
@@ -22,7 +22,7 @@ public class IntegerCreated {
         return choose;
     }
 
-    public synchronized void put (Integer choose) {
+    public synchronized void put (int choose) {
         while (available == true) {
             try {
                 wait();
