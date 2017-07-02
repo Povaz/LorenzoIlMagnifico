@@ -8,6 +8,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
+import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -27,6 +28,7 @@ public class GameViewController {
     // drag and drop attributes
     private Button dragButton = null;
     private Button dropButton = null;
+    private boolean canBeDropped = false;
 
     @FXML private Button bt;
 
@@ -282,35 +284,25 @@ public class GameViewController {
     }
 
     @FXML private void startDrag(MouseEvent event){
-        System.out.println("startDrag");
         dragButton = (Button) event.getSource();
         dropButton = null;
-        System.out.println("" + dragButton + dropButton);
+        ((Button) event.getSource()).startFullDrag();
     }
 
-    @FXML private void stopDrag(MouseEvent event){
-        System.out.println("stopDrag");
-        dragButton = null;
-        dropButton = null;
-        System.out.println("" + dragButton + dropButton);
-    }
-
-    @FXML private void stopDrop(MouseEvent event){
-        System.out.println("stopDrop");
-        dragButton = null;
-        dropButton = null;
-        System.out.println("" + dragButton + dropButton);
-    }
-
-    @FXML private void startDrop(MouseEvent event){
-        System.out.println("startDrop");
+    @FXML private void enterDrop(MouseEvent event){
         dropButton = (Button) event.getSource();
-        System.out.println("" + dragButton + dropButton);
+    }
+
+    @FXML private void exitDrop(MouseEvent event){
+        dropButton = null;
+    }
+
+    @FXML private void drop(MouseEvent event){
         if(dragButton == null || dropButton == null){
             return;
         }
-        System.out.println("YES");
-        dropButton.setBackground(new Background(new BackgroundFill(new Color(150,150,150,1), null, null)));
+        // Do action:
+        dropButton.setBackground(new Background(new BackgroundFill(new Color(0.5,0.5,0.5,1), null, null)));
     }
 
     public void setMain(Main main){
