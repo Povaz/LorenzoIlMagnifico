@@ -121,7 +121,7 @@ public class Counter{
         }
     }
 
-    private Set<Reward> removeRewardFromSet(Set<Reward> rewards, List<Reward> toDelete){
+    Set<Reward> removeRewardFromSet(Set<Reward> rewards, List<Reward> toDelete){
         Set<Reward> copyOfReward = new HashSet<>();
         for(Reward r : rewards){
             Reward toBeAdded = new Reward(r);
