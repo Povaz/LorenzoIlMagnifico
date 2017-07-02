@@ -100,9 +100,19 @@ public class GameViewController {
     @FXML private Text whiteDice;
     @FXML private Text orangeDice;
 
+    //cambia
+    @FXML private Button blackFamilyMember;
+    @FXML private Button whiteFamilyMember;
+    @FXML private Button orangeFamilyMember;
+    @FXML private Button neutralFamilyMember;
+
     @FXML private void initialize(){
         // add in .fxml per settare le dimensioni dell'immagine
         // <Image url="@pngFiles/Board.png" requestedHeight="1046.0" requestedWidth="716.0" />
+        blackFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENBLACK.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        whiteFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENWHITE.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        orangeFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENORANGE.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        neutralFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENNEUTRAL.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
     }
 
     public void initializeView(){
@@ -302,7 +312,7 @@ public class GameViewController {
             return;
         }
         // Do action:
-        dropButton.setBackground(new Background(new BackgroundFill(new Color(0.5,0.5,0.5,1), null, null)));
+        dropButton.setBackground(dragButton.getBackground());
     }
 
     public void setMain(Main main){
