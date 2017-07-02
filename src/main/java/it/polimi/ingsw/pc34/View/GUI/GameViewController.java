@@ -1,17 +1,12 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.paint.Paint;
 import javafx.scene.text.Text;
 
 import java.util.ArrayList;
@@ -20,10 +15,19 @@ import java.util.List;
 
 public class GameViewController {
     private Main main;
+    private String currentPplayerShown;
+    private List<PersonalBoardView> players;
+    private BoardView board;
 
     @FXML private Button bt;
 
     @FXML private Button zoomedCard;
+
+    @FXML private Button player0;
+    @FXML private Button player1;
+    @FXML private Button player2;
+    @FXML private Button player3;
+    @FXML private Button player4;
 
     @FXML private Button territoryTowerCard0;
     @FXML private Button territoryTowerCard1;
@@ -76,8 +80,117 @@ public class GameViewController {
     @FXML private Text orangeDice;
 
     @FXML private void initialize(){
-    	// add in .fxml per settare le dimensioni dell'immagine
-    	// <Image url="@pngFiles/Board.png" requestedHeight="1046.0" requestedWidth="716.0" />
+        // add in .fxml per settare le dimensioni dell'immagine
+        // <Image url="@pngFiles/Board.png" requestedHeight="1046.0" requestedWidth="716.0" />
+    }
+
+    public void initializeView(){
+        System.out.println(players.size());
+        if(players.size() > 0){
+            player0.setText(players.get(0).getUsername());
+            player0.setDisable(false);
+            player0.setVisible(true);
+        }
+        if(players.size() > 1){
+            player1.setText(players.get(1).getUsername());
+            player1.setDisable(false);
+            player1.setVisible(true);
+        }
+        if(players.size() > 2){
+            player2.setText(players.get(2).getUsername());
+            player2.setDisable(false);
+            player2.setVisible(true);
+        }
+        if(players.size() > 3){
+            player3.setText(players.get(3).getUsername());
+            player3.setDisable(false);
+            player3.setVisible(true);
+        }
+        if(players.size() > 4){
+            player4.setText(players.get(4).getUsername());
+            player4.setDisable(false);
+            player4.setVisible(true);
+        }
+    }
+
+    public void initializeObservable(){
+        players.get(0).coinProperty().addListener((obsVal, oldVal, newVal) -> {
+                System.out.println("Coin has changed!");
+            }
+        );
+
+        players.get(0).territoryCardsProperty().addListener((obsVal, oldVal, newVal) -> {
+            String folder = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
+            if(newVal.size() == 6){
+                updateButton(territorySpotCard0, folder, newVal.get(0));
+                updateButton(territorySpotCard1, folder, newVal.get(1));
+                updateButton(territorySpotCard2, folder, newVal.get(2));
+                updateButton(territorySpotCard3, folder, newVal.get(3));
+                updateButton(territorySpotCard4, folder, newVal.get(4));
+                updateButton(territorySpotCard5, folder, newVal.get(5));
+            }
+        });
+
+        players.get(0).setCoin(5);
+    }
+
+    private void updateButton(Button button, String folder, String path){
+        if(path.equals("")){
+            button.setVisible(false);
+            button.setDisable(true);
+        }
+        else{
+            Image image = new LocatedImage(folder + path, 85, 126, false, false);
+            Background background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
+            button.setBackground(background);
+            button.setDisable(false);
+            button.setVisible(true);
+        }
+    }
+
+    @FXML private void playerPressed(MouseEvent event){
+        Button button = (Button) event.getSource();
+        String username = button.getText();
+        currentPplayerShown = username;
+
+        PersonalBoardView toShow = null;
+        for(PersonalBoardView p : players){
+            if(p.getUsername().equals(username)){
+                toShow = p;
+            }
+        }
+        if(toShow == null){
+            return;
+        }
+
+        String folder = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
+        updateButton(territorySpotCard0, folder, toShow.getTerritoryCards().get(0));
+        updateButton(territorySpotCard1, folder, toShow.getTerritoryCards().get(1));
+        updateButton(territorySpotCard2, folder, toShow.getTerritoryCards().get(2));
+        updateButton(territorySpotCard3, folder, toShow.getTerritoryCards().get(3));
+        updateButton(territorySpotCard4, folder, toShow.getTerritoryCards().get(4));
+        updateButton(territorySpotCard5, folder, toShow.getTerritoryCards().get(5));
+        System.out.println(toShow.getTerritoryCards().get(2));
+        updateButton(buildingSpotCard0, folder, toShow.getBuildingCards().get(0));
+        updateButton(buildingSpotCard1, folder, toShow.getBuildingCards().get(1));
+        updateButton(buildingSpotCard2, folder, toShow.getBuildingCards().get(2));
+        updateButton(buildingSpotCard3, folder, toShow.getBuildingCards().get(3));
+        updateButton(buildingSpotCard4, folder, toShow.getBuildingCards().get(4));
+        updateButton(buildingSpotCard5, folder, toShow.getBuildingCards().get(5));
+        System.out.println(toShow.getBuildingCards().get(2));
+        updateButton(characterSpotCard0, folder, toShow.getCharacterCards().get(0));
+        updateButton(characterSpotCard1, folder, toShow.getCharacterCards().get(1));
+        updateButton(characterSpotCard2, folder, toShow.getCharacterCards().get(2));
+        updateButton(characterSpotCard3, folder, toShow.getCharacterCards().get(3));
+        updateButton(characterSpotCard4, folder, toShow.getCharacterCards().get(4));
+        updateButton(characterSpotCard5, folder, toShow.getCharacterCards().get(5));
+        System.out.println(toShow.getCharacterCards().get(2));
+        updateButton(ventureSpotCard0, folder, toShow.getBuildingCards().get(0));
+        updateButton(ventureSpotCard1, folder, toShow.getBuildingCards().get(1));
+        updateButton(ventureSpotCard2, folder, toShow.getBuildingCards().get(2));
+        updateButton(ventureSpotCard3, folder, toShow.getBuildingCards().get(3));
+        updateButton(ventureSpotCard4, folder, toShow.getBuildingCards().get(4));
+        updateButton(ventureSpotCard5, folder, toShow.getBuildingCards().get(5));
     }
 
     @FXML private void zoomCard(MouseEvent event){
@@ -101,7 +214,10 @@ public class GameViewController {
     }
 
     @FXML private void bTP(){
-        Image image = new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/devcards_f_en_c_1.png", 85, 126, false, false);
+        players.get(0).getTerritoryCards().set(2, "TerritoryCard15.png");
+        players.get(2).getVentureCards().set(1, "VentureCard15.png");
+
+        /*Image image = new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/devcards_f_en_c_1.png", 85, 126, false, false);
         Background background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
         buildingSpotCard0.setBackground(background);
         buildingSpotCard0.setDisable(false);
@@ -273,10 +389,18 @@ public class GameViewController {
 
         vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard3.setDisable(false);
-        vaticanReportCard3.setVisible(true);
+        vaticanReportCard3.setVisible(true);*/
     }
 
-    public void setMain(Main main) {
+    public void setMain(Main main){
         this.main = main;
+    }
+
+    public void setPlayersView(List<PersonalBoardView> players){
+        this.players = players;
+    }
+
+    public void setBoardView(BoardView board){
+        this.board = board;
     }
 }
