@@ -6,6 +6,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.input.DragEvent;
 import javafx.scene.input.MouseDragEvent;
@@ -70,6 +71,7 @@ public class GameViewController {
     @FXML private GridPane territorySpot;
     @FXML private GridPane characterSpot;
     @FXML private GridPane ventureSpot;
+    @FXML private GridPane leaderCards;
 
     @FXML private Button territorySpotCard0;
     @FXML private Button territorySpotCard1;
@@ -280,6 +282,18 @@ public class GameViewController {
             ventureSpot.getChildren().get(i - 1).setVisible(true);
         }
 
+        // leader cards
+        for(int i = 1; i <= 4; i++){
+            ((Button)leaderCards.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/LeaderCards/LeaderCard" + i + ".png", 95, 147, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+            leaderCards.getChildren().get(i - 1).setDisable(false);
+            leaderCards.getChildren().get(i - 1).setVisible(true);
+        }
+        ((Button)leaderCards.getChildren().get(0)).setText("IN HAND");
+        ((Button)leaderCards.getChildren().get(1)).setText("PLACED");
+        ((Button)leaderCards.getChildren().get(2)).setText("ACTIVATED");
+        ((Button)leaderCards.getChildren().get(3)).setText("EXCHANGED");
+
+        // vatican report
         vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard1.setDisable(false);
         vaticanReportCard1.setVisible(true);
@@ -291,6 +305,16 @@ public class GameViewController {
         vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard3.setDisable(false);
         vaticanReportCard3.setVisible(true);
+    }
+
+    @FXML private void showState(MouseEvent event){
+        Button button = (Button)event.getSource();
+        button.setTextFill(new Color(1, 1, 1, 1));
+    }
+
+    @FXML private void hideState(MouseEvent event){
+        Button button = (Button)event.getSource();
+        button.setTextFill(new Color(0, 0, 0, 0));
     }
 
     @FXML private void startDrag(MouseEvent event){
