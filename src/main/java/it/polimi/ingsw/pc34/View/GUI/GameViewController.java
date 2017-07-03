@@ -14,6 +14,8 @@ import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
 import java.io.IOException;
@@ -30,8 +32,7 @@ public class GameViewController {
 
     // drag and drop attributes
     private Button dragButton = null;
-    private Button dropButton = null;
-    private boolean canBeDropped = false;
+    private Shape dropShape = null;
 
     @FXML private Button bt;
 
@@ -290,7 +291,7 @@ public class GameViewController {
 
     @FXML private void startDrag(MouseEvent event){
         dragButton = (Button) event.getSource();
-        dropButton = null;
+        dropShape = null;
         ((Button) event.getSource()).startFullDrag();
     }
 
@@ -299,19 +300,19 @@ public class GameViewController {
     }
 
     @FXML private void enterDrop(MouseEvent event){
-        dropButton = (Button) event.getSource();
+        dropShape = (Shape) event.getSource();
     }
 
     @FXML private void exitDrop(MouseEvent event){
-        dropButton = null;
+        dropShape = null;
     }
 
     @FXML private void drop(MouseEvent event){
-        if(dragButton == null || dropButton == null){
+        if(dragButton == null || dropShape == null){
             return;
         }
         // Do action:
-        dropButton.setBackground(dragButton.getBackground());
+        ((Button)((GridPane)dropShape.getParent()).getChildren().get(2)).setBackground(dragButton.getBackground());
     }
 
     public void setMain(Main main){
