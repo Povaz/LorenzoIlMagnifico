@@ -10,7 +10,7 @@ public class ClientOutputHandler extends Thread{
 	private static Socket socketServer;
 	
 	public ClientOutputHandler (Socket socketServer){
-		this.socketServer = socketServer; 
+		ClientOutputHandler.socketServer = socketServer; 
 	}
 
 	static void sendToServer(String message) throws IOException{

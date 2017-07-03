@@ -3,7 +3,6 @@ package it.polimi.ingsw.pc34.Socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
-import java.util.Scanner;
 
 //class that deals whit input from server: receives messages and prints them to the client
 public class ClientInputHandler extends Thread{

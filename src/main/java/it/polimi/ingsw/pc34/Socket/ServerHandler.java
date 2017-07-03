@@ -2,9 +2,7 @@ package it.polimi.ingsw.pc34.Socket;
 
 import java.io.IOException;
 import java.io.ObjectOutputStream;
-import java.io.PrintWriter;
 import java.net.Socket;
-import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -12,11 +10,8 @@ import java.util.TimerTask;
 import org.json.JSONException;
 
 import it.polimi.ingsw.pc34.Controller.BooleanCreated;
-import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 
 //class that is assigned one per one to a client, and has to deal with server's comunication with the client
 public class ServerHandler implements Runnable{

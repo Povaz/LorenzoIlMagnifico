@@ -15,6 +15,7 @@ public class LobbyFlow {
 	private boolean login;
 	private boolean register;
 	private boolean logged;
+	private boolean inFlow = false;
 	
 	private String username;
 	private String password;
@@ -33,6 +34,10 @@ public class LobbyFlow {
 		this.serverSoc = serverSoc;
 		this.serverHandler = serverHandler;
 	}
+	
+    public void setInFlow(){
+    	this.inFlow = false;
+    }
 	
 	//reset machine for users that go afk in the game
 	public void reset(){
@@ -56,20 +61,24 @@ public class LobbyFlow {
 	
 	//flow of the state machine
 	public String flow (String asked) throws JSONException, IOException{
-		
+		if(inFlow == false) {
+    		inFlow = true;
 		//state start
 		if(start){
 			if(asked.equals("/login")){
 				login = true;
 				start = false;
+				setInFlow();
 				return "Ok tell me username : ('/back' to go back)";
 			}
 			else if(asked.equals("/register")){
 				register = true;
 				start = false;
+				setInFlow();
 				return "Ok tell me username :";
 			}
 			else{
+				setInFlow();
 				return "Not valid input. /login or /register";
 			}
 		}
@@ -82,10 +91,12 @@ public class LobbyFlow {
 				if(asked.equals("/back")){
 					start = true;
 					login = false;
+					setInFlow();
 					return("/login or /register?");
 				}
 				else{
 					username = asked;
+					setInFlow();
 					return "Ok tell me password";	
 				}
 			}
@@ -107,16 +118,18 @@ public class LobbyFlow {
 					logged = true;
 					serverHandler.setName(username);
 					serverSoc.reconnect(username, serverHandler);
+					setInFlow();
 					return "Reconnecting to the game...";
 				}
 				
 				//user logging in
 				else if(result && !yetLogged){
-					start = true;
+					start = false;
 					login = false;
 					logged = true;
 					serverHandler.setName(username);
 					serverSoc.addPlayer (serverHandler, username);
+					setInFlow();
 					return "logged ('/logout' to log out)";
 				}
 				
@@ -124,6 +137,7 @@ public class LobbyFlow {
 				else if(!result){	
 					username = null;
 					password = null;
+					setInFlow();
 					return "wrong combination! Tell me username : ";
 				}
 				
@@ -131,6 +145,7 @@ public class LobbyFlow {
 				else {	
 					username = null;
 					password = null;
+					setInFlow();
 					return "User yet Logged! Tell me username : ";
 				}
 			}
@@ -144,10 +159,12 @@ public class LobbyFlow {
 				if(asked.equals("/back")){
 					start = true;
 					register = false;
+					setInFlow();
 					return("/login or /register?");
 				}
 				else{
 					username = asked;
+					setInFlow();
 					return "Ok tell me password";	
 				}
 			}
@@ -162,9 +179,11 @@ public class LobbyFlow {
 				if(result){	
 					start = true;
 					register = false;
+					setInFlow();
 					return "Registration successful! /login or /register";
 				}
 				else{	
+					setInFlow();
 					return "Registration failed, retry! Tell me username : ";
 				}
 			}
@@ -184,11 +203,18 @@ public class LobbyFlow {
 				if(lobby.getUsers().size() == 1) {
 					lobby.stopTimer();
 		        }
+				setInFlow();
 				return "Logged out . . . What you want to do? /login or /register?";
 			}
 		}
 		
 		//return if logged and input different from /logout
+		setInFlow();
 		return "You are logged yet...";
+		}
+    	else{
+	    	return "I am still processing a request";
+	   	}
 	}
+		
 }
