@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -15,6 +16,7 @@ import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,7 +35,10 @@ public class GameViewController {
 
     @FXML private Button bt;
 
+    // Game
     @FXML private Button zoomedCard;
+
+    @FXML private AnchorPane actionSpace;
 
     @FXML private Button player0;
     @FXML private Button player1;
@@ -41,76 +46,42 @@ public class GameViewController {
     @FXML private Button player3;
     @FXML private Button player4;
 
+    // Board
     @FXML private GridPane territoryTower;
     @FXML private GridPane characterTower;
     @FXML private GridPane buildingTower;
     @FXML private GridPane ventureTower;
 
-    @FXML private Button territoryTowerCard0;
-    @FXML private Button territoryTowerCard1;
-    @FXML private Button territoryTowerCard2;
-    @FXML private Button territoryTowerCard3;
-    @FXML private Button buildingTowerCard0;
-    @FXML private Button buildingTowerCard1;
-    @FXML private Button buildingTowerCard2;
-    @FXML private Button buildingTowerCard3;
-    @FXML private Button characterTowerCard0;
-    @FXML private Button characterTowerCard1;
-    @FXML private Button characterTowerCard2;
-    @FXML private Button characterTowerCard3;
-    @FXML private Button ventureTowerCard0;
-    @FXML private Button ventureTowerCard1;
-    @FXML private Button ventureTowerCard2;
-    @FXML private Button ventureTowerCard3;
-
     @FXML private Button vaticanReportCard1;
     @FXML private Button vaticanReportCard2;
     @FXML private Button vaticanReportCard3;
 
+    @FXML private Text blackDice;
+    @FXML private Text whiteDice;
+    @FXML private Text orangeDice;
+
+    // Personal board
     @FXML private GridPane buildingSpot;
     @FXML private GridPane territorySpot;
     @FXML private GridPane characterSpot;
     @FXML private GridPane ventureSpot;
     @FXML private GridPane leaderCards;
 
-    @FXML private Button territorySpotCard0;
-    @FXML private Button territorySpotCard1;
-    @FXML private Button territorySpotCard2;
-    @FXML private Button territorySpotCard3;
-    @FXML private Button territorySpotCard4;
-    @FXML private Button territorySpotCard5;
-    @FXML private Button buildingSpotCard0;
-    @FXML private Button buildingSpotCard1;
-    @FXML private Button buildingSpotCard2;
-    @FXML private Button buildingSpotCard3;
-    @FXML private Button buildingSpotCard4;
-    @FXML private Button buildingSpotCard5;
-    @FXML private Button characterSpotCard0;
-    @FXML private Button characterSpotCard1;
-    @FXML private Button characterSpotCard2;
-    @FXML private Button characterSpotCard3;
-    @FXML private Button characterSpotCard4;
-    @FXML private Button characterSpotCard5;
-    @FXML private Button ventureSpotCard0;
-    @FXML private Button ventureSpotCard1;
-    @FXML private Button ventureSpotCard2;
-    @FXML private Button ventureSpotCard3;
-    @FXML private Button ventureSpotCard4;
-    @FXML private Button ventureSpotCard5;
-
-    @FXML private Text blackDice;
-    @FXML private Text whiteDice;
-    @FXML private Text orangeDice;
-
-    //cambia
     @FXML private Button blackFamilyMember;
     @FXML private Button whiteFamilyMember;
     @FXML private Button orangeFamilyMember;
     @FXML private Button neutralFamilyMember;
 
+    @FXML private Text coin;
+    @FXML private Text wood;
+    @FXML private Text stone;
+    @FXML private Text servant;
+    @FXML private Text victoryPoint;
+
     @FXML private void initialize(){
         // add in .fxml per settare le dimensioni dell'immagine
         // <Image url="@pngFiles/Board.png" requestedHeight="1046.0" requestedWidth="716.0" />
+        actionSpace.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/ActionBackground.png", 540, 548, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
         blackFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENBLACK.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         whiteFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENWHITE.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         orangeFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENORANGE.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
@@ -321,6 +292,10 @@ public class GameViewController {
         dragButton = (Button) event.getSource();
         dropButton = null;
         ((Button) event.getSource()).startFullDrag();
+    }
+
+    @FXML private void passClicked(){
+
     }
 
     @FXML private void enterDrop(MouseEvent event){

@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" style="-fx-background-color: rgb(113,90,58);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.SupportVaticanController">
+   <children>
+      <Button fx:id="yes" layoutX="130.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#yesClicked" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: Yellow;" text="Yes">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="no" layoutX="330.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#noClicked" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: OrangeRed;" text="No">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <Text fill="WHITE" layoutX="139.0" layoutY="209.0" stroke="BLACK" strokeType="OUTSIDE" text="Do you want to">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="130.0" layoutY="266.0" stroke="BLACK" strokeType="OUTSIDE" text="support vatican?">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+   </children>
+</AnchorPane>

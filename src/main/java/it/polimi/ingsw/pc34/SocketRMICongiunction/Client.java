@@ -3,6 +3,8 @@ package it.polimi.ingsw.pc34.SocketRMICongiunction;
 import it.polimi.ingsw.pc34.RMI.ServerRMI;
 import it.polimi.ingsw.pc34.RMI.UserRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ClientSOC;
+import it.polimi.ingsw.pc34.View.GUI.Main;
+import javafx.application.Application;
 
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
@@ -59,6 +61,7 @@ public class Client {
 
                 switch (choose) {
                     case 1:
+                        Application.launch(Main.class, args);
                         UserRMIImpl userLoginImpl = new UserRMIImpl();
                         client = new Client(userLoginImpl);
                         client.startClientRMI();
