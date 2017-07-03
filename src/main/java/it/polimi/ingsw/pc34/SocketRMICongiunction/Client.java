@@ -51,13 +51,33 @@ public class Client {
 
     public static void main (String[] args) throws InputMismatchException, IOException, AlreadyBoundException, NotBoundException {
         Client client;
-        boolean correct = false;
-        while (!correct) {
+        boolean connectionChosen = false;
+        boolean graphicChosen = false;
+        int choose;
+        while(!graphicChosen){
+        	System.out.println("Which Interface do you want to use? 1. CLI 2. GUI");
+        	Scanner inGraphic = new Scanner(System.in);
+        	choose = inGraphic.nextInt();
+        	switch (choose) {
+        		case 1:
+        			graphicChosen = true;
+        	        choose = 0;
+        			break;
+	            case 2:
+	                //QUI FAR PARTIRE GUI
+	            	graphicChosen = true;
+	            	connectionChosen = true;
+	            	break;
+	            default:
+	                System.out.println("Input Error");
+	        	}
+        }
+        while (!connectionChosen) {
             try {
                 System.out.println("Which Connection Type do you want to use? 1. RMI 2. Socket");
                 @SuppressWarnings("resource")
 				Scanner inChoose = new Scanner(System.in);
-                int choose = inChoose.nextInt();
+                choose = inChoose.nextInt();
 
                 switch (choose) {
                     case 1:
@@ -65,13 +85,13 @@ public class Client {
                         UserRMIImpl userLoginImpl = new UserRMIImpl();
                         client = new Client(userLoginImpl);
                         client.startClientRMI();
-                        correct = true;
+                        connectionChosen = true;
                         break;
                     case 2:
                         ClientSOC userSoc = new ClientSOC(); 
                         client = new Client(userSoc);
                         client.startClientSOC();
-                        correct = true;
+                        connectionChosen = true;
                         break;
                     default:
                         System.out.println("Input Error");
