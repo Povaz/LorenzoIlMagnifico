@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.Socket;
 
 import java.io.IOException;
+import java.io.ObjectOutputStream;
 import java.io.PrintWriter;
 import java.net.Socket;
 import java.rmi.RemoteException;
@@ -26,6 +27,7 @@ public class ServerHandler implements Runnable{
 	private ServerSOC serverSoc;
 	private GameController gameController;
 	private String stateGame;
+	private ObjectOutputStream socketOut;
 	
 	private BooleanCreated isNotConnect = new BooleanCreated();
 	private String answer = null;
@@ -36,6 +38,11 @@ public class ServerHandler implements Runnable{
 		this.lobbyFlow = new LobbyFlow(lobby, serverSoc, this);
 		this.serverSoc = serverSoc;
 		this.stateGame = null;
+		try {
+			this.socketOut = new ObjectOutputStream(socket.getOutputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//set Fase, a variable used to direct the messages to a specific flow(lobby or game)
@@ -97,14 +104,11 @@ public class ServerHandler implements Runnable{
 			stateGame = null;
 			message += "\nInsert new command: /playturn, /chat, /stampinfo, /afk";
 		}
-		PrintWriter socketOut = null;
 		try {
-			socketOut = new PrintWriter(socket.getOutputStream(), true);
+			socketOut.writeObject(message);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		socketOut.println(message);
-		socketOut.flush();
 	}
 	
 	//method to receive messages from client

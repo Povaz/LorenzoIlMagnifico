@@ -125,17 +125,8 @@ public class ServerSOC implements Runnable {
 	synchronized public void notifySOCPlayers (String message){
 		System.out.println("INVIO NOTIFICA : " + message);
 		System.out.println("");
-		Socket instance;
-		PrintWriter out = null;
 		for (ServerHandler user: usersInLobby) {
-            instance = (user).getSocket();
-			try {
-				out = new PrintWriter(instance.getOutputStream(), true);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			out.println(message);
-			out.flush();
+            user.sendToClient(message);
         }
 	}		
 
