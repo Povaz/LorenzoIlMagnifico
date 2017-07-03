@@ -7,7 +7,7 @@ import java.util.Scanner;
 
 //class that deals whit output to the server: gets input lines and sends them to the server
 public class ClientOutputHandler extends Thread{
-	static Socket socketServer;
+	private static Socket socketServer;
 	
 	public ClientOutputHandler (Socket socketServer){
 		this.socketServer = socketServer; 

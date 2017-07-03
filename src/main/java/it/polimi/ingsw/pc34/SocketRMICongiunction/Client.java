@@ -49,8 +49,7 @@ public class Client {
         userSoc.start();
     }
 
-    @SuppressWarnings("restriction")
-	public static void main (String[] args) throws InputMismatchException, IOException, AlreadyBoundException, NotBoundException {
+    public static void main (String[] args) throws InputMismatchException, IOException, AlreadyBoundException, NotBoundException {
         Client client;
         boolean connectionChosen = false;
         int graphicChosen = 0;

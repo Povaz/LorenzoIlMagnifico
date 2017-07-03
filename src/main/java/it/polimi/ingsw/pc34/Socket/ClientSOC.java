@@ -27,13 +27,15 @@ public class ClientSOC implements Runnable {
 		//2 thread, 1 for input and 1 for output
 		//output
 		ClientOutputHandler coh = new ClientOutputHandler (socketServer);
-		Thread output = new Thread(coh);
-		output.start();
+		if(graphicType==1){
+				Thread output = new Thread(coh);
+				output.start();
+		}
 		
 		//input
 		ClientInputHandler cih = null;
 		try {
-			cih = new ClientInputHandler (socketServer);
+			cih = new ClientInputHandler (socketServer, graphicType);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
