@@ -49,29 +49,47 @@ public class Client {
         userSoc.start();
     }
 
-    public static void main (String[] args) throws InputMismatchException, IOException, AlreadyBoundException, NotBoundException {
+    @SuppressWarnings("restriction")
+	public static void main (String[] args) throws InputMismatchException, IOException, AlreadyBoundException, NotBoundException {
         Client client;
-        boolean correct = false;
-        while (!correct) {
+        boolean connectionChosen = false;
+        int graphicChosen = 0;
+        int choose;
+        System.out.println("Which Interface do you want to use? 1. CLI 2. GUI");
+        while(graphicChosen!=1 && graphicChosen!=2){
+        	try {	
+        		@SuppressWarnings("resource")
+				Scanner inGraphic = new Scanner(System.in);
+	        	graphicChosen = inGraphic.nextInt();
+	        	if(graphicChosen!=1 && graphicChosen!=2){
+	        		System.out.println("Input Error");
+	        	}
+	        }
+	        catch (InputMismatchException e) {
+	            System.out.println("Input Error");
+	        }
+        }
+        while (!connectionChosen) {
             try {
                 System.out.println("Which Connection Type do you want to use? 1. RMI 2. Socket");
                 @SuppressWarnings("resource")
 				Scanner inChoose = new Scanner(System.in);
-                int choose = inChoose.nextInt();
+                choose = inChoose.nextInt();
 
+                //TODO costruttore che dà in ingresso graphicChosen
                 switch (choose) {
                     case 1:
                         Application.launch(Main.class, args);
                         UserRMIImpl userLoginImpl = new UserRMIImpl();
                         client = new Client(userLoginImpl);
                         client.startClientRMI();
-                        correct = true;
+                        connectionChosen = true;
                         break;
                     case 2:
                         ClientSOC userSoc = new ClientSOC(); 
                         client = new Client(userSoc);
                         client.startClientSOC();
-                        correct = true;
+                        connectionChosen = true;
                         break;
                     default:
                         System.out.println("Input Error");
