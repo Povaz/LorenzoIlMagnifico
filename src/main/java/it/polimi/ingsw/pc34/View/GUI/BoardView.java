@@ -1,13 +1,18 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
+import it.polimi.ingsw.pc34.Model.Board;
 import it.polimi.ingsw.pc34.Model.CouncilPalace;
+import it.polimi.ingsw.pc34.Model.PlayerBoard;
 
+import java.io.Serializable;
 import java.util.List;
 
 /**
  * Created by trill on 01/07/2017.
  */
-public class BoardView{
+public class BoardView implements Serializable{
+    private List<PersonalBoardView> players;
+
     private List<String> territoryCards;
     private List<String> buildingCards;
     private List<String> characterCards;
@@ -31,7 +36,7 @@ public class BoardView{
     private List<List<String>> harvestArea;
     private List<List<String>> productionaArea;
 
-    public BoardView(int numberOfPlayers){
+    public BoardView(Board board, List<PlayerBoard> players){
         // TODO costruttore
     }
 }

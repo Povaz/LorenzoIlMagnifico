@@ -15,7 +15,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Main extends Application{
-    private BoardView board = new BoardView(2);
+    //private BoardView board = new BoardView();
     private List<PersonalBoardView> players = new ArrayList<>();
 
     private Stage primaryStage;
@@ -161,7 +161,7 @@ public class Main extends Application{
             GameViewController gameController = loader.getController();
             gameController.setMain(this);
             gameController.setPlayersView(players);
-            gameController.setBoardView(board);
+            //gameController.setBoardView(board);
             gameController.initializeView();
             gameController.initializeObservable();
 

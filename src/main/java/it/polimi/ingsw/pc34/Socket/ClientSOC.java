@@ -1,5 +1,8 @@
 package it.polimi.ingsw.pc34.Socket;
 
+import it.polimi.ingsw.pc34.View.GUI.Main;
+import javafx.application.Application;
+
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
@@ -21,7 +24,7 @@ public class ClientSOC implements Runnable {
 		System.out.println("");
 		
 		if(graphicType==2){
-			//create GUI here!!!
+			Application.launch(Main.class);
 		}
 		
 		//2 thread, 1 for input and 1 for output
