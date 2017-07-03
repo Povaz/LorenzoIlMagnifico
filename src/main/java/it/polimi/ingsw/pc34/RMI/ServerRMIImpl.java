@@ -14,6 +14,7 @@ import org.json.JSONException;
 import java.io.IOException;
 import java.lang.reflect.Array;
 import java.rmi.ConnectException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.ServerException;
 import java.rmi.server.UnicastRemoteObject;
@@ -22,7 +23,7 @@ import java.util.*;
 /**
  * Created by Povaz on 24/05/2017.
  **/
-public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
+public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //TODO CONTROLLARE BENE CHE IL CLIENT POSSA CRASHARE SEMPRE
     private ArrayList<UserRMI> usersLoggedRMI;
     private ArrayList<String> usernames;
     private Server server;
@@ -55,8 +56,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         for (String user : usersRMI) {
             for (int i = 0; i < usernames.size(); i++) {
                 try {
-                    System.out.println("usersLoggedRMI size: " + usersLoggedRMI.size());
-                    System.out.println("usernames size: " + usernames.size());
                     if (usernames.get(i).equals(user)) {
                         usersLoggedRMI.get(i).sendMessage("Are you still there?");
                     }
@@ -84,57 +83,61 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
     @Override
     public boolean loginServer (UserRMI userRMI) throws JSONException, IOException {
-        if (JSONUtility.checkLogin(userRMI.getUsername(), userRMI.getKeyword())) {
-            if(!searchUserLobby(userRMI)) {
-                if (!server.searchLogged(userRMI.getUsername())) {
-                    this.usersLoggedRMI.add(userRMI);
-                    this.usernames.add(userRMI.getUsername());
+        try {
+            if (JSONUtility.checkLogin(userRMI.getUsername(), userRMI.getKeyword())) {
+                if (!searchUserLobby(userRMI)) {
+                    if (!server.searchLogged(userRMI.getUsername())) {
+                        this.addRMIUser(userRMI);
 
-                    lobby.setUser(userRMI.getUsername(), ConnectionType.RMI);
-                    userRMI.sendMessage("Login successful");
-                    lobby.notifyAllUsers(NotificationType.USERLOGIN, userRMI.getUsername());
+                        lobby.setUser(userRMI.getUsername(), ConnectionType.RMI);
+                        userRMI.sendMessage("Login successful");
+                        lobby.notifyAllUsers(NotificationType.USERLOGIN, userRMI.getUsername());
 
-                    if (lobby.getUsers().size() == 2) {
-                        userRMI.sendMessage("Timer Started");
-                        lobby.inizializeTimer();
-                        lobby.startTimer();
-                    }
+                        if (lobby.getUsers().size() == 2) {
+                            userRMI.sendMessage("Timer Started");
+                            lobby.inizializeTimer();
+                            lobby.startTimer();
+                        }
 
-                    if (lobby.getUsers().size() == 5) {
-                        lobby.stopTimer();
-                        System.out.println("The Game is Starting"); //TODO CREARE TIMER PERSONALIZZABILE PER FARLO SCATTARE IMMEDIATAMENTE
-                    }
-                    return true;
-                }
-                else {
-                    if (server.isDisconnected(userRMI.getUsername())) {
-                        this.usersLoggedRMI.add(userRMI);
-                        this.usernames.add(userRMI.getUsername());
-
-                        server.reconnected(userRMI.getUsername());
-                        userRMI.sendMessage("Reconnected");
+                        if (lobby.getUsers().size() == 5) {
+                            lobby.stopTimer();
+                            System.out.println("The Game is Starting"); //TODO CREARE TIMER PERSONALIZZABILE PER FARLO SCATTARE IMMEDIATAMENTE
+                        }
                         return true;
-                    }
-                    else {
-                        userRMI.sendMessage("User already logged");
-                        return false;
+                    } else {
+                        if (server.isDisconnected(userRMI.getUsername())) {
+                            this.addRMIUser(userRMI);
+
+                            server.reconnected(userRMI.getUsername());
+                            userRMI.sendMessage("Reconnected");
+                            return true;
+                        } else {
+                            userRMI.sendMessage("User already logged");
+                            return false;
+                        }
                     }
                 }
+                userRMI.sendMessage("User already logged");
+                return false;
             }
-            userRMI.sendMessage("User already logged");
+            userRMI.sendMessage("Incorrect username or password");
+            return false;
+        } catch (RemoteException e) {
+            System.out.println("Client has disconnected: login interrupted");
             return false;
         }
-        userRMI.sendMessage("Incorrect username or password");
-        return false;
     }
 
     @Override
     public void registrationServer (UserRMI userRMI) throws JSONException, IOException {
-        if (JSONUtility.checkRegister(userRMI.getUsername(), userRMI.getKeyword())) {
-            userRMI.sendMessage("Registration Successful");
-        }
-        else {
-            userRMI.sendMessage("Registration Failed: Username already taken");
+        try {
+            if (JSONUtility.checkRegister(userRMI.getUsername(), userRMI.getKeyword())) {
+                userRMI.sendMessage("Registration Successful");
+            } else {
+                userRMI.sendMessage("Registration Failed: Username already taken");
+            }
+        } catch (RemoteException e) {
+            System.out.println("Client has disconnected: registration successful");
         }
     }
 
@@ -142,21 +145,25 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     public boolean logoutServer (UserRMI userRMI) throws RemoteException {
         Set<String> usernames = lobby.getUsers().keySet();
         for (String user : usernames) {
-            if (userRMI.getUsername().equals(user)) {
-                usersLoggedRMI.remove(userRMI);
-                usernames.remove(userRMI.getUsername());
+            try {
+                if (userRMI.getUsername().equals(user)) {
+                    this.removeRMIUser(userRMI);
 
-                lobby.removeUser(user);
+                    lobby.removeUser(user);
 
-                lobby.notifyAllUsers(NotificationType.USERLOGOUT, userRMI.getUsername());
-                userRMI.sendMessage("Logout successful");
+                    lobby.notifyAllUsers(NotificationType.USERLOGOUT, userRMI.getUsername());
+                    userRMI.sendMessage("Logout successful");
 
-                if (lobby.getUsers().size() == 1) {
-                    System.out.println(userRMI.getUsername() + "left the room");
-                    lobby.stopTimer();
+                    if (lobby.getUsers().size() == 1) {
+                        System.out.println(userRMI.getUsername() + "left the room");
+                        lobby.stopTimer();
+                    }
+
+                    return false;
                 }
-
-                return false;
+            } catch (RemoteException e) {
+                this.removeRMIUser(userRMI);
+                System.out.println("Client has disconnected: logout successful");
             }
         }
         userRMI.sendMessage("Logout Failed");
@@ -176,7 +183,11 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
     public void notifyRMIPlayers (String m) throws RemoteException {
         for (int i = 0; i < usersLoggedRMI.size(); i++) {
-            usersLoggedRMI.get(i).sendMessage(m);
+            try {
+                usersLoggedRMI.get(i).sendMessage(m);
+            } catch (RemoteException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -246,9 +257,10 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     }
                 }
             } catch (RemoteException e) {
-                usersLoggedRMI.remove(i);
-                gameController.flow("/afk", usernames.get(i));
-                usernames.remove(i);
+                String tempUsername = usernames.get(i);
+                this.removeRMIUser(i);
+                gameController.flow("/afk", tempUsername);
+
                 this.sendInput(input, userRMI);
             }
         } catch (NullPointerException e) {
@@ -258,27 +270,62 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
     public void sendMessage(Player player, String message) throws RemoteException {
         for (int i = 0; i < usersLoggedRMI.size(); i++) {
-            if (player.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
-                if (message.equals("Action has been executed")) {
-                    usersLoggedRMI.get(i).setGameState(null);
-                    usersLoggedRMI.get(i).sendMessage(message);
-                    break;
+            try {
+                if (player.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
+                    if (message.equals("Action has been executed")) {
+                        usersLoggedRMI.get(i).setGameState(null);
+                        usersLoggedRMI.get(i).sendMessage(message);
+                        break;
+                    }
+                    if (message.equals("This Client has been disconnected")) {
+                        usersLoggedRMI.get(i).setLogged(false);
+                        usersLoggedRMI.get(i).sendMessage(message + "; Press any key to start over");
+                        break;
+                    }
                 }
-                if(message.equals("This Client has been disconnected")) {
-                    usersLoggedRMI.get(i).setLogged(false);
-                    usersLoggedRMI.get(i).sendMessage(message + "; Press any key to start over");
-                    usersLoggedRMI.remove(i);
-                    break;
-                }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
             }
         }
     }
 
     public void setStateGame (Player player, String state) throws RemoteException {
         for (int i = 0; i < usersLoggedRMI.size(); i++) {
-            if (player.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
-                usersLoggedRMI.get(i).setGameState(state);
+            try {
+                if (player.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
+                    usersLoggedRMI.get(i).setGameState(state);
+                }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
             }
         }
+    }
+
+    public synchronized void removeRMIUser (int i) {
+        usersLoggedRMI.remove(i);
+        usernames.remove(i);
+    }
+
+    public void removeRMIUser (UserRMI userRMI) throws RemoteException {
+        for (int i = 0; i < usersLoggedRMI.size(); i++) {
+            try {
+                if (usernames.get(i).equals(userRMI.getUsername())) {
+                    this.removeRMIUser(i);
+                }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
+                System.out.println("Client has been disconnected: removed with successful");
+            }
+        }
+    }
+
+    public synchronized boolean addRMIUser (UserRMI userRMI) throws RemoteException{
+        try {
+            usersLoggedRMI.add(userRMI);
+            usernames.add(userRMI.getUsername());
+        } catch (RemoteException e) {
+            return false;
+        }
+        return true;
     }
 }
