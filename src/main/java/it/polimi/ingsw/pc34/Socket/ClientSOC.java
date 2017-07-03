@@ -9,14 +9,20 @@ public class ClientSOC implements Runnable {
 	private final String ip = "127.0.0.1";
 	private final int port = 1337;
 	private static Socket socketServer;
+	private final int graphicType;
 	
-	public ClientSOC() throws UnknownHostException, IOException{
+	public ClientSOC(int graphicType) throws UnknownHostException, IOException{
 		socketServer = new Socket (ip, port);
+		this.graphicType = graphicType;
 	}
 
 	public void run() {
 		System.out.println("Connection established");
 		System.out.println("");
+		
+		if(graphicType==2){
+			//create GUI here!!!
+		}
 		
 		//2 thread, 1 for input and 1 for output
 		//output

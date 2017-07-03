@@ -79,14 +79,13 @@ public class Client {
                 //TODO costruttore che dà in ingresso graphicChosen
                 switch (choose) {
                     case 1:
-                        Application.launch(Main.class, args);
                         UserRMIImpl userLoginImpl = new UserRMIImpl();
                         client = new Client(userLoginImpl);
                         client.startClientRMI();
                         connectionChosen = true;
                         break;
                     case 2:
-                        ClientSOC userSoc = new ClientSOC(); 
+                        ClientSOC userSoc = new ClientSOC(graphicChosen); 
                         client = new Client(userSoc);
                         client.startClientSOC();
                         connectionChosen = true;
