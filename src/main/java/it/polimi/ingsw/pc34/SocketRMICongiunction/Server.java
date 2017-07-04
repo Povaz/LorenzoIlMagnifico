@@ -120,5 +120,7 @@ public class Server {
         ServerSOC serverSoc = new ServerSOC(1337, lobby);
         Server server = new Server(serverLoginRMI, serverSoc);
         server.startServers();
+
+        server.checkUsersLogged();
     }
 }
