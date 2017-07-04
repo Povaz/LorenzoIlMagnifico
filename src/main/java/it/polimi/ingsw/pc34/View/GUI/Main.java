@@ -214,6 +214,7 @@ public class Main extends Application{
             // Give the controller access to the main app.
             WaitingRoomController waitingRoomController = loader.getController();
             waitingRoomController.setMain(this);
+            waitingRoomController.initializeThread();
 
             // Cannot be full screen
             canBeFullScreen = false;

@@ -27,6 +27,7 @@
             </Text>
               <Button fx:id="logoutButton" layoutX="115.0" layoutY="158.0" mnemonicParsing="false" onAction="#logoutClick" prefHeight="31.0" prefWidth="82.0" text="Logout" />
             <ProgressIndicator blendMode="COLOR_BURN" layoutX="434.0" layoutY="228.0" />
+            <Button fx:id="gameButton" disable="true" layoutX="315.0" layoutY="158.0" mnemonicParsing="false" onAction="#gameClick" prefHeight="31.0" prefWidth="82.0" text="Game" visible="false" />
          </children>
       </AnchorPane>
    </children>
