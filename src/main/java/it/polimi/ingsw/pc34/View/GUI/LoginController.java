@@ -24,6 +24,9 @@ public class LoginController {
     }
 
     @FXML protected void loginClick(ActionEvent event) throws Exception{
+        if(usernameTextField.getText().equals("") || passwordTextField.getText().equals("")){
+            return;
+        }
         main.getFromGuiToServer().put("/login");
         main.getFromGuiToServer().put(usernameTextField.getText());
         main.getFromGuiToServer().put(passwordTextField.getText());
@@ -38,6 +41,9 @@ public class LoginController {
     }
 
     @FXML protected void registerClick(ActionEvent event){
+        if(usernameTextField.getText().equals("") || passwordTextField.getText().equals("")){
+            return;
+        }
         main.getFromGuiToServer().put("/registration");
         main.getFromGuiToServer().put(usernameTextField.getText());
         main.getFromGuiToServer().put(passwordTextField.getText());

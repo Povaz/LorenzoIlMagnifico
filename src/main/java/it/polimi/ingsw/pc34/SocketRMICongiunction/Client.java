@@ -49,7 +49,8 @@ public class Client {
         if (this.getUserLoginRMI().isGUI()) {
             messageByGUI = new SynchronizedString();
             messageForGUI = new SynchronizedString();
-            (new Thread(new LaunchGUI())).start();
+            Thread mainGui = new Thread(new LaunchGUI());
+            mainGui.start();
             while(guiReference == null){}
             System.out.println(guiReference);
             guiReference.setFromServerToGui(messageForGUI);

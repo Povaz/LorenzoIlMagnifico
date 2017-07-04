@@ -166,7 +166,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     private void registrationGUI(ServerRMI serverRMI) throws JSONException, IOException {
         this.insertDataGUI();
-        this.setLogged(serverRMI.loginServer(this));
+        serverRMI.registrationServer(this);
     }
 
     private void logout(ServerRMI serverRMI) throws RemoteException {
