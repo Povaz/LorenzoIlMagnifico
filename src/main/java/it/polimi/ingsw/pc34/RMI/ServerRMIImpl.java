@@ -121,10 +121,21 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                         }
                     }
                 }
-                userRMI.sendMessage("User already logged");
+                if (userRMI.isGUI()) {
+                    userRMI.setMessageForGUI("User already logged");
+                }
+                else {
+                    userRMI.sendMessage("User already logged");
+                }
                 return false;
             }
-            userRMI.sendMessage("Incorrect username or password");
+            if (userRMI.isGUI()) {
+                userRMI.setMessageForGUI("Incorrect username or password");
+            }
+            else {
+                userRMI.sendMessage("Incorrect username or password");
+
+            }
             return false;
         } catch (RemoteException e) {
             System.out.println("Client has disconnected: login interrupted");
@@ -158,15 +169,23 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
     @Override
     public boolean logoutServer (UserRMI userRMI) throws RemoteException {
         Set<String> usernames = lobby.getUsers().keySet();
+        boolean GUI = userRMI.isGUI();
         for (String user : usernames) {
             try {
                 if (userRMI.getUsername().equals(user)) {
+
                     this.removeRMIUser(userRMI);
 
                     lobby.removeUser(user);
 
                     lobby.notifyAllUsers(NotificationType.USERLOGOUT, userRMI.getUsername());
-                    userRMI.sendMessage("Logout successful");
+
+                    if (GUI) {
+                        userRMI.setMessageForGUI("Logout successful");
+                    }
+                    else {
+                        userRMI.sendMessage("Logout successful");
+                    }
 
                     if (lobby.getUsers().size() == 1) {
                         System.out.println(userRMI.getUsername() + "left the room");
@@ -180,7 +199,12 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                 System.out.println("Client has disconnected: logout successful");
             }
         }
-        userRMI.sendMessage("Logout Failed");
+        if (GUI) {
+            userRMI.setMessageForGUI("Logout Failed");
+        }
+        else {
+            userRMI.sendMessage("Logout Failed");
+        }
         return true;
     }
 
