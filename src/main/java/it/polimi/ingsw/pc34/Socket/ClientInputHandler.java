@@ -3,11 +3,15 @@ package it.polimi.ingsw.pc34.Socket;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.net.Socket;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 //class that deals whit input from server: receives messages and prints them to the client
 public class ClientInputHandler extends Thread{
 	private ObjectInputStream socketIn;
 	private int graphicType;
+	
+	private static final Logger LOGGER = Logger.getLogger(ClientInputHandler.class.getName());
 	
 	public ClientInputHandler (Socket socketServer, int graphicType) throws IOException{
 		this.graphicType = graphicType;
@@ -20,7 +24,10 @@ public class ClientInputHandler extends Thread{
 		try {
 			received = (String) socketIn.readObject();
 		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "warning", e);
+		}
+		if(received == null){
+			return null;
 		}
 		if(received.equals("Are you connected?")){
 			ClientOutputHandler.sendToServer("yes");
@@ -35,7 +42,7 @@ public class ClientInputHandler extends Thread{
 			try {
 				line = receiveFromServer();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOGGER.log(Level.WARNING, "warning", e);
 			}
 			if(graphicType==2){
 				//qui metodo che manda a GUI

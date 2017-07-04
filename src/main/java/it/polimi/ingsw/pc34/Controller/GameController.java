@@ -156,7 +156,7 @@ public class GameController{
         System.out.println("Aspetto un actioninput");
         afkVar = "actionInput";
     	ActionInput actionInput = actionInputCreated.get();
-        System.out.println("Action Input taken from +" + player.getUsername() + ": " + actionInput.toString());
+        System.out.println("Action Input taken from +" + player.getUsername() + ": " + actionInput.toString()); //TODO NULL POINTER DA GESTIRE
         setInFlow();
         switch(actionInput.getActionType()){
             case TERRITORY_TOWER:

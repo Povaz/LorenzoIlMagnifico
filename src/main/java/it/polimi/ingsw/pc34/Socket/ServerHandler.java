@@ -6,6 +6,8 @@ import java.net.Socket;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import org.json.JSONException;
 
@@ -24,6 +26,8 @@ public class ServerHandler implements Runnable{
 	private String stateGame;
 	private ObjectOutputStream socketOut;
 	
+	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
+	
 	private BooleanCreated isNotConnect = new BooleanCreated();
 	private String answer = null;
 	
@@ -36,7 +40,7 @@ public class ServerHandler implements Runnable{
 		try {
 			this.socketOut = new ObjectOutputStream(socket.getOutputStream());
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "warning", e);
 		}
 	}
 	
@@ -81,7 +85,7 @@ public class ServerHandler implements Runnable{
 			try {
 				serverSoc.getServer().disconnectPlayerSoc(username);
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOGGER.log(Level.WARNING, "warning", e);
 			}
 			message += "\nTake your decision : /login or /register?";
 			lobbyFlow.reset();
@@ -102,7 +106,7 @@ public class ServerHandler implements Runnable{
 		try {
 			socketOut.writeObject(message);
 		} catch (IOException e) {
-			e.printStackTrace();
+			LOGGER.log(Level.WARNING, "warning", e);
 		}
 	}
 	
@@ -136,7 +140,7 @@ public class ServerHandler implements Runnable{
 			try {
 				line = receiveFromClient();
 			} catch (IOException e) {
-				e.printStackTrace();
+				LOGGER.log(Level.WARNING, "warning", e);
 			}
 			if(answer!=null && line.equals("yes")){
 				continue;
@@ -148,7 +152,7 @@ public class ServerHandler implements Runnable{
 				try {
 					answer = toLobbyHandler(line);
 				} catch (JSONException|IOException e) {
-					e.printStackTrace();
+					LOGGER.log(Level.WARNING, "warning", e);
 				}
 			}
 			//to game flow
@@ -160,7 +164,10 @@ public class ServerHandler implements Runnable{
 							try {
 								answer = toGameHandler(line);
 							} catch (IOException e) {
-								e.printStackTrace();
+								LOGGER.log(Level.WARNING, "warning", e);
+							}
+							if(answer==null){
+								break;
 							}
 							if(answer.equals("What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip")){
 								stateGame = line;
@@ -170,7 +177,7 @@ public class ServerHandler implements Runnable{
 							try {
 								answer = toGameHandler(line);
 							} catch (IOException e) {
-								e.printStackTrace();
+								LOGGER.log(Level.WARNING, "warning", e);
 							}
 							stateGame = null;
 							break;
@@ -195,7 +202,7 @@ public class ServerHandler implements Runnable{
 						try {
 							answer = toGameHandler(line);
 						} catch (IOException e) {
-							e.printStackTrace();
+							LOGGER.log(Level.WARNING, "warning", e);
 						}
 						stateGame = null;
 						sendToClient(answer);
@@ -208,7 +215,7 @@ public class ServerHandler implements Runnable{
 							try {
 								answer = toGameHandler(line);
 							} catch (IOException e) {
-								e.printStackTrace();
+								LOGGER.log(Level.WARNING, "warning", e);
 							}
 							break;
 						case "/chat" : 
@@ -216,7 +223,7 @@ public class ServerHandler implements Runnable{
 							try {
 								gameController.sendMessageChat(line, username);
 							} catch (IOException e) {
-								e.printStackTrace();
+								LOGGER.log(Level.WARNING, "warning", e);
 							}
 							answer = "Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game";
 							break;
@@ -224,7 +231,7 @@ public class ServerHandler implements Runnable{
 							try {
 								answer = toGameHandler(line);
 							} catch (IOException e) {
-								e.printStackTrace();
+								LOGGER.log(Level.WARNING, "warning", e);
 							}
 							break;
 						default :
