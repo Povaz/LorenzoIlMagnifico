@@ -19,8 +19,8 @@ public class WaitingRoomController {
     }
 
     @FXML protected void logoutClick() throws Exception{
-        main.getServerComunication().put("/logout");
-        String result = main.getServerComunication().get();
+        main.getFromGuiToServer().put("/logout");
+        String result = main.getFromServerToGui().get();
 
         main.showLogin();
     }

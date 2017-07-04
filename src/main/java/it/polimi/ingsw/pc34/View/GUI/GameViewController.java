@@ -296,10 +296,10 @@ public class GameViewController {
     }
 
     @FXML private void passClicked(){
-        main.getServerComunication().put("/playerturn");
-        String response = main.getServerComunication().get();
+        main.getFromGuiToServer().put("/playerturn");
+        String response = main.getFromServerToGui().get();
         if(response.equals("/yes")){
-            main.getServerComunication().put("/skip");
+            main.getFromGuiToServer().put("/skip");
         }
     }
 

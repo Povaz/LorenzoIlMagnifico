@@ -25,7 +25,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 public class Main extends Application{
     // connection canal
     private SynchronizedString chatComunication;
-    private SynchronizedString serverComunication;
+    private SynchronizedString fromGuiToServer;
+    private SynchronizedString fromServerToGui;
 
     // controller
     private LoginController loginC = null;
@@ -289,11 +290,19 @@ public class Main extends Application{
         this.chatComunication = chatComunication;
     }
 
-    public SynchronizedString getServerComunication(){
-        return serverComunication;
+    public SynchronizedString getFromGuiToServer(){
+        return fromGuiToServer;
     }
 
-    public void setServerComunication(SynchronizedString serverComunication){
-        this.serverComunication = serverComunication;
+    public void setFromGuiToServer(SynchronizedString fromGuiToServer){
+        this.fromGuiToServer = fromGuiToServer;
+    }
+
+    public SynchronizedString getFromServerToGui(){
+        return fromServerToGui;
+    }
+
+    public void setFromServerToGui(SynchronizedString fromServerToGui){
+        this.fromServerToGui = fromServerToGui;
     }
 }
