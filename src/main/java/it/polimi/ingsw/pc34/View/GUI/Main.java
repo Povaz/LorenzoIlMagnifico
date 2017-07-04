@@ -76,6 +76,19 @@ public class Main extends Application{
         primaryStage.setResizable(false);
         primaryStage.show();*/
 
+
+
+        this.primaryStage = primaryStage;
+        this.primaryStage.setTitle("Lorenzo il Magnifico");
+        this.primaryStage.getIcons().add(new Image("it/polimi/ingsw/pc34/View/GUI/pngFiles/Icon.png"));
+
+        initRootLayout();
+
+        // TODO rimetti: showLogin();
+        showLogin();
+    }
+
+    public void initializeObservable(){
         chatComunication.getAvailable().addListener(((observable, oldValue, newValue) -> {
             try {
                 String message = chatComunication.get();
@@ -114,15 +127,6 @@ public class Main extends Application{
                 }
             } catch(NullPointerException e){}
         }));
-
-        this.primaryStage = primaryStage;
-        this.primaryStage.setTitle("Lorenzo il Magnifico");
-        this.primaryStage.getIcons().add(new Image("it/polimi/ingsw/pc34/View/GUI/pngFiles/Icon.png"));
-
-        initRootLayout();
-
-        // TODO rimetti: showLogin();
-        showGame();
     }
 
     private void initRootLayout(){

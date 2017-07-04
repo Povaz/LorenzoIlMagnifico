@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 
 public class Client {
-    public static Main guiReference;
+    public static Main guiReference = null;
     private UserRMIImpl userLoginRMI;
     private ClientSOC userSoc;
     private SynchronizedString messageForGUI = new SynchronizedString();
@@ -48,6 +48,9 @@ public class Client {
 
         if (this.getUserLoginRMI().isGUI()) {
             Application.launch(Main.class);
+            while(guiReference == null){}
+            guiReference.setServerComunication(messageForGUI);
+
             this.getUserLoginRMI().setSynchronizedMessageForGUI(messageForGUI);
             this.getUserLoginRMI().loginHandlerGUI(serverRMI);
         }
