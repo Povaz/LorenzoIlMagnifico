@@ -45,6 +45,9 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
 
     public void checkUsersLogged () throws RemoteException {
         ArrayList<String> usersRMI = lobby.getRMIUsers();
+        if (usersRMI.size() == 0) {
+            return;
+        }
         HashMap<String, Integer> usersDisconnected = new HashMap<>();
         for (String user : usersRMI) {
             for (int i = 0; i < usernames.size(); i++) {
@@ -67,8 +70,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
     public void forcedLogoutServer (String username, int i) throws RemoteException {
         System.out.println("ForcedLogoutServer Entered \n");
         lobby.removeUser(username);
-        usersLoggedRMI.remove(i);
-        usernames.remove(i);
+        this.removeRMIUser(i);
         lobby.notifyAllUsers(NotificationType.USERLOGOUT, username);
 
         System.out.println(lobby.getUsers().toString() + "\n");

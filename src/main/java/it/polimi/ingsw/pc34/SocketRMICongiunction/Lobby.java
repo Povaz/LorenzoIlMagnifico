@@ -125,12 +125,6 @@ public class Lobby {
             @Override
             public void run() {
                 try {
-                    //Check Users Activity
-                    checkUsersLogged();
-                    if (users.size() < 2) {
-                        return;
-                    }
-
                     //Socket Start
                     serverSoc.throwInGame();
 
@@ -148,9 +142,7 @@ public class Lobby {
                 }
                 catch (RemoteException e) {
                     e.printStackTrace();
-                } catch (IOException e) {
-					e.printStackTrace();
-				}
+                } 
             }
         }, 10000);
     }

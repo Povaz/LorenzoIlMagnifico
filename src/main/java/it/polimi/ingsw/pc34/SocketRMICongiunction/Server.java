@@ -8,6 +8,7 @@ import it.polimi.ingsw.pc34.Socket.ServerSOC;
 
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;
@@ -19,6 +20,7 @@ import java.util.*;
 public class Server {
     private ServerRMIImpl serverLoginRMI;
     private ServerSOC serverSoc;
+    private Timer checkUsers;
     public static List <Game> gamesOnGoing = new ArrayList<>();
     
     public Server (ServerRMIImpl serverLoginRMI, ServerSOC serverSoc) {
@@ -94,7 +96,23 @@ public class Server {
 
         Thread serverSoc = new Thread(this.serverSoc);
         serverSoc.start();
+
+
     }
+
+    private void checkUsersLogged() throws RemoteException{
+    	this.checkUsers = new Timer();
+    	this.checkUsers.scheduleAtFixedRate(new TimerTask() {
+			@Override
+			public void run() {
+				try {
+					serverLoginRMI.checkUsersLogged();
+				} catch (RemoteException e) {
+					e.printStackTrace();
+				}
+			}
+		}, 0, 2000);
+	}
 
     public static void main (String[] args) throws RemoteException, AlreadyBoundException {
         Lobby lobby = new Lobby();
