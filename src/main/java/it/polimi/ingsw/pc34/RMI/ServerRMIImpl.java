@@ -9,11 +9,7 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.*;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.lang.reflect.Array;
-import java.rmi.ConnectException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
-import java.rmi.ServerException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.*;
 
@@ -92,7 +88,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                             userRMI.setMessageForGUI("Login successful");
                         }
                         else {
-                            ClientInfo clientInfo = new ClientInfo(ConnectionType.RMI, ClientType.GUI);
+                            ClientInfo clientInfo = new ClientInfo(ConnectionType.RMI, ClientType.CLI);
                             lobby.setUser(userRMI.getUsername(), clientInfo);
                             userRMI.sendMessage("Login successful");
                         }

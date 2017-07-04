@@ -1,10 +1,8 @@
 package it.polimi.ingsw.pc34.RMI;
 
-import it.polimi.ingsw.pc34.Controller.BooleanCreated;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ConcurrentModificationException;
@@ -20,6 +18,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private String keyword;
     private String gameState;
     private boolean GUI;
+    private SynchronizedString messageByGUI;
     private SynchronizedString messageForGUI;
     private boolean logged;
     private boolean startingGame;
@@ -51,14 +50,17 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
        return userLoginString;
     }
 
+    public void setSynchronizedMessageByGUI(SynchronizedString messageByGUI) {
+        this.messageByGUI = messageByGUI;
+    }
+
     public void setSynchronizedMessageForGUI(SynchronizedString messageForGUI) {
         this.messageForGUI = messageForGUI;
     }
 
+
     @Override
-    public void setMessageForGUI (String message) {
-        this.messageForGUI.put(message);
-    }
+    public void setMessageForGUI(String messageForGUI) {this.messageForGUI.put(messageForGUI); }
 
     @Override
     public boolean isGUI() throws RemoteException {
@@ -143,8 +145,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     }
 
     private void insertDataGUI() {
-        this.setUsername(messageForGUI.get());
-        this.setKeyword(messageForGUI.get());
+        this.setUsername(messageByGUI.get());
+        this.setKeyword(messageByGUI.get());
     }
 
     private void login(ServerRMI serverRMI) throws JSONException, IOException{
@@ -236,7 +238,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         String choose;
         while (!startingGame) {
             try {
-                choose = messageForGUI.get();
+                choose = messageByGUI.get();
 
                 switch (choose) {
                     case "/login":
@@ -309,8 +311,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         String choose;
         while (logged) {
             try {
-                messageForGUI.put("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
-                choose = messageForGUI.get();
+                messageByGUI.put("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
+                choose = messageByGUI.get();
                 serverRMI.sendInput(choose, this);
             }
             catch (InputMismatchException e) {
