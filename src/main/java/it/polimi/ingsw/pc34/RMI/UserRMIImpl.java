@@ -277,7 +277,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                         this.printUsers(serverRMI); //TODO ELIMINARE
                         break;
                     default:
-                        System.out.println("Incorrect Answer");
+                        //System.out.println("Incorrect Answer");
+                        break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("InputError: Retry");

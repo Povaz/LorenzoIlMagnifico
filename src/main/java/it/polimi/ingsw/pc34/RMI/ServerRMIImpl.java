@@ -272,16 +272,18 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                         if (userRMI.getGameState() == null) {
                             switch (input) {
                                 case "/playturn":
-                                    userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
+                                    if (userRMI.isGUI()) {
+                                        userRMI.setMessageForGUI(gameController.flow(input, userRMI.getUsername()));
+                                    }
+                                    else {
+                                        userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
+                                    }
                                     userRMI.setGameState(input);
                                     break;
                                 case "/chat":
                                     userRMI.sendMessage("Insert a Message: ");
                                     gameController.sendMessageChat(input, userRMI.getUsername());
                                     userRMI.setGameState(input);
-                                    break;
-                                case "/stampinfo":
-                                    userRMI.sendMessage("Not implemented yet, man, eccheccazzo");
                                     break;
                                 case "/afk":
                                     gameController.flow(input, userRMI.getUsername());
@@ -295,7 +297,12 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                             }
                             switch (userRMI.getGameState()) {
                                 case "/playturn":
-                                    userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
+                                    if (userRMI.isGUI()) {
+                                        userRMI.setMessageForGUI(gameController.flow(input, userRMI.getUsername()));
+                                    }
+                                    else {
+                                        userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
+                                    }
                                     break;
                                 case "/chat":
                                     userRMI.setGameState(null);

@@ -14,3 +14,9 @@ GameController afk:
 9. chooseTrade ritorna -1;
 10. askWhichDiscount ritorna -1;
 11. wantToPayWithMilitaryPoint ritorna -1 invece che il booleano (0: false; 1: vero);
+
+
+
+LOBBY: Controllo ogni secondo, rimuovo il controllo alla fine;
+
+GAME: Controllo ogni secondo.
