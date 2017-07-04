@@ -296,7 +296,11 @@ public class GameViewController {
     }
 
     @FXML private void passClicked(){
-
+        Main.serverComunication.put("/playerturn");
+        String response = Main.serverComunication.get();
+        if(response.equals("/yes")){
+            Main.serverComunication.put("/skip");
+        }
     }
 
     @FXML private void enterDrop(MouseEvent event){

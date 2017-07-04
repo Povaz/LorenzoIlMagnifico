@@ -24,40 +24,30 @@ public class LoginController {
     }
 
     @FXML protected void loginClick(ActionEvent event) throws Exception{
-        boolean logged = false;
-        if(usernameTextField.getText().equals("") && passwordTextField.getText().equals("")){
-            logged = true;
+        Main.serverComunication.put("/login");
+        Main.serverComunication.put(usernameTextField.getText());
+        Main.serverComunication.put(passwordTextField.getText());
+        String result = Main.serverComunication.get();
+
+        if(result.equals("Login Successful")){
             main.showWaitingRoom();
         }
-        if(logged){
-            loginMessageText.setText("Successfully logged");
-
-            /*Main.root = FXMLLoader.load(getClass().getResource("Game.fxml"));
-            Main.scene = new Scene(Main.root, 1280, 720);
-            Main.scene.getStylesheets().addAll(this.getClass().getResource("cssFiles/Login.css").toExternalForm());
-
-            Main.primaryStage.setTitle("Lorenzo il Magnifico");
-            Main.primaryStage.setScene(Main.scene);
-            Main.primaryStage.setResizable(false);
-            Main.primaryStage.setFullScreen(true);
-            Main.primaryStage.show();*/
-        }
         else{
-            loginMessageText.setText("Incorrect username or password!");
+            loginMessageText.setText(result);
         }
     }
 
     @FXML protected void registerClick(ActionEvent event){
-        boolean registred = false;
-        if(usernameTextField.getText().equals("Paolo")){
-            registred = true;
-        }
-        if(!registred){
-            loginMessageText.setText("Successfully registred");
-        }
-        else{
-            loginMessageText.setText("Username " + usernameTextField.getText() + " already used!");
-        }
+        Main.serverComunication.put("/registration");
+        Main.serverComunication.put(usernameTextField.getText());
+        Main.serverComunication.put(passwordTextField.getText());
+        String result = Main.serverComunication.get();
+
+        loginMessageText.setText(result);
+    }
+
+    public void setMessageText(String message){
+        loginMessageText.setText(message);
     }
 
     public void setMain(Main main) {

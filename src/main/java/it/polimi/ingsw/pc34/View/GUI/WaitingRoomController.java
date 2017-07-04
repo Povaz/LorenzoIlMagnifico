@@ -19,11 +19,18 @@ public class WaitingRoomController {
     }
 
     @FXML protected void logoutClick() throws Exception{
+        Main.serverComunication.put("/logout");
+        String result = Main.serverComunication.get();
+
         main.showLogin();
     }
 
     @FXML protected void gameClick() throws Exception{
         main.showGame();
+    }
+
+    public void setMessageText(String message){
+        waitingMessageText.setText(message);
     }
 
     public void setMain(Main main) {

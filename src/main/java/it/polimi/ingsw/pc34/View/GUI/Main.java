@@ -1,6 +1,13 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
+import it.polimi.ingsw.pc34.RMI.SynchronizedString;
+import it.polimi.ingsw.pc34.RMI.UserRMIImpl;
+import it.polimi.ingsw.pc34.Socket.ClientSOC;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import javafx.application.Application;
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
@@ -13,8 +20,21 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application{
+    // connection canal
+    private SynchronizedString chatComunication;
+    private SynchronizedString serverComunication;
+
+    // controller
+    private LoginController loginC = null;
+    private WaitingRoomController waitingRoomC = null;
+    private GameViewController gameViewC = null;
+
+    // schermata: 1 login, 2 waiting, 3 game
+    private AtomicInteger screen = new AtomicInteger(0);
+
     //private BoardView board = new BoardView();
     private List<PersonalBoardView> players = new ArrayList<>();
 
@@ -32,6 +52,7 @@ public class Main extends Application{
     public Main(){
         players.add(new PersonalBoardView("ciccio"));
         players.add(new PersonalBoardView("WWWWWWWWWWWWWWW"));
+        Client.guiReference = this;
     }
 
     @Override
@@ -54,6 +75,45 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();*/
+
+        chatComunication.getAvailable().addListener(((observable, oldValue, newValue) -> {
+            try {
+                String message = chatComunication.get();
+                boolean chat = false;
+                if(message.length() >= 5){
+                    if(message.startsWith("/chat")){
+                        message = message.substring(5, message.length() - 1);
+                        chat = true;
+                    }
+                }
+
+                int screenValue = screen.get();
+                if(screenValue == 1){
+                    if(loginC != null){
+                        if(!chat){
+                            loginC.setMessageText(message);
+                        }
+                    }
+                }
+                else if(screenValue == 2){
+                    if(waitingRoomC != null){
+                        if(!chat){
+                            waitingRoomC.setMessageText(message);
+                        }
+                    }
+                }
+                else if(screenValue == 3){
+                    if(gameViewC != null){
+                        if(!chat){
+                            // TODO waitingRoomC.setMessageText(message);
+                        }
+                        else{
+                            // TODO chat
+                        }
+                    }
+                }
+            } catch(NullPointerException e){}
+        }));
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Lorenzo il Magnifico");
@@ -85,8 +145,6 @@ public class Main extends Application{
             primaryStage.sizeToScene();
 
             primaryStage.show();
-
-            primaryStage.show();
         } catch(IOException e){
             e.printStackTrace();
         }
@@ -112,6 +170,11 @@ public class Main extends Application{
 
             // Cannot be full screen
             canBeFullScreen = false;
+
+            // Set screen
+            loginC = loginController;
+            screen.set(1);
+
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -137,6 +200,10 @@ public class Main extends Application{
 
             // Cannot be full screen
             canBeFullScreen = false;
+
+            // Set screen
+            waitingRoomC = waitingRoomController;
+            screen.set(2);
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -167,13 +234,17 @@ public class Main extends Application{
 
             // Can be full screen
             canBeFullScreen = true;
+
+            // Set screen
+            gameViewC = gameController;
+            screen.set(3);
         } catch (IOException e){
             e.printStackTrace();
         }
     }
 
     public static void main(String[] args){
-        Application.launch(Main.class, args);
+        Application.launch(Main.class);
     }
 
     public Stage getPrimaryStage(){
@@ -202,5 +273,21 @@ public class Main extends Application{
 
     public int getWindowHeight(){
         return windowHeight;
+    }
+
+    public SynchronizedString getChatComunication(){
+        return chatComunication;
+    }
+
+    public void setChatComunication(SynchronizedString chatComunication){
+        this.chatComunication = chatComunication;
+    }
+
+    public SynchronizedString getServerComunication(){
+        return serverComunication;
+    }
+
+    public void setServerComunication(SynchronizedString serverComunication){
+        this.serverComunication = serverComunication;
     }
 }

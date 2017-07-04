@@ -21,6 +21,7 @@ import java.util.Scanner;
  */
 
 public class Client {
+    public static Main guiReference;
     private UserRMIImpl userLoginRMI;
     private ClientSOC userSoc;
     private SynchronizedString messageForGUI = new SynchronizedString();
