@@ -125,15 +125,18 @@ public class Lobby {
             @Override
             public void run() {
                 try {
+                    //Notifying the Game is Starting
+                    notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");
+
                     //Socket Start
                     serverSoc.throwInGame();
+
 
                     //RMI Start
                     System.out.println(getRMIUsers().toArray().toString());
                     serverRMI.throwInGameGUI(getRMIUsers());
 
                     //Game Start
-                    notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");
                     Game game = new Game(users, serverRMI, serverSoc);
                     serverSoc.fromLobbytoInGame();
                     users.clear();
