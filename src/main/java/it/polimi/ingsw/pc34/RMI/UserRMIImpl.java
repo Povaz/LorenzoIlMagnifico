@@ -21,6 +21,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private boolean logged;
     private boolean startingGame;
 
+    private SynchronizedString messageForGUI;
+
     public UserRMIImpl() throws RemoteException {
         this.username = "Null";
         this.keyword = "Null";
@@ -143,6 +145,64 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         while (!startingGame) {
             try {
                 System.out.println("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application      - Logged: " + this.isLogged());
+                Scanner inChoose = new Scanner(System.in);
+                choose = inChoose.nextLine();
+
+                switch (choose) {
+                    case "/login":
+                        if (this.isLogged()) {
+                            System.out.println("You're already logged");
+                        }
+                        else {
+                            this.login(serverRMI);
+                        }
+                        break;
+                    case "/logout":
+                        if (this.isLogged()) {
+                            this.logout(serverRMI);
+                        }
+                        else {
+                            System.out.println("You're not logged yet");
+                        }
+                        break;
+                    case "/registration":
+                        if (!this.isLogged()) {
+                            this.registration(serverRMI);
+                        } else {
+                            System.out.println("You have to log out if you want to register another user");
+                        }
+                        break;
+                    case "/exit":
+                        System.exit(0);
+                        break;
+                    case "/print":
+                        this.printUsers(serverRMI); //TODO ELIMINARE
+                        break;
+                    default:
+                        System.out.println(startingGame);
+                        if (startingGame) {
+                            startingGame = false;
+                            this.gameHandler(serverRMI);
+                        }
+                        else {
+                            System.out.println("Incorrect answer");
+                        }
+                }
+            } catch (InputMismatchException e) {
+                System.out.println("InputError: Retry");
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
+        this.gameHandler(serverRMI);
+    }
+
+    public void loginHandlerGUI (ServerRMI serverRMI) throws IOException {
+        String choose;
+        while (!startingGame) {
+            try {
+                // INVIA ALLA GUI: System.out.println("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application      - Logged: " + this.isLogged());
+                //
                 Scanner inChoose = new Scanner(System.in);
                 choose = inChoose.nextLine();
 

@@ -62,7 +62,7 @@ public class Floor extends ActionSpot{
 		}
 
 		if(familyMember.getColor() != FamilyColor.NEUTRAL){
-			for(Floor f : tower.getFloors()){
+			for(Floor f : tower.getFloors()) {
 				for(FamilyMember fM : f.occupiedBy){
 					if(familyMember.samePlayer(fM)){
 						if(fM.getColor() != FamilyColor.NEUTRAL){
