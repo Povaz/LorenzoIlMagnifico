@@ -136,9 +136,19 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
     public void registrationServer (UserRMI userRMI) throws JSONException, IOException {
         try {
             if (JSONUtility.checkRegister(userRMI.getUsername(), userRMI.getKeyword())) {
-                userRMI.sendMessage("Registration Successful");
+                if (userRMI.isGUI()) {
+                    userRMI.setMessageForGUI("Registration Successful");
+                }
+                else {
+                    userRMI.sendMessage("Registration Successful");
+                }
             } else {
-                userRMI.sendMessage("Registration Failed: Username already taken");
+                if (userRMI.isGUI()) {
+                    userRMI.setMessageForGUI("Registration Failed: Username already taken");
+                }
+                else {
+                    userRMI.sendMessage("Registration Failed: Username already taken");
+                }
             }
         } catch (RemoteException e) {
             System.out.println("Client has disconnected: registration successful");
