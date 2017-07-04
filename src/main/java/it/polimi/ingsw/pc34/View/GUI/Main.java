@@ -27,6 +27,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application{
     // connection canal
+    private SynchronizedString openWindow;
     private SynchronizedString chatComunication;
     private SynchronizedString fromGuiToServer;
     private SynchronizedString fromServerToGui;
@@ -313,5 +314,13 @@ public class Main extends Application{
 
     public void setFromServerToGui(SynchronizedString fromServerToGui){
         this.fromServerToGui = fromServerToGui;
+    }
+
+    public SynchronizedString getOpenWindow(){
+        return openWindow;
+    }
+
+    public void setOpenWindow(SynchronizedString openWindow){
+        this.openWindow = openWindow;
     }
 }
