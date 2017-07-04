@@ -314,6 +314,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     public void gameHandlerGUI (ServerRMI serverRMI) throws IOException {
         String choose;
         Client.guiReference.showGame();
+        System.out.println(Client.guiReference);
         while (logged) {
             try {
                 messageByGUI.put("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");

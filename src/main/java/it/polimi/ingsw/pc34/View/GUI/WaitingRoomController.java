@@ -10,7 +10,6 @@ import javafx.scene.text.Text;
 public class WaitingRoomController {
     private Main main;
 
-    @FXML private Button gameButton;
     @FXML private Button logoutButton;
     @FXML private Text waitingMessageText;
 
@@ -23,10 +22,6 @@ public class WaitingRoomController {
         String result = main.getFromServerToGui().get();
 
         main.showLogin();
-    }
-
-    @FXML protected void gameClick() throws Exception{
-        main.showGame();
     }
 
     public void setMessageText(String message){
