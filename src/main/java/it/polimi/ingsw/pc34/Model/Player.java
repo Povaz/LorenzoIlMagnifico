@@ -1,6 +1,8 @@
 package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.PlayerState;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 
 import java.util.List;
@@ -12,6 +14,7 @@ import java.util.function.IntToDoubleFunction;
 public class Player{
     private final String username;
     private final ConnectionType connectionType;
+    private final ClientType clientType;
     private final PlayerColor color;
     private final PlayerBoard playerBoard;
     private boolean isYourTurn = false;
@@ -21,10 +24,10 @@ public class Player{
     private PlayerState first_state;
     private PlayerState second_state;
 
-
-    public Player(String username, ConnectionType connectionType, PlayerColor color){
+    public Player(String username, ClientInfo clientInfo, PlayerColor color){
         this.username = username;
-        this.connectionType = connectionType;
+        this.connectionType = clientInfo.getConnectionType();
+        this.clientType = clientInfo.getClientType();
         this.color = color;
         this.playerBoard = new PlayerBoard(this);
         this.first_state = PlayerState.WAITING;
@@ -38,6 +41,8 @@ public class Player{
     public ConnectionType getConnectionType() {
         return connectionType;
     }
+
+    public ClientType getClientType() { return clientType; }
 
     public String toString(){
     	String playerString = null;

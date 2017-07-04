@@ -6,6 +6,8 @@ import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.Controller.Action.*;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import org.json.JSONException;
 
@@ -44,12 +46,13 @@ public class Game implements Runnable{
     private TimerTask timerTask;
 
     public static void main(String[] args) {
-        Map<String, ConnectionType> users = new HashMap<>();
-        users.put("Cugola", ConnectionType.RMI);
-        users.put("Affetti", ConnectionType.SOCKET);
-        users.put("Erik", ConnectionType.RMI);
-        users.put("Tomm", ConnectionType.SOCKET);
+        Map<String, ClientInfo> users = new HashMap<>();
+        users.put("Cugola", new ClientInfo(ConnectionType.RMI, ClientType.CLI));
+        users.put("Affetti", new ClientInfo(ConnectionType.SOCKET, ClientType.GUI));
+        users.put("Erik", new ClientInfo(ConnectionType.RMI, ClientType.CLI));
+        users.put("TommLezzo", new ClientInfo(ConnectionType.SOCKET, ClientType.CLI));
         Thread thread = new Thread(new Game(users, null, null));
+        thread.start();
     }
 
     public void run(){
@@ -76,7 +79,7 @@ public class Game implements Runnable{
         System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
     }
 
-    public Game(Map<String, ConnectionType> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
+    public Game(Map<String, ClientInfo> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
         this.turn = 1;
         this.period = 1;
         this.usernames = new ArrayList<>();
@@ -93,7 +96,7 @@ public class Game implements Runnable{
         ServerSOC.setGameControllerSoc(this.gameController);
     }
 
-    private List<Player> initializePlayers(Map<String, ConnectionType> usersOfThisGame){
+    private List<Player> initializePlayers(Map<String, ClientInfo> usersOfThisGame){
         List<Player> players = new ArrayList<>();
         for(int i = 0; i < playerNumber; i++){
             PlayerColor playerColor = PlayerColor.fromInt(i + 1);

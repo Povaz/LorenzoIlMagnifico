@@ -4,6 +4,7 @@ import it.polimi.ingsw.pc34.Controller.BooleanCreated;
 import org.json.JSONException;
 
 import java.io.IOException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.server.UnicastRemoteObject;
 import java.util.ConcurrentModificationException;
@@ -50,11 +51,17 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
        return userLoginString;
     }
 
-    public void setMessageForGUI (SynchronizedString messageForGUI) {
+    public void setSynchronizedMessageForGUI(SynchronizedString messageForGUI) {
         this.messageForGUI = messageForGUI;
     }
 
-    public boolean isGUI() {
+    @Override
+    public void setMessageForGUI (String message) {
+        this.messageForGUI.put(message);
+    }
+
+    @Override
+    public boolean isGUI() throws RemoteException {
         return GUI;
     }
 
@@ -135,14 +142,29 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.setKeyword(inPassword.nextLine());
     }
 
+    private void insertDataGUI() {
+        this.setUsername(messageForGUI.get());
+        this.setKeyword(messageForGUI.get());
+    }
+
     private void login(ServerRMI serverRMI) throws JSONException, IOException{
         this.insertData();
+        this.setLogged(serverRMI.loginServer(this));
+    }
+
+    private void loginGUI(ServerRMI serverRMI) throws JSONException, IOException{
+        this.insertDataGUI();
         this.setLogged(serverRMI.loginServer(this));
     }
 
     private void registration(ServerRMI serverRMI) throws JSONException, IOException {
         this.insertData();
         serverRMI.registrationServer(this);
+    }
+
+    private void registrationGUI(ServerRMI serverRMI) throws JSONException, IOException {
+        this.insertDataGUI();
+        this.setLogged(serverRMI.loginServer(this));
     }
 
     private void logout(ServerRMI serverRMI) throws RemoteException {
@@ -214,7 +236,6 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         String choose;
         while (!startingGame) {
             try {
-                messageForGUI.put("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application      - Logged: " + this.isLogged());
                 choose = messageForGUI.get();
 
                 switch (choose) {
@@ -223,7 +244,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                             System.out.println("You're already logged");
                         }
                         else {
-                            this.login(serverRMI);
+                            this.loginGUI(serverRMI);
                         }
                         break;
                     case "/logout":
@@ -236,7 +257,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                         break;
                     case "/registration":
                         if (!this.isLogged()) {
-                            this.registration(serverRMI);
+                            this.registrationGUI(serverRMI);
                         } else {
                             System.out.println("You have to log out if you want to register another user");
                         }
@@ -251,7 +272,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                         System.out.println(startingGame);
                         if (startingGame) {
                             startingGame = false;
-                            this.gameHandler(serverRMI);
+                            this.gameHandlerGUI(serverRMI);
                         }
                         else {
                             System.out.println("Incorrect answer");
@@ -263,7 +284,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 e.printStackTrace();
             }
         }
-        this.gameHandler(serverRMI);
+        this.gameHandlerGUI(serverRMI);
     }
 
     public void gameHandler (ServerRMI serverRMI) throws IOException {
@@ -296,10 +317,10 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 System.out.println("InputError: Retry");
             }
             catch (ConcurrentModificationException e) {
-                this.loginHandler(serverRMI);
+                this.loginHandlerGUI(serverRMI);
             }
         }
-        this.loginHandler(serverRMI);
+        this.loginHandlerGUI(serverRMI);
     }
 }
 

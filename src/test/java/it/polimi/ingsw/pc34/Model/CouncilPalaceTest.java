@@ -4,6 +4,8 @@ import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import junit.framework.TestCase;
@@ -41,14 +43,14 @@ public class CouncilPalaceTest extends TestCase {
         councilPalace = new CouncilPalace();
 
         Lobby lobby = new Lobby();
-        lobby.setUser("Erick", ConnectionType.RMI);
-        lobby.setUser("Paolo", ConnectionType.SOCKET);
-        lobby.setUser("Tom", ConnectionType.SOCKET);
+        lobby.setUser("Erick", new ClientInfo(ConnectionType.RMI, ClientType.CLI));
+        lobby.setUser("Paolo", new ClientInfo(ConnectionType.SOCKET, ClientType.CLI));
+        lobby.setUser("Tom", new ClientInfo (ConnectionType.SOCKET, ClientType.CLI));
 
         serverRMI = new ServerRMIImpl(lobby);
         serverSOC = new ServerSOC(3000, lobby);
 
-        player = new Player("Erick", ConnectionType.RMI, PlayerColor.BLUE);
+        player = new Player("Erick", new ClientInfo(ConnectionType.RMI, ClientType.CLI), PlayerColor.BLUE);
 
         familyMember = new FamilyMember(player, FamilyColor.WHITE);
 

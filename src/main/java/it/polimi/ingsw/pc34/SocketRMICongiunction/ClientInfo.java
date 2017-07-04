@@ -11,4 +11,12 @@ public class ClientInfo {
         this.connectionType = connectionType;
         this.clientType = clientType;
     }
+
+    public ConnectionType getConnectionType() {
+        return connectionType;
+    }
+
+    public ClientType getClientType() {
+        return clientType;
+    }
 }

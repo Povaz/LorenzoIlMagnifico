@@ -3,6 +3,8 @@ package it.polimi.ingsw.pc34;
 import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import org.junit.Test;
@@ -18,10 +20,10 @@ public class GameTest{
     @Test
     public void startPeriodTest() {
         try {
-            HashMap<String, ConnectionType> usersOfThisGame = new HashMap<>();
-            usersOfThisGame.put("Erick", ConnectionType.RMI);
-            usersOfThisGame.put("Tommaso", ConnectionType.SOCKET);
-            usersOfThisGame.put("PaoloCulo", ConnectionType.RMI);
+            HashMap<String, ClientInfo> usersOfThisGame = new HashMap<>();
+            usersOfThisGame.put("Erick", new ClientInfo(ConnectionType.RMI, ClientType.CLI));
+            usersOfThisGame.put("Tommaso", new ClientInfo(ConnectionType.RMI, ClientType.CLI));
+            usersOfThisGame.put("PaoloCulo", new ClientInfo(ConnectionType.RMI, ClientType.CLI));
 
             Lobby lobby = new Lobby();
             ServerRMIImpl serverLogin = new ServerRMIImpl(lobby);

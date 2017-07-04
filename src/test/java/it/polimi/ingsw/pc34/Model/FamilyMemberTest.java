@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
@@ -56,7 +58,7 @@ public class FamilyMemberTest extends TestCase {
     }
 
     public void setUp () {
-        player = new Player("Erick", ConnectionType.RMI, PlayerColor.RED);
+        player = new Player("Erick", new ClientInfo(ConnectionType.RMI, ClientType.CLI), PlayerColor.RED);
         familyColor = FamilyColor.BLACK;
         actionType = ActionType.ANY_TOWER;
         value = 7;
