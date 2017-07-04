@@ -131,7 +131,7 @@ public class Lobby {
                     //Socket Start
                     serverSoc.throwInGame();
 
-                    
+
                     //RMI Start
                     System.out.println(getRMIUsers().toArray().toString());
                     serverRMI.throwInGameGUI(getRMIUsers());
@@ -148,7 +148,7 @@ public class Lobby {
                     e.printStackTrace();
                 } 
             }
-        }, 10000);
+        }, 1000);
     }
 
     public void stopTimer() {
