@@ -9,7 +9,7 @@ import java.net.UnknownHostException;
 
 //if client decides to use socket as comunication tool, ClientSoc will be launched
 public class ClientSOC implements Runnable {
-	private final String ip = "127.0.0.1";
+	private final String ip = System.getProperty("myapplication.ip");
 	private final int port = 1337;
 	private static Socket socketServer;
 	private final int graphicType;

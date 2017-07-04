@@ -61,156 +61,156 @@ public class LobbyFlow {
 	
 	//flow of the state machine
 	public String flow (String asked) throws JSONException, IOException{
-		if(inFlow == false) {
+		if(!inFlow) {
     		inFlow = true;
-		//state start
-		if(start){
-			if(asked.equals("/login")){
-				login = true;
-				start = false;
-				setInFlow();
-				return "Ok tell me username : ('/back' to go back)";
-			}
-			else if(asked.equals("/register")){
-				register = true;
-				start = false;
-				setInFlow();
-				return "Ok tell me username :";
-			}
-			else{
-				setInFlow();
-				return "Not valid input. /login or /register";
-			}
-		}
-		
-		//state login
-		else if(login){
-			//user input is a username
-			if(username==null){
-				//write /back to go back to login or register decision
-				if(asked.equals("/back")){
-					start = true;
-					login = false;
-					setInFlow();
-					return("/login or /register?");
-				}
-				else{
-					username = asked;
-					setInFlow();
-					return "Ok tell me password";	
-				}
-			}
-			//user input is a password
-			else{
-				password = asked;
-				boolean result;
-				boolean yetLogged;
-				boolean disconnected = false;
-				yetLogged = searchUserLogged(username);
-				if(yetLogged){
-					disconnected = checkUserDisconnected(username);
-				}
-
-				result = JSONUtility.checkLogin(username, password);
-				//user logged yet but afk
-				if(result && yetLogged && disconnected){
-					login = false;
-					logged = true;
-					serverHandler.setName(username);
-					serverSoc.reconnect(username, serverHandler);
-					setInFlow();
-					return "Reconnecting to the game...";
-				}
-				
-				//user logging in
-				else if(result && !yetLogged){
+			//state start
+			if(start){
+				if(asked.equals("/login")){
+					login = true;
 					start = false;
-					login = false;
-					logged = true;
-					serverHandler.setName(username);
-					serverSoc.addPlayer (serverHandler, username);
 					setInFlow();
-					return "logged ('/logout' to log out)";
+					return "Ok tell me username : ('/back' to go back)";
 				}
-				
-				//failed combination
-				else if(!result){	
-					username = null;
-					password = null;
+				else if(asked.equals("/register")){
+					register = true;
+					start = false;
 					setInFlow();
-					return "wrong combination! Tell me username : ";
-				}
-				
-				//user logged yet
-				else {	
-					username = null;
-					password = null;
-					setInFlow();
-					return "User yet Logged! Tell me username : ";
-				}
-			}
-		}
-		
-		//state register
-		else if(register){
-			//user input is a username
-			if(username==null){
-				//write /back to go back to login or register decision
-				if(asked.equals("/back")){
-					start = true;
-					register = false;
-					setInFlow();
-					return("/login or /register?");
+					return "Ok tell me username :";
 				}
 				else{
-					username = asked;
 					setInFlow();
-					return "Ok tell me password";	
+					return "Not valid input. /login or /register";
 				}
 			}
-			//user input is a password
-			else{
-				password = asked;
-				boolean result = JSONUtility.checkRegister(username, password);
-				username = null;
-				password = null;
-				
-				//result of the registratiom
-				if(result){	
-					start = true;
-					register = false;
-					setInFlow();
-					return "Registration successful! /login or /register";
-				}
-				else{	
-					setInFlow();
-					return "Registration failed, retry! Tell me username : ";
-				}
-			}
-		}
-		
-		//state logged
-		else if(logged){
 			
-			//process of logout from lobby
-			if(asked.equals("/logout")){
-				logged = false;
-				start = true;
-				lobby.removeUser (username);
-				serverSoc.removePlayer(username);
-				username = null;
-				password = null;
-				if(lobby.getUsers().size() == 1) {
-					lobby.stopTimer();
-		        }
-				setInFlow();
-				return "Logged out . . . What you want to do? /login or /register?";
+			//state login
+			else if(login){
+				//user input is a username
+				if(username==null){
+					//write /back to go back to login or register decision
+					if(asked.equals("/back")){
+						start = true;
+						login = false;
+						setInFlow();
+						return("/login or /register?");
+					}
+					else{
+						username = asked;
+						setInFlow();
+						return "Ok tell me password";	
+					}
+				}
+				//user input is a password
+				else{
+					password = asked;
+					boolean result;
+					boolean yetLogged;
+					boolean disconnected = false;
+					yetLogged = searchUserLogged(username);
+					if(yetLogged){
+						disconnected = checkUserDisconnected(username);
+					}
+	
+					result = JSONUtility.checkLogin(username, password);
+					//user logged yet but afk
+					if(result && yetLogged && disconnected){
+						login = false;
+						logged = true;
+						serverHandler.setName(username);
+						serverSoc.reconnect(username, serverHandler);
+						setInFlow();
+						return "Reconnecting to the game...";
+					}
+					
+					//user logging in
+					else if(result && !yetLogged){
+						start = false;
+						login = false;
+						logged = true;
+						serverHandler.setName(username);
+						serverSoc.addPlayer (serverHandler, username);
+						setInFlow();
+						return "logged ('/logout' to log out)";
+					}
+					
+					//failed combination
+					else if(!result){	
+						username = null;
+						password = null;
+						setInFlow();
+						return "wrong combination! Tell me username : ";
+					}
+					
+					//user logged yet
+					else {	
+						username = null;
+						password = null;
+						setInFlow();
+						return "User yet Logged! Tell me username : ";
+					}
+				}
 			}
-		}
-		
-		//return if logged and input different from /logout
-		setInFlow();
-		return "You are logged yet...";
+			
+			//state register
+			else if(register){
+				//user input is a username
+				if(username==null){
+					//write /back to go back to login or register decision
+					if(asked.equals("/back")){
+						start = true;
+						register = false;
+						setInFlow();
+						return("/login or /register?");
+					}
+					else{
+						username = asked;
+						setInFlow();
+						return "Ok tell me password";	
+					}
+				}
+				//user input is a password
+				else{
+					password = asked;
+					boolean result = JSONUtility.checkRegister(username, password);
+					username = null;
+					password = null;
+					
+					//result of the registratiom
+					if(result){	
+						start = true;
+						register = false;
+						setInFlow();
+						return "Registration successful! /login or /register";
+					}
+					else{	
+						setInFlow();
+						return "Registration failed, retry! Tell me username : ";
+					}
+				}
+			}
+			
+			//state logged
+			else if(logged){
+				
+				//process of logout from lobby
+				if(asked.equals("/logout")){
+					logged = false;
+					start = true;
+					lobby.removeUser (username);
+					serverSoc.removePlayer(username);
+					username = null;
+					password = null;
+					if(lobby.getUsers().size() == 1) {
+						lobby.stopTimer();
+			        }
+					setInFlow();
+					return "Logged out . . . What you want to do? /login or /register?";
+				}
+			}
+			
+			//return if logged and input different from /logout
+			setInFlow();
+			return "You are logged yet...";
 		}
     	else{
 	    	return "I am still processing a request";

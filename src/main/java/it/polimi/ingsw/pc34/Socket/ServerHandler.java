@@ -128,7 +128,7 @@ public class ServerHandler implements Runnable{
 		String answer=gameController.flow(asked, username);
 		return answer;
 	}
-	
+
 	public void run(){
 		String line = null;
 		sendToClient("Take your decision : /login or /register?");
@@ -147,10 +147,8 @@ public class ServerHandler implements Runnable{
 			if(fase==0){
 				try {
 					answer = toLobbyHandler(line);
-				} catch (JSONException e1) {
-					e1.printStackTrace();
-				} catch (IOException e1) {
-					e1.printStackTrace();
+				} catch (JSONException|IOException e) {
+					e.printStackTrace();
 				}
 			}
 			//to game flow
