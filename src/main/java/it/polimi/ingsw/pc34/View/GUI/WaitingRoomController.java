@@ -14,7 +14,15 @@ public class WaitingRoomController {
     @FXML private Text waitingMessageText;
 
     @FXML private void initialize(){
-        // TODO inizializza
+        (new Thread(){
+            @Override
+                public void run(){
+                    String result = main.getOpenWindow().get();
+                    if(result.equals("/game")){
+                        main.showGame();
+                    }
+                }
+        }).start();
     }
 
     @FXML protected void logoutClick() throws Exception{
