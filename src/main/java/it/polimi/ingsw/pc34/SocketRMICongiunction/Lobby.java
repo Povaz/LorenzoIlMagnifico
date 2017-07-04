@@ -129,6 +129,7 @@ public class Lobby {
                     serverSoc.throwInGame();
 
                     //RMI Start
+                    System.out.println(getRMIUsers().toArray().toString());
                     serverRMI.throwInGameGUI(getRMIUsers());
 
                     //Game Start

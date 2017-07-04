@@ -25,6 +25,7 @@ public class Client {
     private ClientSOC userSoc;
     private SynchronizedString messageByGUI;
     private SynchronizedString messageForGUI;
+    private SynchronizedString messageToChangeWindow;
 
     public Client (UserRMIImpl userLoginRMI) {
         this.userLoginRMI = userLoginRMI;
@@ -49,6 +50,7 @@ public class Client {
         if (this.getUserLoginRMI().isGUI()) {
             messageByGUI = new SynchronizedString();
             messageForGUI = new SynchronizedString();
+            messageToChangeWindow = new SynchronizedString();
             Thread mainGui = new Thread(new LaunchGUI());
             mainGui.start();
             while(guiReference == null){}
@@ -56,6 +58,7 @@ public class Client {
             guiReference.setFromServerToGui(messageForGUI);
             guiReference.setFromGuiToServer(messageByGUI);
 
+            this.getUserLoginRMI().setSynchronizedMessageToChangeWindow(messageToChangeWindow);
             this.getUserLoginRMI().setSynchronizedMessageForGUI(messageForGUI);
             this.getUserLoginRMI().setSynchronizedMessageByGUI(messageByGUI);
             this.getUserLoginRMI().loginHandlerGUI(serverRMI);

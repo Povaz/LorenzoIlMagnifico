@@ -21,6 +21,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private boolean GUI;
     private SynchronizedString messageByGUI;
     private SynchronizedString messageForGUI;
+    private SynchronizedString messageToChangeWindow;
     private boolean logged;
     private boolean startingGame;
 
@@ -59,6 +60,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.messageForGUI = messageForGUI;
     }
 
+    public void setSynchronizedMessageToChangeWindow(SynchronizedString messageToChangeWindow) {this.messageToChangeWindow = messageToChangeWindow; }
 
     @Override
     public void setMessageForGUI(String messageForGUI) {this.messageForGUI.put(messageForGUI); }
@@ -275,14 +277,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                         this.printUsers(serverRMI); //TODO ELIMINARE
                         break;
                     default:
-                        System.out.println(startingGame);
-                        if (startingGame) {
-                            startingGame = false;
-                            this.gameHandlerGUI(serverRMI);
-                        }
-                        else {
-                            System.out.println("Incorrect answer");
-                        }
+                        System.out.println("Incorrect Answer");
                 }
             } catch (InputMismatchException e) {
                 System.out.println("InputError: Retry");
@@ -313,8 +308,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     public void gameHandlerGUI (ServerRMI serverRMI) throws IOException {
         String choose;
-        Client.guiReference.showGame();
-        System.out.println(Client.guiReference);
+        messageToChangeWindow.put("/game");
         while (logged) {
             try {
                 messageByGUI.put("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
