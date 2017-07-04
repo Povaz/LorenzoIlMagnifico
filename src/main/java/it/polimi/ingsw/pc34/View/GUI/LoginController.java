@@ -24,10 +24,10 @@ public class LoginController {
     }
 
     @FXML protected void loginClick(ActionEvent event) throws Exception{
-        Main.serverComunication.put("/login");
-        Main.serverComunication.put(usernameTextField.getText());
-        Main.serverComunication.put(passwordTextField.getText());
-        String result = Main.serverComunication.get();
+        main.getServerComunication().put("/login");
+        main.getServerComunication().put(usernameTextField.getText());
+        main.getServerComunication().put(passwordTextField.getText());
+        String result = main.getServerComunication().get();
 
         if(result.equals("Login Successful")){
             main.showWaitingRoom();
@@ -38,10 +38,10 @@ public class LoginController {
     }
 
     @FXML protected void registerClick(ActionEvent event){
-        Main.serverComunication.put("/registration");
-        Main.serverComunication.put(usernameTextField.getText());
-        Main.serverComunication.put(passwordTextField.getText());
-        String result = Main.serverComunication.get();
+        main.getServerComunication().put("/registration");
+        main.getServerComunication().put(usernameTextField.getText());
+        main.getServerComunication().put(passwordTextField.getText());
+        String result = main.getServerComunication().get();
 
         loginMessageText.setText(result);
     }
