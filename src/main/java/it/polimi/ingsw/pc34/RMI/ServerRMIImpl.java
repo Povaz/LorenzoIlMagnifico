@@ -207,7 +207,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
     @Override
     public void sendInput (String input, UserRMI userRMI) throws IOException {
         int i = 0;
-        GameController gameController = null;
+        GameController gameController;
         try {
             gameController = searchGame(userRMI);
             try {

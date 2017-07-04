@@ -18,14 +18,15 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private String username;
     private String keyword;
     private String gameState;
+    private boolean GUI;
+    private SynchronizedString messageForGUI;
     private boolean logged;
     private boolean startingGame;
 
-    private SynchronizedString messageForGUI;
-
-    public UserRMIImpl() throws RemoteException {
+    public UserRMIImpl(boolean GUI) throws RemoteException {
         this.username = "Null";
         this.keyword = "Null";
+        this.GUI = GUI;
         this.logged = false;
         this.startingGame = false;
     }
@@ -47,6 +48,18 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
        userLoginString += "Username: " + this.username + "\n";
        userLoginString += "Password: " + this.keyword + "\n";
        return userLoginString;
+    }
+
+    public void setMessageForGUI (SynchronizedString messageForGUI) {
+        this.messageForGUI = messageForGUI;
+    }
+
+    public boolean isGUI() {
+        return GUI;
+    }
+
+    public void setGUI(boolean GUI) {
+        this.GUI = GUI;
     }
 
     @Override
@@ -201,10 +214,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         String choose;
         while (!startingGame) {
             try {
-                // INVIA ALLA GUI: System.out.println("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application      - Logged: " + this.isLogged());
-                //
-                Scanner inChoose = new Scanner(System.in);
-                choose = inChoose.nextLine();
+                messageForGUI.put("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application      - Logged: " + this.isLogged());
+                choose = messageForGUI.get();
 
                 switch (choose) {
                     case "/login":
@@ -261,6 +272,24 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 System.out.println("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
                 Scanner inChoose = new Scanner (System.in);
                 String choose = inChoose.nextLine();
+                serverRMI.sendInput(choose, this);
+            }
+            catch (InputMismatchException e) {
+                System.out.println("InputError: Retry");
+            }
+            catch (ConcurrentModificationException e) {
+                this.loginHandler(serverRMI);
+            }
+        }
+        this.loginHandler(serverRMI);
+    }
+
+    public void gameHandlerGUI (ServerRMI serverRMI) throws IOException {
+        String choose;
+        while (logged) {
+            try {
+                messageForGUI.put("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
+                choose = messageForGUI.get();
                 serverRMI.sendInput(choose, this);
             }
             catch (InputMismatchException e) {

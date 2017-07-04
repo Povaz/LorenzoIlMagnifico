@@ -1,6 +1,8 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
 import it.polimi.ingsw.pc34.RMI.ServerRMI;
+import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
+import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.RMI.UserRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ClientSOC;
 import it.polimi.ingsw.pc34.View.GUI.Main;
@@ -21,6 +23,7 @@ import java.util.Scanner;
 public class Client {
     private UserRMIImpl userLoginRMI;
     private ClientSOC userSoc;
+    private SynchronizedString messageForGUI = new SynchronizedString();
 
     public Client (UserRMIImpl userLoginRMI) {
         this.userLoginRMI = userLoginRMI;
@@ -41,7 +44,15 @@ public class Client {
     public void startClientRMI() throws IOException, AlreadyBoundException, NotBoundException {
         Registry registry = LocateRegistry.getRegistry(8000);
         ServerRMI serverRMI = (ServerRMI) registry.lookup("serverRMI");
-        this.userLoginRMI.loginHandler(serverRMI);
+
+        if (this.getUserLoginRMI().isGUI()) {
+            Application.launch(Main.class);
+            this.getUserLoginRMI().setMessageForGUI(messageForGUI);
+            this.getUserLoginRMI().loginHandlerGUI(serverRMI);
+        }
+        else {
+            this.getUserLoginRMI().loginHandler(serverRMI);
+        }
     }
 
     public void startClientSOC() {
@@ -60,6 +71,7 @@ public class Client {
         		@SuppressWarnings("resource")
 				Scanner inGraphic = new Scanner(System.in);
 	        	graphicChosen = inGraphic.nextInt();
+
 	        	if(graphicChosen!=1 && graphicChosen!=2){
 	        		System.out.println("Input Error");
 	        	}
@@ -78,8 +90,14 @@ public class Client {
                 //TODO costruttore che dà in ingresso graphicChosen
                 switch (choose) {
                     case 1:
-                        UserRMIImpl userLoginImpl = new UserRMIImpl();
-                        client = new Client(userLoginImpl);
+                        UserRMIImpl userRMI;
+                        if (graphicChosen == 1) {
+                            userRMI = new UserRMIImpl(false);
+                        }
+                        else {
+                            userRMI = new UserRMIImpl(true);
+                        }
+                        client = new Client(userRMI);
                         client.startClientRMI();
                         connectionChosen = true;
                         break;

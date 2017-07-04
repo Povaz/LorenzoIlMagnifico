@@ -1,14 +1,22 @@
 package it.polimi.ingsw.pc34.RMI;
 
+import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.StringProperty;
+
 /**
  * Created by Povaz on 04/07/2017.
  */
 public class SynchronizedString {
     private String message;
-    private boolean available;
+    private BooleanProperty available = new SimpleBooleanProperty(false);
+
+    public BooleanProperty getAvailable() {
+        return available;
+    }
 
     public synchronized String get() {
-        while (!available) {
+        while (!available.getValue()) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -16,13 +24,13 @@ public class SynchronizedString {
             }
         }
 
-        available = false;
+        available.set(false);
         notifyAll();
         return message;
     }
 
     public synchronized void put(String message) {
-        while (available) {
+        while (available.getValue()) {
             try {
                 wait();
             } catch (InterruptedException e) {
@@ -31,7 +39,7 @@ public class SynchronizedString {
         }
 
         this.message = message;
-        available = true;
+        available.set(true);
         notifyAll();
     }
 }
