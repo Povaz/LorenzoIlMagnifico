@@ -312,6 +312,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         while (logged) {
             try {
                 choose = messageByGUI.get();
+                System.out.println(choose);
                 serverRMI.sendInput(choose, this);
             }
             catch (InputMismatchException e) {
