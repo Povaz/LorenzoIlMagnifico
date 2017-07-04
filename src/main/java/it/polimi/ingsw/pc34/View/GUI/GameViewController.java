@@ -298,8 +298,8 @@ public class GameViewController {
     @FXML private void passClicked(){
         main.getFromGuiToServer().put("/playerturn");
         String response = main.getFromServerToGui().get();
-        if(response.equals("/yes")){
-            main.getFromGuiToServer().put("/skip");
+        if(response.equals("Yes")){
+            main.getFromGuiToServer().put("5");
         }
     }
 
@@ -316,7 +316,34 @@ public class GameViewController {
             return;
         }
         // Do action:
+        ((Button)((GridPane)dropShape.getParent()).getChildren().get(0)).setBackground(dragButton.getBackground());
+        ((Button)((GridPane)dropShape.getParent()).getChildren().get(1)).setBackground(dragButton.getBackground());
         ((Button)((GridPane)dropShape.getParent()).getChildren().get(2)).setBackground(dragButton.getBackground());
+        ((Button)((GridPane)dropShape.getParent()).getChildren().get(3)).setBackground(dragButton.getBackground());
+
+        main.getFromGuiToServer().put("/playerturn");
+        String response = main.getFromServerToGui().get();
+        if(!response.equals("Yes")){
+            return;
+        }
+        main.getFromGuiToServer().put("1");
+        if(!response.equals("Yes")){
+            return;
+        }
+        main.getFromGuiToServer().put("1");// 1TerritoryT, 2 BuildingT, 3 CharacterT, 4VentreT, 5Harvest, 6Produce, 7mark, 8Councilpaa
+        if(!response.equals("Yes")){
+            return;
+        }
+        if(false){//not council palace){
+            main.getFromGuiToServer().put("1");// tower inserisci numero 0-3
+            if(!response.equals("Yes")){
+                return;
+            }
+        }
+        main.getFromGuiToServer().put("1");// familiare inserisci 0 black, 1 white, 2 orange, 3 neutral
+        if(!response.equals("Yes")){
+            return;
+        }
     }
 
     public void setMain(Main main){

@@ -98,7 +98,7 @@ public class Main extends Application{
         initRootLayout();
 
         // TODO rimetti: showLogin();
-        showLogin();
+        showGame();
     }
 
     public void initializeObservable(){

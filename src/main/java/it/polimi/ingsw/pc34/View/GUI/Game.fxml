@@ -148,28 +148,36 @@
                      </children>
                   </GridPane>
                   <GridPane fx:id="territoryTowerSpot" layoutX="106.0" layoutY="-16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="59.0">
-                    <columnConstraints>
-                      <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="59.0" />
-                    </columnConstraints>
-                    <rowConstraints>
-                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="139.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="139.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="139.0" vgrow="SOMETIMES" />
-                      <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="139.0" vgrow="SOMETIMES" />
-                    </rowConstraints>
                      <children>
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                      </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="59.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="139.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="139.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="139.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="139.0" vgrow="SOMETIMES" />
+                     </rowConstraints>                     
                   </GridPane>
                   <GridPane fx:id="characterTowerSpot" layoutX="255.0" layoutY="-16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="59.0">
                      <children>
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="59.0" />
@@ -183,10 +191,14 @@
                   </GridPane>
                   <GridPane fx:id="buildingTowerSpot" layoutX="404.0" layoutY="-16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="59.0">
                      <children>
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="59.0" />
@@ -200,10 +212,14 @@
                   </GridPane>
                   <GridPane fx:id="ventureTowerSpot" layoutX="553.0" layoutY="-16.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="556.0" prefWidth="59.0">
                      <children>
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Button fx:id="blackFamilyMember132" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />                       
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="59.0" />
@@ -215,12 +231,16 @@
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="139.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <GridPane fx:id="marketSpot" layoutX="383.0" layoutY="849.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="128.0" prefWidth="243.0" style="-fx-background-color: rgba(0,0,0,0.5);">
+                  <GridPane fx:id="marketSpot" layoutX="383.0" layoutY="828.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="149.0" prefWidth="243.0" style="-fx-background-color: rgba(0,0,0,0.5);">
                      <children>
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.halignment="LEFT" GridPane.valignment="TOP" GridPane.columnIndex="0" GridPane.rowIndex="0" />
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.halignment="LEFT" GridPane.valignment="TOP" GridPane.columnIndex="1" GridPane.rowIndex="0" />
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" GridPane.columnIndex="2" GridPane.rowIndex="1" />
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Button fx:id="blackFamilyMember13" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" />
+                        <Button fx:id="blackFamilyMember13" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1" />
+                        <Button fx:id="blackFamilyMember13" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
+                        <Button fx:id="blackFamilyMember131" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />                     
+                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="69.0" />
@@ -229,39 +249,231 @@
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="50.0" />
                      </columnConstraints>
                      <rowConstraints>
-                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="59.0" vgrow="SOMETIMES" />
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="19.0" vgrow="SOMETIMES" />
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="50.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <GridPane fx:id="harvestSpot" layoutX="18.0" layoutY="926.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="225.0">
+                  <GridPane fx:id="harvestSpot" layoutX="18.0" layoutY="935.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="230.0">
                      <children>
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
-                        <Rectangle fill="#0000008c" height="59.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="130.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
-                        <Button fx:id="blackFamilyMember11" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" />
+                        <Button fx:id="blackFamilyMember11" layoutX="5" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT">
+                           <GridPane.margin>
+                              <Insets left="2.0" />
+                           </GridPane.margin></Button>
+                        <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="-5.0" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="4.44" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="13.88" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="23.32" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="32.76" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="42.2" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="51.64" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="61.08" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="70.52" />
+                           </GridPane.margin></Button>
+                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                         <Rectangle fill="#0000008c" height="59.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="130.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />                        
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="95.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="130" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="135.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
-                  <GridPane fx:id="productionSpot" layoutX="18.0" layoutY="836.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="225.0">
+                  <GridPane fx:id="productionSpot" layoutX="18.0" layoutY="846.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="80.0" prefWidth="230.0">
                      <children>
-                        <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
-                        <Rectangle fill="#0000008c" height="59.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="130.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
-                        <Button fx:id="blackFamilyMember1" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" />
+                        <Button fx:id="blackFamilyMember1" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT">
+                           <GridPane.margin>
+                              <Insets left="2.0" />
+                           </GridPane.margin></Button>
+                        <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="-5.0" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="4.44" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="13.88" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="23.32" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="32.76" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="42.2" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="51.64" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="61.08" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember111" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.columnIndex="1">
+                           <GridPane.margin>
+                              <Insets left="70.52" />
+                           </GridPane.margin></Button>
+                         <Circle fill="#00000084" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                         <Rectangle fill="#0000008c" height="59.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="130.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />                        
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="95.0" />
-                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="130" />
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="135.0" />
                      </columnConstraints>
                      <rowConstraints>
                         <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="80.0" vgrow="SOMETIMES" />
                      </rowConstraints>
                   </GridPane>
+                  <GridPane fx:id="councilPalace" layoutX="323.0" layoutY="579.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="83.0" prefWidth="206.0" style="-fx-background-color: rgba(0,0,0,0.5);">
+                     <children>                                                                
+                        <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="0.0" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="7.55" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="15.1" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="22.65" />
+                           </GridPane.margin></Button>
+                           <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="30.2" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="37.75" />
+                           </GridPane.margin></Button>
+                           <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="45.3" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="52.85" />
+                           </GridPane.margin></Button>
+                           <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="60.4" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="67.95" />
+                           </GridPane.margin></Button>
+                           <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="75.5" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="83.05" />
+                           </GridPane.margin></Button>
+                           <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="90.6" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="98.15" />
+                           </GridPane.margin></Button>
+                           <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="105.7" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="113.25" />
+                           </GridPane.margin></Button>
+                           <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="120.8" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="128.35" />
+                           </GridPane.margin></Button>
+                           <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="135.9" />
+                           </GridPane.margin></Button>
+                         <Button fx:id="blackFamilyMember131" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="143.45" />
+                           </GridPane.margin></Button>
+                         <Rectangle fill="#0000008c" height="78.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="196.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="5.0" top="5.0" />
+                           </GridPane.margin></Rectangle>                          
+                     </children>
+                     <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="206.0" />
+                     </columnConstraints>
+                     <rowConstraints>
+                        <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="83.0" vgrow="SOMETIMES" />
+                     </rowConstraints>
+                  </GridPane>
+                  <ImageView fx:id="harvestCover" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="95.0" layoutY="861.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_1.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="productionCover" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="95.0" layoutY="949.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_2.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="marketCover2" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="511.0" layoutY="860.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_3.png" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="marketCover3" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="564.0" layoutY="910.0" pickOnBounds="true" preserveRatio="true" visible="false">
+                     <image>
+                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_4.png" />
+                     </image>
+                  </ImageView>
                </children>
             </AnchorPane>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1048.0" prefWidth="1194.0" SplitPane.resizableWithParent="false">
