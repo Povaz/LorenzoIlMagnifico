@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.RMI.UserRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ClientSOC;
+import it.polimi.ingsw.pc34.View.GUI.LaunchGUI;
 import it.polimi.ingsw.pc34.View.GUI.Main;
 import javafx.application.Application;
 
@@ -24,7 +25,7 @@ public class Client {
     public static Main guiReference = null;
     private UserRMIImpl userLoginRMI;
     private ClientSOC userSoc;
-    private SynchronizedString messageForGUI = new SynchronizedString();
+    private SynchronizedString messageForGUI;
 
     public Client (UserRMIImpl userLoginRMI) {
         this.userLoginRMI = userLoginRMI;
@@ -47,8 +48,10 @@ public class Client {
         ServerRMI serverRMI = (ServerRMI) registry.lookup("serverRMI");
 
         if (this.getUserLoginRMI().isGUI()) {
-            Application.launch(Main.class);
+            messageForGUI = new SynchronizedString();
+            (new Thread(new LaunchGUI())).start();
             while(guiReference == null){}
+            System.out.println(guiReference);
             guiReference.setServerComunication(messageForGUI);
 
             this.getUserLoginRMI().setSynchronizedMessageForGUI(messageForGUI);

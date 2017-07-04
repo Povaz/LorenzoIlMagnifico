@@ -52,11 +52,13 @@ public class Main extends Application{
     public Main(){
         players.add(new PersonalBoardView("ciccio"));
         players.add(new PersonalBoardView("WWWWWWWWWWWWWWW"));
-        Client.guiReference = this;
     }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+        System.out.println(Client.guiReference);
+        Client.guiReference = this;
+        System.out.println(Client.guiReference);
         /*Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
         Scene scene = new Scene(root, 487, 757);
         scene.getStylesheets().addAll(this.getClass().getResource("Login.css").toExternalForm());
