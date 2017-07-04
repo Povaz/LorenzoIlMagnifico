@@ -298,7 +298,13 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                             switch (userRMI.getGameState()) {
                                 case "/playturn":
                                     if (userRMI.isGUI()) {
-                                        userRMI.setMessageForGUI(gameController.flow(input, userRMI.getUsername()));
+                                        String response = gameController.flow(input, userRMI.getUsername());
+                                        if (response.equals("It's not your turn") || response.equals("Input error")) {
+                                            userRMI.setMessageForGUI("No");
+                                        }
+                                        else {
+                                            userRMI.setMessageForGUI("Yes");
+                                        }
                                     }
                                     else {
                                         userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
@@ -310,7 +316,18 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                                     userRMI.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
                                     break;
                                 case "/vaticansupport":
-                                    userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
+                                    if (userRMI.isGUI()) {
+                                        String response = gameController.flow(input, userRMI.getUsername());
+                                        if (response.equals("It's not your turn") || response.equals("Input error")) {
+                                            userRMI.setMessageForGUI("No");
+                                        }
+                                        else {
+                                            userRMI.setMessageForGUI("Yes");
+                                        }
+                                    }
+                                    else {
+                                        userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
+                                    }
                                     break;
                                 default:
                                     userRMI.sendMessage("Wrong state game. How did you do it? Explain it.");
