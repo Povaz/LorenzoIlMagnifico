@@ -89,13 +89,14 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                         if (userRMI.isGUI()) {
                             ClientInfo clientInfo = new ClientInfo(ConnectionType.RMI, ClientType.GUI);
                             lobby.setUser(userRMI.getUsername(), clientInfo);
+                            userRMI.setMessageForGUI("Login successful");
                         }
                         else {
                             ClientInfo clientInfo = new ClientInfo(ConnectionType.RMI, ClientType.GUI);
                             lobby.setUser(userRMI.getUsername(), clientInfo);
+                            userRMI.sendMessage("Login successful");
                         }
 
-                        userRMI.sendMessage("Login successful");
                         lobby.notifyAllUsers(NotificationType.USERLOGIN, userRMI.getUsername());
 
                         if (lobby.getUsers().size() == 2) {
