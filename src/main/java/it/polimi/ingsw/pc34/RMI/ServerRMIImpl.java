@@ -229,6 +229,24 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
         }
     }
 
+    public void throwInGameGUI(ArrayList<String> userStarting) throws RemoteException {
+        int j = 0;
+        try {
+            for (int i = 0; i < userStarting.size(); i++) {
+                for (j = 0; j < usersLoggedRMI.size(); j++) {
+                    if (userStarting.get(i).equals(usernames.get(j))) {
+                        if (usersLoggedRMI.get(j).isGUI()) {
+                            usersLoggedRMI.get(i).setMessageByGUI("start"); //PUT
+                        }
+                    }
+                }
+            }
+        } catch (RemoteException e) {
+            this.removeRMIUser(j);
+        }
+
+    }
+
     //INIZIO GESTIONE GAME
 
     public GameController searchGame (UserRMI userRMI) throws RemoteException {
