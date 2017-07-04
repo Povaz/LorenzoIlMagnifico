@@ -311,7 +311,6 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         messageToChangeWindow.put("/game");
         while (logged) {
             try {
-                messageByGUI.put("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
                 choose = messageByGUI.get();
                 serverRMI.sendInput(choose, this);
             }
