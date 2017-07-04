@@ -111,7 +111,7 @@ public class Server {
 					e.printStackTrace();
 				}
 			}
-		}, 0, 2000);
+		}, 0, 1000);
 	}
 
     public static void main (String[] args) throws RemoteException, AlreadyBoundException {

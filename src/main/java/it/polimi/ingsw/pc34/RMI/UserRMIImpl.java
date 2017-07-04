@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.RMI;
 
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -311,6 +312,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         String choose;
         while (logged) {
             try {
+                Client.guiReference.showGame();
                 messageByGUI.put("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
                 choose = messageByGUI.get();
                 serverRMI.sendInput(choose, this);
