@@ -12,8 +12,10 @@ import java.rmi.RemoteException;
 public interface UserRMI extends Remote{
     String getUsername () throws RemoteException;
     String getKeyword() throws RemoteException;
+    boolean isGUI() throws RemoteException;
     void sendMessage (String message) throws RemoteException;
     void setLogged (boolean logged) throws RemoteException;
     void setGameState(String gameState) throws RemoteException;
+    void setMessageForGUI(String message) throws RemoteException;
     String getGameState() throws RemoteException;
 }

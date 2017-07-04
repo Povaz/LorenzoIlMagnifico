@@ -13,7 +13,7 @@ import java.util.*;
  * Created by Povaz on 13/06/2017.
  */
 public class Lobby {
-    private HashMap<String, ConnectionType> users;
+    private HashMap<String, ClientInfo> users;
     private Timer timer;
     private ServerRMIImpl serverRMI;
     private ServerSOC serverSoc;
@@ -23,14 +23,14 @@ public class Lobby {
         this.timer = new Timer ();
     }
 
-    public HashMap<String, ConnectionType> getUsers() {
+    public HashMap<String, ClientInfo> getUsers() {
         return users;
     }
 
     public ArrayList<String> getRMIUsers () {
         ArrayList<String> rmiUsers = new ArrayList<>();
-        for (Map.Entry<String, ConnectionType> entry : users.entrySet()) {
-            if (entry.getValue().equals(ConnectionType.RMI)) {
+        for (Map.Entry<String, ClientInfo> entry : users.entrySet()) {
+            if (entry.getValue().getConnectionType().equals(ConnectionType.RMI)) {
                 rmiUsers.add(entry.getKey());
             }
         }
@@ -39,8 +39,8 @@ public class Lobby {
 
     public ArrayList<String> getSocketUsers () {
         ArrayList<String> socketUsers = new ArrayList<>();
-        for (Map.Entry<String, ConnectionType> entry : users.entrySet()) {
-            if (entry.getValue().equals(ConnectionType.SOCKET)) {
+        for (Map.Entry<String, ClientInfo> entry : users.entrySet()) {
+            if (entry.getValue().getConnectionType().equals(ConnectionType.SOCKET)) {
                 socketUsers.add(entry.getKey());
             }
         }
@@ -55,12 +55,12 @@ public class Lobby {
         this.serverSoc = serverSoc;
     }
     
-    public void setUsers(HashMap<String, ConnectionType> users) {
+    public void setUsers(HashMap<String, ClientInfo> users) {
         this.users = users;
     }
 
-    public void setUser(String username, ConnectionType connectionType) {
-        users.put(username, connectionType);
+    public void setUser(String username, ClientInfo clientInfo) {
+        users.put(username, clientInfo);
     }
 
     public boolean searchUser (String username) {
@@ -135,7 +135,7 @@ public class Lobby {
                     serverSoc.throwInGame();
 
                     //RMI Start
-
+                    serverRMI.throwInGameGUI(getRMIUsers());
 
                     //Game Start
                     notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");

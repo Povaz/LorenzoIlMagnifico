@@ -47,7 +47,7 @@ public class Client {
 
         if (this.getUserLoginRMI().isGUI()) {
             Application.launch(Main.class);
-            this.getUserLoginRMI().setMessageForGUI(messageForGUI);
+            this.getUserLoginRMI().setSynchronizedMessageForGUI(messageForGUI);
             this.getUserLoginRMI().loginHandlerGUI(serverRMI);
         }
         else {

@@ -4,11 +4,8 @@ package it.polimi.ingsw.pc34.RMI;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.Model.Player;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.*;
 
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Server;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -89,7 +86,15 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                     if (!server.searchLogged(userRMI.getUsername())) {
                         this.addRMIUser(userRMI);
 
-                        lobby.setUser(userRMI.getUsername(), ConnectionType.RMI);
+                        if (userRMI.isGUI()) {
+                            ClientInfo clientInfo = new ClientInfo(ConnectionType.RMI, ClientType.GUI);
+                            lobby.setUser(userRMI.getUsername(), clientInfo);
+                        }
+                        else {
+                            ClientInfo clientInfo = new ClientInfo(ConnectionType.RMI, ClientType.GUI);
+                            lobby.setUser(userRMI.getUsername(), clientInfo);
+                        }
+
                         userRMI.sendMessage("Login successful");
                         lobby.notifyAllUsers(NotificationType.USERLOGIN, userRMI.getUsername());
 
@@ -189,6 +194,22 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                 e.printStackTrace();
             }
         }
+    }
+
+    public void throwInGameGUI(ArrayList<String> userStarting) throws RemoteException {
+        int j = 0;
+        try {
+            for (int i = 0; i < userStarting.size(); i++) {
+                for (j = 0; j < usersLoggedRMI.size(); j++) {
+                    if (userStarting.get(i).equals(usernames.get(i))) {
+                        usersLoggedRMI.get(i).setMessageForGUI("start");
+                    }
+                }
+            }
+        } catch (RemoteException e) {
+            this.removeRMIUser(j);
+        }
+
     }
 
     //INIZIO GESTIONE GAME
