@@ -78,6 +78,12 @@ public class ServerSOC implements Runnable {
 	synchronized public void addPlayer (ServerHandler last, String username) throws RemoteException {
 		
 		//crea nuovo utente nella Lobby
+		
+		
+		//QUI METTERE A POSTO LOBBY
+		
+		
+		
 		//lobby.getUsers().put(username, ConnectionType.SOCKET);
 	
 		//notifica a tutti i giocatori
