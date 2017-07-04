@@ -236,7 +236,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                 for (j = 0; j < usersLoggedRMI.size(); j++) {
                     if (userStarting.get(i).equals(usernames.get(j))) {
                         if (usersLoggedRMI.get(j).isGUI()) {
-                            usersLoggedRMI.get(i).setMessageForGUI("start");
+                            usersLoggedRMI.get(i).setMessageByGUI("start");
                         }
                     }
                 }

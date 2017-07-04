@@ -64,6 +64,9 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     public void setMessageForGUI(String messageForGUI) {this.messageForGUI.put(messageForGUI); }
 
     @Override
+    public void setMessageByGUI(String messageByGUI) {this.messageByGUI.put(messageByGUI);}
+
+    @Override
     public boolean isGUI() throws RemoteException {
         return GUI;
     }
@@ -310,9 +313,9 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     public void gameHandlerGUI (ServerRMI serverRMI) throws IOException {
         String choose;
+        Client.guiReference.showGame();
         while (logged) {
             try {
-                Client.guiReference.showGame();
                 messageByGUI.put("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
                 choose = messageByGUI.get();
                 serverRMI.sendInput(choose, this);
