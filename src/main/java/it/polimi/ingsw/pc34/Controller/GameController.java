@@ -71,7 +71,7 @@ public class GameController{
 					e.printStackTrace();
 				}
 			}
-		}, 1000000);
+		}, 100000);
 	}
 
 	public void stopTimer() {

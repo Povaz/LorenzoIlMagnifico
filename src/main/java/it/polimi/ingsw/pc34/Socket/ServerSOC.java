@@ -9,6 +9,8 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 import it.polimi.ingsw.pc34.Controller.GameController;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType;
@@ -78,13 +80,16 @@ public class ServerSOC implements Runnable {
 	synchronized public void addPlayer (ServerHandler last, String username) throws RemoteException {
 		
 		//crea nuovo utente nella Lobby
+		ClientType clientType = null;
+		if(last.getGraphicType().equals("1")){
+			clientType=ClientType.CLI;
+		}
+		else{
+			clientType=ClientType.GUI;
+		}
+		ClientInfo clientInfo = new ClientInfo(ConnectionType.SOCKET, clientType);
 		
-		
-		//QUI METTERE A POSTO LOBBY
-		
-		
-		
-		//lobby.getUsers().put(username, ConnectionType.SOCKET);
+		lobby.getUsers().put(username, clientInfo);
 	
 		//notifica a tutti i giocatori
 		lobby.notifyAllUsers(NotificationType.USERLOGIN, last.getName());

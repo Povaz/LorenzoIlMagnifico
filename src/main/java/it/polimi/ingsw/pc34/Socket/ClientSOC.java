@@ -19,6 +19,7 @@ public class ClientSOC implements Runnable {
 		this.graphicType = graphicType;
 	}
 
+	@SuppressWarnings("restriction")
 	public void run() {
 		System.out.println("Connection established");
 		System.out.println("");
@@ -29,11 +30,10 @@ public class ClientSOC implements Runnable {
 		
 		//2 thread, 1 for input and 1 for output
 		//output
+		String messageGraphicType = "" + graphicType;
 		ClientOutputHandler coh = new ClientOutputHandler (socketServer);
-		if(graphicType==1){
-				Thread output = new Thread(coh);
-				output.start();
-		}
+		Thread output = new Thread(coh);
+		output.start();
 		
 		//input
 		ClientInputHandler cih = null;
@@ -45,6 +45,11 @@ public class ClientSOC implements Runnable {
 		}
 		Thread input = new Thread(cih);
 		input.start();
+		try {
+			ClientOutputHandler.sendToServer(messageGraphicType);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
 	}
 	
 }

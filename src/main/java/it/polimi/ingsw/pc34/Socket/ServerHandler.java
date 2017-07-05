@@ -25,6 +25,7 @@ public class ServerHandler implements Runnable{
 	private GameController gameController;
 	private String stateGame;
 	private ObjectOutputStream socketOut;
+	private String graphicType;
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
 	
@@ -72,6 +73,10 @@ public class ServerHandler implements Runnable{
 	
 	public Socket getSocket(){
 		return socket;
+	}
+	
+	public String getGraphicType(){
+		return graphicType;
 	}
 	
 	//method to send messages to client
@@ -135,6 +140,13 @@ public class ServerHandler implements Runnable{
 
 	public void run(){
 		String line = null;
+		try {
+			this.graphicType=receiveFromClient();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		System.out.println(graphicType);
+		
 		sendToClient("Take your decision : /login or /register?");
 		while (true){
 			try {
