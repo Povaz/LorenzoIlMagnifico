@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import it.polimi.ingsw.pc34.Model.Board;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
@@ -461,7 +460,6 @@ public class GameViewController {
                 }
             }
         }
-
 
         // order
         for(int i = 0; i < 5; i++){

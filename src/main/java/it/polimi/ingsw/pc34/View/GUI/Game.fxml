@@ -441,22 +441,22 @@
                   </GridPane>
                   <ImageView fx:id="harvestCover" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="95.0" layoutY="861.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_1.png" />
+                        <Image url="@pngFiles/HarvestCover.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="productionCover" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="95.0" layoutY="949.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_2.png" />
+                        <Image url="@pngFiles/ProductionCover.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="marketCover2" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="511.0" layoutY="860.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_3.png" />
+                        <Image url="@pngFiles/MarketCover2.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="marketCover3" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="564.0" layoutY="910.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_4.png" />
+                        <Image url="@pngFiles/MarketCover3.png" />
                      </image>
                   </ImageView>
                   <GridPane fx:id="reported1" disable="true" layoutX="123.0" layoutY="653.0" prefHeight="40.0" prefWidth="40.0" visible="false">
