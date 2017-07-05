@@ -70,7 +70,7 @@ public class PlaceMarket implements CommandPattern{
     }
 
     // guadagna i reward del CouncilPalace
-    private void earnReward() throws TooMuchTimeException, RemoteException{
+    private void earnReward() throws TooMuchTimeException, IOException{
         Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(market.getRewards(), player);
         newCounter.sumWithLose(rewards, modifier.getLoseRewards());
     }
