@@ -90,8 +90,24 @@ public class RootLayoutController {
     }
 
     @FXML private void keyPressed(KeyEvent event){
-        if(event.getCode() == KeyCode.ESCAPE){
+        KeyCode key = event.getCode();
+        if(key == KeyCode.ESCAPE){
             setFullScreenOff();
+        }
+        else if(key == KeyCode.F){
+            setFullScreenOn();
+        }
+        else if(key == KeyCode.M){
+            setMute();
+        }
+        else if(key == KeyCode.DIGIT1){
+            setTrack1();
+        }
+        else if(key == KeyCode.DIGIT2){
+            setTrack2();
+        }
+        else if(key == KeyCode.D){
+            resizeWindow();
         }
     }
 
@@ -101,14 +117,18 @@ public class RootLayoutController {
         }
     }
 
-    @FXML private void setFullScreenOff(){
+    @FXML protected void setFullScreenOff(){
         if(main.isCanBeFullScreen()){
             main.getPrimaryStage().setFullScreen(false);
-            main.getPrimaryStage().setWidth(main.getWindowWidth());
-            main.getPrimaryStage().setHeight(main.getWindowHeight());
-            main.getPrimaryStage().setX(0);
-            main.getPrimaryStage().setY(0);
+            resizeWindow();
         }
+    }
+
+    @FXML private void resizeWindow(){
+        main.getPrimaryStage().setWidth(main.getWindowWidth());
+        main.getPrimaryStage().setHeight(main.getWindowHeight());
+        main.getPrimaryStage().setX(0);
+        main.getPrimaryStage().setY(0);
     }
 
     public void setMain(Main main) {

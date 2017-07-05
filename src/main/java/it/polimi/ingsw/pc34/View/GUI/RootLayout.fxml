@@ -29,15 +29,15 @@
           </Menu>
           <Menu mnemonicParsing="false" text="View">
             <items>
-                  <Menu mnemonicParsing="false" text="Resolution">
-                    <items>
-                      <MenuItem mnemonicParsing="false" text="1280x720" />
-                    </items>
-                  </Menu>
                   <Menu mnemonicParsing="false" text="Full screen">
                     <items>
                       <MenuItem mnemonicParsing="false" onAction="#setFullScreenOn" text="On" />
                     <MenuItem mnemonicParsing="false" onAction="#setFullScreenOff" text="Off" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="Resolution">
+                    <items>
+                      <MenuItem mnemonicParsing="false" onAction="#resizeWindow" text="Resize window" />
                     </items>
                   </Menu>
             </items>

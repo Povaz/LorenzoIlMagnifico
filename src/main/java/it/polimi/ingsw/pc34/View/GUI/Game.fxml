@@ -138,10 +138,10 @@
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="0TERRITORY_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="1TERRITORY_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="2TERRITORY_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="3TERRITORY_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="10" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="11" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="12" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="13" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="59.0" />
@@ -159,10 +159,10 @@
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="0CHARACTER_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="1CHARACTER_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="2CHARACTER_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="3CHARACTER_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="30" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="31" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="32" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="33" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="59.0" />
@@ -180,10 +180,10 @@
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="0BUILDING_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="1BUILDING_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="2BUILDING_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="3BUILDING_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="20" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="21" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="22" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="23" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="59.0" />
@@ -201,10 +201,10 @@
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.halignment="CENTER" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="0VENTURE_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="0VENTURE_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="0VENTURE_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="0VENTURE_TOWER" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />                       
+                        <Circle fx:id="40" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="3" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="41" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="42" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="43" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />                       
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="59.0" />
@@ -222,10 +222,10 @@
                         <Button disable="true" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.columnIndex="1" />
                         <Button disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.columnIndex="2" GridPane.hgrow="NEVER" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" GridPane.vgrow="NEVER" />
                         <Button disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="Black" textFill="TRANSPARENT" visible="false" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />                     
-                        <Circle fx:id="0MARKET" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="1MARKET" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="2MARKET" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
-                        <Circle fx:id="3MARKET" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="70" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="71" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="72" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="2" GridPane.halignment="RIGHT" GridPane.rowIndex="1" GridPane.valignment="BOTTOM" />
+                        <Circle fx:id="73" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="3" GridPane.halignment="RIGHT" GridPane.rowIndex="2" GridPane.valignment="BOTTOM" />
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="69.0" />
@@ -281,8 +281,8 @@
                            <GridPane.margin>
                               <Insets left="70.52" />
                            </GridPane.margin></Button>
-                         <Circle fx:id="0HARVEST" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
-                         <Rectangle fx:id="1HARVEST" fill="TRANSPARENT" height="59.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="130.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />                        
+                         <Circle fx:id="50" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                         <Rectangle fx:id="51" fill="TRANSPARENT" height="59.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="130.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />                        
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="95.0" />
@@ -334,8 +334,8 @@
                            <GridPane.margin>
                               <Insets left="70.52" />
                            </GridPane.margin></Button>
-                         <Circle fx:id="0PRODUCE" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
-                         <Rectangle fx:id="1PRODUCE" fill="TRANSPARENT" height="59.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="130.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />                        
+                         <Circle fx:id="60" fill="TRANSPARENT" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" radius="29.5" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                         <Rectangle fx:id="61" fill="TRANSPARENT" height="59.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="130.0" GridPane.columnIndex="1" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />                        
                      </children>
                      <columnConstraints>
                         <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="95.0" />
@@ -427,7 +427,7 @@
                            <GridPane.margin>
                               <Insets left="143.45" />
                            </GridPane.margin></Button>
-                        <Rectangle fx:id="0COUNCIL_PALACE" fill="TRANSPARENT" height="78.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="196.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                        <Rectangle fx:id="80" fill="TRANSPARENT" height="78.0" onMouseDragEntered="#enterDrop" onMouseDragExited="#exitDrop" onMouseDragReleased="#drop" smooth="false" stroke="TRANSPARENT" strokeType="INSIDE" strokeWidth="0.0" width="196.0" GridPane.columnIndex="0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
                            <GridPane.margin>
                               <Insets left="5.0" top="5.0" />
                            </GridPane.margin></Rectangle>                          
@@ -441,25 +441,79 @@
                   </GridPane>
                   <ImageView fx:id="harvestCover" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="95.0" layoutY="861.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_1.png" />
+                        <Image url="@pngFiles/HarvestCover.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="productionCover" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="95.0" layoutY="949.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_2.png" />
+                        <Image url="@pngFiles/ProductionCover.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="marketCover2" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="511.0" layoutY="860.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_3.png" />
+                        <Image url="@pngFiles/MarketCover2.png" />
                      </image>
                   </ImageView>
                   <ImageView fx:id="marketCover3" disable="true" fitHeight="82.0" fitWidth="195.0" layoutX="564.0" layoutY="910.0" pickOnBounds="true" preserveRatio="true" visible="false">
                      <image>
-                        <Image url="@../../../../../../../../../../../Desktop/IngSWpng/copertura_4.png" />
+                        <Image url="@pngFiles/MarketCover3.png" />
                      </image>
                   </ImageView>
-               </children>
+                  <GridPane fx:id="reported1" disable="true" layoutX="123.0" layoutY="653.0" prefHeight="40.0" prefWidth="40.0" visible="false">
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                        <children>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="11.0" top="11.0" />
+                           </GridPane.margin></Rectangle>
+                        </children>
+                   </GridPane>
+                   <GridPane fx:id="reported2" disable="true" layoutX="182.0" layoutY="661.0" prefHeight="40.0" prefWidth="40.0" visible="false">
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                        <children>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="11.0" top="11.0" />
+                           </GridPane.margin></Rectangle>
+                        </children>
+                   </GridPane>
+                   <GridPane fx:id="reported3" disable="true" layoutX="241.0" layoutY="653.0" prefHeight="40.0" prefWidth="40.0" visible="false">
+                       <columnConstraints>
+                         <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                       </columnConstraints>
+                       <rowConstraints>
+                         <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                       </rowConstraints>
+                        <children>
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="LEFT" GridPane.valignment="TOP" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="RIGHT" GridPane.valignment="TOP" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="LEFT" GridPane.valignment="BOTTOM" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="RIGHT" GridPane.valignment="BOTTOM" />
+                           <Rectangle arcHeight="5.0" arcWidth="5.0" disable="true" fill="TRANSPARENT" height="18.0" stroke="BLACK" strokeType="INSIDE" strokeWidth="0.5" visible="false" width="18.0" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+                           <GridPane.margin>
+                              <Insets left="11.0" top="11.0" />
+                           </GridPane.margin></Rectangle>
+                        </children>
+                   </GridPane>
+             </children>
             </AnchorPane>
           <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="1048.0" prefWidth="1194.0" SplitPane.resizableWithParent="false">
                <children>
@@ -503,13 +557,21 @@
                                                             <Font name="System Bold" size="20.0" />
                                                          </font>
                                                       </Text>
-                                                      <Button fx:id="pass" layoutX="470.0" layoutY="-4.0" mnemonicParsing="false" onMouseClicked="#passClicked" prefHeight="45.0" prefWidth="70.0" text="PASS" textAlignment="CENTER">
+                                                      <SplitMenuButton fx:id="ActionButton" layoutX="446.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onKeyPressed="#escPressed" onMouseClicked="#passClicked" prefHeight="40.0" style="-fx-background-color: TRANSPARENT;" text="PASS" AnchorPane.rightAnchor="0.0">
+                                                        <items>
+                                                          <MenuItem mnemonicParsing="false" text="Place leader card" />
+                                                          <MenuItem mnemonicParsing="false" text="Activate leader card" />
+                                                            <MenuItem mnemonicParsing="false" text="Exchange leader card" />
+                                                        </items>
                                                          <font>
-                                                            <Font name="System Bold" size="18.0" />
+                                                            <Font name="System Bold" size="16.0" />
                                                          </font>
-                                                      </Button>
+                                                      </SplitMenuButton>
                                                    </children></AnchorPane>
-                                                <AnchorPane fx:id="actionSpace" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" />
+                                                <AnchorPane fx:id="actionSpace" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0">
+                                                   <children>
+                                                      <BorderPane fx:id="actionBorder" disable="true" layoutX="145.0" layoutY="128.0" prefHeight="548.0" prefWidth="540.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children></AnchorPane>
                                              </children>
                                           </VBox>
                                        </children>
