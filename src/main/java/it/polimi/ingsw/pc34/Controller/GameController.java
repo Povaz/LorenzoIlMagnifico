@@ -61,21 +61,26 @@ public class GameController{
     }
     
     public void startTimer(String username) {
+    	System.out.println("Starting a new Timer for " + username);
     	this.timerTillTheEnd = new Timer();
     	this.timerTillTheEnd.schedule(new TimerTask() {
 			@Override
 			public void run() {
 				try {
+					System.out.println("Timer expired for " + username);
 					final String flow = flow("/afk", username);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-		}, 100000);
+		}, 20000);
 	}
 
 	public void stopTimer() {
+    	System.out.println("I've stopped the Timer");
+    	this.timerTillTheEnd.purge();
     	this.timerTillTheEnd.cancel();
+		System.out.println("I've stopped the Timer");
 	}
 
     public void setInFlow(){
@@ -144,7 +149,7 @@ public class GameController{
     }*/
 
     public Integer getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
-        Integer whatToDo;
+        int whatToDo;
         afkVar = "whatToDo";
         whatToDo = whatToDoCreated.get();
         System.out.println("WhatToDo taken: " + whatToDo);

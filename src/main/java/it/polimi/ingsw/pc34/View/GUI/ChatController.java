@@ -20,7 +20,6 @@ public class ChatController extends Application {
     @FXML private Button sendMessageButton;
     @FXML private TextField messageTextField;
     @FXML private ScrollPane chatScrollPane;
-    @FXML private TextArea chatTextArea;
 
 
     @Override
@@ -35,7 +34,8 @@ public class ChatController extends Application {
     }
 
     @FXML private void initialize() {
-        chatScrollPane.setContent(chatTextArea);
+        TextField firstTextField = new TextField("Welcome to the MeglioChat!");
+        chatScrollPane.setContent(firstTextField);
     }
 
     @FXML public void messageClick() {
@@ -45,7 +45,6 @@ public class ChatController extends Application {
             return;
         }
         else {
-            chatTextArea.appendText(message + "\n");
         }
     }
 }
