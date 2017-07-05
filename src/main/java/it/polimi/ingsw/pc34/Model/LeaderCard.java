@@ -86,5 +86,9 @@ public abstract class LeaderCard {
         }
         return bld.toString();
     }
+
+    public String getPath(){
+        return path;
+    }
 }
 
