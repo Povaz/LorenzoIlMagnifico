@@ -43,6 +43,7 @@ public class LobbyFlow {
 	public void reset(){
 		username = null;
 		password = null;
+		start = true;
 		logged = false;
 	}
 	

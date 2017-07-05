@@ -73,7 +73,7 @@ public class GameController{
 					e.printStackTrace();
 				}
 			}
-		}, 20000);
+		}, 200000);
 	}
 
 	public void stopTimer() {
@@ -403,31 +403,38 @@ public class GameController{
     		if(checkCurrentPlayer(username)){
     			//AFK PER PLAYER DI CUI E' IL TURNO
     			if(asked.equals("/afk")){
+    				Player player = this.searchPlayerWithUsername(username);
     	    		switch(afkVar){
     	    			case("whatToDo"):
+    	    				disconnectPlayer(player);
     	    				whatToDoCreated.put(4);
     	    				setInFlow();
-    	    				return null;
+    	    				return "You're being disconnected";
     	    			case("actionInput"):
-    	    				actionInputCreated.put(null);
-    	    				setInFlow();
-    	    				return null;
+    						disconnectPlayer(player);
+    	    				actionInputCreated.put(null);	
+    						setInFlow();
+    	    				return "You're being disconnected";
     	    			case("familyColor"):
+    	    				disconnectPlayer(player);
     	    				familyColorCreated.put(null);
     	    				setInFlow();
-    	    				return null;
+    	    				return "You're being disconnected";
     	    			case("integer"):
+    	    				disconnectPlayer(player);
     	    				integerCreated.put(-1);
     	    				setInFlow();	
-    	    				return null;
+    	    				return "You're being disconnected";
     	    			case("intArray"):
+    	    				disconnectPlayer(player);
     	    				arrayIntegerCreated.put(null);
     	    				setInFlow();
-    	    				return null;
+    	    				return "You're being disconnected";
     	    			case("booleanVat"):
+    	    				disconnectPlayer(player);
     	    				booleanCreated.put(true);
     	    				setInFlow();
-    	    				return null;
+    	    				return "You're being disconnected";
     	    		}
     	    		return "not handled case";
     	    	}

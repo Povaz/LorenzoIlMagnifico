@@ -68,6 +68,7 @@ public class Server {
     public void reconnectedSoc(String username, ServerHandler newHandler) throws IOException{
     	Game game = reconnected(username);
     	game.getGameController().addServerHandler(newHandler);
+    	game.getGameController().sendMessageChat(" has reconnected!", username);
     }
     
     public Game reconnected(String username) throws IOException{

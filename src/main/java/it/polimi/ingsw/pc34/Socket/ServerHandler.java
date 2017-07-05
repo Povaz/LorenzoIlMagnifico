@@ -158,9 +158,10 @@ public class ServerHandler implements Runnable{
 				continue;
 			}
 			String answer = null;
-			
+			System.out.println(line);
 			//to lobby flow
 			if(fase==0){
+				System.out.println("fase 0000");
 				try {
 					answer = toLobbyHandler(line);
 				} catch (JSONException|IOException e) {
@@ -216,9 +217,9 @@ public class ServerHandler implements Runnable{
 						} catch (IOException e) {
 							LOGGER.log(Level.WARNING, "warning", e);
 						}
-						stateGame = null;
 						sendToClient(answer);
-						break;
+						stateGame = null;
+						continue;
 					}
 					
 					//you have decided yet the type of action to perform
@@ -252,7 +253,7 @@ public class ServerHandler implements Runnable{
 					}
 				}
 			}
-			
+
 			sendToClient(answer);
 		}
 	}
