@@ -13,7 +13,9 @@ import java.util.List;
 public class BoardView implements Serializable{
     private List<PlayerBoardView> players;
 
-    private int turn;
+    private String currentPlayer;
+
+    private String turn;
 
     private List<String> territoryCards;
     private List<String> buildingCards;
@@ -38,13 +40,15 @@ public class BoardView implements Serializable{
     private List<List<String>> harvestArea;
     private List<List<String>> productionaArea;
 
-    public BoardView(Board board, List<PlayerBoard> playerBoards){
+    public BoardView(Board board, List<PlayerBoard> playerBoards, String current){
         players = new ArrayList<>();
         for(int i = 0; i < playerBoards.size(); i++){
             players.add(new PlayerBoardView(playerBoards.get(i)));
         }
 
-        turn = board.getTurn() + 2 * board.getPeriod() - 2;
+        currentPlayer = current;
+
+        turn = "" + (board.getTurn() + 2 * board.getPeriod() - 2);
 
         territoryCards = new ArrayList<>();
         for(int i = 0; i < 4; i++){
@@ -87,9 +91,9 @@ public class BoardView implements Serializable{
             }
         }
 
-        blackDice = new StringBuilder(board.getDices().get(0).getValue()).toString();
-        whiteDice = new StringBuilder(board.getDices().get(1).getValue()).toString();
-        orangeDice = new StringBuilder(board.getDices().get(2).getValue()).toString();
+        blackDice = "" + board.getDices().get(0).getValue();
+        whiteDice = "" + board.getDices().get(1).getValue();
+        orangeDice = "" + board.getDices().get(2).getValue();
 
         vaticanReports = new ArrayList<>();
         reported = new ArrayList<>();
@@ -111,7 +115,7 @@ public class BoardView implements Serializable{
         order = new ArrayList<>();
         for(int i = 0; i < 5; i++){
             if(i < board.getOrder().getShown().size()){
-                order.add(board.getOrder().getShown().get(i).getColor().toString());
+                order.add(board.getOrder().getShown().get(i).getColor().toString() + ".png");
             }
             else{
                 order.add("");
@@ -123,7 +127,7 @@ public class BoardView implements Serializable{
             List<FamilyMember> councilOccupied = board.getCouncilPalace().getOccupiedBy();
             if(i < councilOccupied.size()){
                 FamilyMember f = councilOccupied.get(i);
-                councilPalace.add(f.getPlayer().getColor().toString() + f.getColor().toString());
+                councilPalace.add(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png");
             }
             else{
                 councilPalace.add("");
@@ -135,7 +139,7 @@ public class BoardView implements Serializable{
             List<FamilyMember> towerOccupied = board.getTerritoryTower().getFloors().get(i).getOccupiedBy();
             if(towerOccupied.size() > 0){
                 FamilyMember f = towerOccupied.get(0);
-                territoryTower.add(f.getPlayer().getColor().toString() + f.getColor().toString());
+                territoryTower.add(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png");
             }
             else{
                 territoryTower.add("");
@@ -146,7 +150,7 @@ public class BoardView implements Serializable{
             List<FamilyMember> towerOccupied = board.getBuildingTower().getFloors().get(i).getOccupiedBy();
             if(towerOccupied.size() > 0){
                 FamilyMember f = towerOccupied.get(0);
-                buildingTower.add(f.getPlayer().getColor().toString() + f.getColor().toString());
+                buildingTower.add(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png");
             }
             else{
                 buildingTower.add("");
@@ -157,7 +161,7 @@ public class BoardView implements Serializable{
             List<FamilyMember> towerOccupied = board.getCharacterTower().getFloors().get(i).getOccupiedBy();
             if(towerOccupied.size() > 0){
                 FamilyMember f = towerOccupied.get(0);
-                characterTower.add(f.getPlayer().getColor().toString() + f.getColor().toString());
+                characterTower.add(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png");
             }
             else{
                 characterTower.add("");
@@ -168,7 +172,7 @@ public class BoardView implements Serializable{
             List<FamilyMember> towerOccupied = board.getVentureTower().getFloors().get(i).getOccupiedBy();
             if(towerOccupied.size() > 0){
                 FamilyMember f = towerOccupied.get(0);
-                ventureTower.add(f.getPlayer().getColor().toString() + f.getColor().toString());
+                ventureTower.add(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png");
             }
             else{
                 ventureTower.add("");
@@ -182,7 +186,7 @@ public class BoardView implements Serializable{
                 List<FamilyMember> marketOccupied = marketBoard.get(i).getOccupiedBy();
                 if(marketOccupied.size() > 0){
                     FamilyMember f = marketOccupied.get(0);
-                    market.add(f.getPlayer().getColor().toString() + f.getColor().toString());
+                    market.add(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png");
                 }
                 else{
                     market.add("");
@@ -196,7 +200,7 @@ public class BoardView implements Serializable{
         harvestArea = new ArrayList<>();
         if(board.getHarvestArea().get(0).getOccupiedBy().size() > 0){
             FamilyMember f = board.getHarvestArea().get(0).getOccupiedBy().get(0);
-            harvestArea.add(Arrays.asList(f.getPlayer().getColor().toString() + f.getColor().toString()));
+            harvestArea.add(Arrays.asList(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png"));
         }
         else{
             harvestArea.add(Arrays.asList(""));
@@ -208,7 +212,7 @@ public class BoardView implements Serializable{
                 List<FamilyMember> harvestOccupied = harvestBoard.get(1).getOccupiedBy();
                 if(i < harvestOccupied.size()){
                     FamilyMember f = harvestOccupied.get(i);
-                    harvestMembers.add(f.getPlayer().getColor().toString() + f.getColor().toString());
+                    harvestMembers.add(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png");
                 }
                 else{
                     harvestMembers.add("");
@@ -223,7 +227,7 @@ public class BoardView implements Serializable{
         productionaArea = new ArrayList<>();
         if(board.getProductionArea().get(0).getOccupiedBy().size() > 0){
             FamilyMember f = board.getProductionArea().get(0).getOccupiedBy().get(0);
-            productionaArea.add(Arrays.asList(f.getPlayer().getColor().toString() + f.getColor().toString()));
+            productionaArea.add(Arrays.asList(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png"));
         }
         else{
             productionaArea.add(Arrays.asList(""));
@@ -235,7 +239,7 @@ public class BoardView implements Serializable{
                 List<FamilyMember> productionOccupied = productionBoard.get(1).getOccupiedBy();
                 if(i < productionOccupied.size()){
                     FamilyMember f = productionOccupied.get(i);
-                    productionMembers.add(f.getPlayer().getColor().toString() + f.getColor().toString());
+                    productionMembers.add(f.getPlayer().getColor().toString() + f.getColor().toString() + ".png");
                 }
                 else{
                     productionMembers.add("");
@@ -252,7 +256,7 @@ public class BoardView implements Serializable{
         return players;
     }
 
-    public int getTurn(){
+    public String getTurn(){
         return turn;
     }
 
@@ -326,5 +330,9 @@ public class BoardView implements Serializable{
 
     public List<List<String>> getProductionaArea(){
         return productionaArea;
+    }
+
+    public String getCurrentPlayer(){
+        return currentPlayer;
     }
 }

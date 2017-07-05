@@ -3,8 +3,6 @@ package it.polimi.ingsw.pc34.View.GUI;
 import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import javafx.application.Application;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -15,8 +13,6 @@ import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application{
@@ -31,26 +27,19 @@ public class Main extends Application{
     private WaitingRoomController waitingRoomC = null;
     private GameViewController gameViewC = null;
 
+    // username
+    private String username;
+
     // schermata: 1 login, 2 waiting, 3 game
     private AtomicInteger screen = new AtomicInteger(0);
 
-    //private BoardView board = new BoardView();
-    private List<PlayerBoardView> players = new ArrayList<>();
-
+    // view
     private Stage primaryStage;
     private BorderPane rootLayout;
 
     private boolean canBeFullScreen = false;
     private int windowWidth = 0;
     private int windowHeight = 0;
-
-    private ObservableList<PlayerBoardView> personalBoardViews = FXCollections.observableArrayList();
-
-    private boolean logged = false;
-
-    public Main(){
-
-    }
 
     @Override
     public void start(Stage primaryStage) throws Exception{
@@ -238,8 +227,6 @@ public class Main extends Application{
             // Give the controller access to the main app.
             GameViewController gameController = loader.getController();
             gameController.setMain(this);
-            gameController.setPlayersView(players);
-            //gameController.setBoardView(board);
             gameController.initializeView();
             gameController.initializeObservable();
 
@@ -254,6 +241,13 @@ public class Main extends Application{
         }
     }
 
+    public void updateGame(BoardView boardView){
+        GameViewController gC = gameViewC;
+        if(screen.get() == 3 && gC != null){
+            gC.update(boardView);
+        }
+    }
+
     public static void main(String[] args){
         Application.launch(Main.class);
     }
@@ -264,10 +258,6 @@ public class Main extends Application{
 
     public BorderPane getRootLayout(){
         return rootLayout;
-    }
-
-    public ObservableList<PlayerBoardView> getPersonalBoardViews(){
-        return personalBoardViews;
     }
 
     public boolean isCanBeFullScreen(){
@@ -316,5 +306,13 @@ public class Main extends Application{
 
     public void setOpenWindow(SynchronizedString openWindow){
         this.openWindow = openWindow;
+    }
+
+    public String getUsername(){
+        return username;
+    }
+
+    public void setUsername(String username){
+        this.username = username;
     }
 }
