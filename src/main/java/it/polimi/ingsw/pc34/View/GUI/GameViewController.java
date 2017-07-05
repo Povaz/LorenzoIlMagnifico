@@ -113,13 +113,6 @@ public class GameViewController {
     }
 
     public void initializeObservable(){
-        observablePlayers = FXCollections.observableArrayList(players);
-
-        observablePlayers.addListener((ListChangeListener) obs -> {
-                ObservableList<PlayerBoardView> playersObs = (ObservableList<PlayerBoardView>) obs.getList();
-
-            }
-        );
 
         /*players.get(0).addListener((obsVal, oldVal, newVal) -> {
             PersonalBoardView pB = (PersonalBoardView) newVal;
@@ -137,7 +130,6 @@ public class GameViewController {
             }
         });*/
 
-        players.get(0).setCoin(5);
     }
 
     private void updateButton(Button button, String folder, String path){

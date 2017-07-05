@@ -49,7 +49,7 @@ public class Main extends Application{
     private boolean logged = false;
 
     public Main(){
-        
+
     }
 
     @Override
