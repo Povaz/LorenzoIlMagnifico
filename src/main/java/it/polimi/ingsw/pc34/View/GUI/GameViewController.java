@@ -4,21 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +20,8 @@ import java.util.List;
 public class GameViewController {
     private Main main;
     private String currentPlayerShown;
-    private List<PersonalBoardView> players;
-    private ObservableList<PersonalBoardView> observablePlayers;
+    private List<PlayerBoardView> players;
+    private ObservableList<PlayerBoardView> observablePlayers;
     private BoardView board;
 
     // drag and drop attributes
@@ -119,13 +113,6 @@ public class GameViewController {
     }
 
     public void initializeObservable(){
-        observablePlayers = FXCollections.observableArrayList(players);
-
-        observablePlayers.addListener((ListChangeListener) obs -> {
-                ObservableList<PersonalBoardView> playersObs = (ObservableList<PersonalBoardView>) obs.getList();
-
-            }
-        );
 
         /*players.get(0).addListener((obsVal, oldVal, newVal) -> {
             PersonalBoardView pB = (PersonalBoardView) newVal;
@@ -143,7 +130,6 @@ public class GameViewController {
             }
         });*/
 
-        players.get(0).setCoin(5);
     }
 
     private void updateButton(Button button, String folder, String path){
@@ -169,8 +155,8 @@ public class GameViewController {
     }
 
     private void updateView(){
-        PersonalBoardView toShow = null;
-        for(PersonalBoardView p : players){
+        PlayerBoardView toShow = null;
+        for(PlayerBoardView p : players){
             if(p.getUsername().equals(currentPlayerShown)){
                 toShow = p;
             }
@@ -298,8 +284,8 @@ public class GameViewController {
     @FXML private void passClicked(){
         main.getFromGuiToServer().put("/playerturn");
         String response = main.getFromServerToGui().get();
-        if(response.equals("/yes")){
-            main.getFromGuiToServer().put("/skip");
+        if(response.equals("Yes")){
+            main.getFromGuiToServer().put("5");
         }
     }
 
@@ -316,14 +302,41 @@ public class GameViewController {
             return;
         }
         // Do action:
+        ((Button)((GridPane)dropShape.getParent()).getChildren().get(0)).setBackground(dragButton.getBackground());
+        ((Button)((GridPane)dropShape.getParent()).getChildren().get(1)).setBackground(dragButton.getBackground());
         ((Button)((GridPane)dropShape.getParent()).getChildren().get(2)).setBackground(dragButton.getBackground());
+        ((Button)((GridPane)dropShape.getParent()).getChildren().get(3)).setBackground(dragButton.getBackground());
+
+        main.getFromGuiToServer().put("/playerturn");
+        String response = main.getFromServerToGui().get();
+        if(!response.equals("Yes")){
+            return;
+        }
+        main.getFromGuiToServer().put("1");
+        if(!response.equals("Yes")){
+            return;
+        }
+        main.getFromGuiToServer().put("1");// 1TerritoryT, 2 BuildingT, 3 CharacterT, 4VentreT, 5Harvest, 6Produce, 7mark, 8Councilpaa
+        if(!response.equals("Yes")){
+            return;
+        }
+        if(false){//not council palace){
+            main.getFromGuiToServer().put("1");// tower inserisci numero 0-3
+            if(!response.equals("Yes")){
+                return;
+            }
+        }
+        main.getFromGuiToServer().put("1");// familiare inserisci 0 black, 1 white, 2 orange, 3 neutral
+        if(!response.equals("Yes")){
+            return;
+        }
     }
 
     public void setMain(Main main){
         this.main = main;
     }
 
-    public void setPlayersView(List<PersonalBoardView> players){
+    public void setPlayersView(List<PlayerBoardView> players){
         this.players = players;
     }
 

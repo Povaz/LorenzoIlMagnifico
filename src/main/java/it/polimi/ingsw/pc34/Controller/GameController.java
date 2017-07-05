@@ -290,7 +290,7 @@ public class GameController{
     }
 
     public boolean wantToSupportVatican(Player player) throws IOException{ //TODO DUBBI SUI SETSTATE GAME
-    	String message = "Do you support Vatican?";
+    	String message = "Do you support Vatican? (yes or no)";
     	ServerHandler currPlayer = null;
     	switch (player.getConnectionType()) {
 			case SOCKET:

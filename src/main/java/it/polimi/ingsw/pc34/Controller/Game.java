@@ -240,6 +240,8 @@ public class Game implements Runnable{
         churchSupport();
         period++;
         turn = 1;
+        board.setPeriod(period);
+        board.setTurn(turn);
     }
 
     private void churchSupport() throws RemoteException, IOException{
@@ -440,6 +442,7 @@ public class Game implements Runnable{
         calculateNewOrder();
         reinitializeBoard();
         turn++;
+        board.setTurn(turn);
     }
 
     private Player decreeWinner(){

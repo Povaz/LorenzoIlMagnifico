@@ -59,6 +59,10 @@ public class PersonalBonusTile{
         return productionRewards;
     }
 
+    public String getPath(){
+        return path;
+    }
+
     @Override
     public String toString (){
         StringBuilder bld = new StringBuilder();
