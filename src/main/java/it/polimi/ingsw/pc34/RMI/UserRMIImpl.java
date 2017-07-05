@@ -222,14 +222,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                         this.printUsers(serverRMI); //TODO ELIMINARE
                         break;
                     default:
-                        System.out.println(startingGame);
-                        if (startingGame) {
-                            startingGame = false;
-                            this.gameHandler(serverRMI);
-                        }
-                        else {
-                            System.out.println("Incorrect answer");
-                        }
+                       break;
                 }
             } catch (InputMismatchException e) {
                 System.out.println("InputError: Retry");

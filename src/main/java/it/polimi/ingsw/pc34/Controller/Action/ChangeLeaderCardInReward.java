@@ -39,7 +39,6 @@ public class ChangeLeaderCardInReward implements CommandPattern{
         leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player);
 
         if (leaderCard == null) { //AGGIUNTO DA ERICK PER TIMER
-            game.getGameController().disconnectPlayer(player);
             return false;
         }
 

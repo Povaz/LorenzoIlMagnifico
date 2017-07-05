@@ -160,33 +160,36 @@ public class GameController{
     public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
         System.out.println("Aspetto un actioninput");
         afkVar = "actionInput";
-    	ActionInput actionInput = actionInputCreated.get();
-    	if(actionInput==null){
-    		setInFlow();
+    	try {
+			ActionInput actionInput = actionInputCreated.get();
+			if (actionInput == null) {
+				setInFlow();
+				return null;
+			}
+			setInFlow();
+			switch (actionInput.getActionType()) {
+				case TERRITORY_TOWER:
+					return board.getTerritoryTower().getFloors().get(actionInput.getSpot());
+				case BUILDING_TOWER:
+					return board.getBuildingTower().getFloors().get(actionInput.getSpot());
+				case CHARACTER_TOWER:
+					return board.getCharacterTower().getFloors().get(actionInput.getSpot());
+				case VENTURE_TOWER:
+					return board.getVentureTower().getFloors().get(actionInput.getSpot());
+				case HARVEST:
+					return board.getHarvestArea().get(actionInput.getSpot());
+				case PRODUCE:
+					return board.getProductionArea().get(actionInput.getSpot());
+				case MARKET:
+					return board.getMarket().get(actionInput.getSpot());
+				case COUNCIL_PALACE:
+					return board.getCouncilPalace();
+				default:
+					return null;
+			}
+		} catch (NullPointerException e) {
     		return null;
-    	}
-        //TODO NULL POINTER DA GESTIRE: non viene sempre lanciata (?)
-        setInFlow();
-        switch(actionInput.getActionType()){
-            case TERRITORY_TOWER:
-                return board.getTerritoryTower().getFloors().get(actionInput.getSpot());
-            case BUILDING_TOWER:
-                return board.getBuildingTower().getFloors().get(actionInput.getSpot());
-            case CHARACTER_TOWER:
-                return board.getCharacterTower().getFloors().get(actionInput.getSpot());
-            case VENTURE_TOWER:
-                return board.getVentureTower().getFloors().get(actionInput.getSpot());
-            case HARVEST:
-                return board.getHarvestArea().get(actionInput.getSpot());
-            case PRODUCE:
-                return board.getProductionArea().get(actionInput.getSpot());
-            case MARKET:
-                return board.getMarket().get(actionInput.getSpot());
-            case COUNCIL_PALACE:
-                return board.getCouncilPalace();
-            default:
-                return null;
-        }
+		}
     }
 
     public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException{
@@ -213,7 +216,7 @@ public class GameController{
     public Integer getHowManyServants (Player player) {
         player.putSecond_State(PlayerState.SERVANTS);
         afkVar = "integer";
-        int index = integerCreated.get();
+        int index = integerCreated.get(); //TODO Deve poter tornare -1
         setInFlow();
         return index;
     }
@@ -234,7 +237,7 @@ public class GameController{
 				player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
 				this.sendMessageCLI(player, "choose + " + councilRewardsSize + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT");
 				afkVar = "intArray";
-                int[] rewardArray = arrayIntegerCreated.get();
+                int[] rewardArray = arrayIntegerCreated.get(); //TODO Deve poter essere null
                 setInFlow();
                 if (rewardArray == null) {
                 	return null;
@@ -270,7 +273,7 @@ public class GameController{
     public FamilyColor chooseFamilyMemberColorNotNeutral(Player player){
     	afkVar = "familyColor";
         player.putSecond_State(PlayerState.FAMILY_MEMBER);
-        FamilyColor familyColor = familyColorCreated.get();
+        FamilyColor familyColor = familyColorCreated.get(); //TODO Deve poter essere Null
         setInFlow();
         return familyColor;
     }
@@ -282,7 +285,7 @@ public class GameController{
         }
         this.sendMessageCLI(player, message);
         afkVar = "integer";
-        int index = integerCreated.get();
+        int index = integerCreated.get(); //TODO deve poter essere -1
         setInFlow();
         return leaderCardsInHand.get(index);
     }
@@ -294,11 +297,11 @@ public class GameController{
         }
         this.sendMessageCLI(player, message);
         afkVar = "integer";  
-        int index = integerCreated.get();
+        int index = integerCreated.get(); //TODO deve poter essere -1
         return leaderCardsInHand.get(index);
     }
 
-    public boolean wantToSupportVatican(Player player) throws IOException{ //TODO DUBBI SUI SETSTATE GAME
+    public boolean wantToSupportVatican(Player player) throws IOException{
     	String message = "Do you support Vatican? (yes or no)";
     	ServerHandler currPlayer = null;
     	switch (player.getConnectionType()) {
@@ -343,7 +346,7 @@ public class GameController{
         this.tradesSize = buildingCard.getTrades().size();
         player.putSecond_State(PlayerState.CHOOSE_TRADE);
         afkVar = "integer";
-        int choose = integerCreated.get();
+        int choose = integerCreated.get();  //TODO Deve poter essere -1
         Trade trade = buildingCard.getTrades().get(choose);
         setInFlow();
         return trade;
@@ -362,7 +365,7 @@ public class GameController{
         this.sendMessageCLI(player, message);
         afkVar = "integer";
         int index = integerCreated.get();
-        List<Reward> discount = discounts.get(index);
+        List<Reward> discount = discounts.get(index); //TODO index deve poter essere -1
         setInFlow();
         return discount;
     }
@@ -372,7 +375,7 @@ public class GameController{
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
         afkVar = "boolean";
-        int choose = integerCreated.get();
+        int choose = integerCreated.get(); //TODO Deve poter essere -1
         setInFlow();
         return choose;
     }
@@ -806,6 +809,7 @@ public class GameController{
 
 	public void disconnectPlayer (Player player) throws IOException {
 		player.setDisconnected(true);
+		player.setYourTurn(false);
 		this.sendMessageCLI(player, "This Client has been disconnected");
 		this.sendMessageChat("has disconnected.", player.getUsername());
 	}

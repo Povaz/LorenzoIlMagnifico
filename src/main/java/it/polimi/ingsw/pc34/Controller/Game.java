@@ -290,14 +290,12 @@ public class Game implements Runnable{
                                     current.putSecond_State(PlayerState.ACTION_INPUT);
                                     actionSpot = gameController.getViewActionSpot(current);
                                     if (actionSpot == null) {
-                                        gameController.disconnectPlayer(current);
                                         break;
                                     }
 
                                     current.putSecond_State(PlayerState.FAMILY_MEMBER);
                                     familyMember = gameController.getViewFamilyMember(current);
                                     if (familyMember == null) {
-                                        gameController.disconnectPlayer(current);
                                         break;
                                     }
 

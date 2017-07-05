@@ -42,7 +42,6 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         leaderCard = game.getGameController().askWhichImmediateCardActivate(immediateLeaderCardsPositionated, player);
 
         if (leaderCard == null) { //AGGIUNTO DA ERICK PER IL TIMER
-            game.getGameController().disconnectPlayer(player);
             return false;
         }
 

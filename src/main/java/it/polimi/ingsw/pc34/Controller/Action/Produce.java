@@ -104,7 +104,7 @@ public class Produce {
                     newCounter.sumWithLose(rewards, modifier.getLoseRewards());
                 }
                 if(bCard.getTrades() != null){
-                    Trade trade = game.getGameController().chooseTrade(bCard, player);
+                    Trade trade = game.getGameController().chooseTrade(bCard, player); //TODO Deve poter esssere -1
                     copyForCosts.subtract(trade.getGive());
                     newCounter.subtract(trade.getGive());
                     Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(trade.getTake(), player);
