@@ -233,8 +233,6 @@ public class GameController{
 				}
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
-						case 0:
-							newRewards.add(new Reward(RewardType.SERVANT, 0));
                         case 1:
                             newRewards.add(new Reward(RewardType.WOOD, 1));
                             newRewards.add(new Reward(RewardType.STONE, 1));
