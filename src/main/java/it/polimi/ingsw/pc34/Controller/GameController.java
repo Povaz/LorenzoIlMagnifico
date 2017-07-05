@@ -38,8 +38,6 @@ public class GameController{
     private Timer timerTillTheEnd;
 
     public GameController(Game game, ServerRMIImpl serverRMI, ServerSOC serverSoc) {
-        Thread threadGame = new Thread (game);
-        threadGame.start();
         this.board = game.getBoard();
         this.players = game.getPlayers();
         this.serverSoc = serverSoc;
