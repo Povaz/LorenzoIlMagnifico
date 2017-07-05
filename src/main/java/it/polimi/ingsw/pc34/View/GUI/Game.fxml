@@ -557,13 +557,21 @@
                                                             <Font name="System Bold" size="20.0" />
                                                          </font>
                                                       </Text>
-                                                      <Button fx:id="pass" layoutX="470.0" layoutY="-4.0" mnemonicParsing="false" onMouseClicked="#passClicked" prefHeight="45.0" prefWidth="70.0" text="PASS" textAlignment="CENTER">
+                                                      <SplitMenuButton fx:id="ActionButton" layoutX="446.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onKeyPressed="#escPressed" onMouseClicked="#passClicked" prefHeight="40.0" style="-fx-background-color: TRANSPARENT;" text="PASS" AnchorPane.rightAnchor="0.0">
+                                                        <items>
+                                                          <MenuItem mnemonicParsing="false" text="Place leader card" />
+                                                          <MenuItem mnemonicParsing="false" text="Activate leader card" />
+                                                            <MenuItem mnemonicParsing="false" text="Exchange leader card" />
+                                                        </items>
                                                          <font>
-                                                            <Font name="System Bold" size="18.0" />
+                                                            <Font name="System Bold" size="16.0" />
                                                          </font>
-                                                      </Button>
+                                                      </SplitMenuButton>
                                                    </children></AnchorPane>
-                                                <AnchorPane fx:id="actionSpace" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" />
+                                                <AnchorPane fx:id="actionSpace" layoutY="40.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0">
+                                                   <children>
+                                                      <BorderPane fx:id="actionBorder" disable="true" layoutX="145.0" layoutY="128.0" prefHeight="548.0" prefWidth="540.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                                   </children></AnchorPane>
                                              </children>
                                           </VBox>
                                        </children>

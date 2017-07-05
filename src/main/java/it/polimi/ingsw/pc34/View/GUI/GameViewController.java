@@ -6,6 +6,8 @@ import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -26,6 +28,7 @@ public class GameViewController {
     private Main main;
     private String currentPlayerShown;
     private BoardView board = null;
+    private boolean canDoAction = true;
 
     // drag and drop attributes
     private Button dragButton = null;
@@ -109,6 +112,11 @@ public class GameViewController {
     @FXML private void initialize(){
         // add in .fxml per settare le dimensioni dell'immagine
         // <Image url="@pngFiles/Board.png" requestedHeight="1046.0" requestedWidth="716.0" />
+
+        // set background action AnchorPane
+        actionSpace.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/ActionBackground.png",
+                540, 548, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
     }
 
     public void initializeView(){
@@ -251,6 +259,12 @@ public class GameViewController {
         zoomedCard.setVisible(false);
     }
 
+    @FXML private void escPressed(KeyEvent event){
+        if(event.getCode() == KeyCode.ESCAPE){
+            main.getRootC().setFullScreenOff();
+        }
+    }
+
     @FXML private void bTP(){
         // TODO elimina
         // vatican report
@@ -336,6 +350,9 @@ public class GameViewController {
     }
 
     @FXML private void passClicked(){
+        if(!canDoAction){
+            return;
+        }
         main.getFromGuiToServer().put("/playerturn");
         String response = main.getFromServerToGui().get();
         if(response.equals("Yes")){
@@ -363,11 +380,16 @@ public class GameViewController {
         // get familyMember color
         String familyColor = dragButton.getText();
 
+        if(!canDoAction){
+            return;
+        }
 
         main.getFromGuiToServer().put("/playerturn");
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
+        //TODO va qui?
+        canDoAction = false;
         main.getFromGuiToServer().put("1");
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;

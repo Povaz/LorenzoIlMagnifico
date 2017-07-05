@@ -23,6 +23,7 @@ public class Main extends Application{
     private SynchronizedString fromServerToGui;
 
     // controller
+    private RootLayoutController rootC = null;
     private LoginController loginC = null;
     private WaitingRoomController waitingRoomC = null;
     private GameViewController gameViewC = null;
@@ -134,6 +135,7 @@ public class Main extends Application{
             // Give the controller access to the main app.
             RootLayoutController rootLayoutController = loader.getController();
             rootLayoutController.setMain(this);
+            rootC = rootLayoutController;
 
             // Show the scene containing the root layout.
             Scene scene = new Scene(rootLayout);
@@ -314,5 +316,9 @@ public class Main extends Application{
 
     public void setUsername(String username){
         this.username = username;
+    }
+
+    public RootLayoutController getRootC(){
+        return rootC;
     }
 }
