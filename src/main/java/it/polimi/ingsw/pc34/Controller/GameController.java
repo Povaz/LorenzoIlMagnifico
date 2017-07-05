@@ -71,7 +71,7 @@ public class GameController{
 					e.printStackTrace();
 				}
 			}
-		}, 100000);
+		}, 1000000);
 	}
 
 	public void stopTimer() {
@@ -214,7 +214,6 @@ public class GameController{
 		for(Reward reward : rewards) {
 			if (reward.getType().equals(RewardType.COUNCIL_PRIVILEGE)) {
 				this.councilRewardsSize++;
-				System.out.println(councilRewardsSize+" in loop");
 			}
 		}
         Set<Reward> newRewards = new HashSet<>();
@@ -297,16 +296,22 @@ public class GameController{
 			case SOCKET:
 				currPlayer = getServerHandler(player.getUsername());
 				currPlayer.setStateGame("/vaticansupport");
-				currPlayer.setStateGame(null);
 				break;
 			case RMI:
 				serverRMI.setStateGame(player, "/vaticansupport");
-				serverRMI.setStateGame(player, null);
 				break;
 		}
         this.sendMessageCLI(player, message);
         afkVar = "booleanVat";
         boolean choose = booleanCreated.get();
+        switch (player.getConnectionType()) {
+			case SOCKET:
+				currPlayer.setStateGame(null);
+				break;
+			case RMI:
+				serverRMI.setStateGame(player, null);
+				break;
+        }
         setInFlow();
         return  choose;
     }
@@ -445,7 +450,7 @@ public class GameController{
 	    					return "You skipped your turn!"; 
 	    				default :
 	    					setInFlow();
-	    					return "Input error";
+	    					return "Input error, Retry!";
 	    			}
 	        	}
 	    		//ENTER HERE IF STATE1 IS DEFINED
@@ -460,7 +465,7 @@ public class GameController{
 		    					}
 		    					else{
 		    						setInFlow();
-		    						return "Input error";
+		    						return "Input error, Retry!";
 		    					}
 		    				case ACTIVATE_LEADER_CARD :
 		    					if(checkNumber(0, 3, asked)){
@@ -469,7 +474,7 @@ public class GameController{
 		    					}
 		    					else{
 		    						setInFlow();
-		    						return "Input error";
+		    						return "Input error, Retry!";
 		    					}
 		    				case EXCHANGE_LEADER_CARD :
 		    					if(checkNumber(0, 3, asked)){
@@ -479,7 +484,7 @@ public class GameController{
 		    					}
 		    					else{
 		    						setInFlow();
-		    						return "Input error";
+		    						return "Input error, Retry!";
 		    					}
 		    				default:
 		    					setInFlow();
@@ -573,7 +578,7 @@ public class GameController{
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
-			    				                    	return "retry";
+			    				                    	return "Retry";
 			    				                    }
 			    								case "6":
 			    									if (players.size() > 2 && checkNumber(0, 1, asked)) {
@@ -587,7 +592,7 @@ public class GameController{
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
-			    				                    	return "Input error";
+			    				                    	return "Input error, Retry!";
 			    				                    }
 			    								case "7":
 			    									if (players.size() > 3 && checkNumber(0, 3, asked)) {
@@ -601,13 +606,13 @@ public class GameController{
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
-			    				                    	return "Input error";
+			    				                    	return "Input error, Retry!";
 			    				                    }
 			    							}
 		    							}
 		    							else {
 		    								setInFlow();
-		    								return "Input error";
+		    								return "Input error, Retry!";
 		    							}
 		    						case FAMILY_MEMBER :
 		    							if (checkNumber(1, 4, asked)){
@@ -632,7 +637,7 @@ public class GameController{
 		    							}
 		    							else{
 		    								setInFlow();
-		    								return "Input error";
+		    								return "Input error, Retry!";
 		    							}
 		    						case SERVANTS :
 		    							if(checkNumber(0, 1000, asked)){
@@ -642,7 +647,7 @@ public class GameController{
 		    							}
 		    							else{
 		    								setInFlow();
-			    						    return "Input error";
+			    						    return "Input error, Retry!";
 		    							}
 		    							
 									case EXCHANGE_COUNCIL_PRIVILEGE : //TODO Check con Tom: Compie l'azione ma gli input successivi continuano ad entrare qui, lo stato non è cambiato.
@@ -661,7 +666,7 @@ public class GameController{
 				    						return "You request for " + message;
 				    					}
 				    					setInFlow();
-				    					return "Input error";
+				    					return "Input error, Retry!";
 				    				case CHOOSE_TRADE :
 				    					integerCreated.put(Integer.parseInt(asked));
 				    					return "You choose the " + Integer.parseInt(asked) + " trade";
@@ -679,7 +684,7 @@ public class GameController{
 				    		    			return null;
 				    		    		}
 				    					setInFlow();
-				    		    		return "Input error";
+				    		    		return "Input error, Retry!";
 				    				default:
 				    					setInFlow();
 				    					return "State not handled";
@@ -699,7 +704,7 @@ public class GameController{
 												return "You choose " + FamilyColor.ORANGE + " color";
 											default : 
 												setInFlow();
-												return "Error input";
+												return "Error input, Retry!";
 				    					}
 				    				case ASK_WHICH_CARD_COPY :
 				    					integerCreated.put(Integer.parseInt(asked));
@@ -721,7 +726,7 @@ public class GameController{
 				    						return "You choose the " + value + " reward";
 				    					}
 				    					setInFlow();
-				    					return "Input error";
+				    					return "Input error, Retry!";
 				    				case WAITING:
 				    					integerCreated.put(Integer.parseInt(asked));
 				    					return "You choose " + Integer.parseInt(asked);
@@ -746,7 +751,7 @@ public class GameController{
         			return "You choose not to support vatican";
         		}
         		setInFlow();
-        		return "Input error";
+        		return "Input error, Retry!";
         	}
         	
         	//ENTER HERE IF IT ISN'T YOUR TURN
