@@ -1,21 +1,42 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.BorderPane;
 
 /**
  * Created by trill on 03/07/2017.
  */
 public class SupportVaticanController{
+    private Main main;
 
-    @FXML private Button yesButton;
-    @FXML private Button noButton;
+    @FXML private AnchorPane supportVatican;
 
     @FXML private void yesClicked(){
-        // TODO invia true server
+        main.getFromGuiToServer().put("yes");
+        if(!main.getFromServerToGui().get().equals("Yes")){
+            return;
+        }
+        closeSupportVatican();
     }
 
     @FXML private void noClicked(){
-        // TODO invia false server
+        main.getFromGuiToServer().put("no");
+        if(!main.getFromServerToGui().get().equals("Yes")){
+            return;
+        }
+        closeSupportVatican();
+    }
+
+    private void closeSupportVatican(){
+        BorderPane parent = (BorderPane) supportVatican.getParent();
+        parent.setCenter(null);
+        parent.setDisable(true);
+        parent.setVisible(false);
+        main.getGameViewC().setCanDoAction(true);
+    }
+
+    public void setMain(Main main){
+        this.main = main;
     }
 }

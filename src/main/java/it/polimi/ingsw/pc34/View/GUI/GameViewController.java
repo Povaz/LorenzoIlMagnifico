@@ -623,4 +623,8 @@ public class GameViewController {
     public void setMain(Main main){
         this.main = main;
     }
+
+    public void setCanDoAction(boolean canDoAction){
+        this.canDoAction = canDoAction;
+    }
 }

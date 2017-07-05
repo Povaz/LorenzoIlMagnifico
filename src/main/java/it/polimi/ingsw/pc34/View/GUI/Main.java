@@ -321,4 +321,8 @@ public class Main extends Application{
     public RootLayoutController getRootC(){
         return rootC;
     }
+
+    public GameViewController getGameViewC(){
+        return gameViewC;
+    }
 }
