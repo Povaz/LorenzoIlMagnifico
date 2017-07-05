@@ -161,6 +161,10 @@ public class GameController{
         System.out.println("Aspetto un actioninput");
         afkVar = "actionInput";
     	ActionInput actionInput = actionInputCreated.get();
+    	if(actionInput==null){
+    		setInFlow();
+    		return null;
+    	}
         //TODO NULL POINTER DA GESTIRE: non viene sempre lanciata (?)
         setInFlow();
         switch(actionInput.getActionType()){
@@ -406,31 +410,37 @@ public class GameController{
     				Player player = this.searchPlayerWithUsername(username);
     	    		switch(afkVar){
     	    			case("whatToDo"):
+    	    				skip();
     	    				disconnectPlayer(player);
     	    				whatToDoCreated.put(4);
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    			case("actionInput"):
+    	    				skip();
     						disconnectPlayer(player);
     	    				actionInputCreated.put(null);	
     						setInFlow();
     	    				return "You're being disconnected";
     	    			case("familyColor"):
+    	    				skip();
     	    				disconnectPlayer(player);
     	    				familyColorCreated.put(null);
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    			case("integer"):
+    	    				skip();
     	    				disconnectPlayer(player);
     	    				integerCreated.put(-1);
     	    				setInFlow();	
     	    				return "You're being disconnected";
     	    			case("intArray"):
+    	    				skip();
     	    				disconnectPlayer(player);
     	    				arrayIntegerCreated.put(null);
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    			case("booleanVat"):
+    	    				skip();
     	    				disconnectPlayer(player);
     	    				booleanCreated.put(true);
     	    				setInFlow();
@@ -771,7 +781,8 @@ public class GameController{
         		//AFK PER PLAYER DI CUI NON E' IL TURNO
         		if(asked.equals("/afk")){
     	    		Player player = this.searchPlayerWithUsername(username);
-					disconnectPlayer(player);
+    	    		skip();
+    	    		disconnectPlayer(player);
 					setInFlow();
 					return "You're being disconnected";
     	    	}
