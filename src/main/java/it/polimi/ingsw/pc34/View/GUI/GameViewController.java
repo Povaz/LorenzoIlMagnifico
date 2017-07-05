@@ -4,21 +4,15 @@ import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.image.Image;
-import javafx.scene.input.DragEvent;
-import javafx.scene.input.MouseDragEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
-import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,8 +20,8 @@ import java.util.List;
 public class GameViewController {
     private Main main;
     private String currentPlayerShown;
-    private List<PersonalBoardView> players;
-    private ObservableList<PersonalBoardView> observablePlayers;
+    private List<PlayerBoardView> players;
+    private ObservableList<PlayerBoardView> observablePlayers;
     private BoardView board;
 
     // drag and drop attributes
@@ -122,7 +116,7 @@ public class GameViewController {
         observablePlayers = FXCollections.observableArrayList(players);
 
         observablePlayers.addListener((ListChangeListener) obs -> {
-                ObservableList<PersonalBoardView> playersObs = (ObservableList<PersonalBoardView>) obs.getList();
+                ObservableList<PlayerBoardView> playersObs = (ObservableList<PlayerBoardView>) obs.getList();
 
             }
         );
@@ -169,8 +163,8 @@ public class GameViewController {
     }
 
     private void updateView(){
-        PersonalBoardView toShow = null;
-        for(PersonalBoardView p : players){
+        PlayerBoardView toShow = null;
+        for(PlayerBoardView p : players){
             if(p.getUsername().equals(currentPlayerShown)){
                 toShow = p;
             }
@@ -350,7 +344,7 @@ public class GameViewController {
         this.main = main;
     }
 
-    public void setPlayersView(List<PersonalBoardView> players){
+    public void setPlayersView(List<PlayerBoardView> players){
         this.players = players;
     }
 

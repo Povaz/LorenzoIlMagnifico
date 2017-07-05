@@ -1,17 +1,11 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
 import it.polimi.ingsw.pc34.RMI.SynchronizedString;
-import it.polimi.ingsw.pc34.RMI.UserRMIImpl;
-import it.polimi.ingsw.pc34.Socket.ClientSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import javafx.application.Application;
-import javafx.beans.property.BooleanProperty;
-import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
-import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -41,7 +35,7 @@ public class Main extends Application{
     private AtomicInteger screen = new AtomicInteger(0);
 
     //private BoardView board = new BoardView();
-    private List<PersonalBoardView> players = new ArrayList<>();
+    private List<PlayerBoardView> players = new ArrayList<>();
 
     private Stage primaryStage;
     private BorderPane rootLayout;
@@ -50,13 +44,13 @@ public class Main extends Application{
     private int windowWidth = 0;
     private int windowHeight = 0;
 
-    private ObservableList<PersonalBoardView> personalBoardViews = FXCollections.observableArrayList();
+    private ObservableList<PlayerBoardView> personalBoardViews = FXCollections.observableArrayList();
 
     private boolean logged = false;
 
     public Main(){
-        players.add(new PersonalBoardView("ciccio"));
-        players.add(new PersonalBoardView("WWWWWWWWWWWWWWW"));
+        players.add(new PlayerBoardView("ciccio"));
+        players.add(new PlayerBoardView("WWWWWWWWWWWWWWW"));
     }
 
     @Override
@@ -273,7 +267,7 @@ public class Main extends Application{
         return rootLayout;
     }
 
-    public ObservableList<PersonalBoardView> getPersonalBoardViews(){
+    public ObservableList<PlayerBoardView> getPersonalBoardViews(){
         return personalBoardViews;
     }
 

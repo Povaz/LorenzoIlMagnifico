@@ -27,6 +27,8 @@ public class Board {
     private final Order order;
     private final List<VaticanReportSpot> vaticanReportSpot;
     private final List<Dice> dices;
+    private int period = 1;
+    private int turn = 1;
     
     public Board(List<Player> players){
         this.playerNumber = players.size();
@@ -105,9 +107,9 @@ public class Board {
     }
 
     void initializeDices(){
+        dices.add(new Dice(FamilyColor.BLACK));
         dices.add(new Dice(FamilyColor.WHITE));
         dices.add(new Dice(FamilyColor.ORANGE));
-        dices.add(new Dice(FamilyColor.BLACK));
     }
 
     @Override
@@ -221,5 +223,21 @@ public class Board {
 
     public List<Dice> getDices() {
         return dices;
+    }
+
+    public int getTurn(){
+        return turn;
+    }
+
+    public void setTurn(int turn){
+        this.turn = turn;
+    }
+
+    public int getPeriod(){
+        return period;
+    }
+
+    public void setPeriod(int period){
+        this.period = period;
     }
 }
