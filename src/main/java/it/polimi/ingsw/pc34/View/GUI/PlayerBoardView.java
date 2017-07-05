@@ -14,13 +14,13 @@ public class PlayerBoardView {
     private String color;
 
     // Rewards
-    private int coin;
-    private int wood;
-    private int stone;
-    private int servant;
-    private int faithPoint;
-    private int militaryPoint;
-    private int victoryPoint;
+    private String coin;
+    private String wood;
+    private String stone;
+    private String servant;
+    private String faithPoint;
+    private String militaryPoint;
+    private String victoryPoint;
 
     // Cards
     private List<String> territoryCards;
@@ -38,13 +38,13 @@ public class PlayerBoardView {
         username = toCopy.getPlayer().getUsername();
         color = toCopy.getColor().toString();
 
-        coin = toCopy.getCounter().getCoin().getQuantity();
-        wood = toCopy.getCounter().getWood().getQuantity();
-        stone = toCopy.getCounter().getStone().getQuantity();
-        servant = toCopy.getCounter().getServant().getQuantity();
-        faithPoint = toCopy.getCounter().getFaithPoint().getQuantity();
-        militaryPoint = toCopy.getCounter().getMilitaryPoint().getQuantity();
-        victoryPoint = toCopy.getCounter().getVictoryPoint().getQuantity();
+        coin = "" + toCopy.getCounter().getCoin().getQuantity();
+        wood = "" + toCopy.getCounter().getWood().getQuantity();
+        stone = "" + toCopy.getCounter().getStone().getQuantity();
+        servant = "" + toCopy.getCounter().getServant().getQuantity();
+        faithPoint = "" + toCopy.getCounter().getFaithPoint().getQuantity();
+        militaryPoint = "" + toCopy.getCounter().getMilitaryPoint().getQuantity();
+        victoryPoint = "" + toCopy.getCounter().getVictoryPoint().getQuantity();
 
         territoryCards = new ArrayList<>();
         for(int i = 0; i < 6; i++){
@@ -107,7 +107,7 @@ public class PlayerBoardView {
                 leaderCardsState.add("PLACED");
             }
             else{
-                leaderCards.add("");
+                leaderCards.add("LeaderCard0.png");
                 leaderCardsState.add("");
             }
         }
@@ -151,31 +151,31 @@ public class PlayerBoardView {
         return username;
     }
 
-    public int getCoin(){
+    public String getCoin(){
         return coin;
     }
 
-    public int getWood(){
+    public String getWood(){
         return wood;
     }
 
-    public int getStone(){
+    public String getStone(){
         return stone;
     }
 
-    public int getServant(){
+    public String getServant(){
         return servant;
     }
 
-    public int getFaithPoint(){
+    public String getFaithPoint(){
         return faithPoint;
     }
 
-    public int getMilitaryPoint(){
+    public String getMilitaryPoint(){
         return militaryPoint;
     }
 
-    public int getVictoryPoint(){
+    public String getVictoryPoint(){
         return victoryPoint;
     }
 
@@ -211,7 +211,7 @@ public class PlayerBoardView {
         return familyMembers;
     }
 
-    public void setCoin(int coin){
-        this.coin = coin;
+    public String getColor(){
+        return color;
     }
 }

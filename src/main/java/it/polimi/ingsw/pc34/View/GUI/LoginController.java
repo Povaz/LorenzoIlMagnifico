@@ -19,10 +19,6 @@ public class LoginController {
     @FXML private Button registerButton;
     @FXML private Text loginMessageText;
 
-    @FXML private void initialize(){
-        // TODO inizializza
-    }
-
     @FXML protected void loginClick(ActionEvent event) throws Exception{
         if(usernameTextField.getText().equals("") || passwordTextField.getText().equals("")){
             return;
@@ -33,6 +29,7 @@ public class LoginController {
         String result = main.getFromServerToGui().get();
 
         if(result.equals("Login successful")){
+            main.setUsername(usernameTextField.getText());
             main.showWaitingRoom();
         }
         else{

@@ -1,12 +1,11 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
+import it.polimi.ingsw.pc34.Model.Board;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
@@ -18,11 +17,15 @@ import java.util.List;
 
 
 public class GameViewController {
+    private final String DEVELOPMENT_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
+    private final String LEADER_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/LeaderCards/";
+    private final String PAWN_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/";
+    private final String TILE_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/PersonalBonusTile/";
+    private final String REPORT_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/";
+
     private Main main;
     private String currentPlayerShown;
-    private List<PlayerBoardView> players;
-    private ObservableList<PlayerBoardView> observablePlayers;
-    private BoardView board;
+    private BoardView board = null;
 
     // drag and drop attributes
     private Button dragButton = null;
@@ -40,6 +43,8 @@ public class GameViewController {
     @FXML private Button player2;
     @FXML private Button player3;
     @FXML private Button player4;
+    private List<Button> playerButtons = new ArrayList<>();
+    private Background buttonDefaultBackground;
 
     // Board
     @FXML private GridPane territoryTower;
@@ -47,9 +52,28 @@ public class GameViewController {
     @FXML private GridPane buildingTower;
     @FXML private GridPane ventureTower;
 
+    @FXML private GridPane territoryTowerSpot;
+    @FXML private GridPane characterTowerSpot;
+    @FXML private GridPane buildingTowerSpot;
+    @FXML private GridPane ventureTowerSpot;
+    @FXML private GridPane councilPalace;
+    @FXML private GridPane harvestSpot;
+    @FXML private GridPane productionSpot;
+    @FXML private GridPane market;
+
+    @FXML private ImageView harvestCover;
+    @FXML private ImageView productionCover;
+    @FXML private ImageView marketCover2;
+    @FXML private ImageView marketCover3;
+
+    @FXML private GridPane order;
+
     @FXML private Button vaticanReportCard1;
     @FXML private Button vaticanReportCard2;
     @FXML private Button vaticanReportCard3;
+
+    @FXML private Text turn;
+    @FXML private Text current;
 
     @FXML private Text blackDice;
     @FXML private Text whiteDice;
@@ -61,55 +85,41 @@ public class GameViewController {
     @FXML private GridPane characterSpot;
     @FXML private GridPane ventureSpot;
     @FXML private GridPane leaderCards;
+    @FXML private ImageView tile;
 
     @FXML private Button blackFamilyMember;
     @FXML private Button whiteFamilyMember;
     @FXML private Button orangeFamilyMember;
     @FXML private Button neutralFamilyMember;
+    List<Button> familyButton = new ArrayList<>();
 
     @FXML private Text coin;
     @FXML private Text wood;
     @FXML private Text stone;
     @FXML private Text servant;
+    @FXML private Text faithPoint;
+    @FXML private Text militaryPoint;
     @FXML private Text victoryPoint;
 
     @FXML private void initialize(){
         // add in .fxml per settare le dimensioni dell'immagine
         // <Image url="@pngFiles/Board.png" requestedHeight="1046.0" requestedWidth="716.0" />
-        actionSpace.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/ActionBackground.png", 540, 548, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.CENTER, BackgroundSize.DEFAULT)));
-        blackFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENBLACK.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        whiteFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENWHITE.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        orangeFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENORANGE.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        neutralFamilyMember.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/GREENNEUTRAL.png", 55, 80, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
     }
 
     public void initializeView(){
-        if(players.size() > 0){
-            player0.setText(players.get(0).getUsername());
-            player0.setDisable(false);
-            player0.setVisible(true);
-            currentPlayerShown = players.get(0).getUsername();
-        }
-        if(players.size() > 1){
-            player1.setText(players.get(1).getUsername());
-            player1.setDisable(false);
-            player1.setVisible(true);
-        }
-        if(players.size() > 2){
-            player2.setText(players.get(2).getUsername());
-            player2.setDisable(false);
-            player2.setVisible(true);
-        }
-        if(players.size() > 3){
-            player3.setText(players.get(3).getUsername());
-            player3.setDisable(false);
-            player3.setVisible(true);
-        }
-        if(players.size() > 4){
-            player4.setText(players.get(4).getUsername());
-            player4.setDisable(false);
-            player4.setVisible(true);
-        }
+        // fill playerButton List
+        playerButtons.add(player0);
+        playerButtons.add(player1);
+        playerButtons.add(player2);
+        playerButtons.add(player3);
+        playerButtons.add(player4);
+        buttonDefaultBackground = player0.getBackground();
+
+        // fill familyButton List
+        familyButton.add(blackFamilyMember);
+        familyButton.add(whiteFamilyMember);
+        familyButton.add(orangeFamilyMember);
+        familyButton.add(neutralFamilyMember);
     }
 
     public void initializeObservable(){
@@ -132,49 +142,82 @@ public class GameViewController {
 
     }
 
-    private void updateButton(Button button, String folder, String path){
-        if(path.equals("")){
-            button.setVisible(false);
-            button.setDisable(true);
-        }
-        else{
-            Image image = new LocatedImage(folder + path, 85, 126, false, false);
-            Background background = new Background(new BackgroundImage(image, BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
-            button.setBackground(background);
-            button.setDisable(false);
-            button.setVisible(true);
-        }
-    }
-
     @FXML private void playerPressed(MouseEvent event){
         Button button = (Button) event.getSource();
-        String username = button.getText();
-        currentPlayerShown = username;
+        currentPlayerShown = button.getText();
 
-        updateView();
-    }
+        // set background color
+        for(Button b : playerButtons){
+            b.setBackground(buttonDefaultBackground);
+        }
+        button.setBackground(new Background(new BackgroundFill(Color.DARKCYAN, CornerRadii.EMPTY, Insets.EMPTY)));
 
-    private void updateView(){
-        PlayerBoardView toShow = null;
-        for(PlayerBoardView p : players){
+        // update view with correct playerBoardView
+        PlayerBoardView current = null;
+        for(PlayerBoardView p : board.getPlayers()){
             if(p.getUsername().equals(currentPlayerShown)){
-                toShow = p;
+                current = p;
             }
         }
-        if(toShow == null){
-            return;
+        updateView(current);
+    }
+
+    private void updateView(PlayerBoardView playerBoardView){
+        // rewards
+        coin.setText(playerBoardView.getCoin());
+        wood.setText(playerBoardView.getWood());
+        stone.setText(playerBoardView.getStone());
+        servant.setText(playerBoardView.getServant());
+        faithPoint.setText(playerBoardView.getFaithPoint());
+        militaryPoint.setText(playerBoardView.getMilitaryPoint());
+        victoryPoint.setText(playerBoardView.getVictoryPoint());
+
+        // development cards
+        for(int i = 0; i < 6; i++){
+            Button button = (Button) territorySpot.getChildren().get(i);
+            String path = playerBoardView.getTerritoryCards().get(i);
+            updateButton(button, DEVELOPMENT_FOLDER, path, 85, 126);
+        }
+        for(int i = 0; i < 6; i++){
+            Button button = (Button) buildingSpot.getChildren().get(i);
+            String path = playerBoardView.getBuildingCards().get(i);
+            updateButton(button, DEVELOPMENT_FOLDER, path, 85, 126);
+        }
+        for(int i = 0; i < 6; i++){
+            Button button = (Button) characterSpot.getChildren().get(i);
+            String path = playerBoardView.getCharacterCards().get(i);
+            updateButton(button, DEVELOPMENT_FOLDER, path, 85, 126);
+        }
+        for(int i = 0; i < 6; i++){
+            Button button = (Button) ventureSpot.getChildren().get(i);
+            String path = playerBoardView.getVentureCards().get(i);
+            updateButton(button, DEVELOPMENT_FOLDER, path, 85, 126);
         }
 
-        // update board
-        //for(int i = 0; i < board.)
+        // leader cards
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) leaderCards.getChildren().get(i);
+            String path = playerBoardView.getLeaderCards().get(i);
+            updateButton(button, LEADER_FOLDER, path, 95, 147);
+            button.setText(playerBoardView.getLeaderCardsState().get(i));
+        }
 
-        // update personal board
-        String folder = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
-        for(int i = 0; i < 6; i++){
-            updateButton((Button)territorySpot.getChildren().get(i), folder, toShow.getTerritoryCards().get(i));
-            updateButton((Button)buildingSpot.getChildren().get(i), folder, toShow.getBuildingCards().get(i));
-            updateButton((Button)characterSpot.getChildren().get(i), folder, toShow.getCharacterCards().get(i));
-            updateButton((Button)ventureSpot.getChildren().get(i), folder, toShow.getVentureCards().get(i));
+        // tile
+        tile.setImage(new LocatedImage(TILE_FOLDER + playerBoardView.getPersonalBonusTile(), 46, 402,
+                false, false));
+
+        // family members
+        boolean yourFamilyMember = currentPlayerShown.equals(main.getUsername());
+        for(int i = 0; i < 4; i++){
+            Button button = familyButton.get(i);
+            String path = playerBoardView.getFamilyMembers().get(i);
+            updateButton(button, PAWN_FOLDER, path, 55, 80);
+            if(yourFamilyMember){
+                button.setMouseTransparent(false);
+            }
+            else{
+                button.setMouseTransparent(true);
+            }
         }
     }
 
@@ -199,7 +242,8 @@ public class GameViewController {
     }
 
     @FXML private void bTP(){
-        players.get(0).getTerritoryCards().set(2, "TerritoryCard15.png");
+        // TODO elimina
+        /*players.get(0).getTerritoryCards().set(2, "TerritoryCard15.png");
         updateView();
 
         // tower
@@ -263,6 +307,7 @@ public class GameViewController {
         vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard3.setDisable(false);
         vaticanReportCard3.setVisible(true);
+        */
     }
 
     @FXML private void showState(MouseEvent event){
@@ -301,46 +346,223 @@ public class GameViewController {
         if(dragButton == null || dropShape == null){
             return;
         }
-        // Do action:
-        ((Button)((GridPane)dropShape.getParent()).getChildren().get(0)).setBackground(dragButton.getBackground());
-        ((Button)((GridPane)dropShape.getParent()).getChildren().get(1)).setBackground(dragButton.getBackground());
-        ((Button)((GridPane)dropShape.getParent()).getChildren().get(2)).setBackground(dragButton.getBackground());
-        ((Button)((GridPane)dropShape.getParent()).getChildren().get(3)).setBackground(dragButton.getBackground());
+
+        // get action spot
+        String spotType = dropShape.getId().substring(0, 0);
+        String spotNumber = dropShape.getId().substring(1, 1);
+
+        // get familyMember color
+        String familyColor = dragButton.getText();
+
 
         main.getFromGuiToServer().put("/playerturn");
-        String response = main.getFromServerToGui().get();
-        if(!response.equals("Yes")){
+        if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
         main.getFromGuiToServer().put("1");
-        if(!response.equals("Yes")){
+        if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
-        main.getFromGuiToServer().put("1");// 1TerritoryT, 2 BuildingT, 3 CharacterT, 4VentreT, 5Harvest, 6Produce, 7mark, 8Councilpaa
-        if(!response.equals("Yes")){
+        main.getFromGuiToServer().put(spotType); // 1 TerritoryT, 2 BuildingT, 3 CharacterT, 4 VentureT, 5 Harvest, 6 Produce, 7 Market, 8 CouncilPalace
+        if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
-        if(false){//not council palace){
-            main.getFromGuiToServer().put("1");// tower inserisci numero 0-3
-            if(!response.equals("Yes")){
+        if(!spotType.equals("8")){
+            main.getFromGuiToServer().put(spotNumber); // spot number: inserisci numero 0-3
+            if(!main.getFromServerToGui().get().equals("Yes")){
                 return;
             }
         }
-        main.getFromGuiToServer().put("1");// familiare inserisci 0 black, 1 white, 2 orange, 3 neutral
-        if(!response.equals("Yes")){
+        main.getFromGuiToServer().put(familyColor); // familiare: inserisci 0 black, 1 white, 2 orange, 3 neutral
+        if(!main.getFromServerToGui().get().equals("Yes")){
             return;
+        }
+    }
+
+    public void update(BoardView boardView){
+
+        // +++ INIZIALIZZA +++
+        if(board == null){
+            initializeBoard(boardView);
+        }
+
+        // +++ UPDATE BOARD +++
+
+        // turn + currentPlayer
+        turn.setText(boardView.getTurn());
+        current.setText(boardView.getCurrentPlayer());
+
+        // tower cards
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) territoryTower.getChildren().get(i);
+            String path = boardView.getTerritoryCards().get(i);
+            updateButton(button, DEVELOPMENT_FOLDER, path, 85, 126);
+        }
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) buildingTower.getChildren().get(i);
+            String path = boardView.getBuildingCards().get(i);
+            updateButton(button, DEVELOPMENT_FOLDER, path, 85, 126);
+        }
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) characterTower.getChildren().get(i);
+            String path = boardView.getCharacterCards().get(i);
+            updateButton(button, DEVELOPMENT_FOLDER, path, 85, 126);
+        }
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) ventureTower.getChildren().get(i);
+            String path = boardView.getVentureCards().get(i);
+            updateButton(button, DEVELOPMENT_FOLDER, path, 85, 126);
+        }
+
+        // dices
+        blackDice.setText(boardView.getBlackDice());
+        whiteDice.setText(boardView.getWhiteDice());
+        orangeDice.setText(boardView.getOrangeDice());
+
+        // vatican report
+        updateButton(vaticanReportCard1, REPORT_FOLDER, boardView.getVaticanReports().get(0), 56, 111);
+        updateButton(vaticanReportCard2, REPORT_FOLDER, boardView.getVaticanReports().get(1), 56, 105);
+        updateButton(vaticanReportCard3, REPORT_FOLDER, boardView.getVaticanReports().get(2), 56, 111);
+        // TODO ********************** fai i reported
+
+        // order
+        for(int i = 0; i < 5; i++){
+            ImageView image = (ImageView) order.getChildren().get(i);
+            String path = boardView.getOrder().get(i);
+            if(path.equals("")){
+                image.setDisable(true);
+                image.setVisible(false);
+            }
+            else{
+                image.setImage(new LocatedImage(PAWN_FOLDER + path, 40, 28, false, false));
+                image.setDisable(false);
+                image.setVisible(true);
+            }
+        }
+
+        // council palace spot
+        for(int i = 0; i < 20; i++){
+            Button button = (Button) councilPalace.getChildren().get(i);
+            String path = boardView.getCouncilPalace().get(i);
+            updateButton(button, PAWN_FOLDER, path, 55, 80);
+        }
+
+        // tower spot
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) territoryTowerSpot.getChildren().get(i);
+            String path = boardView.getTerritoryTower().get(i);
+            updateButton(button, PAWN_FOLDER, path, 55, 80);
+        }
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) buildingTowerSpot.getChildren().get(i);
+            String path = boardView.getBuildingTower().get(i);
+            updateButton(button, PAWN_FOLDER, path, 55, 80);
+        }
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) characterTowerSpot.getChildren().get(i);
+            String path = boardView.getCharacterTower().get(i);
+            updateButton(button, PAWN_FOLDER, path, 55, 80);
+        }
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) ventureTowerSpot.getChildren().get(i);
+            String path = boardView.getVentureTower().get(i);
+            updateButton(button, PAWN_FOLDER, path, 55, 80);
+        }
+
+        // market spot
+        for(int i = 0; i < 4; i++){
+            Button button = (Button) market.getChildren().get(i);
+            String path = boardView.getMarket().get(i);
+            updateButton(button, PAWN_FOLDER, path, 55, 80);
+        }
+
+        // harvest spot
+        updateButton((Button) harvestSpot.getChildren().get(0), PAWN_FOLDER, boardView.getHarvestArea().get(0).get(0), 55, 80);
+        for(int i = 0; i < 9; i++){
+            Button button = (Button) harvestSpot.getChildren().get(i + 1);
+            String path = boardView.getHarvestArea().get(1).get(i);
+            updateButton(button, PAWN_FOLDER, path, 55, 80);
+        }
+
+        // production spot
+        updateButton((Button) productionSpot.getChildren().get(0), PAWN_FOLDER, boardView.getProductionaArea().get(0).get(0), 55, 80);
+        for(int i = 0; i < 9; i++){
+            Button button = (Button) productionSpot.getChildren().get(i + 1);
+            String path = boardView.getProductionaArea().get(1).get(i);
+            updateButton(button, PAWN_FOLDER, path, 55, 80);
+        }
+
+
+        // +++ aggiorna il riferimento a boardView +++
+        board = boardView;
+
+
+        // +++ UPDATE PLAYER BOARD +++
+        Button current = null;
+        for(Button b : playerButtons){
+            if(b.getText().equals(currentPlayerShown)){
+                current = b;
+            }
+        }
+        current.fire();
+    }
+
+    private void initializeBoard(BoardView boardView){
+        int numberOfPlayers = boardView.getPlayers().size();
+
+        // blocca la harvest e la production area 1, visualizza le coperture
+        if(numberOfPlayers < 3){
+            harvestSpot.getChildren().get(11).setDisable(true);
+            harvestSpot.getChildren().get(11).setVisible(false);
+            harvestCover.setDisable(false);
+            harvestCover.setVisible(true);
+
+            productionSpot.getChildren().get(11).setDisable(true);
+            productionSpot.getChildren().get(11).setVisible(false);
+            productionCover.setDisable(false);
+            productionCover.setVisible(true);
+        }
+
+        // blocca i market 2 e 3, visualizza le coperture
+        if(numberOfPlayers < 4){
+            market.getChildren().get(6).setDisable(true);
+            market.getChildren().get(6).setVisible(false);
+            marketCover2.setDisable(false);
+            marketCover2.setVisible(true);
+
+            market.getChildren().get(7).setDisable(true);
+            market.getChildren().get(7).setVisible(false);
+            marketCover3.setDisable(false);
+            marketCover3.setVisible(true);
+        }
+
+        // inizializza i bottoni player
+        for(int i = 0; i < numberOfPlayers; i++){
+            Button button = playerButtons.get(i);
+            button.setText(boardView.getPlayers().get(i).getUsername());
+            button.setTextFill(Color.valueOf(boardView.getPlayers().get(i).getColor()));
+            button.setDisable(false);
+            button.setVisible(true);
+        }
+        currentPlayerShown = playerButtons.get(0).getText();
+    }
+
+    private void updateButton(Button button, String folder, String path, int width, int height){
+        if(path.equals("")){
+            button.setVisible(false);
+            button.setDisable(true);
+        }
+        else{
+            Image image = new LocatedImage(folder + path, width, height, false, false);
+            Background background = new Background(new BackgroundImage(image,
+                    BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT));
+            button.setBackground(background);
+            button.setDisable(false);
+            button.setVisible(true);
         }
     }
 
     public void setMain(Main main){
         this.main = main;
-    }
-
-    public void setPlayersView(List<PlayerBoardView> players){
-        this.players = players;
-    }
-
-    public void setBoardView(BoardView board){
-        this.board = board;
     }
 }
