@@ -108,6 +108,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         return startingGame;
     }
 
+    @Override
     public void setStartingGame(boolean startingGame) {
         this.startingGame = startingGame;
     }
@@ -233,6 +234,24 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.gameHandler(serverRMI);
     }
 
+    public void gameHandler (ServerRMI serverRMI) throws IOException {
+        while (logged) {
+            try {
+                System.out.println("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
+                Scanner inChoose = new Scanner (System.in);
+                String choose = inChoose.nextLine();
+                serverRMI.sendInput(choose, this);
+            }
+            catch (InputMismatchException e) {
+                System.out.println("InputError: Retry");
+            }
+            catch (ConcurrentModificationException e) {
+                this.loginHandler(serverRMI);
+            }
+        }
+        this.loginHandler(serverRMI);
+    }
+
     public void loginHandlerGUI (ServerRMI serverRMI) throws IOException {
         String choose;
         while (!startingGame) {
@@ -282,23 +301,6 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.gameHandlerGUI(serverRMI);
     }
 
-    public void gameHandler (ServerRMI serverRMI) throws IOException {
-        while (logged) {
-            try {
-                System.out.println("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
-                Scanner inChoose = new Scanner (System.in);
-                String choose = inChoose.nextLine();
-                serverRMI.sendInput(choose, this);
-            }
-            catch (InputMismatchException e) {
-                System.out.println("InputError: Retry");
-            }
-            catch (ConcurrentModificationException e) {
-                this.loginHandler(serverRMI);
-            }
-        }
-        this.loginHandler(serverRMI);
-    }
 
     public void gameHandlerGUI (ServerRMI serverRMI) throws IOException {
         String choose;

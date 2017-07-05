@@ -782,7 +782,7 @@ public class GameController{
         		//AFK PER PLAYER DI CUI NON E' IL TURNO
         		if(asked.equals("/afk")){
     	    		Player player = this.searchPlayerWithUsername(username);
-    	    		skip();
+    	    		skip(); //TODO WHY?
     	    		disconnectPlayer(player);
 					setInFlow();
 					return "You're being disconnected";

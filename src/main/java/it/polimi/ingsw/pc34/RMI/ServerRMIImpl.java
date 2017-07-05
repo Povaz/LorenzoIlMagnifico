@@ -360,7 +360,8 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                     }
                     if (message.equals("This Client has been disconnected")) {
                         usersLoggedRMI.get(i).setLogged(false);
-                        usersLoggedRMI.get(i).sendMessage(message + "; Press any key to start over");
+                        usersLoggedRMI.get(i).setStartingGame(false);
+                        usersLoggedRMI.get(i).sendMessage(message);
                         break;
                     }
                     else {
