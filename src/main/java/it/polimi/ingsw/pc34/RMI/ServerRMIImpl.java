@@ -362,6 +362,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                         usersLoggedRMI.get(i).setLogged(false);
                         usersLoggedRMI.get(i).setStartingGame(false);
                         usersLoggedRMI.get(i).sendMessage(message);
+                        removeRMIUser(i);
                         break;
                     }
                     else {
