@@ -129,7 +129,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // guadagna i reward della torre
-    private void earnReward() throws TooMuchTimeException, RemoteException{
+    private void earnReward() throws TooMuchTimeException, IOException{
         if(floor.getRewards() != null){
             Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(floor.getRewards(), player);
             newCounter.sumWithLose(rewards, modifier.getLoseRewards());
@@ -221,7 +221,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // guadagna i fastReward della carta
-    private void earnCardFastReward() throws TooMuchTimeException, RemoteException{
+    private void earnCardFastReward() throws TooMuchTimeException, IOException{
         if(card.getFastRewards() != null){
             if(modifier.isDoubleFastRewardDevelopmentCard()){
                 Set<Reward> doubleReward = new HashSet<>();

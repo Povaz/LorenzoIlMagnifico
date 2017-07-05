@@ -5,10 +5,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.layout.VBox;
+import javafx.scene.text.TextAlignment;
 import javafx.stage.Stage;
 
 import javax.xml.soap.Text;
@@ -19,8 +18,8 @@ import javax.xml.soap.Text;
 public class ChatController extends Application {
     @FXML private Button sendMessageButton;
     @FXML private TextField messageTextField;
+    @FXML private VBox chatVBOX;
     @FXML private ScrollPane chatScrollPane;
-    @FXML private TextArea chatTextArea;
 
 
     @Override
@@ -35,7 +34,7 @@ public class ChatController extends Application {
     }
 
     @FXML private void initialize() {
-        chatScrollPane.setContent(chatTextArea);
+
     }
 
     @FXML public void messageClick() {
@@ -45,7 +44,10 @@ public class ChatController extends Application {
             return;
         }
         else {
-            chatTextArea.appendText(message + "\n");
+            Label newMessageLabel = new Label(message + "\n" + " ");
+            newMessageLabel.setWrapText(true);
+            newMessageLabel.setTextAlignment(TextAlignment.JUSTIFY);
+            chatVBOX.getChildren().add(newMessageLabel);
         }
     }
 }

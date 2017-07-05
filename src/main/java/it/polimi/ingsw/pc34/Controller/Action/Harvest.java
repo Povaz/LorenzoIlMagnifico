@@ -69,7 +69,7 @@ public class Harvest implements CommandPattern{
     }
 
     // guadagna i reward del PersonalBonusTile
-    private void earnTileReward() throws TooMuchTimeException, RemoteException{
+    private void earnTileReward() throws TooMuchTimeException, IOException{
         PersonalBonusTile tile = player.getPlayerBoard().getPersonalBonusTile();
         if(tile != null) {
             if(tile.getHarvestRewards() != null){
@@ -82,7 +82,7 @@ public class Harvest implements CommandPattern{
     }
 
     // guadagna i reward delle TerritoryCard
-    private void earnHarvestReward() throws TooMuchTimeException, RemoteException{
+    private void earnHarvestReward() throws TooMuchTimeException, IOException{
         for(DevelopmentCard card : player.getPlayerBoard().getTerritorySpot().getCards()){
             TerritoryCard tCard = (TerritoryCard) card;
             if(actionValue >= tCard.getDiceHarvestAction()){

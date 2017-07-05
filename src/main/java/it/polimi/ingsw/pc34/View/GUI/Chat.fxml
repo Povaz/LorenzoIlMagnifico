@@ -1,21 +1,24 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import java.lang.*?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.VBox?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="539.0" style="-fx-background-color: rgb(113,90,58);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.ChatController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="539.0" style="-fx-background-color: rgb(113,90,58);" xmlns="http://javafx.com/javafx/8.0.111" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.ChatController">
    <children>
-      <Button fx:id="sendMessageButton" layoutX="412.0" layoutY="519.0" mnemonicParsing="false" onAction="#messageClick" prefHeight="55.0" prefWidth="113.0" text="Send message" />
-      <TextField fx:id="messageTextField" layoutX="14.0" layoutY="519.0" prefHeight="55.0" prefWidth="397.0" />
-      <ScrollPane fx:id="chatScrollPane" hbarPolicy="NEVER" layoutX="14.0" layoutY="14.0" prefHeight="500.0" prefWidth="511.0" vbarPolicy="ALWAYS">
+      <Button fx:id="sendMessageButton" layoutX="412.0" layoutY="519.0" mnemonicParsing="false" onAction="#messageClick" prefHeight="50.0" prefWidth="112.0" text="Send message" AnchorPane.bottomAnchor="15.0" AnchorPane.rightAnchor="15.0" />
+      <TextField fx:id="messageTextField" layoutX="14.0" layoutY="519.0" prefHeight="50.0" prefWidth="396.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0" />
+      <ScrollPane fx:id="chatScrollPane" hbarPolicy="NEVER" vbarPolicy="ALWAYS" AnchorPane.bottomAnchor="80.0" AnchorPane.leftAnchor="15.0" AnchorPane.rightAnchor="15.0" AnchorPane.topAnchor="15.0">
          <content>
-            <TextArea fx:id="chatTextArea" editable="false" mouseTransparent="true" prefHeight="500.0" prefWidth="495.0" />
-         </content></ScrollPane>
+            <VBox fx:id="chatVBOX" prefHeight="490.0" prefWidth="503.0">
+               <opaqueInsets>
+                  <Insets />
+               </opaqueInsets>
+            </VBox>
+         </content>
+      </ScrollPane>
    </children>
 </AnchorPane>
