@@ -265,7 +265,7 @@ public class Game implements Runnable{
     }
 
     private void playTurn() throws IOException {
-        System.out.println("\n\nBOARD:");
+        //System.out.println("\n\nBOARD:");
         System.out.println(board);
         Order order = board.getOrder();
         do{

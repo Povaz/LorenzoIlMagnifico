@@ -7,17 +7,17 @@ import javafx.scene.layout.BorderPane;
 /**
  * Created by trill on 03/07/2017.
  */
-public class SupportVaticanController{
+public class ActionPayMilitaryPointController {
     private Main main;
 
-    @FXML private AnchorPane supportVatican;
+    @FXML private AnchorPane payMilitary;
 
     @FXML private void yesClicked(){
         main.getFromGuiToServer().put("yes");
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
-        closeSupportVatican();
+        closePayMilitary();
     }
 
     @FXML private void noClicked(){
@@ -25,15 +25,14 @@ public class SupportVaticanController{
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
-        closeSupportVatican();
+        closePayMilitary();
     }
 
-    private void closeSupportVatican(){
-        BorderPane parent = (BorderPane) supportVatican.getParent();
+    private void closePayMilitary(){
+        BorderPane parent = (BorderPane) payMilitary.getParent();
         parent.setCenter(null);
         parent.setDisable(true);
         parent.setVisible(false);
-        main.getGameViewC().setCanDoAction(true);
     }
 
     public void setMain(Main main){

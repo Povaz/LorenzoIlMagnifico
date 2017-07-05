@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+
+<AnchorPane fx:id="exchangePrivilege" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" style="-fx-background-color: rgb(113,90,58);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.ActionExchangePrivilegeController">
+   <children>
+      <Text fill="WHITE" layoutX="72.0" layoutY="101.0" stroke="BLACK" strokeType="OUTSIDE" text="Which council privilege">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="157.0" layoutY="149.0" stroke="BLACK" strokeType="OUTSIDE" text="do you want?">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="90.0" layoutY="215.0" stroke="BLACK" strokeType="OUTSIDE" text="Choose">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Text>
+      <Text fx:id="number" fill="WHITE" layoutX="190.0" layoutY="215.0" stroke="BLACK" strokeType="OUTSIDE" text="0">
+         <font>
+            <Font name="System Bold" size="26.0" />
+         </font>
+      </Text>
+      <Button fx:id="send" layoutX="346.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#sendClicked" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: ;" text="Send">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <CheckBox fx:id="woodStone" layoutX="90.0" layoutY="230.0" mnemonicParsing="false" text="1 WOOD and 1 STONE" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="servant" layoutX="90.0" layoutY="265.0" mnemonicParsing="false" text="2 SERVANTS" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="coin" layoutX="90.0" layoutY="300.0" mnemonicParsing="false" text="2 COINS" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="militaryPoint" layoutX="90.0" layoutY="335.0" mnemonicParsing="false" text="2 MILITARY POINTS" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </CheckBox>
+      <CheckBox fx:id="faithPoint" layoutX="90.0" layoutY="370.0" mnemonicParsing="false" text="1 FAITH POINT" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="16.0" />
+         </font>
+      </CheckBox>
+   </children>
+</AnchorPane>
