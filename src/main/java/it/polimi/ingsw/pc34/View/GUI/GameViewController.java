@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.View.GUI;
 import it.polimi.ingsw.pc34.Model.Board;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -72,6 +73,11 @@ public class GameViewController {
     @FXML private Button vaticanReportCard2;
     @FXML private Button vaticanReportCard3;
 
+    @FXML private GridPane reported1;
+    @FXML private GridPane reported2;
+    @FXML private GridPane reported3;
+    List<GridPane> gridReported = new ArrayList<>();
+
     @FXML private Text turn;
     @FXML private Text current;
 
@@ -120,6 +126,11 @@ public class GameViewController {
         familyButton.add(whiteFamilyMember);
         familyButton.add(orangeFamilyMember);
         familyButton.add(neutralFamilyMember);
+
+        // fill gridReported List
+        gridReported.add(reported1);
+        gridReported.add(reported2);
+        gridReported.add(reported3);
     }
 
     public void initializeObservable(){
@@ -243,6 +254,18 @@ public class GameViewController {
 
     @FXML private void bTP(){
         // TODO elimina
+        // vatican report
+        vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        vaticanReportCard1.setDisable(false);
+        vaticanReportCard1.setVisible(true);
+
+        vaticanReportCard2.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport2_1.png", 56, 105, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        vaticanReportCard2.setDisable(false);
+        vaticanReportCard2.setVisible(true);
+
+        vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        vaticanReportCard3.setDisable(false);
+        vaticanReportCard3.setVisible(true);
         /*players.get(0).getTerritoryCards().set(2, "TerritoryCard15.png");
         updateView();
 
@@ -294,19 +317,6 @@ public class GameViewController {
         ((Button)leaderCards.getChildren().get(1)).setText("PLACED");
         ((Button)leaderCards.getChildren().get(2)).setText("ACTIVATED");
         ((Button)leaderCards.getChildren().get(3)).setText("EXCHANGED");
-
-        // vatican report
-        vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        vaticanReportCard1.setDisable(false);
-        vaticanReportCard1.setVisible(true);
-
-        vaticanReportCard2.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport2_1.png", 56, 105, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        vaticanReportCard2.setDisable(false);
-        vaticanReportCard2.setVisible(true);
-
-        vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        vaticanReportCard3.setDisable(false);
-        vaticanReportCard3.setVisible(true);
         */
     }
 
@@ -419,11 +429,39 @@ public class GameViewController {
         whiteDice.setText(boardView.getWhiteDice());
         orangeDice.setText(boardView.getOrangeDice());
 
-        // vatican report
+        // vatican report card
         updateButton(vaticanReportCard1, REPORT_FOLDER, boardView.getVaticanReports().get(0), 56, 111);
         updateButton(vaticanReportCard2, REPORT_FOLDER, boardView.getVaticanReports().get(1), 56, 105);
         updateButton(vaticanReportCard3, REPORT_FOLDER, boardView.getVaticanReports().get(2), 56, 111);
-        // TODO ********************** fai i reported
+
+        // vatican reported
+        for(int i = 0; i < 3; i++){
+            if(boardView.getReported().get(i).get(0).equals("")){
+                // non ci sono reported
+                for(Node n : reported1.getChildren()){
+                    n.setDisable(true);
+                    n.setVisible(false);
+                }
+                reported1.setDisable(true);
+                reported1.setVisible(false);
+            }
+            else{
+                List<String> reported = boardView.getReported().get(i);
+                for(int j = 0; j < 5; j++){
+                    Shape shape = (Shape) reported1.getChildren().get(j);
+                    if(reported.get(j).equals("")){
+                        shape.setDisable(true);
+                        shape.setVisible(false);
+                    }
+                    else{
+                        shape.setFill(Color.valueOf(reported.get(j)));
+                        shape.setDisable(false);
+                        shape.setVisible(true);
+                    }
+                }
+            }
+        }
+
 
         // order
         for(int i = 0; i < 5; i++){
