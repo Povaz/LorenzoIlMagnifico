@@ -51,9 +51,9 @@ public abstract class ActionSpot {
 		this.occupiedBy = new LinkedList<>();
 	}
 
-	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws RemoteException, IOException{
+	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws IOException{
 		if(familyMember.isUsed()){
-			gameController.sendMessageCLI(familyMember.getPlayer(), "This family member is alreay used!");
+			gameController.sendMessageCLI(familyMember.getPlayer(), "This family member is already used!");
 			return false;
 		}
 		if(busy && !canPlaceInBusyActionSpot){
