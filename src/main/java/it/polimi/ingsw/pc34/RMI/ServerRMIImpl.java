@@ -344,6 +344,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                 this.sendInput(input, userRMI);
             }
         } catch (NullPointerException e) {
+            e.printStackTrace();
             userRMI.sendMessage("The Game isn't started yet");
         }
     }
@@ -361,6 +362,9 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                         usersLoggedRMI.get(i).setLogged(false);
                         usersLoggedRMI.get(i).sendMessage(message + "; Press any key to start over");
                         break;
+                    }
+                    else {
+                        usersLoggedRMI.get(i).sendMessage(message);
                     }
                 }
             } catch (RemoteException e) {

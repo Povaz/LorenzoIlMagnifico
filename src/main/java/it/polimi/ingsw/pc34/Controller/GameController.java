@@ -156,7 +156,7 @@ public class GameController{
         System.out.println("Aspetto un actioninput");
         afkVar = "actionInput";
     	ActionInput actionInput = actionInputCreated.get();
-        System.out.println("Action Input taken from +" + player.getUsername() + ": " + actionInput.toString()); //TODO NULL POINTER DA GESTIRE
+        //TODO NULL POINTER DA GESTIRE: non viene sempre lanciata (?)
         setInFlow();
         switch(actionInput.getActionType()){
             case TERRITORY_TOWER:
@@ -201,7 +201,7 @@ public class GameController{
         return null;
     }
 
-    public Integer getHowManyServants (Player player) { //TODO setta -1 al posto di Null
+    public Integer getHowManyServants (Player player) {
         player.putSecond_State(PlayerState.SERVANTS);
         afkVar = "integer";
         int index = integerCreated.get();
@@ -209,20 +209,21 @@ public class GameController{
         return index;
     }
 
-    public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, RemoteException{ //TODO setta a Null
+    public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, IOException{
 		for(Reward reward : rewards) {
 			if (reward.getType().equals(RewardType.COUNCIL_PRIVILEGE)) {
 				this.councilRewardsSize++;
 			}
 		}
-		player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
         Set<Reward> newRewards = new HashSet<>();
         for(Reward r : rewards){
             if(r.getType() != RewardType.COUNCIL_PRIVILEGE){
                 newRewards.add(r);
             }
             else{
-            	afkVar = "intArray";
+				player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
+				this.sendMessageCLI(player, "choose + " + rewards.size() + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT");
+				afkVar = "intArray";
                 int[] rewardArray = arrayIntegerCreated.get();
                 setInFlow();
                 if (rewardArray == null) {
@@ -266,7 +267,7 @@ public class GameController{
         return familyColor;
     }
 
-    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws RemoteException, IOException{ //TODO setta -1 invece che null
+    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws RemoteException, IOException{
         String message = "";
         for (int i = 0; i < leaderCardsInHand.size(); i++) {
             message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
@@ -334,7 +335,7 @@ public class GameController{
         return trade;
     }
 
-    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO: -1
+    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException, IOException{
         player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
         String message = "";
         for (int j = 0; j < discounts.size(); j++) {
@@ -455,7 +456,7 @@ public class GameController{
 		    				case PLACE_LEADER_CARD :
 		    					if(checkNumber(0, 3, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
-		    						return null;
+		    						return "Request to place " + asked + " leader card";
 		    					}
 		    					else{
 		    						setInFlow();
@@ -464,7 +465,7 @@ public class GameController{
 		    				case ACTIVATE_LEADER_CARD :
 		    					if(checkNumber(0, 3, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
-		    						return null;
+		    						return "Requested to activate " + asked + " leader card";
 		    					}
 		    					else{
 		    						setInFlow();
@@ -474,7 +475,7 @@ public class GameController{
 		    					if(checkNumber(0, 3, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
 		    						setInFlow();
-		    						return "scegli il reward ora! \n1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT";
+		    						return "You choose to exchange " + asked + " leader card";
 		    					}
 		    					else{
 		    						setInFlow();
@@ -637,34 +638,37 @@ public class GameController{
 		    							if(checkNumber(0, 1000, asked)){
 		    								integerCreated.put(Integer.parseInt(asked));
 		    								setInFlow();
-			    						    return "We did it man";
+			    						    return "You choose to use " + Integer.parseInt(asked) + " servants";
 		    							}
 		    							else{
 		    								setInFlow();
 			    						    return "Input error";
 		    							}
 		    							
-				    				case EXCHANGE_COUNCIL_PRIVILEGE :
+									case EXCHANGE_COUNCIL_PRIVILEGE : //TODO Check con Tom: Compie l'azione ma gli input successivi continuano ad entrare qui, lo stato non è cambiato.
 				    					System.out.println(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE + " confirmed");
+				    					String message = "";
 				    					if(asked.length()==councilRewardsSize){
 				    						int [] integerProduced = new int [councilRewardsSize]; 
 				    						int value ;
 				    						for(int i = 0; i < councilRewardsSize; i++){
 				    							value = Character.getNumericValue(asked.charAt(i));
 				    							integerProduced[i] = value;
+				    							message += value;
 				    						}
 				    						arrayIntegerCreated.put(integerProduced);
-				    						return null;
+											setInFlow();
+				    						return "You request for " + message;
 				    					}
 				    					setInFlow();
 				    					return "Input error";
 				    				case CHOOSE_TRADE :
 				    					integerCreated.put(Integer.parseInt(asked));
-				    					return null;
+				    					return "You choose the " + Integer.parseInt(asked) + " trade";
 				    				case ASK_WHICH_DISCOUNT :			
 				    					integerCreated.put(Integer.parseInt(asked));
-				    					//GESTIRE ERRORE PARSE INT
-				    					return null;
+				    					//TODO GESTIRE ERRORE PARSE INT
+				    					return "You choose the " + Integer.parseInt(asked) + " discount";
 				    				case PAY_WITH_MILITARY_POINT :
 				    					if(asked.equals("yes")){
 				    		    			booleanCreated.put(true);
@@ -686,13 +690,13 @@ public class GameController{
 				    					switch (asked){
 											case "0" :
 												familyColorCreated.put(FamilyColor.WHITE);
-												return null;
+												return "You choose " + FamilyColor.WHITE + " color";
 											case "1" :
 												familyColorCreated.put(FamilyColor.BLACK);
-												return null;
+												return "You choose " + FamilyColor.BLACK + " color";
 											case "2" :
 												familyColorCreated.put(FamilyColor.ORANGE);
-												return null;
+												return "You choose " + FamilyColor.ORANGE + " color";
 											default : 
 												setInFlow();
 												return "Error input";
@@ -708,20 +712,19 @@ public class GameController{
 		    				case EXCHANGE_LEADER_CARD :
 		    					switch (state2){ 
 				    				case EXCHANGE_COUNCIL_PRIVILEGE :
-				    					System.out.println("Trololol");
 				    					if(asked.length()==1){
 				    						int [] integerProduced = new int [1]; 
 				    						int value ;
 				    						value = Character.getNumericValue(asked.charAt(0));
 				    						integerProduced[0] = value;
 				    						arrayIntegerCreated.put(integerProduced);
-				    						return null;
+				    						return "You choose the " + value + " reward";
 				    					}
 				    					setInFlow();
 				    					return "Input error";
 				    				case WAITING:
 				    					integerCreated.put(Integer.parseInt(asked));
-				    					return null;
+				    					return "You choose " + Integer.parseInt(asked);
 								}
 		    				default:
 		    					setInFlow();
@@ -735,12 +738,12 @@ public class GameController{
         		if(asked.equals("yes")){
         			booleanCreated.put(true);
         			setInFlow();
-        			return null;
+        			return "You choose to support vatican";
         		}
         		else if(asked.equals("no")){
         			booleanCreated.put(false);
         			setInFlow();
-        			return null;
+        			return "You choose not to support vatican";
         		}
         		setInFlow();
         		return "Input error";
@@ -753,7 +756,7 @@ public class GameController{
     	    		Player player = this.searchPlayerWithUsername(username);
 					disconnectPlayer(player);
 					setInFlow();
-					return null;
+					return "You're being disconnected";
     	    	}
         		setInFlow();
         		return "It isn't your turn";
