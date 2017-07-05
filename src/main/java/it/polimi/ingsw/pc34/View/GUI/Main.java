@@ -49,8 +49,7 @@ public class Main extends Application{
     private boolean logged = false;
 
     public Main(){
-        players.add(new PlayerBoardView("ciccio"));
-        players.add(new PlayerBoardView("WWWWWWWWWWWWWWW"));
+        
     }
 
     @Override
