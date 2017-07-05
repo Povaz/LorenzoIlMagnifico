@@ -222,7 +222,7 @@ public class GameController{
             }
             else{
 				player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
-				this.sendMessageCLI(player, "choose + " + rewards.size() + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT");
+				this.sendMessageCLI(player, "Choose " + councilRewardsSize + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT");
 				afkVar = "intArray";
                 int[] rewardArray = arrayIntegerCreated.get();
                 setInFlow();
@@ -231,8 +231,6 @@ public class GameController{
 				}
                 for(int i = 0; i < rewardArray.length; i++) {
                     switch(rewardArray[i]){
-						case 0:
-							newRewards.add(new Reward(RewardType.SERVANT, 0));
                         case 1:
                             newRewards.add(new Reward(RewardType.WOOD, 1));
                             newRewards.add(new Reward(RewardType.STONE, 1));
