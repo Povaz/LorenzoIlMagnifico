@@ -78,6 +78,7 @@ public class GameController{
 
 	public void stopTimer() {
     	System.out.println("I've stopped the Timer");
+    	this.timerTillTheEnd.purge();
     	this.timerTillTheEnd.cancel();
 		System.out.println("I've stopped the Timer");
 	}
@@ -148,7 +149,7 @@ public class GameController{
     }*/
 
     public Integer getWhatToDo(Player player) throws TooMuchTimeException, RemoteException{
-        Integer whatToDo;
+        int whatToDo;
         afkVar = "whatToDo";
         whatToDo = whatToDoCreated.get();
         System.out.println("WhatToDo taken: " + whatToDo);
