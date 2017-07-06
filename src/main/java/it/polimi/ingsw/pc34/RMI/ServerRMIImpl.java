@@ -135,7 +135,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
             }
             else {
                 userRMI.sendMessage("Incorrect username or password");
-
             }
             return false;
         } catch (RemoteException e) {
