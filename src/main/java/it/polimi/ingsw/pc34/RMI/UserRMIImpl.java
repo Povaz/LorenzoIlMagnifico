@@ -155,6 +155,9 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 break;
             case "Reconnected":
                 this.setStartingGame(true);
+                if (this.GUI) {
+                    messageByGUI.put("restart");
+                }
                 System.out.println("Starting game:" + startingGame);
                 System.out.println("Logged: " + logged);
                 System.out.println(message + ". Press any key to start!");
