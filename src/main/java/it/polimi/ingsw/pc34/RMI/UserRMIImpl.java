@@ -25,6 +25,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private SynchronizedString messageByGUI;
     private SynchronizedString messageForGUI;
     private SynchronizedString messageToChangeWindow;
+    private SynchronizedString messageInfo;
     private SynchronizedBoardView boardView;
     private boolean logged;
     private boolean startingGame;
@@ -68,6 +69,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     public void setSynchronizedBoardView (SynchronizedBoardView boardView) {this.boardView = boardView;}
 
+    public void setSynchronizedMessageInfo (SynchronizedString messageInfo) {this.messageInfo = messageInfo; }
+
     @Override
     public void setMessageForGUI(String messageForGUI) throws RemoteException {this.messageForGUI.put(messageForGUI); }
 
@@ -82,6 +85,9 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     @Override
     public void setBoardView (BoardView boardView) {this.boardView.put(boardView);}
+
+    @Override
+    public void setMessageInfo (String messageInfo) {this.messageInfo.put(messageInfo);}
 
     @Override
     public boolean isGUI() throws RemoteException {

@@ -367,7 +367,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
             try {
                 if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
                     usersLoggedRMI.get(i).setMessageToChangeWindow(message);
-                    usersLoggedRMI.get(i).setMessageToChangeWindow(Integer.toString(player.getPlayerBoard().getCounter().getServant().getQuantity()));
+                    usersLoggedRMI.get(i).setMessageInfo(Integer.toString(player.getPlayerBoard().getCounter().getServant().getQuantity()));
                 }
             } catch (RemoteException e) {
                 this.removeRMIUser(i);
@@ -380,7 +380,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
             try {
                 if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
                     usersLoggedRMI.get(i).setMessageToChangeWindow(message);
-                    usersLoggedRMI.get(i).setMessageToChangeWindow(toSynchro);
+                    usersLoggedRMI.get(i).setMessageInfo(toSynchro);
                 }
             } catch (RemoteException e) {
                 this.removeRMIUser(i);
@@ -394,7 +394,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
             try {
                 if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
                     usersLoggedRMI.get(i).setMessageToChangeWindow(message);
-                    usersLoggedRMI.get(i).setMessageToChangeWindow(Integer.toString(numberOfCP));
+                    usersLoggedRMI.get(i).setMessageInfo(Integer.toString(numberOfCP));
                 }
             } catch (RemoteException e) {
                 this.removeRMIUser(i);

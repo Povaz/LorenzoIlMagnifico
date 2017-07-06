@@ -27,6 +27,7 @@ public class Client {
     private SynchronizedString messageByGUI;
     private SynchronizedString messageForGUI;
     private SynchronizedString messageToChangeWindow;
+    private SynchronizedString messageInfo;
     private SynchronizedBoardView boardForGUY;
 
     public Client (UserRMIImpl userLoginRMI) {
@@ -53,6 +54,7 @@ public class Client {
             messageByGUI = new SynchronizedString();
             messageForGUI = new SynchronizedString();
             messageToChangeWindow = new SynchronizedString();
+            messageInfo = new SynchronizedString();
             boardForGUY = new SynchronizedBoardView();
             Thread mainGui = new Thread(new LaunchGUI());
             mainGui.start();
@@ -66,6 +68,7 @@ public class Client {
             this.getUserLoginRMI().setSynchronizedMessageToChangeWindow(messageToChangeWindow);
             this.getUserLoginRMI().setSynchronizedMessageForGUI(messageForGUI);
             this.getUserLoginRMI().setSynchronizedMessageByGUI(messageByGUI);
+            this.getUserLoginRMI().setSynchronizedMessageInfo(messageInfo);
             this.getUserLoginRMI().setSynchronizedBoardView(boardForGUY);
             this.getUserLoginRMI().loginHandlerGUI(serverRMI);
         }
