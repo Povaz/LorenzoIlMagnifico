@@ -6,7 +6,6 @@ import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 import java.io.IOException;
@@ -228,7 +227,7 @@ public class GameController{
 			switch (player.getConnectionType()) {
 				case RMI:
 					System.out.println("RMI game controller");
-					serverRMI.askServants(player, "/numberservant");
+					serverRMI.openNewWindow(player, "/numberservant");
 					player.getPlayerBoard().getCounter().getServant().getQuantity();
 					break;
 				case SOCKET:
@@ -257,6 +256,15 @@ public class GameController{
 				String message = "choose + " + councilRewardsSize + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT";
 				this.sendMessageCLI(player, message);
 				afkVar = "intArray";
+				if (player.getClientType().equals(ClientType.GUI)) {
+					switch (player.getConnectionType()) {
+						case RMI:
+							//serverRMI.openNewWindow();
+							break;
+						case SOCKET:
+							break;
+					}
+				}
                 try {
 					int[] rewardArray = arrayIntegerCreated.get(); //TODO Deve poter essere null
 					setInFlow();

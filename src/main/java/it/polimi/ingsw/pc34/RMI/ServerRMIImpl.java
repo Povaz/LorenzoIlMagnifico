@@ -310,11 +310,10 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                 case "/playturn":
                                     if (userRMI.isGUI()) {
                                         String response = gameController.flow(input, userRMI.getUsername());
-                                        if (response.equals("It's not your turn") || response.equals("Input error")) {
+                                        if (response.equals("It's not your turn") || response.equals("Input error") || response.equals("Input error, Retry!")) {
                                             userRMI.setMessageForGUI("No");
                                         }
                                         else {
-                                            System.out.println("Server YES");
                                             userRMI.setMessageForGUI("Yes");
                                         }
                                     }
@@ -330,7 +329,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                 case "/vaticansupport":
                                     if (userRMI.isGUI()) {
                                         String response = gameController.flow(input, userRMI.getUsername());
-                                        if (response.equals("It's not your turn") || response.equals("Input error")) {
+                                        if (response.equals("It's not your turn") || response.equals("Input error") || response.equals("Input error, Retry!")) {
                                             userRMI.setMessageForGUI("No");
                                         }
                                         else {
@@ -362,12 +361,11 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         }
     }
 
-    public void askServants(Player player, String message) throws RemoteException {
+    public void openNewWindow(Player player, String message) throws RemoteException {
         int i;
         for (i = 0; i < usersLoggedRMI.size(); i++) {
             try {
                 if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
-                    System.out.println("ask servant server");
                     usersLoggedRMI.get(i).setMessageToChangeWindow(message);
                     usersLoggedRMI.get(i).setMessageForGUI(Integer.toString(player.getPlayerBoard().getCounter().getServant().getQuantity()));
                 }
