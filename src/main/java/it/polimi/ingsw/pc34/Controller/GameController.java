@@ -207,7 +207,7 @@ public class GameController{
         	return null;
 		}
         setInFlow();
-        Integer servant = 0;
+        Integer servant;
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
             if(fM.getColor() == familyColor) {
                 servant = getHowManyServants(player);
@@ -229,6 +229,7 @@ public class GameController{
 				case RMI:
 					System.out.println("RMI game controller");
 					serverRMI.askServants(player, "/numberservant");
+					player.getPlayerBoard().getCounter().getServant().getQuantity();
 					break;
 				case SOCKET:
 					break;
