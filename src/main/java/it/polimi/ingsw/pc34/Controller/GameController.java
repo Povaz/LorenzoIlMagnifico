@@ -259,7 +259,7 @@ public class GameController{
 				if (player.getClientType().equals(ClientType.GUI)) {
 					switch (player.getConnectionType()) {
 						case RMI:
-							//serverRMI.openNewWindow();
+							serverRMI.openNewWindow(player, "/exchangeprivilege", councilRewardsSize);
 							break;
 						case SOCKET:
 							break;
