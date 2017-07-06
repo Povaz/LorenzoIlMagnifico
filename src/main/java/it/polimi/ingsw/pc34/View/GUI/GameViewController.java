@@ -179,7 +179,20 @@ public class GameViewController {
                         }
                     }
                     else if(toLambda.equals("/numberservant")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionNumberServant.fxml"));
+                            AnchorPane numberServant = (AnchorPane) loader.load();
+                            actionBorder.setCenter(numberServant);
 
+                            ActionNumberServantController servantController = loader.getController();
+                            servantController.setMain(main);
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
                     }
                     else if(toLambda.equals("/paymilitarypoint")){
 
@@ -450,32 +463,32 @@ public class GameViewController {
             return;
         }*/
 
-        System.out.println("1");
-        main.getFromGuiToServer().put("/playerturn");
-        System.out.println("1.5");
+        System.out.println("ciao1");
+        main.getFromGuiToServer().put("/playturn");
+        System.out.println("ciao1.5");
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
         //TODO va qui?
         //canDoAction = false;
-        System.out.println("2");
+        System.out.println("beppe2");
         main.getFromGuiToServer().put("1");
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
-        System.out.println("3");
+        System.out.println("beppe3");
         main.getFromGuiToServer().put(spotType); // 1 TerritoryT, 2 BuildingT, 3 CharacterT, 4 VentureT, 5 Harvest, 6 Produce, 7 Market, 8 CouncilPalace
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
-        System.out.println("4");
+        System.out.println("biib4");
         if(!spotType.equals("8")){
             main.getFromGuiToServer().put(spotNumber); // spot number: inserisci numero 0-3
             if(!main.getFromServerToGui().get().equals("Yes")){
                 return;
             }
         }
-        System.out.println("5");
+        System.out.println("biib5");
         main.getFromGuiToServer().put(familyColor); // familiare: inserisci 1 black, 2 white, 3 orange, 4 neutral
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;

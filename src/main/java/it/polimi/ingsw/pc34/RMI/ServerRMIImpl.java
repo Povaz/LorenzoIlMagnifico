@@ -276,11 +276,13 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                             switch (input) {
                                 case "/playturn":
                                     if (userRMI.isGUI()) {
+                                        System.out.println("/playturn SERVER");
                                         String response = gameController.flow(input, userRMI.getUsername());
                                         if (response.equals("It's not your turn")) {
                                             userRMI.setMessageForGUI("No");
                                         }
                                         else {
+                                            System.out.println("YES SERVER");
                                             userRMI.setMessageForGUI("Yes");
                                         }
                                     }

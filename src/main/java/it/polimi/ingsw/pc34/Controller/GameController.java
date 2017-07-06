@@ -221,7 +221,7 @@ public class GameController{
         return null;
     }
 
-    public Integer getHowManyServants (Player player) {
+    public Integer getHowManyServants (Player player) throws RemoteException{
         player.putSecond_State(PlayerState.SERVANTS);
         afkVar = "integer";
         if (player.getClientType().equals(ClientType.GUI)) {
