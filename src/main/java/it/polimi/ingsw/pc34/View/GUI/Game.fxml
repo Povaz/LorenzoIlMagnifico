@@ -715,10 +715,10 @@
                                     <Button disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onMouseClicked="#zoomCard" prefHeight="126.0" prefWidth="85.0" text="Building0" textFill="#ffffff00" visible="false" GridPane.columnIndex="5" />
                                  </children>
                               </GridPane>
-                              <Button fx:id="blackFamilyMember" disable="true" layoutX="660.0" layoutY="320.0" mnemonicParsing="false" onDragDetected="#startDrag" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="0" textFill="TRANSPARENT" visible="false" />
-                              <Button fx:id="whiteFamilyMember" disable="true" layoutX="730.0" layoutY="320.0" mnemonicParsing="false" onDragDetected="#startDrag" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="1" textFill="TRANSPARENT" visible="false" />
-                              <Button fx:id="orangeFamilyMember" disable="true" layoutX="800.0" layoutY="320.0" mnemonicParsing="false" onDragDetected="#startDrag" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="2" textFill="TRANSPARENT" visible="false" />
-                              <Button fx:id="neutralFamilyMember" disable="true" layoutX="870.0" layoutY="320.0" mnemonicParsing="false" onDragDetected="#startDrag" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="3" textFill="TRANSPARENT" visible="false" />
+                              <Button fx:id="blackFamilyMember" disable="true" layoutX="660.0" layoutY="320.0" mnemonicParsing="false" onDragDetected="#startDrag" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="1" textFill="TRANSPARENT" visible="false" />
+                              <Button fx:id="whiteFamilyMember" disable="true" layoutX="730.0" layoutY="320.0" mnemonicParsing="false" onDragDetected="#startDrag" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="2" textFill="TRANSPARENT" visible="false" />
+                              <Button fx:id="orangeFamilyMember" disable="true" layoutX="800.0" layoutY="320.0" mnemonicParsing="false" onDragDetected="#startDrag" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="3" textFill="TRANSPARENT" visible="false" />
+                              <Button fx:id="neutralFamilyMember" disable="true" layoutX="870.0" layoutY="320.0" mnemonicParsing="false" onDragDetected="#startDrag" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="4" textFill="TRANSPARENT" visible="false" />
                               <Text fx:id="victoryPoint" fill="GOLD" layoutX="1120" layoutY="375.0" stroke="#2c2c2c" strokeLineCap="ROUND" strokeLineJoin="ROUND" strokeMiterLimit="0.0" strokeType="OUTSIDE" text="6" textAlignment="CENTER">
                                  <font>
                                     <Font name="Georgia Bold Italic" size="40.0" />

@@ -1,7 +1,7 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.*;
+import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
@@ -157,8 +157,8 @@ public class GameViewController {
             do {
                 result = main.getOpenWindow().get();
                 final String toLambda = result;
-
-                Platform.runLater(() -> {
+                System.out.println(toLambda);
+                Platform.runLater(() -> { // TODO inseriscine uno in ogni brach per velocizzare
                     if(toLambda.equals("/login")){
                         main.showLogin();
                     }
@@ -191,10 +191,11 @@ public class GameViewController {
 
                     }
                     else if(toLambda.equals("/update")){
-                        
+                        update(main.getBoardViewFromServer().get());
                     }
                 });
-            } while(result.equals("/login"));
+            } while(!result.equals("/login"));
+            System.out.println("out thread");
         })).start();
     }
 
@@ -436,37 +437,46 @@ public class GameViewController {
         }
 
         // get action spot
-        String spotType = dropShape.getId().substring(0, 0);
-        String spotNumber = dropShape.getId().substring(1, 1);
+        String spotType = dropShape.getId().substring(0, 1);
+        String spotNumber = dropShape.getId().substring(1, 2);
+        System.out.println("spotType: " + spotType);
+        System.out.println("spotNumber: " + spotNumber);
 
         // get familyMember color
         String familyColor = dragButton.getText();
+        System.out.println("familyColor: " + familyColor);
 
         /*if(!canDoAction){
             return;
         }*/
 
+        System.out.println("1");
         main.getFromGuiToServer().put("/playerturn");
+        System.out.println("1.5");
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
         //TODO va qui?
         //canDoAction = false;
+        System.out.println("2");
         main.getFromGuiToServer().put("1");
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
+        System.out.println("3");
         main.getFromGuiToServer().put(spotType); // 1 TerritoryT, 2 BuildingT, 3 CharacterT, 4 VentureT, 5 Harvest, 6 Produce, 7 Market, 8 CouncilPalace
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
+        System.out.println("4");
         if(!spotType.equals("8")){
             main.getFromGuiToServer().put(spotNumber); // spot number: inserisci numero 0-3
             if(!main.getFromServerToGui().get().equals("Yes")){
                 return;
             }
         }
-        main.getFromGuiToServer().put(familyColor); // familiare: inserisci 0 black, 1 white, 2 orange, 3 neutral
+        System.out.println("5");
+        main.getFromGuiToServer().put(familyColor); // familiare: inserisci 1 black, 2 white, 3 orange, 4 neutral
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }

@@ -178,12 +178,12 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     this.removeRMIUser(userRMI);
 
                     lobby.removeUser(user);
-
                     lobby.notifyAllUsers(NotificationType.USERLOGOUT, userRMI.getUsername());
 
                     if (GUI) {
                         userRMI.setMessageForGUI("Logout successful");
                         userRMI.setMessageToChangeWindow("/login");
+                        userRMI.getMessageByGUI();
                     }
                     else {
                         userRMI.sendMessage("Logout successful");
@@ -239,6 +239,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     if (userStarting.get(i).equals(usernames.get(j))) {
                         if (usersLoggedRMI.get(j).isGUI()) {
                             usersLoggedRMI.get(j).setMessageByGUI("start"); //PUT
+                            usersLoggedRMI.get(j).getMessageByGUI();
                         }
                     }
                 }
@@ -275,7 +276,13 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                             switch (input) {
                                 case "/playturn":
                                     if (userRMI.isGUI()) {
-                                        userRMI.setMessageForGUI(gameController.flow(input, userRMI.getUsername()));
+                                        String response = gameController.flow(input, userRMI.getUsername());
+                                        if (response.equals("It's not your turn")) {
+                                            userRMI.setMessageForGUI("No");
+                                        }
+                                        else {
+                                            userRMI.setMessageForGUI("Yes");
+                                        }
                                     }
                                     else {
                                         userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
@@ -305,6 +312,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                             userRMI.setMessageForGUI("No");
                                         }
                                         else {
+                                            System.out.println("Server YES");
                                             userRMI.setMessageForGUI("Yes");
                                         }
                                     }
@@ -356,7 +364,11 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         for (i = 0; i < usersLoggedRMI.size(); i++) {
             try {
                 if (usersLoggedRMI.get(i).getUsername().equals(username) && usersLoggedRMI.get(i).isGUI()) {
-                    usersLoggedRMI.get(i).updateMyView(boardView);
+                    System.out.println("before /update");
+                    usersLoggedRMI.get(i).setMessageToChangeWindow("/update");
+                    System.out.println("after /update");
+                    usersLoggedRMI.get(i).setBoardView(boardView);
+                    System.out.println("after set board view");
                 }
             } catch (RemoteException e) {
                 this.removeRMIUser(i);

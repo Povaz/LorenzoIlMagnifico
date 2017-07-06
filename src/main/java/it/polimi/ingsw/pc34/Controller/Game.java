@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.Controller.Action.*;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
+import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
@@ -287,8 +288,6 @@ public class Game implements Runnable{
                     ActionSpot actionSpot;
                     FamilyMember familyMember;
                     current.setYourTurn(true);
-                    long t = System.currentTimeMillis() + 5000;
-                    while(System.currentTimeMillis() < t){}
                     BoardView boardView = new BoardView(board, playerBoards, current.getUsername());
                     gameController.updatePlayersView(boardView);
                     gameController.startTimer(current.getUsername());
@@ -320,6 +319,9 @@ public class Game implements Runnable{
                                     }
 
                                     gameController.sendMessageCLI(current, "Action has been executed");
+                                    boardView = new BoardView(board, playerBoards, current.getUsername());
+                                    System.out.println(boardView);
+                                    gameController.updatePlayersView(boardView);
 
                                 } else {
                                     gameController.sendMessageCLI(current, "You have already placed a family member!");
@@ -332,7 +334,8 @@ public class Game implements Runnable{
                                 if (placeLeaderCard.canDoAction()) {
                                     placeLeaderCard.doAction();
                                     gameController.sendMessageCLI(current, "Action has been executed");
-
+                                    boardView = new BoardView(board, playerBoards, current.getUsername());
+                                    gameController.updatePlayersView(boardView);
                                 }
                                 break;
                             case 2:
@@ -341,6 +344,8 @@ public class Game implements Runnable{
                                 if (activateImmediateLeaderCard.canDoAction()) {
                                     activateImmediateLeaderCard.doAction();
                                     gameController.sendMessageCLI(current, "Action has been executed");
+                                    boardView = new BoardView(board, playerBoards, current.getUsername());
+                                    gameController.updatePlayersView(boardView);
 
                                 }
                                 break;
@@ -350,6 +355,8 @@ public class Game implements Runnable{
                                 if (changeLeaderCardInReward.canDoAction()) {
                                     changeLeaderCardInReward.doAction();
                                     gameController.sendMessageCLI(current, "Action has been executed");
+                                    boardView = new BoardView(board, playerBoards, current.getUsername());
+                                    gameController.updatePlayersView(boardView);
                                 }
                                 break;
                             case 4:

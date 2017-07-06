@@ -27,7 +27,7 @@ public class WaitingRoomController {
                         main.showGame();
                     }
                 });
-            } while(result.equals("/login") || result.equals("/game"));
+            } while(!(result.equals("/login") || result.equals("/game")));
         })).start();
     }
 
