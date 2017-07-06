@@ -1,7 +1,7 @@
 {
 	"PersonalBonusTile":[
 		{
-			"path": "PersonalBonusTile0",
+			"path": "PersonalBonusTile0.png",
 			"diceProduction": 1,
 			"productionRewards":[
 				{	
@@ -30,7 +30,7 @@
 			]
 		},
 		{
-			"path": "PersonalBonusTile1",
+			"path": "PersonalBonusTile1.png",
 			"diceProduction": 1,
 			"productionRewards":[
 				{	
@@ -59,7 +59,7 @@
 			]
 		},
 		{
-			"path": "PersonalBonusTile2",
+			"path": "PersonalBonusTile2.png",
 			"diceProduction": 1,
 			"productionRewards":[
 				{	
@@ -88,7 +88,7 @@
 			]
 		},
 		{
-			"path": "PersonalBonusTile3",
+			"path": "PersonalBonusTile3.png",
 			"diceProduction": 1,
 			"productionRewards":[
 				{	
@@ -117,7 +117,7 @@
 			]
 		},
 		{
-			"path": "PersonalBonusTile4",
+			"path": "PersonalBonusTile4.png",
 			"diceProduction": 1,
 			"productionRewards":[
 				{	

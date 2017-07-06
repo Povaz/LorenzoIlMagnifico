@@ -1,6 +1,14 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
+import it.polimi.ingsw.pc34.Model.Board;
+import it.polimi.ingsw.pc34.Model.Player;
+import it.polimi.ingsw.pc34.Model.PlayerBoard;
+import it.polimi.ingsw.pc34.Model.PlayerColor;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
@@ -18,6 +26,7 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -188,7 +197,7 @@ public class GameViewController {
         })).start();
     }
 
-    @FXML private void playerPressed(MouseEvent event){
+    @FXML private void playerPressed(ActionEvent event){
         Button button = (Button) event.getSource();
         currentPlayerShown = button.getText();
 
@@ -249,8 +258,14 @@ public class GameViewController {
         }
 
         // tile
-        tile.setImage(new LocatedImage(TILE_FOLDER + playerBoardView.getPersonalBonusTile(), 46, 402,
-                false, false));
+        if(playerBoardView.getPersonalBonusTile().equals("")){
+            tile.setImage(null);
+        }
+        else{
+            tile.setImage(new LocatedImage(TILE_FOLDER + playerBoardView.getPersonalBonusTile(), 46, 402,
+                    false, false));
+        }
+
 
         // family members
         boolean yourFamilyMember = currentPlayerShown.equals(main.getUsername());
@@ -308,6 +323,23 @@ public class GameViewController {
         vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard3.setDisable(false);
         vaticanReportCard3.setVisible(true);
+
+        Player p1 = new Player("Cugola", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.BLUE);
+        Player p2 = new Player("Affetti", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.RED);
+        Player p3 = new Player("Trilli", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.GREEN);
+        Player p4 = new Player("Venneri", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.PURPLE);
+        Player p5 = new Player("Tesser", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.YELLOW);
+        List<PlayerBoard> p = new ArrayList<>();
+        p.add(p1.getPlayerBoard());
+        p.add(p2.getPlayerBoard());
+        p.add(p3.getPlayerBoard());
+        p.add(p4.getPlayerBoard());
+        p.add(p5.getPlayerBoard());
+        Board board = new Board(new ArrayList<>(Arrays.asList(p1, p2, p3, p4, p5)));
+        BoardView bv = new BoardView(board, p, "Cugola");
+        update(bv);
+
+
         /*players.get(0).getTerritoryCards().set(2, "TerritoryCard15.png");
         updateView();
 
@@ -591,7 +623,11 @@ public class GameViewController {
                 current = b;
             }
         }
+        System.out.println("prima di fire");
+        System.out.println(current);
         current.fire();
+        System.out.println("dopo fire");
+        System.out.println(current);
     }
 
     private void initializeBoard(BoardView boardView){

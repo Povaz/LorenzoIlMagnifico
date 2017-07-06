@@ -2,7 +2,7 @@
   "cards" : [
     {
       "name": "Ludovico Ariosto",
-      "path": "LeaderCard2",
+      "path": "LeaderCard2.png",
       "activationCardCost": [
         {
           "type": "CHARACTER",
@@ -13,7 +13,7 @@
     },
     {
       "name": "Sigismondo Malatesta",
-      "path": "LeaderCard14",
+      "path": "LeaderCard14.png",
       "activationRewardCost": [
         {
           "type": "MILITARY_POINT",
@@ -28,7 +28,7 @@
     },
     {
       "name": "Filippo Brunelleschi",
-      "path": "LeaderCard3",
+      "path": "LeaderCard3.png",
       "activationCardCost": [
         {
           "type": "BUILDING",
@@ -39,7 +39,7 @@
     },
     {
       "name": "Ludovico il Moro",
-      "path": "LeaderCard16",
+      "path": "LeaderCard16.png",
       "activationCardCost": [
         {
           "type": "TERRITORY",
@@ -63,7 +63,7 @@
     },
     {
       "name": "Lucrezia Borgia",
-      "path": "LeaderCard13",
+      "path": "LeaderCard13.png",
       "activationCardCost": [
         {
           "type": "ANY",
@@ -74,7 +74,7 @@
     },
     {
       "name": "Lorenzo de' Medici",
-      "path": "LeaderCard15",
+      "path": "LeaderCard15.png",
       "activationRewardCost": [
         {
           "type": "VICTORY_POINT",
@@ -85,7 +85,7 @@
     },
     {
       "name": "Sisto IV",
-      "path": "LeaderCard12",
+      "path": "LeaderCard12.png",
       "number": 0,
       "activationRewardCost": [
         {
@@ -114,7 +114,7 @@
     },
     {
       "name": "Cesare Borgia",
-      "path": "LeaderCard17",
+      "path": "LeaderCard17.png",
       "activationRewardCost": [
         {
           "type": "COIN",
@@ -135,7 +135,7 @@
     },
     {
       "name": "Santa Rita",
-      "path": "LeaderCard18",
+      "path": "LeaderCard18.png",
       "activationRewardCost": [
         {
           "type": "FAITH_POINT",
@@ -146,7 +146,7 @@
     },
     {
       "name": "Pico della Mirandola",
-      "path": "LeaderCard11",
+      "path": "LeaderCard11.png",
       "activationCardCost": [
         {
           "type": "BUILDING",

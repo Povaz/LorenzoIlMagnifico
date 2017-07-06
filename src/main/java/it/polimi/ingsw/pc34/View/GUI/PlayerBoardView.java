@@ -48,7 +48,7 @@ public class PlayerBoardView {
 
         territoryCards = new ArrayList<>();
         for(int i = 0; i < 6; i++){
-            if(toCopy.getTerritorySpot().getCards().size() < i){
+            if(i < toCopy.getTerritorySpot().getCards().size()){
                 territoryCards.add(toCopy.getTerritorySpot().getCards().get(i).getPath());
             }
             else{
@@ -57,7 +57,7 @@ public class PlayerBoardView {
         }
         buildingCards = new ArrayList<>();
         for(int i = 0; i < 6; i++){
-            if(toCopy.getBuildingSpot().getCards().size() < i){
+            if(i < toCopy.getBuildingSpot().getCards().size()){
                 buildingCards.add(toCopy.getBuildingSpot().getCards().get(i).getPath());
             }
             else{
@@ -66,7 +66,7 @@ public class PlayerBoardView {
         }
         characterCards= new ArrayList<>();
         for(int i = 0; i < 6; i++){
-            if(toCopy.getCharacterSpot().getCards().size() < i){
+            if(i < toCopy.getCharacterSpot().getCards().size()){
                 characterCards.add(toCopy.getCharacterSpot().getCards().get(i).getPath());
             }
             else{
@@ -75,7 +75,7 @@ public class PlayerBoardView {
         }
         ventureCards = new ArrayList<>();
         for(int i = 0; i < 6; i++){
-            if(toCopy.getVentureSpot().getCards().size() < i){
+            if(i < toCopy.getVentureSpot().getCards().size()){
                 ventureCards.add(toCopy.getVentureSpot().getCards().get(i).getPath());
             }
             else{
@@ -118,11 +118,16 @@ public class PlayerBoardView {
                 familyMembers.add("");
             }
             else{
-                familyMembers.add(toCopy.getFamilyMembers().get(i).getColor().toString());
+                familyMembers.add(toCopy.getPlayer().getColor() + toCopy.getFamilyMembers().get(i).getColor().toString() + ".png");
             }
         }
 
-        personalBonusTile = toCopy.getPersonalBonusTile().getPath();
+        if(toCopy.getPersonalBonusTile() == null){
+            personalBonusTile = "";
+        }
+        else{
+            personalBonusTile = toCopy.getPersonalBonusTile().getPath();
+        }
     }
 
     public void setValues(PlayerBoardView other){

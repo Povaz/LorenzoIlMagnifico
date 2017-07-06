@@ -4,7 +4,7 @@
 			"period": [
 				{
 					"name": "Commercial Hub",
-					"path" : "TerritoryCard1",
+					"path" : "TerritoryCard1.png",
 					"diceHarvestAction": 1,
 					"earnings": [
 						{
@@ -15,7 +15,7 @@
 				},
 				{
 					"name": "Woods",
-					"path" : "TerritoryCard2",
+					"path" : "TerritoryCard2.png",
 					"fastRewards": [
 						{
 							"type": "WOOD",
@@ -32,7 +32,7 @@
 				},
 				{
 					"name": "Village",
-					"path" : "TerritoryCard3",
+					"path" : "TerritoryCard3.png",
 					"diceHarvestAction": 3,
 					"earnings": [
 						{
@@ -47,7 +47,7 @@
 				},
 				{
 					"name": "Gravel Pit",
-					"path" : "TerritoryCard4",
+					"path" : "TerritoryCard4.png",
 					"fastRewards": [
 						{
 							"type": "STONE",
@@ -64,7 +64,7 @@
 				},
 				{
 					"name": "Forest",
-					"path" : "TerritoryCard5",
+					"path" : "TerritoryCard5.png",
 					"fastRewards": [
 						{
 							"type": "WOOD",
@@ -81,7 +81,7 @@
 				},
 				{
 					"name": "Monastery",
-					"path" : "TerritoryCard6",
+					"path" : "TerritoryCard6.png",
 					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
@@ -106,7 +106,7 @@
 				},
 				{
 					"name": "Citadel",
-					"path" : "TerritoryCard7",
+					"path" : "TerritoryCard7.png",
 					"diceHarvestAction": 5,
 					"earnings": [
 						{
@@ -121,7 +121,7 @@
 				},
 				{
 					"name": "City",
-					"path" : "TerritoryCard8",
+					"path" : "TerritoryCard8.png",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -142,7 +142,7 @@
 			"period": [
 				{
 					"name": "Gold Mine",
-					"path" : "TerritoryCard9",
+					"path" : "TerritoryCard9.png",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -159,7 +159,7 @@
 				},
 				{
 					"name": "Mountain Town",
-					"path" : "TerritoryCard10",
+					"path" : "TerritoryCard10.png",
 					"fastRewards": [
 						{
 							"type": "SERVANT",
@@ -180,7 +180,7 @@
 				},
 				{
 					"name": "Minig Town",
-					"path" : "TerritoryCard11",
+					"path" : "TerritoryCard11.png",
 					"fastRewards": [
 						{
 							"type": "SERVANT",
@@ -205,7 +205,7 @@
 				},
 				{
 					"name": "Rock Pit",
-					"path" : "TerritoryCard12",
+					"path" : "TerritoryCard12.png",
 					"fastRewards": [
 						{
 							"type": "WOOD",
@@ -222,7 +222,7 @@
 				},
 				{
 					"name": "Estate",
-					"path" : "TerritoryCard13",
+					"path" : "TerritoryCard13.png",
 					"fastRewards": [
 						{
 							"type": "SERVANT",
@@ -247,7 +247,7 @@
 				},
 				{
 					"name": "Hermitage",
-					"path" : "TerritoryCard14",
+					"path" : "TerritoryCard14.png",
 					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
@@ -264,7 +264,7 @@
 				},
 				{
 					"name": "Manor House",
-					"path" : "TerritoryCard15",
+					"path" : "TerritoryCard15.png",
 					"diceHarvestAction": 5,
 					"earnings": [
 						{
@@ -279,7 +279,7 @@
 				},
 				{
 					"name": "Dukedom",
-					"path" : "TerritoryCard16",
+					"path" : "TerritoryCard16.png",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -308,7 +308,7 @@
 			"period": [
 				{
 					"name": "Trading Town",
-					"path" : "TerritoryCard17",
+					"path" : "TerritoryCard17.png",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -329,7 +329,7 @@
 				},
 				{
 					"name": "Farm",
-					"path" : "TerritoryCard18",
+					"path" : "TerritoryCard18.png",
 					"fastRewards": [
 						{
 							"type": "WOOD",
@@ -354,7 +354,7 @@
 				},
 				{
 					"name": "Colony",
-					"path" : "TerritoryCard19",
+					"path" : "TerritoryCard19.png",
 					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",
@@ -375,7 +375,7 @@
 				},
 				{
 					"name": "Marble Pit",
-					"path" : "TerritoryCard20",
+					"path" : "TerritoryCard20.png",
 					"fastRewards": [
 						{
 							"type": "VICTORY_POINT",
@@ -396,7 +396,7 @@
 				},
 				{
 					"name": "Province",
-					"path" : "TerritoryCard21",
+					"path" : "TerritoryCard21.png",
 					"fastRewards": [
 						{
 							"type": "COUNCIL_PRIVILEGE",
@@ -421,7 +421,7 @@
 				},
 				{
 					"name": "Sanctuary",
-					"path" : "TerritoryCard22",
+					"path" : "TerritoryCard22.png",
 					"fastRewards": [
 						{
 							"type": "FAITH_POINT",
@@ -442,7 +442,7 @@
 				},
 				{
 					"name": "Castle",
-					"path" : "TerritoryCard23",
+					"path" : "TerritoryCard23.png",
 					"fastRewards": [
 						{
 							"type": "COIN",
@@ -467,7 +467,7 @@
 				},
 				{
 					"name": "Fortified Town",
-					"path" : "TerritoryCard24",
+					"path" : "TerritoryCard24.png",
 					"fastRewards": [
 						{
 							"type": "MILITARY_POINT",

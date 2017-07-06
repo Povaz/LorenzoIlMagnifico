@@ -4,7 +4,7 @@
 			"period": [
 				{
 					"name": "Warlord",
-					"path" : "CharacterCard1",
+					"path" : "CharacterCard1.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -26,7 +26,7 @@
 				},
 				{
 					"name": "Stonemason",
-					"path" : "CharacterCard2",
+					"path" : "CharacterCard2.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -65,7 +65,7 @@
 				},
 				{
 					"name": "Dame",
-					"path" : "CharacterCard3",
+					"path" : "CharacterCard3.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -96,7 +96,7 @@
 				},
 				{
 					"name": "Knight",
-					"path" : "CharacterCard4",
+					"path" : "CharacterCard4.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -118,7 +118,7 @@
 				},
 				{
 					"name": "Farmer",
-					"path" : "CharacterCard5",
+					"path" : "CharacterCard5.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -134,7 +134,7 @@
 				},
 				{
 					"name": "Artisan",
-					"path" : "CharacterCard6",
+					"path" : "CharacterCard6.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -150,7 +150,7 @@
 				},
 				{
 					"name": "Preacher",
-					"path" : "CharacterCard7",
+					"path" : "CharacterCard7.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -167,7 +167,7 @@
 				},
 				{
 					"name": "Abbess",
-					"path" : "CharacterCard8",
+					"path" : "CharacterCard8.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -193,7 +193,7 @@
 			"period": [
 				{
 					"name": "Captain",
-					"path" : "CharacterCard9",
+					"path" : "CharacterCard9.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -215,7 +215,7 @@
 				},
 				{
 					"name": "Architect",
-					"path" : "CharacterCard10",
+					"path" : "CharacterCard10.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -241,7 +241,7 @@
 				},
 				{
 					"name": "Patron",
-					"path" : "CharacterCard11",
+					"path" : "CharacterCard11.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -263,7 +263,7 @@
 				},
 				{
 					"name": "Hero",
-					"path" : "CharacterCard12",
+					"path" : "CharacterCard12.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -285,7 +285,7 @@
 				},
 				{
 					"name": "Peasant",
-					"path" : "CharacterCard13",
+					"path" : "CharacterCard13.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -301,7 +301,7 @@
 				},
 				{
 					"name": "Scholar",
-					"path" : "CharacterCard14",
+					"path" : "CharacterCard14.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -317,7 +317,7 @@
 				},
 				{
 					"name": "Papal Messenger",
-					"path" : "CharacterCard15",
+					"path" : "CharacterCard15.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -333,7 +333,7 @@
 				},
 				{
 					"name": "Royal Messenger",
-					"path" : "CharacterCard16",
+					"path" : "CharacterCard16.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -353,7 +353,7 @@
 			"period": [
 				{
 					"name": "Noble",
-					"path" : "CharacterCard17",
+					"path" : "CharacterCard17.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -372,7 +372,7 @@
 				},
 				{
 					"name": "Governor",
-					"path" : "CharacterCard18",
+					"path" : "CharacterCard18.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -391,7 +391,7 @@
 				},
 				{
 					"name": "Paramour",
-					"path" : "CharacterCard19",
+					"path" : "CharacterCard19.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -410,7 +410,7 @@
 				},
 				{
 					"name": "Herald",
-					"path" : "CharacterCard20",
+					"path" : "CharacterCard20.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -429,7 +429,7 @@
 				},
 				{
 					"name": "Cardinal",
-					"path" : "CharacterCard21",
+					"path" : "CharacterCard21.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -451,7 +451,7 @@
 				},
 				{
 					"name": "Bishop",
-					"path" : "CharacterCard22",
+					"path" : "CharacterCard22.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -473,7 +473,7 @@
 				},
 				{
 					"name": "General",
-					"path" : "CharacterCard23",
+					"path" : "CharacterCard23.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -495,7 +495,7 @@
 				},
 				{
 					"name": "Ambassador",
-					"path" : "CharacterCard24",
+					"path" : "CharacterCard24.png",
 					"costs": [
 						{
 							"type": "COIN",

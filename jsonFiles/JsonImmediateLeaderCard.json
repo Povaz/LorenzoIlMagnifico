@@ -2,7 +2,7 @@
 	"cards" : [
 		{
 			"name": "Francesco Sforza",
-			"path": "LeaderCard1",
+			"path": "LeaderCard1.png",
 			"activationCardCost": [
 				{
 					"type": "VENTURE",
@@ -18,7 +18,7 @@
 		},
 		{
 			"name": "Girolamo Savonarola",
-			"path": "LeaderCard5",
+			"path": "LeaderCard5.png",
 			"activationRewardCost": [
 				{
 					"type": "COIN",
@@ -34,7 +34,7 @@
 		},
 		{
 			"name": "Michelangelo Buonarroti",
-			"path": "LeaderCard8",
+			"path": "LeaderCard8.png",
 			"activationRewardCost": [
 				{
 					"type": "STONE",
@@ -50,7 +50,7 @@
 		},
 		{
 			"name": "Giovanni dalle Bande Nere",
-			"path": "LeaderCard6",
+			"path": "LeaderCard6.png",
 			"activationRewardCost": [
 				{
 					"type": "MILITARY_POINT",
@@ -74,7 +74,7 @@
 		},
 		{
 			"name": "Leonardo da Vinci",
-			"path": "LeaderCard10",
+			"path": "LeaderCard10.png",
 			"activationCardCost": [
 				{
 					"type": "CHARACTER",
@@ -94,7 +94,7 @@
 		},
 		{
 			"name": "Sandro Botticelli",
-			"path": "LeaderCard7",
+			"path": "LeaderCard7.png",
 			"activationRewardCost": [
 				{
 					"type": "WOOD",
@@ -114,7 +114,7 @@
 		},
 		{
 			"name": "Federico da Montefeltro",
-			"path": "LeaderCard4",
+			"path": "LeaderCard4.png",
 			"activationCardCost": [
 				{
 					"type": "TERRITORY",
@@ -126,7 +126,7 @@
 		},
 		{
 			"name": "Cosimo de' Medici",
-			"path": "LeaderCard19",
+			"path": "LeaderCard19.png",
 			"activationCardCost": [
 				{
 					"type": "BUILDING",
@@ -150,7 +150,7 @@
 		},
 		{
 			"name": "Bartolomeo Colleoni",
-			"path": "LeaderCard20",
+			"path": "LeaderCard20.png",
 			"activationCardCost": [
 				{
 					"type": "TERRITORY",
@@ -170,7 +170,7 @@
 		},
 		{
 			"name": "Ludovico III Gonzaga",
-			"path": "LeaderCard9",
+			"path": "LeaderCard9.png",
 			"activationRewardCost": [
 				{
 					"type": "SERVANT",

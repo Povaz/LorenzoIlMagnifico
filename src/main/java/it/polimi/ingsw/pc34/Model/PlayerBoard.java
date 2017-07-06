@@ -38,9 +38,9 @@ public class PlayerBoard {
 
     private List<FamilyMember> initializeFamilyMembers(Player player){
         List<FamilyMember> familyMember = new ArrayList<>();
+        familyMember.add(new FamilyMember(player, FamilyColor.BLACK));
         familyMember.add(new FamilyMember(player, FamilyColor.WHITE));
         familyMember.add(new FamilyMember(player, FamilyColor.ORANGE));
-        familyMember.add(new FamilyMember(player, FamilyColor.BLACK));
         familyMember.add(new FamilyMember(player, FamilyColor.NEUTRAL));
         return familyMember;
     }

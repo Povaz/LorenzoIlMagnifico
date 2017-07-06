@@ -4,7 +4,7 @@
 			"period": [
 				{
 					"name": "Mint",
-					"path" : "BuildingCard1",
+					"path" : "BuildingCard1.png",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -34,7 +34,7 @@
 				},
 				{
 					"name": "Tax Office",
-					"path" : "BuildingCard2",
+					"path" : "BuildingCard2.png",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -64,7 +64,7 @@
 				},
 				{
 					"name": "Triumphal Arch",
-					"path" : "BuildingCard3",
+					"path" : "BuildingCard3.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -94,7 +94,7 @@
 				},
 				{
 					"name": "Theater",
-					"path" : "BuildingCard4",
+					"path" : "BuildingCard4.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -124,7 +124,7 @@
 				},
 				{
 					"name": "Carpenter's Shop",
-					"path" : "BuildingCard5",
+					"path" : "BuildingCard5.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -175,7 +175,7 @@
 				},
 				{
 					"name": "Stonemason's Shop",
-					"path" : "BuildingCard6",
+					"path" : "BuildingCard6.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -226,7 +226,7 @@
 				},
 				{
 					"name": "Chapel",
-					"path" : "BuildingCard7",
+					"path" : "BuildingCard7.png",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -259,7 +259,7 @@
 				},
 				{
 					"name": "Residence",
-					"path" : "BuildingCard8",
+					"path" : "BuildingCard8.png",
 					"costs": [
 						{
 							"type": "STONE",
@@ -296,7 +296,7 @@
 			"period": [
 				{
 					"name": "Marketplace",
-					"path" : "BuildingCard9",
+					"path" : "BuildingCard9.png",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -337,7 +337,7 @@
 				},
 				{
 					"name": "Treasury",
-					"path" : "BuildingCard10",
+					"path" : "BuildingCard10.png",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -384,7 +384,7 @@
 				},
 				{
 					"name": "Painters's Guild",
-					"path" : "BuildingCard11",
+					"path" : "BuildingCard11.png",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -431,7 +431,7 @@
 				},
 				{
 					"name": "Sculptors' Guild",
-					"path" : "BuildingCard12",
+					"path" : "BuildingCard12.png",
 					"costs": [
 						{
 							"type": "STONE",
@@ -478,7 +478,7 @@
 				},
 				{
 					"name": "Stonemasons' Guild",
-					"path" : "BuildingCard13",
+					"path" : "BuildingCard13.png",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -523,7 +523,7 @@
 				},
 				{
 					"name": "Baptistery",
-					"path" : "BuildingCard14",
+					"path" : "BuildingCard14.png",
 					"costs": [
 						{
 							"type": "STONE",
@@ -564,7 +564,7 @@
 				},
 				{
 					"name": "Barracks",
-					"path" : "BuildingCard15",
+					"path" : "BuildingCard15.png",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -601,7 +601,7 @@
 				},
 				{
 					"name": "Stronghold",
-					"path" : "BuildingCard16",
+					"path" : "BuildingCard16.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -640,7 +640,7 @@
 			"period": [
 				{
 					"name": "Bank",
-					"path" : "BuildingCard17",
+					"path" : "BuildingCard17.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -671,7 +671,7 @@
 				},
 				{
 					"name": "Fair",
-					"path" : "BuildingCard18",
+					"path" : "BuildingCard18.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -712,7 +712,7 @@
 				},
 				{
 					"name": "Garden",
-					"path" : "BuildingCard19",
+					"path" : "BuildingCard19.png",
 					"costs": [
 						{
 							"type": "SERVANT",
@@ -743,7 +743,7 @@
 				},
 				{
 					"name": "Fortress",
-					"path" : "BuildingCard20",
+					"path" : "BuildingCard20.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -778,7 +778,7 @@
 				},
 				{
 					"name": "Palace",
-					"path" : "BuildingCard21",
+					"path" : "BuildingCard21.png",
 					"costs": [
 						{
 							"type": "COIN",
@@ -823,7 +823,7 @@
 				},
 				{
 					"name": "Church",
-					"path" : "BuildingCard22",
+					"path" : "BuildingCard22.png",
 					"costs": [
 						{
 							"type": "WOOD",
@@ -878,7 +878,7 @@
 				},
 				{
 					"name": "Military Academy",
-					"path" : "BuildingCard23",
+					"path" : "BuildingCard23.png",
 					"costs": [
 						{
 							"type": "SERVANT",
@@ -924,7 +924,7 @@
 				},
 				{
 					"name": "Cathedral",
-					"path" : "BuildingCard24",
+					"path" : "BuildingCard24.png",
 					"costs": [
 						{
 							"type": "WOOD",

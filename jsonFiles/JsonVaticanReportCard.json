@@ -3,7 +3,7 @@
 		{
 			"period": [
 				{
-					"path": "VaticanReport1_1",
+					"path": "VaticanReport1_1.png",
 					"loseRewards": [
 						{
 							"type": "MILITARY_POINT",
@@ -12,7 +12,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport1_2",
+					"path": "VaticanReport1_2.png",
 					"loseRewards": [
 						{
 							"type": "COIN",
@@ -21,7 +21,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport1_3",
+					"path": "VaticanReport1_3.png",
 					"loseRewards": [
 						{
 							"type": "SERVANT",
@@ -30,7 +30,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport1_4",
+					"path": "VaticanReport1_4.png",
 					"loseRewards": [
 						{
 							"type": "WOOD",
@@ -43,7 +43,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport1_5",
+					"path": "VaticanReport1_5.png",
 					"actionModifiers": [
 						{
 							"type": "HARVEST",
@@ -52,7 +52,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport1_6",
+					"path": "VaticanReport1_6.png",
 					"actionModifiers": [
 						{
 							"type": "PRODUCE",
@@ -61,7 +61,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport1_7",
+					"path": "VaticanReport1_7.png",
 					"coloredFamilyMemberModifier": -1
 				}
 			]
@@ -69,7 +69,7 @@
 		{
 			"period": [
 				{
-					"path": "VaticanReport2_1",
+					"path": "VaticanReport2_1.png",
 					"actionModifiers": [
 						{
 							"type": "TERRITORY_TOWER",
@@ -78,7 +78,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport2_2",
+					"path": "VaticanReport2_2.png",
 					"actionModifiers": [
 						{
 							"type": "BUILDING_TOWER",
@@ -87,7 +87,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport2_3",
+					"path": "VaticanReport2_3.png",
 					"actionModifiers": [
 						{
 							"type": "CHARACTER_TOWER",
@@ -96,7 +96,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport2_4",
+					"path": "VaticanReport2_4.png",
 					"actionModifiers": [
 						{
 							"type": "VENTURE_TOWER",
@@ -105,7 +105,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport2_5",
+					"path": "VaticanReport2_5.png",
 					"booleans" : [ 
 						{
 							"attribute": "cannotPlaceInMarket"
@@ -113,7 +113,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport2_6",
+					"path": "VaticanReport2_6.png",
 					"booleans" : [
 						{
 							"attribute": "servantValueHalved"
@@ -121,7 +121,7 @@
 					]
 				},
 				{	
-					"path": "VaticanReport2_7",
+					"path": "VaticanReport2_7.png",
 					"booleans" : [
 						{
 							"attribute": "jumpFirstRound"
@@ -133,7 +133,7 @@
 		{
 			"period": [
 				{	
-					"path": "VaticanReport3_1",
+					"path": "VaticanReport3_1.png",
 					"booleans" : [
 						{
 							"attribute": "notEarnVictoryPointFromCharacter"
@@ -141,7 +141,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport3_2",
+					"path": "VaticanReport3_2.png",
 					"booleans" : [
 						{
 							"attribute": "notEarnVictoryPointFromVenture"
@@ -149,7 +149,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport3_3",
+					"path": "VaticanReport3_3.png",
 					"booleans" : [
 						{
 							"attribute": "notEarnVictoryPointFromTerritory"
@@ -157,7 +157,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport3_4",
+					"path": "VaticanReport3_4.png",
 					"booleans" : [
 						{
 							"attribute": "loseVictoryPointFromVictoryPoint"
@@ -165,7 +165,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport3_5",
+					"path": "VaticanReport3_5.png",
 					"booleans" : [
 						{
 							"attribute": "loseVictoryPointFromMilitaryPoint"
@@ -173,7 +173,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport3_6",
+					"path": "VaticanReport3_6.png",
 					"booleans" : [
 						{
 							"attribute": "loseVictoryPointFromBuildingCost"
@@ -181,7 +181,7 @@
 					]
 				},
 				{
-					"path": "VaticanReport3_7",
+					"path": "VaticanReport3_7.png",
 					"booleans" : [
 						{
 							"attribute": "loseVictoryPointFromResource"
