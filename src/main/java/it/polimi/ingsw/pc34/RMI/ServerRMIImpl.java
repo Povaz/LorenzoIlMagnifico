@@ -301,7 +301,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                         gameController.updateRequested(userRMI.getUsername());
                                     }
                                     else {
-                                        userRMI.sendMessage("There are any update to request");
+                                        userRMI.sendMessage("Command Unknown");
                                     }
                                     break;
                                 case "/afk":
@@ -332,7 +332,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                 case "/chat":
                                     userRMI.setGameState(null);
                                     gameController.sendMessageChat(input, userRMI.getUsername());
-                                    userRMI.sendMessage("Type: /playturn for an action; /chat to send message; /stampinfo to stamp info");
                                     break;
                                 case "/vaticansupport":
                                     if (userRMI.isGUI()) {
