@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
 import it.polimi.ingsw.pc34.RMI.ServerRMI;
+import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.RMI.UserRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ClientSOC;
@@ -26,6 +27,7 @@ public class Client {
     private SynchronizedString messageByGUI;
     private SynchronizedString messageForGUI;
     private SynchronizedString messageToChangeWindow;
+    private SynchronizedBoardView boardForGUY;
 
     public Client (UserRMIImpl userLoginRMI) {
         this.userLoginRMI = userLoginRMI;
@@ -51,6 +53,7 @@ public class Client {
             messageByGUI = new SynchronizedString();
             messageForGUI = new SynchronizedString();
             messageToChangeWindow = new SynchronizedString();
+            boardForGUY = new SynchronizedBoardView();
             Thread mainGui = new Thread(new LaunchGUI());
             mainGui.start();
             while(guiReference == null){}
@@ -58,10 +61,12 @@ public class Client {
             guiReference.setFromServerToGui(messageForGUI);
             guiReference.setFromGuiToServer(messageByGUI);
             guiReference.setOpenWindow(messageToChangeWindow);
+            guiReference.setBoardViewFromServer(boardForGUY);
 
             this.getUserLoginRMI().setSynchronizedMessageToChangeWindow(messageToChangeWindow);
             this.getUserLoginRMI().setSynchronizedMessageForGUI(messageForGUI);
             this.getUserLoginRMI().setSynchronizedMessageByGUI(messageByGUI);
+            this.getUserLoginRMI().setSynchronizedBoardView(boardForGUY);
             this.getUserLoginRMI().loginHandlerGUI(serverRMI);
         }
         else {

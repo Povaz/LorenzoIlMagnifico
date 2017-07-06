@@ -158,7 +158,7 @@ public class GameViewController {
                 result = main.getOpenWindow().get();
                 final String toLambda = result;
 
-                Platform.runLater(() -> {
+                Platform.runLater(() -> { // TODO inseriscine uno in ogni brach per velocizzare
                     if(toLambda.equals("/login")){
                         main.showLogin();
                     }
@@ -191,7 +191,7 @@ public class GameViewController {
 
                     }
                     else if(toLambda.equals("/update")){
-                        
+                        update(main.getBoardViewFromServer().get());
                     }
                 });
             } while(result.equals("/login"));
