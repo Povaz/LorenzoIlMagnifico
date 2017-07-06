@@ -132,6 +132,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     public String getGameState() {
         return gameState;
     }
+
     @Override
     public void setGameState(String gameState) {
         this.gameState = gameState;
