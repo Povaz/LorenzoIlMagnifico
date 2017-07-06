@@ -184,6 +184,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     if (GUI) {
                         userRMI.setMessageForGUI("Logout successful");
                         userRMI.setMessageToChangeWindow("/login");
+                        userRMI.getMessageByGUI();
                     }
                     else {
                         userRMI.sendMessage("Logout successful");

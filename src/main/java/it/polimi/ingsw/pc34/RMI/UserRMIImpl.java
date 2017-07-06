@@ -69,13 +69,16 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     public void setSynchronizedBoardView (SynchronizedBoardView boardView) {this.boardView = boardView;}
 
     @Override
-    public void setMessageForGUI(String messageForGUI) {this.messageForGUI.put(messageForGUI); }
+    public void setMessageForGUI(String messageForGUI) throws RemoteException {this.messageForGUI.put(messageForGUI); }
 
     @Override
-    public void setMessageToChangeWindow (String messageToChangeWindow) {this.messageToChangeWindow.put(messageToChangeWindow);}
+    public void setMessageToChangeWindow (String messageToChangeWindow) throws RemoteException {this.messageToChangeWindow.put(messageToChangeWindow);}
 
     @Override
-    public void setMessageByGUI(String messageByGUI) {this.messageByGUI.put(messageByGUI);}
+    public void setMessageByGUI(String messageByGUI) throws RemoteException {this.messageByGUI.put(messageByGUI);}
+
+    @Override
+    public void getMessageByGUI () throws RemoteException {this.messageByGUI.get();}
 
     @Override
     public void setBoardView (BoardView boardView) {this.boardView.put(boardView);}
@@ -317,6 +320,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     public void gameHandlerGUI (ServerRMI serverRMI) throws IOException {
         String choose;
         messageToChangeWindow.put("/game");
+        messageByGUI.get();
         while (logged) {
             try {
                 choose = messageByGUI.get();
