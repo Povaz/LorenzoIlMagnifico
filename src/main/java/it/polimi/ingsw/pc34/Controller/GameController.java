@@ -5,7 +5,7 @@ import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 import java.io.IOException;
@@ -206,7 +206,7 @@ public class GameController{
         	return null;
 		}
         setInFlow();
-        Integer servant = 0;
+        Integer servant;
         for(FamilyMember fM : player.getPlayerBoard().getFamilyMembers()){
             if(fM.getColor() == familyColor) {
                 servant = getHowManyServants(player);
@@ -220,9 +220,20 @@ public class GameController{
         return null;
     }
 
-    public Integer getHowManyServants (Player player) {
+    public Integer getHowManyServants (Player player) throws RemoteException{
         player.putSecond_State(PlayerState.SERVANTS);
         afkVar = "integer";
+        if (player.getClientType().equals(ClientType.GUI)) {
+			switch (player.getConnectionType()) {
+				case RMI:
+					System.out.println("RMI game controller");
+					serverRMI.openNewWindow(player, "/numberservant");
+					player.getPlayerBoard().getCounter().getServant().getQuantity();
+					break;
+				case SOCKET:
+					break;
+			}
+		}
         int index = integerCreated.get(); //TODO Deve poter tornare -1
         setInFlow();
         return index;
@@ -245,6 +256,15 @@ public class GameController{
 				String message = "choose + " + councilRewardsSize + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT";
 				this.sendMessageCLI(player, message);
 				afkVar = "intArray";
+				if (player.getClientType().equals(ClientType.GUI)) {
+					switch (player.getConnectionType()) {
+						case RMI:
+							serverRMI.openNewWindow(player, "/exchangeprivilege", councilRewardsSize);
+							break;
+						case SOCKET:
+							break;
+					}
+				}
                 try {
 					int[] rewardArray = arrayIntegerCreated.get(); //TODO Deve poter essere null
 					setInFlow();

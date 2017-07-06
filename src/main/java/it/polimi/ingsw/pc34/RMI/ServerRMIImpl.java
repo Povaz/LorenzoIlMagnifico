@@ -276,11 +276,13 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                             switch (input) {
                                 case "/playturn":
                                     if (userRMI.isGUI()) {
+                                        System.out.println("/playturn SERVER");
                                         String response = gameController.flow(input, userRMI.getUsername());
                                         if (response.equals("It's not your turn")) {
                                             userRMI.setMessageForGUI("No");
                                         }
                                         else {
+                                            System.out.println("YES SERVER");
                                             userRMI.setMessageForGUI("Yes");
                                         }
                                     }
@@ -308,11 +310,10 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                 case "/playturn":
                                     if (userRMI.isGUI()) {
                                         String response = gameController.flow(input, userRMI.getUsername());
-                                        if (response.equals("It's not your turn") || response.equals("Input error")) {
+                                        if (response.equals("It's not your turn") || response.equals("Input error") || response.equals("Input error, Retry!")) {
                                             userRMI.setMessageForGUI("No");
                                         }
                                         else {
-                                            System.out.println("Server YES");
                                             userRMI.setMessageForGUI("Yes");
                                         }
                                     }
@@ -328,7 +329,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                 case "/vaticansupport":
                                     if (userRMI.isGUI()) {
                                         String response = gameController.flow(input, userRMI.getUsername());
-                                        if (response.equals("It's not your turn") || response.equals("Input error")) {
+                                        if (response.equals("It's not your turn") || response.equals("Input error") || response.equals("Input error, Retry!")) {
                                             userRMI.setMessageForGUI("No");
                                         }
                                         else {
@@ -340,6 +341,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                     }
                                     break;
                                 default:
+
                                     userRMI.sendMessage("Wrong state game. How did you do it? Explain it.");
                                     break;
                             }
@@ -356,6 +358,34 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         } catch (NullPointerException e) {
             e.printStackTrace();
             userRMI.sendMessage("The Game isn't started yet");
+        }
+    }
+
+    public void openNewWindow(Player player, String message) throws RemoteException {
+        int i;
+        for (i = 0; i < usersLoggedRMI.size(); i++) {
+            try {
+                if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
+                    usersLoggedRMI.get(i).setMessageToChangeWindow(message);
+                    usersLoggedRMI.get(i).setMessageForGUI(Integer.toString(player.getPlayerBoard().getCounter().getServant().getQuantity()));
+                }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
+            }
+        }
+    }
+
+    public void openNewWindow(Player player, String message, int numberOfCP) {
+        int i;
+        for (i = 0; i < usersLoggedRMI.size(); i++) {
+            try {
+                if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
+                    usersLoggedRMI.get(i).setMessageToChangeWindow(message);
+                    usersLoggedRMI.get(i).setMessageForGUI(Integer.toString(numberOfCP));
+                }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
+            }
         }
     }
 
