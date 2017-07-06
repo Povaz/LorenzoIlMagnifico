@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
+import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import javafx.application.Application;
@@ -21,6 +22,7 @@ public class Main extends Application{
     private SynchronizedString chatComunication;
     private SynchronizedString fromGuiToServer;
     private SynchronizedString fromServerToGui;
+    private SynchronizedBoardView boardViewFromServer;
 
     // controller
     private RootLayoutController rootC = null;
@@ -244,7 +246,11 @@ public class Main extends Application{
     }
 
     public void updateGame(BoardView boardView){
+        System.out.println("pappapperoVIEW");
         GameViewController gC = gameViewC;
+        System.out.println(screen.get());
+        System.out.println(gC);
+        System.out.println(boardView);
         if(screen.get() == 3 && gC != null){
             gC.update(boardView);
         }
@@ -324,5 +330,13 @@ public class Main extends Application{
 
     public GameViewController getGameViewC(){
         return gameViewC;
+    }
+
+    public SynchronizedBoardView getBoardViewFromServer(){
+        return boardViewFromServer;
+    }
+
+    public void setBoardViewFromServer(SynchronizedBoardView boardViewFromServer){
+        this.boardViewFromServer = boardViewFromServer;
     }
 }

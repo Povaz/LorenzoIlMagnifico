@@ -2,14 +2,14 @@ package it.polimi.ingsw.pc34.View.GUI;
 
 import it.polimi.ingsw.pc34.Model.PlayerBoard;
 
+import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 /**
  * Created by trill on 22/06/2017.
  */
-public class PlayerBoardView {
+public class PlayerBoardView implements Serializable{
     private String username;
     private String color;
 

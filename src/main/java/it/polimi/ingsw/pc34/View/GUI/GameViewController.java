@@ -190,6 +190,9 @@ public class GameViewController {
                     else if(toLambda.equals("/choosediscount")){
 
                     }
+                    else if(toLambda.equals("/update")){
+                        
+                    }
                 });
             } while(result.equals("/login"));
         })).start();

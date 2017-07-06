@@ -329,6 +329,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     @Override
     public void updateMyView (BoardView boardView) throws RemoteException {
+        System.out.println("pappapperoRMI");
         guiReference.updateGame(boardView);
     }
 }
