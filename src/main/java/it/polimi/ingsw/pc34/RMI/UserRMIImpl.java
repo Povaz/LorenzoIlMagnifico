@@ -66,6 +66,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     public void setSynchronizedMessageToChangeWindow(SynchronizedString messageToChangeWindow) {this.messageToChangeWindow = messageToChangeWindow; }
 
+    public void setSynchronizedBoardView (SynchronizedBoardView boardView) {this.boardView = boardView;}
+
     @Override
     public void setMessageForGUI(String messageForGUI) {this.messageForGUI.put(messageForGUI); }
 
@@ -329,12 +331,6 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
             }
         }
         this.loginHandlerGUI(serverRMI);
-    }
-
-    @Override
-    public void updateMyView (BoardView boardView) throws RemoteException {
-        System.out.println("pappapperoRMI");
-        guiReference.updateGame(boardView);
     }
 }
 
