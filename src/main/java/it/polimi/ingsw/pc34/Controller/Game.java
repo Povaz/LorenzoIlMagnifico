@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.Controller.Action.*;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
+import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
@@ -318,6 +319,7 @@ public class Game implements Runnable{
 
                                     gameController.sendMessageCLI(current, "Action has been executed");
                                     boardView = new BoardView(board, playerBoards, current.getUsername());
+                                    System.out.println(boardView);
                                     gameController.updatePlayersView(boardView);
 
                                 } else {

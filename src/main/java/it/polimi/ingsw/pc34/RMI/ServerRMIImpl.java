@@ -357,8 +357,11 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         for (i = 0; i < usersLoggedRMI.size(); i++) {
             try {
                 if (usersLoggedRMI.get(i).getUsername().equals(username) && usersLoggedRMI.get(i).isGUI()) {
+                    System.out.println("before /update");
                     usersLoggedRMI.get(i).setMessageToChangeWindow("/update");
+                    System.out.println("after /update");
                     usersLoggedRMI.get(i).setBoardView(boardView);
+                    System.out.println("after set board view");
                 }
             } catch (RemoteException e) {
                 this.removeRMIUser(i);

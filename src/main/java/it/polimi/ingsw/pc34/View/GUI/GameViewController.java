@@ -195,6 +195,7 @@ public class GameViewController {
                     }
                 });
             } while(result.equals("/login"));
+            System.out.println("out thread");
         })).start();
     }
 
@@ -438,9 +439,12 @@ public class GameViewController {
         // get action spot
         String spotType = dropShape.getId().substring(0, 0);
         String spotNumber = dropShape.getId().substring(1, 1);
+        System.out.println(spotType);
+        System.out.println(spotNumber);
 
         // get familyMember color
         String familyColor = dragButton.getText();
+        System.out.println(familyColor);
 
         /*if(!canDoAction){
             return;
@@ -466,7 +470,7 @@ public class GameViewController {
                 return;
             }
         }
-        main.getFromGuiToServer().put(familyColor); // familiare: inserisci 0 black, 1 white, 2 orange, 3 neutral
+        main.getFromGuiToServer().put(familyColor); // familiare: inserisci 1 black, 2 white, 3 orange, 4 neutral
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
