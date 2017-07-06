@@ -9,6 +9,7 @@ import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
+import it.polimi.ingsw.pc34.View.GUI.BoardView;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -275,7 +276,7 @@ public class Game implements Runnable{
                     ActionSpot actionSpot;
                     FamilyMember familyMember;
                     current.setYourTurn(true);
-
+                    BoardView boardView = new BoardView(board, null, current.getUsername()); //TODO PlayerBoards
                     gameController.startTimer(current.getUsername());
                     do {
                         System.out.println("\n\nPLAYERBOARD:");
