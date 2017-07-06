@@ -781,12 +781,12 @@ public class GameController {
 				    					return message;
 				    				case PAY_WITH_MILITARY_POINT :
 				    					if(asked.equals("yes")){
-				    		    			booleanCreated.put(true);
-				    		    			return null;
+				    		    			integerCreated.put(1);
+				    		    			return "You choose to pay with military points";
 				    		    		}
 				    		    		else if(asked.equals("no")){
-				    		    			booleanCreated.put(false);
-				    		    			return null;
+				    		    			integerCreated.put(0);
+				    		    			return "You choose to pay with standard reward";
 				    		    		}
 				    					setInFlow();
 				    		    		return "Input error, Retry!";
