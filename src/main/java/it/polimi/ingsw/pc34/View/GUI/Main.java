@@ -76,12 +76,6 @@ public class Main extends Application{
         this.primaryStage.setTitle("Lorenzo il Magnifico");
         this.primaryStage.getIcons().add(new Image("it/polimi/ingsw/pc34/View/GUI/pngFiles/Icon.png"));
 
-        primaryStage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                System.exit(0);
-            }
-        });
-
         initRootLayout();
 
         showLogin();
@@ -106,6 +100,7 @@ public class Main extends Application{
             // Set attributes
             primaryStage.setResizable(false);
             primaryStage.sizeToScene();
+            rootLayoutController.initializeListner();
 
             primaryStage.show();
         } catch(IOException e){
@@ -182,6 +177,7 @@ public class Main extends Application{
 
             // Set game into the center of root layout.
             rootLayout.setCenter(game);
+            primaryStage.setIconified(false);
             windowWidth = 1920;
             windowHeight = 1080;
             primaryStage.setWidth(windowWidth);

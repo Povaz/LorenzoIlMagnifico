@@ -13,6 +13,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.File;
 import java.net.URI;
@@ -35,6 +36,19 @@ public class RootLayoutController {
         } catch(URISyntaxException e){
             e.printStackTrace();
         }*/
+    }
+
+    protected void initializeListner(){
+        main.getPrimaryStage().iconifiedProperty().addListener((obsVal, oldVal, newVal) -> {
+            Stage stage = main.getPrimaryStage();
+            if(stage.isFullScreen() || stage.getX() < 0 || stage.getY() < 0){
+                resizeWindow();
+            }
+        });
+
+        main.getPrimaryStage().setOnCloseRequest((event) -> {
+            System.exit(0);
+        });
     }
 
     @FXML private void setTrack1(){
