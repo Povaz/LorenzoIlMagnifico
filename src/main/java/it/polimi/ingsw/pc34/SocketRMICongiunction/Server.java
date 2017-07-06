@@ -78,8 +78,10 @@ public class Server {
     		for(Player player : players){
     			if(player.getUsername().equals(username)){
     				player.setDisconnected(false);
-    				BoardView boardView = new BoardView(game.getBoard(), game.getPlayerBoards() , game.getBoard().getOrder().getCurrent().getUsername());
-    				game.getGameController().updatePlayerReconnectedView(boardView, player);
+    				if (player.getClientType().equals(ClientType.GUI)) {
+						BoardView boardView = new BoardView(game.getBoard(), game.getPlayerBoards(), game.getBoard().getOrder().getCurrent().getUsername());
+						game.getGameController().updatePlayerReconnectedView(boardView, player);
+					}
     				return game;
     			}
     		}
