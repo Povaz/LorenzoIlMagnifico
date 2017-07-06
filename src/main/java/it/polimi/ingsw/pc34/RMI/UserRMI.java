@@ -22,6 +22,8 @@ public interface UserRMI extends Remote{
     void setMessageByGUI(String message) throws RemoteException;
     void setMessageToChangeWindow (String message) throws RemoteException;
     void setMessageInfo (String message) throws RemoteException;
+    void setMessageChatIn (String message) throws RemoteException;
+    void setMessageChatOut (String message) throws RemoteException;
     void setBoardView (BoardView boardView) throws RemoteException;
     String getMessageByGUI() throws RemoteException;
     String getGameState() throws RemoteException;

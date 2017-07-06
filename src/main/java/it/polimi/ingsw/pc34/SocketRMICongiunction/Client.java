@@ -28,6 +28,8 @@ public class Client {
     private SynchronizedString messageForGUI;
     private SynchronizedString messageToChangeWindow;
     private SynchronizedString messageInfo;
+    private SynchronizedString messageChatOut;
+    private SynchronizedString messageChatIn;
     private SynchronizedBoardView boardForGUY;
 
     public Client (UserRMIImpl userLoginRMI) {
@@ -70,6 +72,8 @@ public class Client {
             this.getUserLoginRMI().setSynchronizedMessageForGUI(messageForGUI);
             this.getUserLoginRMI().setSynchronizedMessageByGUI(messageByGUI);
             this.getUserLoginRMI().setSynchronizedMessageInfo(messageInfo);
+            this.getUserLoginRMI().setChatIn(messageChatIn);
+            this.getUserLoginRMI().setChatOut(messageChatOut);
             this.getUserLoginRMI().setSynchronizedBoardView(boardForGUY);
             this.getUserLoginRMI().loginHandlerGUI(serverRMI);
         }

@@ -22,6 +22,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private String keyword;
     private String gameState;
     private boolean GUI;
+    private SynchronizedString chatIn;
+    private SynchronizedString chatOut;
     private SynchronizedString messageByGUI;
     private SynchronizedString messageForGUI;
     private SynchronizedString messageToChangeWindow;
@@ -71,6 +73,14 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     public void setSynchronizedMessageInfo (SynchronizedString messageInfo) {this.messageInfo = messageInfo; }
 
+    public void setChatIn(SynchronizedString chatIn) {
+        this.chatIn = chatIn;
+    }
+
+    public void setChatOut(SynchronizedString chatOut) {
+        this.chatOut = chatOut;
+    }
+
     @Override
     public void setMessageForGUI(String messageForGUI) throws RemoteException {this.messageForGUI.put(messageForGUI); }
 
@@ -88,6 +98,13 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     @Override
     public void setMessageInfo (String messageInfo) {this.messageInfo.put(messageInfo);}
+
+    @Override
+    public void setMessageChatIn (String messageChatIn) {this.chatIn.put(messageChatIn);}
+
+    @Override
+    public void setMessageChatOut (String messageChatOut) {this.chatOut.put(messageChatOut);}
+
 
     @Override
     public boolean isGUI() throws RemoteException {
