@@ -197,8 +197,8 @@ public class LobbyFlow {
 				if(asked.equals("/logout")){
 					logged = false;
 					start = true;
-					lobby.removeUser (username);
-					serverSoc.removePlayer(username);
+					lobby.removeUser(username);
+					serverSoc.removePlayerLobby(serverHandler);
 					username = null;
 					password = null;
 					if(lobby.getUsers().size() == 1) {

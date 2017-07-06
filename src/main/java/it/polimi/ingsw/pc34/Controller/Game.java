@@ -282,6 +282,7 @@ public class Game implements Runnable{
         Order order = board.getOrder();
         do{
             Player current = order.getCurrent();
+            gameController.sendMessageChat(current.getUsername() + " is your turn!", "Game");
             if (!current.isDisconnected()) {
                 try {
                     ActionSpot actionSpot;

@@ -127,7 +127,7 @@ public class GameController{
     }
 
     public void sendMessageChat(String message, String username) throws IOException {
-		message = username + ": " + message;
+		message = username + " : " + message;
     	for (int i = 0; i < players.size(); i++) {
 			sendMessageCLI(players.get(i), message);
 		}
@@ -173,6 +173,7 @@ public class GameController{
         afkVar = "actionInput";
     	try {
 			ActionInput actionInput = actionInputCreated.get();
+			resetActions();
 			setInFlow();
 			switch (actionInput.getActionType()) {
 				case TERRITORY_TOWER:
@@ -251,7 +252,8 @@ public class GameController{
             }
             else{
 				player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
-				this.sendMessageCLI(player, "choose + " + councilRewardsSize + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT");
+				String message = "choose + " + councilRewardsSize + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT";
+				this.sendMessageCLI(player, message);
 				afkVar = "intArray";
                 try {
 					int[] rewardArray = arrayIntegerCreated.get(); //TODO Deve poter essere null
@@ -414,7 +416,7 @@ public class GameController{
         }
 	}
     
-    private void skip (){
+    private void resetActions (){
     	actionSpot = null;
     	actionInput = new ActionInput();
     }
@@ -430,37 +432,32 @@ public class GameController{
     				Player player = this.searchPlayerWithUsername(username);
     	    		switch(afkVar){
     	    			case("whatToDo"):
-    	    				skip();
     	    				disconnectPlayer(player);
     	    				whatToDoCreated.put(4);
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    			case("actionInput"):
-    	    				skip();
+    	    				resetActions();
     						disconnectPlayer(player);
     	    				actionInputCreated.put(null);	
     						setInFlow();
     	    				return "You're being disconnected";
     	    			case("familyColor"):
-    	    				skip();
     	    				disconnectPlayer(player);
     	    				familyColorCreated.put(null);
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    			case("integer"):
-    	    				skip();
     	    				disconnectPlayer(player);
     	    				integerCreated.put(-1);
     	    				setInFlow();	
     	    				return "You're being disconnected";
     	    			case("intArray"):
-    	    				skip();
     	    				disconnectPlayer(player);
     	    				arrayIntegerCreated.put(null);
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    			case("booleanVat"):
-    	    				skip();
     	    				disconnectPlayer(player);
     	    				booleanCreated.put(true);
     	    				setInFlow();
@@ -488,7 +485,6 @@ public class GameController{
 	    					return "Which Leader Card to exchange? From 0 to 3";
 	    				case "5" :
 	    					whatToDoCreated.put(4);
-	    					skip();
 	    					return "You skipped your turn!"; 
 	    				default :
 	    					setInFlow();
@@ -503,7 +499,8 @@ public class GameController{
 		    				case PLACE_LEADER_CARD :
 		    					if(checkNumber(0, 3, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
-		    						return "Request to place " + asked + " leader card";
+		    						String message = "Request to place " + asked + " leader card";
+		    						return message;
 		    					}
 		    					else{
 		    						setInFlow();
@@ -512,7 +509,8 @@ public class GameController{
 		    				case ACTIVATE_LEADER_CARD :
 		    					if(checkNumber(0, 3, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
-		    						return "Requested to activate " + asked + " leader card";
+		    						String message = "Requested to activate " + asked + " leader card";
+		    						return message;
 		    					}
 		    					else{
 		    						setInFlow();
@@ -522,7 +520,8 @@ public class GameController{
 		    					if(checkNumber(0, 3, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
 		    						setInFlow();
-		    						return "You choose to exchange " + asked + " leader card";
+		    						String message = "You choose to exchange " + asked + " leader card";
+		    						return message;
 		    					}
 		    					else{
 		    						setInFlow();
@@ -711,11 +710,13 @@ public class GameController{
 				    					return "Input error, Retry!";
 				    				case CHOOSE_TRADE :
 				    					integerCreated.put(Integer.parseInt(asked));
-				    					return "You choose the " + Integer.parseInt(asked) + " trade";
+				    					message = "You choose the " + Integer.parseInt(asked) + " trade";
+				    					return message;
 				    				case ASK_WHICH_DISCOUNT :			
 				    					integerCreated.put(Integer.parseInt(asked));
 				    					//TODO GESTIRE ERRORE PARSE INT
-				    					return "You choose the " + Integer.parseInt(asked) + " discount";
+				    					message = "You choose the " + Integer.parseInt(asked) + " discount";
+				    					return message;
 				    				case PAY_WITH_MILITARY_POINT :
 				    					if(asked.equals("yes")){
 				    		    			booleanCreated.put(true);
@@ -765,13 +766,15 @@ public class GameController{
 				    						value = Character.getNumericValue(asked.charAt(0));
 				    						integerProduced[0] = value;
 				    						arrayIntegerCreated.put(integerProduced);
-				    						return "You choose the " + value + " reward";
+				    						String message = "You choose the " + value + " reward";
+				    						return message;
 				    					}
 				    					setInFlow();
 				    					return "Input error, Retry!";
 				    				case WAITING:
 				    					integerCreated.put(Integer.parseInt(asked));
-				    					return "You choose " + Integer.parseInt(asked);
+				    					String message = "You choose " + Integer.parseInt(asked);
+				    					return message;
 								}
 		    				default:
 		    					setInFlow();
@@ -801,7 +804,6 @@ public class GameController{
         		//AFK PER PLAYER DI CUI NON E' IL TURNO
         		if(asked.equals("/afk")){
     	    		Player player = this.searchPlayerWithUsername(username);
-    	    		skip(); //TODO WHY?
     	    		disconnectPlayer(player);
 					setInFlow();
 					return "You're being disconnected";

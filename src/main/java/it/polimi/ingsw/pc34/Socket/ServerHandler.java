@@ -49,7 +49,7 @@ public class ServerHandler implements Runnable{
 	public void setFase(int fase){
 		this.fase = fase;
 		if(fase==1){
-			sendToClient("Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game");
+			sendToClient("Type: /playturn for an action; /chat to send message(you can always do this action, only if you are not doing something else);  /afk to disconnect from the game(you can always do this action, at any time)");
 		}
 	}
 	
@@ -100,13 +100,13 @@ public class ServerHandler implements Runnable{
 			setFase(1);
 			stateGame = null;
 		}
-		else if(message.equals("Action has been executed")&&fase==1){
+		else if(message.equals("Action has been executed") && fase==1){
 			stateGame = null;
-			message += "\nInsert new command: /playturn, /chat, /stampinfo, /afk";
+			message += "\nInsert new command: /playturn, /chat, /afk";
 		}
 		else if(message.equals("You have already placed a family member!")){
 			stateGame = null;
-			message += "\nInsert new command: /playturn, /chat, /stampinfo, /afk";
+			message += "\nInsert new command: /playturn, /chat, /afk";
 		}
 		try {
 			socketOut.writeObject(message);
@@ -145,7 +145,6 @@ public class ServerHandler implements Runnable{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		System.out.println(graphicType);
 		
 		sendToClient("Take your decision : /login or /register?");
 		while (true){
@@ -158,10 +157,8 @@ public class ServerHandler implements Runnable{
 				continue;
 			}
 			String answer = null;
-			System.out.println(line);
 			//to lobby flow
 			if(fase==0){
-				System.out.println("fase 0000");
 				try {
 					answer = toLobbyHandler(line);
 				} catch (JSONException|IOException e) {
@@ -198,13 +195,8 @@ public class ServerHandler implements Runnable{
 							answer = "Insert a message : ";
 							stateGame = line;
 							break;
-						//SI PUO' METTERE ANCHE FUORI
-						case "/stampinfo" : 
-							//answer = toStampInfoHandler(line);
-							answer = "command still not implemented, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game";
-							break;
 						default :
-							answer = "Wrong input, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game";
+							answer = "Wrong input, Type: /playturn for an action; /chat to send message; /afk to disconnect from the game(you can always do it, at any moment)";
 							break;
 						
 					}
@@ -234,11 +226,11 @@ public class ServerHandler implements Runnable{
 						case "/chat" : 
 							stateGame = null;
 							try {
-								gameController.sendMessageChat(line, username);
+								gameController.sendMessageChat(line, username + " ");
 							} catch (IOException e) {
 								LOGGER.log(Level.WARNING, "warning", e);
 							}
-							answer = "Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game";
+							answer = "Type: /playturn for an action; /chat to send message;  /afk to disconnect from the game";
 							break;
 						case "/vaticansupport" :
 							try {
@@ -248,7 +240,7 @@ public class ServerHandler implements Runnable{
 							}
 							break;
 						default :
-							answer = "Wrong input, Type: /playturn for an action; /chat to send message;  /stampinfo to stamp info;  /afk to disconnect from the game";
+							answer = "Wrong input, Type: /playturn for an action; /chat to send message; /afk to disconnect from the game";
 							break;
 					}
 				}
