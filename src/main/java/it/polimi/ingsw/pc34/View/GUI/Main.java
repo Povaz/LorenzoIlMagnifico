@@ -18,10 +18,11 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application{
     // connection canal
-    private SynchronizedString openWindow;
     private SynchronizedString chatComunication;
     private SynchronizedString fromGuiToServer;
     private SynchronizedString fromServerToGui;
+    private SynchronizedString openWindow;
+    private SynchronizedString infoFromServer;
     private SynchronizedBoardView boardViewFromServer;
 
     // controller
@@ -334,5 +335,13 @@ public class Main extends Application{
 
     public AtomicInteger getScreen(){
         return screen;
+    }
+
+    public SynchronizedString getInfoFromServer(){
+        return infoFromServer;
+    }
+
+    public void setInfoFromServer(SynchronizedString infoFromServer){
+        this.infoFromServer = infoFromServer;
     }
 }

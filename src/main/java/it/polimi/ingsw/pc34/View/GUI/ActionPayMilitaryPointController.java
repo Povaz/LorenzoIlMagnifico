@@ -12,15 +12,7 @@ public class ActionPayMilitaryPointController {
     private Main main;
 
     @FXML private AnchorPane payMilitary;
-
-    @FXML protected Text militaryNeeded;
-    @FXML protected Text militaryPrice;
-    @FXML protected Text coin;
-    @FXML protected Text wood;
-    @FXML protected Text stone;
-    @FXML protected Text servant;
-
-
+    
     @FXML private void yesClicked(){
         main.getFromGuiToServer().put("yes");
         if(!main.getFromServerToGui().get().equals("Yes")){

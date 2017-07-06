@@ -24,7 +24,7 @@
          </font>
       </Text>
       <TextField editable="false" layoutX="115.0" layoutY="304.0" mouseTransparent="true" prefHeight="68.0" prefWidth="311.0" />
-      <Button fx:id="send" layoutX="346.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#sendClicked" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: ;" text="Send">
+      <Button fx:id="send" layoutX="346.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#sendClicked" prefHeight="40.0" prefWidth="80.0" text="Send">
          <font>
             <Font size="18.0" />
          </font>

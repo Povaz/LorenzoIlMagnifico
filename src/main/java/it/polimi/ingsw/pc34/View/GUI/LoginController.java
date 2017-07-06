@@ -29,11 +29,16 @@ public class LoginController {
         }
         main.getFromGuiToServer().put("/login");
         main.getFromGuiToServer().put(usernameTextField.getText());
+        System.out.println("put user");
         main.getFromGuiToServer().put(passwordTextField.getText());
+        System.out.println("put pass");
         String result = main.getFromServerToGui().get();
+        System.out.println("get res");
 
+        System.out.println(result);
         if(result.equals("Login successful")){
             main.setUsername(usernameTextField.getText());
+
             main.showWaitingRoom();
         }
         else{

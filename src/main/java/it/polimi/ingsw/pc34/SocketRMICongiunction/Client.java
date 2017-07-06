@@ -63,6 +63,7 @@ public class Client {
             guiReference.setFromServerToGui(messageForGUI);
             guiReference.setFromGuiToServer(messageByGUI);
             guiReference.setOpenWindow(messageToChangeWindow);
+            guiReference.setInfoFromServer(messageInfo);
             guiReference.setBoardViewFromServer(boardForGUY);
 
             this.getUserLoginRMI().setSynchronizedMessageToChangeWindow(messageToChangeWindow);

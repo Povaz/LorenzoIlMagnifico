@@ -171,7 +171,7 @@ public class GameViewController {
                             ActionExchangePrivilegeController exchangeController = loader.getController();
                             exchangeController.setMain(main);
 
-                            exchangeController.number.setText(main.getOpenWindow().get());
+                            exchangeController.number.setText(main.getInfoFromServer().get());
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -189,8 +189,7 @@ public class GameViewController {
                             ActionNumberServantController servantController = loader.getController();
                             servantController.setMain(main);
 
-                            System.out.println(Double.valueOf(main.getOpenWindow().get()));
-                            servantController.servant.setMax(5);
+                            servantController.servant.setMax(Double.valueOf(main.getInfoFromServer().get()));
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -208,7 +207,7 @@ public class GameViewController {
                             ActionPayMilitaryPointController payMilitaryPointController = loader.getController();
                             payMilitaryPointController.setMain(main);
 
-                            main.getOpenWindow().get();
+                            main.getInfoFromServer().get();
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
