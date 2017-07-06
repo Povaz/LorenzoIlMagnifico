@@ -81,8 +81,7 @@ public class Main extends Application{
         initRootLayout();
 
         // TODO rimetti: showLogin();
-        openWindow=new SynchronizedString();
-        showGame();
+        showLogin();
     }
 
     public void initializeObservable(){
