@@ -2,6 +2,7 @@ package it.polimi.ingsw.pc34.Socket;
 
 import java.io.IOException;
 import java.io.ObjectInputStream;
+import java.io.OptionalDataException;
 import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -10,13 +11,14 @@ import java.util.logging.Logger;
 public class ClientInputHandler extends Thread{
 	private ObjectInputStream socketIn;
 	private int graphicType;
+	private Socket socketServer;
 	
 	private static final Logger LOGGER = Logger.getLogger(ClientInputHandler.class.getName());
 	
 	public ClientInputHandler (Socket socketServer, int graphicType) throws IOException{
 		this.graphicType = graphicType;
 		this.socketIn = new ObjectInputStream(socketServer.getInputStream());
-		
+		this.socketServer = socketServer;
 	}
 
 	private String receiveFromServer() throws IOException{
@@ -25,6 +27,10 @@ public class ClientInputHandler extends Thread{
 			received = (String) socketIn.readObject();
 		} catch (ClassNotFoundException e) {
 			LOGGER.log(Level.WARNING, "warning", e);
+		}
+		catch (OptionalDataException e1) {
+			System.out.println("boh");
+			return "belaaaaaaaa";
 		}
 		if(received == null){
 			return null;
@@ -49,6 +55,14 @@ public class ClientInputHandler extends Thread{
 			}
 			if(line!=null){
 				System.out.println(line);
+			}
+			if(line.equals("belaaaaaaaa")){
+				try {
+					this.socketIn = new ObjectInputStream(socketServer.getInputStream());
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				continue;
 			}
 		}
 	}
