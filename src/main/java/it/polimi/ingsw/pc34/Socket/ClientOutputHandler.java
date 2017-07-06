@@ -31,6 +31,9 @@ public class ClientOutputHandler extends Thread{
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
+			if(message.equals("/exit")){
+				System.exit(0);
+			}
 		}
 	}
 

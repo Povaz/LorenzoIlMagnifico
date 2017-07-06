@@ -80,7 +80,7 @@ public class LobbyFlow {
 				}
 				else{
 					setInFlow();
-					return "Not valid input. /login or /register";
+					return "Not valid input. /login, /register, /exit";
 				}
 			}
 			
@@ -93,7 +93,7 @@ public class LobbyFlow {
 						start = true;
 						login = false;
 						setInFlow();
-						return("/login or /register?");
+						return("/login, /register, /exit?");
 					}
 					else{
 						username = asked;
@@ -120,7 +120,7 @@ public class LobbyFlow {
 						serverHandler.setName(username);
 						serverSoc.reconnect(username, serverHandler);
 						setInFlow();
-						return "Reconnecting to the game...";
+						return "Reconnected to the game";
 					}
 					
 					//user logging in
@@ -161,7 +161,7 @@ public class LobbyFlow {
 						start = true;
 						register = false;
 						setInFlow();
-						return("/login or /register?");
+						return("/login, /register, /exit?");
 					}
 					else{
 						username = asked;
@@ -181,7 +181,7 @@ public class LobbyFlow {
 						start = true;
 						register = false;
 						setInFlow();
-						return "Registration successful! /login or /register";
+						return "Registration successful! /login, /register, /exit";
 					}
 					else{	
 						setInFlow();
@@ -205,7 +205,7 @@ public class LobbyFlow {
 						lobby.stopTimer();
 			        }
 					setInFlow();
-					return "Logged out . . . What you want to do? /login or /register?";
+					return "Logged out . . . What you want to do? /login, /register, /exit?";
 				}
 			}
 			

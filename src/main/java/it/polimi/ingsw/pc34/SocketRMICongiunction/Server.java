@@ -84,7 +84,9 @@ public class Server {
 		return null;
     }
 
-
+    public void removeGame (Game game){
+    	gamesOnGoing.remove(game);
+    }
 
     private void startServers () throws RemoteException, AlreadyBoundException{
         System.out.println("Constructing server implementation...");

@@ -311,6 +311,9 @@ public class GameController{
     }
 
     public boolean wantToSupportVatican(Player player) throws IOException{
+    	if(player.isDisconnected()){
+    		return false;
+    	}
     	String message = "Do you support Vatican? (yes or no)";
     	ServerHandler currPlayer = null;
     	switch (player.getConnectionType()) {
@@ -689,6 +692,10 @@ public class GameController{
 				    						int value ;
 				    						for(int i = 0; i < councilRewardsSize; i++){
 				    							value = Character.getNumericValue(asked.charAt(i));
+				    							if(!checkNumber(1 , 5 , Character.toString(asked.charAt(i)))){
+				    								setInFlow();
+					    							return "Input error, Retry!";
+					    						}
 				    							integerProduced[i] = value;
 				    							message += value;
 				    						}
@@ -754,6 +761,10 @@ public class GameController{
 				    						int [] integerProduced = new int [1]; 
 				    						int value ;
 				    						value = Character.getNumericValue(asked.charAt(0));
+				    						if(!checkNumber(1 , 5 , Character.toString(asked.charAt(0)))){
+				    							setInFlow();
+				    							return "Input error, Retry!";
+				    						}
 				    						integerProduced[0] = value;
 				    						arrayIntegerCreated.put(integerProduced);
 				    						String message = "You choose the " + value + " reward";

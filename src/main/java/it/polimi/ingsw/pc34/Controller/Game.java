@@ -61,8 +61,18 @@ public class Game implements Runnable{
     public void run(){
         while (this.period <= this.PERIOD_NUMBER) {
             this.startPeriod();
+            try {
+				gameController.sendMessageChat("inizio periodo " + this.period, "Game");
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
             while (this.turn <= this.TURNS_FOR_PERIOD) {
                 this.startTurn();
+                try {
+					gameController.sendMessageChat("inizio turno " + this.turn, "Game");
+				} catch (IOException e1) {
+					e1.printStackTrace();
+				}
                 try {
                     this.playTurn();
                 }
@@ -80,6 +90,14 @@ public class Game implements Runnable{
         }
         Player winner = this.decreeWinner();
         System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
+        try {
+			gameController.sendMessageChat("THE WINNER IS : " + winner.getUsername(), "Game");
+			gameController.sendMessageChat("This game is finished", "Game");
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+        serverSoc.getServer().removeGame(this);
+        
     }
 
     public Game(Map<String, ClientInfo> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {

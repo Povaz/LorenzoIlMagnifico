@@ -80,11 +80,11 @@ public class ServerHandler implements Runnable{
 	}
 	
 	//method to send messages to client
-	public void sendToClient(String message) {
+	synchronized public void sendToClient(String message) {
 		if(message==null){
 			return;
 		}
-		else if(message.equals("This Client has been disconnected")){
+		else if(message.equals("This Client has been disconnected")||message.equals("Game : This game is finished")){
 			setFase(0);
 			//todo togliere riferimento in GameController
 			try {
@@ -92,11 +92,11 @@ public class ServerHandler implements Runnable{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
-			message += "\nTake your decision : /login or /register?";
+			message += "\nTake your decision : /login, /register, /exit?";
 			lobbyFlow.reset();
 			stateGame = null;
 		}
-		else if(message.equals("Reconnecting to the game...")){
+		else if(message.equals("Reconnected to the game")){
 			setFase(1);
 			stateGame = null;
 		}
@@ -146,7 +146,7 @@ public class ServerHandler implements Runnable{
 			e1.printStackTrace();
 		}
 		
-		sendToClient("Take your decision : /login or /register?");
+		sendToClient("Take your decision : /login, /register, /exit (to close the client)?");
 		while (true){
 			try {
 				line = receiveFromClient();
@@ -159,6 +159,9 @@ public class ServerHandler implements Runnable{
 			String answer = null;
 			//to lobby flow
 			if(fase==0){
+				if(line.equals("/exit")){
+					break;
+				}
 				try {
 					answer = toLobbyHandler(line);
 				} catch (JSONException|IOException e) {
