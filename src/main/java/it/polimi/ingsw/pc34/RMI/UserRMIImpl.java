@@ -324,6 +324,10 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     public void gameHandlerGUI (ServerRMI serverRMI) throws IOException {
         String choose;
         messageToChangeWindow.put("/game");
+        messageByGUI.get();
+
+        serverRMI.sendInput("/update", this);
+
         while (logged) {
             try {
                 choose = messageByGUI.get();

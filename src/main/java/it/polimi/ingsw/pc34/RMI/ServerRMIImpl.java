@@ -112,11 +112,10 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     } else {
                         if (server.isDisconnected(userRMI.getUsername())) {
                             this.addRMIUser(userRMI);
+                            server.reconnected(userRMI.getUsername());
                             if (userRMI.isGUI()) {
                                 userRMI.setMessageForGUI("Login successful");
-                                userRMI.getMessageByGUI();
                             }
-                            server.reconnected(userRMI.getUsername());
                             userRMI.sendMessage("Reconnected");
                             return true;
                         } else {
@@ -241,7 +240,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     if (userStarting.get(i).equals(usernames.get(j))) {
                         if (usersLoggedRMI.get(j).isGUI()) {
                             usersLoggedRMI.get(j).setMessageByGUI("start"); //PUT
-                            usersLoggedRMI.get(j).getMessageByGUI();
                         }
                     }
                 }
@@ -297,6 +295,14 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                     userRMI.sendMessage("Insert a Message: ");
                                     gameController.sendMessageChat(input, userRMI.getUsername());
                                     userRMI.setGameState(input);
+                                    break;
+                                case "/update":
+                                    if (userRMI.isGUI()) {
+                                        gameController.updateRequested(userRMI.getUsername());
+                                    }
+                                    else {
+                                        userRMI.sendMessage("There are any update to request");
+                                    }
                                     break;
                                 case "/afk":
                                     gameController.flow(input, userRMI.getUsername());

@@ -9,6 +9,7 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 import java.io.IOException;
+import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.*;
 
@@ -144,6 +145,22 @@ public class GameController {
 		}
 	}
 
+	public void updateRequested (String currentUsername) throws RemoteException {
+		List<PlayerBoard> playerBoards = new ArrayList<>();
+		Player playerReconnected = null;
+		for (int i = 0; i < players.size(); i++) {
+			if (players.get(i).getUsername().equals(currentUsername)) {
+				playerReconnected = players.get(i);
+			}
+			playerBoards.add(players.get(i).getPlayerBoard());
+		}
+		if (playerReconnected == null) {
+			System.out.println("Error");
+			return;
+		}
+		BoardView boardView = new BoardView(board, playerBoards, board.getOrder().getCurrent().getUsername());
+		updatePlayerReconnectedView(boardView, playerReconnected);
+	}
 	public void updatePlayerReconnectedView (BoardView boardView, Player player) throws RemoteException {
 		switch (player.getConnectionType()) {
 			case RMI:
