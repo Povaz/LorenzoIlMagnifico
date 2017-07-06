@@ -32,6 +32,7 @@ public class WaitingRoomController {
     }
 
     @FXML protected void logoutClick() throws Exception{
+        main.getFromGuiToServer().put("/logout");
         String result = main.getFromServerToGui().get();
     }
 

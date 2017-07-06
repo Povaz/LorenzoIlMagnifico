@@ -1,9 +1,7 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import it.polimi.ingsw.pc34.Model.Board;
-import it.polimi.ingsw.pc34.Model.Player;
-import it.polimi.ingsw.pc34.Model.PlayerBoard;
-import it.polimi.ingsw.pc34.Model.PlayerColor;
+import it.polimi.ingsw.pc34.JSONUtility;
+import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
@@ -310,7 +308,7 @@ public class GameViewController {
 
     @FXML private void bTP(){
         // TODO elimina
-        main.getOpenWindow().put("/exchangeprivilege");
+        //main.getOpenWindow().put("/exchangeprivilege");
         // vatican report
         vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard1.setDisable(false);
@@ -441,16 +439,16 @@ public class GameViewController {
         // get familyMember color
         String familyColor = dragButton.getText();
 
-        if(!canDoAction){
+        /*if(!canDoAction){
             return;
-        }
+        }*/
 
         main.getFromGuiToServer().put("/playerturn");
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }
         //TODO va qui?
-        canDoAction = false;
+        //canDoAction = false;
         main.getFromGuiToServer().put("1");
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
