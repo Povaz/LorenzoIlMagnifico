@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.RMI;
 
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
+import it.polimi.ingsw.pc34.View.GUI.BoardView;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -9,6 +10,8 @@ import java.rmi.server.UnicastRemoteObject;
 import java.util.ConcurrentModificationException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
+
+import static it.polimi.ingsw.pc34.SocketRMICongiunction.Client.guiReference;
 
 /**
  * Created by Povaz on 24/05/2017.
@@ -322,6 +325,11 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
             }
         }
         this.loginHandlerGUI(serverRMI);
+    }
+
+    @Override
+    public void updateMyView (BoardView boardView) throws RemoteException {
+        guiReference.updateGame(boardView);
     }
 }
 

@@ -287,6 +287,7 @@ public class Game implements Runnable{
                     FamilyMember familyMember;
                     current.setYourTurn(true);
                     BoardView boardView = new BoardView(board, null, current.getUsername()); //TODO PlayerBoards
+
                     gameController.startTimer(current.getUsername());
                     do {
                         System.out.println("\n\nPLAYERBOARD:");

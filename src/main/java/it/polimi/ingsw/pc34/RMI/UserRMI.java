@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.RMI;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
+import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 import java.io.IOException;
 import java.rmi.Remote;
@@ -20,5 +21,6 @@ public interface UserRMI extends Remote{
     void setMessageForGUI(String message) throws RemoteException;
     void setMessageByGUI(String message) throws RemoteException;
     void setMessageToChangeWindow (String message) throws RemoteException;
+    void updateMyView (BoardView boardView) throws RemoteException;
     String getGameState() throws RemoteException;
 }

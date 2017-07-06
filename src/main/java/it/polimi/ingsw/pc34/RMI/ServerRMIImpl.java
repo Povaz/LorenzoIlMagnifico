@@ -6,6 +6,7 @@ import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.Model.Player;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.*;
 
+import it.polimi.ingsw.pc34.View.GUI.BoardView;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -347,6 +348,20 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
         } catch (NullPointerException e) {
             e.printStackTrace();
             userRMI.sendMessage("The Game isn't started yet");
+        }
+    }
+
+    public void updateUserRMIView (BoardView boardView, String username) throws RemoteException {
+        int i = 0;
+        try {
+            for (i = 0; i < usersLoggedRMI.size(); i++) {
+                if (usersLoggedRMI.get(i).getUsername().equals(username)) {
+                    usersLoggedRMI.get(i).updateMyView(boardView);
+                }
+            }
+        } catch (RemoteException e) {
+            e.printStackTrace();
+            removeRMIUser(i);
         }
     }
 
