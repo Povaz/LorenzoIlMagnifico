@@ -568,7 +568,7 @@ public class GameController{
 			    									actionInput.setActionType(ActionType.COUNCIL_PALACE);
 			    									actionInput.setSpot(0);
 			    									actionInputCreated.put(actionInput);
-			    									return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    									return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    							}
 		    							}
 		    							else if(actionSpot!=null){
@@ -578,35 +578,35 @@ public class GameController{
 			    									if(checkNumber(0, 3, asked)){
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    									}
 			    								case "2":
 			    									if(checkNumber(0, 3, asked)){
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    									}
 			    								case "3":
 			    									if(checkNumber(0, 3, asked)){
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    									}
 			    								case "4":
 			    									if(checkNumber(0, 3, asked)){
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    									}
 			    								case "5":
 			    									if (players.size() > 2 && checkNumber(0, 1, asked)) {
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    } else if(players.size() == 2 && checkNumber(0, 0, asked)){
 			    				                        actionInput.setSpot(0);
 			    				                        actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
@@ -616,11 +616,11 @@ public class GameController{
 			    									if (players.size() > 2 && checkNumber(0, 1, asked)) {
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    } else if(players.size() == 2 && checkNumber(0, 0, asked)){
 			    				                        actionInput.setSpot(0);
 			    				                        actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
@@ -630,11 +630,11 @@ public class GameController{
 			    									if (players.size() > 3 && checkNumber(0, 3, asked)) {
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    } else if(players.size() <= 3 && checkNumber(0, 1, asked)){
 			    				                        actionInput.setSpot(0);
 			    				                        actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.WHITE + "  " + "2. " + FamilyColor.BLACK + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
@@ -650,11 +650,11 @@ public class GameController{
 		    							if (checkNumber(1, 4, asked)){
 		    								switch (asked){
 		    									case "1" :
-		    										familyColorCreated.put(FamilyColor.WHITE);
+		    										familyColorCreated.put(FamilyColor.BLACK);
 		    										setInFlow();
 		    										return "How many Servants do you want to use?";
 		    									case "2" :
-		    										familyColorCreated.put(FamilyColor.BLACK);
+		    										familyColorCreated.put(FamilyColor.WHITE);
 													setInFlow();
 													return "How many Servants do you want to use?";
 		    									case "3" :
@@ -723,15 +723,15 @@ public class GameController{
 			        			}
 		    				case ACTIVATE_LEADER_CARD :
 		    					switch (state2){ 
-				    				case FAMILY_MEMBER_NOT_NEUTRAL :
+				    				case FAMILY_MEMBER_NOT_NEUTRAL : //TODO CAMBIA NUMERAZIONE FAMILY MEMBER NOT NEUTRAL
 				    					switch (asked){
-											case "0" :
-												familyColorCreated.put(FamilyColor.WHITE);
-												return "You choose " + FamilyColor.WHITE + " color";
 											case "1" :
 												familyColorCreated.put(FamilyColor.BLACK);
 												return "You choose " + FamilyColor.BLACK + " color";
 											case "2" :
+												familyColorCreated.put(FamilyColor.WHITE);
+												return "You choose " + FamilyColor.WHITE + " color";
+											case "3" :
 												familyColorCreated.put(FamilyColor.ORANGE);
 												return "You choose " + FamilyColor.ORANGE + " color";
 											default : 
