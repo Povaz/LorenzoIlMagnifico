@@ -144,6 +144,16 @@ public class GameController {
 		}
 	}
 
+	public void updatePlayerReconnectedView (BoardView boardView, Player player) throws RemoteException {
+		switch (player.getConnectionType()) {
+			case RMI:
+				serverRMI.updateUserRMIView(boardView, player.getUsername());
+				break;
+			case SOCKET:
+				//Fill
+		}
+	}
+
     /*public void sendMessageGUI(Player player, String message) throws IOException {
         switch(player.getConnectionType()){
             case RMI:

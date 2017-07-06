@@ -728,4 +728,8 @@ public class Game implements Runnable{
     public GameController getGameController(){
         return gameController;
     }
+
+    public List<PlayerBoard> getPlayerBoards() {
+        return playerBoards;
+    }
 }

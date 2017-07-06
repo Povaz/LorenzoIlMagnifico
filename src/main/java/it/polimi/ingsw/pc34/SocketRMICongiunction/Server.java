@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.Model.Player;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
+import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
@@ -77,6 +78,8 @@ public class Server {
     		for(Player player : players){
     			if(player.getUsername().equals(username)){
     				player.setDisconnected(false);
+    				BoardView boardView = new BoardView(game.getBoard(), game.getPlayerBoards() , game.getBoard().getOrder().getCurrent().getUsername());
+    				game.getGameController().updatePlayerReconnectedView(boardView, player);
     				return game;
     			}
     		}
