@@ -352,16 +352,15 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     }
 
     public void updateUserRMIView (BoardView boardView, String username) throws RemoteException {
-        int i = 0;
-        try {
-            for (i = 0; i < usersLoggedRMI.size(); i++) {
+        int i;
+        for (i = 0; i < usersLoggedRMI.size(); i++) {
+            try {
                 if (usersLoggedRMI.get(i).getUsername().equals(username) && usersLoggedRMI.get(i).isGUI()) {
                     usersLoggedRMI.get(i).updateMyView(boardView);
                 }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
             }
-        } catch (RemoteException e) {
-            e.printStackTrace();
-            removeRMIUser(i);
         }
     }
 
