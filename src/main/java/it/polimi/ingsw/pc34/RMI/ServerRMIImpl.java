@@ -17,7 +17,7 @@ import java.util.*;
 /**
  * Created by Povaz on 24/05/2017.
  **/
-public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //TODO CONTROLLARE BENE CHE IL CLIENT POSSA CRASHARE SEMPRE
+public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     private ArrayList<UserRMI> usersLoggedRMI;
     private ArrayList<String> usernames;
     private Server server;
@@ -238,7 +238,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
                 for (j = 0; j < usersLoggedRMI.size(); j++) {
                     if (userStarting.get(i).equals(usernames.get(j))) {
                         if (usersLoggedRMI.get(j).isGUI()) {
-                            usersLoggedRMI.get(i).setMessageByGUI("start"); //PUT
+                            usersLoggedRMI.get(j).setMessageByGUI("start"); //PUT
                         }
                     }
                 }
@@ -355,7 +355,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
         int i = 0;
         try {
             for (i = 0; i < usersLoggedRMI.size(); i++) {
-                if (usersLoggedRMI.get(i).getUsername().equals(username)) {
+                if (usersLoggedRMI.get(i).getUsername().equals(username) && usersLoggedRMI.get(i).isGUI()) {
                     usersLoggedRMI.get(i).updateMyView(boardView);
                 }
             }

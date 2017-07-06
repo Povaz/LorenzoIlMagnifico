@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 import java.io.IOException;
@@ -133,7 +134,13 @@ public class GameController{
 
 	public void updatePlayersView (BoardView boardView) throws RemoteException {
     	for (int i = 0; i < players.size(); i++) {
-			serverRMI.updateUserRMIView(boardView, players.get(i).getUsername());
+    		switch (players.get(i).getConnectionType()) {
+				case RMI:
+					serverRMI.updateUserRMIView(boardView, players.get(i).getUsername());
+					break;
+				case SOCKET:
+					//Fill
+			}
 		}
 	}
 
