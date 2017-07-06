@@ -44,7 +44,7 @@ public class PlaceLeaderCard implements CommandPattern{
 
         leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player);
 
-        if (leaderCard == null) { //AGGIUNTO DA ERICK PER IL TIMER
+        if (leaderCard == null){
             return false;
         }
 
@@ -141,6 +141,9 @@ public class PlaceLeaderCard implements CommandPattern{
             return false;
         }
         toCopy = game.getGameController().askWhichCardPlaceChangeCopyActivate(canBeCopied, player);
+        if(toCopy == null){
+            return false;
+        }
         return true;
     }
 
