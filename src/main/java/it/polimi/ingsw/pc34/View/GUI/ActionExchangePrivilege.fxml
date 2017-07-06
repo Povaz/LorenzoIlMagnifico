@@ -11,29 +11,29 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.collections.FXCollections?>
 
-<AnchorPane fx:id="exchangePrivilege" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" style="-fx-background-color: rgb(113,90,58);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.ActionExchangePrivilegeController">
+<AnchorPane fx:id="exchangePrivilege" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" style="-fx-background-color: rgb(113,90,58)" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.ActionExchangePrivilegeController">
    <children>
-      <Text fill="WHITE" layoutX="72.0" layoutY="101.0" stroke="BLACK" strokeType="OUTSIDE" text="Which council privilege">
+      <Text fill="WHITE" layoutX="72.0" layoutY="101.0" stroke="BLACK" text="Which council privilege">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="157.0" layoutY="149.0" stroke="BLACK" strokeType="OUTSIDE" text="do you want?">
+      <Text fill="WHITE" layoutX="157.0" layoutY="149.0" stroke="BLACK" text="do you want?">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="90.0" layoutY="215.0" stroke="BLACK" strokeType="OUTSIDE" text="Choose">
+      <Text fill="WHITE" layoutX="90.0" layoutY="215.0" stroke="BLACK" text="Choose">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
       </Text>
-      <Text fx:id="number" fill="WHITE" layoutX="190.0" layoutY="215.0" stroke="BLACK" strokeType="OUTSIDE" text="0">
+      <Text fx:id="number" fill="WHITE" layoutX="190.0" layoutY="215.0" stroke="BLACK" text="0">
          <font>
             <Font name="System Bold" size="26.0" />
          </font>
       </Text>
-      <Button fx:id="send" layoutX="346.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#sendClicked" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: ;" text="Send">
+      <Button fx:id="send" layoutX="346.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#sendClicked" prefHeight="40.0" prefWidth="80.0" text="Send">
          <font>
             <Font size="18.0" />
          </font>

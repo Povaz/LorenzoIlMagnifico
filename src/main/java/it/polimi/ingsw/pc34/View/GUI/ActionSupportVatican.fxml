@@ -23,12 +23,12 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Text fill="WHITE" layoutX="139.0" layoutY="209.0" stroke="BLACK" strokeType="OUTSIDE" text="Do you want to">
+      <Text fill="WHITE" layoutX="139.0" layoutY="209.0" stroke="BLACK" text="Do you want to">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="130.0" layoutY="266.0" stroke="BLACK" strokeType="OUTSIDE" text="support vatican?">
+      <Text fill="WHITE" layoutX="130.0" layoutY="266.0" stroke="BLACK" text="support vatican?">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>

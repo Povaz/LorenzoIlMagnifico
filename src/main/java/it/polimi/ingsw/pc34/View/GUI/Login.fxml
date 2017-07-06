@@ -20,8 +20,8 @@
       </ImageView>
       <AnchorPane layoutY="470.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="300.0" prefWidth="500.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
          <children>
-              <TextField fx:id="usernameTextField" layoutX="125.0" layoutY="73.0" prefHeight="31.0" prefWidth="250.0" promptText="Username" />
-              <PasswordField fx:id="passwordTextField" layoutX="125.0" layoutY="126.0" prefHeight="31.0" prefWidth="250.0" promptText="Password" />
+              <TextField fx:id="usernameTextField" layoutX="125.0" layoutY="73.0" onKeyPressed="#enterPressed" prefHeight="31.0" prefWidth="250.0" promptText="Username" />
+              <PasswordField fx:id="passwordTextField" layoutX="125.0" layoutY="126.0" onKeyPressed="#enterPressed" prefHeight="31.0" prefWidth="250.0" promptText="Password" />
               <Button fx:id="registerButton" layoutX="280.0" layoutY="188.0" mnemonicParsing="false" onAction="#registerClick" prefHeight="31.0" prefWidth="95.0" text="Register" />
             <Text fx:id="loginMessageText" fill="WHITE" layoutX="58.0" layoutY="261.0" strokeType="OUTSIDE" strokeWidth="0.0" textAlignment="CENTER" wrappingWidth="385.0">
                <font>

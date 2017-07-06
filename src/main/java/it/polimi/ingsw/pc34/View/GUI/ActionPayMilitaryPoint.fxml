@@ -23,23 +23,23 @@
             <Font size="18.0" />
          </font>
       </Button>
-      <Text fill="WHITE" layoutX="61.0" layoutY="153.0" stroke="BLACK" strokeType="OUTSIDE" text="Do you want to pay with">
+      <Text fill="WHITE" layoutX="61.0" layoutY="153.0" stroke="BLACK" text="Do you want to pay with">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="139.0" layoutY="206.0" stroke="BLACK" strokeType="OUTSIDE" text="military points?">
+      <Text fill="WHITE" layoutX="139.0" layoutY="206.0" stroke="BLACK" text="military points?">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Text layoutX="63.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Military points needed:" />
-      <Text layoutX="63.0" layoutY="337.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Military points price:" />
-      <Text fx:id="militaryNeeded" layoutX="85.0" layoutY="301.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="militaryPrice" layoutX="85.0" layoutY="359.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="coin" layoutX="348.0" layoutY="280.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="wood" layoutX="348.0" layoutY="300.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="stone" layoutX="348.0" layoutY="320.0" strokeType="OUTSIDE" strokeWidth="0.0" />
-      <Text fx:id="servant" layoutX="348.0" layoutY="340.0" strokeType="OUTSIDE" strokeWidth="0.0" />
+      <Text layoutX="63.0" layoutY="280.0" strokeWidth="0.0" text="Military points needed:" />
+      <Text layoutX="63.0" layoutY="337.0" strokeWidth="0.0" text="Military points price:" />
+      <Text fx:id="militaryNeeded" layoutX="85.0" layoutY="301.0" strokeWidth="0.0" />
+      <Text fx:id="militaryPrice" layoutX="85.0" layoutY="359.0" strokeWidth="0.0" />
+      <Text fx:id="coin" layoutX="348.0" layoutY="280.0" strokeWidth="0.0" />
+      <Text fx:id="wood" layoutX="348.0" layoutY="300.0" strokeWidth="0.0" />
+      <Text fx:id="stone" layoutX="348.0" layoutY="320.0" strokeWidth="0.0" />
+      <Text fx:id="servant" layoutX="348.0" layoutY="340.0" strokeWidth="0.0" />
    </children>
 </AnchorPane>

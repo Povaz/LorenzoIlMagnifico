@@ -81,6 +81,7 @@ public class Main extends Application{
         initRootLayout();
 
         // TODO rimetti: showLogin();
+        openWindow=new SynchronizedString();
         showGame();
     }
 
@@ -230,7 +231,7 @@ public class Main extends Application{
             GameViewController gameController = loader.getController();
             gameController.setMain(this);
             gameController.initializeView();
-            gameController.initializeObservable();
+            gameController.initializeThread();
 
             // Can be full screen
             canBeFullScreen = true;

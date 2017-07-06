@@ -1,6 +1,8 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
+import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
@@ -14,6 +16,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Shape;
 import javafx.scene.text.Text;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +43,7 @@ public class GameViewController {
     @FXML private Button zoomedCard;
 
     @FXML private AnchorPane actionSpace;
+    @FXML private BorderPane actionBorder;
 
     @FXML private Button player0;
     @FXML private Button player1;
@@ -140,24 +144,48 @@ public class GameViewController {
         gridReported.add(reported3);
     }
 
-    public void initializeObservable(){
+    public void initializeThread(){
+        (new Thread(() -> {
+            String result;
+            do {
+                result = main.getOpenWindow().get();
+                final String toLambda = result;
 
-        /*players.get(0).addListener((obsVal, oldVal, newVal) -> {
-            PersonalBoardView pB = (PersonalBoardView) newVal;
-            if(!pB.getUsername().equals(currentPlayerShown)){
-                return;
-            }
-            String folder = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
-            if(pB.getTerritoryCards().size() == 6){
-                updateButton(territorySpotCard0, folder, pB.getTerritoryCards().get(0));
-                updateButton(territorySpotCard1, folder, pB.getTerritoryCards().get(1));
-                updateButton(territorySpotCard2, folder, pB.getTerritoryCards().get(2));
-                updateButton(territorySpotCard3, folder, pB.getTerritoryCards().get(3));
-                updateButton(territorySpotCard4, folder, pB.getTerritoryCards().get(4));
-                updateButton(territorySpotCard5, folder, pB.getTerritoryCards().get(5));
-            }
-        });*/
+                Platform.runLater(() -> {
+                    if(toLambda.equals("/login")){
+                        main.showLogin();
+                    }
+                    else if(toLambda.equals("/exchangeprivilege")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionExchangePrivilege.fxml"));
+                            AnchorPane exchangePrivilege = (AnchorPane) loader.load();
+                            actionBorder.setCenter(exchangePrivilege);
 
+                            ActionExchangePrivilegeController exchangeController = loader.getController();
+                            exchangeController.setMain(main);
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    }
+                    else if(toLambda.equals("/numberservant")){
+
+                    }
+                    else if(toLambda.equals("/paymilitarypoint")){
+
+                    }
+                    else if(toLambda.equals("/choosetrade")){
+
+                    }
+                    else if(toLambda.equals("/choosediscount")){
+
+                    }
+                });
+            } while(result.equals("/login"));
+        })).start();
     }
 
     @FXML private void playerPressed(MouseEvent event){
@@ -267,6 +295,7 @@ public class GameViewController {
 
     @FXML private void bTP(){
         // TODO elimina
+        main.getOpenWindow().put("/exchangeprivilege");
         // vatican report
         vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard1.setDisable(false);

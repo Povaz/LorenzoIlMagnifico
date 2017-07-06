@@ -1,14 +1,12 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
-import javafx.stage.Screen;
 
 public class LoginController {
     private Main main;
@@ -19,7 +17,13 @@ public class LoginController {
     @FXML private Button registerButton;
     @FXML private Text loginMessageText;
 
-    @FXML protected void loginClick(ActionEvent event) throws Exception{
+    @FXML private void enterPressed(KeyEvent event){
+        if(event.getCode() == KeyCode.ENTER){
+            loginClick();
+        }
+    }
+
+    @FXML protected void loginClick(){
         if(usernameTextField.getText().equals("") || passwordTextField.getText().equals("")){
             return;
         }
@@ -37,7 +41,7 @@ public class LoginController {
         }
     }
 
-    @FXML protected void registerClick(ActionEvent event){
+    @FXML protected void registerClick(){
         if(usernameTextField.getText().equals("") || passwordTextField.getText().equals("")){
             return;
         }

@@ -1,11 +1,8 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import it.polimi.ingsw.pc34.RMI.SynchronizedString;
-import javafx.event.ActionEvent;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
 import javafx.scene.text.Text;
 
 public class WaitingRoomController {
@@ -16,28 +13,26 @@ public class WaitingRoomController {
     @FXML private Text waitingMessageText;
 
     public void initializeThread(){
-        (new Thread(){
-            @Override
-                public void run(){
-                    String result = main.getOpenWindow().get();
-                    if(result.equals("/game")){
-                        logoutButton.setVisible(false);
-                        logoutButton.setDisable(true);
-                        gameButton.setDisable(false);
-                        gameButton.setVisible(true);
+        (new Thread(() -> {
+            String result;
+            do {
+                result = main.getOpenWindow().get();
+                final String toLambda = result;
+
+                Platform.runLater(() -> {
+                    if(toLambda.equals("/login")){
+                        main.showLogin();
                     }
-                }
-        }).start();
+                    else if(toLambda.equals("/game")){
+                        main.showGame();
+                    }
+                });
+            } while(result.equals("/login") || result.equals("/game"));
+        })).start();
     }
 
     @FXML protected void logoutClick() throws Exception{
         String result = main.getFromServerToGui().get();
-
-        main.showLogin();
-    }
-
-    @FXML private void gameClick(){
-        main.showGame();
     }
 
     public void setMessageText(String message){
