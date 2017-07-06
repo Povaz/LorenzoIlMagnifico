@@ -16,6 +16,8 @@ import javax.xml.soap.Text;
  * Created by Povaz on 03/07/2017.
  */
 public class ChatController extends Application {
+    private Main main;
+
     @FXML private Button sendMessageButton;
     @FXML private TextField messageTextField;
     @FXML private VBox chatVBOX;
@@ -49,5 +51,9 @@ public class ChatController extends Application {
             newMessageLabel.setTextAlignment(TextAlignment.JUSTIFY);
             chatVBOX.getChildren().add(newMessageLabel);
         }
+    }
+
+    public void setMain(Main main){
+        this.main = main;
     }
 }

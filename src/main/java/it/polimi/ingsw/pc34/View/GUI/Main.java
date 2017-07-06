@@ -18,7 +18,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application{
     // connection canal
-    private SynchronizedString chatComunication;
+    private SynchronizedString chatToServer;
+    private SynchronizedString chatFromServer;
     private SynchronizedString fromGuiToServer;
     private SynchronizedString fromServerToGui;
     private SynchronizedString openWindow;
@@ -83,49 +84,7 @@ public class Main extends Application{
 
         initRootLayout();
 
-        // TODO rimetti: showLogin();
         showLogin();
-    }
-
-    public void initializeObservable(){
-        chatComunication.getAvailable().addListener(((observable, oldValue, newValue) -> {
-            try {
-                String message = chatComunication.get();
-                boolean chat = false;
-                if(message.length() >= 5){
-                    if(message.startsWith("/chat")){
-                        message = message.substring(5, message.length() - 1);
-                        chat = true;
-                    }
-                }
-
-                int screenValue = screen.get();
-                if(screenValue == 1){
-                    if(loginC != null){
-                        if(!chat){
-                            loginC.setMessageText(message);
-                        }
-                    }
-                }
-                else if(screenValue == 2){
-                    if(waitingRoomC != null){
-                        if(!chat){
-                            waitingRoomC.setMessageText(message);
-                        }
-                    }
-                }
-                else if(screenValue == 3){
-                    if(gameViewC != null){
-                        if(!chat){
-                            // TODO waitingRoomC.setMessageText(message);
-                        }
-                        else{
-                            // TODO chat
-                        }
-                    }
-                }
-            } catch(NullPointerException e){}
-        }));
     }
 
     private void initRootLayout(){
@@ -238,6 +197,14 @@ public class Main extends Application{
             // Can be full screen
             canBeFullScreen = true;
 
+            // Set chat
+            loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("Chat.fxml"));
+            AnchorPane chat = (AnchorPane) loader.load();
+            gameController.chatBorder.setCenter(chat);
+            ChatController chatController = loader.getController();
+            chatController.setMain(this);
+
             // Set screen
             gameViewC = gameController;
             screen.set(3);
@@ -277,12 +244,20 @@ public class Main extends Application{
         return windowHeight;
     }
 
-    public SynchronizedString getChatComunication(){
-        return chatComunication;
+    public SynchronizedString getChatToServer(){
+        return chatToServer;
     }
 
-    public void setChatComunication(SynchronizedString chatComunication){
-        this.chatComunication = chatComunication;
+    public void setChatToServer(SynchronizedString chatToServer){
+        this.chatToServer = chatToServer;
+    }
+
+    public SynchronizedString getChatFromServer(){
+        return chatFromServer;
+    }
+
+    public void setChatFromServer(SynchronizedString chatFromServer){
+        this.chatFromServer = chatFromServer;
     }
 
     public SynchronizedString getFromGuiToServer(){

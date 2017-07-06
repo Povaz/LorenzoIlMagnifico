@@ -59,7 +59,6 @@ public class ActionExchangePrivilegeController {
 
     private void closeExchangePrivilege(){
         BorderPane parent = (BorderPane) exchangePrivilege.getParent();
-        parent.setCenter(null);
         parent.setDisable(true);
         parent.setVisible(false);
     }

@@ -578,8 +578,7 @@
                                     </AnchorPane>
                                   <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="539.0" SplitPane.resizableWithParent="false">
                                        <children>
-                                          <Button fx:id="drag" layoutX="161.0" layoutY="250.0" mnemonicParsing="false" onDragDetected="#startDrag" pickOnBounds="false" prefHeight="126.0" prefWidth="125.0" text="drag -&gt;" />
-                                          <Button fx:id="bt" layoutX="141.0" layoutY="184.0" mnemonicParsing="false" onAction="#bTP" prefHeight="56.0" prefWidth="157.0" style="-fx-border-radius: 5; -fx-border-width: 10; -fx-border-insets: 10;" text="DO NOT PRESS!" />
+                                          <BorderPane fx:id="chatBorder" layoutX="144.0" layoutY="164.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="539.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
                                     <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="95.0" SplitPane.resizableWithParent="false">

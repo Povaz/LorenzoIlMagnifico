@@ -31,7 +31,6 @@ public class ActionPayMilitaryPointController {
 
     private void closePayMilitary(){
         BorderPane parent = (BorderPane) payMilitary.getParent();
-        parent.setCenter(null);
         parent.setDisable(true);
         parent.setVisible(false);
     }

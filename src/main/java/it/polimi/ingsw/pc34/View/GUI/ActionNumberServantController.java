@@ -25,7 +25,6 @@ public class ActionNumberServantController {
 
     private void closeNumberServant(){
         BorderPane parent = (BorderPane) numberServant.getParent();
-        parent.setCenter(null);
         parent.setDisable(true);
         parent.setVisible(false);
     }

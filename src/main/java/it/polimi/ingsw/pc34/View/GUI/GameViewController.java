@@ -48,6 +48,8 @@ public class GameViewController {
     // Game
     @FXML private Button zoomedCard;
 
+    @FXML protected BorderPane chatBorder;
+
     @FXML private AnchorPane actionSpace;
     @FXML private BorderPane actionBorder;
 
