@@ -319,6 +319,8 @@ public class Game implements Runnable{
                                     }
 
                                     gameController.sendMessageCLI(current, "Action has been executed");
+                                    boardView = new BoardView(board, playerBoards, current.getUsername());
+                                    gameController.updatePlayersView(boardView);
 
                                 } else {
                                     gameController.sendMessageCLI(current, "You have already placed a family member!");
@@ -331,7 +333,8 @@ public class Game implements Runnable{
                                 if (placeLeaderCard.canDoAction()) {
                                     placeLeaderCard.doAction();
                                     gameController.sendMessageCLI(current, "Action has been executed");
-
+                                    boardView = new BoardView(board, playerBoards, current.getUsername());
+                                    gameController.updatePlayersView(boardView);
                                 }
                                 break;
                             case 2:
@@ -340,6 +343,8 @@ public class Game implements Runnable{
                                 if (activateImmediateLeaderCard.canDoAction()) {
                                     activateImmediateLeaderCard.doAction();
                                     gameController.sendMessageCLI(current, "Action has been executed");
+                                    boardView = new BoardView(board, playerBoards, current.getUsername());
+                                    gameController.updatePlayersView(boardView);
 
                                 }
                                 break;
@@ -349,6 +354,8 @@ public class Game implements Runnable{
                                 if (changeLeaderCardInReward.canDoAction()) {
                                     changeLeaderCardInReward.doAction();
                                     gameController.sendMessageCLI(current, "Action has been executed");
+                                    boardView = new BoardView(board, playerBoards, current.getUsername());
+                                    gameController.updatePlayersView(boardView);
                                 }
                                 break;
                             case 4:
