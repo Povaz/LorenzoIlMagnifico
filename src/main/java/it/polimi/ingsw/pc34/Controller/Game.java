@@ -295,8 +295,6 @@ public class Game implements Runnable{
     }
 
     private void playTurn() throws IOException {
-        //System.out.println("\n\nBOARD:");
-        System.out.println(board);
         Order order = board.getOrder();
         do{
             Player current = order.getCurrent();
@@ -310,7 +308,7 @@ public class Game implements Runnable{
                     gameController.updatePlayersView(boardView);
                     gameController.startTimer(current.getUsername());
                     do {
-                        System.out.println("\n\nPLAYERBOARD:");
+                        System.out.println("\n\nPLAYERBOARD:"); //TODO GameController.sendMessageAll
                         System.out.println(current.getPlayerBoard());
                         System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
                         Integer whatToDo = gameController.getWhatToDo(current);
@@ -338,7 +336,6 @@ public class Game implements Runnable{
 
                                     gameController.sendMessageCLI(current, "Action has been executed");
                                     boardView = new BoardView(board, playerBoards, current.getUsername());
-                                    System.out.println(boardView);
                                     gameController.updatePlayersView(boardView);
 
                                 } else {
@@ -379,12 +376,12 @@ public class Game implements Runnable{
                                 break;
                             case 4:
                                 current.setYourTurn(false);
-                                gameController.stopTimer();
+                                gameController.stopTimer(current.getUsername());
                                 gameController.setInFlow();
                                 gameController.sendMessageCLI(current, "Action has been executed");
                                 break;
                             default:
-                                System.out.println("WAT???");
+                                System.out.println("WhatToDo Error"); // No user should get here
                         }
                         current.putFirst_State(PlayerState.WAITING);
                         current.putSecond_State(PlayerState.WAITING);
@@ -399,7 +396,7 @@ public class Game implements Runnable{
             current.putSecond_State(PlayerState.WAITING);
             current.setYourTurn(false);
             current.setPlacedFamilyMember(false);
-            System.out.println("\n\nPLAYERBOARD:");
+            System.out.println("\n\nPLAYERBOARD:"); //TODO MANDARE LA STAMPA AGLI USER CLI
             System.out.println(order.getCurrent().getPlayerBoard());
         } while(board.getOrder().nextOrder());
     }

@@ -166,18 +166,20 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         switch (message) {
             case "The game is starting":
                 this.setStartingGame(true);
-                System.out.println("Starting game:" + startingGame);
-                System.out.println("Logged: " + logged);
-                System.out.println(message + ". Press any key to start!");
+                if (!isGUI()) {
+                    System.out.println(message + ". Press any key to start!");
+                }
                 break;
             case "Reconnected":
                 this.setStartingGame(true);
-                System.out.println("Starting game:" + startingGame);
-                System.out.println("Logged: " + logged);
-                System.out.println(message + ". Press any key to start!");
+                if (!isGUI()) {
+                    System.out.println(message + ". Press any key to start!");
+                }
                 break;
             default:
-                System.out.println(message);
+                if (!isGUI()) {
+                    System.out.println(message);
+                }
         }
     }
 
@@ -219,10 +221,6 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.setLogged(serverRMI.logoutServer(this));
     }
 
-    private void printUsers(ServerRMI serverRMI) throws RemoteException {
-        serverRMI.printLoggedUsers();
-    }
-
     public void loginHandler (ServerRMI serverRMI) throws IOException {
         String choose;
         while (!startingGame) {
@@ -258,9 +256,6 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                     case "/exit":
                         System.exit(0);
                         break;
-                    case "/print":
-                        this.printUsers(serverRMI); //TODO ELIMINARE
-                        break;
                     default:
                        break;
                 }
@@ -285,6 +280,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 System.out.println("InputError: Retry");
             }
             catch (ConcurrentModificationException e) {
+                System.out.println("ConcurrentModificationException");
                 this.loginHandler(serverRMI);
             }
         }
@@ -300,7 +296,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 switch (choose) {
                     case "/login":
                         if (this.isLogged()) {
-                            System.out.println("You're already logged");
+                            //GUI User shouldn't be able to get here
                         }
                         else {
                             this.loginGUI(serverRMI);
@@ -311,25 +307,22 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                             this.logout(serverRMI);
                         }
                         else {
-                            System.out.println("You're not logged yet");
+                            //GUI User shouldn't be able to get here
                         }
                         break;
                     case "/registration":
                         if (!this.isLogged()) {
                             this.registrationGUI(serverRMI);
                         } else {
-                            System.out.println("You have to log out if you want to register another user");
+                            //GUI User shouldn't be able to get here
                         }
                         break;
-                    case "/exit":
-                        System.exit(0);
-                        break;
                     default:
-                        //System.out.println("Incorrect Answer");
+                        //GUI User shouldn't be able to get here
                         break;
                 }
             } catch (InputMismatchException e) {
-                System.out.println("InputError: Retry");
+                //GUI User shouldn't be able to get here
             } catch (JSONException e) {
                 e.printStackTrace();
             }
@@ -352,7 +345,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 serverRMI.sendInput(choose, this);
             }
             catch (InputMismatchException e) {
-                System.out.println("InputError: Retry");
+                //GUI User shouldn't be able to get here
             }
             catch (ConcurrentModificationException e) {
                 this.loginHandlerGUI(serverRMI);

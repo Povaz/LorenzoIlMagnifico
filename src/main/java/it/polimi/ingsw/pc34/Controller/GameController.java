@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.Controller;
 
+import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
@@ -77,11 +78,10 @@ public class GameController {
 		}, 30000);
 	}
 
-	public void stopTimer() {
-		System.out.println("I've stopped the Timer");
+	public void stopTimer(String username) {
+		System.out.println("Stopping Timer for " + username);
 		this.timerTillTheEnd.purge();
 		this.timerTillTheEnd.cancel();
-		System.out.println("I've stopped the Timer");
 	}
 
 	public void setInFlow() {
@@ -111,7 +111,7 @@ public class GameController {
 		return false;
 	}
 
-	public void sendMessageCLI(Player player, String message) throws RemoteException, IOException {
+	public void sendMessageCLI(Player player, String message) throws IOException {
 		switch (player.getConnectionType()) {
 			case RMI:
 				serverRMI.sendMessage(player, message);
@@ -123,6 +123,12 @@ public class GameController {
 				}
 				serverHandler.sendToClient(message);
 				break;
+		}
+	}
+
+	public void sendMessageAll (String message) throws IOException {
+		for (int i = 0; i < players.size(); i++) {
+			sendMessageCLI(players.get(i), message);
 		}
 	}
 
@@ -171,31 +177,15 @@ public class GameController {
 		}
 	}
 
-    /*public void sendMessageGUI(Player player, String message) throws IOException {
-        switch(player.getConnectionType()){
-            case RMI:
-                serverRMI.sendMessage(player, message);
-                System.out.println(message);
-                break;
-            case SOCKET:
-                ServerHandler serverHandler = serverSoc.getServerHandler(player.getUsername());
-                serverHandler.sendToClient(message);
-                System.out.println(message);
-                break;
-        }
-    }*/
-
 	public Integer getWhatToDo(Player player) throws TooMuchTimeException, RemoteException {
 		int whatToDo;
 		afkVar = "whatToDo";
 		whatToDo = whatToDoCreated.get();
-		System.out.println("WhatToDo taken: " + whatToDo);
 		setInFlow();
 		return whatToDo;
 	}
 
 	public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
-		System.out.println("Aspetto un actioninput");
 		afkVar = "actionInput";
 		try {
 			ActionInput actionInput = actionInputCreated.get();
@@ -253,11 +243,11 @@ public class GameController {
 		if (player.getClientType().equals(ClientType.GUI)) {
 			switch (player.getConnectionType()) {
 				case RMI:
-					System.out.println("RMI game controller");
 					serverRMI.openNewWindow(player, "/numberservant");
 					player.getPlayerBoard().getCounter().getServant().getQuantity();
 					break;
 				case SOCKET:
+					//FILL SERVER
 					break;
 			}
 		}
@@ -548,6 +538,7 @@ public class GameController {
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    		}
+    	    		setInFlow();
     	    		return "not handled case";
     	    	}
 	    		//ENTER HERE IF STATE1 STILL NOT DEFINED
@@ -620,14 +611,10 @@ public class GameController {
 	        		else {
 	        			switch (state1){ 
 		    				case ACTION :
-		    					System.out.println("ACTION confirmed");
 		    					switch (state2) {
 		    						case ACTION_INPUT :
-		    							System.out.println("ACTION_INPUT confirmed");
-		    							System.out.println("entra" + actionSpot);
 		    							if(actionSpot==null && checkNumber(1, 8, asked)){
 		    								actionSpot = asked;
-		    								System.out.println("Ora setto l'ActionType");
 			    							switch(actionSpot) {
 			    								case "1":
 			    									actionInput.setActionType(ActionType.TERRITORY_TOWER);
@@ -646,7 +633,6 @@ public class GameController {
 			    									setInFlow();
 			    									return "Which card? From 0 to 3";
 			    								case "5":
-			    									System.out.println("si sono entrato proprio qua");
 			    									actionInput.setActionType(ActionType.HARVEST);
 			    									setInFlow();
 			    									return "Which spot? 0 or 1";
@@ -666,7 +652,6 @@ public class GameController {
 			    							}
 		    							}
 		    							else if(actionSpot!=null){
-		    								System.out.println("entra");
 		    								switch(actionSpot){ 
 			    								case "1":
 			    									if(checkNumber(0, 3, asked)){
@@ -776,8 +761,7 @@ public class GameController {
 			    						    return "Input error, Retry!";
 		    							}
 		    							
-									case EXCHANGE_COUNCIL_PRIVILEGE : //TODO Check con Tom: Compie l'azione ma gli input successivi continuano ad entrare qui, lo stato non è cambiato.
-				    					System.out.println(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE + " confirmed");
+									case EXCHANGE_COUNCIL_PRIVILEGE :
 				    					String message = "";
 				    					if(asked.length()==councilRewardsSize){
 				    						int [] integerProduced = new int [councilRewardsSize]; 

@@ -14,7 +14,5 @@ public interface ServerRMI extends Remote{
     boolean loginServer(UserRMI userRMI) throws JSONException, IOException;
     void registrationServer(UserRMI userRMI) throws JSONException, IOException;
     boolean logoutServer(UserRMI userRMI) throws RemoteException;
-    void printLoggedUsers () throws RemoteException;
-
     void sendInput (String input, UserRMI userRMI) throws IOException;
 }
