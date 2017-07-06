@@ -1,7 +1,7 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.*;
+import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
@@ -157,7 +157,7 @@ public class GameViewController {
             do {
                 result = main.getOpenWindow().get();
                 final String toLambda = result;
-
+                System.out.println(toLambda);
                 Platform.runLater(() -> { // TODO inseriscine uno in ogni brach per velocizzare
                     if(toLambda.equals("/login")){
                         main.showLogin();

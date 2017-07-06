@@ -286,8 +286,6 @@ public class Game implements Runnable{
                     ActionSpot actionSpot;
                     FamilyMember familyMember;
                     current.setYourTurn(true);
-                    long t = System.currentTimeMillis() + 5000;
-                    while(System.currentTimeMillis() < t){}
                     BoardView boardView = new BoardView(board, playerBoards, current.getUsername());
                     gameController.updatePlayersView(boardView);
                     gameController.startTimer(current.getUsername());

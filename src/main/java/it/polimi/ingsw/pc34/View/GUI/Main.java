@@ -177,7 +177,7 @@ public class Main extends Application{
             // Set screen
             loginC = loginController;
             screen.set(1);
-
+            fromGuiToServer.put("1");
         } catch (IOException e){
             e.printStackTrace();
         }
@@ -240,19 +240,11 @@ public class Main extends Application{
             // Set screen
             gameViewC = gameController;
             screen.set(3);
+            System.out.println("View put");
+            fromGuiToServer.put("3");
+            System.out.println("view put done");
         } catch (IOException e){
             e.printStackTrace();
-        }
-    }
-
-    public void updateGame(BoardView boardView){
-        System.out.println("pappapperoVIEW");
-        GameViewController gC = gameViewC;
-        System.out.println(screen.get());
-        System.out.println(gC);
-        System.out.println(boardView);
-        if(screen.get() == 3 && gC != null){
-            gC.update(boardView);
         }
     }
 
@@ -338,5 +330,9 @@ public class Main extends Application{
 
     public void setBoardViewFromServer(SynchronizedBoardView boardViewFromServer){
         this.boardViewFromServer = boardViewFromServer;
+    }
+
+    public AtomicInteger getScreen(){
+        return screen;
     }
 }
