@@ -171,7 +171,7 @@ public class GameViewController {
                             ActionExchangePrivilegeController exchangeController = loader.getController();
                             exchangeController.setMain(main);
 
-                            exchangeController.number.setText(main.getFromServerToGui().get());
+                            exchangeController.number.setText(main.getOpenWindow().get());
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -189,7 +189,8 @@ public class GameViewController {
                             ActionNumberServantController servantController = loader.getController();
                             servantController.setMain(main);
 
-                            servantController.servant.setMax(Double.valueOf(main.getFromServerToGui().get()));
+                            System.out.println(Double.valueOf(main.getOpenWindow().get()));
+                            servantController.servant.setMax(5);
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -198,7 +199,22 @@ public class GameViewController {
                         }
                     }
                     else if(toLambda.equals("/paymilitarypoint")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionPayMilitaryPoint.fxml"));
+                            AnchorPane payMilitary = (AnchorPane) loader.load();
+                            actionBorder.setCenter(payMilitary);
 
+                            ActionPayMilitaryPointController payMilitaryPointController = loader.getController();
+                            payMilitaryPointController.setMain(main);
+
+                            main.getOpenWindow().get();
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
                     }
                     else if(toLambda.equals("/choosetrade")){
 
