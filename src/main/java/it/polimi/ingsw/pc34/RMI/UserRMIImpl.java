@@ -66,6 +66,9 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     public void setMessageForGUI(String messageForGUI) {this.messageForGUI.put(messageForGUI); }
 
     @Override
+    public void setMessageToChangeWindow (String messageToChangeWindow) {this.messageToChangeWindow.put(messageToChangeWindow);}
+
+    @Override
     public void setMessageByGUI(String messageByGUI) {this.messageByGUI.put(messageByGUI);}
 
     @Override
@@ -235,9 +238,9 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     }
 
     public void gameHandler (ServerRMI serverRMI) throws IOException {
+        System.out.println("Type: /playturn for an Action; /chat to send message;\n");
         while (logged) {
             try {
-                System.out.println("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
                 Scanner inChoose = new Scanner (System.in);
                 String choose = inChoose.nextLine();
                 serverRMI.sendInput(choose, this);
