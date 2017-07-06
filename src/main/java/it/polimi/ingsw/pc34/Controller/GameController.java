@@ -112,7 +112,6 @@ public class GameController{
         switch(player.getConnectionType()){
             case RMI:
                 serverRMI.sendMessage(player, message);
-                System.out.println(message);
                 break;
             case SOCKET:
 				ServerHandler serverHandler = serverSoc.getServerHandler(player.getUsername());
@@ -120,7 +119,6 @@ public class GameController{
 					break;
 				}
 				serverHandler.sendToClient(message);
-                System.out.println(message);
                 break;
         }
     }
@@ -160,10 +158,6 @@ public class GameController{
         afkVar = "actionInput";
     	try {
 			ActionInput actionInput = actionInputCreated.get();
-			if (actionInput == null) {
-				setInFlow();
-				return null;
-			}
 			setInFlow();
 			switch (actionInput.getActionType()) {
 				case TERRITORY_TOWER:
@@ -235,33 +229,34 @@ public class GameController{
 				player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
 				this.sendMessageCLI(player, "choose + " + councilRewardsSize + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT");
 				afkVar = "intArray";
-                int[] rewardArray = arrayIntegerCreated.get(); //TODO Deve poter essere null
-                setInFlow();
-                if (rewardArray == null) {
+                try {
+					int[] rewardArray = arrayIntegerCreated.get(); //TODO Deve poter essere null
+					setInFlow();
+					for (int i = 0; i < rewardArray.length; i++) {
+						switch (rewardArray[i]) {
+							case 1:
+								newRewards.add(new Reward(RewardType.WOOD, 1));
+								newRewards.add(new Reward(RewardType.STONE, 1));
+								break;
+							case 2:
+								newRewards.add(new Reward(RewardType.SERVANT, 2));
+								break;
+							case 3:
+								newRewards.add(new Reward(RewardType.COIN, 2));
+								break;
+							case 4:
+								newRewards.add(new Reward(RewardType.MILITARY_POINT, 2));
+								break;
+							case 5:
+								newRewards.add(new Reward(RewardType.FAITH_POINT, 1));
+								break;
+							default:
+								break;
+						}
+					}
+				} catch (NullPointerException e) {
                 	return null;
 				}
-                for(int i = 0; i < rewardArray.length; i++) {
-                    switch(rewardArray[i]){
-                        case 1:
-                            newRewards.add(new Reward(RewardType.WOOD, 1));
-                            newRewards.add(new Reward(RewardType.STONE, 1));
-                            break;
-                        case 2:
-                            newRewards.add(new Reward(RewardType.SERVANT, 2));
-                            break;
-                        case 3:
-                            newRewards.add(new Reward(RewardType.COIN, 2));
-                            break;
-                        case 4:
-                            newRewards.add(new Reward(RewardType.MILITARY_POINT, 2));
-                            break;
-                        case 5:
-                            newRewards.add(new Reward(RewardType.FAITH_POINT, 1));
-                            break;
-                        default:
-                            break;
-                    }
-                }
             }
         }
 

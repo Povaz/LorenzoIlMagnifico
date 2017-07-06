@@ -275,6 +275,7 @@ public class Game implements Runnable{
                     ActionSpot actionSpot;
                     FamilyMember familyMember;
                     current.setYourTurn(true);
+
                     gameController.startTimer(current.getUsername());
                     do {
                         System.out.println("\n\nPLAYERBOARD:");
