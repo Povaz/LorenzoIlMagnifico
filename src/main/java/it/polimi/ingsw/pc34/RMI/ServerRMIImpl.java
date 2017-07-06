@@ -53,7 +53,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI { //
             for (int i = 0; i < usernames.size(); i++) {
                 try {
                     if (usernames.get(i).equals(user)) {
-                        usersLoggedRMI.get(i).sendMessage("Are you still there?");
+                        usersLoggedRMI.get(i).sendMessage("");
                     }
                 } catch (RemoteException e) {
                     usersDisconnected.put(user, i);

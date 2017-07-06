@@ -237,7 +237,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     public void gameHandler (ServerRMI serverRMI) throws IOException {
         while (logged) {
             try {
-                System.out.println("Type: /playTurn for an Action; /chat to send message; /stampinfo to stamp info  \n");
+                System.out.println("Type: /playTurn for an Action; /chat to send message;\n");
                 Scanner inChoose = new Scanner (System.in);
                 String choose = inChoose.nextLine();
                 serverRMI.sendInput(choose, this);
