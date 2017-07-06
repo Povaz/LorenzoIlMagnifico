@@ -114,6 +114,9 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                             this.addRMIUser(userRMI);
 
                             server.reconnected(userRMI.getUsername());
+                            if (userRMI.isGUI()) {
+                                userRMI.setMessageForGUI("Login successful");
+                            }
                             userRMI.sendMessage("Reconnected");
                             return true;
                         } else {
