@@ -426,13 +426,16 @@ public class GameViewController {
     }
 
     @FXML private void passClicked(){
-        if(!canDoAction){
+        /*if(!canDoAction){
             return;
+        }*/
+        main.getFromGuiToServer().put("/playturn");
+        if(!main.getFromServerToGui().get().equals("Yes")){
+           return;
         }
-        main.getFromGuiToServer().put("/playerturn");
-        String response = main.getFromServerToGui().get();
-        if(response.equals("Yes")){
-            main.getFromGuiToServer().put("5");
+        main.getFromGuiToServer().put("5");
+        if(!main.getFromServerToGui().get().equals("Yes")){
+            return;
         }
     }
 

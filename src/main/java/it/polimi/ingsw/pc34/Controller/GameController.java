@@ -227,6 +227,7 @@ public class GameController{
         if (player.getClientType().equals(ClientType.GUI)) {
 			switch (player.getConnectionType()) {
 				case RMI:
+					System.out.println("RMI game controller");
 					serverRMI.askServants(player, "/numberservant");
 					break;
 				case SOCKET:
