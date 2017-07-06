@@ -428,6 +428,17 @@ public class GameController {
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
         afkVar = "boolean";
+
+        if (player.getClientType().equals(ClientType.GUI)) {
+        	switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/paymilitarypoint", "1");
+					break;
+				case SOCKET:
+					break;
+			}
+		}
+
         int choose = integerCreated.get();
         if (choose == -1) {
         	choose = 0;
