@@ -178,7 +178,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     this.removeRMIUser(userRMI);
 
                     lobby.removeUser(user);
-
                     lobby.notifyAllUsers(NotificationType.USERLOGOUT, userRMI.getUsername());
 
                     if (GUI) {
@@ -240,6 +239,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                     if (userStarting.get(i).equals(usernames.get(j))) {
                         if (usersLoggedRMI.get(j).isGUI()) {
                             usersLoggedRMI.get(j).setMessageByGUI("start"); //PUT
+                            usersLoggedRMI.get(j).getMessageByGUI();
                         }
                     }
                 }

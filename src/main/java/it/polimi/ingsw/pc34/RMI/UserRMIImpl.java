@@ -78,7 +78,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     public void setMessageByGUI(String messageByGUI) throws RemoteException {this.messageByGUI.put(messageByGUI);}
 
     @Override
-    public void getMessageByGUI () throws RemoteException {this.messageByGUI.get();}
+    public String getMessageByGUI () throws RemoteException { return this.messageByGUI.get();}
 
     @Override
     public void setBoardView (BoardView boardView) {this.boardView.put(boardView);}
