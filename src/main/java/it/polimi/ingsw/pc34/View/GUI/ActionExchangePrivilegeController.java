@@ -14,7 +14,7 @@ public class ActionExchangePrivilegeController {
     private Main main;
 
     @FXML private AnchorPane exchangePrivilege;
-    @FXML private Text number;
+    @FXML protected Text number;
 
     @FXML private CheckBox woodStone;
     @FXML private CheckBox servant;

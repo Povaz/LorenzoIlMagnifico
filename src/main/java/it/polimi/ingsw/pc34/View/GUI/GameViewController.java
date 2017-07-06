@@ -1,7 +1,6 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
 import it.polimi.ingsw.pc34.Model.*;
-import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
@@ -172,6 +171,8 @@ public class GameViewController {
                             ActionExchangePrivilegeController exchangeController = loader.getController();
                             exchangeController.setMain(main);
 
+                            exchangeController.number.setText(main.getFromServerToGui().get());
+
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
@@ -187,6 +188,8 @@ public class GameViewController {
 
                             ActionNumberServantController servantController = loader.getController();
                             servantController.setMain(main);
+
+                            servantController.servant.setMax(Double.valueOf(main.getFromServerToGui().get()));
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -470,6 +473,7 @@ public class GameViewController {
         main.getFromGuiToServer().put("/playturn");
         System.out.println("ciao1.5");
         if(!main.getFromServerToGui().get().equals("Yes")){
+            System.out.println("ciaooo1.75");
             return;
         }
         //TODO va qui?

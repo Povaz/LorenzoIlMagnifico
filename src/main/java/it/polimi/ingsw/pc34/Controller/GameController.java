@@ -378,7 +378,7 @@ public class GameController {
 		return null;
     }
     
-    public Trade chooseTrade (BuildingCard buildingCard, Player player) throws RemoteException, IOException{ //TODO Need check
+    public Trade chooseTrade (BuildingCard buildingCard, Player player) throws RemoteException, IOException{
         String message = "";
         for (int i = 0; i < buildingCard.getTrades().size(); i++) {
             message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";

@@ -12,7 +12,7 @@ public class ActionNumberServantController {
     private Main main;
 
     @FXML private AnchorPane numberServant;
-    @FXML private Slider servant;
+    @FXML protected Slider servant;
 
     @FXML private void sendClicked(){
         int number = (int) servant.getValue();
