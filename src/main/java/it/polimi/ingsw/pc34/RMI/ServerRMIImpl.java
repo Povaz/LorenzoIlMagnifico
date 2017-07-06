@@ -306,6 +306,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                             userRMI.setMessageForGUI("No");
                                         }
                                         else {
+                                            System.out.println("Server YES");
                                             userRMI.setMessageForGUI("Yes");
                                         }
                                     }
