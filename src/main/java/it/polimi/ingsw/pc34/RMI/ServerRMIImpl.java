@@ -340,6 +340,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                     }
                                     break;
                                 default:
+
                                     userRMI.sendMessage("Wrong state game. How did you do it? Explain it.");
                                     break;
                             }
@@ -356,6 +357,19 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         } catch (NullPointerException e) {
             e.printStackTrace();
             userRMI.sendMessage("The Game isn't started yet");
+        }
+    }
+
+    public void askServants(Player player, String message) throws RemoteException {
+        int i;
+        for (i = 0; i < usersLoggedRMI.size(); i++) {
+            try {
+                if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
+                    usersLoggedRMI.get(i).setMessageToChangeWindow(message);
+                }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
+            }
         }
     }
 

@@ -5,6 +5,7 @@ import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
@@ -222,6 +223,15 @@ public class GameController{
     public Integer getHowManyServants (Player player) {
         player.putSecond_State(PlayerState.SERVANTS);
         afkVar = "integer";
+        if (player.getClientType().equals(ClientType.GUI)) {
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.askServants(player, "/numberservant");
+					break;
+				case SOCKET:
+					break;
+			}
+		}
         int index = integerCreated.get(); //TODO Deve poter tornare -1
         setInFlow();
         return index;
