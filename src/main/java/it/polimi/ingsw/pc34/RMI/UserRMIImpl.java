@@ -307,9 +307,6 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                     case "/exit":
                         System.exit(0);
                         break;
-                    case "/print":
-                        this.printUsers(serverRMI); //TODO ELIMINARE
-                        break;
                     default:
                         //System.out.println("Incorrect Answer");
                         break;
@@ -340,6 +337,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 this.loginHandlerGUI(serverRMI);
             }
         }
+        messageToChangeWindow.put("/login");
         this.loginHandlerGUI(serverRMI);
     }
 }
