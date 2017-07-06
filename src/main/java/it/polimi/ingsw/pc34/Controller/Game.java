@@ -33,6 +33,7 @@ public class Game implements Runnable{
     private final int playerNumber;
     private final Board board;
     private final List<Player> players;
+    private final List<PlayerBoard> playerBoards;
     private final GameController gameController;
     private int[] territoryCard;
     private int[] buildingCard;
@@ -90,6 +91,7 @@ public class Game implements Runnable{
         initializePlayersRewards();
         initializePersonalBonusTile();
         initializeLeaderCards();
+        this.playerBoards = initializePlayerBoards();
         this.serverSoc = serverSoc;
         this.serverLoginImpl = serverLoginImpl;
         this.gameController = new GameController(this, serverLoginImpl, serverSoc);
@@ -103,6 +105,14 @@ public class Game implements Runnable{
             players.add(new Player(usernames.get(i), usersOfThisGame.get(usernames.get(i)), playerColor));
         }
         return players;
+    }
+    
+    private List<PlayerBoard> initializePlayerBoards(){
+        List<PlayerBoard> playerBoards = new ArrayList<>();
+        for(int i = 0; i < players.size(); i++){
+            playerBoards.add(players.get(i).getPlayerBoard());
+        }
+        return playerBoards;
     }
 
     private void initializePersonalBonusTile(){
