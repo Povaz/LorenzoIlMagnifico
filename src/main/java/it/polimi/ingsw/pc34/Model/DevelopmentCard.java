@@ -24,7 +24,7 @@ public abstract class DevelopmentCard {
 	}
 
 	@Override
-	public boolean equals(Object o) {
+	public boolean equals(Object o){
 		if (this == o) return true;
 		if (o == null || getClass() != o.getClass()) return false;
 
@@ -32,6 +32,7 @@ public abstract class DevelopmentCard {
 
 		if (period != that.period) return false;
 		if (!name.equals(that.name)) return false;
+		if (!path.equals(that.path)) return false;
 		if (type != that.type) return false;
 		if (costs != null ? !costs.equals(that.costs) : that.costs != null) return false;
 		if (fastRewards != null ? !fastRewards.equals(that.fastRewards) : that.fastRewards != null) return false;
@@ -39,8 +40,9 @@ public abstract class DevelopmentCard {
 	}
 
 	@Override
-	public int hashCode() {
+	public int hashCode(){
 		int result = name.hashCode();
+		result = 31 * result + path.hashCode();
 		result = 31 * result + type.hashCode();
 		result = 31 * result + period;
 		result = 31 * result + (costs != null ? costs.hashCode() : 0);

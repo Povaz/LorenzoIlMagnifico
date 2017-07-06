@@ -45,10 +45,25 @@ public class Player{
     public ClientType getClientType() { return clientType; }
 
     public String toString(){
-    	String playerString = null;
+    	String playerString = "";
     	playerString+="Username : " + username + "\n";
     	playerString+="Color : " + color + "\n";	
     	return playerString;
+    }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Player player = (Player) o;
+
+        return username.equals(player.username);
+    }
+
+    @Override
+    public int hashCode(){
+        return username.hashCode();
     }
 
     public String getUsername(){

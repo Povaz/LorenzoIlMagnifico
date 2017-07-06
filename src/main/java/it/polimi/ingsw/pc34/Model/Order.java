@@ -65,6 +65,7 @@ public class Order{
 			for(int j = i + 1; j < list.size(); j++){
 				if(list.get(i).sameColor(list.get(j))){
 					list.remove(j);
+					j--;
 				}
 			}
 		}

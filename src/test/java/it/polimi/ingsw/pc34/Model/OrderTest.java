@@ -1,6 +1,10 @@
 package it.polimi.ingsw.pc34.Model;
 
 import static org.junit.Assert.*;
+
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import org.junit.Test;
 
 import java.util.ArrayList;
@@ -11,11 +15,12 @@ import java.util.List;
  * Created by trill on 22/05/2017.
  */
 public class OrderTest{
-    private Player paolo = new Player("Paolo", null, PlayerColor.BLUE);
-    private Player tommaso = new Player("Tommaso", null, PlayerColor.GREEN);
-    private Player erick = new Player("Erick", null, PlayerColor.YELLOW);
-    private Player cugola = new Player("Cugola", null, PlayerColor.PURPLE);
-    private Player affetti = new Player("Affetti", null, PlayerColor.RED);
+    private ClientInfo clientInfo = new ClientInfo(ConnectionType.RMI, ClientType.GUI);
+    private Player paolo = new Player("Paolo", clientInfo, PlayerColor.BLUE);
+    private Player tommaso = new Player("Tommaso", clientInfo, PlayerColor.GREEN);
+    private Player erick = new Player("Erick", clientInfo, PlayerColor.YELLOW);
+    private Player cugola = new Player("Cugola", clientInfo, PlayerColor.PURPLE);
+    private Player affetti = new Player("Affetti", clientInfo, PlayerColor.RED);
 
     // Without councilPalaceOrder
     @Test
@@ -45,6 +50,30 @@ public class OrderTest{
         List<FamilyMember> councilPalaceOrder = new ArrayList<>();
         councilPalaceOrder.add(new FamilyMember(cugola, FamilyColor.NEUTRAL));
         councilPalaceOrder.add(new FamilyMember(tommaso, FamilyColor.NEUTRAL));
+        councilPalaceOrder.add(new FamilyMember(affetti, FamilyColor.NEUTRAL));
+        order.calculateShownOrder(councilPalaceOrder);
+        List<Player> calculated = order.getShown();
+
+        assertEquals(expected, calculated);
+    }
+
+    // With councilPalaceOrder
+    @Test
+    public void testRecalculate3(){
+        List<Player> players = new ArrayList<>(Arrays.asList(cugola, affetti));
+        Order order = new Order(players);
+        order.setShown(players);
+
+        List<Player> expected = new ArrayList<>(Arrays.asList(cugola, affetti));
+
+        List<FamilyMember> councilPalaceOrder = new ArrayList<>();
+        councilPalaceOrder.add(new FamilyMember(cugola, FamilyColor.BLACK));
+        councilPalaceOrder.add(new FamilyMember(affetti, FamilyColor.BLACK));
+        councilPalaceOrder.add(new FamilyMember(cugola, FamilyColor.WHITE));
+        councilPalaceOrder.add(new FamilyMember(affetti, FamilyColor.WHITE));
+        councilPalaceOrder.add(new FamilyMember(cugola, FamilyColor.ORANGE));
+        councilPalaceOrder.add(new FamilyMember(affetti, FamilyColor.ORANGE));
+        councilPalaceOrder.add(new FamilyMember(cugola, FamilyColor.NEUTRAL));
         councilPalaceOrder.add(new FamilyMember(affetti, FamilyColor.NEUTRAL));
         order.calculateShownOrder(councilPalaceOrder);
         List<Player> calculated = order.getShown();
@@ -125,6 +154,18 @@ public class OrderTest{
         Order order = new Order(expected);
 
         List<Player> calculated = new ArrayList<>(Arrays.asList(paolo, tommaso, paolo, erick, cugola, cugola, affetti, tommaso));
+        order.removeBottomDuplicates(calculated);
+
+        assertEquals(expected, calculated);
+    }
+
+    // With duplicates
+    @Test
+    public void testRemoveBottomDuplicates3(){
+        List<Player> expected = new ArrayList<>(Arrays.asList(cugola, affetti));
+        Order order = new Order(expected);
+
+        List<Player> calculated = new ArrayList<>(Arrays.asList(cugola, affetti, cugola, affetti, cugola, affetti, cugola, affetti));
         order.removeBottomDuplicates(calculated);
 
         assertEquals(expected, calculated);

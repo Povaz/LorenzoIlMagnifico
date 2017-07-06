@@ -57,6 +57,8 @@ public class Client {
             messageForGUI = new SynchronizedString();
             messageToChangeWindow = new SynchronizedString();
             messageInfo = new SynchronizedString();
+            messageChatIn = new SynchronizedString();
+            messageChatOut = new SynchronizedString();
             boardForGUY = new SynchronizedBoardView();
             Thread mainGui = new Thread(new LaunchGUI());
             mainGui.start();
@@ -66,6 +68,8 @@ public class Client {
             guiReference.setFromGuiToServer(messageByGUI);
             guiReference.setOpenWindow(messageToChangeWindow);
             guiReference.setInfoFromServer(messageInfo);
+            guiReference.setChatFromServer(messageChatIn);// TODO controlla
+            guiReference.setChatToServer(messageChatOut);
             guiReference.setBoardViewFromServer(boardForGUY);
 
             this.getUserLoginRMI().setSynchronizedMessageToChangeWindow(messageToChangeWindow);

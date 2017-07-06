@@ -54,7 +54,7 @@ public class JSONUtilityTest extends TestCase{
         Set<Reward> earnings = new HashSet<>();
         earnings.add(new Reward(RewardType.COIN, 1));
 
-        TerritoryCard expected = new TerritoryCard("Commercial Hub", "TerritoryCard1", 1, null, 1, earnings);
+        TerritoryCard expected = new TerritoryCard("Commercial Hub", "TerritoryCard1.png", 1, null, 1, earnings);
 
 
         TerritoryCard calculated;
@@ -77,7 +77,7 @@ public class JSONUtilityTest extends TestCase{
         earnings.add(new Reward(RewardType.MILITARY_POINT, 1));
         earnings.add(new Reward(RewardType.SERVANT, 2));
 
-        TerritoryCard expected = new TerritoryCard("Fortified Town", "TerritoryCard24", 3, fastRewards, 2, earnings);
+        TerritoryCard expected = new TerritoryCard("Fortified Town", "TerritoryCard24.png", 3, fastRewards, 2, earnings);
 
         TerritoryCard calculated;
         try {
@@ -102,7 +102,7 @@ public class JSONUtilityTest extends TestCase{
         earned.add(new Reward(RewardType.COIN, 1));
         RewardForCard rewardForCard = new RewardForCard(earned, CardType.BUILDING);
 
-        BuildingCard expected = new BuildingCard("Mint", "BuildingCard1", 1, costs, fastRewards, 5,
+        BuildingCard expected = new BuildingCard("Mint", "BuildingCard1.png", 1, costs, fastRewards, 5,
                 null, null, null, rewardForCard);
 
         BuildingCard calculated;
@@ -136,7 +136,7 @@ public class JSONUtilityTest extends TestCase{
         trades.add(new Trade(give1, take1));
         trades.add(new Trade(give2, take2));
 
-        BuildingCard expected = new BuildingCard("Carpenter's Shop", "BuildingCard13", 1, costs, fastRewards, 4,
+        BuildingCard expected = new BuildingCard("Carpenter's Shop", "BuildingCard5.png", 1, costs, fastRewards, 4,
                 null, trades, null, null);
 
         BuildingCard calculated;
@@ -163,7 +163,7 @@ public class JSONUtilityTest extends TestCase{
         earnings.add(new Reward(RewardType.MILITARY_POINT, 2));
         earnings.add(new Reward(RewardType.VICTORY_POINT, 2));
 
-        BuildingCard expected = new BuildingCard("Stronghold", "BuildingCard16", 2, costs, fastRewards, 6,
+        BuildingCard expected = new BuildingCard("Stronghold", "BuildingCard16.png", 2, costs, fastRewards, 6,
                 earnings, null, null, null);
 
         BuildingCard calculated;
@@ -190,7 +190,7 @@ public class JSONUtilityTest extends TestCase{
         earnings.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 1));
         earnings.add(new Reward(RewardType.VICTORY_POINT, 2));
 
-        BuildingCard expected = new BuildingCard("Fortress", "BuildingCard20", 3, costs, fastRewards, 5,
+        BuildingCard expected = new BuildingCard("Fortress", "BuildingCard20.png", 3, costs, fastRewards, 5,
                 earnings, null, null, null);
 
         BuildingCard calculated;
@@ -214,7 +214,7 @@ public class JSONUtilityTest extends TestCase{
         Map<ActionType, Integer> actionModifiers = new HashMap<>();
         actionModifiers.put(ActionType.TERRITORY_TOWER, 2);
 
-        CharacterCard expected = new CharacterCard("Warlord", "CharacterCard1", 1, costs, fastRewards, null,
+        CharacterCard expected = new CharacterCard("Warlord", "CharacterCard1.png", 1, costs, fastRewards, null,
                 false, null, actionModifiers, null, null);
 
         CharacterCard calculated;
@@ -247,7 +247,7 @@ public class JSONUtilityTest extends TestCase{
         costDiscounts.get(CardType.BUILDING).add(discounts1);
         costDiscounts.get(CardType.BUILDING).add(discounts2);
 
-        CharacterCard expected = new CharacterCard("Stonemason", "CharacterCard2", 1, costs, null, null,
+        CharacterCard expected = new CharacterCard("Stonemason", "CharacterCard2.png", 1, costs, null, null,
                 false, costDiscounts, actionModifiers, null, null);
 
         CharacterCard calculated;
@@ -268,7 +268,7 @@ public class JSONUtilityTest extends TestCase{
         Set<Reward> fastRewards = new HashSet<>();
         fastRewards.add(new Reward(RewardType.FAITH_POINT, 4));
 
-        CharacterCard expected = new CharacterCard("Preacher", "CharacterCard15", 1, costs, fastRewards, null,
+        CharacterCard expected = new CharacterCard("Preacher", "CharacterCard7.png", 1, costs, fastRewards, null,
                 true, null, null, null, null);
 
         CharacterCard calculated;
@@ -292,7 +292,7 @@ public class JSONUtilityTest extends TestCase{
         List<FamilyMember> actions = new LinkedList<>();
         actions.add(new FamilyMember(ActionType.BUILDING_TOWER, 6, discounts));
 
-        CharacterCard expected = new CharacterCard("Architect", "CharacterCard18", 2, costs, null, actions,
+        CharacterCard expected = new CharacterCard("Architect", "CharacterCard10.png", 2, costs, null, actions,
                 false, null, null, null, null);
 
         CharacterCard calculated;
@@ -314,7 +314,7 @@ public class JSONUtilityTest extends TestCase{
         earned.add(new Reward(RewardType.VICTORY_POINT, 2));
         RewardForCard rewardForCard = new RewardForCard(earned, CardType.CHARACTER);
 
-        CharacterCard expected = new CharacterCard("Paramour", "CharacterCard19", 3, costs, null, null,
+        CharacterCard expected = new CharacterCard("Paramour", "CharacterCard19.png", 3, costs, null, null,
                 false, null, null, null, rewardForCard);
 
         CharacterCard calculated;
@@ -336,7 +336,7 @@ public class JSONUtilityTest extends TestCase{
         earned.add(new Reward(RewardType.VICTORY_POINT, 1));
         RewardForReward rewardForReward = new RewardForReward(earned, new Reward(RewardType.MILITARY_POINT, 2));
 
-        CharacterCard expected = new CharacterCard("General", "CharacterCard23", 3, costs, null, null,
+        CharacterCard expected = new CharacterCard("General", "CharacterCard23.png", 3, costs, null, null,
                 false, null, null, rewardForReward, null);
 
         CharacterCard calculated;
@@ -360,7 +360,7 @@ public class JSONUtilityTest extends TestCase{
         List<FamilyMember> actions = new LinkedList<>();
         actions.add(new FamilyMember(ActionType.ANY_TOWER, 7, null));
 
-        CharacterCard expected = new CharacterCard("Ambassador", "CharacterCard24", 3, costs, fastRewards, actions,
+        CharacterCard expected = new CharacterCard("Ambassador", "CharacterCard24.png", 3, costs, fastRewards, actions,
                 false, null, null, null, null);
 
         CharacterCard calculated;
@@ -384,7 +384,7 @@ public class JSONUtilityTest extends TestCase{
 
         Reward victoryPointEarned = new Reward(RewardType.VICTORY_POINT, 5);
 
-        VentureCard expected = new VentureCard("Military Campaign", "VentureCard5", 1, null, fastRewards, null,
+        VentureCard expected = new VentureCard("Military Campaign", "VentureCard5.png", 1, null, fastRewards, null,
                 militaryPointNeeded, militaryPointPrice, victoryPointEarned);
 
         VentureCard calculated;
@@ -408,7 +408,7 @@ public class JSONUtilityTest extends TestCase{
         List<FamilyMember> actions = new LinkedList<>();
         actions.add(new FamilyMember(ActionType.HARVEST, 4, null));
 
-        VentureCard expected = new VentureCard("Improving the Canals", "VentureCard21", 2, costs, null, actions,
+        VentureCard expected = new VentureCard("Improving the Canals", "VentureCard13.png", 2, costs, null, actions,
                 null, null, victoryPointEarned);
 
         VentureCard calculated;
