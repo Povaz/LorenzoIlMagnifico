@@ -73,7 +73,7 @@ public class GameController {
 					e.printStackTrace();
 				}
 			}
-		}, 200000);
+		}, 30000);
 	}
 
 	public void stopTimer() {
