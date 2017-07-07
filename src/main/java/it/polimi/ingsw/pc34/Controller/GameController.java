@@ -422,8 +422,6 @@ public class GameController {
 			String message = "Do you support Vatican? (Yes or No)";
 			this.sendMessageCLI(player, message);
 		}
-		afkVar = "booleanVat";
-		boolean choose = booleanCreated.get();//Here it waits
 
     	afkVar = "booleanVat";
     	System.out.println("prima get vatican AFK");
