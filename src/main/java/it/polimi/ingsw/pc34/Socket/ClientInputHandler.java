@@ -32,8 +32,10 @@ public class ClientInputHandler extends Thread{
 		}
 		catch (OptionalDataException e1) {
 			System.out.println("boh");
+			//da modificare perchè risolto col synchronized
 			return "belaaaaaaaa";
 		}
+		System.out.println("received : " + received);
 		if(received == null){
 			return null;
 		}
@@ -47,16 +49,23 @@ public class ClientInputHandler extends Thread{
 	public void run(){
 		String line = null;
 		while (true){
+			System.out.println("posso ricevere altro");
 			try {
 				line = receiveFromServer();
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
-			if(line!=null && graphicType==2){
+			if(line!=null && !line.equals("You can send!") && graphicType == 2){
+				client.setYouCanSend(true);
+				System.out.println("into if " + line);
+				System.out.println("into if " + graphicType);
 				client.getSynchronizedMessageForGUI().put(line);
 			}
 			else if(line!=null && graphicType!=2){
 				System.out.println(line);
+			}
+			if(graphicType == 2){
+				client.setYouCanSend(true);
 			}
 			if(line.equals("belaaaaaaaa")){
 				try {

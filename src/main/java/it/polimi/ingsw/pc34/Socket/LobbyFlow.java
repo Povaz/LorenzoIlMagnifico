@@ -135,6 +135,7 @@ public class LobbyFlow {
 							return "logged ('/logout' to log out)";
 						}
 						else{
+							serverHandler.setSendGUI(true);
 							return "Login successful";
 						}
 					}

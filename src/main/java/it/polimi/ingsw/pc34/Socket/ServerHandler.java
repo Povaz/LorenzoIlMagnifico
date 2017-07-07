@@ -26,6 +26,7 @@ public class ServerHandler implements Runnable{
 	private String stateGame;
 	private ObjectOutputStream socketOut;
 	private String graphicType;
+	private boolean sendGUI;
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
 	
@@ -43,6 +44,11 @@ public class ServerHandler implements Runnable{
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
+		sendGUI = false;
+	}
+	
+	public void setSendGUI(boolean value){
+		sendGUI = value;
 	}
 	
 	//set Fase, a variable used to direct the messages to a specific flow(lobby or game)
@@ -108,6 +114,14 @@ public class ServerHandler implements Runnable{
 			stateGame = null;
 			message += "\nInsert new command: /playturn, /chat, /afk";
 		}
+		if(graphicType.equals("2")){
+			if(sendGUI){
+				sendGUI = false;
+			}
+			else{
+				message = "You can send!";
+			}
+		}
 		try {
 			socketOut.writeObject(message);
 		} catch (IOException e) {
@@ -145,14 +159,27 @@ public class ServerHandler implements Runnable{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		
-		sendToClient("Take your decision : /login, /register, /exit (to close the client)?");
+		if(graphicType.equals("2")){
+			String syncro = null;
+			try {
+				syncro=receiveFromClient();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			if(syncro.equals("1")){
+				sendToClient("You can send!");
+			}
+		}
+		else{
+			sendToClient("Take your decision : /login, /register, /exit (to close the client)?");
+		}
 		while (true){
 			try {
 				line = receiveFromClient();
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
+			System.out.println("manda in flow : " + line);
 			if(answer!=null && line.equals("yes")){
 				continue;
 			}

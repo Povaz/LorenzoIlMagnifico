@@ -25,9 +25,20 @@ public class ClientSOC implements Runnable {
     private SynchronizedString chatIn;
     private SynchronizedBoardView boardView;
 	
+    boolean youCanSend;
+    
 	public ClientSOC(int graphicType) throws UnknownHostException, IOException{
 		socketServer = new Socket (ip, port);
 		this.graphicType = graphicType;
+		youCanSend = true;
+	}
+	
+	public void setYouCanSend(boolean value){
+		youCanSend = value;
+	}
+	
+	public boolean getYouCanSend(){
+		return youCanSend;
 	}
 	
 	public int getGraphicType(){
@@ -68,10 +79,6 @@ public class ClientSOC implements Runnable {
 	public void run() {
 		System.out.println("Connection established");
 		System.out.println("");
-		
-		if(graphicType==2){
-			Application.launch(Main.class);
-		}
 		
 		//2 thread, 1 for input and 1 for output
 		//output

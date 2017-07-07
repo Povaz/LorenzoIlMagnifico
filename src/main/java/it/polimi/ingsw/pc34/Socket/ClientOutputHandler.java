@@ -14,12 +14,14 @@ public class ClientOutputHandler extends Thread{
 	public ClientOutputHandler (Socket socketServer, ClientSOC client, int graphicType){
 		ClientOutputHandler.socketServer = socketServer; 
 		this.graphicType = graphicType;
+		this.client = client;
 	}
 
 	synchronized static void sendToServer(String message) throws IOException{
 		PrintWriter out = new PrintWriter(socketServer.getOutputStream(), true);
 		out.println(message);
 		out.flush();
+		System.out.println("sent : " + message);
 	}
 	
 	public void run(){;
@@ -47,9 +49,13 @@ public class ClientOutputHandler extends Thread{
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				client.setYouCanSend(false);				
 				if(message.equals("/exit")){
 					System.exit(0);
 				}
+				while(!client.getYouCanSend()){
+				}
+				System.out.println("posso mandare altro");
 			}
 		}
 		
