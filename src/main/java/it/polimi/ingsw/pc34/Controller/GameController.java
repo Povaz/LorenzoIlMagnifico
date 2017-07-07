@@ -729,7 +729,8 @@ public class GameController {
 		    							if(actionSpot == null && checkNumber(1, 8, asked)){
 		    								actionSpot = asked;
 		    								if (actionSpot == null) {
-		    									return null; //TODO TEST
+		    									actionInput.setActionType(null);
+		    									return "You choose not to do the bonus action";
 											}
 			    							switch(actionSpot) {
 			    								case "1":
