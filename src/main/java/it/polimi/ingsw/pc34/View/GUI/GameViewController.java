@@ -533,6 +533,7 @@ public class GameViewController {
             default:
                 return;
         }
+        System.out.println("leader type: actionType");
 
         main.getFromGuiToServer().put("/playturn");
         if(!main.getFromServerToGui().get().equals("Yes")){
