@@ -55,14 +55,19 @@ public class Client {
 		if (this.getUserLoginRMI().isGUI()) {
 			Thread mainGui = new Thread(new LaunchGUI());
 			mainGui.start();
+
+			System.out.println("Prima di settare la GuiReference");
 			while (guiReference == null) {
+				System.out.println("Mentre setto GuiReference");
 			}
+			System.out.println("Dopo il set di GuiReference");
+
 			System.out.println(guiReference);
 			guiReference.setFromServerToGui(messageForGUI);
 			guiReference.setFromGuiToServer(messageByGUI);
 			guiReference.setOpenWindow(messageToChangeWindow);
 			guiReference.setInfoFromServer(messageInfo);
-			guiReference.setChatFromServer(messageChatIn);// TODO controlla
+			guiReference.setChatFromServer(messageChatIn);
 			guiReference.setChatToServer(messageChatOut);
 			guiReference.setBoardViewFromServer(boardForGUI);
 
