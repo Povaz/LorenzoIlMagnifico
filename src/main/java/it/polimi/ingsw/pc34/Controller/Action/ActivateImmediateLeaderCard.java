@@ -121,6 +121,6 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
             if(actionSpot != null){
                 fM.setServantUsed(new Reward(RewardType.SERVANT, game.getGameController().getHowManyServants(player)));
             }
-        } while(!(game.placeFamilyMember(fM, actionSpot)));
+        } while(actionSpot != null && !(game.placeFamilyMember(fM, actionSpot)));
     }
 }

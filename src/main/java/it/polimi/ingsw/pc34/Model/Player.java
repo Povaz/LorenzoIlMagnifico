@@ -13,8 +13,8 @@ import java.util.function.IntToDoubleFunction;
  */
 public class Player{
     private final String username;
-    private final ConnectionType connectionType;
-    private final ClientType clientType;
+    private ConnectionType connectionType;
+    private ClientType clientType;
     private final PlayerColor color;
     private final PlayerBoard playerBoard;
     private boolean isYourTurn = false;
@@ -32,6 +32,14 @@ public class Player{
         this.playerBoard = new PlayerBoard(this);
         this.first_state = PlayerState.WAITING;
         this.second_state = PlayerState.WAITING;
+    }
+
+    public void setConnectionType(ConnectionType connectionType) {
+        this.connectionType = connectionType;
+    }
+
+    public void setClientType(ClientType clientType) {
+        this.clientType = clientType;
     }
 
     public boolean sameColor(Player other){

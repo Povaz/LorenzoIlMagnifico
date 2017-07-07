@@ -102,7 +102,7 @@ public class Game implements Runnable{
 
     public Game(Map<String, ClientInfo> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
         this.turn = 1;
-        this.period = 1;
+        this.period = 2;
         this.usernames = new ArrayList<>();
         usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();
@@ -309,6 +309,7 @@ public class Game implements Runnable{
                     gameController.startTimer(current.getUsername());
                     do {
                         System.out.println("\n\nPLAYERBOARD:"); //TODO GameController.sendMessageAll
+                        System.out.println(board.toString());
                         System.out.println(current.getPlayerBoard());
                         System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
                         Integer whatToDo = gameController.getWhatToDo(current);
@@ -333,7 +334,6 @@ public class Game implements Runnable{
                                     if (placeFamilyMember(familyMember, actionSpot)) {
                                         current.setPlacedFamilyMember(true);
                                     }
-
                                     gameController.sendMessageCLI(current, "Action has been executed");
                                     boardView = new BoardView(board, playerBoards, current.getUsername());
                                     gameController.updatePlayersView(boardView);

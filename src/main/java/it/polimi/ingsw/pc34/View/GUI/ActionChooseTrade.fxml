@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+
+<AnchorPane fx:id="tradePane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" style="-fx-background-color: rgb(113,90,58);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.ActionChooseTradeController">
+   <children>
+      <Button fx:id="first" layoutX="77.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#firstClicked" prefHeight="40.0" prefWidth="87.0" text="First">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="second" disable="true" layoutX="227.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#secondClicked" prefHeight="40.0" prefWidth="87.0" text="Second" visible="false">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="no" layoutX="377.0" layoutY="440.0" mnemonicParsing="false" onMouseClicked="#noClicked" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: OrangeRed;" text="No">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Text fill="WHITE" layoutX="103.0" layoutY="80.0" stroke="BLACK" text="Which trade do you">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="164.0" layoutY="120.0" stroke="BLACK" text="want to use?">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <ImageView fx:id="tradeCard" fitHeight="270.0" fitWidth="182.0" layoutX="180.0" layoutY="145.0" pickOnBounds="true" preserveRatio="true" />
+   </children>
+</AnchorPane>

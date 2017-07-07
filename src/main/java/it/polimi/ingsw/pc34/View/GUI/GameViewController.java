@@ -169,6 +169,26 @@ public class GameViewController {
                     if(toLambda.equals("/login")){
                         main.showLogin();
                     }
+                    else if(toLambda.equals("/bonusaction")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionBonusFamily.fxml"));
+                            AnchorPane bonusFamily = (AnchorPane) loader.load();
+                            actionBorder.setCenter(bonusFamily);
+
+                            ActionBonusFamilyController bonusController = loader.getController();
+                            bonusController.setMain(main);
+
+                            main.getInfoFromServer().get();
+
+                            updateButton(bonusController.ghostFamily, PAWN_FOLDER, "Ghost.png", 55, 80);
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    }
                     else if(toLambda.equals("/supportvatican")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
@@ -242,7 +262,29 @@ public class GameViewController {
                         }
                     }
                     else if(toLambda.equals("/choosetrade")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionChooseTrade.fxml"));
+                            AnchorPane trade = (AnchorPane) loader.load();
+                            actionBorder.setCenter(trade);
 
+                            ActionChooseTradeController tradeController = loader.getController();
+                            tradeController.setMain(main);
+
+                            String info = main.getInfoFromServer().get();
+
+                            if(info.substring(0, 1).equals("2")){
+                                tradeController.second.setDisable(false);
+                                tradeController.second.setVisible(true);
+                            }
+
+                            tradeController.tradeCard.setImage(new Image(DEVELOPMENT_FOLDER + info.substring(1)));
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
                     }
                     else if(toLambda.equals("/choosediscount")){
                         try {
@@ -619,10 +661,6 @@ public class GameViewController {
         String familyColor = dragButton.getText();
         System.out.println("familyColor: " + familyColor);
 
-        /*if(!canDoAction){
-            return;
-        }*/
-
         System.out.println("ciao1");
         main.getFromGuiToServer().put("/playturn");
         System.out.println("ciao1.5");
@@ -630,8 +668,6 @@ public class GameViewController {
             System.out.println("ciaooo1.75");
             return;
         }
-        //TODO va qui?
-        //canDoAction = false;
         System.out.println("beppe2");
         main.getFromGuiToServer().put("1");
         if(!main.getFromServerToGui().get().equals("Yes")){
@@ -878,5 +914,13 @@ public class GameViewController {
 
     public void setCanDoAction(boolean canDoAction){
         this.canDoAction = canDoAction;
+    }
+
+    public void setDragButton(Button dragButton){
+        this.dragButton = dragButton;
+    }
+
+    public void setDropShape(Shape dropShape){
+        this.dropShape = dropShape;
     }
 }
