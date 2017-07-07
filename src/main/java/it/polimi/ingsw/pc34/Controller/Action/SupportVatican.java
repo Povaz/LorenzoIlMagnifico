@@ -27,7 +27,7 @@ public class SupportVatican implements CommandPattern{
         this.modifier = player.getPlayerBoard().getModifier();
     }
 
-    public boolean canDoAction() throws RemoteException, IOException{
+    public boolean canDoAction() throws IOException{
         Reward playerFaithPoint = player.getPlayerBoard().getCounter().getFaithPoint();
         int faithPointNeeded = vaticanReportSpot.getFaithPointNeeded().getQuantity();
         if(vaticanReportSpot.isLast()){
@@ -46,13 +46,16 @@ public class SupportVatican implements CommandPattern{
         else{
             if(playerFaithPoint.getQuantity() >= faithPointNeeded){
                 player.putFirst_State(PlayerState.SUPPORT_VATICAN);
+                game.getGameController().startTimer(player.getUsername());
                 if(game.getGameController().wantToSupportVatican(player)){
                 	player.putFirst_State(PlayerState.WAITING);
+                	game.getGameController().stopTimer(player.getUsername());
                     return true;
                 }
                 else{
                 	player.putFirst_State(PlayerState.WAITING);
-                	return false;
+                    game.getGameController().stopTimer(player.getUsername());
+                    return false;
                 }
             }
             return false;

@@ -615,7 +615,7 @@ public class GameController {
     	    				return "You're being disconnected";
     	    			case("booleanVat"):
     	    				disconnectPlayer(player);
-    	    				booleanCreated.put(true);
+    	    				booleanCreated.put(false);
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    		}
