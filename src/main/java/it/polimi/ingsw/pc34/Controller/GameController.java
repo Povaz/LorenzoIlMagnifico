@@ -73,6 +73,7 @@ public class GameController {
 				try {
 					System.out.println("Timer expired for " + username);
 					final String flow = flow("/afk", username);
+					System.out.println(flow);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -419,7 +420,7 @@ public class GameController {
 			}
 		}
 		else {
-			String message = "Do you support Vatican? (Yes or No)";
+			String message = "Do you support Vatican? (yes or no)";
 			this.sendMessageCLI(player, message);
 		}
 
@@ -622,6 +623,7 @@ public class GameController {
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    		}
+    	    		System.out.println("booleanVatCase jumped");
     	    		setInFlow();
     	    		return "not handled case";
     	    	}
@@ -946,12 +948,12 @@ public class GameController {
     		}
     		//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
     		else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
-        		if(asked.equals("Yes")){
+        		if(asked.equals("yes")){
         			booleanCreated.put(true);
         			setInFlow();
         			return "You choose to support vatican";
         		}
-        		else if(asked.equals("No")){
+        		else if(asked.equals("no")){
         			booleanCreated.put(false);
         			setInFlow();
         			return "You choose not to support vatican";
