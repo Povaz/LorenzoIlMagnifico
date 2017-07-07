@@ -42,7 +42,7 @@ public class ClientInputHandler extends Thread{
 		}
 		catch (OptionalDataException e1) {
 			System.out.println("boh");
-			//da modificare perchè risolto col synchronized
+			//da modificare perchè risolto col synchronized !!!!!!!!!!!!!!!!
 			return "belaaaaaaaa";
 		}
 		System.out.println("received : " + received);
