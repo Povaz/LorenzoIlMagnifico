@@ -26,3 +26,4 @@ GAME: Controllo ogni secondo.
 TODO da risistemare:
 Counter inizializzazione;
 Modifier inizializzazione;
+Game inizializzazione period = 2;

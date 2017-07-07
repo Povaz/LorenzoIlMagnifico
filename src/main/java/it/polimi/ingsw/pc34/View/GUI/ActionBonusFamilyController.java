@@ -16,7 +16,7 @@ public class ActionBonusFamilyController {
     @FXML protected Button ghostFamily;
     
     @FXML private void passClicked(){
-        main.getFromGuiToServer().put("null");
+        main.getFromGuiToServer().put(null);
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }

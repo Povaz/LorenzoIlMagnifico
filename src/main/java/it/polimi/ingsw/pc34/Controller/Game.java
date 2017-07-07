@@ -102,7 +102,7 @@ public class Game implements Runnable{
 
     public Game(Map<String, ClientInfo> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
         this.turn = 1;
-        this.period = 2;
+        this.period = 2;  // TODO rimetti a 1
         this.usernames = new ArrayList<>();
         usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();

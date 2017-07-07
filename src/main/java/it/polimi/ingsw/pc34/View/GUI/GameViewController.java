@@ -44,6 +44,7 @@ public class GameViewController {
     // drag and drop attributes
     private Button dragButton = null;
     private Shape dropShape = null;
+    private boolean ghost = false;
 
     @FXML private Button bt;
 
@@ -182,6 +183,8 @@ public class GameViewController {
                             main.getInfoFromServer().get();
 
                             updateButton(bonusController.ghostFamily, PAWN_FOLDER, "Ghost.png", 55, 80);
+
+                            ghost = true;
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -661,18 +664,23 @@ public class GameViewController {
         String familyColor = dragButton.getText();
         System.out.println("familyColor: " + familyColor);
 
-        System.out.println("ciao1");
-        main.getFromGuiToServer().put("/playturn");
-        System.out.println("ciao1.5");
-        if(!main.getFromServerToGui().get().equals("Yes")){
-            System.out.println("ciaooo1.75");
-            return;
+        if(!ghost) {
+            System.out.println("ciao1");
+            main.getFromGuiToServer().put("/playturn");
+            System.out.println("ciao1.5");
+            if(!main.getFromServerToGui().get().equals("Yes")){
+                System.out.println("ciaooo1.75");
+                return;
+            }
+
+
+            System.out.println("beppe2");
+            main.getFromGuiToServer().put("1");
+            if(!main.getFromServerToGui().get().equals("Yes")){
+                return;
+            }
         }
-        System.out.println("beppe2");
-        main.getFromGuiToServer().put("1");
-        if(!main.getFromServerToGui().get().equals("Yes")){
-            return;
-        }
+
         System.out.println("beppe3");
         main.getFromGuiToServer().put(spotType); // 1 TerritoryT, 2 BuildingT, 3 CharacterT, 4 VentureT, 5 Harvest, 6 Produce, 7 Market, 8 CouncilPalace
         if(!main.getFromServerToGui().get().equals("Yes")){
@@ -681,14 +689,26 @@ public class GameViewController {
         System.out.println("biib4");
         if(!spotType.equals("8")){
             main.getFromGuiToServer().put(spotNumber); // spot number: inserisci numero 0-3
+            System.out.println("PEPPA8");
+            if(!main.getFromServerToGui().get().equals("Yes")){
+                System.out.println("PEPPA9");
+                return;
+            }
+        }
+
+        if(!ghost){
+            System.out.println("biib5");
+            main.getFromGuiToServer().put(familyColor); // familiare: inserisci 1 black, 2 white, 3 orange, 4 neutral
             if(!main.getFromServerToGui().get().equals("Yes")){
                 return;
             }
         }
-        System.out.println("biib5");
-        main.getFromGuiToServer().put(familyColor); // familiare: inserisci 1 black, 2 white, 3 orange, 4 neutral
-        if(!main.getFromServerToGui().get().equals("Yes")){
-            return;
+        System.out.println("PEPPA10");
+        if(ghost){
+            System.out.println("PEPPA11");
+            ghost = false;
+            actionBorder.setDisable(true);
+            actionBorder.setVisible(false);
         }
     }
 
