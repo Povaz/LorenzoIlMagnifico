@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pc34.RMI;
 
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 import org.json.JSONException;
 
@@ -11,8 +10,6 @@ import java.util.ConcurrentModificationException;
 import java.util.InputMismatchException;
 import java.util.Scanner;
 
-import static it.polimi.ingsw.pc34.SocketRMICongiunction.Client.guiReference;
-
 /**
  * Created by Povaz on 24/05/2017.
  **/
@@ -20,8 +17,9 @@ import static it.polimi.ingsw.pc34.SocketRMICongiunction.Client.guiReference;
 public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private String username;
     private String keyword;
-    private String gameState;
-    private boolean GUI;
+    private String gameState; //The state of a player in Server: /playturn; /chat; /vaticansupport
+    private boolean GUI; //Boolean variable that tells if a User is CLI (false) or GUI (true)
+    //SynchronizedString and SynchronizedBoardView used to communicate with GUI
     private SynchronizedString chatIn;
     private SynchronizedString chatOut;
     private SynchronizedString messageByGUI;
@@ -29,8 +27,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private SynchronizedString messageToChangeWindow;
     private SynchronizedString messageInfo;
     private SynchronizedBoardView boardView;
-    private boolean logged;
-    private boolean startingGame;
+    private boolean logged; //Boolean variabile that tells if a User is currently logged
+    private boolean startingGame; //Boolean variable that tells if a User is currently in Game
 
     public UserRMIImpl(boolean GUI) throws RemoteException {
         this.username = "Null";
@@ -58,6 +56,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
        userLoginString += "Password: " + this.keyword + "\n";
        return userLoginString;
     }
+
+    //Setter and Getter: begin
 
     public void setSynchronizedMessageByGUI(SynchronizedString messageByGUI) {
         this.messageByGUI = messageByGUI;
@@ -142,10 +142,6 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.logged = logged;
     }
 
-    public boolean isStartingGame() {
-        return startingGame;
-    }
-
     @Override
     public void setStartingGame(boolean startingGame) {
         this.startingGame = startingGame;
@@ -161,8 +157,10 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.gameState = gameState;
     }
 
+    //Setter and getter: end
+
     @Override
-    public void sendMessage (String message) throws RemoteException {
+    public void sendMessage (String message) throws RemoteException { //Receives message from Server, evaluating them when necessary
         switch (message) {
             case "The game is starting":
                 this.setStartingGame(true);
@@ -183,7 +181,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         }
     }
 
-    private void insertData() {
+    private void insertData() { //For a RMI CLI User
         System.out.print("Insert your Username: ");
         Scanner inUsername = new Scanner(System.in);
         this.setUsername(inUsername.nextLine());
@@ -192,36 +190,36 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.setKeyword(inPassword.nextLine());
     }
 
-    private void insertDataGUI() {
+    private void insertDataGUI() { //For a RMI GUI User
         this.setUsername(messageByGUI.get());
         this.setKeyword(messageByGUI.get());
     }
 
-    private void login(ServerRMI serverRMI) throws JSONException, IOException{
+    private void login(ServerRMI serverRMI) throws JSONException, IOException{ //Login procedure for RMI CLI Users
         this.insertData();
         this.setLogged(serverRMI.loginServer(this));
     }
 
-    private void loginGUI(ServerRMI serverRMI) throws JSONException, IOException{
+    private void loginGUI(ServerRMI serverRMI) throws JSONException, IOException{ //Login procedure for RMI GUI Users
         this.insertDataGUI();
         this.setLogged(serverRMI.loginServer(this));
     }
 
-    private void registration(ServerRMI serverRMI) throws JSONException, IOException {
+    private void registration(ServerRMI serverRMI) throws JSONException, IOException { //Registration procedure for RMI CLI Users
         this.insertData();
         serverRMI.registrationServer(this);
     }
 
-    private void registrationGUI(ServerRMI serverRMI) throws JSONException, IOException {
+    private void registrationGUI(ServerRMI serverRMI) throws JSONException, IOException { //Registration procedure for RMI GUI Users
         this.insertDataGUI();
         serverRMI.registrationServer(this);
     }
 
-    private void logout(ServerRMI serverRMI) throws RemoteException {
+    private void logout(ServerRMI serverRMI) throws RemoteException { //Logout procedure for RMI CLI/GUI Users
         this.setLogged(serverRMI.logoutServer(this));
     }
 
-    public void loginHandler (ServerRMI serverRMI) throws IOException {
+    public void loginHandler (ServerRMI serverRMI) throws IOException { //It manages the Login phase for RMI CLI Users
         String choose;
         while (!startingGame) {
             try {
@@ -268,7 +266,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.gameHandler(serverRMI);
     }
 
-    public void gameHandler (ServerRMI serverRMI) throws IOException {
+    public void gameHandler (ServerRMI serverRMI) throws IOException { //It manages the gaming phase for RMI CLI Users
         System.out.println("Type: /playturn for an Action; /chat to send message;\n");
         while (logged) {
             try {
@@ -287,7 +285,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         this.loginHandler(serverRMI);
     }
 
-    public void loginHandlerGUI (ServerRMI serverRMI) throws IOException {
+    public void loginHandlerGUI (ServerRMI serverRMI) throws IOException { //It manages the login phase for RMI GUI Users
         String choose;
         while (!startingGame) {
             try {
@@ -331,7 +329,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     }
 
 
-    public void gameHandlerGUI (ServerRMI serverRMI) throws IOException {
+    public void gameHandlerGUI (ServerRMI serverRMI) throws IOException { //It manages the gaming phase for RMI GUI Users
         String choose;
         messageToChangeWindow.put("/game");
         messageByGUI.get();

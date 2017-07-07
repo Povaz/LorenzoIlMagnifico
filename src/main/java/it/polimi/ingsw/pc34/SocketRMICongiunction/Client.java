@@ -24,13 +24,13 @@ public class Client {
     public static Main guiReference = null;
     private UserRMIImpl userLoginRMI;
     private ClientSOC userSoc;
-    private SynchronizedString messageByGUI;
-    private SynchronizedString messageForGUI;
-    private SynchronizedString messageToChangeWindow;
-    private SynchronizedString messageInfo;
-    private SynchronizedString messageChatOut;
-    private SynchronizedString messageChatIn;
-    private SynchronizedBoardView boardForGUY;
+    private SynchronizedString messageByGUI = new SynchronizedString();
+    private SynchronizedString messageForGUI = new SynchronizedString();
+    private SynchronizedString messageToChangeWindow = new SynchronizedString();
+    private SynchronizedString messageInfo = new SynchronizedString();
+    private SynchronizedString messageChatOut = new SynchronizedString();
+    private SynchronizedString messageChatIn = new SynchronizedString();
+    private SynchronizedBoardView boardForGUY = new SynchronizedBoardView();
 
     public Client (UserRMIImpl userLoginRMI) {
         this.userLoginRMI = userLoginRMI;
@@ -53,13 +53,6 @@ public class Client {
         ServerRMI serverRMI = (ServerRMI) registry.lookup("serverRMI");
 
         if (this.getUserLoginRMI().isGUI()) {
-            messageByGUI = new SynchronizedString();
-            messageForGUI = new SynchronizedString();
-            messageToChangeWindow = new SynchronizedString();
-            messageInfo = new SynchronizedString();
-            messageChatIn = new SynchronizedString();
-            messageChatOut = new SynchronizedString();
-            boardForGUY = new SynchronizedBoardView();
             Thread mainGui = new Thread(new LaunchGUI());
             mainGui.start();
             while(guiReference == null){}
