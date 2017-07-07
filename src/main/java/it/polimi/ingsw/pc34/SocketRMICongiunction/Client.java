@@ -52,7 +52,7 @@ public class Client {
 		Registry registry = LocateRegistry.getRegistry(8000);
 		ServerRMI serverRMI = (ServerRMI) registry.lookup("serverRMI");
 
-		if (this.getUserLoginRMI().isGUI()) {
+		if (this.getUserLoginRMI().isGUI()){
 			Thread mainGui = new Thread(new LaunchGUI());
 			mainGui.start();
 

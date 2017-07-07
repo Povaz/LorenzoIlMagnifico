@@ -48,6 +48,10 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        System.out.println("chat to server: ");
+        System.out.println(chatFromServer);
+
         System.out.println(Client.guiReference);
         Client.guiReference = this;
         System.out.println(Client.guiReference);
@@ -70,11 +74,13 @@ public class Main extends Application{
         primaryStage.setResizable(false);
         primaryStage.show();*/
 
+
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Lorenzo il Magnifico");
         this.primaryStage.getIcons().add(new Image("it/polimi/ingsw/pc34/View/GUI/pngFiles/Icon.png"));
 
         initRootLayout();
+
         showLogin();
     }
 
