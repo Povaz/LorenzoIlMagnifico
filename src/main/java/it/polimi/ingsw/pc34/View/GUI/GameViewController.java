@@ -166,6 +166,24 @@ public class GameViewController {
                     if(toLambda.equals("/login")){
                         main.showLogin();
                     }
+                    else if(toLambda.equals("/supportvatican")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionSupportVatican.fxml"));
+                            AnchorPane supportVatican = (AnchorPane) loader.load();
+                            actionBorder.setCenter(supportVatican);
+
+                            ActionSupportVaticanController supportController = loader.getController();
+                            supportController.setMain(main);
+
+                            main.getInfoFromServer().get();
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    }
                     else if(toLambda.equals("/exchangeprivilege")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
@@ -684,17 +702,19 @@ public class GameViewController {
         for(int i = 0; i < 3; i++){
             if(boardView.getReported().get(i).get(0).equals("")){
                 // non ci sono reported
-                for(Node n : reported1.getChildren()){
+                for(Node n : gridReported.get(i).getChildren()){
                     n.setDisable(true);
                     n.setVisible(false);
                 }
-                reported1.setDisable(true);
-                reported1.setVisible(false);
+                gridReported.get(i).setDisable(true);
+                gridReported.get(i).setVisible(false);
             }
             else{
+                gridReported.get(i).setDisable(false);
+                gridReported.get(i).setVisible(true);
                 List<String> reported = boardView.getReported().get(i);
                 for(int j = 0; j < 5; j++){
-                    Shape shape = (Shape) reported1.getChildren().get(j);
+                    Shape shape = (Shape) gridReported.get(i).getChildren().get(j);
                     if(reported.get(j).equals("")){
                         shape.setDisable(true);
                         shape.setVisible(false);
