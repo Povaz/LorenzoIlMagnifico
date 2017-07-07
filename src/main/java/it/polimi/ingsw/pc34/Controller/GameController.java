@@ -667,7 +667,7 @@ public class GameController {
 					if(state2.equals(PlayerState.WAITING)){
 	        			switch (state1) {
 		    				case PLACE_LEADER_CARD :
-		    					if(checkNumber(0, 3, asked)){
+		    					if(checkNumber(0, leaderCardSize-1, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
 		    						String message = "Request to place " + asked + " leader card";
 		    						return message;
@@ -677,7 +677,7 @@ public class GameController {
 		    						return "Input error, Retry!";
 		    					}
 		    				case ACTIVATE_LEADER_CARD :
-		    					if(checkNumber(0, 3, asked)){
+		    					if(checkNumber(0, leaderCardSize-1, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
 		    						String message = "Requested to activate " + asked + " leader card";
 		    						return message;
@@ -687,7 +687,7 @@ public class GameController {
 		    						return "Input error, Retry!";
 		    					}
 		    				case EXCHANGE_LEADER_CARD :
-		    					if(checkNumber(0, 3, asked)){
+		    					if(checkNumber(0, leaderCardSize-1, asked)){
 		    						integerCreated.put(Integer.parseInt(asked));
 		    						setInFlow();
 		    						String message = "You choose to exchange " + asked + " leader card";
@@ -886,9 +886,15 @@ public class GameController {
 				    						return "Input error, Retry!";
 										}
 				    				case ASK_WHICH_DISCOUNT :
-				    					integerCreated.put(Integer.parseInt(asked));
-				    					message = "You choose the " + Integer.parseInt(asked) + " discount";
-				    					return message;
+				    					if (checkNumber(0, discountsSize-1, asked)) {
+											integerCreated.put(Integer.parseInt(asked));
+											message = "You choose the " + Integer.parseInt(asked) + " discount";
+											return message;
+										}
+										else {
+				    						setInFlow();
+				    						return "Input error, Retry!";
+										}
 				    				case PAY_WITH_MILITARY_POINT :
 				    					if(asked.equals("yes")){
 				    		    			integerCreated.put(1);
