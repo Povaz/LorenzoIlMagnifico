@@ -329,13 +329,30 @@ public class GameController {
         return familyColor;
     }
 
-    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws IOException{ //Waits for the leaderCard chosen by the player
+    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player, String type) throws IOException{ //Waits for the leaderCard chosen by the player
         String message = "";
         for (int i = 0; i < leaderCardsInHand.size(); i++) {
             message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
         }
         this.sendMessageCLI(player, message); //Builds a string with the LeaderCard informations of the player and sends it to him
         afkVar = "integer";
+
+		if (player.getClientType().equals(ClientType.GUI)) { //If the player is a GUI Players, it sends this command in order to open the "pay with military points" window
+
+			String info = type;
+			for (int i = 0; i < leaderCardsInHand.size(); i++) {
+				info += leaderCardsInHand.get(i).getName() + "/";
+			}
+
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/leadercard", info);
+					break;
+				case SOCKET:
+					break;
+			}
+		}
+		
         int index = integerCreated.get(); //Here it waits
         setInFlow();
 		if (index == -1) {
