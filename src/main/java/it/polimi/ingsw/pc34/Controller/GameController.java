@@ -462,7 +462,10 @@ public class GameController {
 		this.tradesSize = buildingCard.getTrades().size();
 		String message = "";
 		if (player.getClientType().equals(ClientType.GUI)) {
-			String info = "";
+			String info = ""; //Build a string containing information for GUI
+			info += tradesSize;
+			info += buildingCard.getPath();
+
 			switch (player.getConnectionType()) {
 				case RMI:
 					serverRMI.openNewWindow(player, "/choosetrade", info);
