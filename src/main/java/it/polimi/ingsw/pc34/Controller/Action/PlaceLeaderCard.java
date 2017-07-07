@@ -42,7 +42,7 @@ public class PlaceLeaderCard implements CommandPattern{
             return false;
         }
 
-        leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player);
+        leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player, "P");
 
         if (leaderCard == null){
             return false;
@@ -140,7 +140,7 @@ public class PlaceLeaderCard implements CommandPattern{
         if(canBeCopied.isEmpty()){
             return false;
         }
-        toCopy = game.getGameController().askWhichCardPlaceChangeCopyActivate(canBeCopied, player);
+        toCopy = game.getGameController().askWhichCardPlaceChangeCopyActivate(canBeCopied, player, "C");
         if(toCopy == null){
             return false;
         }

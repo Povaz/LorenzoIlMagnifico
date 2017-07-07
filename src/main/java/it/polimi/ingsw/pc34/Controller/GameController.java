@@ -330,16 +330,11 @@ public class GameController {
     }
 
     public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player, String type) throws IOException{ //Waits for the leaderCard chosen by the player
-        String message = "";
-        for (int i = 0; i < leaderCardsInHand.size(); i++) {
-            message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
-        }
-        this.sendMessageCLI(player, message); //Builds a string with the LeaderCard informations of the player and sends it to him
         afkVar = "integer";
 
 		if (player.getClientType().equals(ClientType.GUI)) { //If the player is a GUI Players, it sends this command in order to open the "pay with military points" window
 
-			String info = type;
+			String info = type; //Builds a string with the LeaderCard informations of the player and sends it to him
 			for (int i = 0; i < leaderCardsInHand.size(); i++) {
 				info += leaderCardsInHand.get(i).getName() + "/";
 			}
@@ -352,7 +347,14 @@ public class GameController {
 					break;
 			}
 		}
-		
+		else {
+			String message = ""; //Builds a string with the LeaderCard information of the player and sends it to him
+			for (int i = 0; i < leaderCardsInHand.size(); i++) {
+				message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
+			}
+			this.sendMessageCLI(player, message);
+		}
+
         int index = integerCreated.get(); //Here it waits
         setInFlow();
 		if (index == -1) {
@@ -361,13 +363,30 @@ public class GameController {
         return leaderCardsInHand.get(index);
     }
 
-    public ImmediateLeaderCard askWhichImmediateCardActivate(List<ImmediateLeaderCard> immediateLeaderCardsInHand, Player player) throws IOException { //As above, it waits for an ImmediateLeaderCard
-        String message = "";
-        for (int i = 0; i < immediateLeaderCardsInHand.size(); i++) {
-            message += i + ".\n" + immediateLeaderCardsInHand.get(i).toString() + "\n";
-        }
-        this.sendMessageCLI(player, message);
-        afkVar = "integer";  
+    public ImmediateLeaderCard askWhichImmediateCardActivate(List<ImmediateLeaderCard> immediateLeaderCardsInHand, Player player, String type) throws IOException { //As above, it waits for an ImmediateLeaderCard
+		if (player.getClientType().equals(ClientType.GUI)) { //If the player is a GUI Players, it sends this command in order to open the "pay with military points" window
+
+			String info = type; //Builds a string with the LeaderCard informations of the player and sends it to him
+			for (int i = 0; i < immediateLeaderCardsInHand.size(); i++) {
+				info += immediateLeaderCardsInHand.get(i).getName() + "/";
+			}
+
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/leadercard", info);
+					break;
+				case SOCKET:
+					break;
+			}
+		}
+		else {
+			String message = ""; //Builds a string with the LeaderCard information of the player and sends it to him
+			for (int i = 0; i < immediateLeaderCardsInHand.size(); i++) {
+				message += i + ".\n" + immediateLeaderCardsInHand.get(i).toString() + "\n";
+			}
+			this.sendMessageCLI(player, message);
+		}
+		afkVar = "integer";
         int index = integerCreated.get();
 		setInFlow();
 		if (index == -1) {
