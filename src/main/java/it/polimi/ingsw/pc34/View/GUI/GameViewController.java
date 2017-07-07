@@ -54,7 +54,6 @@ public class GameViewController {
 
     @FXML private AnchorPane actionSpace;
     @FXML private BorderPane actionBorder;
-    @FXML private SplitMenuButton actionButton;
 
     @FXML private Button player0;
     @FXML private Button player1;
@@ -97,6 +96,7 @@ public class GameViewController {
 
     @FXML private Text turn;
     @FXML private Text current;
+    @FXML private Text ownerUsername;
 
     @FXML private Text blackDice;
     @FXML private Text whiteDice;
@@ -135,6 +135,9 @@ public class GameViewController {
     }
 
     public void initializeView(){
+        // set player text
+        ownerUsername.setText(main.getUsername());
+
         // fill playerButton List
         playerButtons.add(player0);
         playerButtons.add(player1);
@@ -165,6 +168,24 @@ public class GameViewController {
                 Platform.runLater(() -> { // TODO inseriscine uno in ogni brach per velocizzare
                     if(toLambda.equals("/login")){
                         main.showLogin();
+                    }
+                    else if(toLambda.equals("/supportvatican")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionSupportVatican.fxml"));
+                            AnchorPane supportVatican = (AnchorPane) loader.load();
+                            actionBorder.setCenter(supportVatican);
+
+                            ActionSupportVaticanController supportController = loader.getController();
+                            supportController.setMain(main);
+
+                            main.getInfoFromServer().get();
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
                     }
                     else if(toLambda.equals("/exchangeprivilege")){
                         try {
@@ -224,7 +245,37 @@ public class GameViewController {
 
                     }
                     else if(toLambda.equals("/choosediscount")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionChooseDiscount.fxml"));
+                            AnchorPane discount = (AnchorPane) loader.load();
+                            actionBorder.setCenter(discount);
 
+                            ActionChooseDiscountController discountController = loader.getController();
+                            discountController.setMain(main);
+
+                            String info = main.getInfoFromServer().get();
+
+                            List<String> discountStrings = new ArrayList<>();
+                            while(info.endsWith("/")){
+                                int index = info.indexOf("/");
+                                discountStrings.add(info.substring(0, index));
+                                info = info.substring(index + 1);
+                            }
+
+                            for(int i = 0; i < discountStrings.size(); i++){
+                                ToggleButton toggle = (ToggleButton) discountController.discount.getChildren().get(i);
+                                toggle.setText(discountStrings.get(i));
+                                toggle.setDisable(false);
+                                toggle.setVisible(true);
+                            }
+
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
                     }
                     else if(toLambda.equals("/leadercard")){
                         try {
@@ -295,7 +346,7 @@ public class GameViewController {
         for(Button b : playerButtons){
             b.setBackground(buttonDefaultBackground);
         }
-        button.setBackground(new Background(new BackgroundFill(Color.DARKCYAN, CornerRadii.EMPTY, Insets.EMPTY)));
+        button.setBackground(new Background(new BackgroundFill(Color.SILVER, CornerRadii.EMPTY, Insets.EMPTY)));
 
         // update view with correct playerBoardView
         PlayerBoardView current = null;
@@ -654,17 +705,19 @@ public class GameViewController {
         for(int i = 0; i < 3; i++){
             if(boardView.getReported().get(i).get(0).equals("")){
                 // non ci sono reported
-                for(Node n : reported1.getChildren()){
+                for(Node n : gridReported.get(i).getChildren()){
                     n.setDisable(true);
                     n.setVisible(false);
                 }
-                reported1.setDisable(true);
-                reported1.setVisible(false);
+                gridReported.get(i).setDisable(true);
+                gridReported.get(i).setVisible(false);
             }
             else{
+                gridReported.get(i).setDisable(false);
+                gridReported.get(i).setVisible(true);
                 List<String> reported = boardView.getReported().get(i);
                 for(int j = 0; j < 5; j++){
-                    Shape shape = (Shape) reported1.getChildren().get(j);
+                    Shape shape = (Shape) gridReported.get(i).getChildren().get(j);
                     if(reported.get(j).equals("")){
                         shape.setDisable(true);
                         shape.setVisible(false);

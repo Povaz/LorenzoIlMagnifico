@@ -331,14 +331,14 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     public void gameHandlerGUI (ServerRMI serverRMI) throws IOException { //It manages the gaming phase for RMI GUI Users
         String choose;
-        messageToChangeWindow.put("/game");
-        messageByGUI.get();
+        messageToChangeWindow.put("/game"); //It requests the opening of the Gaming Windows
+        messageByGUI.get(); //Waits for the Gaming Windows
 
-        serverRMI.sendInput("/update", this);
+        serverRMI.sendInput("/update", this); //Requests for an update of the GUI
 
         while (logged) {
             try {
-                choose = messageByGUI.get();
+                choose = messageByGUI.get(); //For an a GUI-Input
                 System.out.println(choose);
                 serverRMI.sendInput(choose, this);
             }

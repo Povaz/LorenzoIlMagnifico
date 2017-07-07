@@ -20,3 +20,9 @@ GameController afk:
 LOBBY: Controllo ogni secondo, rimuovo il controllo alla fine;
 
 GAME: Controllo ogni secondo.
+
+
+
+TODO da risistemare:
+Counter inizializzazione;
+Modifier inizializzazione;

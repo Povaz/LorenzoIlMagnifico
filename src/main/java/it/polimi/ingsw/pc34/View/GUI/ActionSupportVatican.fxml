@@ -15,12 +15,12 @@
    <children>
       <Button fx:id="yes" layoutX="130.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#yesClicked" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: Yellow;" text="Yes">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
       <Button fx:id="no" layoutX="330.0" layoutY="332.0" mnemonicParsing="false" onMouseClicked="#noClicked" prefHeight="40.0" prefWidth="80.0" style="-fx-background-color: OrangeRed;" text="No">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
       <Text fill="WHITE" layoutX="139.0" layoutY="209.0" stroke="BLACK" text="Do you want to">

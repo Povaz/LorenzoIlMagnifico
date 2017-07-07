@@ -73,6 +73,7 @@ public class GameController {
 				try {
 					System.out.println("Timer expired for " + username);
 					final String flow = flow("/afk", username);
+					System.out.println(flow);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -335,8 +336,6 @@ public class GameController {
     }
 
     public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player, String type) throws IOException{ //Waits for the leaderCard chosen by the player
-        afkVar = "integer";
-
 		if (player.getClientType().equals(ClientType.GUI)) { //If the player is a GUI Players, it sends this command in order to open the "pay with military points" window
 
 			String info = type; //Builds a string with the LeaderCard informations of the player and sends it to him
@@ -359,8 +358,8 @@ public class GameController {
 			}
 			this.sendMessageCLI(player, message);
 		}
-
-        int index = integerCreated.get(); //Here it waits
+		afkVar = "integer";
+		int index = integerCreated.get(); //Here it waits
         setInFlow();
 		if (index == -1) {
 			return null;
@@ -401,10 +400,9 @@ public class GameController {
     }
 
     public boolean wantToSupportVatican(Player player) throws IOException{ //It manages the Vatican Support request
-    	if(player.isDisconnected()){ //If a Player is not present in the game, it will be set "false"
+		if(player.isDisconnected()){ //If a Player is not present in the game, it will be set "false"
     		return false;
     	}
-    	String message = "Do you support Vatican? (yes or no)";
     	ServerHandler currPlayer = null;
     	switch (player.getConnectionType()) { //It sets this Player gameState in Server in order to evaluated next input as an answer to this question
 			case SOCKET:
@@ -415,9 +413,26 @@ public class GameController {
 				serverRMI.setStateGame(player, "/vaticansupport");
 				break;
 		}
-        this.sendMessageCLI(player, message);
-        afkVar = "booleanVat";
+
+		if (player.getClientType().equals(ClientType.GUI)) {
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/supportvatican", "toSynchro");
+					break;
+				case SOCKET:
+					//FILL
+					break;
+			}
+		}
+		else {
+			String message = "Do you support Vatican? (yes or no)";
+			this.sendMessageCLI(player, message);
+		}
+
+    	afkVar = "booleanVat";
+    	System.out.println("prima get vatican AFK");
         boolean choose = booleanCreated.get(); //Here it waits
+		System.out.println("dopo get vatican AFK");
         switch (player.getConnectionType()) { //Resets this player gameState in Server, so that new inputs are evaluated accordingly
 			case SOCKET:
 				currPlayer.setStateGame(null);
@@ -441,10 +456,23 @@ public class GameController {
     
     public Trade chooseTrade (BuildingCard buildingCard, Player player) throws IOException{ //Waits for the Trade chosen by the player
         String message = "";
-        for (int i = 0; i < buildingCard.getTrades().size(); i++) {
-            message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
-        }
-        this.sendMessageCLI(player, message);
+		if (player.getClientType().equals(ClientType.GUI)) {
+			String info = "";
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/choosetrade", info);
+					break;
+				case SOCKET:
+					//FILL
+					break;
+			}
+		}
+        else {
+			for (int i = 0; i < buildingCard.getTrades().size(); i++) {
+				message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
+			}
+			this.sendMessageCLI(player, message);
+		}
         this.tradesSize = buildingCard.getTrades().size();
         player.putSecond_State(PlayerState.CHOOSE_TRADE);
         afkVar = "integer";
@@ -462,16 +490,32 @@ public class GameController {
 
     public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws IOException{ //Waits for the Discount chosen by the player
         player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
-        String message = "";
-        for (int j = 0; j < discounts.size(); j++) {
-            message += j + ". ";
-            for (int i = 0; i < discounts.get(j).size(); i++) {
-                message += discounts.get(j).get(i).toString();
-            }
-            message += "\n";
-        }
-        this.sendMessageCLI(player, message); //Builds a string with the Discounts info and sends it to the player (CLI)
-        afkVar = "integer";
+		if (player.getClientType().equals(ClientType.GUI)) {
+			String info = "";
+			for (int i = 0; i < discounts.size(); i++) {
+				info += discounts.get(i).toString() + "/";
+			}
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/choosediscount", info);
+					break;
+				case SOCKET:
+					//FILL
+					break;
+			}
+		}
+		else {
+			String message = "";
+			for (int j = 0; j < discounts.size(); j++) {
+				message += j + ". ";
+				for (int i = 0; i < discounts.get(j).size(); i++) {
+					message += discounts.get(j).get(i).toString();
+				}
+				message += "\n";
+			}
+			this.sendMessageCLI(player, message);
+		}
+		afkVar = "integer";
         int index = integerCreated.get(); //Here it waits
         List<Reward> discount;
         if (index == -1) { //If this player crashes, it will be automatically chosen the first trade
@@ -578,10 +622,11 @@ public class GameController {
     	    				return "You're being disconnected";
     	    			case("booleanVat"):
     	    				disconnectPlayer(player);
-    	    				booleanCreated.put(true);
+    	    				booleanCreated.put(false);
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    		}
+    	    		System.out.println("booleanVatCase jumped");
     	    		setInFlow();
     	    		return "not handled case";
     	    	}
@@ -916,6 +961,12 @@ public class GameController {
         			setInFlow();
         			return "You choose not to support vatican";
         		}
+        		else if(asked.equals("/afk")) {this.searchPlayerWithUsername(username);
+					booleanCreated.put(false);
+					disconnectPlayer(this.searchPlayerWithUsername(username));
+					setInFlow();
+					return "You choose not to support vatican - disconnected";
+				}
         		setInFlow();
         		return "Input error, Retry!";
         	}
@@ -934,6 +985,7 @@ public class GameController {
         	}
     	}
     	else{
+    		System.out.println("I am still processing a request");
 	    	return "I am still processing a request";
 	   	}
     }

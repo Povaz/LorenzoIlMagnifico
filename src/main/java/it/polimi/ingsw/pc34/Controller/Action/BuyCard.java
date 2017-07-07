@@ -252,13 +252,13 @@ public class BuyCard implements CommandPattern {
         if(!modifier.isNotSatisfyMilitaryPointForTerritory()) {
             if(cardSpot instanceof TerritorySpot){
                 TerritorySpot tSpot = (TerritorySpot) cardSpot;
-                return haveEnoughtMilitaryPoint(tSpot);
+                return haveEnoughMilitaryPoint(tSpot);
             }
         }
         return true;
     }
 
-    private boolean haveEnoughtMilitaryPoint(TerritorySpot tSpot) throws RemoteException, IOException{
+    private boolean haveEnoughMilitaryPoint(TerritorySpot tSpot) throws RemoteException, IOException{
         switch(tSpot.getCards().size()){
             case 0:
             case 1:

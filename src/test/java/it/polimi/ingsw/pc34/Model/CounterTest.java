@@ -160,7 +160,7 @@ public class CounterTest extends TestCase {
         assertEquals(new Reward (RewardType.WOOD, 0), emptyCounter.getWood());
         assertEquals(new Reward (RewardType.STONE, 0), emptyCounter.getStone());
         assertEquals(new Reward (RewardType.SERVANT, 0), emptyCounter.getServant());
-        assertEquals(new Reward (RewardType.MILITARY_POINT, 30), emptyCounter.getMilitaryPoint());
+        assertEquals(new Reward (RewardType.MILITARY_POINT, 25), emptyCounter.getMilitaryPoint());
         assertEquals(new Reward (RewardType.FAITH_POINT, 30), emptyCounter.getFaithPoint());
         assertEquals(new Reward (RewardType.VICTORY_POINT, 0), emptyCounter.getVictoryPoint());
     }

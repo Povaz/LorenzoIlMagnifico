@@ -35,7 +35,7 @@
       </Text>
       <Button fx:id="send" layoutX="346.0" layoutY="409.0" mnemonicParsing="false" onMouseClicked="#sendClicked" prefHeight="40.0" prefWidth="80.0" text="Send">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
       <CheckBox fx:id="woodStone" layoutX="90.0" layoutY="230.0" mnemonicParsing="false" text="1 WOOD and 1 STONE" textFill="WHITE">

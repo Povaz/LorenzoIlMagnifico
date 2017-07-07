@@ -30,7 +30,7 @@
       </Text>
       <Button fx:id="send" layoutX="426.0" layoutY="462.0" mnemonicParsing="false" onMouseClicked="#sendClicked" prefHeight="40.0" prefWidth="80.0" text="Send">
          <font>
-            <Font size="18.0" />
+            <Font name="System Bold" size="18.0" />
          </font>
       </Button>
       <GridPane fx:id="leader" layoutX="39.0" layoutY="185.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0">

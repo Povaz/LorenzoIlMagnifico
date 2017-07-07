@@ -225,8 +225,8 @@ public class Counter{
         if(victoryPoint.getQuantity() < 0){
             victoryPoint.setQuantity(0);
         }
-        if(militaryPoint.getQuantity() > 30){
-            militaryPoint.setQuantity(30);
+        if(militaryPoint.getQuantity() > 25){
+            militaryPoint.setQuantity(25);
         }
         if(faithPoint.getQuantity() > 30){
             faithPoint.setQuantity(30);
