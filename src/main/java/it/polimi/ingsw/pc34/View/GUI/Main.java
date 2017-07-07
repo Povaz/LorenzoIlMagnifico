@@ -18,13 +18,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application{
     // connection canal
-    private SynchronizedString chatToServer;
-    private SynchronizedString chatFromServer;
-    private SynchronizedString fromGuiToServer;
-    private SynchronizedString fromServerToGui;
-    private SynchronizedString openWindow;
-    private SynchronizedString infoFromServer;
-    private SynchronizedBoardView boardViewFromServer;
+    private SynchronizedString chatToServer = new SynchronizedString();
+    private SynchronizedString chatFromServer = new SynchronizedString();
+    private SynchronizedString fromGuiToServer = new SynchronizedString();
+    private SynchronizedString fromServerToGui = new SynchronizedString();
+    private SynchronizedString openWindow = new SynchronizedString();
+    private SynchronizedString infoFromServer = new SynchronizedString();
+    private SynchronizedBoardView boardViewFromServer = new SynchronizedBoardView();
 
     // controller
     private RootLayoutController rootC = null;
@@ -69,8 +69,6 @@ public class Main extends Application{
         primaryStage.setScene(scene);
         primaryStage.setResizable(false);
         primaryStage.show();*/
-
-
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Lorenzo il Magnifico");
@@ -320,4 +318,6 @@ public class Main extends Application{
     public void setInfoFromServer(SynchronizedString infoFromServer){
         this.infoFromServer = infoFromServer;
     }
+
+
 }
