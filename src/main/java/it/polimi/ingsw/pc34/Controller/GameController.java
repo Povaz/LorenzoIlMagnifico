@@ -33,6 +33,8 @@ public class GameController {
 	private ArrayIntegerCreated arrayIntegerCreated = new ArrayIntegerCreated();
 	private int councilRewardsSize;
 	private int tradesSize;
+	private int leaderCardSize;
+	private int discountsSize;
 
 	//Support variables
 	private String actionSpot;
@@ -336,6 +338,7 @@ public class GameController {
     }
 
     public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player, String type) throws IOException{ //Waits for the leaderCard chosen by the player
+		this.leaderCardSize = leaderCardsInHand.size();
 		if (player.getClientType().equals(ClientType.GUI)) { //If the player is a GUI Players, it sends this command in order to open the "pay with military points" window
 
 			String info = type; //Builds a string with the LeaderCard informations of the player and sends it to him
@@ -368,6 +371,7 @@ public class GameController {
     }
 
     public ImmediateLeaderCard askWhichImmediateCardActivate(List<ImmediateLeaderCard> immediateLeaderCardsInHand, Player player, String type) throws IOException { //As above, it waits for an ImmediateLeaderCard
+		this.leaderCardSize = immediateLeaderCardsInHand.size();
 		if (player.getClientType().equals(ClientType.GUI)) { //If the player is a GUI Players, it sends this command in order to open the "pay with military points" window
 
 			String info = type; //Builds a string with the LeaderCard informations of the player and sends it to him
@@ -455,7 +459,8 @@ public class GameController {
     }
     
     public Trade chooseTrade (BuildingCard buildingCard, Player player) throws IOException{ //Waits for the Trade chosen by the player
-        String message = "";
+		this.tradesSize = buildingCard.getTrades().size();
+		String message = "";
 		if (player.getClientType().equals(ClientType.GUI)) {
 			String info = "";
 			switch (player.getConnectionType()) {
@@ -473,13 +478,12 @@ public class GameController {
 			}
 			this.sendMessageCLI(player, message);
 		}
-        this.tradesSize = buildingCard.getTrades().size();
         player.putSecond_State(PlayerState.CHOOSE_TRADE);
         afkVar = "integer";
         int choose = integerCreated.get(); //Here it waits
         Trade trade;
 		if (choose == -1) { //If this player crashes, it will be automatically chosen the first trade
-			trade = buildingCard.getTrades().get(0);
+			return null;
 		}
 		else {
 			trade = buildingCard.getTrades().get(choose);
@@ -489,7 +493,8 @@ public class GameController {
     }
 
     public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws IOException{ //Waits for the Discount chosen by the player
-        player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
+        this.discountsSize = discounts.size();
+		player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
 		if (player.getClientType().equals(ClientType.GUI)) {
 			String info = "";
 			for (int i = 0; i < discounts.size(); i++) {
@@ -840,7 +845,7 @@ public class GameController {
 		    								return "Input error, Retry!";
 		    							}
 		    						case SERVANTS :
-		    							if(checkNumber(0, 1000, asked)){
+		    							if(checkNumber(0, 99, asked)){
 		    								integerCreated.put(Integer.parseInt(asked));
 		    								setInFlow();
 			    						    return "You choose to use " + Integer.parseInt(asked) + " servants";
@@ -871,12 +876,17 @@ public class GameController {
 				    					setInFlow();
 				    					return "Input error, Retry!";
 				    				case CHOOSE_TRADE :
+				    					if (checkNumber(0, tradesSize-1, asked)) {
+											integerCreated.put(Integer.parseInt(asked));
+											message = "You choose the " + Integer.parseInt(asked) + " trade";
+											return message;
+										}
+										else {
+				    						setInFlow();
+				    						return "Input error, Retry!";
+										}
+				    				case ASK_WHICH_DISCOUNT :
 				    					integerCreated.put(Integer.parseInt(asked));
-				    					message = "You choose the " + Integer.parseInt(asked) + " trade";
-				    					return message;
-				    				case ASK_WHICH_DISCOUNT :			
-				    					integerCreated.put(Integer.parseInt(asked));
-				    					//TODO GESTIRE ERRORE PARSE INT
 				    					message = "You choose the " + Integer.parseInt(asked) + " discount";
 				    					return message;
 				    				case PAY_WITH_MILITARY_POINT :
