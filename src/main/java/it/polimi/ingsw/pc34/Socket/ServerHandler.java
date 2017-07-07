@@ -3,6 +3,7 @@ package it.polimi.ingsw.pc34.Socket;
 import java.io.IOException;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.rmi.RemoteException;
 import java.util.Scanner;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -13,6 +14,7 @@ import org.json.JSONException;
 
 import it.polimi.ingsw.pc34.Controller.BooleanCreated;
 import it.polimi.ingsw.pc34.Controller.GameController;
+import it.polimi.ingsw.pc34.Model.Player;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
@@ -104,7 +106,7 @@ public class ServerHandler implements Runnable{
 		}
 		else if(message.equals("This Client has been disconnected")||message.equals("Game : This game is finished")){
 			setFase(0);
-			//todo togliere riferimento in GameController
+			//todo togliere riferimento in GameController e il tipo di interfaccia grafica
 			try {
 				serverSoc.getServer().disconnectPlayerSoc(username);
 			} catch (IOException e) {
@@ -116,6 +118,10 @@ public class ServerHandler implements Runnable{
 		}
 		else if(message.equals("Reconnected to the game")){
 			setFase(1);
+			if(graphicType.equals("2")){
+				BoardView boardView = gameController.getBoardView(username);
+				sendToClientGUI(boardView);
+			}
 			stateGame = null;
 		}
 		else if(message.equals("Action has been executed") && fase==1){
@@ -126,7 +132,7 @@ public class ServerHandler implements Runnable{
 			stateGame = null;
 			message += "\nInsert new command: /playturn, /chat, /afk";
 		}
-		if(graphicType.equals("2")){
+		if(graphicType.equals("2") && fase == 0){
 			if(sendGUI){
 				sendGUI = false;
 			}
@@ -176,7 +182,23 @@ public class ServerHandler implements Runnable{
 		String answer=gameController.flow(asked, username);
 		return answer;
 	}
-
+	
+	public void openNewWindow(String message) throws RemoteException {
+        sendToClient(message);
+    }
+    
+    public void openNewWindow (String message, String toSynchro) {
+        sendToClient(message);
+        sendToClient(toSynchro);
+    }
+    
+    public void openNewWindow(String message, int numberOfCP) {
+        sendToClient(message);
+        sendToClient(Integer.toString(numberOfCP));
+    }
+	
+	
+	
 	public void run(){
 		String line = null;
 		try {
@@ -238,6 +260,14 @@ public class ServerHandler implements Runnable{
 							} catch (IOException e) {
 								LOGGER.log(Level.WARNING, "warning", e);
 							}
+							if (graphicType.equals("2")) {
+                                if (answer.equals("It's not your turn")) {
+                                    sendToClient("No");
+                                }
+                                else {
+                                    sendToClient("Yes");
+                                }
+                            }
 							if(answer==null){
 								break;
 							}
@@ -284,6 +314,14 @@ public class ServerHandler implements Runnable{
 							} catch (IOException e) {
 								LOGGER.log(Level.WARNING, "warning", e);
 							}
+							if (graphicType.equals("2")) {
+                                if (answer.equals("It's not your turn") || answer.equals("Input error") || answer.equals("Input error, Retry!")) {
+                                    sendToClient("No");
+                                }
+                                else {
+                                	sendToClient("Yes");
+                                }
+                            }
 							break;
 						case "/chat" : 
 							stateGame = null;
@@ -300,6 +338,14 @@ public class ServerHandler implements Runnable{
 							} catch (IOException e) {
 								LOGGER.log(Level.WARNING, "warning", e);
 							}
+							if (graphicType.equals("2")) {
+                                if (answer.equals("It's not your turn") || answer.equals("Input error") || answer.equals("Input error, Retry!")) {
+                                    sendToClient("No");
+                                }
+                                else {
+                                    sendToClient("Yes");
+                                }
+                            }
 							break;
 						default :
 							answer = "Wrong input, Type: /playturn for an action; /chat to send message; /afk to disconnect from the game";
@@ -308,7 +354,9 @@ public class ServerHandler implements Runnable{
 				}
 			}
 
-			sendToClient(answer);
+			if(graphicType.equals("1") || fase == 0){
+				sendToClient(answer);
+			}
 		}
 	}
 

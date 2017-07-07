@@ -87,6 +87,27 @@ public class ClientInputHandler extends Thread{
 					}
 					client.setBoardView(boardView);
 				}
+				else if(line.equals("/numberservant")){
+					client.getSynchronizedMessageToChangeWindow().put("/numberservant");
+				}
+				else if(line.equals("/exchangeprivilege")){
+					client.getSynchronizedMessageToChangeWindow().put("/exchangeprivilege");
+				}
+				else if(line.equals("/leadercard")){
+					client.getSynchronizedMessageToChangeWindow().put("/leadercard");
+				}
+				else if(line.equals("/supportvatican")){
+					client.getSynchronizedMessageToChangeWindow().put("/supportvatican");
+				}
+				else if(line.equals("/choosetrade")){
+					client.getSynchronizedMessageToChangeWindow().put("/choosetrade");
+				}
+				else if(line.equals("/choosediscount")){
+					client.getSynchronizedMessageToChangeWindow().put("/choosediscount");
+				}
+				else if(line.equals("/paymilitarypoint")){
+					client.getSynchronizedMessageToChangeWindow().put("/paymilitarypoint");
+				}
 				else{
 					client.getSynchronizedMessageForGUI().put(line);
 				}

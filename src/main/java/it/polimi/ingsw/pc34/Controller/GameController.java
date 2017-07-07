@@ -6,6 +6,7 @@ import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 import java.io.IOException;
@@ -51,6 +52,25 @@ public class GameController {
 		this.serverRMI = serverRMI;
 	}
 
+	public ServerHandler getServerHandler(Player player){
+		String username = player.getUsername();
+		for(ServerHandler userSearched : usersSoc){
+			if(userSearched.getName().equals(username)){
+				return userSearched;
+			}
+		}
+		return null;
+	}
+	
+	private ServerHandler getServerHandler (String username){ //TODO Commenta Tommaso
+    	for(ServerHandler handler : usersSoc){
+    		if(handler.getName().equals(username)){
+    			return handler;
+    		}
+    	}
+		return null;
+    }
+	
 	public void addServerHandler(ServerHandler newHandler) throws IOException {
 		usersSoc.add(newHandler);
 	}
@@ -78,7 +98,7 @@ public class GameController {
 					e.printStackTrace();
 				}
 			}
-		}, 30000);
+		}, 300000);
 	}
 
 	public void stopTimer(String username) { //Cancels all scheduled task on timerTillTheEnd and cancels it
@@ -138,6 +158,12 @@ public class GameController {
 	public void sendMessageChat(String message, String username) throws IOException { //Sends messages in the Chat
 		message = username + " : " + message;
 		for (Player player : players) {
+			
+			
+			//TODO TOMMASO, MODIFICARE SE NO NON ARRIVANO MESSAGGI DELLA CHAT
+			if(player.getClientType().equals(ClientType.GUI) && player.getConnectionType().equals(ConnectionType.SOCKET)){
+				continue;
+			}
 			sendMessageCLI(player, message);
 		}
 	}
@@ -149,7 +175,6 @@ public class GameController {
 					serverRMI.updateUserRMIView(boardView, players.get(i).getUsername());
 					break;
 				case SOCKET:
-					//prendere 
 					for(ServerHandler gui : usersSoc){
 						if(gui.getGraphicType().equals("2")){
 							gui.sendToClientGUI(boardView);
@@ -176,6 +201,16 @@ public class GameController {
 		updatePlayerReconnectedView(boardView, playerReconnected);
 	}
 
+	//method for socket that return an updated board, especially for reconnected people
+	public BoardView getBoardView(String username) {
+		List<PlayerBoard> playerBoards = new ArrayList<>();
+		for (int i = 0; i < players.size(); i++) {
+			playerBoards.add(players.get(i).getPlayerBoard());
+		}
+		BoardView boardView = new BoardView(board, playerBoards, board.getOrder().getCurrent().getUsername());
+		return boardView;
+	}
+	
 	public void updatePlayerReconnectedView (BoardView boardView, Player player) throws RemoteException { //Update GUI for a Reconnected player
 		switch (player.getConnectionType()) {
 			case RMI:
@@ -256,7 +291,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/numberservant");
 					break;
 				case SOCKET:
-					//FILL SERVER
+					getServerHandler(player).openNewWindow("/numberservant");
 					break;
 			}
 		}
@@ -287,6 +322,7 @@ public class GameController {
 							serverRMI.openNewWindow(player, "/exchangeprivilege", councilRewardsSize);
 							break;
 						case SOCKET:
+							getServerHandler(player).openNewWindow("/exchangeprivilege", councilRewardsSize);
 							break;
 					}
 				}
@@ -348,6 +384,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/leadercard", info);
 					break;
 				case SOCKET:
+					getServerHandler(player).openNewWindow("/leadercard", info);
 					break;
 			}
 		}
@@ -380,6 +417,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/leadercard", info);
 					break;
 				case SOCKET:
+					getServerHandler(player).openNewWindow("/leadercard", info);
 					break;
 			}
 		}
@@ -420,7 +458,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/supportvatican", "toSynchro");
 					break;
 				case SOCKET:
-					//FILL
+					getServerHandler(player).openNewWindow("/supportvatican", "toSynchro");
 					break;
 			}
 		}
@@ -445,15 +483,6 @@ public class GameController {
         return  choose;
     }
     
-    private ServerHandler getServerHandler (String username){ //TODO Commenta Tommaso
-    	for(ServerHandler handler : usersSoc){
-    		if(handler.getName().equals(username)){
-    			return handler;
-    		}
-    	}
-		return null;
-    }
-    
     public Trade chooseTrade (BuildingCard buildingCard, Player player) throws IOException{ //Waits for the Trade chosen by the player
         String message = "";
 		if (player.getClientType().equals(ClientType.GUI)) {
@@ -463,7 +492,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/choosetrade", info);
 					break;
 				case SOCKET:
-					//FILL
+					getServerHandler(player).openNewWindow("/choosetrade", "toSynchro");
 					break;
 			}
 		}
@@ -500,7 +529,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/choosediscount", info);
 					break;
 				case SOCKET:
-					//FILL
+					getServerHandler(player).openNewWindow("/choosediscount", "toSynchro");
 					break;
 			}
 		}
@@ -540,6 +569,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/paymilitarypoint", "1");
 					break;
 				case SOCKET:
+					getServerHandler(player).openNewWindow("/paymilitarypoint", "toSynchro");
 					break;
 			}
 		}
