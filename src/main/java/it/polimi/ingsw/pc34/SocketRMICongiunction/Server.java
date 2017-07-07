@@ -90,18 +90,20 @@ public class Server {
     }
 
     private void startServers () throws RemoteException, AlreadyBoundException{
-        System.out.println("Constructing server implementation...");
+        try {
+			System.out.println("Constructing server implementation...");
 
-        System.out.println("Binding Server implementation to registry...");
-        Registry registry = LocateRegistry.createRegistry(8000);
-        registry.bind("serverRMI", this.serverLoginRMI);
+			System.out.println("Binding Server implementation to registry...");
+			Registry registry = LocateRegistry.createRegistry(8000);
+			registry.bind("serverRMI", this.serverLoginRMI);
 
-        System.out.println("Waiting for invocations from clients...");
+			System.out.println("Waiting for invocations from clients...");
 
-        Thread serverSoc = new Thread(this.serverSoc);
-        serverSoc.start();
-
-
+			Thread serverSoc = new Thread(this.serverSoc);
+			serverSoc.start();
+		} catch (Exception e) {
+        	System.out.println("Server is already opened");
+		}
     }
 
     private void checkUsersLogged() throws RemoteException{

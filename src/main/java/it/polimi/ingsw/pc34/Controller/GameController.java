@@ -394,7 +394,7 @@ public class GameController {
     }
 
     public boolean wantToSupportVatican(Player player) throws IOException{ //It manages the Vatican Support request
-    	if(player.isDisconnected()){ //If a Player is not present in the game, it will be set "false"
+		if(player.isDisconnected()){ //If a Player is not present in the game, it will be set "false"
     		return false;
     	}
     	ServerHandler currPlayer = null;
@@ -419,13 +419,12 @@ public class GameController {
 			}
 		}
 		else {
-			String message = "Do you support Vatican? (yes or no)";
+			String message = "Do you support Vatican? (Yes or No)";
 			this.sendMessageCLI(player, message);
 		}
+		afkVar = "booleanVat";
+		boolean choose = booleanCreated.get();//Here it waits
 
-
-    	afkVar = "booleanVat";
-        boolean choose = booleanCreated.get(); //Here it waits
         switch (player.getConnectionType()) { //Resets this player gameState in Server, so that new inputs are evaluated accordingly
 			case SOCKET:
 				currPlayer.setStateGame(null);
@@ -943,12 +942,12 @@ public class GameController {
     		}
     		//ENTER HERE IF YOU ARE ASKED TO SUPPORT VATICAN
     		else if (state1.equals(PlayerState.SUPPORT_VATICAN)){
-        		if(asked.equals("yes")){
+        		if(asked.equals("Yes")){
         			booleanCreated.put(true);
         			setInFlow();
         			return "You choose to support vatican";
         		}
-        		else if(asked.equals("no")){
+        		else if(asked.equals("No")){
         			booleanCreated.put(false);
         			setInFlow();
         			return "You choose not to support vatican";
@@ -971,6 +970,7 @@ public class GameController {
         	}
     	}
     	else{
+    		System.out.println("I am still processing a request");
 	    	return "I am still processing a request";
 	   	}
     }
