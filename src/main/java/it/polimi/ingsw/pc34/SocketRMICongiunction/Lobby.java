@@ -148,7 +148,7 @@ public class Lobby {
                     e.printStackTrace();
                 } 
             }
-        }, 30000);
+        }, 5000);
     }
 
     public void stopTimer() {

@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pc34.Controller;
 
-import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
@@ -10,20 +9,22 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 import java.io.IOException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.*;
 
 /**
  * Created by trill on 14/06/2017.
  */
+
 public class GameController {
 	private final Board board;
 	private final List<Player> players;
 	private ServerSOC serverSoc;
 	private ArrayList<ServerHandler> usersSoc;
-
 	private ServerRMIImpl serverRMI;
+
+	//Synchronized variables (Producer/Consumer pattern) to manage the dialogue between GameController.Flow() and
+	// the other GameController methods
 	private ActionInputCreated actionInputCreated = new ActionInputCreated();
 	private IntegerCreated whatToDoCreated = new IntegerCreated();
 	private IntegerCreated integerCreated = new IntegerCreated();
@@ -33,13 +34,14 @@ public class GameController {
 	private int councilRewardsSize;
 	private int tradesSize;
 
+	//Support variables
 	private String actionSpot;
 	private ActionInput actionInput = new ActionInput();
-	private boolean inFlow = false;
-	private String afkVar;
+	private boolean inFlow = false; //It tells if someone is already in the action flow in GameController.flow()
+	private String afkVar; //State of a PlayerInput: if the Player crashes, GameController.flow() will finish his action
 
 
-	private Timer timerTillTheEnd;
+	private Timer timerTillTheEnd; //Timer till the end of the turn of a player
 
 	public GameController(Game game, ServerRMIImpl serverRMI, ServerSOC serverSoc) {
 		this.board = game.getBoard();
@@ -62,7 +64,7 @@ public class GameController {
 		}
 	}
 
-	public void startTimer(String username) {
+	public void startTimer(String username) { //Starts the timer for "Username" player's turn
 		System.out.println("Starting a new Timer for " + username);
 		this.timerTillTheEnd = new Timer();
 		this.timerTillTheEnd.schedule(new TimerTask() {
@@ -78,7 +80,7 @@ public class GameController {
 		}, 30000);
 	}
 
-	public void stopTimer(String username) {
+	public void stopTimer(String username) { //Cancels all scheduled task on timerTillTheEnd and cancels it
 		System.out.println("Stopping Timer for " + username);
 		this.timerTillTheEnd.purge();
 		this.timerTillTheEnd.cancel();
@@ -86,9 +88,9 @@ public class GameController {
 
 	public void setInFlow() {
 		this.inFlow = false;
-	}
+	} //It unlocks the principal flow in GameController.flow()
 
-	public PlayerState getState(int number, String username) {
+	public PlayerState getState(int number, String username) { //Get the "Username" player's first/second state
 		for (Player player : players) {
 			if (player.getUsername().equals(username)) {
 				switch (number) {
@@ -102,7 +104,7 @@ public class GameController {
 		return null;
 	}
 
-	public boolean checkCurrentPlayer(String username) {
+	public boolean checkCurrentPlayer(String username) { //It tells if "username" is the current player
 		for (Player player : players) {
 			if (player.getUsername().equals(username)) {
 				return player.isYourTurn();
@@ -111,10 +113,10 @@ public class GameController {
 		return false;
 	}
 
-	public void sendMessageCLI(Player player, String message) throws IOException {
+	public void sendMessageCLI(Player player, String message) throws IOException { //It sends message to "player"
 		switch (player.getConnectionType()) {
 			case RMI:
-				serverRMI.sendMessage(player, message);
+				serverRMI.sendMessage(player, message); //Some messages are evaluated also for GUI Users
 				break;
 			case SOCKET:
 				ServerHandler serverHandler = serverSoc.getServerHandler(player.getUsername());
@@ -126,20 +128,20 @@ public class GameController {
 		}
 	}
 
-	public void sendMessageAll (String message) throws IOException {
-		for (int i = 0; i < players.size(); i++) {
-			sendMessageCLI(players.get(i), message);
+	public void sendMessageAll (String message) throws IOException { //Sends messages for all CLI Users, TODO used also to represent Board and PlayerBoard
+		for (Player player : players) {
+			sendMessageCLI(player, message);
 		}
 	}
 
-	public void sendMessageChat(String message, String username) throws IOException {
+	public void sendMessageChat(String message, String username) throws IOException { //Sends messages in the Chat
 		message = username + " : " + message;
-		for (int i = 0; i < players.size(); i++) {
-			sendMessageCLI(players.get(i), message);
+		for (Player player : players) {
+			sendMessageCLI(player, message);
 		}
 	}
 
-	public void updatePlayersView(BoardView boardView) throws RemoteException {
+	public void updatePlayersView(BoardView boardView) throws RemoteException { //Sends the new "BoardView" object, to update GUI
 		for (int i = 0; i < players.size(); i++) {
 			switch (players.get(i).getConnectionType()) {
 				case RMI:
@@ -151,7 +153,7 @@ public class GameController {
 		}
 	}
 
-	public void updateRequested (String currentUsername) throws RemoteException {
+	public void updateRequested (String currentUsername) throws RemoteException { //Sends a requested update to "currentUsername" player
 		List<PlayerBoard> playerBoards = new ArrayList<>();
 		Player playerReconnected = null;
 		for (int i = 0; i < players.size(); i++) {
@@ -167,17 +169,19 @@ public class GameController {
 		BoardView boardView = new BoardView(board, playerBoards, board.getOrder().getCurrent().getUsername());
 		updatePlayerReconnectedView(boardView, playerReconnected);
 	}
-	public void updatePlayerReconnectedView (BoardView boardView, Player player) throws RemoteException {
+
+	public void updatePlayerReconnectedView (BoardView boardView, Player player) throws RemoteException { //Update GUI for a Reconnected player
 		switch (player.getConnectionType()) {
 			case RMI:
 				serverRMI.updateUserRMIView(boardView, player.getUsername());
 				break;
 			case SOCKET:
-				//Fill
+				//TODO Fill socket
+				break;
 		}
 	}
 
-	public Integer getWhatToDo(Player player) throws TooMuchTimeException, RemoteException {
+	public Integer getWhatToDo(Player player) throws TooMuchTimeException, RemoteException { //Wait for a WhatToDo variabile
 		int whatToDo;
 		afkVar = "whatToDo";
 		whatToDo = whatToDoCreated.get();
@@ -185,7 +189,7 @@ public class GameController {
 		return whatToDo;
 	}
 
-	public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException {
+	public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException { //Wait for an ActionSpot from Client
 		afkVar = "actionInput";
 		try {
 			ActionInput actionInput = actionInputCreated.get();
@@ -216,7 +220,7 @@ public class GameController {
 		}
 	}
 
-	public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException {
+	public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException { //Waits for a FamilyColor, in order to create a FamilyMember
 		afkVar = "familyColor";
 		FamilyColor familyColor = familyColorCreated.get();
 		if (familyColor == null) {
@@ -226,7 +230,7 @@ public class GameController {
 		Integer servant;
 		for (FamilyMember fM : player.getPlayerBoard().getFamilyMembers()) {
 			if (fM.getColor() == familyColor) {
-				servant = getHowManyServants(player);
+				servant = getHowManyServants(player); //Here it waits for the number of Servants used by the player in this action
 				if (servant == null) {
 					return null;
 				}
@@ -237,14 +241,13 @@ public class GameController {
 		return null;
 	}
 
-	public Integer getHowManyServants(Player player) throws RemoteException {
+	public Integer getHowManyServants(Player player) throws RemoteException { //Waits for the number of Servants used by the player in this action
 		player.putSecond_State(PlayerState.SERVANTS);
 		afkVar = "servant";
-		if (player.getClientType().equals(ClientType.GUI)) {
+		if (player.getClientType().equals(ClientType.GUI)) { //If this Player is a GUI Player, it sends the right command in order to open the Servant Window
 			switch (player.getConnectionType()) {
 				case RMI:
 					serverRMI.openNewWindow(player, "/numberservant");
-					player.getPlayerBoard().getCounter().getServant().getQuantity();
 					break;
 				case SOCKET:
 					//FILL SERVER
@@ -256,7 +259,7 @@ public class GameController {
 		return index;
 	}
 
-	public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, IOException {
+	public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, IOException { //Waits for the array that represents the Council privilege rewards chosen by this Player
 		this.councilRewardsSize = 0;
 		for (Reward reward : rewards) {
 			if (reward.getType().equals(RewardType.COUNCIL_PRIVILEGE)) {
@@ -272,7 +275,7 @@ public class GameController {
 				String message = "choose + " + councilRewardsSize + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT";
 				this.sendMessageCLI(player, message);
 				afkVar = "intArray";
-				if (player.getClientType().equals(ClientType.GUI)) {
+				if (player.getClientType().equals(ClientType.GUI)) {//If this Player is a GUI Player, it sends the right command in order to open the Exchange Council Privilege
 					switch (player.getConnectionType()) {
 						case RMI:
 							serverRMI.openNewWindow(player, "/exchangeprivilege", councilRewardsSize);
@@ -281,15 +284,15 @@ public class GameController {
 							break;
 					}
 				}
-				int[] rewardArray = arrayIntegerCreated.get();
-				if (rewardArray == null) {
+				int[] rewardArray = arrayIntegerCreated.get(); //Here it waits
+				if (rewardArray == null) { //If the players crashes, GameController.flow will set rewardArray = null;
 					rewardArray = new int[councilRewardsSize];
-					for (int i = 0; i < councilRewardsSize; i++) {
-						rewardArray[i] = i + 1;
+					for (int i = 0; i < councilRewardsSize; i++) { //If that happens, this array will be filled in order
+						rewardArray[i] = i + 1; //And the player will get this rewards instead.
 					}
 				}
 				setInFlow();
-				for (int i = 0; i < rewardArray.length; i++) {
+				for (int i = 0; i < rewardArray.length; i++) { //It fills rewards with the right Reward.
 					switch (rewardArray[i]) {
 						case 1:
 							newRewards.add(new Reward(RewardType.WOOD, 1));
@@ -318,7 +321,7 @@ public class GameController {
 
 
 
-    public FamilyColor chooseFamilyMemberColorNotNeutral(Player player){
+    public FamilyColor chooseFamilyMemberColorNotNeutral(Player player){ //Waits for a FamilyColor (Not Neutral) chosen by this Player
     	afkVar = "familyColorNotNeutral";
         player.putSecond_State(PlayerState.FAMILY_MEMBER);
         FamilyColor familyColor = familyColorCreated.get();
@@ -326,14 +329,33 @@ public class GameController {
         return familyColor;
     }
 
-    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player) throws RemoteException, IOException{
-        String message = "";
-        for (int i = 0; i < leaderCardsInHand.size(); i++) {
-            message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
-        }
-        this.sendMessageCLI(player, message);
+    public LeaderCard askWhichCardPlaceChangeCopyActivate(List<LeaderCard> leaderCardsInHand, Player player, String type) throws IOException{ //Waits for the leaderCard chosen by the player
         afkVar = "integer";
-        int index = integerCreated.get();
+
+		if (player.getClientType().equals(ClientType.GUI)) { //If the player is a GUI Players, it sends this command in order to open the "pay with military points" window
+
+			String info = type; //Builds a string with the LeaderCard informations of the player and sends it to him
+			for (int i = 0; i < leaderCardsInHand.size(); i++) {
+				info += leaderCardsInHand.get(i).getName() + "/";
+			}
+
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/leadercard", info);
+					break;
+				case SOCKET:
+					break;
+			}
+		}
+		else {
+			String message = ""; //Builds a string with the LeaderCard information of the player and sends it to him
+			for (int i = 0; i < leaderCardsInHand.size(); i++) {
+				message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
+			}
+			this.sendMessageCLI(player, message);
+		}
+
+        int index = integerCreated.get(); //Here it waits
         setInFlow();
 		if (index == -1) {
 			return null;
@@ -341,28 +363,45 @@ public class GameController {
         return leaderCardsInHand.get(index);
     }
 
-    public ImmediateLeaderCard askWhichImmediateCardActivate(List<ImmediateLeaderCard> leaderCardsInHand, Player player) throws RemoteException, IOException {
-        String message = "";
-        for (int i = 0; i < leaderCardsInHand.size(); i++) {
-            message += i + ".\n" + leaderCardsInHand.get(i).toString() + "\n";
-        }
-        this.sendMessageCLI(player, message);
-        afkVar = "integer";  
+    public ImmediateLeaderCard askWhichImmediateCardActivate(List<ImmediateLeaderCard> immediateLeaderCardsInHand, Player player, String type) throws IOException { //As above, it waits for an ImmediateLeaderCard
+		if (player.getClientType().equals(ClientType.GUI)) { //If the player is a GUI Players, it sends this command in order to open the "pay with military points" window
+
+			String info = type; //Builds a string with the LeaderCard informations of the player and sends it to him
+			for (int i = 0; i < immediateLeaderCardsInHand.size(); i++) {
+				info += immediateLeaderCardsInHand.get(i).getName() + "/";
+			}
+
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/leadercard", info);
+					break;
+				case SOCKET:
+					break;
+			}
+		}
+		else {
+			String message = ""; //Builds a string with the LeaderCard information of the player and sends it to him
+			for (int i = 0; i < immediateLeaderCardsInHand.size(); i++) {
+				message += i + ".\n" + immediateLeaderCardsInHand.get(i).toString() + "\n";
+			}
+			this.sendMessageCLI(player, message);
+		}
+		afkVar = "integer";
         int index = integerCreated.get();
 		setInFlow();
 		if (index == -1) {
 			return null;
 		}
-        return leaderCardsInHand.get(index);
+        return immediateLeaderCardsInHand.get(index);
     }
 
-    public boolean wantToSupportVatican(Player player) throws IOException{
-    	if(player.isDisconnected()){
+    public boolean wantToSupportVatican(Player player) throws IOException{ //It manages the Vatican Support request
+    	if(player.isDisconnected()){ //If a Player is not present in the game, it will be set "false"
     		return false;
     	}
     	String message = "Do you support Vatican? (yes or no)";
     	ServerHandler currPlayer = null;
-    	switch (player.getConnectionType()) {
+    	switch (player.getConnectionType()) { //It sets this Player gameState in Server in order to evaluated next input as an answer to this question
 			case SOCKET:
 				currPlayer = getServerHandler(player.getUsername());
 				currPlayer.setStateGame("/vaticansupport");
@@ -373,8 +412,8 @@ public class GameController {
 		}
         this.sendMessageCLI(player, message);
         afkVar = "booleanVat";
-        boolean choose = booleanCreated.get();
-        switch (player.getConnectionType()) {
+        boolean choose = booleanCreated.get(); //Here it waits
+        switch (player.getConnectionType()) { //Resets this player gameState in Server, so that new inputs are evaluated accordingly
 			case SOCKET:
 				currPlayer.setStateGame(null);
 				break;
@@ -386,7 +425,7 @@ public class GameController {
         return  choose;
     }
     
-    public ServerHandler getServerHandler (String username){
+    private ServerHandler getServerHandler (String username){ //TODO Commenta Tommaso
     	for(ServerHandler handler : usersSoc){
     		if(handler.getName().equals(username)){
     			return handler;
@@ -395,7 +434,7 @@ public class GameController {
 		return null;
     }
     
-    public Trade chooseTrade (BuildingCard buildingCard, Player player) throws RemoteException, IOException{
+    public Trade chooseTrade (BuildingCard buildingCard, Player player) throws IOException{ //Waits for the Trade chosen by the player
         String message = "";
         for (int i = 0; i < buildingCard.getTrades().size(); i++) {
             message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
@@ -404,9 +443,9 @@ public class GameController {
         this.tradesSize = buildingCard.getTrades().size();
         player.putSecond_State(PlayerState.CHOOSE_TRADE);
         afkVar = "integer";
-        int choose = integerCreated.get();
+        int choose = integerCreated.get(); //Here it waits
         Trade trade;
-		if (choose == -1) {
+		if (choose == -1) { //If this player crashes, it will be automatically chosen the first trade
 			trade = buildingCard.getTrades().get(0);
 		}
 		else {
@@ -416,7 +455,7 @@ public class GameController {
         return trade;
     }
 
-    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws RemoteException, IOException{
+    public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws IOException{ //Waits for the Discount chosen by the player
         player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
         String message = "";
         for (int j = 0; j < discounts.size(); j++) {
@@ -426,11 +465,11 @@ public class GameController {
             }
             message += "\n";
         }
-        this.sendMessageCLI(player, message);
+        this.sendMessageCLI(player, message); //Builds a string with the Discounts info and sends it to the player (CLI)
         afkVar = "integer";
-        int index = integerCreated.get();
+        int index = integerCreated.get(); //Here it waits
         List<Reward> discount;
-        if (index == -1) {
+        if (index == -1) { //If this player crashes, it will be automatically chosen the first trade
 			discount = discounts.get(0);
 		}
 		else {
@@ -440,13 +479,13 @@ public class GameController {
         return discount;
     }
 
-    public int wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws RemoteException, IOException{ //TODO WITH PAOLO: null
+    public int wantToPayWithMilitaryPoint(Set<Reward> costs, Reward militaryPointNeeded, Reward militaryPointPrice, Player player) throws IOException{ //Waits for the decision of the player to pay a Venture Card with MilitaryPoint or normal resource
         String message = "Do you want to pay with militaryPoint? You need " + militaryPointNeeded + "military Point and it costs + " + militaryPointPrice + "militaryPoint";
         this.sendMessageCLI(player, message);
         player.putSecond_State(PlayerState.PAY_WITH_MILITARY_POINT);
         afkVar = "boolean";
 
-        if (player.getClientType().equals(ClientType.GUI)) {
+        if (player.getClientType().equals(ClientType.GUI)) { //If the player is a GUI Players, it sends this command in order to open the "pay with military points" window
         	switch (player.getConnectionType()) {
 				case RMI:
 					serverRMI.openNewWindow(player, "/paymilitarypoint", "1");
@@ -456,15 +495,15 @@ public class GameController {
 			}
 		}
 
-        int choose = integerCreated.get();
-        if (choose == -1) {
+        int choose = integerCreated.get(); //Here it waits
+        if (choose == -1) {//If the player crashes, it will automatically choose to pay with normal resources
         	choose = 0;
 		}
         setInFlow();
         return choose;
     }
     
-    public boolean checkNumber (int min, int max, String decision){
+    public boolean checkNumber (int min, int max, String decision){ //It checkes if the number inserted is correct
         int dec;
         try{
         	dec = Integer.parseInt(decision);

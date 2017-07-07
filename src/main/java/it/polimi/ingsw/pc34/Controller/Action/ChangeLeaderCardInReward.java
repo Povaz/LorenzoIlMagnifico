@@ -36,7 +36,7 @@ public class ChangeLeaderCardInReward implements CommandPattern{
             return false;
         }
 
-        leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player);
+        leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player, "E");
 
         if (leaderCard == null) {
             return false;

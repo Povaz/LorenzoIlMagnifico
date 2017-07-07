@@ -559,9 +559,9 @@
                                                       </Text>
                                                       <SplitMenuButton fx:id="ActionButton" layoutX="446.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onKeyPressed="#escPressed" onMouseClicked="#passClicked" prefHeight="40.0" style="-fx-background-color: TRANSPARENT;" text="PASS" AnchorPane.rightAnchor="0.0">
                                                         <items>
-                                                          <MenuItem mnemonicParsing="false" text="Place leader card" />
-                                                          <MenuItem mnemonicParsing="false" text="Activate leader card" />
-                                                            <MenuItem mnemonicParsing="false" text="Exchange leader card" />
+                                                          <MenuItem fx:id="placeleader" mnemonicParsing="false" onAction="#leaderClicked" text="Place leader card" />
+                                                          <MenuItem fx:id="activateleader" mnemonicParsing="false" onAction="#leaderClicked" text="Activate leader card" />
+                                                            <MenuItem fx:id="exchangeleader" mnemonicParsing="false" onAction="#leaderClicked" text="Exchange leader card" />
                                                         </items>
                                                          <font>
                                                             <Font name="System Bold" size="16.0" />
@@ -753,6 +753,7 @@
                                     <Font name="Georgia Bold Italic" size="40.0" />
                                  </font>
                               </Text>
+                              <Button layoutX="83.0" layoutY="135.0" mnemonicParsing="false" onMouseClicked="#bTP" text="Button" />
                            </children>
                         </AnchorPane>
                     </items>

@@ -102,7 +102,12 @@ public class Main extends Application{
             primaryStage.sizeToScene();
             rootLayoutController.initializeListner();
 
+            // Show primaryStage
             primaryStage.show();
+
+            // Set primaryStage in front of other application when it's opened
+            primaryStage.setAlwaysOnTop(true);
+            primaryStage.setAlwaysOnTop(false);
         } catch(IOException e){
             e.printStackTrace();
         }

@@ -39,7 +39,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
             return false;
         }
 
-        leaderCard = game.getGameController().askWhichImmediateCardActivate(immediateLeaderCardsPositionated, player);
+        leaderCard = game.getGameController().askWhichImmediateCardActivate(immediateLeaderCardsPositionated, player, "A");
 
         if(leaderCard == null){
             return false;

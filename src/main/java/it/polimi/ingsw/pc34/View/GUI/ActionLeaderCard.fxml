@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+
+<AnchorPane fx:id="leaderPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" style="-fx-background-color: rgb(113,90,58);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.ActionLeaderCardController">
+   <children>
+      <Text fill="WHITE" layoutX="54.0" layoutY="110.0" stroke="BLACK" text="Which leader card do you">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="126.0" layoutY="150.0" stroke="BLACK" text="want to ">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Text fx:id="action" fill="WHITE" layoutX="266.0" layoutY="150.0" stroke="BLACK" text="activate?">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Button fx:id="send" layoutX="426.0" layoutY="462.0" mnemonicParsing="false" onMouseClicked="#sendClicked" prefHeight="40.0" prefWidth="80.0" text="Send">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Button>
+      <GridPane fx:id="leader" layoutX="39.0" layoutY="185.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="250.0" prefWidth="500.0">
+        <columnConstraints>
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="-Infinity" minWidth="-Infinity" prefWidth="250.0" />
+        </columnConstraints>
+        <rowConstraints>
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+            <RowConstraints maxHeight="-Infinity" minHeight="-Infinity" prefHeight="25.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <RadioButton disable="true" mnemonicParsing="false" selected="true" textFill="WHITE" visible="false" GridPane.halignment="LEFT" GridPane.valignment="TOP">
+               <toggleGroup>
+                  <ToggleGroup fx:id="leaderChoose" />
+               </toggleGroup>
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font>
+            </RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="0" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="1" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="2" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="3" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="4" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="5" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="6" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="7" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="8" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+            <RadioButton disable="true" mnemonicParsing="false" textFill="WHITE" toggleGroup="$leaderChoose" visible="false" GridPane.halignment="LEFT" GridPane.rowIndex="9" GridPane.columnIndex="1" GridPane.valignment="TOP">
+               <font>
+                  <Font name="System Bold" size="15.0" />
+               </font></RadioButton>
+         </children>
+      </GridPane>
+   </children>
+</AnchorPane>

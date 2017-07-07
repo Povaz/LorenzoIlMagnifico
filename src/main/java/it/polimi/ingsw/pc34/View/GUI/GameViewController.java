@@ -11,6 +11,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
+import javafx.scene.control.SplitMenuButton;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
@@ -23,7 +26,6 @@ import javafx.scene.text.Text;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 
@@ -52,6 +54,7 @@ public class GameViewController {
 
     @FXML private AnchorPane actionSpace;
     @FXML private BorderPane actionBorder;
+    @FXML private SplitMenuButton actionButton;
 
     @FXML private Button player0;
     @FXML private Button player1;
@@ -223,6 +226,58 @@ public class GameViewController {
                     else if(toLambda.equals("/choosediscount")){
 
                     }
+                    else if(toLambda.equals("/leadercard")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionLeaderCard.fxml"));
+                            AnchorPane leaderCard = (AnchorPane) loader.load();
+                            actionBorder.setCenter(leaderCard);
+
+                            ActionLeaderCardController leaderController = loader.getController();
+                            leaderController.setMain(main);
+
+                            String info = main.getInfoFromServer().get();
+
+                            String type = "";
+                            switch(info.substring(0, 1)){
+                                case "P":
+                                    type += "place?";
+                                    break;
+                                case "A":
+                                    type += "activate?";
+                                    break;
+                                case "E":
+                                    type += "exchange?";
+                                    break;
+                                case "C":
+                                    type += "copy?";
+                                    break;
+                            }
+
+                            List<String> leaderNames = new ArrayList<>();
+                            info = info.substring(1);
+                            while(info.endsWith("/")){
+                                int index = info.indexOf("/");
+                                leaderNames.add(info.substring(0, index));
+                                info = info.substring(index + 1);
+                            }
+
+                            leaderController.action.setText(type);
+
+                            for(int i = 0; i < leaderNames.size(); i++){
+                                ToggleButton toggle = (ToggleButton) leaderController.leader.getChildren().get(i);
+                                toggle.setText(leaderNames.get(i));
+                                toggle.setDisable(false);
+                                toggle.setVisible(true);
+                            }
+
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
+                    }
                     else if(toLambda.equals("/update")){
                         update(main.getBoardViewFromServer().get());
                     }
@@ -345,9 +400,13 @@ public class GameViewController {
 
     @FXML private void bTP(){
         // TODO elimina
-        //main.getOpenWindow().put("/exchangeprivilege");
+        main.getOpenWindow().put("/leadercard");
+
+        long time = System.currentTimeMillis() + 2000;
+        while(System.currentTimeMillis() < time){}
+        main.getInfoFromServer().put("CGiovanni dalle Bande Nere/Giovanni dalle Bande Nere/Giovanni dalle Bande Nere/Lorenzo de' Medici/PEPPA PIG/Scemo chi legge/Lorenzo de' Medici/PEPPA PIG/Scemo chi legge/Lorenzo de' Medici/PEPPA PIG/Scemo chi legge/Lorenzo de' Medici/PEPPA PIG/Scemo chi legge/");
         // vatican report
-        vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
+        /*vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
         vaticanReportCard1.setDisable(false);
         vaticanReportCard1.setVisible(true);
 
@@ -372,7 +431,7 @@ public class GameViewController {
         p.add(p5.getPlayerBoard());
         Board board = new Board(new ArrayList<>(Arrays.asList(p1, p2, p3, p4, p5)));
         BoardView bv = new BoardView(board, p, "Cugola");
-        update(bv);
+        update(bv);*/
 
 
         /*players.get(0).getTerritoryCards().set(2, "TerritoryCard15.png");
@@ -454,6 +513,33 @@ public class GameViewController {
            return;
         }
         main.getFromGuiToServer().put("5");
+        if(!main.getFromServerToGui().get().equals("Yes")){
+            return;
+        }
+    }
+
+    @FXML private void leaderClicked(ActionEvent event){
+        String actionType;
+        switch(((MenuItem)event.getSource()).getId()){
+            case "placeleader":
+                actionType = "2";
+                break;
+            case "activateleader":
+                actionType = "3";
+                break;
+            case "exchangeleader":
+                actionType = "4";
+                break;
+            default:
+                return;
+        }
+        System.out.println("leader type: actionType");
+
+        main.getFromGuiToServer().put("/playturn");
+        if(!main.getFromServerToGui().get().equals("Yes")){
+            return;
+        }
+        main.getFromGuiToServer().put(actionType);
         if(!main.getFromServerToGui().get().equals("Yes")){
             return;
         }

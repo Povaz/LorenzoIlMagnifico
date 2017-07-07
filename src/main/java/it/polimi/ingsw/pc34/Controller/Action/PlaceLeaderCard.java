@@ -36,13 +36,13 @@ public class PlaceLeaderCard implements CommandPattern{
         this.modifier = player.getPlayerBoard().getModifier();
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException,IOException{
+    public boolean canDoAction() throws TooMuchTimeException, IOException{
         if(leaderCardsInHand.isEmpty()){
             game.getGameController().sendMessageCLI(player, "You don't have any leader card in your hand!");
             return false;
         }
 
-        leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player);
+        leaderCard = game.getGameController().askWhichCardPlaceChangeCopyActivate(leaderCardsInHand, player, "P");
 
         if (leaderCard == null){
             return false;
@@ -64,7 +64,10 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    private boolean haveEnoughRewardToActive() throws RemoteException, IOException{
+    private boolean haveEnoughRewardToActive() throws IOException{
+        if(leaderCard.getActivationRewardCost() == null){
+            return true;
+        }
         newCounter.subtract(leaderCard.getActivationRewardCost());
         if(!newCounter.check()){
             game.getGameController().sendMessageCLI(player, "You don't have enough resources to place the leader card!");
@@ -73,8 +76,11 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    private boolean haveEnoughCardToActive() throws RemoteException, IOException{
+    private boolean haveEnoughCardToActive() throws IOException{
         Map<CardType, Integer> cardNeeded = leaderCard.getActivationCardCost();
+        if(cardNeeded == null){
+            return true;
+        }
         for(CardType cT : cardNeeded.keySet()){
             switch(cT){
                 case TERRITORY:
@@ -125,7 +131,7 @@ public class PlaceLeaderCard implements CommandPattern{
         return true;
     }
 
-    private boolean canCopyOtherCard() throws RemoteException, IOException {
+    private boolean canCopyOtherCard() throws IOException {
         List<LeaderCard> canBeCopied = new ArrayList<>();
         for(Player p : game.getPlayers()){
             if(!player.equals(p)){
@@ -140,7 +146,7 @@ public class PlaceLeaderCard implements CommandPattern{
         if(canBeCopied.isEmpty()){
             return false;
         }
-        toCopy = game.getGameController().askWhichCardPlaceChangeCopyActivate(canBeCopied, player);
+        toCopy = game.getGameController().askWhichCardPlaceChangeCopyActivate(canBeCopied, player, "C");
         if(toCopy == null){
             return false;
         }
