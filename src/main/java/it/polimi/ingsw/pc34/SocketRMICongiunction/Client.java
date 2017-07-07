@@ -57,12 +57,18 @@ public class Client {
 			mainGui.start();
 
 			// wait until guiReference is initialized in MainGUI
-			while(guiReference == null){}
+			while(guiReference == null){
+				System.out.println("While guiReference");
+			}
 
 			System.out.println(guiReference);
 
 			// wait until guiReference.getBoardViewFromServer() is initialized in MainGUI
-			while(guiReference.getBoardViewFromServer() == null){}
+			while(guiReference.getBoardViewFromServer() == null){
+				System.out.println("While BoardView");
+			}
+
+			System.out.println("After Board View");
 
 			messageForGUI = guiReference.getFromServerToGui();
 			messageByGUI = guiReference.getFromGuiToServer();
