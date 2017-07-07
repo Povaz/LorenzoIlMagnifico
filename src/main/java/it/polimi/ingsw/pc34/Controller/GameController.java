@@ -577,7 +577,6 @@ public class GameController {
     		if(checkCurrentPlayer(username)){
     			//AFK PER PLAYER DI CUI E' IL TURNO
     			if(asked.equals("/afk")){
-    				System.out.println("flow ask vatica support");
     				Player player = this.searchPlayerWithUsername(username);
     	    		switch(afkVar){
     	    			case("whatToDo"):
@@ -617,7 +616,6 @@ public class GameController {
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    			case("booleanVat"):
-    	    				System.out.println("in booleanVat switch case");
     	    				disconnectPlayer(player);
     	    				booleanCreated.put(false);
     	    				setInFlow();
@@ -958,6 +956,12 @@ public class GameController {
         			setInFlow();
         			return "You choose not to support vatican";
         		}
+        		else if(asked.equals("/afk")) {this.searchPlayerWithUsername(username);
+					booleanCreated.put(false);
+					disconnectPlayer(this.searchPlayerWithUsername(username););
+					setInFlow();
+					return "You choose not to support vatican - disconnected";
+				}
         		setInFlow();
         		return "Input error, Retry!";
         	}
