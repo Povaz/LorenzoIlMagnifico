@@ -12,10 +12,12 @@ public class ClientInputHandler extends Thread{
 	private ObjectInputStream socketIn;
 	private int graphicType;
 	private Socket socketServer;
+	private ClientSOC client;
 	
 	private static final Logger LOGGER = Logger.getLogger(ClientInputHandler.class.getName());
 	
-	public ClientInputHandler (Socket socketServer, int graphicType) throws IOException{
+	public ClientInputHandler (Socket socketServer, ClientSOC clientSoc, int graphicType) throws IOException{
+		client = clientSoc;
 		this.graphicType = graphicType;
 		this.socketIn = new ObjectInputStream(socketServer.getInputStream());
 		this.socketServer = socketServer;
@@ -50,10 +52,10 @@ public class ClientInputHandler extends Thread{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
-			if(graphicType==2){
-				//qui metodo che manda a GUI
+			if(line!=null && graphicType==2){
+				client.getSynchronizedMessageForGUI().put(line);
 			}
-			if(line!=null){
+			else if(line!=null && graphicType!=2){
 				System.out.println(line);
 			}
 			if(line.equals("belaaaaaaaa")){

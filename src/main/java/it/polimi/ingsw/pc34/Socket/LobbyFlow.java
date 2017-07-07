@@ -131,7 +131,12 @@ public class LobbyFlow {
 						serverHandler.setName(username);
 						serverSoc.addPlayer (serverHandler, username);
 						setInFlow();
-						return "logged ('/logout' to log out)";
+						if(serverHandler.getGraphicType().equals("1")){
+							return "logged ('/logout' to log out)";
+						}
+						else{
+							return "Login successful";
+						}
 					}
 					
 					//failed combination
