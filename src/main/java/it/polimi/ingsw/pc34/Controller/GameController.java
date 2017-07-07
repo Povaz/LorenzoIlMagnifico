@@ -53,6 +53,22 @@ public class GameController {
 		this.serverRMI = serverRMI;
 	}
 
+	public void setServerSoc(ServerSOC serverSoc) {
+		this.serverSoc = serverSoc;
+	}
+
+	public void setServerRMI(ServerRMIImpl serverRMI) {
+		this.serverRMI = serverRMI;
+	}
+
+	public ServerSOC getServerSoc() {
+		return serverSoc;
+	}
+
+	public ServerRMIImpl getServerRMI() {
+		return serverRMI;
+	}
+
 	public void addServerHandler(ServerHandler newHandler) throws IOException {
 		usersSoc.add(newHandler);
 	}
