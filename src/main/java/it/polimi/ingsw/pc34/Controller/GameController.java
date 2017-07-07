@@ -726,8 +726,11 @@ public class GameController {
 		    				case ACTION :
 		    					switch (state2) {
 		    						case ACTION_INPUT :
-		    							if(actionSpot==null && checkNumber(1, 8, asked)){
+		    							if(actionSpot == null && checkNumber(1, 8, asked)){
 		    								actionSpot = asked;
+		    								if (actionSpot == null) {
+		    									return null; //TODO TEST
+											}
 			    							switch(actionSpot) {
 			    								case "1":
 			    									actionInput.setActionType(ActionType.TERRITORY_TOWER);
@@ -762,6 +765,7 @@ public class GameController {
 			    									actionInput.setSpot(0);
 			    									actionInputCreated.put(actionInput);
 			    									return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+
 			    							}
 		    							}
 		    							else if(actionSpot!=null){
