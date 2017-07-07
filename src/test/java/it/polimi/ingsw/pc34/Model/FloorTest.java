@@ -10,6 +10,7 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
+import org.junit.Test;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -27,11 +28,14 @@ public class FloorTest extends TestCase {
     private List<Player> players;
     private Board board;
 
+    private FamilyMember familyMember0;
     private FamilyMember familyMember1;
     private FamilyMember familyMember2;
     private FamilyMember familyMember3;
     private FamilyMember familyMember4;
     private FamilyMember familyMember5;
+    private FamilyMember familyMember6;
+    private FamilyMember familyMember7;
 
     private Game game;
     private GameController gameController;
@@ -54,18 +58,37 @@ public class FloorTest extends TestCase {
         super(name);
     }
 
+    @Test
     public void isPlaceableTest() throws IOException {
-        assertFalse(floor.isPlaceable(familyMember1, false, gameController));
+        //FamilyMember.Ghost == true
+            //FamilyMember.getAction() == null
+        assertTrue(tower.getFloors().get(0).isPlaceable(familyMember0, false, gameController));
+            //FamilyMember.getAction() != null
+                //FamilyMember.getAction() != ActionType.ALL
+                    //tower.getType().sameType(FamilyMember.getAction()) == true
+        assertTrue(tower.getFloors().get(0).isPlaceable(familyMember1, false, gameController));
+                    //tower.getType().sameType(FamilyMember.getAction()) == false
+        assertFalse(tower.getFloors().get(0).isPlaceable(familyMember2, false, gameController));
+                //FamilyMember.getAction() == ActionType.ALL
+        assertTrue(tower.getFloors().get(0).isPlaceable(familyMember3, false, gameController));
 
-        assertFalse(floor.isPlaceable(familyMember2, true,  gameController));
+        tower.getFloors().get(0).placeFamilyMember(familyMember4); //Player: Erick, FamilyMember: ORANGE
+        //FamilyMember.Ghost == false
+        assertFalse(tower.getFloors().get(1).isPlaceable(familyMember5, false, gameController));
+            //FamilyMember.getColor != FamilyColor.NEUTRAL
+                //FamilyMember.samePlayer(fm)
+                    //Fm.getColor != FamilyColor.NEUTRAL
+        assertFalse(tower.getFloors().get(1).isPlaceable(familyMember6, false, gameController));
+            //FamilyMember.getColor == FamilyColor.NEUTRAL
+        assertTrue(tower.getFloors().get(1).isPlaceable(familyMember7, false, gameController));
+                //!FamilyMember.samePlayer(fm)
+        familyMember7.setPlayer(new Player("Paolo", new ClientInfo(ConnectionType.RMI, ClientType.CLI), PlayerColor.BLUE));
+        assertTrue(tower.getFloors().get(1).isPlaceable(familyMember7, false, gameController));
 
-        familyMember5.setValue(100);
-        assertTrue(floor.isPlaceable(familyMember5, true, gameController));
-
-        /*familyMember4.setValue(100); TODO NEED CHECK
-        familyMember3.setValue(100);
-        floor.placeFamilyMember(familyMember4);
-        assertFalse(floor.isPlaceable(familyMember3, false, gameController));*/
+        tower.reinitialize();
+        tower.getFloors().get(0).placeFamilyMember(familyMember7);
+                    //Fm,getColor == FamilyColor.NEUTRAL
+        assertTrue(tower.getFloors().get(1).isPlaceable(familyMember6, false, gameController));
     }
 
     public void setUp () throws RemoteException {
@@ -77,7 +100,6 @@ public class FloorTest extends TestCase {
         serverSOC = new ServerSOC(3000, lobby);
 
         player = new Player("Erick", new ClientInfo(ConnectionType.RMI, ClientType.CLI), PlayerColor.RED);
-        actionType = ActionType.BUILDING_TOWER;
         familyColor1 = FamilyColor.BLACK;
         familyColor2 = FamilyColor.NEUTRAL;
         familyColor3 = FamilyColor.ORANGE;
@@ -88,12 +110,25 @@ public class FloorTest extends TestCase {
         game = new Game(lobby.getUsers(), serverRMI, serverSOC);
         gameController = new GameController(game, serverRMI, serverSOC);
 
-        familyMember1 = new FamilyMember(player, familyColor1);
-        familyMember2 = new FamilyMember(actionType, value, discount);
+        familyMember0 = new FamilyMember(null, value, discount); //Ghost = true;
+        familyMember0.setPlayer(player);
+        familyMember1 = new FamilyMember(ActionType.CHARACTER_TOWER, value, discount); //Ghost = true;
+        familyMember1.setPlayer(player);
+        familyMember2 = new FamilyMember(ActionType.BUILDING_TOWER, value, discount); //Ghost = true;
         familyMember2.setPlayer(player);
-        familyMember3 = new FamilyMember(player, familyColor1);
-        familyMember4 = new FamilyMember(player, familyColor3);
-        familyMember5 = new FamilyMember(player, familyColor2);
+        familyMember3 = new FamilyMember(ActionType.ALL, value, discount); //Ghost = true;
+        familyMember3.setPlayer(player);
+        familyMember4 = new FamilyMember(player, FamilyColor.ORANGE);
+        familyMember4.setValue(value);
+        familyMember5 = new FamilyMember(player, FamilyColor.WHITE);
+        familyMember5.setValue(value);
+        familyMember6 = new FamilyMember(player, FamilyColor.BLACK);
+        familyMember6.setValue(value);
+        familyMember7 = new FamilyMember(player, FamilyColor.NEUTRAL);
+        familyMember7.setValue(value);
+
+
+
 
         reward2 = new Reward(RewardType.WOOD, 2);
         rewards = new HashSet<>();
@@ -104,7 +139,6 @@ public class FloorTest extends TestCase {
         players.add(new Player("Erick", new ClientInfo(ConnectionType.RMI, ClientType.CLI), PlayerColor.RED));
         board = new Board(players);
         tower = new Tower(CardType.CHARACTER, board);
-        floor = new Floor(5, rewards, tower);
     }
 
     public static TestSuite suite() {

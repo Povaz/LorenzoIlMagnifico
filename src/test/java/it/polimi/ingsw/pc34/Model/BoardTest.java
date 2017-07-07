@@ -29,8 +29,7 @@ public class BoardTest extends TestCase {
     public BoardTest(String name) {
         super(name);
     }
-    
-    //ERRORI
+
     public void testInitializeHarvestArea() {
         assertEquals(1, board1player.getHarvestArea().size());
         assertEquals(2, board3player.getHarvestArea().size());

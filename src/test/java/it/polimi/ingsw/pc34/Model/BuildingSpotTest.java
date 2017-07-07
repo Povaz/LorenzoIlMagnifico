@@ -11,6 +11,7 @@ public class BuildingSpotTest extends TestCase {
     private BuildingSpot buildingSpot;
     private Reward reward;
 
+    //TODO RILEGGERE
 
     public BuildingSpotTest(String name) {
         super(name);
@@ -23,6 +24,8 @@ public class BuildingSpotTest extends TestCase {
         reward.setQuantity(1);
 
         assertFalse("Non sono uguali", reward.equals(buildingSpot.estimateVictoryPoint()));
+        System.out.println(reward.toString());
+        System.out.println(buildingSpot.estimateVictoryPoint());
     }
 
     public void setUp () {
