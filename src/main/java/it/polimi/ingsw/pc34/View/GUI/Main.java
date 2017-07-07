@@ -75,7 +75,6 @@ public class Main extends Application{
         this.primaryStage.getIcons().add(new Image("it/polimi/ingsw/pc34/View/GUI/pngFiles/Icon.png"));
 
         initRootLayout();
-
         showLogin();
     }
 
@@ -135,6 +134,7 @@ public class Main extends Application{
             // Set screen
             loginC = loginController;
             screen.set(1);
+
             fromGuiToServer.put("1");
         } catch (IOException e){
             e.printStackTrace();
