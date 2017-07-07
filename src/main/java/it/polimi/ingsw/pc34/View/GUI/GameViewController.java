@@ -54,7 +54,6 @@ public class GameViewController {
 
     @FXML private AnchorPane actionSpace;
     @FXML private BorderPane actionBorder;
-    @FXML private SplitMenuButton actionButton;
 
     @FXML private Button player0;
     @FXML private Button player1;
@@ -97,6 +96,7 @@ public class GameViewController {
 
     @FXML private Text turn;
     @FXML private Text current;
+    @FXML private Text ownerUsername;
 
     @FXML private Text blackDice;
     @FXML private Text whiteDice;
@@ -135,6 +135,9 @@ public class GameViewController {
     }
 
     public void initializeView(){
+        // set player text
+        ownerUsername.setText(main.getUsername());
+
         // fill playerButton List
         playerButtons.add(player0);
         playerButtons.add(player1);

@@ -958,7 +958,7 @@ public class GameController {
         		}
         		else if(asked.equals("/afk")) {this.searchPlayerWithUsername(username);
 					booleanCreated.put(false);
-					disconnectPlayer(this.searchPlayerWithUsername(username););
+					disconnectPlayer(this.searchPlayerWithUsername(username));
 					setInFlow();
 					return "You choose not to support vatican - disconnected";
 				}
