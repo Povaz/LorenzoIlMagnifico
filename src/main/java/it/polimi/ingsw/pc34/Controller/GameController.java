@@ -397,7 +397,6 @@ public class GameController {
     	if(player.isDisconnected()){ //If a Player is not present in the game, it will be set "false"
     		return false;
     	}
-    	String message = "Do you support Vatican? (yes or no)";
     	ServerHandler currPlayer = null;
     	switch (player.getConnectionType()) { //It sets this Player gameState in Server in order to evaluated next input as an answer to this question
 			case SOCKET:
@@ -408,8 +407,24 @@ public class GameController {
 				serverRMI.setStateGame(player, "/vaticansupport");
 				break;
 		}
-        this.sendMessageCLI(player, message);
-        afkVar = "booleanVat";
+
+		if (player.getClientType().equals(ClientType.GUI)) {
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/supportvatican", "toSynchro");
+					break;
+				case SOCKET:
+					//FILL
+					break;
+			}
+		}
+		else {
+			String message = "Do you support Vatican? (yes or no)";
+			this.sendMessageCLI(player, message);
+		}
+
+
+    	afkVar = "booleanVat";
         boolean choose = booleanCreated.get(); //Here it waits
         switch (player.getConnectionType()) { //Resets this player gameState in Server, so that new inputs are evaluated accordingly
 			case SOCKET:
@@ -434,10 +449,23 @@ public class GameController {
     
     public Trade chooseTrade (BuildingCard buildingCard, Player player) throws IOException{ //Waits for the Trade chosen by the player
         String message = "";
-        for (int i = 0; i < buildingCard.getTrades().size(); i++) {
-            message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
-        }
-        this.sendMessageCLI(player, message);
+		if (player.getClientType().equals(ClientType.GUI)) {
+			String info = "";
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/choosetrade", info);
+					break;
+				case SOCKET:
+					//FILL
+					break;
+			}
+		}
+        else {
+			for (int i = 0; i < buildingCard.getTrades().size(); i++) {
+				message += i + ". " + buildingCard.getTrades().get(i).toString() + "\n";
+			}
+			this.sendMessageCLI(player, message);
+		}
         this.tradesSize = buildingCard.getTrades().size();
         player.putSecond_State(PlayerState.CHOOSE_TRADE);
         afkVar = "integer";
@@ -456,7 +484,6 @@ public class GameController {
     public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws IOException{ //Waits for the Discount chosen by the player
         player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
 		if (player.getClientType().equals(ClientType.GUI)) {
-
 			String info = "";
 			for (int i = 0; i < discounts.size(); i++) {
 				info += discounts.get(i).toString() + "/";
