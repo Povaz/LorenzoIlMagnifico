@@ -117,7 +117,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         do{
             System.out.println("AZIONE AGGIUNTIVA!!!");
             System.out.println(fM.getAction() + ":  " + fM.getValue());
-            actionSpot = game.getGameController().getViewActionSpot(player);
+            actionSpot = game.getGameController().getViewActionSpot(player, true);
             if(actionSpot != null){
                 fM.setServantUsed(new Reward(RewardType.SERVANT, game.getGameController().getHowManyServants(player)));
             }

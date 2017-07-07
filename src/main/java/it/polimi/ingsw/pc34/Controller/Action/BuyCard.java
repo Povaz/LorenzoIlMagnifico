@@ -349,7 +349,7 @@ public class BuyCard implements CommandPattern {
                         break;
                 }
             }
-            actionSpot = game.getGameController().getViewActionSpot(player);
+            actionSpot = game.getGameController().getViewActionSpot(player, true);
             if(actionSpot != null){
                 fM.setServantUsed(new Reward(RewardType.SERVANT, game.getGameController().getHowManyServants(player)));
             }

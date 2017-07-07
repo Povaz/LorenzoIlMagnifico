@@ -12,6 +12,7 @@ import it.polimi.ingsw.pc34.View.GUI.BoardView;
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 /**
  * Created by trill on 14/06/2017.
@@ -41,6 +42,7 @@ public class GameController {
 	private String actionSpot;
 	private ActionInput actionInput = new ActionInput();
 	private boolean inFlow = false; //It tells if someone is already in the action flow in GameController.flow()
+	private AtomicBoolean ghost = new AtomicBoolean(false);
 	private String afkVar; //State of a PlayerInput: if the Player crashes, GameController.flow() will finish his action
 
 
@@ -232,7 +234,8 @@ public class GameController {
 		return whatToDo;
 	}
 
-	public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException { //Wait for an ActionSpot from Client
+	public ActionSpot getViewActionSpot(Player player, boolean isGhost) throws TooMuchTimeException, RemoteException { //Wait for an ActionSpot from Client
+		ghost.set(isGhost);
 		afkVar = "actionInput";
 		try {
 			ActionInput actionInput = actionInputCreated.get(); //If player crashes, actionInput will be null. Return Null in Game.PlayTurn
@@ -742,11 +745,12 @@ public class GameController {
 		    						case ACTION_INPUT :
 		    							if(actionSpot == null && checkNumber(1, 8, asked)){
 		    								actionSpot = asked;
-		    								if (actionSpot == null) {
-		    									actionInput.setActionType(null);
-		    									return "You choose not to do the bonus action";
-											}
 			    							switch(actionSpot) {
+												case "0":
+													if (ghost.get()) {
+														return "You choose not to do the bonus action";
+													}
+													break;
 			    								case "1":
 			    									actionInput.setActionType(ActionType.TERRITORY_TOWER);
 			    									setInFlow();

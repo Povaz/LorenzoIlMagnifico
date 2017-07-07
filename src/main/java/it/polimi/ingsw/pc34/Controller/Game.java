@@ -320,7 +320,7 @@ public class Game implements Runnable{
                                 if (!current.isPlacedFamilyMember()) {
 
                                     current.putSecond_State(PlayerState.ACTION_INPUT);
-                                    actionSpot = gameController.getViewActionSpot(current);
+                                    actionSpot = gameController.getViewActionSpot(current, false);
                                     if (actionSpot == null) {
                                         break;
                                     }
