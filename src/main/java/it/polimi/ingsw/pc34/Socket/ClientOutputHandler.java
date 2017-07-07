@@ -17,13 +17,14 @@ public class ClientOutputHandler extends Thread{
 		this.client = client;
 	}
 
-	synchronized static void sendToServer(String message) throws IOException{
+	synchronized public static void sendToServer(String message) throws IOException{
 		PrintWriter out = new PrintWriter(socketServer.getOutputStream(), true);
 		out.println(message);
 		out.flush();
 		System.out.println("sent : " + message);
 	}
 	
+	@SuppressWarnings("resource")
 	public void run(){;
 		Scanner input;
 		if(graphicType==1){
@@ -43,13 +44,15 @@ public class ClientOutputHandler extends Thread{
 		}
 		else{
 			while(true){
+				System.out.println("entra");
 				String message = client.getSynchronizedMessageByGUI().get();
+				System.out.println("esce");
+				client.setYouCanSend(false);
 				try {
 					sendToServer(message);
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
-				client.setYouCanSend(false);				
+				}				
 				if(message.equals("/exit")){
 					System.exit(0);
 				}

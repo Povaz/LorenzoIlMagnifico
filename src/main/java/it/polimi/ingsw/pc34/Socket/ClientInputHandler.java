@@ -7,9 +7,11 @@ import java.net.Socket;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import it.polimi.ingsw.pc34.View.GUI.BoardView;
+
 //class that deals whit input from server: receives messages and prints them to the client
 public class ClientInputHandler extends Thread{
-	private ObjectInputStream socketIn;
+	private static ObjectInputStream socketIn;
 	private int graphicType;
 	private Socket socketServer;
 	private ClientSOC client;
@@ -23,7 +25,15 @@ public class ClientInputHandler extends Thread{
 		this.socketServer = socketServer;
 	}
 
-	private String receiveFromServer() throws IOException{
+	public BoardView receiveBoard() throws ClassNotFoundException, IOException{
+		BoardView received = null;
+		System.out.println("sto per ricevere la board");
+		received = (BoardView) socketIn.readObject();
+		System.out.println("ricevuta!");
+		return received;
+	}
+	
+	public static String receiveFromServer() throws IOException{
 		String received = null;
 		try {
 			received = (String) socketIn.readObject();
@@ -58,8 +68,28 @@ public class ClientInputHandler extends Thread{
 			if(line!=null && !line.equals("You can send!") && graphicType == 2){
 				client.setYouCanSend(true);
 				System.out.println("into if " + line);
-				System.out.println("into if " + graphicType);
-				client.getSynchronizedMessageForGUI().put(line);
+				if(line.equals("Logout successful")){
+					client.getSynchronizedMessageForGUI().put(line);
+					client.getSynchronizedMessageToChangeWindow().put("/login");
+				}
+				else if(line.equals("/game")){
+					client.getSynchronizedMessageToChangeWindow().put("/game");
+				}
+				else if(line.equals("/update")){
+					client.getSynchronizedMessageToChangeWindow().put("/update");
+					BoardView boardView = null;
+					try {
+						boardView = receiveBoard();
+					} catch (ClassNotFoundException e) {
+						e.printStackTrace();
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+					client.setBoardView(boardView);
+				}
+				else{
+					client.getSynchronizedMessageForGUI().put(line);
+				}
 			}
 			else if(line!=null && graphicType!=2){
 				System.out.println(line);

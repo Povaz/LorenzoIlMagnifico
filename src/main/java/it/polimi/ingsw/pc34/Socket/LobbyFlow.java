@@ -13,7 +13,7 @@ public class LobbyFlow {
 	//states
 	private boolean start;
 	private boolean login;
-	private boolean register;
+	private boolean registration;
 	private boolean logged;
 	private boolean inFlow = false;
 	
@@ -26,7 +26,7 @@ public class LobbyFlow {
 	public LobbyFlow(Lobby lobby, ServerSOC serverSoc, ServerHandler serverHandler){
 		start = true;
 		login = false;
-		register = false;
+		registration = false;
 		logged = false;
 		username = null;
 		password = null;
@@ -72,15 +72,15 @@ public class LobbyFlow {
 					setInFlow();
 					return "Ok tell me username : ('/back' to go back)";
 				}
-				else if(asked.equals("/register")){
-					register = true;
+				else if(asked.equals("/registration")){
+					registration = true;
 					start = false;
 					setInFlow();
 					return "Ok tell me username :";
 				}
 				else{
 					setInFlow();
-					return "Not valid input. /login, /register, /exit";
+					return "Not valid input. /login, /registration, /exit";
 				}
 			}
 			
@@ -88,12 +88,12 @@ public class LobbyFlow {
 			else if(login){
 				//user input is a username
 				if(username==null){
-					//write /back to go back to login or register decision
+					//write /back to go back to login or registration decision
 					if(asked.equals("/back")){
 						start = true;
 						login = false;
 						setInFlow();
-						return("/login, /register, /exit?");
+						return("/login, /registration, /exit?");
 					}
 					else{
 						username = asked;
@@ -145,6 +145,12 @@ public class LobbyFlow {
 						username = null;
 						password = null;
 						setInFlow();
+						if(serverHandler.getGraphicType().equals("2")){	
+							login = false;
+							start = true;
+							serverHandler.setSendGUI(true);
+							return "Wrong combination!";
+						}
 						return "wrong combination! Tell me username : ";
 					}
 					
@@ -153,21 +159,27 @@ public class LobbyFlow {
 						username = null;
 						password = null;
 						setInFlow();
-						return "User yet Logged! Tell me username : ";
+						if(serverHandler.getGraphicType().equals("2")){
+							login = false;
+							start = true;
+							serverHandler.setSendGUI(true);
+							return "User logged yet!";
+						}
+						return "User logged yet! Tell me username : ";
 					}
 				}
 			}
 			
-			//state register
-			else if(register){
+			//state registration
+			else if(registration){
 				//user input is a username
 				if(username==null){
-					//write /back to go back to login or register decision
+					//write /back to go back to login or registration decision
 					if(asked.equals("/back")){
 						start = true;
-						register = false;
+						registration = false;
 						setInFlow();
-						return("/login, /register, /exit?");
+						return("/login, /registration, /exit?");
 					}
 					else{
 						username = asked;
@@ -185,12 +197,22 @@ public class LobbyFlow {
 					//result of the registratiom
 					if(result){	
 						start = true;
-						register = false;
+						registration = false;
 						setInFlow();
-						return "Registration successful! /login, /register, /exit";
+						if(serverHandler.getGraphicType().equals("2")){	
+							serverHandler.setSendGUI(true);
+							return "Registration Successful";
+						}
+						return "Registration successful! /login, /registration, /exit";
 					}
 					else{	
 						setInFlow();
+						if(serverHandler.getGraphicType().equals("2")){	
+							serverHandler.setSendGUI(true);
+							registration = false;
+							start = true;
+							return "Registration failed!";
+						}
 						return "Registration failed, retry! Tell me username : ";
 					}
 				}
@@ -211,7 +233,11 @@ public class LobbyFlow {
 						lobby.stopTimer();
 			        }
 					setInFlow();
-					return "Logged out . . . What you want to do? /login, /register, /exit?";
+					if(serverHandler.getGraphicType().equals("2")){	
+						serverHandler.setSendGUI(true);
+						return "Logout successful";
+					}
+					return "Logged out . . . What you want to do? /login, /registration, /exit?";
 				}
 			}
 			

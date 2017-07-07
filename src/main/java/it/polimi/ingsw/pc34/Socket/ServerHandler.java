@@ -13,7 +13,9 @@ import org.json.JSONException;
 
 import it.polimi.ingsw.pc34.Controller.BooleanCreated;
 import it.polimi.ingsw.pc34.Controller.GameController;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
+import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 //class that is assigned one per one to a client, and has to deal with server's comunication with the client
 public class ServerHandler implements Runnable{
@@ -27,6 +29,7 @@ public class ServerHandler implements Runnable{
 	private ObjectOutputStream socketOut;
 	private String graphicType;
 	private boolean sendGUI;
+	private boolean guiIsReady = true;
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
 	
@@ -55,7 +58,16 @@ public class ServerHandler implements Runnable{
 	public void setFase(int fase){
 		this.fase = fase;
 		if(fase==1){
-			sendToClient("Type: /playturn for an action; /chat to send message(you can always do this action, only if you are not doing something else);  /afk to disconnect from the game(you can always do this action, at any time)");
+			if(graphicType.equals("1")){
+				sendToClient("Type: /playturn for an action; /chat to send message(you can always do this action, only if you are not doing something else);  /afk to disconnect from the game(you can always do this action, at any time)");
+			}
+			else{
+				setSendGUI(true);
+				sendToClient("/game");
+				guiIsReady = false;
+				while(!guiIsReady){
+				}
+			}
 		}
 	}
 	
@@ -98,7 +110,7 @@ public class ServerHandler implements Runnable{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
-			message += "\nTake your decision : /login, /register, /exit?";
+			message += "\nTake your decision : /login, /registration, /exit?";
 			lobbyFlow.reset();
 			stateGame = null;
 		}
@@ -124,6 +136,19 @@ public class ServerHandler implements Runnable{
 		}
 		try {
 			socketOut.writeObject(message);
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "warning", e);
+		}
+	}
+	
+	synchronized public void sendToClientGUI (BoardView boardView){
+		try {
+			socketOut.writeObject("/update");
+		} catch (IOException e) {
+			LOGGER.log(Level.WARNING, "warning", e);
+		}
+		try {
+			socketOut.writeObject(boardView);
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
@@ -171,7 +196,7 @@ public class ServerHandler implements Runnable{
 			}
 		}
 		else{
-			sendToClient("Take your decision : /login, /register, /exit (to close the client)?");
+			sendToClient("Take your decision : /login, /registration, /exit (to close the client)?");
 		}
 		while (true){
 			try {
@@ -180,6 +205,13 @@ public class ServerHandler implements Runnable{
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
 			System.out.println("manda in flow : " + line);
+			if(line.equals("ok") && graphicType.equals("2")){
+				continue;
+			}
+			if(line.equals("3") && graphicType.equals("2") && guiIsReady == false){
+				guiIsReady = true;
+				continue;
+			}
 			if(answer!=null && line.equals("yes")){
 				continue;
 			}

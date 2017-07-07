@@ -148,7 +148,12 @@ public class GameController {
 					serverRMI.updateUserRMIView(boardView, players.get(i).getUsername());
 					break;
 				case SOCKET:
-					//Fill
+					//prendere 
+					for(ServerHandler gui : usersSoc){
+						if(gui.getGraphicType().equals("2")){
+							gui.sendToClientGUI(boardView);
+						}
+					}
 			}
 		}
 	}
