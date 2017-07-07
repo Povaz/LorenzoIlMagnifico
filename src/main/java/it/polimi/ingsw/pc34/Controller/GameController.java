@@ -455,16 +455,33 @@ public class GameController {
 
     public List<Reward> askWhichDiscount(List<List<Reward>> discounts, Player player) throws IOException{ //Waits for the Discount chosen by the player
         player.putSecond_State(PlayerState.ASK_WHICH_DISCOUNT);
-        String message = "";
-        for (int j = 0; j < discounts.size(); j++) {
-            message += j + ". ";
-            for (int i = 0; i < discounts.get(j).size(); i++) {
-                message += discounts.get(j).get(i).toString();
-            }
-            message += "\n";
-        }
-        this.sendMessageCLI(player, message); //Builds a string with the Discounts info and sends it to the player (CLI)
-        afkVar = "integer";
+		if (player.getClientType().equals(ClientType.GUI)) {
+
+			String info = "";
+			for (int i = 0; i < discounts.size(); i++) {
+				info += discounts.get(i).toString() + "/";
+			}
+			switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, "/choosediscount", info);
+					break;
+				case SOCKET:
+					//FILL
+					break;
+			}
+		}
+		else {
+			String message = "";
+			for (int j = 0; j < discounts.size(); j++) {
+				message += j + ". ";
+				for (int i = 0; i < discounts.get(j).size(); i++) {
+					message += discounts.get(j).get(i).toString();
+				}
+				message += "\n";
+			}
+			this.sendMessageCLI(player, message);
+		}
+		afkVar = "integer";
         int index = integerCreated.get(); //Here it waits
         List<Reward> discount;
         if (index == -1) { //If this player crashes, it will be automatically chosen the first trade
