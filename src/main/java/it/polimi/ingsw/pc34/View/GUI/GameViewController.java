@@ -224,7 +224,37 @@ public class GameViewController {
 
                     }
                     else if(toLambda.equals("/choosediscount")){
+                        try {
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(Main.class.getResource("ActionChooseDiscount.fxml"));
+                            AnchorPane discount = (AnchorPane) loader.load();
+                            actionBorder.setCenter(discount);
 
+                            ActionChooseDiscountController discountController = loader.getController();
+                            discountController.setMain(main);
+
+                            String info = main.getInfoFromServer().get();
+
+                            List<String> discountStrings = new ArrayList<>();
+                            while(info.endsWith("/")){
+                                int index = info.indexOf("/");
+                                discountStrings.add(info.substring(0, index));
+                                info = info.substring(index + 1);
+                            }
+
+                            for(int i = 0; i < discountStrings.size(); i++){
+                                ToggleButton toggle = (ToggleButton) discountController.discount.getChildren().get(i);
+                                toggle.setText(discountStrings.get(i));
+                                toggle.setDisable(false);
+                                toggle.setVisible(true);
+                            }
+
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            e.printStackTrace();
+                        }
                     }
                     else if(toLambda.equals("/leadercard")){
                         try {
