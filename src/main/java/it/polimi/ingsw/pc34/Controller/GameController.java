@@ -200,10 +200,10 @@ public class GameController {
 	public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException { //Wait for an ActionSpot from Client
 		afkVar = "actionInput";
 		try {
-			ActionInput actionInput = actionInputCreated.get();
-			resetActions();
-			setInFlow();
-			switch (actionInput.getActionType()) {
+			ActionInput actionInput = actionInputCreated.get(); //If player crashes, actionInput will be null. Return Null in Game.PlayTurn
+			resetActions();										//If this is an Bonus Action and player chooses (or is forced to chose) not to do it, actionInput will be null.
+			setInFlow();											// Return null in BuyCard.canDoAction or activateImmediateLeaderCard.canDoBonusAction
+			switch (actionInput.getActionType()) { //NullPointerException launch
 				case TERRITORY_TOWER:
 					return board.getTerritoryTower().getFloors().get(actionInput.getSpot());
 				case BUILDING_TOWER:
