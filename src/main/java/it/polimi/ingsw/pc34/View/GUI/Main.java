@@ -103,6 +103,7 @@ public class Main extends Application{
             rootLayoutController.initializeListner();
 
             primaryStage.show();
+            primaryStage.toFront();
         } catch(IOException e){
             e.printStackTrace();
         }

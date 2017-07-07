@@ -30,7 +30,7 @@ public class Client {
     private SynchronizedString messageInfo = new SynchronizedString();
     private SynchronizedString messageChatOut = new SynchronizedString();
     private SynchronizedString messageChatIn = new SynchronizedString();
-    private SynchronizedBoardView boardForGUY = new SynchronizedBoardView();
+    private SynchronizedBoardView boardForGUI = new SynchronizedBoardView();
 
     public Client (UserRMIImpl userLoginRMI) {
         this.userLoginRMI = userLoginRMI;
