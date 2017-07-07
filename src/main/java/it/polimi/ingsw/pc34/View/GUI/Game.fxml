@@ -521,11 +521,26 @@
                     <items>
                       <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="40.0" prefWidth="160.0" SplitPane.resizableWithParent="false">
                            <children>
-                              <Button fx:id="player0" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_0" visible="false" />
-                              <Button fx:id="player1" disable="true" layoutX="238.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_1" visible="false" />
-                              <Button fx:id="player2" disable="true" layoutX="476.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_2" visible="false" />
-                              <Button fx:id="player3" disable="true" layoutX="714.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_3" visible="false" />
-                              <Button fx:id="player4" disable="true" layoutX="952.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_4" visible="false" />
+                              <Button fx:id="player0" disable="true" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_0" visible="false">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font></Button>
+                              <Button fx:id="player1" disable="true" layoutX="238.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_1" visible="false">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font></Button>
+                              <Button fx:id="player2" disable="true" layoutX="476.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_2" visible="false">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font></Button>
+                              <Button fx:id="player3" disable="true" layoutX="714.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_3" visible="false">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font></Button>
+                              <Button fx:id="player4" disable="true" layoutX="952.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" mnemonicParsing="false" onAction="#playerPressed" prefHeight="40.0" prefWidth="238.0" text="PLAYER_4" visible="false">
+                                 <font>
+                                    <Font name="System Bold" size="15.0" />
+                                 </font></Button>
                            </children></AnchorPane>
                       <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="588.0" prefWidth="1192.0" SplitPane.resizableWithParent="false">
                            <children>

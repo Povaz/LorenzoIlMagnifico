@@ -425,6 +425,10 @@ public class GameController {
 		afkVar = "booleanVat";
 		boolean choose = booleanCreated.get();//Here it waits
 
+    	afkVar = "booleanVat";
+    	System.out.println("prima get vatican AFK");
+        boolean choose = booleanCreated.get(); //Here it waits
+		System.out.println("dopo get vatican AFK");
         switch (player.getConnectionType()) { //Resets this player gameState in Server, so that new inputs are evaluated accordingly
 			case SOCKET:
 				currPlayer.setStateGame(null);
@@ -574,6 +578,7 @@ public class GameController {
     		if(checkCurrentPlayer(username)){
     			//AFK PER PLAYER DI CUI E' IL TURNO
     			if(asked.equals("/afk")){
+    				System.out.println("flow ask vatica support");
     				Player player = this.searchPlayerWithUsername(username);
     	    		switch(afkVar){
     	    			case("whatToDo"):
@@ -613,6 +618,7 @@ public class GameController {
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    			case("booleanVat"):
+    	    				System.out.println("in booleanVat switch case");
     	    				disconnectPlayer(player);
     	    				booleanCreated.put(false);
     	    				setInFlow();

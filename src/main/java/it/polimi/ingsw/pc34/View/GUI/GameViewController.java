@@ -343,7 +343,7 @@ public class GameViewController {
         for(Button b : playerButtons){
             b.setBackground(buttonDefaultBackground);
         }
-        button.setBackground(new Background(new BackgroundFill(Color.DARKCYAN, CornerRadii.EMPTY, Insets.EMPTY)));
+        button.setBackground(new Background(new BackgroundFill(Color.SILVER, CornerRadii.EMPTY, Insets.EMPTY)));
 
         // update view with correct playerBoardView
         PlayerBoardView current = null;
