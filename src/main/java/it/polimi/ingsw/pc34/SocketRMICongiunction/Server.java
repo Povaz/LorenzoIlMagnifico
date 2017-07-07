@@ -67,16 +67,18 @@ public class Server {
     }
     
     public void reconnectedSoc(String username, ServerHandler newHandler) throws IOException{
-    	Game game = reconnected(username);
-    	game.getGameController().addServerHandler(newHandler);
-    	game.getGameController().sendMessageChat(" has reconnected!", username);
+    	//Game game = reconnected(username);
+    	//game.getGameController().addServerHandler(newHandler);
+    	//game.getGameController().sendMessageChat(" has reconnected!", username);
     }
     
-    public Game reconnected(String username) throws IOException{
+    public Game reconnected(String username, ClientType clientType, ConnectionType connectionType) throws IOException{
     	for (Game game : gamesOnGoing){
     		List<Player> players = game.getPlayers();
     		for(Player player : players){
     			if(player.getUsername().equals(username)){
+    				player.setClientType(clientType);
+    				player.setConnectionType(connectionType);
     				player.setDisconnected(false);
     				return game;
     			}

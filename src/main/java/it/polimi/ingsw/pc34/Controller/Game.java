@@ -333,7 +333,6 @@ public class Game implements Runnable{
                                     if (placeFamilyMember(familyMember, actionSpot)) {
                                         current.setPlacedFamilyMember(true);
                                     }
-
                                     gameController.sendMessageCLI(current, "Action has been executed");
                                     boardView = new BoardView(board, playerBoards, current.getUsername());
                                     gameController.updatePlayersView(boardView);
