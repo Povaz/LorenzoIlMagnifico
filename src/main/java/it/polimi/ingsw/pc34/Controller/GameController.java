@@ -6,6 +6,7 @@ import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 import org.json.JSONException;
 
@@ -81,7 +82,7 @@ public class GameController {
 		return null;
 	}
 	
-	private ServerHandler getServerHandler (String username){ //TODO Commenta Tommaso
+	public ServerHandler getServerHandler (String username){ //TODO Commenta Tommaso
     	for(ServerHandler handler : usersSoc){
     		if(handler.getName().equals(username)){
     			return handler;
@@ -295,27 +296,29 @@ public class GameController {
 		afkVar = "actionInput";
 		try {
 			ActionInput actionInput = actionInputCreated.get(); //If player crashes, actionInput will be null. Return Null in Game.PlayTurn
-			resetActions();										//If this is an Bonus Action and player chooses (or is forced to chose) not to do it, actionInput will be null.
-			setInFlow();											// Return null in BuyCard.canDoAction or activateImmediateLeaderCard.canDoBonusAction
-			switch (actionInput.getActionType()) { //NullPointerException launched
-				case TERRITORY_TOWER:
-					return board.getTerritoryTower().getFloors().get(actionInput.getSpot());
-				case BUILDING_TOWER:
-					return board.getBuildingTower().getFloors().get(actionInput.getSpot());
-				case CHARACTER_TOWER:
-					return board.getCharacterTower().getFloors().get(actionInput.getSpot());
-				case VENTURE_TOWER:
-					return board.getVentureTower().getFloors().get(actionInput.getSpot());
-				case HARVEST:
-					return board.getHarvestArea().get(actionInput.getSpot());
-				case PRODUCE:
-					return board.getProductionArea().get(actionInput.getSpot());
-				case MARKET:
-					return board.getMarket().get(actionInput.getSpot());
-				case COUNCIL_PALACE:
-					return board.getCouncilPalace();
-				default:
-					return null;
+			synchronized (this){
+				resetActions();										//If this is an Bonus Action and player chooses (or is forced to chose) not to do it, actionInput will be null.
+				setInFlow();											// Return null in BuyCard.canDoAction or activateImmediateLeaderCard.canDoBonusAction
+				switch (actionInput.getActionType()) { //NullPointerException launched
+					case TERRITORY_TOWER:
+						return board.getTerritoryTower().getFloors().get(actionInput.getSpot());
+					case BUILDING_TOWER:
+						return board.getBuildingTower().getFloors().get(actionInput.getSpot());
+					case CHARACTER_TOWER:
+						return board.getCharacterTower().getFloors().get(actionInput.getSpot());
+					case VENTURE_TOWER:
+						return board.getVentureTower().getFloors().get(actionInput.getSpot());
+					case HARVEST:
+						return board.getHarvestArea().get(actionInput.getSpot());
+					case PRODUCE:
+						return board.getProductionArea().get(actionInput.getSpot());
+					case MARKET:
+						return board.getMarket().get(actionInput.getSpot());
+					case COUNCIL_PALACE:
+						return board.getCouncilPalace();
+					default:
+						return null;
+				}
 			}
 		} catch (NullPointerException e) {
 			return null;
@@ -352,7 +355,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/numberservant");
 					break;
 				case SOCKET:
-					getServerHandler(player).openNewWindow("/numberservant");
+					getServerHandler(player).openNewWindow("/numberservant"+Integer.toString(player.getPlayerBoard().getCounter().getServant().getQuantity())); 
 					break;
 			}
 		}
@@ -375,7 +378,12 @@ public class GameController {
 			} else {
 				player.putSecond_State(PlayerState.EXCHANGE_COUNCIL_PRIVILEGE);
 				String message = "choose + " + councilRewardsSize + " different rewards! 1. 1 WOOD 1 Stone   2. 2 SERVANT   3. 2 COIN   4. 2 MILITARY_POINT   5. 1 FAITH_POINT";
-				this.sendMessageCLI(player, message);
+				if(player.getConnectionType()==ConnectionType.SOCKET && player.getClientType()==ClientType.GUI){
+					
+				}
+				else{
+					this.sendMessageCLI(player, message);
+				}
 				afkVar = "intArray";
 				if (player.getClientType().equals(ClientType.GUI)) {//If this Player is a GUI Player, it sends the right command in order to open the Exchange Council Privilege
 					switch (player.getConnectionType()) {
@@ -559,7 +567,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/choosetrade", info);
 					break;
 				case SOCKET:
-					getServerHandler(player).openNewWindow("/choosetrade", "toSynchro");
+					getServerHandler(player).openNewWindow("/choosetrade", info);
 					break;
 			}
 		}
@@ -596,7 +604,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/choosediscount", info);
 					break;
 				case SOCKET:
-					getServerHandler(player).openNewWindow("/choosediscount", "toSynchro");
+					getServerHandler(player).openNewWindow("/choosediscount", info);
 					break;
 			}
 		}
@@ -609,7 +617,12 @@ public class GameController {
 				}
 				message += "\n";
 			}
-			this.sendMessageCLI(player, message);
+			if(player.getConnectionType()==ConnectionType.SOCKET && player.getClientType()==ClientType.GUI){
+				
+			}
+			else{
+				this.sendMessageCLI(player, message);
+			}
 		}
 		afkVar = "integer";
         int index = integerCreated.get(); //Here it waits
@@ -636,7 +649,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/paymilitarypoint", "1");
 					break;
 				case SOCKET:
-					getServerHandler(player).openNewWindow("/paymilitarypoint", "toSynchro");
+					getServerHandler(player).openNewWindow("/paymilitarypoint", "1");
 					break;
 			}
 		}
@@ -856,35 +869,41 @@ public class GameController {
 			    									if(checkNumber(0, 3, asked)){
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
+			    										setInFlow();
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    									}
 			    								case "2":
 			    									if(checkNumber(0, 3, asked)){
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
+			    										setInFlow();
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    									}
 			    								case "3":
 			    									if(checkNumber(0, 3, asked)){
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
+			    										setInFlow();
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    									}
 			    								case "4":
 			    									if(checkNumber(0, 3, asked)){
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
+			    										setInFlow();
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    									}
 			    								case "5":
 			    									if (players.size() > 2 && checkNumber(0, 1, asked)) {
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
+			    										setInFlow();
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    } else if(players.size() == 2 && checkNumber(0, 0, asked)){
 			    				                        actionInput.setSpot(0);
 			    				                        actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    				                        setInFlow();
+			    				                        return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
@@ -894,11 +913,13 @@ public class GameController {
 			    									if (players.size() > 2 && checkNumber(0, 1, asked)) {
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
+			    										setInFlow();
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    } else if(players.size() == 2 && checkNumber(0, 0, asked)){
 			    				                        actionInput.setSpot(0);
 			    				                        actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    				                        setInFlow();
+			    				                        return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
@@ -908,11 +929,13 @@ public class GameController {
 			    									if (players.size() > 3 && checkNumber(0, 3, asked)) {
 			    										actionInput.setSpot(Integer.parseInt(asked));
 			    										actionInputCreated.put(actionInput);
+			    										setInFlow();
 			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    } else if(players.size() <= 3 && checkNumber(0, 1, asked)){
 			    				                        actionInput.setSpot(0);
 			    				                        actionInputCreated.put(actionInput);
-			    										return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
+			    				                        setInFlow();
+			    				                        return "Which FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE + "  " + "4. " + FamilyColor.NEUTRAL;
 			    				                    }
 			    				                    else{
 			    				                    	setInFlow();
