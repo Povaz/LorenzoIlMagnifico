@@ -178,10 +178,10 @@ public class GameController {
 		}
 	}
 
-	public void sendMessageChatGUI (Player player, String message) {
+	public void sendMessageChatGUI (Player player, String message) throws RemoteException {
 		switch (player.getConnectionType()) {
 			case RMI:
-
+				serverRMI.sendMessage(player, message);
 				break;
 			case SOCKET:
 				//TODO FILL SOCKET

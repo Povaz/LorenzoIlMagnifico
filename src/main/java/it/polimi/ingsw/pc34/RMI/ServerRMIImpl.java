@@ -72,6 +72,10 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         lobby.removeUser(username);                                                     //Of the player "username" who is the "i"th user
         this.removeRMIUser(i);                                                          // in RMI Server
         lobby.notifyAllUsers(NotificationType.USERLOGOUT, username);
+
+        if (lobby.getUsers().size() == 1) {
+            lobby.stopTimer();
+        }
     }
 
     @Override
@@ -265,7 +269,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                 for (i = 0; i < usersLoggedRMI.size(); i++) {
                     if (userRMI.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
                         if (input.startsWith("/chat")) {
-                            String message = userRMI.getUsername() + ": " + input.substring(6);
+                            String message = userRMI.getUsername() + ": " + input.substring(5);
                             gameController.sendMessageChat(message, userRMI.getUsername());
                             if(userRMI.isGUI()) {
                                 userRMI.setMessageForGUI("Message accepted: Synchro");
