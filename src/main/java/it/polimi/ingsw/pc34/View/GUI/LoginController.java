@@ -27,18 +27,15 @@ public class LoginController {
         if(usernameTextField.getText().equals("") || passwordTextField.getText().equals("")){
             return;
         }
-        main.getFromGuiToServer().put("/login");
-        main.getFromGuiToServer().put(usernameTextField.getText());
-        System.out.println("put user");
-        main.getFromGuiToServer().put(passwordTextField.getText());
-        System.out.println("put pass");
-        String result = main.getFromServerToGui().get();
-        System.out.println("get res");
 
-        System.out.println(result);
+        main.getFromGuiToServer().put("/login");
+
+        main.getFromGuiToServer().put(usernameTextField.getText());
+        main.getFromGuiToServer().put(passwordTextField.getText());
+
+        String result = main.getFromServerToGui().get();
         if(result.equals("Login successful")){
             main.setUsername(usernameTextField.getText());
-
             main.showWaitingRoom();
         }
         else{
@@ -50,11 +47,13 @@ public class LoginController {
         if(usernameTextField.getText().equals("") || passwordTextField.getText().equals("")){
             return;
         }
+
         main.getFromGuiToServer().put("/registration");
+
         main.getFromGuiToServer().put(usernameTextField.getText());
         main.getFromGuiToServer().put(passwordTextField.getText());
-        String result = main.getFromServerToGui().get();
 
+        String result = main.getFromServerToGui().get();
         loginMessageText.setText(result);
     }
 

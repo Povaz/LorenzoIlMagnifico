@@ -1,48 +1,41 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import javafx.event.ActionEvent;
-import javafx.event.EventType;
-import javafx.event.EventType.*;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.PasswordField;
-import javafx.scene.control.TextField;
-import javafx.scene.input.InputEvent;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
-import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.LinkedList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class RootLayoutController {
+    Logger LOGGER = Logger.getLogger(RootLayoutController.class.getName());
+
     private Main main;
 
     private MediaPlayer mediaPlayer;
 
     @FXML private void initialize(){
-        // TODO togli commento giu
-        /*try {
+        try {
             List<MediaPlayer> music = new LinkedList<>();
             music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track3.mp3").toURI().toString())));
 
             playMusic(music);
         } catch(URISyntaxException e){
-            e.printStackTrace();
-        }*/
+            LOGGER.log(Level.WARNING, "URISyntaxException track1", e);
+        }
     }
 
     protected void initializeListner(){
         main.getPrimaryStage().iconifiedProperty().addListener((obsVal, oldVal, newVal) -> {
             Stage stage = main.getPrimaryStage();
             if(stage.isFullScreen() || stage.getX() < 0 || stage.getY() < 0){
-                resizeWindow();
+                setFullScreenOff();
             }
         });
 
@@ -61,7 +54,7 @@ public class RootLayoutController {
 
             playMusic(music);
         } catch(URISyntaxException e){
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "URISyntaxException track1", e);
         }
     }
 
@@ -72,7 +65,7 @@ public class RootLayoutController {
 
             playMusic(music);
         } catch(URISyntaxException e){
-            e.printStackTrace();
+            LOGGER.log(Level.WARNING, "URISyntaxException track2", e);
         }
     }
 

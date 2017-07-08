@@ -28,14 +28,12 @@ public class ChatController{
             do {
                 result = main.getChatFromServer().get();
                 final String toLambda = result;
-                System.out.println("toLambda" + toLambda);
-                Platform.runLater(() -> { // TODO inseriscine uno in ogni brach per velocizzare
+                Platform.runLater(() -> {
                     if(!toLambda.equals("/close")){
                         addMessage(toLambda);
                     }
                 });
             } while(!result.equals("/close"));
-            System.out.println("out thread");
         })).start();
     }
 
@@ -53,10 +51,7 @@ public class ChatController{
         String message = "/chat" + messageTextField.getText();
         messageTextField.clear();
 
-        System.out.println("prima di put: " + message);
         main.getFromGuiToServer().put(message);
-        System.out.println("dopo di put: " + message);
-        System.out.println("SYNCRHO" + main.getFromServerToGui().get());
     }
 
     public synchronized void addMessage(String message){
