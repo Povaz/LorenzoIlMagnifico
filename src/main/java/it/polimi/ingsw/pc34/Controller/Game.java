@@ -60,14 +60,14 @@ public class Game implements Runnable{
         while (this.period <= PERIOD_NUMBER) {
             this.startPeriod();
             try {
-				gameController.sendMessageChat("inizio periodo " + this.period, "Game");
+				gameController.sendMessageCLIAll("Inizio periodo " + this.period);
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
             while (this.turn <= TURNS_FOR_PERIOD) {
                 this.startTurn();
                 try {
-					gameController.sendMessageChat("inizio turno " + this.turn, "Game");
+					gameController.sendMessageCLIAll("Inizio turno " + this.turn);
 				} catch (IOException e1) {
 					e1.printStackTrace();
 				}
@@ -304,7 +304,7 @@ public class Game implements Runnable{
         Order order = board.getOrder();
         do{
             Player current = order.getCurrent();
-            gameController.sendMessageChat(current.getUsername() + " is your turn!", "Game");
+            gameController.sendMessageCLIAll(current.getUsername() + " is your turn!");
             System.out.println("Am i blocked here? 1");
             if (!current.isDisconnected()) {
                 ActionSpot actionSpot;

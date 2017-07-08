@@ -17,7 +17,7 @@
       <TextField fx:id="messageTextField" layoutX="15.0" layoutY="533.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#enterPressed" prefHeight="40.0" prefWidth="430.0" promptText="Message" />
       <ScrollPane fx:id="chatScrollPane" hbarPolicy="NEVER" layoutX="15.0" layoutY="15.0" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="509.0" vbarPolicy="ALWAYS">
          <content>
-            <VBox fx:id="chatVBOX" fillWidth="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="509.0" prefWidth="490.0">
+            <VBox fx:id="chatVBOX" fillWidth="false" maxWidth="-Infinity" minHeight="509.0" minWidth="-Infinity" prefWidth="490.0">
                <padding>
                   <Insets left="5.0" />
                </padding>

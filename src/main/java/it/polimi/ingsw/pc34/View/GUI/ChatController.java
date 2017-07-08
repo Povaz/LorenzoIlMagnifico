@@ -1,12 +1,7 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import com.sun.prism.paint.Paint;
-import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -14,14 +9,11 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
-
-import java.io.IOException;
 
 /**
  * Created by Povaz on 03/07/2017.
  */
-public class ChatController extends Application {
+public class ChatController{
     private Main main;
 
     @FXML private Button sendMessageButton;
@@ -30,6 +22,7 @@ public class ChatController extends Application {
     @FXML private ScrollPane chatScrollPane;
 
     public void initializeThread(){
+        chatScrollPane.vvalueProperty().bind(chatVBOX.heightProperty());
         (new Thread(() -> {
             String result;
             do {
@@ -46,17 +39,6 @@ public class ChatController extends Application {
         })).start();
     }
 
-    @Override
-    public void start(Stage primaryStage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("Chat.fxml"));
-        Scene scene = new Scene (root);
-
-        primaryStage.setTitle("La migliore Chat");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();
-    }
-
     @FXML private void enterPressed(KeyEvent event){
         if(event.getCode() == KeyCode.ENTER){
             messageClick();
@@ -71,7 +53,10 @@ public class ChatController extends Application {
         String message = "/chat" + messageTextField.getText();
         messageTextField.clear();
 
+        System.out.println("prima di put: " + message);
         main.getFromGuiToServer().put(message);
+        System.out.println("dopo di put: " + message);
+        System.out.println("SYNCRHO" + main.getFromServerToGui().get());
     }
 
     public synchronized void addMessage(String message){
@@ -91,9 +76,5 @@ public class ChatController extends Application {
 
     public void setMain(Main main){
         this.main = main;
-    }
-    
-    public static void main(String[] args){
-    	launch(ChatController.class);
     }
 }

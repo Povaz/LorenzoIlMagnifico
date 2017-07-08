@@ -112,6 +112,7 @@ public class GameController {
 				try {
 					System.out.println("Timer expired for " + username);
 					final String flow = flow("/afk", username);
+					System.out.println("FLOWFLOW" + flow);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -212,7 +213,7 @@ public class GameController {
 	}
 
 	public void sendMessageChat(String message, String username) throws IOException { //Sends messages in the Chat
-		message = username + ":" + message;
+		message = username + ": " + message;
 		for (Player player : players) {
 			switch (player.getClientType()) {
 				case GUI:

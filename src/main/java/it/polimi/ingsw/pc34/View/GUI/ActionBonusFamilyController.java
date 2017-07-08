@@ -5,6 +5,7 @@ import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.text.Text;
 
 /**
  * Created by trill on 03/07/2017.
@@ -14,6 +15,7 @@ public class ActionBonusFamilyController {
 
     @FXML private AnchorPane bonusPane;
     @FXML protected Button ghostFamily;
+    @FXML protected Text typeValue;
     
     @FXML private void passClicked(){
         main.getFromGuiToServer().put("0");

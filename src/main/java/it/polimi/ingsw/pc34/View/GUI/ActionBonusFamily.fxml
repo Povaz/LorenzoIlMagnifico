@@ -13,21 +13,26 @@
 
 <AnchorPane fx:id="bonusPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" style="-fx-background-color: rgb(113,90,58);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.ActionBonusFamilyController">
    <children>
-      <Button fx:id="pass" layoutX="392.0" layoutY="412.0" mnemonicParsing="false" onMouseClicked="#passClicked" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: OrangeRed;" text="Pass">
+      <Button fx:id="pass" layoutX="392.0" layoutY="418.0" mnemonicParsing="false" onMouseClicked="#passClicked" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: OrangeRed;" text="Pass">
          <font>
             <Font name="System Bold" size="18.0" />
          </font>
       </Button>
-      <Text fill="WHITE" layoutX="32.0" layoutY="169.0" stroke="BLACK" text="Where do you want to place">
+      <Text fill="WHITE" layoutX="32.0" layoutY="148.0" stroke="BLACK" text="Where do you want to place">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="77.0" layoutY="210.0" stroke="BLACK" text="bonus family member?">
+      <Text fill="WHITE" layoutX="77.0" layoutY="187.0" stroke="BLACK" text="bonus family member?">
          <font>
             <Font name="System Bold" size="36.0" />
          </font>
       </Text>
-      <Button fx:id="ghostFamily" layoutX="243.0" layoutY="274.0" mnemonicParsing="false" onDragDetected="#startDrag" opacity="0.75" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="ghost" textFill="TRANSPARENT" />
+      <Button fx:id="ghostFamily" layoutX="243.0" layoutY="299.0" mnemonicParsing="false" onDragDetected="#startDrag" opacity="0.75" pickOnBounds="true" prefHeight="80.0" prefWidth="55.0" text="ghost" textFill="TRANSPARENT" />
+      <Text fx:id="typeValue" fill="WHITE" layoutX="20.0" layoutY="286.0" stroke="BLACK" textAlignment="CENTER" wrappingWidth="500.0">
+         <font>
+            <Font name="System Bold" size="30.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>

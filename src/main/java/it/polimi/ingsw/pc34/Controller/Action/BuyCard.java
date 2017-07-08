@@ -389,7 +389,7 @@ public class BuyCard implements CommandPattern {
     private void doBonusAction(FamilyMember fM) throws IOException{
         ActionSpot actionSpot;
         do{
-            String info = familyMember.getAction() + ": " + familyMember.getValue();
+            String info = fM.getAction() + ": " + fM.getValue();
             System.out.println("AZIONE AGGIUNTIVA!!!");
             System.out.println(fM.getAction() + ":  " + fM.getValue());
             game.getGameController().ghost.set(true);

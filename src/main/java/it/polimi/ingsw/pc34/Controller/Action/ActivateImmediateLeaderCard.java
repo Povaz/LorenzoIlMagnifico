@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
+import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
@@ -110,6 +111,20 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         List<FamilyMember> actions = leaderCard.getActions();
         if(actions != null){
             for(FamilyMember fM : actions){
+                if (player.getClientType().equals(ClientType.GUI)) {
+                    switch (player.getConnectionType()) {
+                        case RMI:
+                            game.getGameController().updateRequested(player.getUsername());
+                            break;
+                        case SOCKET:
+                            //Fill
+                            break;
+                    }
+                }
+                else {
+                    game.getGameController().sendMessageCLI(player, board.toString());
+                    game.getGameController().sendMessageCLI(player, player.getPlayerBoard().toString());
+                }
                 fM.setPlayer(player);
                 doBonusAction(fM);
             }
@@ -119,8 +134,21 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
     private void doBonusAction(FamilyMember fM) throws IOException{
         ActionSpot actionSpot;
         do{
+            String info = fM.getAction() + ": " + fM.getValue();
             System.out.println("AZIONE AGGIUNTIVA!!!");
             System.out.println(fM.getAction() + ":  " + fM.getValue());
+            game.getGameController().ghost.set(true);
+            player.putFirst_State(PlayerState.ACTION);
+            player.putSecond_State(PlayerState.ACTION_INPUT);
+            if (player.getClientType().equals(ClientType.GUI)) {
+                switch (player.getConnectionType()) {
+                    case RMI:
+                        game.getGameController().getServerRMI().openNewWindow(player, "/bonusaction", info);
+                        break;
+                    case SOCKET:
+                        break;
+                }
+            }
             actionSpot = game.getGameController().getViewActionSpot(player);
             if(actionSpot != null){
                 fM.setServantUsed(new Reward(RewardType.SERVANT, game.getGameController().getHowManyServants(player)));

@@ -22,6 +22,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
@@ -172,7 +173,7 @@ public class GameViewController {
             chatController.setMain(main);
             chatController.initializeThread();
         } catch(IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Chat.fxml: Not found", e);
         }
     }
 
@@ -205,16 +206,14 @@ public class GameViewController {
                             ActionBonusFamilyController bonusController = loader.getController();
                             bonusController.setMain(main);
 
-                            main.getInfoFromServer().get();
+                            bonusController.typeValue.setText(main.getInfoFromServer().get());
 
                             updateButton(bonusController.ghostFamily, PAWN_FOLDER, "Ghost.png", 55, 80);
-
-                            //ghost = true;
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionBonusFamily.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/supportvatican")){
@@ -232,7 +231,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionSupportVatican.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/exchangeprivilege")){
@@ -250,7 +249,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionExchangePrivilege.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/numberservant")){
@@ -268,7 +267,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionNumberServant.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/paymilitarypoint")){
@@ -286,7 +285,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionPayMilitaryPoint.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/choosetrade")){
@@ -311,7 +310,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionChooseTrade.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/choosediscount")){
@@ -344,7 +343,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionChooseDiscount.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/leadercard")){
@@ -396,7 +395,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionLeaderCard.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/update")){
@@ -514,6 +513,7 @@ public class GameViewController {
     }
 
     @FXML private void showWinnerClicked(){
+        //main.getChatFromServer().put("/close");
         main.showLogin();
     }
 
