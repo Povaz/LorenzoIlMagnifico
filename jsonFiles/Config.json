@@ -136,6 +136,25 @@
     }
   ],
 
+  "militaryRoute":[
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 1
+        }
+      ]
+    },
+    {
+      "rewards":[
+        {
+          "type": "VICTORY_POINT",
+          "quantity": 1
+        }
+      ]
+    }
+  ],
+
   "faithRoute":[
     {
       "rewards":[]
@@ -262,9 +281,8 @@
     }
   ],
 
-  "councilPalace":[
+  "COUNCIL_PALACE":[
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "COIN",
@@ -278,9 +296,8 @@
     }
   ],
 
-  "market":[
+  "MARKET":[
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "COIN",
@@ -289,7 +306,6 @@
       ]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "SERVANT",
@@ -298,7 +314,6 @@
       ]
     },
     {
-      "minimumPlayers": 4,
       "rewards":[
         {
           "type": "COIN",
@@ -311,7 +326,6 @@
       ]
     },
     {
-      "minimumPlayers": 4,
       "rewards":[
         {
           "type": "COUNCIL_PRIVILEGE",
@@ -321,17 +335,14 @@
     }
   ],
 
-  "territoryTower":[
+  "TERRITORY_TOWER":[
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "WOOD",
@@ -340,7 +351,6 @@
       ]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "WOOD",
@@ -350,17 +360,14 @@
     }
   ],
 
-  "buildingTower":[
+  "BUILDING_TOWER":[
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "MILITARY_POINT",
@@ -369,7 +376,6 @@
       ]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "MILITARY_POINT",
@@ -379,17 +385,14 @@
     }
   ],
 
-  "characterTower":[
+  "CHARACTER_TOWER":[
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "STONE",
@@ -398,7 +401,6 @@
       ]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "STONE",
@@ -408,17 +410,14 @@
     }
   ],
 
-  "ventureTower":[
+  "VENTURE_TOWER":[
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "COIN",
@@ -427,7 +426,6 @@
       ]
     },
     {
-      "minimumPlayers": 0,
       "rewards":[
         {
           "type": "COIN",
@@ -437,24 +435,20 @@
     }
   ],
 
-  "harvestSpot":[
+  "HARVEST":[
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 3,
       "rewards":[]
     }
   ],
 
-  "productionSpot":[
+  "PRODUCE":[
     {
-      "minimumPlayers": 0,
       "rewards":[]
     },
     {
-      "minimumPlayers": 3,
       "rewards":[]
     }
   ]

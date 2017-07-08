@@ -2,6 +2,7 @@ package it.polimi.ingsw.pc34.View.GUI;
 
 import com.sun.prism.paint.Paint;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,8 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
+import java.io.IOException;
+
 /**
  * Created by Povaz on 03/07/2017.
  */
@@ -26,6 +29,22 @@ public class ChatController extends Application {
     @FXML private VBox chatVBOX;
     @FXML private ScrollPane chatScrollPane;
 
+    public void initializeThread(){
+        (new Thread(() -> {
+            String result;
+            do {
+                result = main.getChatFromServer().get();
+                final String toLambda = result;
+                System.out.println(toLambda);
+                Platform.runLater(() -> { // TODO inseriscine uno in ogni brach per velocizzare
+                    if(!toLambda.equals("/close")){
+                        addMessage(toLambda);
+                    }
+                });
+            } while(!result.equals("/close"));
+            System.out.println("out thread");
+        })).start();
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -49,13 +68,13 @@ public class ChatController extends Application {
             return;
         }
 
-        String message = "/chat" + "username" + "/: " + messageTextField.getText();
+        String message = "/chat" + main.getUsername() + ": " + messageTextField.getText();
         messageTextField.clear();
 
+        main.getChatToServer().put(message);
+    }
 
-        message = "/chatpaoloTrilli:ciaosonopaoloefacciolepuzzette,masoloneigiornidisparimasoloneigiornidispari";
-
-        String received = message;
+    public synchronized void addMessage(String message){
         if(message.startsWith("/error")){
             Text error = new Text(message.substring(6));
             error.setFill(Color.RED);

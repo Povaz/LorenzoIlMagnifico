@@ -162,7 +162,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     @Override
     public void sendMessage (String message) throws RemoteException { //Receives message from Server, evaluating them when necessary
         switch (message) {
-            case "":
+            case "Are you still there?":
                 return;
             case "The game is starting":
                 this.setStartingGame(true);
@@ -340,18 +340,29 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
         while (logged) {
             try {
+                System.out.println("prima get messageByGUI");
                 choose = messageByGUI.get(); //For an a GUI-Input
-                System.out.println(choose);
-                serverRMI.sendInput(choose, this);
+                if(choose.equals("skipCommand")){
+                    logged = false;
+                    startingGame = false;
+                }
+                else{
+                    serverRMI.sendInput(choose, this);
+                }
             }
             catch (InputMismatchException e) {
+                e.printStackTrace();
                 //GUI User shouldn't be able to get here
             }
             catch (ConcurrentModificationException e) {
                 this.loginHandlerGUI(serverRMI);
             }
         }
+        System.out.println("prima get messageByGUI 2");
+        String message = messageInfo.get();
+        System.out.println("dopo get messageByGUI 2");
         messageToChangeWindow.put("/login");
+        messageInfo.put(message);
         this.loginHandlerGUI(serverRMI);
     }
 }

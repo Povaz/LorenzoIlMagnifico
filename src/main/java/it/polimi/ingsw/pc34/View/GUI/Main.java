@@ -202,14 +202,6 @@ public class Main extends Application{
             // Can be full screen
             canBeFullScreen = true;
 
-            // Set chat
-            loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("Chat.fxml"));
-            AnchorPane chat = (AnchorPane) loader.load();
-            gameController.chatBorder.setCenter(chat);
-            ChatController chatController = loader.getController();
-            chatController.setMain(this);
-
             // Set screen
             gameViewC = gameController;
             screen.set(3);
