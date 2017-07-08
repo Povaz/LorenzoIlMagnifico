@@ -32,6 +32,7 @@ public class ServerHandler implements Runnable{
 	private String graphicType;
 	private boolean sendGUI;
 	private boolean guiIsReady = true;
+	Scanner socketIn;
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
 	
@@ -50,6 +51,11 @@ public class ServerHandler implements Runnable{
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
 		sendGUI = false;
+		try {
+			Scanner socketIn = new Scanner(socket.getInputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	public void setSendGUI(boolean value){
@@ -158,6 +164,11 @@ public class ServerHandler implements Runnable{
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
 		try {
+			receiveFromClient();
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		try {
 			socketOut.writeObject(boardView);
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "warning", e);
@@ -255,20 +266,21 @@ public class ServerHandler implements Runnable{
 							} catch (IOException e) {
 								LOGGER.log(Level.WARNING, "warning", e);
 							}
-							if (graphicType.equals("2")) {
-                                if (answer.equals("It's not your turn")) {
-                                    sendToClient("No");
-                                }
-                                else {
-                                    sendToClient("Yes");
-                                }
-                            }
 							if(answer==null){
 								break;
 							}
 							if(answer.equals("What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip")){
 								stateGame = line;
+								System.out.println("stateGame è : " + stateGame);
 							}
+							if (graphicType.equals("2")) {
+                                if (answer.equals("It's not your turn")) {
+                                    answer="No";
+                                }
+                                else {
+                                    answer="Yes";
+                                }
+                            }
 							break;
 						case "/afk" :
 							try {
@@ -309,12 +321,21 @@ public class ServerHandler implements Runnable{
 							} catch (IOException e) {
 								LOGGER.log(Level.WARNING, "warning", e);
 							}
+							if(answer.equals("Action has been executed") && fase==1){
+								stateGame = null;
+							}
+							else if(answer.equals("You have already placed a family member!")){
+								stateGame = null;
+							}
 							if (graphicType.equals("2")) {
                                 if (answer.equals("It's not your turn") || answer.equals("Input error") || answer.equals("Input error, Retry!")) {
-                                    sendToClient("No");
+                                    answer="No";
+                                }
+                                else if(answer.equals("I am still processing a request")){
+                                	answer="Resend!" + line;
                                 }
                                 else {
-                                	sendToClient("Yes");
+                                	answer = "Yes";
                                 }
                             }
 							break;
@@ -335,23 +356,20 @@ public class ServerHandler implements Runnable{
 							}
 							if (graphicType.equals("2")) {
                                 if (answer.equals("It's not your turn") || answer.equals("Input error") || answer.equals("Input error, Retry!")) {
-                                    sendToClient("No");
+                                    answer ="No";
                                 }
                                 else {
-                                    sendToClient("Yes");
+                                    answer="Yes";
                                 }
                             }
 							break;
 						default :
-							answer = "Wrong input, Type: /playturn for an action; /chat to send message; /afk to disconnect from the game";
+							answer = "Wrong input 2, Type: /playturn for an action; /chat to send message; /afk to disconnect from the game";
 							break;
 					}
 				}
 			}
-
-			if(graphicType.equals("1") || fase == 0){
-				sendToClient(answer);
-			}
+			sendToClient(answer);
 		}
 	}
 

@@ -49,7 +49,7 @@ public class ClientSOC implements Runnable {
 	
 	public void setBoardView (BoardView boardView) {this.boardView.put(boardView);}
 
-	public void setStartingGame(boolean value){
+	synchronized public void setStartingGame(boolean value){
 		startingGame=value;
 	}
 	
@@ -75,6 +75,10 @@ public class ClientSOC implements Runnable {
 	
 	public SynchronizedString getSynchronizedMessageByGUI() {
         return messageByGUI;
+    }
+	
+	public SynchronizedString getSynchronizedMessageInfo() {
+        return messageInfo;
     }
 	
 	public SynchronizedString getSynchronizedMessageForGUI() {
@@ -147,7 +151,7 @@ public class ClientSOC implements Runnable {
         this.keyword = keyword;
     }
 	
-	private void loginGUI(){ //Login procedure for GUI User
+	private String loginGUI(){ //Login procedure for GUI User
         try {
 			ClientOutputHandler.sendToServer("/login");
 		} catch (IOException e) {
@@ -169,9 +173,9 @@ public class ClientSOC implements Runnable {
 		}
 		getSynchronizedMessageForGUI().put(resultLogin);
 		if(resultLogin.equals("Login successful")){
-			userSoc = new Thread(this);
-			userSoc.start();
+			return "Login successful";
 		}
+		return "Login no";
     }
 	
 	private void insertDataGUI() { //For a RMI GUI User
@@ -254,12 +258,17 @@ public class ClientSOC implements Runnable {
 		}
 		String choose;
 	    while (!startingGame) {
+	    	System.out.println("aspettando di prendereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             choose = messageByGUI.get();
-
+            System.out.println("choooooooooooooooooooooooooooooooooooooooooooooooooooooooose : " + choose);
             switch (choose) {
                 case "/login":
-                   this.loginGUI();
-                    break;
+                   String resultLogin = this.loginGUI();
+                   if(resultLogin.equals("Login successful")){
+                	   startGame = new Thread(cih);
+                	   startGame.start();
+                   }
+                   break;
                 case "/logout":
                     this.logout();
                     break;

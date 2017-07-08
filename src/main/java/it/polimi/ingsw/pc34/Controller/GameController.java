@@ -242,23 +242,31 @@ public class GameController {
 		try {
 			ActionInput actionInput = actionInputCreated.get(); //If player crashes, actionInput will be null. Return Null in Game.PlayTurn
 			resetActions();										//If this is an Bonus Action and player chooses (or is forced to chose) not to do it, actionInput will be null.
-			setInFlow();											// Return null in BuyCard.canDoAction or activateImmediateLeaderCard.canDoBonusAction
+													//Return null in BuyCard.canDoAction or activateImmediateLeaderCard.canDoBonusAction
 			switch (actionInput.getActionType()) { //NullPointerException launched
 				case TERRITORY_TOWER:
+					setInFlow();
 					return board.getTerritoryTower().getFloors().get(actionInput.getSpot());
 				case BUILDING_TOWER:
+					setInFlow();
 					return board.getBuildingTower().getFloors().get(actionInput.getSpot());
 				case CHARACTER_TOWER:
+					setInFlow();
 					return board.getCharacterTower().getFloors().get(actionInput.getSpot());
 				case VENTURE_TOWER:
+					setInFlow();
 					return board.getVentureTower().getFloors().get(actionInput.getSpot());
 				case HARVEST:
+					setInFlow();
 					return board.getHarvestArea().get(actionInput.getSpot());
 				case PRODUCE:
+					setInFlow();
 					return board.getProductionArea().get(actionInput.getSpot());
 				case MARKET:
+					setInFlow();
 					return board.getMarket().get(actionInput.getSpot());
 				case COUNCIL_PALACE:
+					setInFlow();
 					return board.getCouncilPalace();
 				default:
 					return null;
@@ -298,7 +306,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/numberservant");
 					break;
 				case SOCKET:
-					getServerHandler(player).openNewWindow("/numberservant");
+					getServerHandler(player).openNewWindow("/numberservant"+Integer.toString(player.getPlayerBoard().getCounter().getServant().getQuantity()));
 					break;
 			}
 		}
@@ -875,19 +883,15 @@ public class GameController {
 		    								switch (asked){
 		    									case "1" :
 		    										familyColorCreated.put(FamilyColor.BLACK);
-		    										setInFlow();
 		    										return "How many Servants do you want to use?";
 		    									case "2" :
 		    										familyColorCreated.put(FamilyColor.WHITE);
-													setInFlow();
 													return "How many Servants do you want to use?";
 		    									case "3" :
 		    										familyColorCreated.put(FamilyColor.ORANGE);
-													setInFlow();
 													return "How many Servants do you want to use?";
 		    									case "4" :
 		    										familyColorCreated.put(FamilyColor.NEUTRAL);
-													setInFlow();
 													return "How many Servants do you want to use?";
 		    								}
 		    							}
