@@ -350,6 +350,8 @@ public class BuyCard implements CommandPattern {
                         game.getGameController().getServerRMI().openNewWindow(player, "/bonusaction", "toSynchro");
                         break;
                     case SOCKET:
+                    	//DA aggiungere
+                    	game.getGameController().getServerHandler(player.getUsername()).openNewWindow("/bonusaction", "toSynchro");
                         break;
                 }
             }

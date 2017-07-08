@@ -45,18 +45,20 @@ public class ClientOutputHandler extends Thread{
 		else{
 			while(true){
 				String message = client.getSynchronizedMessageByGUI().get();
-				synchronized(this){
-					try {
-						sendToServer(message);
-					} catch (IOException e) {
-						e.printStackTrace();
-					}				
-					client.setYouCanSend(false);
+				if(message.equals("exit")){
+					continue;
 				}
+				try {
+					sendToServer(message);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}				
+				client.setYouCanSend(false);
 				if(message.equals("/exit")){
 					System.exit(0);
 				}
 				while(!client.getYouCanSend()){
+					System.out.print("qui...");
 				}
 				System.out.println("posso mandare altro");
 			}

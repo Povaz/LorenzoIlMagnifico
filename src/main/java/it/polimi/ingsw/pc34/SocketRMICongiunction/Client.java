@@ -91,18 +91,22 @@ public class Client {
 		}
 	}
 
-	public void startClientSOC() {
+	public void startClientSOC() throws IOException {
 		if (this.getUserSoc().getGraphicType() == 2) {
 			Thread mainGui = new Thread(new LaunchGUI());
 			mainGui.start();
 
 			// wait until guiReference is initialized in MainGUI
-			while(guiReference == null){}
+			while(guiReference == null){
+				System.out.println("While guiReference");
+			}
 
 			System.out.println(guiReference);
 
 			// wait until guiReference.getBoardViewFromServer() is initialized in MainGUI
-			while(guiReference.getBoardViewFromServer() == null){}
+			while(guiReference.getBoardViewFromServer() == null){
+				System.out.print("While guiReference");
+			}
 
 			messageForGUI = guiReference.getFromServerToGui();
 			messageByGUI = guiReference.getFromGuiToServer();
@@ -119,9 +123,13 @@ public class Client {
 			this.getUserSoc().setChatIn(messageChatIn);
 			this.getUserSoc().setChatOut(messageChatOut);
 			this.getUserSoc().setSynchronizedBoardView(boardForGUI);
+			System.out.println("si!"); 
+		    this.getUserSoc().loginHandlerGUI(); 
 		}
-		Thread userSoc = new Thread(this.userSoc);
-		userSoc.start();
+		else{ 
+		      Thread userSoc = new Thread(this.userSoc); 
+		      userSoc.start(); 
+		} 
 	}
 
 	public static void main(String[] args)

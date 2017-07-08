@@ -1,5 +1,6 @@
 package it.polimi.ingsw.pc34.Socket;
 
+import it.polimi.ingsw.pc34.RMI.ServerRMI; 
 import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
@@ -8,8 +9,13 @@ import it.polimi.ingsw.pc34.View.GUI.Main;
 import javafx.application.Application;
 
 import java.io.IOException;
+import java.io.StreamCorruptedException;
 import java.net.Socket;
 import java.net.UnknownHostException;
+import java.rmi.RemoteException; 
+import java.util.InputMismatchException; 
+ 
+import org.json.JSONException; 
 
 //if client decides to use socket as comunication tool, ClientSoc will be launched
 public class ClientSOC implements Runnable {
@@ -28,11 +34,13 @@ public class ClientSOC implements Runnable {
     private SynchronizedString chatIn;
     private SynchronizedBoardView boardView;
 	
-    Thread userSoc;
-    boolean logged;
-    String username;
-    String keyword;
-    boolean startingGame;
+    private Thread startGame;
+    private Thread outputGUI;  
+    private String username; 
+    private String keyword; 
+    private boolean logged; //Boolean variabile that tells if a User is currently logged 
+    private boolean startingGame; //Boolean variable that tells if a User is currently in Game 
+    
     boolean youCanSend;
     
 	public ClientSOC(int graphicType) throws UnknownHostException, IOException{
@@ -73,6 +81,10 @@ public class ClientSOC implements Runnable {
 	
 	public SynchronizedString getSynchronizedMessageForGUI() {
         return messageForGUI;
+    }
+	
+	public SynchronizedString getSynchronizedMessageInfo() {
+        return messageInfo;
     }
 	
 	public void setSynchronizedMessageByGUI(SynchronizedString messageByGUI) {
@@ -141,8 +153,8 @@ public class ClientSOC implements Runnable {
         this.keyword = keyword;
     }
 	
-	private void loginGUI(){ //Login procedure for GUI User
-        try {
+	private void loginGUI() throws StreamCorruptedException{ //Login procedure for GUI User
+		try {
 			ClientOutputHandler.sendToServer("/login");
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -163,8 +175,8 @@ public class ClientSOC implements Runnable {
 		}
 		getSynchronizedMessageForGUI().put(resultLogin);
 		if(resultLogin.equals("Login successful")){
-			userSoc = new Thread(this);
-			userSoc.start();
+			startGame = new Thread(cih);
+			startGame.start();
 		}
     }
 	
@@ -213,7 +225,7 @@ public class ClientSOC implements Runnable {
 		getSynchronizedMessageForGUI().put(resultRegister);
     }
 
-	private void logout() {
+	private void logout() throws IOException {
 		try {
 			ClientOutputHandler.sendToServer("/logout");
 		} catch (IOException e) {
@@ -227,59 +239,44 @@ public class ClientSOC implements Runnable {
 		}
 		getSynchronizedMessageForGUI().put(resultLogout);
 		getSynchronizedMessageToChangeWindow().put("/login");
-		userSoc.interrupt();
+		String message = getSynchronizedMessageByGUI().get();
+		ClientOutputHandler.sendToServer(message);
+		startGame.interrupt();
 	}
 	
-	public void loginHandlerGUI() {
+	public void loginHandlerGUI() throws IOException {
 		System.out.println("Connection established");
 		System.out.println("");
-		
-		//2 thread, 1 for input and 1 for output
-		//output
-		String messageGraphicType = "" + graphicType;
 		coh = new ClientOutputHandler (socketServer, this, graphicType);
-		try {
-			cih = new ClientInputHandler (socketServer, this, graphicType);
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-		try {
-			ClientOutputHandler.sendToServer(messageGraphicType);
-		} catch (IOException e1) {
-			e1.printStackTrace();
-		}
+		cih = new ClientInputHandler (socketServer, this, graphicType);
+		String messageGraphicType = "" + graphicType; 
+		ClientOutputHandler.sendToServer(messageGraphicType);
+		String message = getSynchronizedMessageByGUI().get();
+		ClientOutputHandler.sendToServer(message);
+		String ok = ClientInputHandler.receiveFromServer();
 		String choose;
 	    while (!startingGame) {
             choose = messageByGUI.get();
 
             switch (choose) {
                 case "/login":
-                   this.loginGUI();
+                    this.loginGUI();
                     break;
                 case "/logout":
                     this.logout();
                     break;
                 case "/registration":
-                   this.registrationGUI();
+                    this.registrationGUI();
                     break;
                 default:
                     //GUI User shouldn't be able to get here
+                	System.out.println("Stato non valido");
                     break;
             }
 	    } 
-		Thread output = new Thread(coh);
-		output.start();
-		//input
-		String ok = null;
-		try {
-			ok = ClientInputHandler.receiveFromServer();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		setYouCanSend(true);
-		Thread input = new Thread(cih);
-		input.start();
+	    System.out.println("Uscita starting game!");
+	    outputGUI = new Thread(coh);
+	    outputGUI.start();
 		
 	}
 	

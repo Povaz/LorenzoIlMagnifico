@@ -74,7 +74,22 @@ public class ClientInputHandler extends Thread{
 					client.getSynchronizedMessageForGUI().put(line);
 					client.getSynchronizedMessageToChangeWindow().put("/login");
 				}
+				else if(line.equals("sent You have already placed a family member!")){
+					client.getSynchronizedMessageForGUI().put("No");
+					client.setYouCanSend(true);
+				}
+				else if(line.equals("Yes") || line.equals("No")){
+					client.getSynchronizedMessageForGUI().put(line);
+				}
 				else if(line.equals("/game")){
+					client.setStartingGame(true);
+					client.getSynchronizedMessageByGUI().put("exit");			
+					System.out.println("settato a exit!");                     
+					try {
+						sleep(1000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 					client.getSynchronizedMessageToChangeWindow().put("/game");
 				}
 				else if(line.equals("/update")){
@@ -89,29 +104,46 @@ public class ClientInputHandler extends Thread{
 					}
 					client.setBoardView(boardView);
 				}
-				else if(line.equals("/numberservant")){
+				else if(line.contains("/numberservant")){
 					client.getSynchronizedMessageToChangeWindow().put("/numberservant");
+					String [] servantsOwned = line.split("/numberservant");
+					client.getSynchronizedMessageInfo().put(servantsOwned[1]);   
+					
 				}
-				else if(line.equals("/exchangeprivilege")){
+				else if(line.contains("/exchangeprivilege")){
 					client.getSynchronizedMessageToChangeWindow().put("/exchangeprivilege");
+					String [] messageInfo = line.split("/exchangeprivilege");
+					client.getSynchronizedMessageInfo().put(messageInfo[1]);  
 				}
-				else if(line.equals("/leadercard")){
+				else if(line.contains("/leadercard")){
 					client.getSynchronizedMessageToChangeWindow().put("/leadercard");
+					String [] messageInfo = line.split("/leadercard");
+					client.getSynchronizedMessageInfo().put(messageInfo[1]);  
 				}
-				else if(line.equals("/supportvatican")){
+				else if(line.contains("/supportvatican")){
 					client.getSynchronizedMessageToChangeWindow().put("/supportvatican");
+					String [] messageInfo = line.split("/supportvatican");
+					client.getSynchronizedMessageInfo().put(messageInfo[1]);  
 				}
-				else if(line.equals("/choosetrade")){
+				else if(line.contains("/choosetrade")){
 					client.getSynchronizedMessageToChangeWindow().put("/choosetrade");
+					String [] messageInfo = line.split("/choosetrade");
+					client.getSynchronizedMessageInfo().put(messageInfo[1]);  
 				}
-				else if(line.equals("/choosediscount")){
+				else if(line.contains("/choosediscount")){
 					client.getSynchronizedMessageToChangeWindow().put("/choosediscount");
+					String [] messageInfo = line.split("/choosediscount");
+					client.getSynchronizedMessageInfo().put(messageInfo[1]);  
 				}
-				else if(line.equals("/paymilitarypoint")){
+				else if(line.contains("/paymilitarypoint")){
 					client.getSynchronizedMessageToChangeWindow().put("/paymilitarypoint");
+					String [] messageInfo = line.split("/paymilitarypoint");
+					client.getSynchronizedMessageInfo().put(messageInfo[1]);  
 				}
-				else{
-					client.getSynchronizedMessageForGUI().put(line);
+				else if(line.contains("/bonusaction")){
+					client.getSynchronizedMessageToChangeWindow().put("/bonusaction");
+					String [] messageInfo = line.split("/bonusaction");
+					client.getSynchronizedMessageInfo().put(messageInfo[1]);  
 				}
 			}
 			else if(line!=null && graphicType!=2){
