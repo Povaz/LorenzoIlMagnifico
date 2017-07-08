@@ -71,6 +71,7 @@ public class ChatController extends Application {
         String message = "/chat" + main.getUsername() + ": " + messageTextField.getText();
         messageTextField.clear();
 
+        main.getFromGuiToServer().put("/chat"); // TODO ci va??
         main.getChatToServer().put(message);
     }
 

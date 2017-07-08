@@ -4,13 +4,16 @@ import it.polimi.ingsw.pc34.Controller.GameController;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Set;
 
 public class ProductionArea extends ActionSpot{
 	private final int diceModifier;
 	private final Board board;
+	private final Set<Reward> rewards;
 
-	public ProductionArea(boolean active, boolean unrestricted, int diceModifier, Board board){
+	public ProductionArea(boolean active, boolean unrestricted, Set<Reward> rewards, int diceModifier, Board board){
 	    super(active, unrestricted, 1);
+	    this.rewards = rewards;
 	    this.diceModifier = diceModifier;
 	    this.board = board;
     }
@@ -58,5 +61,13 @@ public class ProductionArea extends ActionSpot{
 		bld.append(super.toString());
 		bld.append("  Dice modifier: " + diceModifier + "\n");
 		return bld.toString();
+	}
+
+	public int getDiceModifier(){
+		return diceModifier;
+	}
+
+	public Set<Reward> getRewards(){
+		return rewards;
 	}
 }

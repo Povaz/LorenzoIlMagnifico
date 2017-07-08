@@ -1,26 +1,42 @@
 package it.polimi.ingsw.pc34.SocketRMICongiunction;
 
 import it.polimi.ingsw.pc34.Controller.Game;
+import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
+import org.json.JSONException;
 
 import java.io.IOException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.util.*;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by Povaz on 13/06/2017.
  */
 public class Lobby {
+    private Logger LOGGER = Logger.getLogger(Lobby.class.getName());
+
     private HashMap<String, ClientInfo> users;
     private Timer timer;
     private ServerRMIImpl serverRMI;
     private ServerSOC serverSoc;
+    private long timeoutLobby = 180000;
     
     public Lobby () {
         this.users = new HashMap<>();
         this.timer = new Timer ();
+
+        try{
+            timeoutLobby = JSONUtility.getTimeoutLobby();
+        } catch (JSONException e){
+            timeoutLobby = 180000;
+            LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+        } catch(IOException e){
+            timeoutLobby = 180000;
+            LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+        }
     }
 
     public HashMap<String, ClientInfo> getUsers() {
@@ -148,7 +164,7 @@ public class Lobby {
                     e.printStackTrace();
                 } 
             }
-        }, 10000);
+        }, timeoutLobby);
     }
 
     public void stopTimer() {

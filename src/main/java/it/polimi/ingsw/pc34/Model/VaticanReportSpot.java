@@ -1,9 +1,19 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.JSONUtility;
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class VaticanReportSpot {
+	Logger LOGGER = Logger.getLogger(VaticanReportSpot.class.getName());
+
 	private final List<Player> reported;
 	private final VaticanReportCard vaticanReportCard;
 	private final Reward faithPointNeeded;
@@ -16,8 +26,23 @@ public class VaticanReportSpot {
 		this.last = last;
 	}
 
-	public Reward calculateVictoryPointFromFaithPoint(Reward faithPoint){
-		int faith = faithPoint.getQuantity();
+	public Set<Reward> calculateVictoryPointFromFaithPoint(Reward faithPoint){
+		try{
+			return JSONUtility.getFaithRoutePoint(faithPoint);
+		} catch(JSONException e){
+			Set<Reward> toReturn = new HashSet<>();
+			toReturn.add(standardRewardsFromFaithPoints(faithPoint.getQuantity()));
+			LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+			return toReturn;
+		} catch(IOException e){
+			Set<Reward> toReturn = new HashSet<>();
+			toReturn.add(standardRewardsFromFaithPoints(faithPoint.getQuantity()));
+			LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+			return toReturn;
+		}
+	}
+
+	private Reward standardRewardsFromFaithPoints(int faith){
 		if(faith < 0){
 			return new Reward(RewardType.VICTORY_POINT, 0);
 		}

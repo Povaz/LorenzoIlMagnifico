@@ -1,23 +1,29 @@
 package it.polimi.ingsw.pc34.Controller;
 
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
+import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by trill on 14/06/2017.
  */
 
 public class GameController {
+	private Logger LOGGER = Logger.getLogger(GameController.class.getName());
+
+	private long timeoutTurn = 300000;
 	private final Board board;
 	private final List<Player> players;
 	private ServerSOC serverSoc;
@@ -53,6 +59,16 @@ public class GameController {
 		this.serverSoc = serverSoc;
 		this.usersSoc = serverSoc.getUsers();
 		this.serverRMI = serverRMI;
+
+		try{
+			timeoutTurn = JSONUtility.getTimeoutTurn();
+		} catch (JSONException e){
+			timeoutTurn = 300000;
+			LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+		} catch(IOException e){
+			timeoutTurn = 300000;
+			LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+		}
 	}
 
 	public ServerHandler getServerHandler(Player player){
@@ -100,7 +116,7 @@ public class GameController {
 					e.printStackTrace();
 				}
 			}
-		}, 30000);
+		}, timeoutTurn);
 	}
 
 	public void stopTimer(String username) { //Cancels all scheduled task on timerTillTheEnd and cancels it
@@ -257,7 +273,7 @@ public class GameController {
 		}
 	}
 
-	public Integer getWhatToDo(Player player) throws TooMuchTimeException, RemoteException { //Wait for a WhatToDo variabile
+	public Integer getWhatToDo(Player player) throws RemoteException { //Wait for a WhatToDo variabile
 		int whatToDo;
 		afkVar = "whatToDo";
 		whatToDo = whatToDoCreated.get();
@@ -265,7 +281,7 @@ public class GameController {
 		return whatToDo;
 	}
 
-	public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException { //Wait for an ActionSpot from Client
+	public ActionSpot getViewActionSpot(Player player) throws RemoteException { //Wait for an ActionSpot from Client
 		System.out.println("getViewActionSpot called");
 		System.out.println("First State:" + player.getFirst_state());
 		System.out.println("Second State:" + player.getSecond_state());
@@ -299,7 +315,7 @@ public class GameController {
 		}
 	}
 
-	public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException { //Waits for a FamilyColor, in order to create a FamilyMember
+	public FamilyMember getViewFamilyMember(Player player) throws RemoteException { //Waits for a FamilyColor, in order to create a FamilyMember
 		afkVar = "familyColor";
 		FamilyColor familyColor = familyColorCreated.get();
 		if (familyColor == null) {
@@ -338,7 +354,7 @@ public class GameController {
 		return index;
 	}
 
-	public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, IOException { //Waits for the array that represents the Council privilege rewards chosen by this Player
+	public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws IOException { //Waits for the array that represents the Council privilege rewards chosen by this Player
 		this.councilRewardsSize = 0;
 		for (Reward reward : rewards) {
 			if (reward.getType().equals(RewardType.COUNCIL_PRIVILEGE)) {

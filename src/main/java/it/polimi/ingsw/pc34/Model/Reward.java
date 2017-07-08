@@ -1,11 +1,5 @@
 package it.polimi.ingsw.pc34.Model;
 
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
-import it.polimi.ingsw.pc34.View.TerminalInput;
-
-import java.util.HashSet;
-import java.util.Set;
-
 public class Reward{
     private final RewardType type;
     private int quantity;

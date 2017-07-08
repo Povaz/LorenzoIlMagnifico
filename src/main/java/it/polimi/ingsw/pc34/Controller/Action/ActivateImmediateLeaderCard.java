@@ -1,11 +1,9 @@
 package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.List;
 
 /**
@@ -33,7 +31,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         this.newValueFamilyMember = 0;
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException{
+    public boolean canDoAction() throws IOException{
         if(immediateLeaderCardsPositionated.isEmpty()){
             game.getGameController().sendMessageCLI(player, "You don't have any leader card placed! \nWhat action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip");
             return false;
@@ -58,13 +56,13 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         return true;
     }
 
-    private void earnReward() throws TooMuchTimeException{
+    private void earnReward(){
         if(leaderCard.getReward() != null){
             newCounter.sum(leaderCard.getReward());
         }
     }
 
-    private boolean canChangeFamilyMemberValue() throws TooMuchTimeException{
+    private boolean canChangeFamilyMemberValue(){
         if(!leaderCard.isChangeColoredFamilyMamberValue()){
             return true;
         }
@@ -81,7 +79,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         return true;
     }
 
-    public void doAction() throws TooMuchTimeException, RemoteException, IOException{
+    public void doAction() throws IOException{
         // aggiorna risorse giocatore
         player.getPlayerBoard().setCounter(newCounter);
 
@@ -101,7 +99,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         }
     }
 
-    private void doBonusActions() throws TooMuchTimeException, RemoteException, IOException{
+    private void doBonusActions() throws IOException{
         // TODO uguale a Game
         List<FamilyMember> actions = leaderCard.getActions();
         if(actions != null){
@@ -112,7 +110,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         }
     }
 
-    private void doBonusAction(FamilyMember fM) throws TooMuchTimeException, RemoteException, IOException{
+    private void doBonusAction(FamilyMember fM) throws IOException{
         ActionSpot actionSpot;
         do{
             System.out.println("AZIONE AGGIUNTIVA!!!");

@@ -78,6 +78,7 @@ public class PlayerBoard {
         }
         if(!modifier.isNotEarnVictoryPointFromVenture()){
             counter.sum(ventureSpot.estimateVictoryPoint());
+            counter.sum(earnVictoryPointFromVentureCards());
         }
         earnVictoryPointFromRewards();
         if(modifier.isLoseVictoryPointFromMilitaryPoint()){
@@ -90,6 +91,15 @@ public class PlayerBoard {
         if(modifier.isLoseVictoryPointFromVictoryPoint()){
             loseVictoryPointFromVictoryPoint();
         }
+    }
+
+    private Reward earnVictoryPointFromVentureCards(){
+        Reward victoryPoint = new Reward(RewardType.VICTORY_POINT, 0);
+        for(DevelopmentCard dC : ventureSpot.getCards()){
+            VentureCard vC = (VentureCard) dC;
+            victoryPoint.sumQuantity(vC.getVictoryPointEarned());
+        }
+        return victoryPoint;
     }
 
     private void earnVictoryPointFromRewards(){

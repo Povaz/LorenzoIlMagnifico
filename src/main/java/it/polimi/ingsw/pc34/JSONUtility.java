@@ -95,7 +95,46 @@ public class JSONUtility {
 		return getRewardSet(reward.getJSONArray("rewards"));
 	}
 
-	// TODO finisci public static Set<Reward> getFaith
+	public static Set<Reward> getFaithRoutePoint(Reward faithPoints) throws JSONException, IOException{
+		JSONObject config = fromPathToJSONObject(configPath);
+		JSONObject reward = config.getJSONArray("faithRoute").getJSONObject(faithPoints.getQuantity());
+		Set<Reward> rewardSet = getRewardSet(reward.getJSONArray("rewards"));
+		for(Reward r : rewardSet){
+			if(r.getType() == RewardType.COUNCIL_PRIVILEGE){
+				rewardSet.remove(r);
+			}
+		}
+		return rewardSet;
+	}
+
+	public static Set<Reward> getMilitaryRoutePoint(int position) throws JSONException, IOException{
+		JSONObject config = fromPathToJSONObject(configPath);
+		JSONObject reward = config.getJSONArray("faithRoute").getJSONObject(position - 1);
+		Set<Reward> rewardSet = getRewardSet(reward.getJSONArray("rewards"));
+		for(Reward r : rewardSet){
+			if(r.getType() == RewardType.COUNCIL_PRIVILEGE){
+				rewardSet.remove(r);
+			}
+		}
+		return rewardSet;
+	}
+
+	public static Set<Reward> getEndGameCardRewards(CardType cardType, int numberOfCards) throws JSONException, IOException{
+		JSONObject config = fromPathToJSONObject(configPath);
+		JSONObject reward = config.getJSONArray(cardType.toString()).getJSONObject(numberOfCards - 1);
+		Set<Reward> rewardSet = getRewardSet(reward.getJSONArray("rewards"));
+		for(Reward r : rewardSet){
+			if(r.getType() == RewardType.COUNCIL_PRIVILEGE){
+				rewardSet.remove(r);
+			}
+		}
+		return rewardSet;
+	}
+
+	public static Set<Reward> getExchangeLeaderRewards() throws JSONException, IOException{
+		JSONObject config = fromPathToJSONObject(configPath);
+		return getRewardSet(config.getJSONArray("exchangeLeader"));
+	}
 
 	public static DevelopmentCard getCard(int period, int number, CardType cardType) throws JSONException, IOException{
 		switch(cardType){

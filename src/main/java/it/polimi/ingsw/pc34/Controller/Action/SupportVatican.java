@@ -6,6 +6,7 @@ import it.polimi.ingsw.pc34.Model.*;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
+import java.util.Set;
 
 /**
  * Created by trill on 14/06/2017.
@@ -72,7 +73,7 @@ public class SupportVatican implements CommandPattern{
 
     private void earnVictoryPointSupport(Player player){
         // guadagna i victoryPoint in base ai faithPoint che possiedi
-        Reward victoryPoint = vaticanReportSpot.calculateVictoryPointFromFaithPoint(newCounter.getFaithPoint());
+        Set<Reward> victoryPoint = vaticanReportSpot.calculateVictoryPointFromFaithPoint(newCounter.getFaithPoint());
         newCounter.sum(victoryPoint);
         // azzera i faithPoint
         newCounter.subtract(newCounter.getFaithPoint());

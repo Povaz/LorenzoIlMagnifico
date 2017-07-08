@@ -1,7 +1,5 @@
 package it.polimi.ingsw.pc34.Model;
 
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -84,7 +82,7 @@ public class Counter{
         giveSameReward(reward).subtractQuantity(reward);
     }
 
-    public void sum(Set<Reward> rewards) throws TooMuchTimeException{
+    public void sum(Set<Reward> rewards){
         if(rewards == null){
             return;
         }
@@ -93,7 +91,7 @@ public class Counter{
         }
     }
 
-    public void sumWithLose(Set<Reward> rewards, List<Reward> losed) throws TooMuchTimeException{
+    public void sumWithLose(Set<Reward> rewards, List<Reward> losed){
         if(rewards == null){
             return;
         }
@@ -111,7 +109,7 @@ public class Counter{
         }
     }
 
-    public void subtractWithDiscount(Set<Reward> rewards, List<Reward> discount) throws TooMuchTimeException{
+    public void subtractWithDiscount(Set<Reward> rewards, List<Reward> discount){
         if(rewards == null){
             return;
         }

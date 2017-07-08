@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pc34.Controller;
 
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.Controller.Action.*;
@@ -273,7 +272,7 @@ public class Game implements Runnable{
         }
     }
 
-    private void endPeriod() throws RemoteException, IOException{
+    private void endPeriod() throws IOException{
         churchSupport();
         period++;
         turn = 1;
@@ -281,7 +280,7 @@ public class Game implements Runnable{
         board.setTurn(turn);
     }
 
-    private void churchSupport() throws RemoteException, IOException{
+    private void churchSupport() throws IOException{
         VaticanReportSpot vaticanReportSpot = board.getVaticanReportSpot().get(period - 1);
         for(Player p : board.getOrder().getShown()){
             SupportVatican supportVatican = new SupportVatican(this, p, vaticanReportSpot);
@@ -308,106 +307,96 @@ public class Game implements Runnable{
             gameController.sendMessageChat(current.getUsername() + " is your turn!", "Game");
             System.out.println("Am i blocked here? 1");
             if (!current.isDisconnected()) {
-                try {
-                    ActionSpot actionSpot;
-                    FamilyMember familyMember;
-                    current.setYourTurn(true);
-                    BoardView boardView = new BoardView(board, playerBoards, current.getUsername());
-                    gameController.updatePlayersView(boardView);
-                    gameController.startTimer(current.getUsername());
-                    System.out.println("Am i blocked here? 2");
-                    do {
-                        System.out.println("\n\nPLAYERBOARD:");
-                        System.out.println(board.toString());
-                        System.out.println(current.getPlayerBoard());
-                        System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
+                ActionSpot actionSpot;
+                FamilyMember familyMember;
+                current.setYourTurn(true);
+                BoardView boardView = new BoardView(board, playerBoards, current.getUsername());
+                gameController.updatePlayersView(boardView);
+                gameController.startTimer(current.getUsername());
+                do {
+                    System.out.println("\n\nPLAYERBOARD:"); //TODO GameController.sendMessageAll
+                    System.out.println(board.toString());
+                    System.out.println(current.getPlayerBoard());
+                    System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
+                    Integer whatToDo = gameController.getWhatToDo(current);
+                    switch (whatToDo) {
+                        case 0:
+                            current.putFirst_State(PlayerState.ACTION);
 
-                        System.out.println("Am i blocked here? 3");
+                            if (!current.isPlacedFamilyMember()) {
 
-                        Integer whatToDo = gameController.getWhatToDo(current);
-                        switch (whatToDo) {
-                        	case 0:
-                                current.putFirst_State(PlayerState.ACTION);
-
-                                if (!current.isPlacedFamilyMember()) {
-
-                                    current.putSecond_State(PlayerState.ACTION_INPUT);
-                                    actionSpot = gameController.getViewActionSpot(current);
-                                    if (actionSpot == null) {
-                                        break;
-                                    }
-
-                                    current.putSecond_State(PlayerState.FAMILY_MEMBER);
-                                    familyMember = gameController.getViewFamilyMember(current);
-                                    if (familyMember == null) {
-                                        break;
-                                    }
-
-                                    if (placeFamilyMember(familyMember, actionSpot)) {
-                                        current.setPlacedFamilyMember(true);
-                                    }
-                                    gameController.sendMessageCLI(current, "Action has been executed");
-                                    boardView = new BoardView(board, playerBoards, current.getUsername());
-                                    gameController.updatePlayersView(boardView);
-
-                                } else {
-                                    gameController.sendMessageCLI(current, "You have already placed a family member!");
-                                    current.putFirst_State(PlayerState.ACTION);
+                                current.putSecond_State(PlayerState.ACTION_INPUT);
+                                actionSpot = gameController.getViewActionSpot(current);
+                                if (actionSpot == null) {
+                                    break;
                                 }
-                                break;
-                            case 1:
-                                current.putFirst_State(PlayerState.PLACE_LEADER_CARD);
-                                PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
-                                if (placeLeaderCard.canDoAction()) {
-                                    placeLeaderCard.doAction();
-                                    gameController.sendMessageCLI(current, "Action has been executed");
-                                    boardView = new BoardView(board, playerBoards, current.getUsername());
-                                    gameController.updatePlayersView(boardView);
-                                }
-                                break;
-                            case 2:
-                                current.putFirst_State(PlayerState.ACTIVATE_LEADER_CARD);
-                                ActivateImmediateLeaderCard activateImmediateLeaderCard = new ActivateImmediateLeaderCard(this, current);
-                                if (activateImmediateLeaderCard.canDoAction()) {
-                                    activateImmediateLeaderCard.doAction();
-                                    gameController.sendMessageCLI(current, "Action has been executed");
-                                    boardView = new BoardView(board, playerBoards, current.getUsername());
-                                    gameController.updatePlayersView(boardView);
 
+                                current.putSecond_State(PlayerState.FAMILY_MEMBER);
+                                familyMember = gameController.getViewFamilyMember(current);
+                                if (familyMember == null) {
+                                    break;
                                 }
-                                break;
-                            case 3:
-                                current.putFirst_State(PlayerState.EXCHANGE_LEADER_CARD);
-                                ChangeLeaderCardInReward changeLeaderCardInReward = new ChangeLeaderCardInReward(this, current);
-                                if (changeLeaderCardInReward.canDoAction()) {
-                                    changeLeaderCardInReward.doAction();
-                                    gameController.sendMessageCLI(current, "Action has been executed");
-                                    boardView = new BoardView(board, playerBoards, current.getUsername());
-                                    gameController.updatePlayersView(boardView);
+
+                                if (placeFamilyMember(familyMember, actionSpot)) {
+                                    current.setPlacedFamilyMember(true);
                                 }
-                                break;
-                            case 4:
-                                System.out.println(current.getUsername() + "skipped the turn");
-                                current.setYourTurn(false);
-                                System.out.println("First State:" + current.getFirst_state());
-                                System.out.println("Second State:" + current.getSecond_state());
-                                gameController.stopTimer(current.getUsername());
-                                gameController.setInFlow();
                                 gameController.sendMessageCLI(current, "Action has been executed");
-                                break;
-                            default:
-                                System.out.println("WhatToDo Error"); // No user should get here
-                        }
-                        current.putFirst_State(PlayerState.WAITING);
-                        current.putSecond_State(PlayerState.WAITING);
-                        System.out.println("First State:" + current.getFirst_state());
-                        System.out.println("Second State:" + current.getSecond_state());
-                    } while (current.isYourTurn());
-                } catch (TooMuchTimeException e) {
-                    gameController.sendMessageCLI(current, "Timeout expired");
+                                boardView = new BoardView(board, playerBoards, current.getUsername());
+                                gameController.updatePlayersView(boardView);
+
+                            } else {
+                                gameController.sendMessageCLI(current, "You have already placed a family member!");
+                                current.putFirst_State(PlayerState.ACTION);
+                            }
+                            break;
+                        case 1:
+                            current.putFirst_State(PlayerState.PLACE_LEADER_CARD);
+                            PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
+                            if (placeLeaderCard.canDoAction()) {
+                                placeLeaderCard.doAction();
+                                gameController.sendMessageCLI(current, "Action has been executed");
+                                boardView = new BoardView(board, playerBoards, current.getUsername());
+                                gameController.updatePlayersView(boardView);
+                            }
+                            break;
+                        case 2:
+                            current.putFirst_State(PlayerState.ACTIVATE_LEADER_CARD);
+                            ActivateImmediateLeaderCard activateImmediateLeaderCard = new ActivateImmediateLeaderCard(this, current);
+                            if (activateImmediateLeaderCard.canDoAction()) {
+                                activateImmediateLeaderCard.doAction();
+                                gameController.sendMessageCLI(current, "Action has been executed");
+                                boardView = new BoardView(board, playerBoards, current.getUsername());
+                                gameController.updatePlayersView(boardView);
+
+                            }
+                            break;
+                        case 3:
+                            current.putFirst_State(PlayerState.EXCHANGE_LEADER_CARD);
+                            ChangeLeaderCardInReward changeLeaderCardInReward = new ChangeLeaderCardInReward(this, current);
+                            if (changeLeaderCardInReward.canDoAction()) {
+                                changeLeaderCardInReward.doAction();
+                                gameController.sendMessageCLI(current, "Action has been executed");
+                                boardView = new BoardView(board, playerBoards, current.getUsername());
+                                gameController.updatePlayersView(boardView);
+                            }
+                            break;
+                        case 4:
+                            System.out.println(current.getUsername() + "skipped the turn");
+                            current.setYourTurn(false);
+                            System.out.println("First State:" + current.getFirst_state());
+                            System.out.println("Second State:" + current.getSecond_state());
+                            gameController.stopTimer(current.getUsername());
+                            gameController.setInFlow();
+                            gameController.sendMessageCLI(current, "Action has been executed");
+                            break;
+                        default:
+                            System.out.println("WhatToDo Error"); // No user should get here
+                    }
                     current.putFirst_State(PlayerState.WAITING);
                     current.putSecond_State(PlayerState.WAITING);
-                }
+                    System.out.println("First State:" + current.getFirst_state());
+                    System.out.println("Second State:" + current.getSecond_state());
+                } while (current.isYourTurn());
             }
             current.putFirst_State(PlayerState.WAITING);
             current.putSecond_State(PlayerState.WAITING);
@@ -422,7 +411,7 @@ public class Game implements Runnable{
         System.out.println("esco cicli game" + " period: " + period + " turn: " + turn);
     }
 
-    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException, RemoteException, IOException{
+    public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws IOException{
         if(actionSpot == null || familyMember == null){
             return false;
         }
@@ -535,11 +524,35 @@ public class Game implements Runnable{
         }
 
         for(Player p : first){
-            p.getPlayerBoard().getCounter().sum(new Reward(RewardType.VICTORY_POINT, 5));
+            Set<Reward> firstRewards;
+            try{
+                firstRewards = JSONUtility.getMilitaryRoutePoint(1);
+            } catch(JSONException e){
+                firstRewards = new HashSet<>();
+                firstRewards.add(new Reward(RewardType.VICTORY_POINT, 5));
+                LOGGER.log(Level.WARNING, "PersonalBonusTile.json: Wrong format", e);
+            } catch(IOException e){
+                firstRewards = new HashSet<>();
+                firstRewards.add(new Reward(RewardType.VICTORY_POINT, 5));
+                LOGGER.log(Level.WARNING, "PersonalBonusTile.json: Incorrect path", e);
+            }
+            p.getPlayerBoard().getCounter().sum(firstRewards);
         }
         if(first.size() < 2){
             for(Player p : second){
-                p.getPlayerBoard().getCounter().sum(new Reward(RewardType.VICTORY_POINT, 2));
+                Set<Reward> secondRewards;
+                try{
+                    secondRewards = JSONUtility.getMilitaryRoutePoint(2);
+                } catch(JSONException e){
+                    secondRewards = new HashSet<>();
+                    secondRewards.add(new Reward(RewardType.VICTORY_POINT, 2));
+                    LOGGER.log(Level.WARNING, "PersonalBonusTile.json: Wrong format", e);
+                } catch(IOException e){
+                    secondRewards = new HashSet<>();
+                    secondRewards.add(new Reward(RewardType.VICTORY_POINT, 2));
+                    LOGGER.log(Level.WARNING, "PersonalBonusTile.json: Incorrect path", e);
+                }
+                p.getPlayerBoard().getCounter().sum(secondRewards);
             }
         }
     }
@@ -587,9 +600,9 @@ public class Game implements Runnable{
                 try{
                     territoryFloors.get(i).setCard(JSONUtility.getCard(period, territoryCard[index], CardType.TERRITORY));
                 } catch (JSONException e){
-                    LOGGER.log(Level.WARNING, "TerritoryCard.json: Wrong format", e);
+                    LOGGER.log(Level.SEVERE, "TerritoryCard.json: Wrong format", e);
                 } catch(IOException e){
-                    LOGGER.log(Level.WARNING, "TerritoryCard.json: Incorrect path", e);
+                    LOGGER.log(Level.SEVERE, "TerritoryCard.json: Incorrect path", e);
                 }
             }
 

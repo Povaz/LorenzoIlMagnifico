@@ -1,7 +1,6 @@
 package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 
 import java.io.IOException;
@@ -35,11 +34,11 @@ public class Harvest implements CommandPattern{
 
     private void updateFamilyMemberRealValue(){
         int realValue = familyMember.getRealValue();
-        realValue += modifier.getActionModifiers().get(ActionType.HARVEST);
+        realValue += modifier.getActionModifiers().get(ActionType.HARVEST) + harvestArea.getDiceModifier();
         familyMember.setRealValue(realValue);
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException{
+    public boolean canDoAction() throws IOException{
         if(!harvestArea.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot(), game.getGameController())){
             return false;
         }
@@ -47,6 +46,8 @@ public class Harvest implements CommandPattern{
         if(!haveEnoughServant()){
             return false;
         }
+
+        earnReward();
 
         earnTileReward();
 
@@ -68,8 +69,16 @@ public class Harvest implements CommandPattern{
         return true;
     }
 
+    // guadagna i reward della torre
+    private void earnReward() throws IOException{
+        if(harvestArea.getRewards() != null){
+            Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(harvestArea.getRewards(), player);
+            newCounter.sumWithLose(rewards, modifier.getLoseRewards());
+        }
+    }
+
     // guadagna i reward del PersonalBonusTile
-    private void earnTileReward() throws TooMuchTimeException, IOException{
+    private void earnTileReward() throws IOException{
         PersonalBonusTile tile = player.getPlayerBoard().getPersonalBonusTile();
         if(tile != null) {
             if(tile.getHarvestRewards() != null){
@@ -82,7 +91,7 @@ public class Harvest implements CommandPattern{
     }
 
     // guadagna i reward delle TerritoryCard
-    private void earnHarvestReward() throws TooMuchTimeException, IOException{
+    private void earnHarvestReward() throws IOException{
         for(DevelopmentCard card : player.getPlayerBoard().getTerritorySpot().getCards()){
             TerritoryCard tCard = (TerritoryCard) card;
             if(actionValue >= tCard.getDiceHarvestAction()){
