@@ -347,7 +347,10 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 //GUI User shouldn't be able to get here
             }
             catch (ConcurrentModificationException e) {
+                e.printStackTrace();
                 this.loginHandlerGUI(serverRMI);
+                logged = false;
+                startingGame = false;
             }
         }
         System.out.println("prima get messageByGUI 2");

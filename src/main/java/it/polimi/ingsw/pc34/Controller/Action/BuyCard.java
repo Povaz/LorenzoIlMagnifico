@@ -389,6 +389,7 @@ public class BuyCard implements CommandPattern {
     private void doBonusAction(FamilyMember fM) throws IOException{
         ActionSpot actionSpot;
         do{
+            String info = familyMember.getAction() + ": " + familyMember.getValue();
             System.out.println("AZIONE AGGIUNTIVA!!!");
             System.out.println(fM.getAction() + ":  " + fM.getValue());
             game.getGameController().ghost.set(true);
@@ -397,7 +398,7 @@ public class BuyCard implements CommandPattern {
             if (player.getClientType().equals(ClientType.GUI)) {
                 switch (player.getConnectionType()) {
                     case RMI:
-                        game.getGameController().getServerRMI().openNewWindow(player, "/bonusaction", "toSynchro");
+                        game.getGameController().getServerRMI().openNewWindow(player, "/bonusaction", info);
                         break;
                     case SOCKET:
                         break;
