@@ -21,14 +21,7 @@ public class RootLayoutController {
     private MediaPlayer mediaPlayer;
 
     @FXML private void initialize(){
-        try {
-            List<MediaPlayer> music = new LinkedList<>();
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track3.mp3").toURI().toString())));
-
-            playMusic(music);
-        } catch(URISyntaxException e){
-            LOGGER.log(Level.WARNING, "URISyntaxException track1", e);
-        }
+        setTrack1();
     }
 
     protected void initializeListner(){
@@ -47,25 +40,28 @@ public class RootLayoutController {
     @FXML private void setTrack1(){
         try {
             List<MediaPlayer> music = new LinkedList<>();
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_1.mp3").toURI().toString())));
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_2.mp3").toURI().toString())));
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_3.mp3").toURI().toString())));
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_4.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/AwesomeMix_1.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/AwesomeMix_2.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/AwesomeMix_3.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/AwesomeMix_4.mp3").toURI().toString())));
 
             playMusic(music);
         } catch(URISyntaxException e){
-            LOGGER.log(Level.WARNING, "URISyntaxException track1", e);
+            LOGGER.log(Level.WARNING, "URISyntaxException AwesomeMix", e);
         }
     }
 
     @FXML private void setTrack2(){
         try {
             List<MediaPlayer> music = new LinkedList<>();
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track2.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/DarkSouls_1.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/DarkSouls_2.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/DarkSouls_3.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/DarkSouls_4.mp3").toURI().toString())));
 
             playMusic(music);
         } catch(URISyntaxException e){
-            LOGGER.log(Level.WARNING, "URISyntaxException track2", e);
+            LOGGER.log(Level.WARNING, "URISyntaxException DarkSouls", e);
         }
     }
 

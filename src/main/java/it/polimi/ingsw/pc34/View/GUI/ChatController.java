@@ -52,6 +52,7 @@ public class ChatController{
         messageTextField.clear();
 
         main.getFromGuiToServer().put(message);
+        main.getFromServerToGui().get();
     }
 
     public synchronized void addMessage(String message){
