@@ -181,8 +181,10 @@ public class GameController {
 	public void sendMessageChatGUI (Player player, String message) {
 		switch (player.getConnectionType()) {
 			case RMI:
+
 				break;
 			case SOCKET:
+				//TODO FILL SOCKET
 				break;
 		}
 	}
@@ -192,7 +194,7 @@ public class GameController {
 		for (Player player : players) {
 			switch (player.getClientType()) {
 				case GUI:
-
+					sendMessageChatGUI(player, message);
 					break;
 				case CLI:
 					sendMessageCLI(player, message);

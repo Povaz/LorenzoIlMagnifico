@@ -365,6 +365,19 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         }
     }
 
+    public void sendMessageChat (Player player, String message) throws RemoteException {
+        int i;
+        for (i = 0; i < usersLoggedRMI.size(); i++) {
+            try {
+                if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
+                    usersLoggedRMI.get(i).setMessageChat(message);
+                }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
+            }
+        }
+    }
+
     public void openNewWindow(Player player, String message) throws RemoteException {
         int i;
         for (i = 0; i < usersLoggedRMI.size(); i++) {

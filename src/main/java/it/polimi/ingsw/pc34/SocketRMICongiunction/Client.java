@@ -28,8 +28,7 @@ public class Client {
 	private SynchronizedString messageForGUI;
 	private SynchronizedString messageToChangeWindow;
 	private SynchronizedString messageInfo;
-	private SynchronizedString messageChatOut;
-	private SynchronizedString messageChatIn;
+	private SynchronizedString messageChat;
 	private SynchronizedBoardView boardForGUI;
 
 	public Client(UserRMIImpl userLoginRMI) {
@@ -74,16 +73,14 @@ public class Client {
 			messageByGUI = guiReference.getFromGuiToServer();
 			messageToChangeWindow = guiReference.getOpenWindow();
 			messageInfo = guiReference.getInfoFromServer();
-			messageChatIn = guiReference.getChatFromServer();// TODO controlla
-			messageChatOut = guiReference.getChatToServer();
+			messageChat = guiReference.getChatFromServer();
 			boardForGUI = guiReference.getBoardViewFromServer();
 
 			this.getUserLoginRMI().setSynchronizedMessageToChangeWindow(messageToChangeWindow);
 			this.getUserLoginRMI().setSynchronizedMessageForGUI(messageForGUI);
 			this.getUserLoginRMI().setSynchronizedMessageByGUI(messageByGUI);
 			this.getUserLoginRMI().setSynchronizedMessageInfo(messageInfo);
-			this.getUserLoginRMI().setChatIn(messageChatIn);
-			this.getUserLoginRMI().setChatOut(messageChatOut);
+			this.getUserLoginRMI().setMessageChat(messageChat);
 			this.getUserLoginRMI().setSynchronizedBoardView(boardForGUI);
 			this.getUserLoginRMI().loginHandlerGUI(serverRMI);
 		} else {
@@ -108,16 +105,14 @@ public class Client {
 			messageByGUI = guiReference.getFromGuiToServer();
 			messageToChangeWindow = guiReference.getOpenWindow();
 			messageInfo = guiReference.getInfoFromServer();
-			messageChatIn = guiReference.getChatFromServer();// TODO controlla
-			messageChatOut = guiReference.getChatToServer();
+			messageChat = guiReference.getChatFromServer();// TODO controlla
 			boardForGUI = guiReference.getBoardViewFromServer();
 
 			this.getUserSoc().setSynchronizedMessageToChangeWindow(messageToChangeWindow);
 			this.getUserSoc().setSynchronizedMessageForGUI(messageForGUI);
 			this.getUserSoc().setSynchronizedMessageByGUI(messageByGUI);
 			this.getUserSoc().setSynchronizedMessageInfo(messageInfo);
-			this.getUserSoc().setChatIn(messageChatIn);
-			this.getUserSoc().setChatOut(messageChatOut);
+			this.getUserSoc().setChatIn(messageChat);
 			this.getUserSoc().setSynchronizedBoardView(boardForGUI);
 		}
 		Thread userSoc = new Thread(this.userSoc);
