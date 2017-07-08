@@ -103,7 +103,12 @@ public class BuyCard implements CommandPattern {
             cardSpot = player.getPlayerBoard().getCardSpot(card.getType());
             return true;
         }
-        game.getGameController().sendMessageCLI(player, "There isn't any Card in this Floor!");
+        if (player.getClientType().equals(ClientType.GUI)) {
+            game.getGameController().sendMessageChatGUI(player, "There isn't any Card in this Floor!");
+        }
+        else {
+            game.getGameController().sendMessageCLI(player, "There isn't any Card in this Floor!");
+        }
         return false;
     }
 
@@ -123,7 +128,12 @@ public class BuyCard implements CommandPattern {
             newCounter.subtract(floor.getTower().getOccupiedTax());
         }
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You cannot pay the tower tax!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You cannot pay the tower tax!");
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You cannot pay the tower tax!");
+            }
             return false;
         }
         return true;
@@ -186,7 +196,12 @@ public class BuyCard implements CommandPattern {
         List<Reward> discount = addRewardFromSet(permanentDiscount, familyMember.getDiscounts());
         newCounter.subtractWithDiscount(card.getCosts(), discount);
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You cannot pay the card cost!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You cannot pay the card cost!");
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You cannot pay the card cost!");
+            }
             return false;
         }
         return true;
@@ -217,7 +232,12 @@ public class BuyCard implements CommandPattern {
                 return true;
             }
         }
-        game.getGameController().sendMessageCLI(player, "You don't have enough military point to buy the card!");
+        if (player.getClientType().equals(ClientType.GUI)) {
+            game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to buy the card!");
+        }
+        else {
+            game.getGameController().sendMessageCLI(player, "You don't have enough military point to buy the card!");
+        }
         return false;
     }
 
@@ -247,7 +267,12 @@ public class BuyCard implements CommandPattern {
     */
     private boolean canBePlacedInCardSpot() throws RemoteException, IOException{
         if(!cardSpot.canPlaceCard()){
-            game.getGameController().sendMessageCLI(player, "You don't have enough space in the card spot!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough space in the card spot!"); //TODO TESTA
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have enough space in the card spot!");
+            }
             return false;
         }
         if(!modifier.isNotSatisfyMilitaryPointForTerritory()) {
@@ -266,7 +291,12 @@ public class BuyCard implements CommandPattern {
                 return true;
             case  2:
                 if(newCounter.getMilitaryPoint().getQuantity() < 3){
-                    game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    if (player.getClientType().equals(ClientType.GUI)) {
+                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!");
+                    }
+                    else {
+                        game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    }
                     return false;
                 }
                 return true;

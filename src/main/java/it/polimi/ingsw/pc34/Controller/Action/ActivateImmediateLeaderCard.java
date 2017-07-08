@@ -2,6 +2,7 @@ package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Model.*;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
 import java.util.List;
@@ -33,7 +34,12 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
 
     public boolean canDoAction() throws IOException{
         if(immediateLeaderCardsPositionated.isEmpty()){
-            game.getGameController().sendMessageCLI(player, "You don't have any leader card placed! \nWhat action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have any leader card placed!");
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have any leader card placed! \nWhat action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip");
+            }
             return false;
         }
 
