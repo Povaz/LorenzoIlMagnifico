@@ -340,9 +340,14 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
         while (logged) {
             try {
+                System.out.println("prima get messageByGUI");
                 choose = messageByGUI.get(); //For an a GUI-Input
-                if (choose.equals("skipCommand"));
-                serverRMI.sendInput(choose, this);
+                if(choose.equals("skipCommand")){
+                    logged = false;
+                }
+                else{
+                    serverRMI.sendInput(choose, this);
+                }
             }
             catch (InputMismatchException e) {
                 //GUI User shouldn't be able to get here
@@ -351,8 +356,9 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 this.loginHandlerGUI(serverRMI);
             }
         }
-
+        System.out.println("prima get messageByGUI 2");
         String message = messageInfo.get();
+        System.out.println("dopo get messageByGUI 2");
         messageToChangeWindow.put("/login");
         messageInfo.put(message);
         this.loginHandlerGUI(serverRMI);

@@ -24,6 +24,7 @@ public class JSONUtility {
 	private static String permanentLeaderCardPath = "jsonFiles/JsonPermanentLeaderCard.json";
 	private static String immediateLeaderCardPath = "jsonFiles/JsonImmediateLeaderCard.json";
 	private static String personalBonusTilePath = "jsonFiles/PersonalBonusTile.json";
+	private static String configPath = "jsonFiles/Config.json";
 	
 	public static synchronized boolean checkLogin(String username, String password) throws JSONException, IOException{
 		if(username.length() > 15 || password.length() > 15){
@@ -76,6 +77,25 @@ public class JSONUtility {
 			return string;
 		}
 	}
+
+	public static long getTimeoutLobby() throws JSONException, IOException{
+		JSONObject config = fromPathToJSONObject(configPath);
+		return config.getInt("timeoutLobby");
+
+	}
+
+	public static long getTimeoutTurn() throws JSONException, IOException{
+		JSONObject config = fromPathToJSONObject(configPath);
+		return config.getInt("timeoutTurn");
+	}
+
+	public static Set<Reward> getSpotRewards(ActionType actionType, int numberSpot) throws JSONException, IOException{
+		JSONObject config = fromPathToJSONObject(configPath);
+		JSONObject reward = config.getJSONArray(actionType.toString()).getJSONObject(numberSpot);
+		return getRewardSet(reward.getJSONArray("rewards"));
+	}
+
+	// TODO finisci public static Set<Reward> getFaith
 
 	public static DevelopmentCard getCard(int period, int number, CardType cardType) throws JSONException, IOException{
 		switch(cardType){
@@ -405,8 +425,7 @@ public class JSONUtility {
 			return false;
 		}
 	}
-	
-	//Codice Di Lacieoz
+
 	public static int getVaticanReportLength(int period) throws JSONException, IOException{
 		JSONObject cards = fromPathToJSONObject(vaticanReportCardPath);
 		JSONArray cardsArray = cards.getJSONArray("cards").getJSONObject(period - 1).getJSONArray("period");
@@ -438,9 +457,7 @@ public class JSONUtility {
 		}
 		return attributes;
 	}
-	//Fine Codice Di Lacieoz
 
-	//Codice Lacieoz 2
 	public static int getPersonalBonusTileLength() throws JSONException, IOException{
 		JSONObject cards = fromPathToJSONObject(personalBonusTilePath);
 		JSONArray cardsArray = cards.getJSONArray("PersonalBonusTile");
@@ -471,7 +488,6 @@ public class JSONUtility {
 		JSONArray rewards = jsonObject.getJSONArray(type);
 		return getRewardSet(rewards);
 	}
-	//Fine Codice Lacieoz 2
 
 	public static int getPermanentLeaderCardLength() throws JSONException, IOException{
 		JSONObject cards = fromPathToJSONObject(permanentLeaderCardPath);

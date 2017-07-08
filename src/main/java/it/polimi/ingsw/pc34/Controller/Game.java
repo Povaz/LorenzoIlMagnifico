@@ -59,14 +59,14 @@ public class Game implements Runnable{
     }
 
     public void run(){
-        while (this.period <= this.PERIOD_NUMBER) {
+        while (this.period <= PERIOD_NUMBER) {
             this.startPeriod();
             try {
 				gameController.sendMessageChat("inizio periodo " + this.period, "Game");
 			} catch (IOException e1) {
 				e1.printStackTrace();
 			}
-            while (this.turn <= this.TURNS_FOR_PERIOD) {
+            while (this.turn <= TURNS_FOR_PERIOD) {
                 this.startTurn();
                 try {
 					gameController.sendMessageChat("inizio turno " + this.turn, "Game");
@@ -80,29 +80,38 @@ public class Game implements Runnable{
                     e.printStackTrace();
                 }
                 this.endTurn();
+                System.out.println("end turn done");
             }
             try {
                 this.endPeriod();
+                System.out.println("end period done");
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
         }
+        System.out.println("decree winner");
         Player winner = this.decreeWinner();
+        System.out.println("decree winner done");
         try {
+            System.out.println("the winner is");
             gameController.sendMessageGUIAll("The winner is \n" + winner.getUsername() + "!");
+            System.out.println("THE WINNER IS");
             gameController.sendMessageCLIAll("THE WINNER IS : " + winner.getUsername());
+            System.out.println("this game is finished");
 			gameController.sendMessageCLIAll("This game is finished");
 		} catch (IOException e) {
+            System.out.println("catch IOEX");
 			e.printStackTrace();
 		}
+        System.out.println("serverSoc");
         serverSoc.getServer().removeGame(this);
-        
+        System.out.println("RIP");
     }
 
     public Game(Map<String, ClientInfo> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
-        this.turn = 1;
-        this.period = 2;  // TODO rimetti a 1
+        this.turn = 2;
+        this.period = 3;
         this.usernames = new ArrayList<>();
         usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();
@@ -112,6 +121,8 @@ public class Game implements Runnable{
         initializePersonalBonusTile();
         initializeLeaderCards();
         this.playerBoards = initializePlayerBoards();
+        board.setTurn(turn);
+        board.setPeriod(period);
         this.serverSoc = serverSoc;
         this.serverLoginImpl = serverLoginImpl;
         this.gameController = new GameController(this, serverLoginImpl, serverSoc);
@@ -405,7 +416,9 @@ public class Game implements Runnable{
             current.setPlacedFamilyMember(false);
             System.out.println("\n\nPLAYERBOARD:"); //TODO MANDARE LA STAMPA AGLI USER CLI
             System.out.println(order.getCurrent().getPlayerBoard());
+            System.out.println(board.getOrder().getReal());
         } while(board.getOrder().nextOrder());
+        System.out.println("esco cicli game" + " period: " + period + " turn: " + turn);
     }
 
     public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws TooMuchTimeException, RemoteException, IOException{
