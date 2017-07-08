@@ -104,6 +104,15 @@ public class ClientInputHandler extends Thread{
 					}
 					client.setBoardView(boardView);
 				}
+				else if(line.contains("/retry")){
+					String [] messageRet = line.split("/retry");
+					try {
+						client.getClientOutputHandler().sendToServer(messageRet[1]);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}   
+					
+				}
 				else if(line.contains("/numberservant")){
 					client.getSynchronizedMessageToChangeWindow().put("/numberservant");
 					String [] servantsOwned = line.split("/numberservant");

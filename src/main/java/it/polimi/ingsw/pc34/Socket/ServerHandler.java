@@ -147,6 +147,11 @@ public class ServerHandler implements Runnable{
 			}
 		}
 		try {
+			Thread.sleep(50);
+		} catch (InterruptedException e1) {
+			e1.printStackTrace();
+		}
+		try {
 			socketOut.writeObject(message);
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "warning", e);
@@ -259,6 +264,9 @@ public class ServerHandler implements Runnable{
 							if (graphicType.equals("2")) {
                                 if (answer.equals("It isn't your turn")) {
                                     sendToClient("No");
+                                }
+                                if (answer.equals("I am still processing a request")) {
+                                    sendToClient("/retry" + line);
                                 }
                                 else {
                                     sendToClient("Yes");
