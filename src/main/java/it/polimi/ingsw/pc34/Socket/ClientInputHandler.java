@@ -65,8 +65,10 @@ public class ClientInputHandler extends Thread{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
-			if(line!=null && !line.equals("You can send!") && graphicType == 2){
+			if(graphicType == 2){
 				client.setYouCanSend(true);
+			}
+			if(line!=null && !line.equals("You can send!") && graphicType == 2){
 				System.out.println("into if " + line);
 				if(line.equals("Logout successful")){
 					client.getSynchronizedMessageForGUI().put(line);
@@ -114,9 +116,6 @@ public class ClientInputHandler extends Thread{
 			}
 			else if(line!=null && graphicType!=2){
 				System.out.println(line);
-			}
-			if(graphicType == 2){
-				client.setYouCanSend(true);
 			}
 			if(line.equals("belaaaaaaaa")){
 				try {

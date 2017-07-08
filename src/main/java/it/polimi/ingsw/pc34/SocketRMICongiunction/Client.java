@@ -89,7 +89,11 @@ public class Client {
 			Thread mainGui = new Thread(new LaunchGUI());
 			mainGui.start();
 			while (guiReference == null) {
+				System.out.println("Mentre setto GuiReference");
 			}
+			System.out.println("Dopo il set di GuiReference");
+			
+			
 			System.out.println(guiReference);
 			guiReference.setFromServerToGui(messageForGUI);
 			guiReference.setFromGuiToServer(messageByGUI);
