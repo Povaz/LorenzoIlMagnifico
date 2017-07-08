@@ -167,10 +167,10 @@ public class GameController {
 		}
 	}
 
-	public void sendMessageGUIEndGame(Player player, String message) throws IOException { //Sends a message of "End Game" or "Crashed player" in order to open the LoginView again
+	public void sendMessageGUIEndGame(Player player, String messageGUI, String messageServer) throws IOException { //Sends a message of "End Game" or "Crashed player" in order to open the LoginView again
 		switch (player.getConnectionType()) {
 			case RMI:
-				serverRMI.openNewWindowAtTheEnd(player, message);
+				serverRMI.openNewWindowAtTheEnd(player, messageGUI, messageServer);
 				break;
 			case SOCKET:
 				//TODO TOM FILL, ASK US
@@ -181,7 +181,7 @@ public class GameController {
 	public void sendMessageGUIAllEndGame(String message) throws IOException { //Calls sendMessageGUIAllEndGame for all GUI Players
 		for (Player player : players) {
 			if (player.getClientType().equals(ClientType.GUI)) {
-				sendMessageGUIEndGame(player, message);
+				sendMessageGUIEndGame(player, message, "This game is finished");
 			}
 		}
 	}
@@ -1127,7 +1127,7 @@ public class GameController {
 		switch (player.getClientType()) {
 			case GUI:
 				System.out.println("disconnectedPlayer GUI: " + player.getUsername());
-				this.sendMessageGUIEndGame(player, "Timeout expired");
+				this.sendMessageGUIEndGame(player, "Timeout expired", "This Client has been disconnected");
 				break;
 			case CLI:
 				this.sendMessageCLI(player, "This Client has been disconnected");

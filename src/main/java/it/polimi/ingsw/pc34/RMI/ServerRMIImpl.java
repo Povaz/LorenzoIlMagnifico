@@ -411,13 +411,14 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         }
     }
 
-    public void openNewWindowAtTheEnd (Player player, String info) {
+    public void openNewWindowAtTheEnd (Player player, String infoGUI, String messageServer) {
         int i;
         for (i = 0; i < usersLoggedRMI.size(); i++) {
             try {
                 if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
+                    this.sendMessage(player, messageServer);
                     usersLoggedRMI.get(i).setMessageByGUI("skipCommand");
-                    usersLoggedRMI.get(i).setMessageInfo(info);
+                    usersLoggedRMI.get(i).setMessageInfo(infoGUI);
                 }
             } catch (RemoteException e) {
                 this.removeRMIUser(i);
