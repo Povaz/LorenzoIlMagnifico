@@ -196,10 +196,10 @@ public class GameController {
 
 	public void sendMessageChatGUI (Player player, String message, boolean isError) throws RemoteException {
 		if (isError) {
-			message += "/error" + message;
+			message = "/error" + message;
 		}
 		else {
-			message += "/chat" + message;
+			message = "/chat" + message;
 		}
 		switch (player.getConnectionType()) {
 			case RMI:
