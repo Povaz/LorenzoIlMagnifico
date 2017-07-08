@@ -65,10 +65,13 @@ public class ServerHandler implements Runnable{
 			}
 			else{
 				setSendGUI(true);
-				sendToClient("/game");
+				System.out.println(username + " sta per mandare /game");
 				guiIsReady = false;
+				sendToClient("/game");
 				while(!guiIsReady){
+					System.out.println("sono dentro");
 				}
+				System.out.println("sono uscito dal blocco su GUIISREADY");
 			}
 		}
 	}
@@ -145,6 +148,7 @@ public class ServerHandler implements Runnable{
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
+		System.out.println("sent " + message);
 	}
 	
 	synchronized public void sendToClientGUI (BoardView boardView){
@@ -206,18 +210,7 @@ public class ServerHandler implements Runnable{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		if(graphicType.equals("2")){
-			String syncro = null;
-			try {
-				syncro=receiveFromClient();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-			if(syncro.equals("1")){
-				sendToClient("You can send!");
-			}
-		}
-		else{
+		if(graphicType.equals("1")){
 			sendToClient("Take your decision : /login, /registration, /exit (to close the client)?");
 		}
 		while (true){
@@ -226,11 +219,12 @@ public class ServerHandler implements Runnable{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
-			System.out.println("manda in flow : " + line);
 			if(line.equals("ok") && graphicType.equals("2")){
 				continue;
 			}
 			if(line.equals("3") && graphicType.equals("2") && guiIsReady == false){
+				System.out.println("ricevuto 3 e sono nell'if che dici");
+				sendToClient("You can send!");
 				guiIsReady = true;
 				continue;
 			}
@@ -238,6 +232,7 @@ public class ServerHandler implements Runnable{
 				continue;
 			}
 			String answer = null;
+			System.out.println("manda in flow : " + line);
 			//to lobby flow
 			if(fase==0){
 				if(line.equals("/exit")){
