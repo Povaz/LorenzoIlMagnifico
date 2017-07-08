@@ -386,7 +386,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         }
     }
 
-    public void openNewWindowAtTheEnd (Player player,String info) {
+    public void openNewWindowAtTheEnd (Player player, String info) {
         int i;
         for (i = 0; i < usersLoggedRMI.size(); i++) {
             try {

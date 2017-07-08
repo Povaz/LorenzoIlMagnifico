@@ -97,7 +97,6 @@ public class GameController {
 				try {
 					System.out.println("Timer expired for " + username);
 					final String flow = flow("/afk", username);
-					System.out.println(flow);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -1091,8 +1090,15 @@ public class GameController {
 	public void disconnectPlayer (Player player) throws IOException {
 		player.setDisconnected(true);
 		player.setYourTurn(false);
-		this.sendMessageCLI(player, "This Client has been disconnected");
-		this.sendMessageChat("has disconnected.", player.getUsername());
+		switch (player.getClientType()) {
+			case GUI:
+				this.sendMessageGUI(player, "Timeout expired");
+				break;
+			case CLI:
+				this.sendMessageCLI(player, "This Client has been disconnected");
+				this.sendMessageChat("has disconnected.", player.getUsername());
+				break;
+		}
 	}
 
 	public ServerRMIImpl getServerRMI() {
