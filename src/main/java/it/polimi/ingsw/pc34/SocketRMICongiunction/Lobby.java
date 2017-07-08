@@ -123,7 +123,7 @@ public class Lobby {
     public void startTimer () {
         this.timer.schedule(new TimerTask() {
             @Override
-            public void run() {
+            public void run(){
                 try {
                     //Notifying the Game is Starting
                     notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");

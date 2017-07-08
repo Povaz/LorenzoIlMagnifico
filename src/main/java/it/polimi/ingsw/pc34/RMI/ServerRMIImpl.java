@@ -264,7 +264,14 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
             try {
                 for (i = 0; i < usersLoggedRMI.size(); i++) {
                     if (userRMI.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
-                        if (userRMI.getGameState() == null) { //If GameState is Null (this is the first input). evaluates the Input and set it
+                        if (input.startsWith("/chat")) {
+                            String message = userRMI.getUsername() + ": " + input.substring(6);
+                            gameController.sendMessageChat(message, userRMI.getUsername());
+                            if(userRMI.isGUI()) {
+                                userRMI.setMessageForGUI("Message accepted: Synchro");
+                            }
+                        }
+                        else if (userRMI.getGameState() == null) { //If GameState is Null (this is the first input), evaluates the Input and set it
                             switch (input) {                    //as the new GameState
                                 case "/playturn":
                                     if (userRMI.isGUI()) {

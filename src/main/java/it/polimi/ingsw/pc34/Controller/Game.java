@@ -5,7 +5,6 @@ import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.Controller.Action.*;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
-import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
@@ -94,7 +93,7 @@ public class Game implements Runnable{
         Player winner = this.decreeWinner();
         System.out.println("decree winner done");
         try {
-            gameController.sendMessageGUIAll("The winner is \n" + winner.getUsername() + "!");
+            gameController.sendMessageGUIAllEndGame("The winner is \n" + winner.getUsername() + "!");
             gameController.sendMessageCLIAll("THE WINNER IS : " + winner.getUsername());
 			gameController.sendMessageCLIAll("This game is finished");
 		} catch (IOException e) {

@@ -6,7 +6,6 @@ import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
 import java.io.IOException;
@@ -140,7 +139,7 @@ public class GameController {
 	public void sendMessageCLI(Player player, String message) throws IOException { //It sends message to "player"
 		switch (player.getConnectionType()) {
 			case RMI:
-				serverRMI.sendMessage(player, message); //Some messages are evaluated also for GUI Users
+				serverRMI.sendMessage(player, message); //Some messages are evaluated also for GUI Users (only the ones that are identical)
 				break;
 			case SOCKET:
 				ServerHandler serverHandler = serverSoc.getServerHandler(player.getUsername());
@@ -152,7 +151,7 @@ public class GameController {
 		}
 	}
 
-	public void sendMessageGUI(Player player, String message) throws IOException {
+	public void sendMessageGUIEndGame(Player player, String message) throws IOException { //Sends a message of "End Game" or "Crashed player" in order to open the LoginView again
 		switch (player.getConnectionType()) {
 			case RMI:
 				serverRMI.openNewWindowAtTheEnd(player, message);
@@ -163,10 +162,10 @@ public class GameController {
 		}
 	}
 
-	public void sendMessageGUIAll (String message) throws IOException { //Sends messages for all CLI Users, TODO used also to represent Board and PlayerBoard
+	public void sendMessageGUIAllEndGame(String message) throws IOException { //Calls sendMessageGUIAllEndGame for all GUI Players
 		for (Player player : players) {
 			if (player.getClientType().equals(ClientType.GUI)) {
-				sendMessageGUI(player, message);
+				sendMessageGUIEndGame(player, message);
 			}
 		}
 	}
@@ -179,16 +178,26 @@ public class GameController {
 		}
 	}
 
+	public void sendMessageChatGUI (Player player, String message) {
+		switch (player.getConnectionType()) {
+			case RMI:
+				break;
+			case SOCKET:
+				break;
+		}
+	}
+
 	public void sendMessageChat(String message, String username) throws IOException { //Sends messages in the Chat
 		message = username + " : " + message;
 		for (Player player : players) {
-			
-			
-			//TODO TOMMASO, MODIFICARE SE NO NON ARRIVANO MESSAGGI DELLA CHAT
-			if(player.getClientType().equals(ClientType.GUI) && player.getConnectionType().equals(ConnectionType.SOCKET)){
-				continue;
+			switch (player.getClientType()) {
+				case GUI:
+
+					break;
+				case CLI:
+					sendMessageCLI(player, message);
+					break;
 			}
-			sendMessageCLI(player, message);
 		}
 	}
 
@@ -1094,7 +1103,7 @@ public class GameController {
 		switch (player.getClientType()) {
 			case GUI:
 				System.out.println("disconnectedPlayer GUI: " + player.getUsername());
-				this.sendMessageGUI(player, "Timeout expired");
+				this.sendMessageGUIEndGame(player, "Timeout expired");
 				break;
 			case CLI:
 				this.sendMessageCLI(player, "This Client has been disconnected");
