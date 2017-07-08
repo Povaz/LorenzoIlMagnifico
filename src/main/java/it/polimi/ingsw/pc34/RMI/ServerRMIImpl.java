@@ -214,10 +214,12 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
 
     public void notifyRMIPlayers (String m) throws RemoteException { //Sends a Notification to RMI Users
-        for (int i = 0; i < usersLoggedRMI.size(); i++) {
+        int i;
+        for (i = 0; i < usersLoggedRMI.size(); i++) {
             try {
                 usersLoggedRMI.get(i).sendMessage(m);
             } catch (RemoteException e) {
+                this.removeRMIUser(i);
                 e.printStackTrace();
             }
         }
