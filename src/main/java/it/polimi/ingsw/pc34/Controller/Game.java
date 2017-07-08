@@ -310,6 +310,7 @@ public class Game implements Runnable{
         do{
             Player current = order.getCurrent();
             gameController.sendMessageChat(current.getUsername() + " is your turn!", "Game");
+            System.out.println("Am i blocked here? 1");
             if (!current.isDisconnected()) {
                 try {
                     ActionSpot actionSpot;
@@ -318,11 +319,15 @@ public class Game implements Runnable{
                     BoardView boardView = new BoardView(board, playerBoards, current.getUsername());
                     gameController.updatePlayersView(boardView);
                     gameController.startTimer(current.getUsername());
+                    System.out.println("Am i blocked here? 2");
                     do {
-                        System.out.println("\n\nPLAYERBOARD:"); //TODO GameController.sendMessageAll
+                        System.out.println("\n\nPLAYERBOARD:");
                         System.out.println(board.toString());
                         System.out.println(current.getPlayerBoard());
                         System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
+
+                        System.out.println("Am i blocked here? 3");
+
                         Integer whatToDo = gameController.getWhatToDo(current);
                         switch (whatToDo) {
                         	case 0:
