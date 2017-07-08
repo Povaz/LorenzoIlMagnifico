@@ -1,9 +1,5 @@
 package it.polimi.ingsw.pc34.View.GUI;
 
-import it.polimi.ingsw.pc34.Model.*;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -12,7 +8,6 @@ import javafx.geometry.Insets;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SplitMenuButton;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -37,9 +32,9 @@ public class GameViewController {
     private final String REPORT_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/";
 
     private Main main;
+    private ChatController chatController;
     private String currentPlayerShown;
     private BoardView board = null;
-    private boolean canDoAction = true;
 
     // drag and drop attributes
     private Button dragButton = null;
@@ -49,6 +44,8 @@ public class GameViewController {
     @FXML private Button bt;
 
     // Game
+    @FXML private Button showWinner;
+
     @FXML private Button zoomedCard;
 
     @FXML protected BorderPane chatBorder;
@@ -161,6 +158,19 @@ public class GameViewController {
         gridReported.add(reported1);
         gridReported.add(reported2);
         gridReported.add(reported3);
+
+        // initialize chat
+        try {
+            FXMLLoader loader = new FXMLLoader();
+            loader.setLocation(Main.class.getResource("Chat.fxml"));
+            AnchorPane chat = (AnchorPane) loader.load();
+            chatBorder.setCenter(chat);
+            chatController = loader.getController();
+            chatController.setMain(main);
+            chatController.initializeThread();
+        } catch(IOException e){
+            e.printStackTrace();
+        }
     }
 
     public void initializeThread(){
@@ -172,7 +182,15 @@ public class GameViewController {
                 System.out.println(toLambda);
                 Platform.runLater(() -> { // TODO inseriscine uno in ogni brach per velocizzare
                     if(toLambda.equals("/login")){
-                        main.showLogin();
+                        System.out.println("/login GUI");
+                        String info = main.getInfoFromServer().get();
+                        System.out.println(info);
+                        showWinner.setText(info);
+                        if(info.equals("Timeout expired")){
+                            showWinner.setTextFill(Color.RED);
+                        }
+                        showWinner.setDisable(false);
+                        showWinner.setVisible(true);
                     }
                     else if(toLambda.equals("/bonusaction")){
                         try {
@@ -492,6 +510,10 @@ public class GameViewController {
         zoomedCard.setVisible(false);
     }
 
+    @FXML private void showWinnerClicked(){
+        main.showLogin();
+    }
+
     @FXML private void escPressed(KeyEvent event){
         if(event.getCode() == KeyCode.ESCAPE){
             main.getRootC().setFullScreenOff();
@@ -599,21 +621,26 @@ public class GameViewController {
     }
 
     @FXML private void startDrag(MouseEvent event){
+        ghost = false;
         dragButton = (Button) event.getSource();
         dropShape = null;
         ((Button) event.getSource()).startFullDrag();
     }
 
     @FXML private void passClicked(){
-        /*if(!canDoAction){
-            return;
-        }*/
+        String resultString;
+
         main.getFromGuiToServer().put("/playturn");
-        if(!main.getFromServerToGui().get().equals("Yes")){
-           return;
+        resultString = main.getFromServerToGui().get();
+        if(!resultString.equals("Yes")){
+            chatController.addMessage("/error" + resultString);
+            return;
         }
+
         main.getFromGuiToServer().put("5");
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        resultString = main.getFromServerToGui().get();
+        if(!resultString.equals("Yes")){
+            chatController.addMessage("/error" + resultString);
             return;
         }
     }
@@ -635,12 +662,18 @@ public class GameViewController {
         }
         System.out.println("leader type: actionType");
 
+        String resultString;
         main.getFromGuiToServer().put("/playturn");
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        resultString = main.getFromServerToGui().get();
+        if(!resultString.equals("Yes")){
+            chatController.addMessage("/error" + resultString);
             return;
         }
+
         main.getFromGuiToServer().put(actionType);
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        resultString = main.getFromServerToGui().get();
+        if(!resultString.equals("Yes")){
+            chatController.addMessage("/error" + resultString);
             return;
         }
     }
@@ -668,11 +701,16 @@ public class GameViewController {
         String familyColor = dragButton.getText();
         System.out.println("familyColor: " + familyColor);
 
-        if(!ghost) {
+        String resultString;
+
+        if(!ghost){
             System.out.println("ciao1");
             main.getFromGuiToServer().put("/playturn");
             System.out.println("ciao1.5");
-            if(!main.getFromServerToGui().get().equals("Yes")){
+            resultString = main.getFromServerToGui().get();
+            System.out.println("/error" + resultString);
+            if(!resultString.equals("Yes")){
+                chatController.addMessage("/error" + resultString);
                 System.out.println("ciaooo1.75");
                 return;
             }
@@ -680,21 +718,31 @@ public class GameViewController {
 
             System.out.println("beppe2");
             main.getFromGuiToServer().put("1");
-            if(!main.getFromServerToGui().get().equals("Yes")){
+            resultString = main.getFromServerToGui().get();
+            System.out.println("/error" + resultString);
+            if(!resultString.equals("Yes")){
+                chatController.addMessage("/error" + resultString);
                 return;
             }
         }
 
         System.out.println("beppe3");
         main.getFromGuiToServer().put(spotType); // 1 TerritoryT, 2 BuildingT, 3 CharacterT, 4 VentureT, 5 Harvest, 6 Produce, 7 Market, 8 CouncilPalace
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        resultString = main.getFromServerToGui().get();
+        System.out.println("/error" + resultString);
+        if(!resultString.equals("Yes")){
+            chatController.addMessage("/error" + resultString);
             return;
         }
+
         System.out.println("biib4");
         if(!spotType.equals("8")){
             main.getFromGuiToServer().put(spotNumber); // spot number: inserisci numero 0-3
             System.out.println("PEPPA8");
-            if(!main.getFromServerToGui().get().equals("Yes")){
+            resultString = main.getFromServerToGui().get();
+            System.out.println("/error" + resultString);
+            if(!resultString.equals("Yes")){
+                chatController.addMessage("/error" + resultString);
                 System.out.println("PEPPA9");
                 return;
             }
@@ -703,7 +751,9 @@ public class GameViewController {
         if(!ghost){
             System.out.println("biib5");
             main.getFromGuiToServer().put(familyColor); // familiare: inserisci 1 black, 2 white, 3 orange, 4 neutral
-            if(!main.getFromServerToGui().get().equals("Yes")){
+            resultString = main.getFromServerToGui().get();
+            if(!resultString.equals("Yes")){
+                chatController.addMessage("/error" + resultString);
                 return;
             }
         }
@@ -934,10 +984,6 @@ public class GameViewController {
 
     public void setMain(Main main){
         this.main = main;
-    }
-
-    public void setCanDoAction(boolean canDoAction){
-        this.canDoAction = canDoAction;
     }
 
     public void setDragButton(Button dragButton){

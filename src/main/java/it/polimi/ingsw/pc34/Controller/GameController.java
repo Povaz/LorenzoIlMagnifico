@@ -101,7 +101,7 @@ public class GameController {
 					e.printStackTrace();
 				}
 			}
-		}, 300000);
+		}, 30000);
 	}
 
 	public void stopTimer(String username) { //Cancels all scheduled task on timerTillTheEnd and cancels it
@@ -1090,8 +1090,10 @@ public class GameController {
 	public void disconnectPlayer (Player player) throws IOException {
 		player.setDisconnected(true);
 		player.setYourTurn(false);
+		System.out.println("disconnectedPlayer : " + player.getUsername());
 		switch (player.getClientType()) {
 			case GUI:
+				System.out.println("disconnectedPlayer GUI: " + player.getUsername());
 				this.sendMessageGUI(player, "Timeout expired");
 				break;
 			case CLI:
