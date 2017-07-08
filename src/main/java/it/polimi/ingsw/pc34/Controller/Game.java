@@ -94,11 +94,8 @@ public class Game implements Runnable{
         Player winner = this.decreeWinner();
         System.out.println("decree winner done");
         try {
-            System.out.println("the winner is");
             gameController.sendMessageGUIAll("The winner is \n" + winner.getUsername() + "!");
-            System.out.println("THE WINNER IS");
             gameController.sendMessageCLIAll("THE WINNER IS : " + winner.getUsername());
-            System.out.println("this game is finished");
 			gameController.sendMessageCLIAll("This game is finished");
 		} catch (IOException e) {
             System.out.println("catch IOEX");
