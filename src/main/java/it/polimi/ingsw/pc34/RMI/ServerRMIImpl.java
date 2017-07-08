@@ -123,7 +123,12 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                             }
                             return true;
                         } else {
-                            userRMI.sendMessage("User already logged");
+                            if (userRMI.isGUI()) {
+                                userRMI.setMessageForGUI("User already logged");
+                            }
+                            else {
+                                userRMI.sendMessage("User already logged");
+                            }
                             return false;
                         }
                     }
@@ -293,11 +298,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                     }
                                     userRMI.setGameState(input);
                                     break;
-                                case "/chat":
-                                    userRMI.sendMessage("Insert a Message: ");
-                                    gameController.sendMessageChat(input, userRMI.getUsername());
-                                    userRMI.setGameState(input);
-                                    break;
                                 case "/update":
                                     if (userRMI.isGUI()) {
                                         gameController.updateRequested(userRMI.getUsername());
@@ -330,10 +330,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                                     else {
                                         userRMI.sendMessage(gameController.flow(input, userRMI.getUsername()));
                                     }
-                                    break;
-                                case "/chat":
-                                    userRMI.setGameState(null);
-                                    gameController.sendMessageChat(input, userRMI.getUsername());
                                     break;
                                 case "/vaticansupport":
                                     if (userRMI.isGUI()) {
