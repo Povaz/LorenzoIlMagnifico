@@ -351,7 +351,10 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
                 this.loginHandlerGUI(serverRMI);
             }
         }
+
+        String message = messageInfo.get();
         messageToChangeWindow.put("/login");
+        messageInfo.put(message);
         this.loginHandlerGUI(serverRMI);
     }
 }

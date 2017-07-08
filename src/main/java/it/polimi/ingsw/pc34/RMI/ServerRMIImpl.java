@@ -220,7 +220,6 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                 usersLoggedRMI.get(i).sendMessage(m);
             } catch (RemoteException e) {
                 this.removeRMIUser(i);
-                e.printStackTrace();
             }
         }
     }
@@ -380,6 +379,19 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                 if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
                     usersLoggedRMI.get(i).setMessageToChangeWindow(message);
                     usersLoggedRMI.get(i).setMessageInfo(toSynchro);
+                }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
+            }
+        }
+    }
+
+    public void openNewWindowAtTheEnd (Player player,String info) {
+        int i;
+        for (i = 0; i < usersLoggedRMI.size(); i++) {
+            try {
+                if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
+                    usersLoggedRMI.get(i).setMessageInfo(info);
                 }
             } catch (RemoteException e) {
                 this.removeRMIUser(i);

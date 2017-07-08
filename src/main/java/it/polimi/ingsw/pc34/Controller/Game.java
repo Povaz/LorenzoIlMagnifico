@@ -89,10 +89,10 @@ public class Game implements Runnable{
             }
         }
         Player winner = this.decreeWinner();
-        System.out.println("\n\nTHE WINNER IS: " + winner.getUsername());
         try {
-			gameController.sendMessageChat("THE WINNER IS : " + winner.getUsername(), "Game");
-			gameController.sendMessageChat("This game is finished", "Game");
+            gameController.sendMessageGUIAll("The winner is \n" + winner.getUsername() + "!");
+            gameController.sendMessageCLIAll("THE WINNER IS : " + winner.getUsername());
+			gameController.sendMessageCLIAll("This game is finished");
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

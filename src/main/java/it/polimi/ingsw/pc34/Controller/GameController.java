@@ -153,9 +153,30 @@ public class GameController {
 		}
 	}
 
-	public void sendMessageAll (String message) throws IOException { //Sends messages for all CLI Users, TODO used also to represent Board and PlayerBoard
+	public void sendMessageGUI(Player player, String message) throws IOException {
+		switch (player.getConnectionType()) {
+			case RMI:
+				serverRMI.openNewWindowAtTheEnd(player, message);
+				break;
+			case SOCKET:
+				//TODO TOM FILL, ASK US
+				break;
+		}
+	}
+
+	public void sendMessageGUIAll (String message) throws IOException { //Sends messages for all CLI Users, TODO used also to represent Board and PlayerBoard
 		for (Player player : players) {
-			sendMessageCLI(player, message);
+			if (player.getClientType().equals(ClientType.GUI)) {
+				sendMessageGUI(player, message);
+			}
+		}
+	}
+
+	public void sendMessageCLIAll (String message) throws IOException {
+		for (Player player : players) {
+			if (player.getClientType().equals(ClientType.CLI)) {
+				sendMessageCLI(player, message);
+			}
 		}
 	}
 
