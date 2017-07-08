@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.GameController;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -27,7 +28,12 @@ public class ProductionArea extends ActionSpot{
 		if(familyMember.isGhost()){
 			if(familyMember.getAction() != null){
 				if(familyMember.getAction() != ActionType.PRODUCE && familyMember.getAction() != ActionType.ALL){
-					gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+					if (familyMember.getPlayer().getClientType().equals(ClientType.GUI)) {
+						gameController.sendMessageChatGUI(familyMember.getPlayer(), "You cannot place in this type of action spot!", true);
+					}
+					else {
+						gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+					}
 					return false;
 				}
 			}
@@ -38,7 +44,12 @@ public class ProductionArea extends ActionSpot{
 				for(FamilyMember f : pA.occupiedBy){
 					if(familyMember.samePlayer(f)){
 						if(f.getColor() != FamilyColor.NEUTRAL){
-							gameController.sendMessageCLI(familyMember.getPlayer(), "There is already one of yours colored family member in the production area!");
+							if (familyMember.getPlayer().getClientType().equals(ClientType.GUI)) {
+								gameController.sendMessageChatGUI(familyMember.getPlayer(), "There is already one of yours colored family member in the production area!", true);
+							}
+							else {
+								gameController.sendMessageCLI(familyMember.getPlayer(), "There is already one of yours colored family member in the production area!");
+							}
 							return false;
 						}
 					}

@@ -2,6 +2,7 @@ package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.JSONUtility;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import org.json.JSONException;
 
 import java.io.IOException;
@@ -48,7 +49,12 @@ public class CouncilPalace extends ActionSpot{
 		if(familyMember.isGhost()){
 			if(familyMember.getAction() != null){
 				if(familyMember.getAction() != ActionType.ALL && familyMember.getAction() != ActionType.COUNCIL_PALACE){
-					gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+					if (familyMember.getPlayer().getClientType().equals(ClientType.GUI)) {
+						gameController.sendMessageChatGUI(familyMember.getPlayer(), "You cannot place in this type of action spot!", true);
+					}
+					else {
+						gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+					}
 					return false;
 				}
 			}

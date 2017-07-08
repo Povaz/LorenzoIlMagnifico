@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.GameController;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -53,15 +54,30 @@ public abstract class ActionSpot {
 
 	public boolean isPlaceable(FamilyMember familyMember, boolean canPlaceInBusyActionSpot, GameController gameController) throws IOException{
 		if(familyMember.isUsed()){
-			gameController.sendMessageCLI(familyMember.getPlayer(), "This family member is already used!");
+			if (familyMember.getPlayer().getClientType().equals(ClientType.GUI)) {
+				gameController.sendMessageChatGUI(familyMember.getPlayer(), "This family member is already used!", true);
+			}
+			else {
+				gameController.sendMessageCLI(familyMember.getPlayer(), "This family member is already used!");
+			}
 			return false;
 		}
 		if(busy && !canPlaceInBusyActionSpot){
-			gameController.sendMessageCLI(familyMember.getPlayer(), "This action spot is busy!");
+			if (familyMember.getPlayer().getClientType().equals(ClientType.GUI)) {
+				gameController.sendMessageChatGUI(familyMember.getPlayer(), "This action spot is busy!", true);
+			}
+			else {
+				gameController.sendMessageCLI(familyMember.getPlayer(), "This action spot is busy!");
+			}
 			return false;
 		}
 		if(diceValue > familyMember.getValue() + familyMember.getServantUsed().getQuantity()){
-			gameController.sendMessageCLI(familyMember.getPlayer(), "Your family member's value is too low!");
+			if (familyMember.getPlayer().getClientType().equals(ClientType.GUI)) {
+				gameController.sendMessageChatGUI(familyMember.getPlayer(), "Your family member's value is too low!", true);
+			}
+			else {
+				gameController.sendMessageCLI(familyMember.getPlayer(), "Your family member's value is too low!");
+			}
 			return false;
 		}
 		return true;

@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
 import it.polimi.ingsw.pc34.Controller.GameController;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -28,7 +29,12 @@ public class HarvestArea extends ActionSpot{
             if (familyMember.getAction() != null){
                 if (familyMember.getAction() != ActionType.HARVEST && familyMember.getAction() != ActionType.ALL){
                     try {
-                        gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+                        if (familyMember.getPlayer().getClientType().equals(ClientType.GUI)) {
+                            gameController.sendMessageChatGUI(familyMember.getPlayer(), "You cannot place in this type of action spot!", true);
+                        }
+                        else {
+                            gameController.sendMessageCLI(familyMember.getPlayer(), "You cannot place in this type of action spot!");
+                        }
                     }
                     catch (RemoteException e) {
                         e.printStackTrace();
@@ -44,7 +50,12 @@ public class HarvestArea extends ActionSpot{
                     if(familyMember.samePlayer(f)){
                         if(f.getColor() != FamilyColor.NEUTRAL){
                             try {
-                                gameController.sendMessageCLI(familyMember.getPlayer(), "There is already one of yours colored family member in the harvest area!");
+                                if (familyMember.getPlayer().getClientType().equals(ClientType.GUI)) {
+                                    gameController.sendMessageChatGUI(familyMember.getPlayer(), "There is already one of yours colored family member in the harvest area!", true);
+                                }
+                                else {
+                                    gameController.sendMessageCLI(familyMember.getPlayer(), "There is already one of yours colored family member in the harvest area!");
+                                }
                             }
                             catch (RemoteException e) {
                                 e.printStackTrace();

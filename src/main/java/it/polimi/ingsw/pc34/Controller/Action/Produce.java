@@ -2,6 +2,7 @@ package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Model.*;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -68,7 +69,12 @@ public class Produce {
     private boolean haveEnoughServant() throws RemoteException, IOException{
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough servant!", true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
+            }
             return false;
         }
         return true;
@@ -125,11 +131,21 @@ public class Produce {
             }
         }
         if(!copyForCosts.check()){
-            game.getGameController().sendMessageCLI(player, "You don't have enough resources to do all the trades!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough resources to do all the trades!", true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have enough resources to do all the trades!");
+            }
             return false;
         }
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You don't have enough resources to do all the trades!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough resources to do all the trades!", true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have enough resources to do all the trades!");
+            }
             return false;
         }
         return true;
