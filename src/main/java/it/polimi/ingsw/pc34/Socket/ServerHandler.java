@@ -146,10 +146,12 @@ public class ServerHandler implements Runnable{
 				message = "You can send!";
 			}
 		}
-		try {
-			Thread.sleep(50);
-		} catch (InterruptedException e1) {
-			e1.printStackTrace();
+		if(graphicType.equals("2")){
+			try {
+				Thread.sleep(50);
+			} catch (InterruptedException e1) {
+				e1.printStackTrace();
+			}
 		}
 		try {
 			socketOut.writeObject(message);
@@ -252,6 +254,16 @@ public class ServerHandler implements Runnable{
 			}
 			//to game flow
 			if(fase==1){
+				if(graphicType.equals("2")){
+					if(line.contains("/chat")){
+						String [] mexChat = line.split("/chat");
+						try {
+							gameController.sendMessageChat(mexChat[1], username);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+				}
 				//have to decide the type of action
 				if(stateGame==null) {
 					switch (line){

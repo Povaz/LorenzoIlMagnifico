@@ -30,7 +30,6 @@ public class ClientSOC implements Runnable {
     private SynchronizedString messageForGUI;
     private SynchronizedString messageToChangeWindow;
     private SynchronizedString messageInfo;
-    private SynchronizedString chatOut;
     private SynchronizedString chatIn;
     private SynchronizedBoardView boardView;
 	
@@ -65,6 +64,10 @@ public class ClientSOC implements Runnable {
 	
 	public void setYouCanSend(boolean value){
 		youCanSend = value;
+	}
+	
+	public SynchronizedString getChatIn(){
+		return chatIn;
 	}
 	
 	public boolean getYouCanSend(){
@@ -107,10 +110,6 @@ public class ClientSOC implements Runnable {
         this.chatIn = chatIn;
     }
 
-    public void setChatOut(SynchronizedString chatOut) {
-        this.chatOut = chatOut;
-    }
-	
 	public void run() {
 		if(graphicType==1){
 			System.out.println("Connection established");

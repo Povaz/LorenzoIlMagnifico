@@ -169,6 +169,7 @@ public class GameController {
 		}
 	}
 
+	//TODO SOCKET PART
 	public void sendMessageGUIEndGame(Player player, String messageGUI, String messageServer) throws IOException { //Sends a message of "End Game" or "Crashed player" in order to open the LoginView again
 		switch (player.getConnectionType()) {
 			case RMI:
@@ -208,7 +209,7 @@ public class GameController {
 				serverRMI.sendMessageChat(player, message);
 				break;
 			case SOCKET:
-				//TODO FILL SOCKET
+				getServerHandler(player).sendToClient(message);
 				break;
 		}
 	}

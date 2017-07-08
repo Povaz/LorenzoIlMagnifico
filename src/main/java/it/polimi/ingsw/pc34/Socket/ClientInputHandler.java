@@ -92,6 +92,10 @@ public class ClientInputHandler extends Thread{
 					}
 					client.getSynchronizedMessageToChangeWindow().put("/game");
 				}
+				else if(line.contains("/chat")){
+					//String [] messageRet = line.split("/chat");
+					client.getChatIn().put(line);
+				}
 				else if(line.equals("/update")){
 					client.getSynchronizedMessageToChangeWindow().put("/update");
 					BoardView boardView = null;
