@@ -28,6 +28,11 @@ public class ClientSOC implements Runnable {
     private SynchronizedString chatIn;
     private SynchronizedBoardView boardView;
 	
+    Thread userSoc;
+    boolean logged;
+    String username;
+    String keyword;
+    boolean startingGame;
     boolean youCanSend;
     
 	public ClientSOC(int graphicType) throws UnknownHostException, IOException{
@@ -39,11 +44,9 @@ public class ClientSOC implements Runnable {
 	public void setBoardView (BoardView boardView) {this.boardView.put(boardView);}
 
 	public void setStartingGame(boolean value){
-		startingGame=value;
+		startingGame = value;
 	}
 	
-=======
->>>>>>> parent of c0d8206... fixed SOCKET LOBBY, ENTER GAME AND UPDATE!
 	public ClientOutputHandler getClientOutputHandler(){
 		return coh;
 	}
@@ -98,7 +101,6 @@ public class ClientSOC implements Runnable {
 	
 	@SuppressWarnings("restriction")
 	public void run() {
-<<<<<<< HEAD
 		if(graphicType==1){
 			System.out.println("Connection established");
 			System.out.println("");
@@ -127,7 +129,7 @@ public class ClientSOC implements Runnable {
 		
 	}
 
-	private boolean isLogged() throws RemoteException {
+	private boolean isLogged() {
         return logged;
     }
 	
@@ -229,8 +231,6 @@ public class ClientSOC implements Runnable {
 	}
 	
 	public void loginHandlerGUI() {
-=======
->>>>>>> parent of c0d8206... fixed SOCKET LOBBY, ENTER GAME AND UPDATE!
 		System.out.println("Connection established");
 		System.out.println("");
 		
@@ -249,7 +249,6 @@ public class ClientSOC implements Runnable {
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-<<<<<<< HEAD
 		String choose;
 	    while (!startingGame) {
             choose = messageByGUI.get();
@@ -269,7 +268,6 @@ public class ClientSOC implements Runnable {
                     break;
             }
 	    } 
-=======
 		Thread output = new Thread(coh);
 		output.start();
 		//input
@@ -282,7 +280,6 @@ public class ClientSOC implements Runnable {
 		setYouCanSend(true);
 		Thread input = new Thread(cih);
 		input.start();
->>>>>>> parent of c0d8206... fixed SOCKET LOBBY, ENTER GAME AND UPDATE!
 		
 	}
 	
