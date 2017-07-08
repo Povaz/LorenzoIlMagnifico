@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pc34.Socket;
 
-import it.polimi.ingsw.pc34.RMI.ServerRMI;
 import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
@@ -11,10 +10,6 @@ import javafx.application.Application;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.rmi.RemoteException;
-import java.util.InputMismatchException;
-
-import org.json.JSONException;
 
 //if client decides to use socket as comunication tool, ClientSoc will be launched
 public class ClientSOC implements Runnable {
@@ -32,12 +27,6 @@ public class ClientSOC implements Runnable {
     private SynchronizedString chatOut;
     private SynchronizedString chatIn;
     private SynchronizedBoardView boardView;
-    
-    private Thread userSoc;
-    private String username;
-    private String keyword;
-    private boolean logged; //Boolean variabile that tells if a User is currently logged
-    private boolean startingGame; //Boolean variable that tells if a User is currently in Game
 	
     boolean youCanSend;
     
@@ -49,10 +38,12 @@ public class ClientSOC implements Runnable {
 	
 	public void setBoardView (BoardView boardView) {this.boardView.put(boardView);}
 
-	synchronized public void setStartingGame(boolean value){
+	public void setStartingGame(boolean value){
 		startingGame=value;
 	}
 	
+=======
+>>>>>>> parent of c0d8206... fixed SOCKET LOBBY, ENTER GAME AND UPDATE!
 	public ClientOutputHandler getClientOutputHandler(){
 		return coh;
 	}
@@ -75,10 +66,6 @@ public class ClientSOC implements Runnable {
 	
 	public SynchronizedString getSynchronizedMessageByGUI() {
         return messageByGUI;
-    }
-	
-	public SynchronizedString getSynchronizedMessageInfo() {
-        return messageInfo;
     }
 	
 	public SynchronizedString getSynchronizedMessageForGUI() {
@@ -111,6 +98,7 @@ public class ClientSOC implements Runnable {
 	
 	@SuppressWarnings("restriction")
 	public void run() {
+<<<<<<< HEAD
 		if(graphicType==1){
 			System.out.println("Connection established");
 			System.out.println("");
@@ -151,7 +139,7 @@ public class ClientSOC implements Runnable {
         this.keyword = keyword;
     }
 	
-	private String loginGUI(){ //Login procedure for GUI User
+	private void loginGUI(){ //Login procedure for GUI User
         try {
 			ClientOutputHandler.sendToServer("/login");
 		} catch (IOException e) {
@@ -173,9 +161,9 @@ public class ClientSOC implements Runnable {
 		}
 		getSynchronizedMessageForGUI().put(resultLogin);
 		if(resultLogin.equals("Login successful")){
-			return "Login successful";
+			userSoc = new Thread(this);
+			userSoc.start();
 		}
-		return "Login no";
     }
 	
 	private void insertDataGUI() { //For a RMI GUI User
@@ -241,34 +229,35 @@ public class ClientSOC implements Runnable {
 	}
 	
 	public void loginHandlerGUI() {
+=======
+>>>>>>> parent of c0d8206... fixed SOCKET LOBBY, ENTER GAME AND UPDATE!
 		System.out.println("Connection established");
 		System.out.println("");
 		
+		//2 thread, 1 for input and 1 for output
+		//output
+		String messageGraphicType = "" + graphicType;
 		coh = new ClientOutputHandler (socketServer, this, graphicType);
 		try {
 			cih = new ClientInputHandler (socketServer, this, graphicType);
 		} catch (IOException e) {
+			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		String messageGraphicType = "" + graphicType;
 		try {
 			ClientOutputHandler.sendToServer(messageGraphicType);
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
+<<<<<<< HEAD
 		String choose;
 	    while (!startingGame) {
-	    	System.out.println("aspettando di prendereeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee");
             choose = messageByGUI.get();
-            System.out.println("choooooooooooooooooooooooooooooooooooooooooooooooooooooooose : " + choose);
+
             switch (choose) {
                 case "/login":
-                   String resultLogin = this.loginGUI();
-                   if(resultLogin.equals("Login successful")){
-                	   startGame = new Thread(cih);
-                	   startGame.start();
-                   }
-                   break;
+                   this.loginGUI();
+                    break;
                 case "/logout":
                     this.logout();
                     break;
@@ -280,6 +269,21 @@ public class ClientSOC implements Runnable {
                     break;
             }
 	    } 
+=======
+		Thread output = new Thread(coh);
+		output.start();
+		//input
+		String ok = null;
+		try {
+			ok = ClientInputHandler.receiveFromServer();
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		setYouCanSend(true);
+		Thread input = new Thread(cih);
+		input.start();
+>>>>>>> parent of c0d8206... fixed SOCKET LOBBY, ENTER GAME AND UPDATE!
 		
 	}
+	
 }

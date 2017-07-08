@@ -85,7 +85,6 @@ public class Client {
 			this.getUserLoginRMI().setChatIn(messageChatIn);
 			this.getUserLoginRMI().setChatOut(messageChatOut);
 			this.getUserLoginRMI().setSynchronizedBoardView(boardForGUI);
-			System.out.println("si!");
 			this.getUserLoginRMI().loginHandlerGUI(serverRMI);
 		} else {
 			this.getUserLoginRMI().loginHandler(serverRMI);
@@ -98,16 +97,12 @@ public class Client {
 			mainGui.start();
 
 			// wait until guiReference is initialized in MainGUI
-			while(guiReference == null){
-				System.out.println("While guiReference");
-			}
+			while(guiReference == null){}
 
 			System.out.println(guiReference);
 
 			// wait until guiReference.getBoardViewFromServer() is initialized in MainGUI
-			while(guiReference.getBoardViewFromServer() == null){
-				System.out.println("While guiReference");
-			}
+			while(guiReference.getBoardViewFromServer() == null){}
 
 			messageForGUI = guiReference.getFromServerToGui();
 			messageByGUI = guiReference.getFromGuiToServer();
@@ -124,14 +119,9 @@ public class Client {
 			this.getUserSoc().setChatIn(messageChatIn);
 			this.getUserSoc().setChatOut(messageChatOut);
 			this.getUserSoc().setSynchronizedBoardView(boardForGUI);
-			System.out.println("si!");
-			this.getUserSoc().loginHandlerGUI();
 		}
-		else{
-			Thread userSoc = new Thread(this.userSoc);
-			userSoc.start();
-		}
-		
+		Thread userSoc = new Thread(this.userSoc);
+		userSoc.start();
 	}
 
 	public static void main(String[] args)

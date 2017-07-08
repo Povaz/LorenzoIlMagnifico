@@ -7,8 +7,7 @@ import javafx.application.Application;
  * Created by trill on 04/07/2017.
  */
 public class LaunchGUI implements Runnable{
-    @SuppressWarnings("restriction")
-	@Override
+    @Override
     public void run(){
         Application.launch(Main.class);
     }

@@ -76,7 +76,6 @@ public class ClientInputHandler extends Thread{
 				}
 				else if(line.equals("/game")){
 					client.getSynchronizedMessageToChangeWindow().put("/game");
-					client.setStartingGame(true);
 				}
 				else if(line.equals("/update")){
 					client.getSynchronizedMessageToChangeWindow().put("/update");

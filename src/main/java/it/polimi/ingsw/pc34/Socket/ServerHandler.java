@@ -32,7 +32,6 @@ public class ServerHandler implements Runnable{
 	private String graphicType;
 	private boolean sendGUI;
 	private boolean guiIsReady = true;
-	Scanner socketIn;
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
 	
@@ -51,11 +50,6 @@ public class ServerHandler implements Runnable{
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
 		sendGUI = false;
-		try {
-			Scanner socketIn = new Scanner(socket.getInputStream());
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
 	}
 	
 	public void setSendGUI(boolean value){
@@ -71,13 +65,10 @@ public class ServerHandler implements Runnable{
 			}
 			else{
 				setSendGUI(true);
-				System.out.println(username + " sta per mandare /game");
-				guiIsReady = false;
 				sendToClient("/game");
+				guiIsReady = false;
 				while(!guiIsReady){
-					System.out.println("sono dentro");
 				}
-				System.out.println("sono uscito dal blocco su GUIISREADY");
 			}
 		}
 	}
@@ -154,7 +145,6 @@ public class ServerHandler implements Runnable{
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
-		System.out.println("sent " + message);
 	}
 	
 	synchronized public void sendToClientGUI (BoardView boardView){
@@ -162,11 +152,6 @@ public class ServerHandler implements Runnable{
 			socketOut.writeObject("/update");
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "warning", e);
-		}
-		try {
-			receiveFromClient();
-		} catch (IOException e1) {
-			e1.printStackTrace();
 		}
 		try {
 			socketOut.writeObject(boardView);
@@ -221,7 +206,18 @@ public class ServerHandler implements Runnable{
 		} catch (IOException e1) {
 			e1.printStackTrace();
 		}
-		if(graphicType.equals("1")){
+		if(graphicType.equals("2")){
+			String syncro = null;
+			try {
+				syncro=receiveFromClient();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
+			if(syncro.equals("1")){
+				sendToClient("You can send!");
+			}
+		}
+		else{
 			sendToClient("Take your decision : /login, /registration, /exit (to close the client)?");
 		}
 		while (true){
@@ -230,12 +226,11 @@ public class ServerHandler implements Runnable{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
+			System.out.println("manda in flow : " + line);
 			if(line.equals("ok") && graphicType.equals("2")){
 				continue;
 			}
 			if(line.equals("3") && graphicType.equals("2") && guiIsReady == false){
-				System.out.println("ricevuto 3 e sono nell'if che dici");
-				sendToClient("You can send!");
 				guiIsReady = true;
 				continue;
 			}
@@ -243,7 +238,6 @@ public class ServerHandler implements Runnable{
 				continue;
 			}
 			String answer = null;
-			System.out.println("manda in flow : " + line);
 			//to lobby flow
 			if(fase==0){
 				if(line.equals("/exit")){
@@ -266,21 +260,20 @@ public class ServerHandler implements Runnable{
 							} catch (IOException e) {
 								LOGGER.log(Level.WARNING, "warning", e);
 							}
+							if (graphicType.equals("2")) {
+                                if (answer.equals("It's not your turn")) {
+                                    sendToClient("No");
+                                }
+                                else {
+                                    sendToClient("Yes");
+                                }
+                            }
 							if(answer==null){
 								break;
 							}
 							if(answer.equals("What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 4-exchange Leader Card 5-skip")){
 								stateGame = line;
-								System.out.println("stateGame è : " + stateGame);
 							}
-							if (graphicType.equals("2")) {
-                                if (answer.equals("It's not your turn")) {
-                                    answer="No";
-                                }
-                                else {
-                                    answer="Yes";
-                                }
-                            }
 							break;
 						case "/afk" :
 							try {
@@ -321,21 +314,12 @@ public class ServerHandler implements Runnable{
 							} catch (IOException e) {
 								LOGGER.log(Level.WARNING, "warning", e);
 							}
-							if(answer.equals("Action has been executed") && fase==1){
-								stateGame = null;
-							}
-							else if(answer.equals("You have already placed a family member!")){
-								stateGame = null;
-							}
 							if (graphicType.equals("2")) {
                                 if (answer.equals("It's not your turn") || answer.equals("Input error") || answer.equals("Input error, Retry!")) {
-                                    answer="No";
-                                }
-                                else if(answer.equals("I am still processing a request")){
-                                	answer="Resend!" + line;
+                                    sendToClient("No");
                                 }
                                 else {
-                                	answer = "Yes";
+                                	sendToClient("Yes");
                                 }
                             }
 							break;
@@ -356,20 +340,23 @@ public class ServerHandler implements Runnable{
 							}
 							if (graphicType.equals("2")) {
                                 if (answer.equals("It's not your turn") || answer.equals("Input error") || answer.equals("Input error, Retry!")) {
-                                    answer ="No";
+                                    sendToClient("No");
                                 }
                                 else {
-                                    answer="Yes";
+                                    sendToClient("Yes");
                                 }
                             }
 							break;
 						default :
-							answer = "Wrong input 2, Type: /playturn for an action; /chat to send message; /afk to disconnect from the game";
+							answer = "Wrong input, Type: /playturn for an action; /chat to send message; /afk to disconnect from the game";
 							break;
 					}
 				}
 			}
-			sendToClient(answer);
+
+			if(graphicType.equals("1") || fase == 0){
+				sendToClient(answer);
+			}
 		}
 	}
 
