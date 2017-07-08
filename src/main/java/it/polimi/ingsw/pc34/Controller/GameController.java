@@ -178,7 +178,13 @@ public class GameController {
 		}
 	}
 
-	public void sendMessageChatGUI (Player player, String message) throws RemoteException {
+	public void sendMessageChatGUI (Player player, String message, boolean isError) throws RemoteException {
+		if (isError) {
+			message += "/error" + message;
+		}
+		else {
+			message += "/chat" + message;
+		}
 		switch (player.getConnectionType()) {
 			case RMI:
 				serverRMI.sendMessageChat(player, message);
@@ -190,11 +196,11 @@ public class GameController {
 	}
 
 	public void sendMessageChat(String message, String username) throws IOException { //Sends messages in the Chat
-		message = username + " : " + message;
+		message = username + ":" + message;
 		for (Player player : players) {
 			switch (player.getClientType()) {
 				case GUI:
-					sendMessageChatGUI(player, message);
+					sendMessageChatGUI(player, message, false);
 					break;
 				case CLI:
 					sendMessageCLI(player, message);

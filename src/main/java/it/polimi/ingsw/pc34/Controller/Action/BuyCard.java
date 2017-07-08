@@ -4,6 +4,7 @@ import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
@@ -105,7 +106,7 @@ public class BuyCard implements CommandPattern {
             return true;
         }
         if (player.getClientType().equals(ClientType.GUI)) {
-            game.getGameController().sendMessageChatGUI(player, "There isn't any Card in this Floor!");
+            game.getGameController().sendMessageChatGUI(player, "There isn't any Card in this Floor!", true);
         }
         else {
             game.getGameController().sendMessageCLI(player, "There isn't any Card in this Floor!");
@@ -117,7 +118,12 @@ public class BuyCard implements CommandPattern {
     private boolean haveEnoughServant() throws RemoteException, IOException{
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough servant!", true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
+            }
             return false;
         }
         return true;
@@ -130,7 +136,7 @@ public class BuyCard implements CommandPattern {
         }
         if(!newCounter.check()){
             if (player.getClientType().equals(ClientType.GUI)) {
-                game.getGameController().sendMessageChatGUI(player, "You cannot pay the tower tax!");
+                game.getGameController().sendMessageChatGUI(player, "You cannot pay the tower tax!", true);
             }
             else {
                 game.getGameController().sendMessageCLI(player, "You cannot pay the tower tax!");
@@ -198,7 +204,7 @@ public class BuyCard implements CommandPattern {
         newCounter.subtractWithDiscount(card.getCosts(), discount);
         if(!newCounter.check()){
             if (player.getClientType().equals(ClientType.GUI)) {
-                game.getGameController().sendMessageChatGUI(player, "You cannot pay the card cost!");
+                game.getGameController().sendMessageChatGUI(player, "You cannot pay the card cost!", true);
             }
             else {
                 game.getGameController().sendMessageCLI(player, "You cannot pay the card cost!");
@@ -234,7 +240,7 @@ public class BuyCard implements CommandPattern {
             }
         }
         if (player.getClientType().equals(ClientType.GUI)) {
-            game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to buy the card!");
+            game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to buy the card!", true);
         }
         else {
             game.getGameController().sendMessageCLI(player, "You don't have enough military point to buy the card!");
@@ -269,7 +275,7 @@ public class BuyCard implements CommandPattern {
     private boolean canBePlacedInCardSpot() throws RemoteException, IOException{
         if(!cardSpot.canPlaceCard()){
             if (player.getClientType().equals(ClientType.GUI)) {
-                game.getGameController().sendMessageChatGUI(player, "You don't have enough space in the card spot!"); //TODO TESTA
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough space in the card spot!", true); //TODO TESTA
             }
             else {
                 game.getGameController().sendMessageCLI(player, "You don't have enough space in the card spot!");
@@ -293,7 +299,7 @@ public class BuyCard implements CommandPattern {
             case  2:
                 if(newCounter.getMilitaryPoint().getQuantity() < 3){
                     if (player.getClientType().equals(ClientType.GUI)) {
-                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!");
+                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!", true);
                     }
                     else {
                         game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
@@ -303,19 +309,34 @@ public class BuyCard implements CommandPattern {
                 return true;
             case  3:
                 if(newCounter.getMilitaryPoint().getQuantity() < 7){
-                    game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    if (player.getClientType().equals(ClientType.GUI)) {
+                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!", true);
+                    }
+                    else {
+                        game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    }
                     return false;
                 }
                 return true;
             case  4:
                 if(newCounter.getMilitaryPoint().getQuantity() < 12){
-                    game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    if (player.getClientType().equals(ClientType.GUI)) {
+                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!", true);
+                    }
+                    else {
+                        game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    }
                     return false;
                 }
                 return true;
             case  5:
                 if(newCounter.getMilitaryPoint().getQuantity() < 18){
-                    game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    if (player.getClientType().equals(ClientType.GUI)) {
+                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!", true);
+                    }
+                    else {
+                        game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    }
                     return false;
                 }
                 return true;

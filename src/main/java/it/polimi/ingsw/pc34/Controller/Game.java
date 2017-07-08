@@ -352,7 +352,7 @@ public class Game implements Runnable{
 
                                 } else {
                                     if (current.getClientType().equals(ClientType.GUI)) {
-                                        gameController.sendMessageChatGUI(current, "You have already placed a family member!");
+                                        gameController.sendMessageChatGUI(current, "You have already placed a family member!", true);
                                     }
                                     else {
                                         gameController.sendMessageCLI(current, "You have already placed a family member!");
