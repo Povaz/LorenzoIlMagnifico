@@ -257,7 +257,7 @@ public class ServerHandler implements Runnable{
 								LOGGER.log(Level.WARNING, "warning", e);
 							}
 							if (graphicType.equals("2")) {
-                                if (answer.equals("It's not your turn")) {
+                                if (answer.equals("It isn't your turn")) {
                                     sendToClient("No");
                                 }
                                 else {

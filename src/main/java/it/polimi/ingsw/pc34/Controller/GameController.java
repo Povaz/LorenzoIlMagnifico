@@ -270,6 +270,7 @@ public class GameController {
 		return boardView;
 	}
 	
+	//TODO SOCKET
 	public void updatePlayerReconnectedView (BoardView boardView, Player player) throws RemoteException { //Update GUI for a Reconnected player
 		switch (player.getConnectionType()) {
 			case RMI:

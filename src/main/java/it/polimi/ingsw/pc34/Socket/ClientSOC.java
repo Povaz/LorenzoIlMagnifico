@@ -111,7 +111,6 @@ public class ClientSOC implements Runnable {
         this.chatOut = chatOut;
     }
 	
-	@SuppressWarnings("restriction")
 	public void run() {
 		if(graphicType==1){
 			System.out.println("Connection established");
@@ -242,6 +241,7 @@ public class ClientSOC implements Runnable {
 		String message = getSynchronizedMessageByGUI().get();
 		ClientOutputHandler.sendToServer(message);
 		startGame.interrupt();
+		cih = new ClientInputHandler (socketServer, this, graphicType);
 	}
 	
 	public void loginHandlerGUI() throws IOException {
