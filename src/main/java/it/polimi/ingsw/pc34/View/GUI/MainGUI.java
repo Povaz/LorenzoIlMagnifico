@@ -49,32 +49,7 @@ public class MainGUI extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-
-        System.out.println("chat to server: ");
-        System.out.println(chatFromServer);
-
-        System.out.println(Client.guiReference);
         Client.guiReference = this;
-        System.out.println(Client.guiReference);
-        /*Parent root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        Scene scene = new Scene(root, 487, 757);
-        scene.getStylesheets().addAll(this.getClass().getResource("Login.css").toExternalForm());
-
-        primaryStage.setTitle("Lorenzo il Magnifico");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();*/
-
-        /*this.primaryStage = primaryStage;
-        this.root = FXMLLoader.load(getClass().getResource("Login.fxml"));
-        this.scene = new Scene(root, 487, 757);
-        scene.getStylesheets().addAll(this.getClass().getResource("cssFiles/Login.css").toExternalForm());
-
-        primaryStage.setTitle("Lorenzo il Magnifico");
-        primaryStage.setScene(scene);
-        primaryStage.setResizable(false);
-        primaryStage.show();*/
-
 
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Lorenzo il Magnifico");
