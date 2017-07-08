@@ -136,7 +136,7 @@ public class GameController {
 		return false;
 	}
 
-	public void sendMessageCLI(Player player, String message) throws IOException { //It sends message to "player"
+	public void sendMessageCLI(Player player, String message) throws IOException { //It sends message to a CLI "player"
 		switch (player.getConnectionType()) {
 			case RMI:
 				serverRMI.sendMessage(player, message); //Some messages are evaluated also for GUI Users (only the ones that are identical)
@@ -181,7 +181,7 @@ public class GameController {
 	public void sendMessageChatGUI (Player player, String message) throws RemoteException {
 		switch (player.getConnectionType()) {
 			case RMI:
-				serverRMI.sendMessage(player, message);
+				serverRMI.sendMessageChat(player, message);
 				break;
 			case SOCKET:
 				//TODO FILL SOCKET

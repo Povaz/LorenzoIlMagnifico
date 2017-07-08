@@ -346,12 +346,17 @@ public class Game implements Runnable{
                                     if (placeFamilyMember(familyMember, actionSpot)) {
                                         current.setPlacedFamilyMember(true);
                                     }
-                                    gameController.sendMessageCLI(current, "Action has been executed");
+                                    gameController.sendMessageCLI(current, "Action has been executed"); //Also GUI Users will receive this message (but it will not be shown) in order to reset their GameState
                                     boardView = new BoardView(board, playerBoards, current.getUsername());
                                     gameController.updatePlayersView(boardView);
 
                                 } else {
-                                    gameController.sendMessageCLI(current, "You have already placed a family member!");
+                                    if (current.getClientType().equals(ClientType.GUI)) {
+                                        gameController.sendMessageChatGUI(current, "You have already placed a family member!");
+                                    }
+                                    else {
+                                        gameController.sendMessageCLI(current, "You have already placed a family member!");
+                                    }
                                     current.putFirst_State(PlayerState.ACTION);
                                 }
                                 break;
@@ -360,7 +365,7 @@ public class Game implements Runnable{
                                 PlaceLeaderCard placeLeaderCard = new PlaceLeaderCard(this, current);
                                 if (placeLeaderCard.canDoAction()) {
                                     placeLeaderCard.doAction();
-                                    gameController.sendMessageCLI(current, "Action has been executed");
+                                    gameController.sendMessageCLI(current, "Action has been executed"); //Also GUI Users will receive this message (but it will not be shown) in order to reset their GameState
                                     boardView = new BoardView(board, playerBoards, current.getUsername());
                                     gameController.updatePlayersView(boardView);
                                 }
@@ -370,7 +375,7 @@ public class Game implements Runnable{
                                 ActivateImmediateLeaderCard activateImmediateLeaderCard = new ActivateImmediateLeaderCard(this, current);
                                 if (activateImmediateLeaderCard.canDoAction()) {
                                     activateImmediateLeaderCard.doAction();
-                                    gameController.sendMessageCLI(current, "Action has been executed");
+                                    gameController.sendMessageCLI(current, "Action has been executed"); //Also GUI Users will receive this message (but it will not be shown) in order to reset their GameState
                                     boardView = new BoardView(board, playerBoards, current.getUsername());
                                     gameController.updatePlayersView(boardView);
 
@@ -381,7 +386,7 @@ public class Game implements Runnable{
                                 ChangeLeaderCardInReward changeLeaderCardInReward = new ChangeLeaderCardInReward(this, current);
                                 if (changeLeaderCardInReward.canDoAction()) {
                                     changeLeaderCardInReward.doAction();
-                                    gameController.sendMessageCLI(current, "Action has been executed");
+                                    gameController.sendMessageCLI(current, "Action has been executed"); //Also GUI Users will receive this message (but it will not be shown) in order to reset their GameState
                                     boardView = new BoardView(board, playerBoards, current.getUsername());
                                     gameController.updatePlayersView(boardView);
                                 }
@@ -393,7 +398,7 @@ public class Game implements Runnable{
                                 System.out.println("Second State:" + current.getSecond_state());
                                 gameController.stopTimer(current.getUsername());
                                 gameController.setInFlow();
-                                gameController.sendMessageCLI(current, "Action has been executed");
+                                gameController.sendMessageCLI(current, "Action has been executed"); //Also GUI Users will receive this message (but it will not be shown) in order to reset their GameState
                                 break;
                             default:
                                 System.out.println("WhatToDo Error"); // No user should get here

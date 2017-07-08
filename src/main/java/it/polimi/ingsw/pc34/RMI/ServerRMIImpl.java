@@ -269,7 +269,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                 for (i = 0; i < usersLoggedRMI.size(); i++) {
                     if (userRMI.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
                         if (input.startsWith("/chat")) {
-                            String message = userRMI.getUsername() + ": " + input.substring(5);
+                            String message = input.substring(5);
                             gameController.sendMessageChat(message, userRMI.getUsername());
                             if(userRMI.isGUI()) {
                                 userRMI.setMessageForGUI("Message accepted: Synchro");
