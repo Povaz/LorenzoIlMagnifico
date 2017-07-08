@@ -341,7 +341,7 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         while (logged) {
             try {
                 choose = messageByGUI.get(); //For an a GUI-Input
-                System.out.println(choose);
+                if (choose.equals("skipCommand"));
                 serverRMI.sendInput(choose, this);
             }
             catch (InputMismatchException e) {
