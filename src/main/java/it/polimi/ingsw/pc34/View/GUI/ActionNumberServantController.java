@@ -9,15 +9,15 @@ import javafx.scene.layout.BorderPane;
  * Created by trill on 03/07/2017.
  */
 public class ActionNumberServantController {
-    private Main main;
+    private MainGUI mainGUI;
 
     @FXML private AnchorPane numberServant;
     @FXML protected Slider servant;
 
     @FXML private void sendClicked(){
         int number = (int) servant.getValue();
-        main.getFromGuiToServer().put(Integer.toString(number));
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        mainGUI.getFromGuiToServer().put(Integer.toString(number));
+        if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
         closeNumberServant();
@@ -29,7 +29,7 @@ public class ActionNumberServantController {
         parent.setVisible(false);
     }
 
-    public void setMain(Main main){
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI){
+        this.mainGUI = mainGUI;
     }
 }

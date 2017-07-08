@@ -8,21 +8,21 @@ import javafx.scene.layout.BorderPane;
  * Created by trill on 03/07/2017.
  */
 public class ActionSupportVaticanController {
-    private Main main;
+    private MainGUI mainGUI;
 
     @FXML private AnchorPane supportVatican;
 
     @FXML private void yesClicked(){
-        main.getFromGuiToServer().put("yes");
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        mainGUI.getFromGuiToServer().put("yes");
+        if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
         closeSupportVatican();
     }
 
     @FXML private void noClicked(){
-        main.getFromGuiToServer().put("no");
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        mainGUI.getFromGuiToServer().put("no");
+        if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
         closeSupportVatican();
@@ -35,7 +35,7 @@ public class ActionSupportVaticanController {
         parent.setVisible(false);
     }
 
-    public void setMain(Main main){
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI){
+        this.mainGUI = mainGUI;
     }
 }

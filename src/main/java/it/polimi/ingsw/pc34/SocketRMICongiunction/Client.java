@@ -6,7 +6,7 @@ import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.RMI.UserRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ClientSOC;
 import it.polimi.ingsw.pc34.View.GUI.LaunchGUI;
-import it.polimi.ingsw.pc34.View.GUI.Main;
+import it.polimi.ingsw.pc34.View.GUI.MainGUI;
 
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 
 public class Client {
-	public static Main guiReference = null;
+	public static MainGUI guiReference = null;
 	private UserRMIImpl userLoginRMI;
 	private ClientSOC userSoc;
 	private SynchronizedString messageByGUI;

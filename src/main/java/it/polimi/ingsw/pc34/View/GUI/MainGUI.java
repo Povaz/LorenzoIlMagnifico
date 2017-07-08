@@ -16,8 +16,8 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
-public class Main extends Application{
-    Logger LOGGER = Logger.getLogger(Main.class.getName());
+public class MainGUI extends Application{
+    Logger LOGGER = Logger.getLogger(MainGUI.class.getName());
 
     // connection canals
     private SynchronizedString chatFromServer = new SynchronizedString();
@@ -89,12 +89,12 @@ public class Main extends Application{
         try {
             // Load root layout from fxml file.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("RootLayout.fxml"));
+            loader.setLocation(MainGUI.class.getResource("RootLayout.fxml"));
             rootLayout = (BorderPane) loader.load();
 
             // Give the controller access to the main app.
             RootLayoutController rootLayoutController = loader.getController();
-            rootLayoutController.setMain(this);
+            rootLayoutController.setMainGUI(this);
             rootC = rootLayoutController;
 
             // Show the scene containing the root layout.
@@ -121,7 +121,7 @@ public class Main extends Application{
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("Login.fxml"));
+            loader.setLocation(MainGUI.class.getResource("Login.fxml"));
             AnchorPane login = (AnchorPane) loader.load();
 
             // Set login into the center of root layout.
@@ -133,7 +133,7 @@ public class Main extends Application{
 
             // Give the controller access to the main app.
             LoginController loginController = loader.getController();
-            loginController.setMain(this);
+            loginController.setMainGUI(this);
 
             // Cannot be full screen
             canBeFullScreen = false;
@@ -152,7 +152,7 @@ public class Main extends Application{
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("WaitingRoom.fxml"));
+            loader.setLocation(MainGUI.class.getResource("WaitingRoom.fxml"));
             AnchorPane waitingRoom = (AnchorPane) loader.load();
 
             // Set waiting room into the center of root layout.
@@ -164,7 +164,7 @@ public class Main extends Application{
 
             // Give the controller access to the main app.
             WaitingRoomController waitingRoomController = loader.getController();
-            waitingRoomController.setMain(this);
+            waitingRoomController.setMainGUI(this);
             waitingRoomController.initializeThread();
 
             // Cannot be full screen
@@ -182,7 +182,7 @@ public class Main extends Application{
         try {
             // Load person overview.
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("Game.fxml"));
+            loader.setLocation(MainGUI.class.getResource("Game.fxml"));
             AnchorPane game = (AnchorPane) loader.load();
 
             // Set game into the center of root layout.
@@ -196,7 +196,7 @@ public class Main extends Application{
 
             // Give the controller access to the main app.
             GameViewController gameController = loader.getController();
-            gameController.setMain(this);
+            gameController.setMainGUI(this);
             gameController.initializeView();
             gameController.initializeThread();
 
@@ -212,10 +212,6 @@ public class Main extends Application{
         } catch (IOException e){
             LOGGER.log(Level.SEVERE, "Game.fxml: Not found", e);
         }
-    }
-
-    public static void main(String[] args){
-        Application.launch(Main.class);
     }
 
     public Stage getPrimaryStage(){

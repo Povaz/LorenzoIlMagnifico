@@ -27,15 +27,6 @@ public class Counter{
     }
 
     public Counter(int playerOrder){
-        // TODO elimina sopra e ripristina sotto
-        /*this.coin = new Reward(RewardType.COIN, 99);
-        this.wood = new Reward(RewardType.WOOD, 99);
-        this.stone = new Reward(RewardType.STONE, 99);
-        this.servant = new Reward(RewardType.SERVANT, 99);
-        this.militaryPoint = new Reward(RewardType.MILITARY_POINT, 99);
-        this.faithPoint = new Reward(RewardType.FAITH_POINT, 99);
-        this.victoryPoint = new Reward(RewardType.VICTORY_POINT, 98);*/
-
         this.coin = new Reward(RewardType.COIN, 5);
         this.wood = new Reward(RewardType.WOOD, 2);
         this.stone = new Reward(RewardType.STONE, 2);

@@ -14,7 +14,7 @@ import javafx.scene.text.Text;
  * Created by Povaz on 03/07/2017.
  */
 public class ChatController{
-    private Main main;
+    private MainGUI mainGUI;
 
     @FXML private Button sendMessageButton;
     @FXML private TextField messageTextField;
@@ -26,7 +26,7 @@ public class ChatController{
         (new Thread(() -> {
             String result;
             do {
-                result = main.getChatFromServer().get();
+                result = mainGUI.getChatFromServer().get();
                 final String toLambda = result;
                 Platform.runLater(() -> {
                     if(!toLambda.equals("/close")){
@@ -51,8 +51,8 @@ public class ChatController{
         String message = "/chat" + messageTextField.getText();
         messageTextField.clear();
 
-        main.getFromGuiToServer().put(message);
-        main.getFromServerToGui().get();
+        mainGUI.getFromGuiToServer().put(message);
+        mainGUI.getFromServerToGui().get();
     }
 
     public synchronized void addMessage(String message){
@@ -70,7 +70,7 @@ public class ChatController{
         }
     }
 
-    public void setMain(Main main){
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI){
+        this.mainGUI = mainGUI;
     }
 }

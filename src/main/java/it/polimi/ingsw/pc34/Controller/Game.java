@@ -46,16 +46,6 @@ public class Game implements Runnable{
     private Timer timer;
     private TimerTask timerTask;
 
-    public static void main(String[] args) {
-        Map<String, ClientInfo> users = new HashMap<>();
-        users.put("Cugola", new ClientInfo(ConnectionType.RMI, ClientType.CLI));
-        users.put("Affetti", new ClientInfo(ConnectionType.SOCKET, ClientType.GUI));
-        users.put("Erik", new ClientInfo(ConnectionType.RMI, ClientType.CLI));
-        users.put("TommLezzo", new ClientInfo(ConnectionType.SOCKET, ClientType.CLI));
-        Thread thread = new Thread(new Game(users, null, null));
-        thread.start();
-    }
-
     public void run(){
         while (this.period <= PERIOD_NUMBER) {
             this.startPeriod();
@@ -105,8 +95,8 @@ public class Game implements Runnable{
     }
 
     public Game(Map<String, ClientInfo> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
-        this.turn = 2;
-        this.period = 3;
+        this.turn = 1;
+        this.period = 1;
         this.usernames = new ArrayList<>();
         usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();

@@ -16,7 +16,7 @@ import java.util.logging.Logger;
 public class RootLayoutController {
     Logger LOGGER = Logger.getLogger(RootLayoutController.class.getName());
 
-    private Main main;
+    private MainGUI mainGUI;
 
     private MediaPlayer mediaPlayer;
 
@@ -25,14 +25,14 @@ public class RootLayoutController {
     }
 
     protected void initializeListner(){
-        main.getPrimaryStage().iconifiedProperty().addListener((obsVal, oldVal, newVal) -> {
-            Stage stage = main.getPrimaryStage();
+        mainGUI.getPrimaryStage().iconifiedProperty().addListener((obsVal, oldVal, newVal) -> {
+            Stage stage = mainGUI.getPrimaryStage();
             if(stage.isFullScreen() || stage.getX() < 0 || stage.getY() < 0){
                 setFullScreenOff();
             }
         });
 
-        main.getPrimaryStage().setOnCloseRequest((event) -> {
+        mainGUI.getPrimaryStage().setOnCloseRequest((event) -> {
             System.exit(0);
         });
     }
@@ -115,26 +115,26 @@ public class RootLayoutController {
     }
 
     @FXML private void setFullScreenOn(){
-        if(main.isCanBeFullScreen()){
-            main.getPrimaryStage().setFullScreen(true);
+        if(mainGUI.isCanBeFullScreen()){
+            mainGUI.getPrimaryStage().setFullScreen(true);
         }
     }
 
     @FXML protected void setFullScreenOff(){
-        if(main.isCanBeFullScreen()){
-            main.getPrimaryStage().setFullScreen(false);
+        if(mainGUI.isCanBeFullScreen()){
+            mainGUI.getPrimaryStage().setFullScreen(false);
             resizeWindow();
         }
     }
 
     @FXML private void resizeWindow(){
-        main.getPrimaryStage().setWidth(main.getWindowWidth());
-        main.getPrimaryStage().setHeight(main.getWindowHeight());
-        main.getPrimaryStage().setX(0);
-        main.getPrimaryStage().setY(0);
+        mainGUI.getPrimaryStage().setWidth(mainGUI.getWindowWidth());
+        mainGUI.getPrimaryStage().setHeight(mainGUI.getWindowHeight());
+        mainGUI.getPrimaryStage().setX(0);
+        mainGUI.getPrimaryStage().setY(0);
     }
 
-    public void setMain(Main main) {
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
     }
 }
