@@ -1,26 +1,45 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.JSONUtility;
+import org.json.JSONException;
+
+import java.io.IOException;
 import java.util.HashSet;
 import java.util.Map;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by trill on 24/05/2017.
  */
 public abstract class LeaderCard {
+    private Logger LOGGER = Logger.getLogger(LeaderCard.class.getName());
+
     private final String name;
     private final String path;
     private final Set<Reward> activationRewardCost;
     private final Map<CardType, Integer> activationCardCost;
-    private final Set<Reward> changedRewards;
+    private Set<Reward> changedRewards;
 
     public LeaderCard (String name, String path, Set<Reward> activationRewardCost, Map<CardType, Integer> activationCardCost) {
         this.name = name;
         this.path = path;
         this.activationRewardCost = activationRewardCost;
         this.activationCardCost = activationCardCost;
-        this.changedRewards = new HashSet<>();
-        this.changedRewards.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 1));
+
+        try{
+            changedRewards = JSONUtility.getExchangeLeaderRewards();
+        } catch(JSONException e){
+            changedRewards = new HashSet<>();
+            changedRewards.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 1));
+            LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+        } catch(IOException e){
+            this.changedRewards = new HashSet<>();
+            changedRewards.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 1));
+            LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+            return;
+        }
     }
 
     public String getName() {

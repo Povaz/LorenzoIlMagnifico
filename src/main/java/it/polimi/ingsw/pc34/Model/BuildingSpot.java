@@ -5,11 +5,6 @@ package it.polimi.ingsw.pc34.Model;
  */
 public class BuildingSpot extends CardSpot{
     public BuildingSpot(){
-        super();
-    }
-
-    @Override
-    public Reward estimateVictoryPoint(){
-        return new Reward(RewardType.VICTORY_POINT, 0);
+        super(CardType.BUILDING);
     }
 }

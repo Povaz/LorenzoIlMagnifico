@@ -1,6 +1,5 @@
 package it.polimi.ingsw.pc34.Model;
 
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.junit.Test;
@@ -85,7 +84,7 @@ public class CounterTest extends TestCase {
         assertEquals(new Reward(RewardType.COIN, 5), orderCounter1.getCoin());
     }
 
-    public void sumSubtractWithLoseDiscountTest() throws TooMuchTimeException {
+    public void sumSubtractWithLoseDiscountTest(){
         orderCounter1.sumWithLose(coinSet, woodSet);
 
         assertEquals(new Reward (RewardType.COIN, 10), orderCounter1.getCoin());

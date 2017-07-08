@@ -29,4 +29,19 @@ public enum CardType {
 				return false;
 		}
 	}
+
+	public ActionType toActionType(){
+		switch(this){
+			case TERRITORY:
+				return ActionType.TERRITORY_TOWER;
+			case BUILDING:
+				return ActionType.BUILDING_TOWER;
+			case CHARACTER:
+				return ActionType.CHARACTER_TOWER;
+			case VENTURE:
+				return ActionType.VENTURE_TOWER;
+			default:
+				return null;
+		}
+	}
 }

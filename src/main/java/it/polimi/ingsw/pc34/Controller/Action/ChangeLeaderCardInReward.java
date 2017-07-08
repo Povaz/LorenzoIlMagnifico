@@ -1,12 +1,10 @@
 package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.List;
 import java.util.Set;
 
@@ -31,7 +29,7 @@ public class ChangeLeaderCardInReward implements CommandPattern{
         this.modifier = player.getPlayerBoard().getModifier();
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException{
+    public boolean canDoAction() throws IOException{
         if(leaderCardsInHand.isEmpty()){
             if (player.getClientType().equals(ClientType.GUI)) {
                 game.getGameController().sendMessageChatGUI(player, "You don't have any leader card in your hand!", true);
@@ -55,7 +53,7 @@ public class ChangeLeaderCardInReward implements CommandPattern{
         return true;
     }
 
-    public void doAction() throws TooMuchTimeException{
+    public void doAction(){
         player.getPlayerBoard().setCounter(newCounter);
         removeLeaderCardFromHand();
     }
