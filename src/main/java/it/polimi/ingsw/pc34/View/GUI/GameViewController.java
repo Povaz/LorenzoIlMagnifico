@@ -22,9 +22,12 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Logger;
 
 
 public class GameViewController {
+    Logger LOGGER = Logger.getLogger(GameViewController.class.getName());
+
     private final String DEVELOPMENT_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
     private final String LEADER_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/LeaderCards/";
     private final String PAWN_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/";

@@ -35,7 +35,7 @@ public class ChatController extends Application {
             do {
                 result = main.getChatFromServer().get();
                 final String toLambda = result;
-                System.out.println(toLambda);
+                System.out.println("toLambda" + toLambda);
                 Platform.runLater(() -> { // TODO inseriscine uno in ogni brach per velocizzare
                     if(!toLambda.equals("/close")){
                         addMessage(toLambda);
@@ -68,11 +68,10 @@ public class ChatController extends Application {
             return;
         }
 
-        String message = "/chat" + main.getUsername() + ": " + messageTextField.getText();
+        String message = "/chat" + messageTextField.getText();
         messageTextField.clear();
 
-        main.getFromGuiToServer().put("/chat"); // TODO ci va??
-        main.getChatToServer().put(message);
+        main.getFromGuiToServer().put(message);
     }
 
     public synchronized void addMessage(String message){

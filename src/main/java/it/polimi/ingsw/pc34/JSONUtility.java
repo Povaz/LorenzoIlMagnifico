@@ -120,6 +120,9 @@ public class JSONUtility {
 	}
 
 	public static Set<Reward> getEndGameCardRewards(CardType cardType, int numberOfCards) throws JSONException, IOException{
+		if(numberOfCards < 1){
+			return new HashSet<>();
+		}
 		JSONObject config = fromPathToJSONObject(configPath);
 		JSONObject reward = config.getJSONArray(cardType.toString()).getJSONObject(numberOfCards - 1);
 		Set<Reward> rewardSet = getRewardSet(reward.getJSONArray("rewards"));

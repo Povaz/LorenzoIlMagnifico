@@ -4,6 +4,8 @@ import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.junit.Test;
 
+import java.util.HashSet;
+
 /**
  * Created by Povaz on 14/06/2017.
  */
@@ -19,11 +21,8 @@ public class BuildingSpotTest extends TestCase {
 
     @Test
     public void testEstimateVictoryPoint () {
-        assertEquals(reward, buildingSpot.estimateVictoryPoint());
+        assertEquals(new HashSet<Reward>(), buildingSpot.estimateVictoryPoint());
 
-        reward.setQuantity(1);
-
-        assertFalse("Non sono uguali", reward.equals(buildingSpot.estimateVictoryPoint()));
         System.out.println(reward.toString());
         System.out.println(buildingSpot.estimateVictoryPoint());
     }

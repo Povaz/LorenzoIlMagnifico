@@ -17,8 +17,7 @@ import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application{
-    // connection canal
-    private SynchronizedString chatToServer = new SynchronizedString();
+    // connection canals
     private SynchronizedString chatFromServer = new SynchronizedString();
     private SynchronizedString fromGuiToServer = new SynchronizedString();
     private SynchronizedString fromServerToGui = new SynchronizedString();
@@ -239,14 +238,6 @@ public class Main extends Application{
 
     public int getWindowHeight(){
         return windowHeight;
-    }
-
-    public SynchronizedString getChatToServer(){
-        return chatToServer;
-    }
-
-    public void setChatToServer(SynchronizedString chatToServer){
-        this.chatToServer = chatToServer;
     }
 
     public SynchronizedString getChatFromServer(){
