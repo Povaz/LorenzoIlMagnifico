@@ -162,6 +162,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     @Override
     public void sendMessage (String message) throws RemoteException { //Receives message from Server, evaluating them when necessary
         switch (message) {
+            case "":
+                return;
             case "The game is starting":
                 this.setStartingGame(true);
                 if (!isGUI()) {

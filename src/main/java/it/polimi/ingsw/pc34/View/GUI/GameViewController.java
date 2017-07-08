@@ -125,6 +125,10 @@ public class GameViewController {
     @FXML private Text militaryPoint;
     @FXML private Text victoryPoint;
 
+    public void setGhost(boolean ghost) {
+        this.ghost = ghost;
+    }
+
     @FXML private void initialize(){
         // add in .fxml per settare le dimensioni dell'immagine
         // <Image url="@pngFiles/Board.png" requestedHeight="1046.0" requestedWidth="716.0" />
@@ -184,7 +188,7 @@ public class GameViewController {
 
                             updateButton(bonusController.ghostFamily, PAWN_FOLDER, "Ghost.png", 55, 80);
 
-                            ghost = true;
+                            //ghost = true;
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);

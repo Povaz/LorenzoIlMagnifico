@@ -18,13 +18,13 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class Main extends Application{
     // connection canal
-    private SynchronizedString chatToServer;
-    private SynchronizedString chatFromServer;
+    private SynchronizedString chatToServer = new SynchronizedString();
+    private SynchronizedString chatFromServer = new SynchronizedString();
     private SynchronizedString fromGuiToServer = new SynchronizedString();
-    private SynchronizedString fromServerToGui;
-    private SynchronizedString openWindow;
-    private SynchronizedString infoFromServer;
-    private SynchronizedBoardView boardViewFromServer;
+    private SynchronizedString fromServerToGui = new SynchronizedString();
+    private SynchronizedString openWindow = new SynchronizedString();
+    private SynchronizedString infoFromServer = new SynchronizedString();
+    private SynchronizedBoardView boardViewFromServer = new SynchronizedBoardView();
 
     // controller
     private RootLayoutController rootC = null;
@@ -48,6 +48,10 @@ public class Main extends Application{
 
     @Override
     public void start(Stage primaryStage) throws Exception{
+
+        System.out.println("chat to server: ");
+        System.out.println(chatFromServer);
+
         System.out.println(Client.guiReference);
         Client.guiReference = this;
         System.out.println(Client.guiReference);
@@ -71,12 +75,12 @@ public class Main extends Application{
         primaryStage.show();*/
 
 
-
         this.primaryStage = primaryStage;
         this.primaryStage.setTitle("Lorenzo il Magnifico");
         this.primaryStage.getIcons().add(new Image("it/polimi/ingsw/pc34/View/GUI/pngFiles/Icon.png"));
 
         initRootLayout();
+
         showLogin();
     }
 
@@ -320,4 +324,6 @@ public class Main extends Application{
     public void setInfoFromServer(SynchronizedString infoFromServer){
         this.infoFromServer = infoFromServer;
     }
+
+
 }

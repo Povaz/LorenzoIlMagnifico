@@ -42,7 +42,7 @@ public class GameController {
 	private String actionSpot;
 	private ActionInput actionInput = new ActionInput();
 	private boolean inFlow = false; //It tells if someone is already in the action flow in GameController.flow()
-	private AtomicBoolean ghost = new AtomicBoolean(false);
+	public AtomicBoolean ghost = new AtomicBoolean(false);
 	private String afkVar; //State of a PlayerInput: if the Player crashes, GameController.flow() will finish his action
 
 
@@ -234,14 +234,16 @@ public class GameController {
 		return whatToDo;
 	}
 
-	public ActionSpot getViewActionSpot(Player player, boolean isGhost) throws TooMuchTimeException, RemoteException { //Wait for an ActionSpot from Client
-		ghost.set(isGhost);
+	public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException { //Wait for an ActionSpot from Client
+		System.out.println("getViewActionSpot called");
+		System.out.println("First State:" + player.getFirst_state());
+		System.out.println("Second State:" + player.getSecond_state());
 		afkVar = "actionInput";
 		try {
 			ActionInput actionInput = actionInputCreated.get(); //If player crashes, actionInput will be null. Return Null in Game.PlayTurn
 			resetActions();										//If this is an Bonus Action and player chooses (or is forced to chose) not to do it, actionInput will be null.
 			setInFlow();											// Return null in BuyCard.canDoAction or activateImmediateLeaderCard.canDoBonusAction
-			switch (actionInput.getActionType()) { //NullPointerException launch
+			switch (actionInput.getActionType()) { //NullPointerException launched
 				case TERRITORY_TOWER:
 					return board.getTerritoryTower().getFloors().get(actionInput.getSpot());
 				case BUILDING_TOWER:
@@ -739,15 +741,22 @@ public class GameController {
 	        			}
 	        		}
 	        		else {
+						System.out.println("First State: " + state1);
 	        			switch (state1){ 
 		    				case ACTION :
-		    					switch (state2) {
+								System.out.println("Second State: " + state2);
+								switch (state2) {
 		    						case ACTION_INPUT :
-		    							if(actionSpot == null && checkNumber(1, 8, asked)){
+		    							if(actionSpot == null && checkNumber(0, 8, asked)){
+		    								System.out.println("This is the asked: " + asked);
 		    								actionSpot = asked;
 			    							switch(actionSpot) {
 												case "0":
+													System.out.println("Case 0 entered in IF");
 													if (ghost.get()) {
+														actionInputCreated.put(null);
+														System.out.println("Ghost in Case 0 entered in IF");
+														setInFlow();
 														return "You choose not to do the bonus action";
 													}
 													break;
@@ -788,7 +797,7 @@ public class GameController {
 			    							}
 		    							}
 		    							else if(actionSpot!=null){
-		    								switch(actionSpot){ 
+		    								switch(actionSpot){
 			    								case "1":
 			    									if(checkNumber(0, 3, asked)){
 			    										actionInput.setSpot(Integer.parseInt(asked));
@@ -890,6 +899,7 @@ public class GameController {
 		    							if(checkNumber(0, 99, asked)){
 		    								integerCreated.put(Integer.parseInt(asked));
 		    								setInFlow();
+		    								System.out.println("You choose to use " + Integer.parseInt(asked) + " servants");
 			    						    return "You choose to use " + Integer.parseInt(asked) + " servants";
 		    							}
 		    							else{

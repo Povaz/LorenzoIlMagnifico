@@ -24,6 +24,7 @@ public class ActionBonusFamilyController {
     }
 
     @FXML private void startDrag(MouseEvent event){
+        main.getGameViewC().setGhost(true);
         main.getGameViewC().setDragButton((Button) event.getSource());
         main.getGameViewC().setDropShape(null);
         ((Button) event.getSource()).startFullDrag();

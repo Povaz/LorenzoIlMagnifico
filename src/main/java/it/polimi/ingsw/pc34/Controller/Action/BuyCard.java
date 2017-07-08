@@ -1,6 +1,7 @@
 package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
+import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
@@ -340,6 +341,9 @@ public class BuyCard implements CommandPattern {
         do{
             System.out.println("AZIONE AGGIUNTIVA!!!");
             System.out.println(fM.getAction() + ":  " + fM.getValue());
+            game.getGameController().ghost.set(true);
+            player.putFirst_State(PlayerState.ACTION);
+            player.putSecond_State(PlayerState.ACTION_INPUT);
             if (player.getClientType().equals(ClientType.GUI)) {
                 switch (player.getConnectionType()) {
                     case RMI:
@@ -349,7 +353,7 @@ public class BuyCard implements CommandPattern {
                         break;
                 }
             }
-            actionSpot = game.getGameController().getViewActionSpot(player, true);
+            actionSpot = game.getGameController().getViewActionSpot(player);
             if(actionSpot != null){
                 fM.setServantUsed(new Reward(RewardType.SERVANT, game.getGameController().getHowManyServants(player)));
             }

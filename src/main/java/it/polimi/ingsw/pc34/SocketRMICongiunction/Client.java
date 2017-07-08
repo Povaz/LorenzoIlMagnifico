@@ -24,13 +24,13 @@ public class Client {
 	public static Main guiReference = null;
 	private UserRMIImpl userLoginRMI;
 	private ClientSOC userSoc;
-	private SynchronizedString messageByGUI = new SynchronizedString();
-	private SynchronizedString messageForGUI = new SynchronizedString();
-	private SynchronizedString messageToChangeWindow = new SynchronizedString();
-	private SynchronizedString messageInfo = new SynchronizedString();
-	private SynchronizedString messageChatOut = new SynchronizedString();
-	private SynchronizedString messageChatIn = new SynchronizedString();
-	private SynchronizedBoardView boardForGUI = new SynchronizedBoardView();
+	private SynchronizedString messageByGUI;
+	private SynchronizedString messageForGUI;
+	private SynchronizedString messageToChangeWindow;
+	private SynchronizedString messageInfo;
+	private SynchronizedString messageChatOut;
+	private SynchronizedString messageChatIn;
+	private SynchronizedBoardView boardForGUI;
 
 	public Client(UserRMIImpl userLoginRMI) {
 		this.userLoginRMI = userLoginRMI;
@@ -52,24 +52,31 @@ public class Client {
 		Registry registry = LocateRegistry.getRegistry(8000);
 		ServerRMI serverRMI = (ServerRMI) registry.lookup("serverRMI");
 
-		if (this.getUserLoginRMI().isGUI()) {
+		if (this.getUserLoginRMI().isGUI()){
 			Thread mainGui = new Thread(new LaunchGUI());
 			mainGui.start();
 
-			System.out.println("Prima di settare la GuiReference");
-			while (guiReference == null) {
-				System.out.println("Mentre setto GuiReference");
+			// wait until guiReference is initialized in MainGUI
+			while(guiReference == null){
+				System.out.println("While guiReference");
 			}
-			System.out.println("Dopo il set di GuiReference");
 
 			System.out.println(guiReference);
-			guiReference.setFromServerToGui(messageForGUI);
-			guiReference.setFromGuiToServer(messageByGUI);
-			guiReference.setOpenWindow(messageToChangeWindow);
-			guiReference.setInfoFromServer(messageInfo);
-			guiReference.setChatFromServer(messageChatIn);
-			guiReference.setChatToServer(messageChatOut);
-			guiReference.setBoardViewFromServer(boardForGUI);
+
+			// wait until guiReference.getBoardViewFromServer() is initialized in MainGUI
+			while(guiReference.getBoardViewFromServer() == null){
+				System.out.println("While BoardView");
+			}
+
+			System.out.println("After Board View");
+
+			messageForGUI = guiReference.getFromServerToGui();
+			messageByGUI = guiReference.getFromGuiToServer();
+			messageToChangeWindow = guiReference.getOpenWindow();
+			messageInfo = guiReference.getInfoFromServer();
+			messageChatIn = guiReference.getChatFromServer();// TODO controlla
+			messageChatOut = guiReference.getChatToServer();
+			boardForGUI = guiReference.getBoardViewFromServer();
 
 			this.getUserLoginRMI().setSynchronizedMessageToChangeWindow(messageToChangeWindow);
 			this.getUserLoginRMI().setSynchronizedMessageForGUI(messageForGUI);
@@ -88,20 +95,22 @@ public class Client {
 		if (this.getUserSoc().getGraphicType() == 2) {
 			Thread mainGui = new Thread(new LaunchGUI());
 			mainGui.start();
-			while (guiReference == null) {
-				System.out.println("Mentre setto GuiReference");
-			}
-			System.out.println("Dopo il set di GuiReference");
-			
-			
+
+			// wait until guiReference is initialized in MainGUI
+			while(guiReference == null){}
+
 			System.out.println(guiReference);
-			guiReference.setFromServerToGui(messageForGUI);
-			guiReference.setFromGuiToServer(messageByGUI);
-			guiReference.setOpenWindow(messageToChangeWindow);
-			guiReference.setInfoFromServer(messageInfo);
-			guiReference.setChatFromServer(messageChatIn);// TODO controlla
-			guiReference.setChatToServer(messageChatOut);
-			guiReference.setBoardViewFromServer(boardForGUI);
+
+			// wait until guiReference.getBoardViewFromServer() is initialized in MainGUI
+			while(guiReference.getBoardViewFromServer() == null){}
+
+			messageForGUI = guiReference.getFromServerToGui();
+			messageByGUI = guiReference.getFromGuiToServer();
+			messageToChangeWindow = guiReference.getOpenWindow();
+			messageInfo = guiReference.getInfoFromServer();
+			messageChatIn = guiReference.getChatFromServer();// TODO controlla
+			messageChatOut = guiReference.getChatToServer();
+			boardForGUI = guiReference.getBoardViewFromServer();
 
 			this.getUserSoc().setSynchronizedMessageToChangeWindow(messageToChangeWindow);
 			this.getUserSoc().setSynchronizedMessageForGUI(messageForGUI);

@@ -320,7 +320,7 @@ public class Game implements Runnable{
                                 if (!current.isPlacedFamilyMember()) {
 
                                     current.putSecond_State(PlayerState.ACTION_INPUT);
-                                    actionSpot = gameController.getViewActionSpot(current, false);
+                                    actionSpot = gameController.getViewActionSpot(current);
                                     if (actionSpot == null) {
                                         break;
                                     }
@@ -375,7 +375,10 @@ public class Game implements Runnable{
                                 }
                                 break;
                             case 4:
+                                System.out.println(current.getUsername() + "skipped the turn");
                                 current.setYourTurn(false);
+                                System.out.println("First State:" + current.getFirst_state());
+                                System.out.println("Second State:" + current.getSecond_state());
                                 gameController.stopTimer(current.getUsername());
                                 gameController.setInFlow();
                                 gameController.sendMessageCLI(current, "Action has been executed");
@@ -385,6 +388,8 @@ public class Game implements Runnable{
                         }
                         current.putFirst_State(PlayerState.WAITING);
                         current.putSecond_State(PlayerState.WAITING);
+                        System.out.println("First State:" + current.getFirst_state());
+                        System.out.println("Second State:" + current.getSecond_state());
                     } while (current.isYourTurn());
                 } catch (TooMuchTimeException e) {
                     gameController.sendMessageCLI(current, "Timeout expired");
@@ -394,6 +399,8 @@ public class Game implements Runnable{
             }
             current.putFirst_State(PlayerState.WAITING);
             current.putSecond_State(PlayerState.WAITING);
+            System.out.println("First State:" + current.getFirst_state());
+            System.out.println("Second State:" + current.getSecond_state());
             current.setYourTurn(false);
             current.setPlacedFamilyMember(false);
             System.out.println("\n\nPLAYERBOARD:"); //TODO MANDARE LA STAMPA AGLI USER CLI
