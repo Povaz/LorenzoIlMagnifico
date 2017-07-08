@@ -2,8 +2,8 @@ package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Controller.PlayerState;
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
@@ -57,7 +57,7 @@ public class BuyCard implements CommandPattern {
         familyMember.setRealValue(realValue);
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException {
+    public boolean canDoAction() throws IOException {
 
         if(!floorHaveCard()){
             return false;
@@ -98,40 +98,55 @@ public class BuyCard implements CommandPattern {
     }
 
     // deve esserci la carta nell'actionSpot (se c'è inizializza card e cardSpot)
-    private boolean floorHaveCard() throws RemoteException, IOException{
+    private boolean floorHaveCard() throws IOException{
         if(floor.getCard() != null){
             card = floor.getCard();
             cardSpot = player.getPlayerBoard().getCardSpot(card.getType());
             return true;
         }
-        game.getGameController().sendMessageCLI(player, "There isn't any Card in this Floor!");
+        if (player.getClientType().equals(ClientType.GUI)) {
+            game.getGameController().sendMessageChatGUI(player, "There isn't any Card in this Floor!", true);
+        }
+        else {
+            game.getGameController().sendMessageCLI(player, "There isn't any Card in this Floor!");
+        }
         return false;
     }
 
     // controlla se ha più servant di quelli che ha usato per fare l'azione
-    private boolean haveEnoughServant() throws RemoteException, IOException{
+    private boolean haveEnoughServant() throws IOException{
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough servant!", true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
+            }
             return false;
         }
         return true;
     }
 
     // controlla se ha abbastanza coin per pagare la tassa sulla torre nel caso sia già occupata
-    private boolean canPayTowerTax() throws RemoteException, IOException{
+    private boolean canPayTowerTax() throws IOException{
         if(floor.getTower().isOccupied()){
             newCounter.subtract(floor.getTower().getOccupiedTax());
         }
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You cannot pay the tower tax!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You cannot pay the tower tax!", true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You cannot pay the tower tax!");
+            }
             return false;
         }
         return true;
     }
 
     // guadagna i reward della torre
-    private void earnReward() throws TooMuchTimeException, IOException{
+    private void earnReward() throws IOException{
         if(floor.getRewards() != null){
             Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(floor.getRewards(), player);
             newCounter.sumWithLose(rewards, modifier.getLoseRewards());
@@ -139,7 +154,7 @@ public class BuyCard implements CommandPattern {
     }
 
     // controlla se ha abbastanza risorse per pagare la carta
-    private boolean canPayCardCost() throws TooMuchTimeException, RemoteException, IOException{ //TODO CHECKARE CON PAOLO
+    private boolean canPayCardCost() throws IOException{
         if(card instanceof VentureCard){
             VentureCard vCard = (VentureCard) card;
             if(vCard.getCosts() != null && vCard.getMilitaryPointNeeded() != null && vCard.getMilitaryPointPrice() != null){
@@ -169,7 +184,7 @@ public class BuyCard implements CommandPattern {
         return true;
     }
 
-    private boolean canPayNormalCost() throws TooMuchTimeException, RemoteException, IOException{
+    private boolean canPayNormalCost() throws IOException{
         List<List<Reward>> discountsSelectables = modifier.getDiscounts().get(floor.getTower().getType());
 
         // choose which permanent discount use
@@ -187,7 +202,12 @@ public class BuyCard implements CommandPattern {
         List<Reward> discount = addRewardFromSet(permanentDiscount, familyMember.getDiscounts());
         newCounter.subtractWithDiscount(card.getCosts(), discount);
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You cannot pay the card cost!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You cannot pay the card cost!", true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You cannot pay the card cost!");
+            }
             return false;
         }
         return true;
@@ -218,12 +238,17 @@ public class BuyCard implements CommandPattern {
                 return true;
             }
         }
-        game.getGameController().sendMessageCLI(player, "You don't have enough military point to buy the card!");
+        if (player.getClientType().equals(ClientType.GUI)) {
+            game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to buy the card!", true);
+        }
+        else {
+            game.getGameController().sendMessageCLI(player, "You don't have enough military point to buy the card!");
+        }
         return false;
     }
 
     // guadagna i fastReward della carta
-    private void earnCardFastReward() throws TooMuchTimeException, IOException{
+    private void earnCardFastReward() throws IOException{
         if(card.getFastRewards() != null){
             if(modifier.isDoubleFastRewardDevelopmentCard()){
                 Set<Reward> doubleReward = new HashSet<>();
@@ -248,7 +273,12 @@ public class BuyCard implements CommandPattern {
     */
     private boolean canBePlacedInCardSpot() throws RemoteException, IOException{
         if(!cardSpot.canPlaceCard()){
-            game.getGameController().sendMessageCLI(player, "You don't have enough space in the card spot!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough space in the card spot!", true); //TODO TESTA
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have enough space in the card spot!");
+            }
             return false;
         }
         if(!modifier.isNotSatisfyMilitaryPointForTerritory()) {
@@ -267,25 +297,45 @@ public class BuyCard implements CommandPattern {
                 return true;
             case  2:
                 if(newCounter.getMilitaryPoint().getQuantity() < 3){
-                    game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    if (player.getClientType().equals(ClientType.GUI)) {
+                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!", true);
+                    }
+                    else {
+                        game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    }
                     return false;
                 }
                 return true;
             case  3:
                 if(newCounter.getMilitaryPoint().getQuantity() < 7){
-                    game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    if (player.getClientType().equals(ClientType.GUI)) {
+                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!", true);
+                    }
+                    else {
+                        game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    }
                     return false;
                 }
                 return true;
             case  4:
                 if(newCounter.getMilitaryPoint().getQuantity() < 12){
-                    game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    if (player.getClientType().equals(ClientType.GUI)) {
+                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!", true);
+                    }
+                    else {
+                        game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    }
                     return false;
                 }
                 return true;
             case  5:
                 if(newCounter.getMilitaryPoint().getQuantity() < 18){
-                    game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    if (player.getClientType().equals(ClientType.GUI)) {
+                        game.getGameController().sendMessageChatGUI(player, "You don't have enough military point to place in the card spot!", true);
+                    }
+                    else {
+                        game.getGameController().sendMessageCLI(player, "You don't have enough military point to place in the card spot!");
+                    }
                     return false;
                 }
                 return true;
@@ -294,7 +344,7 @@ public class BuyCard implements CommandPattern {
         }
     }
 
-    public void doAction() throws TooMuchTimeException, RemoteException, IOException{
+    public void doAction() throws IOException{
         // aggiorna risorse giocatore
         player.getPlayerBoard().setCounter(newCounter);
 
@@ -311,7 +361,7 @@ public class BuyCard implements CommandPattern {
         doBonusActions();
     }
 
-    private void doBonusActions() throws TooMuchTimeException, RemoteException, IOException{
+    private void doBonusActions() throws IOException{
         // TODO uguale a Game
         List<FamilyMember> actions = card.getActions();
         if(actions != null){
@@ -336,9 +386,10 @@ public class BuyCard implements CommandPattern {
         }
     }
 
-    private void doBonusAction(FamilyMember fM) throws TooMuchTimeException, RemoteException, IOException{
+    private void doBonusAction(FamilyMember fM) throws IOException{
         ActionSpot actionSpot;
         do{
+            String info = fM.getAction() + ": " + fM.getValue();
             System.out.println("AZIONE AGGIUNTIVA!!!");
             System.out.println(fM.getAction() + ":  " + fM.getValue());
             game.getGameController().ghost.set(true);
@@ -347,7 +398,7 @@ public class BuyCard implements CommandPattern {
             if (player.getClientType().equals(ClientType.GUI)) {
                 switch (player.getConnectionType()) {
                     case RMI:
-                        game.getGameController().getServerRMI().openNewWindow(player, "/bonusaction", "toSynchro");
+                        game.getGameController().getServerRMI().openNewWindow(player, "/bonusaction", info);
                         break;
                     case SOCKET:
                     	//DA aggiungere

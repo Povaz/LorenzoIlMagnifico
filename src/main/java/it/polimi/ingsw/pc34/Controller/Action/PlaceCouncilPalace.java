@@ -1,8 +1,8 @@
 package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
@@ -37,7 +37,7 @@ public class PlaceCouncilPalace implements CommandPattern{
         familyMember.setRealValue(realValue);
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, RemoteException, IOException{
+    public boolean canDoAction() throws IOException{
         if(!councilPalace.isPlaceable(familyMember, modifier.isPlaceInBusyActionSpot(), game.getGameController())){
             return false;
         }
@@ -58,14 +58,19 @@ public class PlaceCouncilPalace implements CommandPattern{
     private boolean haveEnoughServant() throws RemoteException, IOException{
         newCounter.subtract(familyMember.getServantUsed());
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player,"You don't have enough servant!" ,true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have enough servant!");
+            }
             return false;
         }
         return true;
     }
 
     // guadagna i reward del CouncilPalace
-    private void earnReward() throws TooMuchTimeException, IOException{
+    private void earnReward() throws IOException{
         Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(councilPalace.getRewards(), player);
         newCounter.sumWithLose(rewards, modifier.getLoseRewards());
     }

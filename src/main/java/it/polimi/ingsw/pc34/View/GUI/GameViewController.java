@@ -22,9 +22,15 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 
 public class GameViewController {
+    Logger LOGGER = Logger.getLogger(GameViewController.class.getName());
+
     private final String DEVELOPMENT_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/";
     private final String LEADER_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/LeaderCards/";
     private final String PAWN_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/Pawn/";
@@ -40,8 +46,6 @@ public class GameViewController {
     private Button dragButton = null;
     private Shape dropShape = null;
     private boolean ghost = false;
-
-    @FXML private Button bt;
 
     // Game
     @FXML private Button showWinner;
@@ -169,7 +173,7 @@ public class GameViewController {
             chatController.setMain(main);
             chatController.initializeThread();
         } catch(IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Chat.fxml: Not found", e);
         }
     }
 
@@ -179,13 +183,13 @@ public class GameViewController {
             do {
                 result = main.getOpenWindow().get();
                 final String toLambda = result;
-                System.out.println(toLambda);
-                Platform.runLater(() -> { // TODO inseriscine uno in ogni brach per velocizzare
+
+                Platform.runLater(() -> {
                     if(toLambda.equals("/login")){
-                        System.out.println("/login GUI");
                         String info = main.getInfoFromServer().get();
-                        System.out.println(info);
+
                         showWinner.setText(info);
+
                         if(info.equals("Timeout expired")){
                             showWinner.setTextFill(Color.RED);
                         }
@@ -202,16 +206,14 @@ public class GameViewController {
                             ActionBonusFamilyController bonusController = loader.getController();
                             bonusController.setMain(main);
 
-                            main.getInfoFromServer().get();
+                            bonusController.typeValue.setText(main.getInfoFromServer().get());
 
                             updateButton(bonusController.ghostFamily, PAWN_FOLDER, "Ghost.png", 55, 80);
-
-                            //ghost = true;
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionBonusFamily.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/supportvatican")){
@@ -229,7 +231,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionSupportVatican.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/exchangeprivilege")){
@@ -247,7 +249,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionExchangePrivilege.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/numberservant")){
@@ -265,7 +267,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionNumberServant.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/paymilitarypoint")){
@@ -283,7 +285,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionPayMilitaryPoint.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/choosetrade")){
@@ -308,7 +310,7 @@ public class GameViewController {
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionChooseTrade.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/choosediscount")){
@@ -337,11 +339,10 @@ public class GameViewController {
                                 toggle.setVisible(true);
                             }
 
-
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionChooseDiscount.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/leadercard")){
@@ -389,11 +390,10 @@ public class GameViewController {
                                 toggle.setVisible(true);
                             }
 
-
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
                         } catch(IOException e){
-                            e.printStackTrace();
+                            LOGGER.log(Level.SEVERE, "ActionLeaderCard.fxml: Not found", e);
                         }
                     }
                     else if(toLambda.equals("/update")){
@@ -401,7 +401,13 @@ public class GameViewController {
                     }
                 });
             } while(!result.equals("/login"));
-            System.out.println("out thread");
+            Timer timer = new Timer();
+            timer.schedule(new TimerTask(){
+                @Override
+                public void run(){
+                    showWinner.setMouseTransparent(false);
+                }
+            }, 5000);
         })).start();
     }
 
@@ -511,6 +517,7 @@ public class GameViewController {
     }
 
     @FXML private void showWinnerClicked(){
+        main.getChatFromServer().put("/close");
         main.showLogin();
     }
 
@@ -518,96 +525,6 @@ public class GameViewController {
         if(event.getCode() == KeyCode.ESCAPE){
             main.getRootC().setFullScreenOff();
         }
-    }
-
-    @FXML private void bTP(){
-        // TODO elimina
-        main.getOpenWindow().put("/leadercard");
-
-        long time = System.currentTimeMillis() + 2000;
-        while(System.currentTimeMillis() < time){}
-        main.getInfoFromServer().put("CGiovanni dalle Bande Nere/Giovanni dalle Bande Nere/Giovanni dalle Bande Nere/Lorenzo de' Medici/PEPPA PIG/Scemo chi legge/Lorenzo de' Medici/PEPPA PIG/Scemo chi legge/Lorenzo de' Medici/PEPPA PIG/Scemo chi legge/Lorenzo de' Medici/PEPPA PIG/Scemo chi legge/");
-        // vatican report
-        /*vaticanReportCard1.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport1_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        vaticanReportCard1.setDisable(false);
-        vaticanReportCard1.setVisible(true);
-
-        vaticanReportCard2.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport2_1.png", 56, 105, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        vaticanReportCard2.setDisable(false);
-        vaticanReportCard2.setVisible(true);
-
-        vaticanReportCard3.setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/VaticanReport3_1.png", 56, 111, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-        vaticanReportCard3.setDisable(false);
-        vaticanReportCard3.setVisible(true);
-
-        Player p1 = new Player("Cugola", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.BLUE);
-        Player p2 = new Player("Affetti", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.RED);
-        Player p3 = new Player("Trilli", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.GREEN);
-        Player p4 = new Player("Venneri", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.PURPLE);
-        Player p5 = new Player("Tesser", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.YELLOW);
-        List<PlayerBoard> p = new ArrayList<>();
-        p.add(p1.getPlayerBoard());
-        p.add(p2.getPlayerBoard());
-        p.add(p3.getPlayerBoard());
-        p.add(p4.getPlayerBoard());
-        p.add(p5.getPlayerBoard());
-        Board board = new Board(new ArrayList<>(Arrays.asList(p1, p2, p3, p4, p5)));
-        BoardView bv = new BoardView(board, p, "Cugola");
-        update(bv);*/
-
-
-        /*players.get(0).getTerritoryCards().set(2, "TerritoryCard15.png");
-        updateView();
-
-        // tower
-        for(int i = 1; i <= 4; i++){
-            ((Button)territoryTower.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/TerritoryCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            territoryTower.getChildren().get(i - 1).setDisable(false);
-            territoryTower.getChildren().get(i - 1).setVisible(true);
-
-            ((Button)characterTower.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/CharacterCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            characterTower.getChildren().get(i - 1).setDisable(false);
-            characterTower.getChildren().get(i - 1).setVisible(true);
-
-            ((Button)buildingTower.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/BuildingCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            buildingTower.getChildren().get(i - 1).setDisable(false);
-            buildingTower.getChildren().get(i - 1).setVisible(true);
-
-            ((Button)ventureTower.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/VentureCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            ventureTower.getChildren().get(i - 1).setDisable(false);
-            ventureTower.getChildren().get(i - 1).setVisible(true);
-        }
-
-        // spot
-        for(int i = 1; i <= 6; i++){
-            ((Button)buildingSpot.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/BuildingCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            buildingSpot.getChildren().get(i - 1).setDisable(false);
-            buildingSpot.getChildren().get(i - 1).setVisible(true);
-
-            ((Button)territorySpot.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/TerritoryCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            territorySpot.getChildren().get(i - 1).setDisable(false);
-            territorySpot.getChildren().get(i - 1).setVisible(true);
-
-            ((Button)characterSpot.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/CharacterCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            characterSpot.getChildren().get(i - 1).setDisable(false);
-            characterSpot.getChildren().get(i - 1).setVisible(true);
-
-            ((Button)ventureSpot.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/DevelopmentCards/VentureCard" + i + ".png", 85, 126, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            ventureSpot.getChildren().get(i - 1).setDisable(false);
-            ventureSpot.getChildren().get(i - 1).setVisible(true);
-        }
-
-        // leader cards
-        for(int i = 1; i <= 4; i++){
-            ((Button)leaderCards.getChildren().get(i - 1)).setBackground(new Background(new BackgroundImage(new LocatedImage("it/polimi/ingsw/pc34/View/GUI/pngFiles/LeaderCards/LeaderCard" + i + ".png", 95, 147, false, false), BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT, BackgroundPosition.DEFAULT, BackgroundSize.DEFAULT)));
-            leaderCards.getChildren().get(i - 1).setDisable(false);
-            leaderCards.getChildren().get(i - 1).setVisible(true);
-        }
-        ((Button)leaderCards.getChildren().get(0)).setText("IN HAND");
-        ((Button)leaderCards.getChildren().get(1)).setText("PLACED");
-        ((Button)leaderCards.getChildren().get(2)).setText("ACTIVATED");
-        ((Button)leaderCards.getChildren().get(3)).setText("EXCHANGED");
-        */
     }
 
     @FXML private void showState(MouseEvent event){
@@ -660,7 +577,6 @@ public class GameViewController {
             default:
                 return;
         }
-        System.out.println("leader type: actionType");
 
         String resultString;
         main.getFromGuiToServer().put("/playturn");
@@ -694,72 +610,54 @@ public class GameViewController {
         // get action spot
         String spotType = dropShape.getId().substring(0, 1);
         String spotNumber = dropShape.getId().substring(1, 2);
-        System.out.println("spotType: " + spotType);
-        System.out.println("spotNumber: " + spotNumber);
 
         // get familyMember color
         String familyColor = dragButton.getText();
-        System.out.println("familyColor: " + familyColor);
 
         String resultString;
 
         if(!ghost){
-            System.out.println("ciao1");
             main.getFromGuiToServer().put("/playturn");
-            System.out.println("ciao1.5");
             resultString = main.getFromServerToGui().get();
-            System.out.println("/error" + resultString);
             if(!resultString.equals("Yes")){
                 chatController.addMessage("/error" + resultString);
-                System.out.println("ciaooo1.75");
                 return;
             }
 
-
-            System.out.println("beppe2");
             main.getFromGuiToServer().put("1");
             resultString = main.getFromServerToGui().get();
-            System.out.println("/error" + resultString);
             if(!resultString.equals("Yes")){
                 chatController.addMessage("/error" + resultString);
                 return;
             }
         }
 
-        System.out.println("beppe3");
         main.getFromGuiToServer().put(spotType); // 1 TerritoryT, 2 BuildingT, 3 CharacterT, 4 VentureT, 5 Harvest, 6 Produce, 7 Market, 8 CouncilPalace
         resultString = main.getFromServerToGui().get();
-        System.out.println("/error" + resultString);
         if(!resultString.equals("Yes")){
             chatController.addMessage("/error" + resultString);
             return;
         }
 
-        System.out.println("biib4");
         if(!spotType.equals("8")){
-            main.getFromGuiToServer().put(spotNumber); // spot number: inserisci numero 0-3
-            System.out.println("PEPPA8");
+            main.getFromGuiToServer().put(spotNumber); // spot number: insert number between [0 - numSpot)
             resultString = main.getFromServerToGui().get();
-            System.out.println("/error" + resultString);
             if(!resultString.equals("Yes")){
                 chatController.addMessage("/error" + resultString);
-                System.out.println("PEPPA9");
                 return;
             }
         }
 
         if(!ghost){
-            System.out.println("biib5");
-            main.getFromGuiToServer().put(familyColor); // familiare: inserisci 1 black, 2 white, 3 orange, 4 neutral
+            main.getFromGuiToServer().put(familyColor); // familyMember: insert 1 black, 2 white, 3 orange, 4 neutral
             resultString = main.getFromServerToGui().get();
             if(!resultString.equals("Yes")){
                 chatController.addMessage("/error" + resultString);
                 return;
             }
         }
-        System.out.println("PEPPA10");
+
         if(ghost){
-            System.out.println("PEPPA11");
             ghost = false;
             actionBorder.setDisable(true);
             actionBorder.setVisible(false);
@@ -920,11 +818,8 @@ public class GameViewController {
                 current = b;
             }
         }
-        System.out.println("prima di fire");
-        System.out.println(current);
+
         current.fire();
-        System.out.println("dopo fire");
-        System.out.println(current);
     }
 
     private void initializeBoard(BoardView boardView){

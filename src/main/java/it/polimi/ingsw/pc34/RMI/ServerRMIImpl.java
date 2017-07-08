@@ -72,6 +72,10 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         lobby.removeUser(username);                                                     //Of the player "username" who is the "i"th user
         this.removeRMIUser(i);                                                          // in RMI Server
         lobby.notifyAllUsers(NotificationType.USERLOGOUT, username);
+
+        if (lobby.getUsers().size() == 1) {
+            lobby.stopTimer();
+        }
     }
 
     @Override
@@ -110,6 +114,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
                             this.addRMIUser(userRMI);
                             if (userRMI.isGUI()) {
                                 server.reconnected(userRMI.getUsername(), ClientType.GUI, ConnectionType.RMI);
+                                userRMI.sendMessage("Reconnected");
                                 userRMI.setMessageForGUI("Login successful");
                             }
                             else {
@@ -264,7 +269,14 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
             try {
                 for (i = 0; i < usersLoggedRMI.size(); i++) {
                     if (userRMI.getUsername().equals(usersLoggedRMI.get(i).getUsername())) {
-                        if (userRMI.getGameState() == null) { //If GameState is Null (this is the first input). evaluates the Input and set it
+                        if (input.startsWith("/chat")) {
+                            String message = input.substring(5);
+                            gameController.sendMessageChat(message, userRMI.getUsername());
+                            if(userRMI.isGUI()) {
+                                userRMI.setMessageForGUI("Message accepted: Synchro");
+                            }
+                        }
+                        else if (userRMI.getGameState() == null) { //If GameState is Null (this is the first input), evaluates the Input and set it
                             switch (input) {                    //as the new GameState
                                 case "/playturn":
                                     if (userRMI.isGUI()) {
@@ -358,6 +370,19 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         }
     }
 
+    public void sendMessageChat (Player player, String message) throws RemoteException {
+        int i;
+        for (i = 0; i < usersLoggedRMI.size(); i++) {
+            try {
+                if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
+                    usersLoggedRMI.get(i).setMessageChat(message);
+                }
+            } catch (RemoteException e) {
+                this.removeRMIUser(i);
+            }
+        }
+    }
+
     public void openNewWindow(Player player, String message) throws RemoteException {
         int i;
         for (i = 0; i < usersLoggedRMI.size(); i++) {
@@ -386,13 +411,14 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
         }
     }
 
-    public void openNewWindowAtTheEnd (Player player, String info) {
+    public void openNewWindowAtTheEnd (Player player, String infoGUI, String messageServer) {
         int i;
         for (i = 0; i < usersLoggedRMI.size(); i++) {
             try {
                 if (usersLoggedRMI.get(i).getUsername().equals(player.getUsername())) {
                     usersLoggedRMI.get(i).setMessageByGUI("skipCommand");
-                    usersLoggedRMI.get(i).setMessageInfo(info);
+                    usersLoggedRMI.get(i).setMessageInfo(infoGUI);
+                    this.sendMessage(player, messageServer);
                 }
             } catch (RemoteException e) {
                 this.removeRMIUser(i);

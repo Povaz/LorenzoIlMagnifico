@@ -1,11 +1,10 @@
 package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
 import it.polimi.ingsw.pc34.Model.*;
+import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
@@ -36,9 +35,14 @@ public class PlaceLeaderCard implements CommandPattern{
         this.modifier = player.getPlayerBoard().getModifier();
     }
 
-    public boolean canDoAction() throws TooMuchTimeException, IOException{
+    public boolean canDoAction() throws IOException{
         if(leaderCardsInHand.isEmpty()){
-            game.getGameController().sendMessageCLI(player, "You don't have any leader card in your hand!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have any leader card in your hand!", true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have any leader card in your hand!");
+            }
             return false;
         }
 
@@ -70,7 +74,12 @@ public class PlaceLeaderCard implements CommandPattern{
         }
         newCounter.subtract(leaderCard.getActivationRewardCost());
         if(!newCounter.check()){
-            game.getGameController().sendMessageCLI(player, "You don't have enough resources to place the leader card!");
+            if (player.getClientType().equals(ClientType.GUI)) {
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough resources to place the leader card!", true);
+            }
+            else {
+                game.getGameController().sendMessageCLI(player, "You don't have enough resources to place the leader card!");
+            }
             return false;
         }
         return true;
@@ -85,25 +94,46 @@ public class PlaceLeaderCard implements CommandPattern{
             switch(cT){
                 case TERRITORY:
                     if(player.getPlayerBoard().getTerritorySpot().getCards().size() < cardNeeded.get(cT)){
-                        game.getGameController().sendMessageCLI(player, "You don't have enough territory card to place the leader card!");
+                        if(player.getClientType().equals(ClientType.GUI)) {
+                            game.getGameController().sendMessageChatGUI(player, "You don't have enough territory card to place the leader card!", true);
+                        }
+                        else {
+                            game.getGameController().sendMessageCLI(player, "You don't have enough territory card to place the leader card!");
+                        }
                         return false;
                     }
                     break;
                 case BUILDING:
                     if(player.getPlayerBoard().getBuildingSpot().getCards().size() < cardNeeded.get(cT)){
-                        game.getGameController().sendMessageCLI(player, "You don't have enough building card to place the leader card!");
+                        if (player.getClientType().equals(ClientType.GUI)) {
+                            game.getGameController().sendMessageChatGUI(player, "You don't have enough building card to place the leader card!", true);
+                        }
+                        else {
+                            game.getGameController().sendMessageCLI(player, "You don't have enough building card to place the leader card!");
+                        }
                         return false;
                     }
                     break;
                 case CHARACTER:
                     if(player.getPlayerBoard().getCharacterSpot().getCards().size() < cardNeeded.get(cT)){
-                        game.getGameController().sendMessageCLI(player, "You don't have enough character card to place the leader card!");
+                        if (player.getClientType().equals(ClientType.GUI)) {
+                            game.getGameController().sendMessageChatGUI(player,"You don't have enough character card to place the leader card!", true );
+                        }
+                        else {
+                            game.getGameController().sendMessageCLI(player, "You don't have enough character card to place the leader card!");
+
+                        }
                         return false;
                     }
                     break;
                 case VENTURE:
                     if(player.getPlayerBoard().getVentureSpot().getCards().size() < cardNeeded.get(cT)){
-                        game.getGameController().sendMessageCLI(player, "You don't have enough venture card to place the leader card!");
+                        if (player.getClientType().equals(ClientType.GUI)) {
+                            game.getGameController().sendMessageChatGUI(player, "You don't have enough venture card to place the leader card!", true);
+                        }
+                        else {
+                            game.getGameController().sendMessageCLI(player, "You don't have enough venture card to place the leader card!");
+                        }
                         return false;
                     }
                     break;
@@ -122,7 +152,12 @@ public class PlaceLeaderCard implements CommandPattern{
                         enoughCard = true;
                     }
                     if(!enoughCard){
-                        game.getGameController().sendMessageCLI(player, "You don't have enough card to place the leader card!");
+                        if (player.getClientType().equals(ClientType.GUI)) {
+                            game.getGameController().sendMessageChatGUI(player, "You don't have enough venture card to place the leader card!", true);
+                        }
+                        else {
+                            game.getGameController().sendMessageCLI(player, "You don't have enough card to place the leader card!");
+                        }
                         return false;
                     }
                     break;

@@ -57,9 +57,9 @@ public class Modifier{
 		discounts.put(CardType.VENTURE, new LinkedList<>());
 
 		// TODO elimina giù
-		discounts.get(CardType.BUILDING).add(new ArrayList<>(Arrays.asList(new Reward(RewardType.STONE,1), new Reward(RewardType.COIN,2))));
+		/*discounts.get(CardType.BUILDING).add(new ArrayList<>(Arrays.asList(new Reward(RewardType.STONE,1), new Reward(RewardType.COIN,2))));
 		discounts.get(CardType.BUILDING).add(new ArrayList<>(Arrays.asList(new Reward(RewardType.STONE,2), new Reward(RewardType.WOOD,1))));
-
+*/
 		actionModifiers.put(ActionType.HARVEST, 0);
 		actionModifiers.put(ActionType.PRODUCE, 0);
 		actionModifiers.put(ActionType.TERRITORY_TOWER, 0);

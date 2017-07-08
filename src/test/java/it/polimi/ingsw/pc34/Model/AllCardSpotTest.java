@@ -6,8 +6,7 @@ import junit.framework.TestSuite;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Povaz on 14/06/2017.
@@ -56,8 +55,7 @@ public class AllCardSpotTest extends TestCase {
 
     @org.junit.Test
     public void testEstimateVictoryPointBuilding() {
-        Reward reward = new Reward(RewardType.VICTORY_POINT, 0);
-
+        Set<Reward> reward = new HashSet<>();
         assertEquals(reward, buildingSpot.estimateVictoryPoint());
     }
 
@@ -66,11 +64,13 @@ public class AllCardSpotTest extends TestCase {
         int i = 1;
         int c = 2;
 
-        assertEquals(new Reward(RewardType.VICTORY_POINT, 0), characterSpot.estimateVictoryPoint());
+        assertEquals(new HashSet<>(), characterSpot.estimateVictoryPoint());
 
         for (DevelopmentCard dC : characterCards) {
             characterSpot.placeCard(dC);
-            assertEquals(new Reward(RewardType.VICTORY_POINT, i), characterSpot.estimateVictoryPoint());
+            Set<Reward> expected = new HashSet<>();
+            expected.add(new Reward(RewardType.VICTORY_POINT, i));
+            assertEquals(expected, characterSpot.estimateVictoryPoint());
             i += c;
             c += 1;
         }
@@ -82,19 +82,19 @@ public class AllCardSpotTest extends TestCase {
             ventureSpot.placeCard(dC);
         }
 
-        assertEquals(new Reward(RewardType.VICTORY_POINT, 25), ventureSpot.estimateVictoryPoint()); //Calcolati dalle prime 6 Venture Card
+        assertEquals(new HashSet<Reward>(), ventureSpot.estimateVictoryPoint()); //Calcolati dalle prime 6 Venture Card
     }
 
     @org.junit.Test
     public void testEstimateVictoryPointTerritory() {
-        List<Reward> rewards = new ArrayList<>();
-        rewards.add(new Reward(RewardType.VICTORY_POINT, 0));
-        rewards.add(new Reward(RewardType.VICTORY_POINT, 0));
-        rewards.add(new Reward(RewardType.VICTORY_POINT, 0));
-        rewards.add(new Reward(RewardType.VICTORY_POINT, 1));
-        rewards.add(new Reward(RewardType.VICTORY_POINT, 4));
-        rewards.add(new Reward(RewardType.VICTORY_POINT, 10));
-        rewards.add(new Reward(RewardType.VICTORY_POINT, 20));
+        List<Set<Reward>> rewards = new ArrayList<>();
+        rewards.add(new HashSet<>());
+        rewards.add(new HashSet<>());
+        rewards.add(new HashSet<>());
+        rewards.add(Collections.singleton(new Reward(RewardType.VICTORY_POINT, 1)));
+        rewards.add(Collections.singleton(new Reward(RewardType.VICTORY_POINT, 4)));
+        rewards.add(Collections.singleton(new Reward(RewardType.VICTORY_POINT, 10)));
+        rewards.add(Collections.singleton(new Reward(RewardType.VICTORY_POINT, 20)));
 
         assertEquals(rewards.get(0), ventureSpot.estimateVictoryPoint());
 

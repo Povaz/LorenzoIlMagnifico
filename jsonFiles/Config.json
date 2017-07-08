@@ -1,8 +1,15 @@
 {
-  "timeoutLobby": 180,
-  "timeoutTurn": 300,
+  "timeoutLobby": 1000,
+  "timeoutTurn": 30000,
 
-  "territorySpot":[
+  "exchangeLeader":[
+    {
+      "type": "COUNCIL_PRIVILEGE",
+      "quantity": 1
+    }
+  ],
+
+  "TERRITORY":[
     {
       "rewards":[]
     },
@@ -43,7 +50,7 @@
     }
   ],
 
-  "buildingSpot":[
+  "BUILDING":[
     {
       "rewards":[]
     },
@@ -64,7 +71,7 @@
     }
   ],
 
-  "characterSpot":[
+  "CHARACTER":[
     {
       "rewards":[
         {
@@ -115,7 +122,7 @@
     }
   ],
 
-  "ventureSpot":[
+  "VENTURE":[
     {
       "rewards":[]
     },
@@ -141,7 +148,7 @@
       "rewards":[
         {
           "type": "VICTORY_POINT",
-          "quantity": 1
+          "quantity": 5
         }
       ]
     },
@@ -149,7 +156,7 @@
       "rewards":[
         {
           "type": "VICTORY_POINT",
-          "quantity": 1
+          "quantity": 2
         }
       ]
     }
@@ -309,7 +316,7 @@
       "rewards":[
         {
           "type": "SERVANT",
-          "quantity": 1
+          "quantity": 5
         }
       ]
     },

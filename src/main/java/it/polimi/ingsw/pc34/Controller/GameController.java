@@ -1,24 +1,29 @@
 package it.polimi.ingsw.pc34.Controller;
 
-import it.polimi.ingsw.pc34.Exception.TooMuchTimeException;
+import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.Model.*;
 import it.polimi.ingsw.pc34.RMI.*;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
+import org.json.JSONException;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
 import java.util.*;
 import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Created by trill on 14/06/2017.
  */
 
 public class GameController {
+	private Logger LOGGER = Logger.getLogger(GameController.class.getName());
+
+	private long timeoutTurn = 300000;
 	private final Board board;
 	private final List<Player> players;
 	private ServerSOC serverSoc;
@@ -54,6 +59,16 @@ public class GameController {
 		this.serverSoc = serverSoc;
 		this.usersSoc = serverSoc.getUsers();
 		this.serverRMI = serverRMI;
+
+		try{
+			timeoutTurn = JSONUtility.getTimeoutTurn();
+		} catch (JSONException e){
+			timeoutTurn = 300000;
+			LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+		} catch(IOException e){
+			timeoutTurn = 300000;
+			LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+		}
 	}
 
 	public ServerHandler getServerHandler(Player player){
@@ -97,11 +112,12 @@ public class GameController {
 				try {
 					System.out.println("Timer expired for " + username);
 					final String flow = flow("/afk", username);
+					System.out.println("FLOWFLOW" + flow);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			}
-		}, 300000);
+		}, timeoutTurn);
 	}
 
 	public void stopTimer(String username) { //Cancels all scheduled task on timerTillTheEnd and cancels it
@@ -137,10 +153,10 @@ public class GameController {
 		return false;
 	}
 
-	public void sendMessageCLI(Player player, String message) throws IOException { //It sends message to "player"
+	public void sendMessageCLI(Player player, String message) throws IOException { //It sends message to a CLI "player"
 		switch (player.getConnectionType()) {
 			case RMI:
-				serverRMI.sendMessage(player, message); //Some messages are evaluated also for GUI Users
+				serverRMI.sendMessage(player, message); //Some messages are evaluated also for GUI Users (only the ones that are identical)
 				break;
 			case SOCKET:
 				ServerHandler serverHandler = serverSoc.getServerHandler(player.getUsername());
@@ -152,10 +168,10 @@ public class GameController {
 		}
 	}
 
-	public void sendMessageGUI(Player player, String message) throws IOException {
+	public void sendMessageGUIEndGame(Player player, String messageGUI, String messageServer) throws IOException { //Sends a message of "End Game" or "Crashed player" in order to open the LoginView again
 		switch (player.getConnectionType()) {
 			case RMI:
-				serverRMI.openNewWindowAtTheEnd(player, message);
+				serverRMI.openNewWindowAtTheEnd(player, messageGUI, messageServer);
 				break;
 			case SOCKET:
 				//TODO TOM FILL, ASK US
@@ -163,10 +179,10 @@ public class GameController {
 		}
 	}
 
-	public void sendMessageGUIAll (String message) throws IOException { //Sends messages for all CLI Users, TODO used also to represent Board and PlayerBoard
+	public void sendMessageGUIAllEndGame(String message) throws IOException { //Calls sendMessageGUIAllEndGame for all GUI Players
 		for (Player player : players) {
 			if (player.getClientType().equals(ClientType.GUI)) {
-				sendMessageGUI(player, message);
+				sendMessageGUIEndGame(player, message, "This game is finished");
 			}
 		}
 	}
@@ -179,16 +195,34 @@ public class GameController {
 		}
 	}
 
+	public void sendMessageChatGUI (Player player, String message, boolean isError) throws RemoteException {
+		if (isError) {
+			message = "/error" + message;
+		}
+		else {
+			message = "/chat" + message;
+		}
+		switch (player.getConnectionType()) {
+			case RMI:
+				serverRMI.sendMessageChat(player, message);
+				break;
+			case SOCKET:
+				//TODO FILL SOCKET
+				break;
+		}
+	}
+
 	public void sendMessageChat(String message, String username) throws IOException { //Sends messages in the Chat
-		message = username + " : " + message;
+		message = username + ": " + message;
 		for (Player player : players) {
-			
-			
-			//TODO TOMMASO, MODIFICARE SE NO NON ARRIVANO MESSAGGI DELLA CHAT
-			if(player.getClientType().equals(ClientType.GUI) && player.getConnectionType().equals(ConnectionType.SOCKET)){
-				continue;
+			switch (player.getClientType()) {
+				case GUI:
+					sendMessageChatGUI(player, message, false);
+					break;
+				case CLI:
+					sendMessageCLI(player, message);
+					break;
 			}
-			sendMessageCLI(player, message);
 		}
 	}
 
@@ -246,7 +280,7 @@ public class GameController {
 		}
 	}
 
-	public Integer getWhatToDo(Player player) throws TooMuchTimeException, RemoteException { //Wait for a WhatToDo variabile
+	public Integer getWhatToDo(Player player) throws RemoteException { //Wait for a WhatToDo variabile
 		int whatToDo;
 		afkVar = "whatToDo";
 		whatToDo = whatToDoCreated.get();
@@ -254,7 +288,7 @@ public class GameController {
 		return whatToDo;
 	}
 
-	public ActionSpot getViewActionSpot(Player player) throws TooMuchTimeException, RemoteException { //Wait for an ActionSpot from Client
+	public ActionSpot getViewActionSpot(Player player) throws RemoteException { //Wait for an ActionSpot from Client
 		System.out.println("getViewActionSpot called");
 		System.out.println("First State:" + player.getFirst_state());
 		System.out.println("Second State:" + player.getSecond_state());
@@ -290,7 +324,7 @@ public class GameController {
 		}
 	}
 
-	public FamilyMember getViewFamilyMember(Player player) throws TooMuchTimeException, RemoteException { //Waits for a FamilyColor, in order to create a FamilyMember
+	public FamilyMember getViewFamilyMember(Player player) throws RemoteException { //Waits for a FamilyColor, in order to create a FamilyMember
 		afkVar = "familyColor";
 		FamilyColor familyColor = familyColorCreated.get();
 		if (familyColor == null) {
@@ -329,7 +363,7 @@ public class GameController {
 		return index;
 	}
 
-	public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws TooMuchTimeException, IOException { //Waits for the array that represents the Council privilege rewards chosen by this Player
+	public Set<Reward> exchangeCouncilPrivilege(Set<Reward> rewards, Player player) throws IOException { //Waits for the array that represents the Council privilege rewards chosen by this Player
 		this.councilRewardsSize = 0;
 		for (Reward reward : rewards) {
 			if (reward.getType().equals(RewardType.COUNCIL_PRIVILEGE)) {
@@ -1116,7 +1150,7 @@ public class GameController {
 		switch (player.getClientType()) {
 			case GUI:
 				System.out.println("disconnectedPlayer GUI: " + player.getUsername());
-				this.sendMessageGUI(player, "Timeout expired");
+				this.sendMessageGUIEndGame(player, "Timeout expired", "This Client has been disconnected");
 				break;
 			case CLI:
 				this.sendMessageCLI(player, "This Client has been disconnected");

@@ -19,7 +19,6 @@ public class ActionLeaderCardController {
     @FXML private ToggleGroup leaderChoose;
 
     @FXML private void sendClicked(){
-        //int number = (int) leader.getValue();
         int toSend = 0;
         Toggle chosen = leaderChoose.getSelectedToggle();
         for(int i = 0; i < leader.getChildren().size(); i++){

@@ -55,34 +55,117 @@ public class Board {
     }
 
     void initializeHarvestArea(int playerNumber){
-        harvestArea.add(new HarvestArea(true, false, 0, this));
-        if(playerNumber >= 3)
-            harvestArea.add(new HarvestArea(true, true, -3, this));
+        Set<Reward> firstAreaReward;
+        try{
+            firstAreaReward = JSONUtility.getSpotRewards(ActionType.HARVEST, 0);
+        } catch(JSONException e){
+            firstAreaReward = new HashSet<>();
+            LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+        } catch(IOException e){
+            firstAreaReward = new HashSet<>();
+            LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+        }
+        harvestArea.add(new HarvestArea(true, false, firstAreaReward, 0, this));
+        if(playerNumber >= 3){
+            Set<Reward> secondAreaReward;
+            try{
+                secondAreaReward = JSONUtility.getSpotRewards(ActionType.HARVEST, 1);
+            } catch(JSONException e){
+                secondAreaReward = new HashSet<>();
+                LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+            } catch(IOException e){
+                secondAreaReward = new HashSet<>();
+                LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+            }
+            harvestArea.add(new HarvestArea(true, true, secondAreaReward, -3, this));
+        }
     }
 
     void initializeProductionArea(int playerNumber){
-        productionArea.add(new ProductionArea(true, false, 0, this));
-        if(playerNumber >= 3)
-            productionArea.add(new ProductionArea(true, true, -3, this));
+        Set<Reward> firstAreaReward;
+        try{
+            firstAreaReward = JSONUtility.getSpotRewards(ActionType.PRODUCE, 0);
+        } catch(JSONException e){
+            firstAreaReward = new HashSet<>();
+            LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+        } catch(IOException e){
+            firstAreaReward = new HashSet<>();
+            LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+        }
+        productionArea.add(new ProductionArea(true, false, firstAreaReward, 0, this));
+        if(playerNumber >= 3){
+            Set<Reward> secondAreaReward;
+            try{
+                secondAreaReward = JSONUtility.getSpotRewards(ActionType.PRODUCE, 1);
+            } catch(JSONException e){
+                secondAreaReward = new HashSet<>();
+                LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+            } catch(IOException e){
+                secondAreaReward = new HashSet<>();
+                LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+            }
+            productionArea.add(new ProductionArea(true, true, secondAreaReward, -3, this));
+        }
     }
 
     void initializeMarket(int playerNumber){
-        Set<Reward> firstAreaReward = new HashSet<>();
-        firstAreaReward.add(new Reward(RewardType.COIN, 5));
+        Set<Reward> firstAreaReward;
+        try{
+            firstAreaReward = JSONUtility.getSpotRewards(ActionType.MARKET, 0);
+        } catch(JSONException e){
+            firstAreaReward = new HashSet<>();
+            firstAreaReward.add(new Reward(RewardType.COIN, 5));
+            LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+        } catch(IOException e){
+            firstAreaReward = new HashSet<>();
+            firstAreaReward.add(new Reward(RewardType.COIN, 5));
+            LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+        }
         market.add(new Market(true, false, 1, firstAreaReward));
 
-        Set<Reward> secondAreaReward = new HashSet<>();
-        secondAreaReward.add(new Reward(RewardType.SERVANT, 5));
+        Set<Reward> secondAreaReward;
+        try{
+            secondAreaReward = JSONUtility.getSpotRewards(ActionType.MARKET, 1);
+        } catch(JSONException e){
+            secondAreaReward = new HashSet<>();
+            secondAreaReward.add(new Reward(RewardType.SERVANT, 5));
+            LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+        } catch(IOException e){
+            secondAreaReward = new HashSet<>();
+            secondAreaReward.add(new Reward(RewardType.SERVANT, 5));
+            LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+        }
         market.add(new Market(true, false, 1, secondAreaReward));
 
         if(playerNumber >= 4){
-            Set<Reward> thirdAreaReward = new HashSet<>();
-            thirdAreaReward.add(new Reward(RewardType.COIN, 2));
-            thirdAreaReward.add(new Reward(RewardType.MILITARY_POINT, 3));
+            Set<Reward> thirdAreaReward;
+            try{
+                thirdAreaReward = JSONUtility.getSpotRewards(ActionType.MARKET, 2);
+            } catch(JSONException e){
+                thirdAreaReward = new HashSet<>();
+                thirdAreaReward.add(new Reward(RewardType.COIN, 2));
+                thirdAreaReward.add(new Reward(RewardType.MILITARY_POINT, 3));
+                LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+            } catch(IOException e){
+                thirdAreaReward = new HashSet<>();
+                thirdAreaReward.add(new Reward(RewardType.COIN, 2));
+                thirdAreaReward.add(new Reward(RewardType.MILITARY_POINT, 3));
+                LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+            }
             market.add(new Market(true, false, 1, thirdAreaReward));
 
-            Set<Reward> fourthAreaReward = new HashSet<>();
-            fourthAreaReward.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 2));
+            Set<Reward> fourthAreaReward;
+            try{
+                fourthAreaReward = JSONUtility.getSpotRewards(ActionType.MARKET, 3);
+            } catch(JSONException e){
+                fourthAreaReward = new HashSet<>();
+                fourthAreaReward.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 2));
+                LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
+            } catch(IOException e){
+                fourthAreaReward = new HashSet<>();
+                fourthAreaReward.add(new Reward(RewardType.COUNCIL_PRIVILEGE, 2));
+                LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);
+            }
             market.add(new Market(true, false, 1, fourthAreaReward));
         }
     }

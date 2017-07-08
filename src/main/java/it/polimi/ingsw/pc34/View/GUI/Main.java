@@ -4,21 +4,22 @@ import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import javafx.application.Application;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 import java.io.IOException;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class Main extends Application{
-    // connection canal
-    private SynchronizedString chatToServer = new SynchronizedString();
+    Logger LOGGER = Logger.getLogger(Main.class.getName());
+
+    // connection canals
     private SynchronizedString chatFromServer = new SynchronizedString();
     private SynchronizedString fromGuiToServer = new SynchronizedString();
     private SynchronizedString fromServerToGui = new SynchronizedString();
@@ -112,7 +113,7 @@ public class Main extends Application{
             primaryStage.setAlwaysOnTop(true);
             primaryStage.setAlwaysOnTop(false);
         } catch(IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "RootLayout.fxml: Not found", e);
         }
     }
 
@@ -143,7 +144,7 @@ public class Main extends Application{
 
             fromGuiToServer.put("1");
         } catch (IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Login.fxml: Not found", e);
         }
     }
 
@@ -173,7 +174,7 @@ public class Main extends Application{
             waitingRoomC = waitingRoomController;
             screen.set(2);
         } catch (IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "WaitingRoom.fxml: Not found", e);
         }
     }
 
@@ -209,7 +210,7 @@ public class Main extends Application{
             fromGuiToServer.put("3");
             System.out.println("view put done");
         } catch (IOException e){
-            e.printStackTrace();
+            LOGGER.log(Level.SEVERE, "Game.fxml: Not found", e);
         }
     }
 
@@ -239,14 +240,6 @@ public class Main extends Application{
 
     public int getWindowHeight(){
         return windowHeight;
-    }
-
-    public SynchronizedString getChatToServer(){
-        return chatToServer;
-    }
-
-    public void setChatToServer(SynchronizedString chatToServer){
-        this.chatToServer = chatToServer;
     }
 
     public SynchronizedString getChatFromServer(){

@@ -4,10 +4,12 @@ import it.polimi.ingsw.pc34.View.GUI.BoardView;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 
+import java.io.Serializable;
+
 /**
  * Created by Povaz on 04/07/2017.
  */
-public class SynchronizedBoardView {
+public class SynchronizedBoardView implements Serializable{
     private BoardView board;
     private BooleanProperty available = new SimpleBooleanProperty(false);
 

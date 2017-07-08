@@ -4,10 +4,12 @@ import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.StringProperty;
 
+import java.io.Serializable;
+
 /**
  * Created by Povaz on 04/07/2017.
  */
-public class SynchronizedString {
+public class SynchronizedString implements Serializable{
     private String message;
     private BooleanProperty available = new SimpleBooleanProperty(false);
 

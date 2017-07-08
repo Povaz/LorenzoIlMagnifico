@@ -19,15 +19,15 @@
             <items>
                   <Menu mnemonicParsing="false" text="Music">
                     <items>
-                      <MenuItem mnemonicParsing="false" onAction="#setTrack1" text="Track 1" />
-                        <MenuItem mnemonicParsing="false" onAction="#setTrack2" text="Track 2" />
+                      <MenuItem mnemonicParsing="false" onAction="#setTrack1" text="Awesom Mix vol. 1&amp;2" />
+                        <MenuItem mnemonicParsing="false" onAction="#setTrack2" text="Dark Souls soundtrack" />
                         <SeparatorMenuItem mnemonicParsing="false" />
                     <MenuItem mnemonicParsing="false" onAction="#setMute" text="Mute" />
                     </items>
                   </Menu>
             </items>
           </Menu>
-          <Menu mnemonicParsing="false" text="View">
+          <Menu mnemonicParsing="false" text="Window">
             <items>
                   <Menu mnemonicParsing="false" text="Full screen">
                     <items>
@@ -44,7 +44,18 @@
           </Menu>
           <Menu mnemonicParsing="false" text="Help">
             <items>
-              <MenuItem mnemonicParsing="false" text="About" />
+                  <Menu mnemonicParsing="false" text="Help">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Open ReadeMe" />
+                    </items>
+                  </Menu>
+                  <Menu mnemonicParsing="false" text="About">
+                    <items>
+                      <MenuItem mnemonicParsing="false" text="Paolo Trilli" />
+                        <MenuItem mnemonicParsing="false" text="Erick Venneri" />
+                        <MenuItem mnemonicParsing="false" text="Tommaso Tesser" />
+                    </items>
+                  </Menu>
             </items>
           </Menu>
         </menus>
