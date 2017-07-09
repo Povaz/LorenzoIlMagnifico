@@ -1,6 +1,6 @@
 {
   "timeoutLobby": 1000,
-  "timeoutTurn": 20000,
+  "timeoutTurn": 300000,
 
   "exchangeLeader":[
     {
