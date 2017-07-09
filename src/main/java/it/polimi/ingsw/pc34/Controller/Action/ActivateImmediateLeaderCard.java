@@ -68,7 +68,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         }
     }
 
-    private boolean canChangeFamilyMemberValue(){
+    private boolean canChangeFamilyMemberValue() throws IOException{
         if(!leaderCard.isChangeColoredFamilyMamberValue()){
             return true;
         }

@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.collections.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.collections.FXCollections?>
+
+<AnchorPane fx:id="coloredFamilyPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="548.0" prefWidth="540.0" style="-fx-background-color: rgb(113,90,58);" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="it.polimi.ingsw.pc34.View.GUI.ActionChooseColoredFamilyController">
+   <children>
+      <Text fill="WHITE" layoutX="15.0" layoutY="165.0" stroke="BLACK" text="Which colored family member">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="59.0" layoutY="211.0" stroke="BLACK" text="do you want to improve?">
+         <font>
+            <Font name="System Bold" size="36.0" />
+         </font>
+      </Text>
+      <Button fx:id="black" layoutX="59.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#blackClicked" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: Black;" text="Black" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="white" layoutX="227.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#whiteClicked" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: White;" text="White">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+      <Button fx:id="orange" layoutX="396.0" layoutY="334.0" mnemonicParsing="false" onMouseClicked="#orangeClicked" prefHeight="40.0" prefWidth="87.0" style="-fx-background-color: OrangeRed;" text="Orange" textFill="WHITE">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Button>
+   </children>
+</AnchorPane>

@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.JSONUtility;
+
 import java.util.*;
 
 /**
@@ -93,7 +95,7 @@ public class PlayerBoard {
         }
     }
 
-    private Reward earnVictoryPointFromVentureCards(){
+    Reward earnVictoryPointFromVentureCards(){
         Reward victoryPoint = new Reward(RewardType.VICTORY_POINT, 0);
         for(DevelopmentCard dC : ventureSpot.getCards()){
             VentureCard vC = (VentureCard) dC;
