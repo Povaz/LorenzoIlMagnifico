@@ -70,7 +70,7 @@ public class LobbyFlow {
 					login = true;
 					start = false;
 					setInFlow();
-					return "Ok tell me username : ('/back' to go back)";
+					return "Insert your Username: ";
 				}
 				else if(asked.equals("/registration")){
 					registration = true;
@@ -80,7 +80,7 @@ public class LobbyFlow {
 				}
 				else{
 					setInFlow();
-					return "Not valid input. /login, /registration, /exit";
+					return "Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 				}
 			}
 			
@@ -88,18 +88,9 @@ public class LobbyFlow {
 			else if(login){
 				//user input is a username
 				if(username==null){
-					//write /back to go back to login or registration decision
-					if(asked.equals("/back")){
-						start = true;
-						login = false;
-						setInFlow();
-						return("/login, /registration, /exit?");
-					}
-					else{
-						username = asked;
-						setInFlow();
-						return "Ok tell me password";	
-					}
+					username = asked;
+					setInFlow();
+					return "Insert your Password:";	
 				}
 				//user input is a password
 				else{
@@ -131,13 +122,10 @@ public class LobbyFlow {
 						serverHandler.setName(username);
 						serverSoc.addPlayer (serverHandler, username);
 						setInFlow();
-						if(serverHandler.getGraphicType().equals("1")){
-							return "logged ('/logout' to log out)";
-						}
-						else{
+						if(serverHandler.getGraphicType().equals("2")){
 							serverHandler.setSendGUI(true);
-							return "Login successful";
 						}
+						return "Login successful/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
 					
 					//failed combination
@@ -146,12 +134,11 @@ public class LobbyFlow {
 						password = null;
 						setInFlow();
 						if(serverHandler.getGraphicType().equals("2")){	
-							login = false;
-							start = true;
 							serverHandler.setSendGUI(true);
-							return "Wrong combination!";
 						}
-						return "wrong combination! Tell me username : ";
+						login = false;
+						start = true;
+						return "Incorrect username or password: ";
 					}
 					
 					//user logged yet
@@ -160,12 +147,11 @@ public class LobbyFlow {
 						password = null;
 						setInFlow();
 						if(serverHandler.getGraphicType().equals("2")){
-							login = false;
-							start = true;
 							serverHandler.setSendGUI(true);
-							return "User logged yet!";
 						}
-						return "User logged yet! Tell me username : ";
+						login = false;
+						start = true;
+						return "User already logged: ";
 					}
 				}
 			}
@@ -174,18 +160,9 @@ public class LobbyFlow {
 			else if(registration){
 				//user input is a username
 				if(username==null){
-					//write /back to go back to login or registration decision
-					if(asked.equals("/back")){
-						start = true;
-						registration = false;
-						setInFlow();
-						return("/login, /registration, /exit?");
-					}
-					else{
-						username = asked;
-						setInFlow();
-						return "Ok tell me password";	
-					}
+					username = asked;
+					setInFlow();
+					return "Ok tell me password";	
 				}
 				//user input is a password
 				else{
@@ -203,7 +180,7 @@ public class LobbyFlow {
 							serverHandler.setSendGUI(true);
 							return "Registration Successful";
 						}
-						return "Registration successful! /login, /registration, /exit";
+						return "Registration successful!/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
 					else{	
 						setInFlow();
@@ -235,9 +212,8 @@ public class LobbyFlow {
 					setInFlow();
 					if(serverHandler.getGraphicType().equals("2")){	
 						serverHandler.setSendGUI(true);
-						return "Logout successful";
 					}
-					return "Logged out . . . What you want to do? /login, /registration, /exit?";
+					return "Logout successful/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 				}
 			}
 			

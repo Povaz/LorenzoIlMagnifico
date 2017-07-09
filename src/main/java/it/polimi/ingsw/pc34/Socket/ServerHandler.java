@@ -115,7 +115,7 @@ public class ServerHandler implements Runnable{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
-			message += "\nTake your decision : /login, /registration, /exit?";
+			message += "\nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 			lobbyFlow.reset();
 			stateGame = null;
 		}
@@ -219,7 +219,7 @@ public class ServerHandler implements Runnable{
 			e1.printStackTrace();
 		}
 		if(graphicType.equals("1")){
-			sendToClient("Take your decision : /login, /registration, /exit (to close the client)?");
+			sendToClient("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application");
 		}
 		while (true){
 			try {

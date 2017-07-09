@@ -128,11 +128,10 @@ public class Client {
 			this.getUserSoc().setSynchronizedMessageInfo(messageInfo);
 			this.getUserSoc().setChatIn(messageChat);
 			this.getUserSoc().setSynchronizedBoardView(boardForGUI);
-			System.out.println("si!"); 
-		    this.getUserSoc().loginHandlerGUI(); 
+		    this.getUserSoc().loginHandlerGUI();    //start login process on the socket for gui, different from cli's one
 		}
 		else{ 
-		      Thread userSoc = new Thread(this.userSoc); 
+		      Thread userSoc = new Thread(this.userSoc);  //start login process on the socket for cli, different from gui's one
 		      userSoc.start(); 
 		} 
 	}
