@@ -443,9 +443,24 @@ public class GameController {
 
 
 
-    public FamilyColor chooseFamilyMemberColorNotNeutral(Player player){ //Waits for a FamilyColor (Not Neutral) chosen by this Player
+    public FamilyColor chooseFamilyMemberColorNotNeutral(Player player) throws IOException{ //Waits for a FamilyColor (Not Neutral) chosen by this Player
     	afkVar = "familyColorNotNeutral";
         player.putSecond_State(PlayerState.FAMILY_MEMBER);
+        if (player.getClientType().equals(ClientType.GUI)) {
+
+        	switch (player.getConnectionType()) {
+				case RMI:
+					serverRMI.openNewWindow(player, " /choosecoloredfamily", "toSynchro");
+					break;
+				case SOCKET:
+					//TODO FILL SOCKET TOM
+					break;
+			}
+		}
+		else {
+        	String message = "Which colored FamilyMember do you choose? 1. " + FamilyColor.BLACK + "  " + "2. " + FamilyColor.WHITE + "  " + "3. " + FamilyColor.ORANGE;
+			this.sendMessageCLI(player, message);
+		}
         FamilyColor familyColor = familyColorCreated.get();
         setInFlow();
         return familyColor;
