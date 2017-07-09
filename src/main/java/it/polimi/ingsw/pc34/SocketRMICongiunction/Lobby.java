@@ -168,23 +168,34 @@ public class Lobby {
     }
 
     public void startGameImmediately () throws RemoteException {
-        //Notifying the Game is Starting
-        notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");
-        //Socket Start
-        serverSoc.throwInGame();
+        this.timer.schedule(new TimerTask() {
+            @Override
+            public void run(){
+                try {
+                    //Notifying the Game is Starting
+                    notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");
+
+                    //Socket Start
+                    serverSoc.throwInGame();
 
 
-        //RMI (GUI) Start
-        serverRMI.throwInGameGUI(getRMIUsers());
+                    //RMI (GUI) Start
+                    serverRMI.throwInGameGUI(getRMIUsers());
 
 
-        //Game Start
-        Game game = new Game(users, serverRMI, serverSoc);
-        serverSoc.fromLobbytoInGame();
-        users.clear();
-        Server.gamesOnGoing.add(game);
-        Thread threadGame = new Thread (game);
-        threadGame.start();
+                    //Game Start
+                    Game game = new Game(users, serverRMI, serverSoc);
+                    serverSoc.fromLobbytoInGame();
+                    users.clear();
+                    Server.gamesOnGoing.add(game);
+                    Thread threadGame = new Thread (game);
+                    threadGame.start();
+                }
+                catch (RemoteException e) {
+                    e.printStackTrace();
+                }
+            }
+        }, 0);
     }
 
     public void stopTimer() {
