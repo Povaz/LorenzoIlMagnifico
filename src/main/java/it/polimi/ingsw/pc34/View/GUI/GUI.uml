@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.pc34.View.GUI</OriginalElement>
+  <nodes>
+    <node x="3827.375" y="0.0">it.polimi.ingsw.pc34.View.GUI.mp3Files</node>
+    <node x="0.0" y="2008.0">it.polimi.ingsw.pc34.View.GUI.WaitingRoomController</node>
+    <node x="505.375" y="3869.0">it.polimi.ingsw.pc34.View.GUI.ActionBonusFamilyController</node>
+    <node x="1158.375" y="3891.0">it.polimi.ingsw.pc34.View.GUI.ActionNumberServantController</node>
+    <node x="2751.0" y="1931.0">it.polimi.ingsw.pc34.View.GUI.RootLayoutController</node>
+    <node x="1476.375" y="3869.0">it.polimi.ingsw.pc34.View.GUI.ActionLeaderCardController</node>
+    <node x="3661.375" y="0.0">it.polimi.ingsw.pc34.View.GUI.LaunchGUI</node>
+    <node x="319.0" y="1062.0">it.polimi.ingsw.pc34.View.GUI.GameViewController</node>
+    <node x="1811.375" y="3880.0">it.polimi.ingsw.pc34.View.GUI.ActionChooseDiscountController</node>
+    <node x="557.5" y="0.0">it.polimi.ingsw.pc34.View.GUI.PlayerBoardView</node>
+    <node x="2041.25" y="640.5">it.polimi.ingsw.pc34.View.GUI.ChatController</node>
+    <node x="455.5" y="498.0">it.polimi.ingsw.pc34.View.GUI.BoardView</node>
+    <node x="2140.375" y="3836.0">it.polimi.ingsw.pc34.View.GUI.ActionExchangePrivilegeController</node>
+    <node x="0.0" y="4132.0">it.polimi.ingsw.pc34.View.GUI.cssFiles</node>
+    <node x="3218.375" y="3847.0">it.polimi.ingsw.pc34.View.GUI.ActionChooseColoredFamilyController</node>
+    <node x="2572.375" y="3858.0">it.polimi.ingsw.pc34.View.GUI.ActionChooseTradeController</node>
+    <node x="2922.375" y="3891.0">it.polimi.ingsw.pc34.View.GUI.ActionPayMilitaryPointController</node>
+    <node x="2333.0" y="1975.0">it.polimi.ingsw.pc34.View.GUI.LoginController</node>
+    <node x="1737.7156432748536" y="3219.0">it.polimi.ingsw.pc34.View.GUI.MainGUI</node>
+    <node x="3998.375" y="0.0">it.polimi.ingsw.pc34.View.GUI.pngFiles</node>
+    <node x="1202.5" y="707.0">it.polimi.ingsw.pc34.View.GUI.LocatedImage</node>
+    <node x="841.375" y="3891.0">it.polimi.ingsw.pc34.View.GUI.ActionSupportVaticanController</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.GameViewController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="498.25" y="1038.5" />
+      <point x="1813.75" y="3169.0" />
+      <point x="1968.326754385965" y="3169.0" />
+      <point x="-65.88888888888869" y="-268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.BoardView" target="it.polimi.ingsw.pc34.View.GUI.PlayerBoardView">
+      <point x="-181.75" y="-257.0" />
+      <point x="637.25" y="473.0" />
+      <point x="705.25" y="473.0" />
+      <point x="-147.75" y="224.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ActionSupportVaticanController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="0.0" y="-70.5" />
+      <point x="989.875" y="3786.0" />
+      <point x="1836.548976608187" y="3786.0" />
+      <point x="-197.66666666666652" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ActionNumberServantController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="0.0" y="-70.5" />
+      <point x="1307.375" y="3796.0" />
+      <point x="1902.4378654970758" y="3796.0" />
+      <point x="-131.77777777777783" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ChatController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="93.75" y="114.5" />
+      <point x="2322.5" y="3159.0" />
+      <point x="2034.2156432748536" y="3159.0" />
+      <point x="0.0" y="-268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.GameViewController" target="it.polimi.ingsw.pc34.View.GUI.BoardView">
+      <point x="-664.3333333333335" y="-1038.5" />
+      <point x="651.1666666666665" y="1037.0" />
+      <point x="819.0" y="1037.0" />
+      <point x="0.0" y="257.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ActionPayMilitaryPointController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="0.0" y="-70.5" />
+      <point x="3060.375" y="3796.0" />
+      <point x="2231.8823099415204" y="3796.0" />
+      <point x="197.66666666666697" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ActionBonusFamilyController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="0.0" y="-92.5" />
+      <point x="663.375" y="3776.0" />
+      <point x="1770.660087719298" y="3776.0" />
+      <point x="-263.55555555555566" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.MainGUI" target="it.polimi.ingsw.pc34.View.GUI.GameViewController">
+      <point x="-131.77777777777783" y="-268.5" />
+      <point x="1902.4378654970758" y="3179.0" />
+      <point x="817.25" y="3179.0" />
+      <point x="-498.25" y="1038.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.MainGUI" target="it.polimi.ingsw.pc34.View.GUI.RootLayoutController">
+      <point x="197.66666666666652" y="-268.5" />
+      <point x="2231.8823099415204" y="3189.0" />
+      <point x="2854.25" y="3189.0" />
+      <point x="-103.25" y="169.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.GameViewController" target="it.polimi.ingsw.pc34.View.GUI.ChatController">
+      <point x="664.3333333333335" y="-1038.5" />
+      <point x="1979.8333333333335" y="1037.0" />
+      <point x="2135.0" y="1037.0" />
+      <point x="-93.75" y="114.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.MainGUI" target="it.polimi.ingsw.pc34.View.GUI.WaitingRoomController">
+      <point x="-263.55555555555566" y="-268.5" />
+      <point x="1770.660087719298" y="3199.0" />
+      <point x="74.75" y="3199.0" />
+      <point x="-74.75" y="92.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ActionChooseTradeController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="0.0" y="-103.5" />
+      <point x="2737.375" y="3806.0" />
+      <point x="2165.9934210526317" y="3806.0" />
+      <point x="131.77777777777783" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ActionExchangePrivilegeController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="0.0" y="-125.5" />
+      <point x="2346.375" y="3816.0" />
+      <point x="2100.104532163742" y="3816.0" />
+      <point x="65.88888888888869" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ActionChooseColoredFamilyController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="0.0" y="-114.5" />
+      <point x="3417.375" y="3786.0" />
+      <point x="2297.771198830409" y="3786.0" />
+      <point x="263.55555555555566" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.RootLayoutController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="103.25" y="169.5" />
+      <point x="3060.75" y="3199.0" />
+      <point x="2297.771198830409" y="3199.0" />
+      <point x="263.55555555555566" y="-268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.LoginController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="99.5" y="125.5" />
+      <point x="2631.5" y="3179.0" />
+      <point x="2165.9934210526317" y="3179.0" />
+      <point x="131.77777777777783" y="-268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.GameViewController" target="it.polimi.ingsw.pc34.View.GUI.LocatedImage">
+      <point x="-1.1368683772161603E-13" y="-1038.5" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.MainGUI" target="it.polimi.ingsw.pc34.View.GUI.LoginController">
+      <point x="65.88888888888869" y="-268.5" />
+      <point x="2100.104532163742" y="3169.0" />
+      <point x="2432.5" y="3169.0" />
+      <point x="-99.5" y="125.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ActionLeaderCardController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="0.0" y="-92.5" />
+      <point x="1633.875" y="3806.0" />
+      <point x="1968.326754385965" y="3806.0" />
+      <point x="-65.88888888888869" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.ActionChooseDiscountController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="0.0" y="-81.5" />
+      <point x="1965.875" y="3816.0" />
+      <point x="2034.2156432748536" y="3816.0" />
+      <point x="0.0" y="268.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View.GUI.WaitingRoomController" target="it.polimi.ingsw.pc34.View.GUI.MainGUI">
+      <point x="74.75" y="92.5" />
+      <point x="224.25" y="3189.0" />
+      <point x="1836.5489766081866" y="3189.0" />
+      <point x="-197.66666666666697" y="-268.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="272.5" y="310.5" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.pc34.View.GUI.mp3Files</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

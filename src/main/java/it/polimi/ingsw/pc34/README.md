@@ -68,7 +68,13 @@ You skipped your turn!
 - If you do not complete your action clicking on Pass button, timer will expires and it will be notified on your screen. Clicking on your screen will take you to the Login Window;
 - If you're kicked out of the game, you can log in again in the same game, if it isn't finished yet.
 - If the game finishes, the name of the winner will be displayed on the screen and clicking on it will take you to the Login Window.
-
+#### GUI Shortcut
+- Esc to set Fullscreen off;
+- F to set Fullscreen on;
+- M to mute the music;
+- D to resize window;
+- 1 to set the Awesome Track music;
+- 2 to set Gwyn OST (also awesome) music.
 
 ####The following features are not available for Socket users:
 - If you're kicked out of the game, your window will be closed. It is necessary to re-launch the Client class in order to log in.

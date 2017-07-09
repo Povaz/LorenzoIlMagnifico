@@ -1,0 +1,236 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.pc34</OriginalElement>
+  <nodes>
+    <node x="522.0" y="2282.451171875">it.polimi.ingsw.pc34.VaticanReportTest</node>
+    <node x="1431.671198305241" y="142.451171875">it.polimi.ingsw.pc34.Exception</node>
+    <node x="1659.129761904762" y="142.451171875">it.polimi.ingsw.pc34.Controller</node>
+    <node x="1697.3045316385742" y="311.451171875">it.polimi.ingsw.pc34.Socket</node>
+    <node x="258.0" y="2282.451171875">it.polimi.ingsw.pc34.PersonalBonusTileTest</node>
+    <node x="0.0" y="799.451171875">it.polimi.ingsw.pc34.JSONUtility</node>
+    <node x="1686.0000000000002" y="1492.951171875">it.polimi.ingsw.pc34.ImmediateLeaderCardTest</node>
+    <node x="0.0" y="2282.451171875">it.polimi.ingsw.pc34.RandomUtilityTest</node>
+    <node x="1470.671198305241" y="311.451171875">it.polimi.ingsw.pc34.View</node>
+    <node x="1749.1015773233858" y="470.451171875">it.polimi.ingsw.pc34.SocketRMICongiunction</node>
+    <node x="1863.3068584784012" y="669.451171875">it.polimi.ingsw.pc34.GameTest</node>
+    <node x="1798.188852813853" y="13.451171875">it.polimi.ingsw.pc34.RMI</node>
+    <node x="1474.0000000000002" y="1492.951171875">it.polimi.ingsw.pc34.PermanentLeaderCardTest</node>
+    <node x="1536.6596803905313" y="680.451171875">it.polimi.ingsw.pc34.Model</node>
+    <node x="1898.0" y="1316.451171875">it.polimi.ingsw.pc34.JSONUtilityTest</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.pc34.Controller" target="it.polimi.ingsw.pc34.Socket">
+      <point x="26.399999999999864" y="14.5" />
+      <point x="1751.529761904762" y="291.451171875" />
+      <point x="1754.3045316385742" y="291.451171875" />
+      <point x="0.0" y="-14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.JSONUtilityTest" target="it.polimi.ingsw.pc34.Model">
+      <point x="0.0" y="-202.0" />
+      <point x="2154.0" y="769.451171875" />
+      <point x="1641.5882518191029" y="769.451171875" />
+      <point x="48.42857142857133" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.GameTest" target="it.polimi.ingsw.pc34.SocketRMICongiunction">
+      <point x="-22.75" y="-25.5" />
+      <point x="1931.5568584784012" y="649.451171875" />
+      <point x="1942.2444344662429" y="649.451171875" />
+      <point x="89.14285714285711" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket" target="it.polimi.ingsw.pc34.Socket">
+      <point x="-51.300000000000004" y="14.5" />
+      <point x="1703.0045316385742" y="360.451171875" />
+      <point x="1677.3045316385742" y="360.451171875" />
+      <point x="1677.3045316385742" y="335.61783854166674" />
+      <point x="-57.0" y="9.666666666666742" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model" target="it.polimi.ingsw.pc34.Controller">
+      <point x="-14.125" y="-14.5" />
+      <point x="1579.0346803905313" y="579.451171875" />
+      <point x="1604.0045316385742" y="579.451171875" />
+      <point x="1604.0045316385742" y="251.451171875" />
+      <point x="1707.5297619047622" y="251.451171875" />
+      <point x="-17.59999999999991" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model" target="it.polimi.ingsw.pc34.Socket">
+      <point x="14.125" y="-14.5" />
+      <point x="1607.2846803905313" y="609.451171875" />
+      <point x="1660.384910656719" y="609.451171875" />
+      <point x="1660.384910656719" y="420.451171875" />
+      <point x="1737.2045316385743" y="420.451171875" />
+      <point x="-17.09999999999991" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.RMI" target="it.polimi.ingsw.pc34.SocketRMICongiunction">
+      <point x="27.272727272727252" y="14.5" />
+      <point x="1875.4615800865802" y="122.451171875" />
+      <point x="1879.279761904762" y="122.451171875" />
+      <point x="1879.279761904762" y="410.451171875" />
+      <point x="1925.9015773233857" y="410.451171875" />
+      <point x="72.79999999999995" y="-14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket" target="it.polimi.ingsw.pc34.Controller">
+      <point x="-45.59999999999991" y="-14.5" />
+      <point x="1708.7045316385743" y="281.451171875" />
+      <point x="1733.929761904762" y="281.451171875" />
+      <point x="8.799999999999955" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller" target="it.polimi.ingsw.pc34.RMI">
+      <point x="0.0" y="-14.5" />
+      <point x="1725.129761904762" y="112.451171875" />
+      <point x="1839.097943722944" y="112.451171875" />
+      <point x="-9.090909090909008" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.SocketRMICongiunction" target="it.polimi.ingsw.pc34.RMI">
+      <point x="52.0" y="-14.5" />
+      <point x="1905.1015773233858" y="420.451171875" />
+      <point x="1868.279761904762" y="420.451171875" />
+      <point x="1868.279761904762" y="122.451171875" />
+      <point x="1866.3706709956712" y="122.451171875" />
+      <point x="18.181818181818244" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model" target="it.polimi.ingsw.pc34.Model">
+      <point x="-16.14285714285714" y="14.5" />
+      <point x="1577.0168232476742" y="749.451171875" />
+      <point x="1496.6596803905313" y="749.451171875" />
+      <point x="1496.6596803905313" y="685.2845052083333" />
+      <point x="-56.5" y="-9.666666666666742" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.SocketRMICongiunction" target="it.polimi.ingsw.pc34.Socket">
+      <point x="-72.80000000000018" y="-14.5" />
+      <point x="1780.3015773233856" y="450.451171875" />
+      <point x="1782.8045316385742" y="450.451171875" />
+      <point x="28.5" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model" target="it.polimi.ingsw.pc34.RMI">
+      <point x="-51.791666666666515" y="-14.5" />
+      <point x="1541.3680137238648" y="649.451171875" />
+      <point x="1411.7545316385745" y="649.451171875" />
+      <point x="1411.7545316385745" y="92.451171875" />
+      <point x="1820.9161255411257" y="92.451171875" />
+      <point x="-27.272727272727252" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.ImmediateLeaderCardTest" target="it.polimi.ingsw.pc34.Model">
+      <point x="0.0" y="-25.5" />
+      <point x="1782.0000000000002" y="779.451171875" />
+      <point x="1625.4453946762455" y="779.451171875" />
+      <point x="32.28571428571422" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller" target="it.polimi.ingsw.pc34.Model">
+      <point x="-35.200000000000045" y="14.5" />
+      <point x="1689.929761904762" y="231.451171875" />
+      <point x="1585.171198305241" y="231.451171875" />
+      <point x="1585.171198305241" y="559.451171875" />
+      <point x="1560.2013470571983" y="559.451171875" />
+      <point x="-32.95833333333326" y="-14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View" target="it.polimi.ingsw.pc34.Controller">
+      <point x="26.0" y="-14.5" />
+      <point x="1548.671198305241" y="221.451171875" />
+      <point x="1681.129761904762" y="221.451171875" />
+      <point x="-44.0" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.RMI" target="it.polimi.ingsw.pc34.RMI">
+      <point x="-45.45454545454547" y="14.5" />
+      <point x="1802.7343073593074" y="62.451171875" />
+      <point x="1778.188852813853" y="62.451171875" />
+      <point x="1778.188852813853" y="35.201171875" />
+      <point x="-50.0" y="7.25" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.SocketRMICongiunction" target="it.polimi.ingsw.pc34.SocketRMICongiunction">
+      <point x="-59.428571428571416" y="14.5" />
+      <point x="1793.6730058948144" y="529.451171875" />
+      <point x="1719.1015773233858" y="529.451171875" />
+      <point x="1719.1015773233858" y="484.951171875" />
+      <point x="-104.0" y="-0.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.GameTest" target="it.polimi.ingsw.pc34.RMI">
+      <point x="68.25" y="-25.5" />
+      <point x="2022.5568584784012" y="649.451171875" />
+      <point x="2016.66413143594" y="649.451171875" />
+      <point x="2016.66413143594" y="112.451171875" />
+      <point x="1893.6433982683984" y="112.451171875" />
+      <point x="45.454545454545496" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.GameTest" target="it.polimi.ingsw.pc34.Socket">
+      <point x="-68.25" y="-25.5" />
+      <point x="1886.0568584784012" y="619.451171875" />
+      <point x="1680.8015773233858" y="619.451171875" />
+      <point x="1680.8015773233858" y="440.451171875" />
+      <point x="1760.0045316385742" y="440.451171875" />
+      <point x="5.7000000000000455" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.JSONUtility" target="it.polimi.ingsw.pc34.Model">
+      <point x="0.0" y="-719.0" />
+      <point x="727.0" y="769.451171875" />
+      <point x="1593.1596803905313" y="769.451171875" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.View" target="it.polimi.ingsw.pc34.Exception">
+      <point x="-26.0" y="-14.5" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.SocketRMICongiunction" target="it.polimi.ingsw.pc34.Controller">
+      <point x="10.400000000000091" y="-14.5" />
+      <point x="1863.5015773233858" y="440.451171875" />
+      <point x="1846.279761904762" y="440.451171875" />
+      <point x="1846.279761904762" y="271.451171875" />
+      <point x="1777.929761904762" y="271.451171875" />
+      <point x="52.799999999999955" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model" target="it.polimi.ingsw.pc34.SocketRMICongiunction">
+      <point x="42.375" y="-14.5" />
+      <point x="1635.5346803905313" y="639.451171875" />
+      <point x="1882.8158630376715" y="639.451171875" />
+      <point x="29.71428571428578" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.PermanentLeaderCardTest" target="it.polimi.ingsw.pc34.Model">
+      <point x="0.0" y="-25.5" />
+      <point x="1570.0000000000002" y="779.451171875" />
+      <point x="1609.3025375333887" y="779.451171875" />
+      <point x="16.14285714285711" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket" target="it.polimi.ingsw.pc34.SocketRMICongiunction">
+      <point x="39.90000000000009" y="14.5" />
+      <point x="1794.2045316385743" y="450.451171875" />
+      <point x="1801.1015773233858" y="450.451171875" />
+      <point x="-52.0" y="-14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket" target="it.polimi.ingsw.pc34.RMI">
+      <point x="45.59999999999991" y="-14.5" />
+      <point x="1799.904531638574" y="291.451171875" />
+      <point x="1801.629761904762" y="291.451171875" />
+      <point x="1801.629761904762" y="122.451171875" />
+      <point x="1848.188852813853" y="122.451171875" />
+      <point x="0.0" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller" target="it.polimi.ingsw.pc34.Controller">
+      <point x="-52.80000000000001" y="14.5" />
+      <point x="1672.3297619047619" y="201.451171875" />
+      <point x="1629.129761904762" y="201.451171875" />
+      <point x="1629.129761904762" y="149.701171875" />
+      <point x="-66.0" y="-7.25" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.GameTest" target="it.polimi.ingsw.pc34.Controller">
+      <point x="22.75" y="-25.5" />
+      <point x="1977.0568584784012" y="649.451171875" />
+      <point x="2005.66413143594" y="649.451171875" />
+      <point x="2005.66413143594" y="261.451171875" />
+      <point x="1786.729761904762" y="261.451171875" />
+      <point x="61.59999999999991" y="14.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="1869.5" y="971.5" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

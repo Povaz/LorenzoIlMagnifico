@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.pc34.Controller</OriginalElement>
+  <nodes>
+    <node x="2126.4810606060605" y="0.0">it.polimi.ingsw.pc34.Controller.TradeCreated</node>
+    <node x="478.439393939394" y="191.0">it.polimi.ingsw.pc34.Controller.IntegerCreated</node>
+    <node x="7.439393939394108" y="191.0">it.polimi.ingsw.pc34.Controller.ArrayIntegerCreated</node>
+    <node x="0.0" y="359.0">it.polimi.ingsw.pc34.Controller.GameController</node>
+    <node x="1679.4810606060605" y="0.0">it.polimi.ingsw.pc34.Controller.PlayerState</node>
+    <node x="481.4810606060606" y="1761.0">it.polimi.ingsw.pc34.Controller.Game</node>
+    <node x="960.439393939394" y="191.0">it.polimi.ingsw.pc34.Controller.ActionInputCreated</node>
+    <node x="682.439393939394" y="191.0">it.polimi.ingsw.pc34.Controller.FamilyColorCreated</node>
+    <node x="1056.3560606060605" y="0.0">it.polimi.ingsw.pc34.Controller.ActionInput</node>
+    <node x="245.4393939393941" y="191.0">it.polimi.ingsw.pc34.Controller.BooleanCreated</node>
+    <node x="1353.0" y="1020.5">it.polimi.ingsw.pc34.Controller.Action</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.pc34.Controller.GameController" target="it.polimi.ingsw.pc34.Controller.ActionInput">
+      <point x="499.875" y="-676.0" />
+      <point x="1166.375" y="334.0" />
+      <point x="1226.939393939394" y="334.0" />
+      <point x="1226.939393939394" y="166.0" />
+      <point x="1208.3560606060605" y="166.0" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Game" target="it.polimi.ingsw.pc34.Controller.Action">
+      <point x="144.125" y="-577.0" />
+      <point x="1202.1060606060605" y="1736.0" />
+      <point x="1381.5" y="1736.0" />
+      <point x="-28.5" y="14.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.GameController" target="it.polimi.ingsw.pc34.Controller.ActionInputCreated">
+      <point x="277.70833333333326" y="-676.0" />
+      <point x="944.2083333333333" y="334.0" />
+      <point x="1024.439393939394" y="334.0" />
+      <point x="-64.0" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.GameController" target="it.polimi.ingsw.pc34.Controller.ArrayIntegerCreated">
+      <point x="-499.87499999999955" y="-676.0" />
+      <point x="166.62500000000045" y="334.0" />
+      <point x="170.9393939393941" y="334.0" />
+      <point x="54.5" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.GameController" target="it.polimi.ingsw.pc34.Controller.FamilyColorCreated">
+      <point x="166.625" y="-676.0" />
+      <point x="833.125" y="334.0" />
+      <point x="875.939393939394" y="334.0" />
+      <point x="64.5" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.GameController" target="it.polimi.ingsw.pc34.Controller.BooleanCreated">
+      <point x="-388.7916666666663" y="-676.0" />
+      <point x="277.7083333333337" y="334.0" />
+      <point x="298.6893939393941" y="334.0" />
+      <point x="-53.25" y="59.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Action" target="it.polimi.ingsw.pc34.Controller.Game">
+      <point x="28.5" y="14.5" />
+      <point x="1438.5" y="1736.0" />
+      <point x="1490.3560606060605" y="1736.0" />
+      <point x="432.375" y="-577.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.ActionInputCreated" target="it.polimi.ingsw.pc34.Controller.ActionInput">
+      <point x="0.0" y="-59.0" />
+      <point x="1088.439393939394" y="166.0" />
+      <point x="1107.0227272727275" y="166.0" />
+      <point x="-101.33333333333326" y="70.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Game" target="it.polimi.ingsw.pc34.Controller.GameController">
+      <point x="-432.375" y="-577.0" />
+      <point x="625.6060606060606" y="1736.0" />
+      <point x="333.25" y="1736.0" />
+      <point x="-333.25" y="676.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.GameController" target="it.polimi.ingsw.pc34.Controller.IntegerCreated">
+      <point x="-55.541666666666515" y="-676.0" />
+      <point x="610.9583333333335" y="334.0" />
+      <point x="616.439393939394" y="334.0" />
+      <point x="46.0" y="59.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.30000000000000016" x="2726.3333333333317" y="1305.9999999999993" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.pc34.Controller.TradeCreated</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

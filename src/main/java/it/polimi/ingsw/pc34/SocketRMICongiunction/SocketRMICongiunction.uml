@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.pc34.SocketRMICongiunction</OriginalElement>
+  <nodes>
+    <node x="123.75" y="0.0">it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType</node>
+    <node x="0.0" y="269.0">it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby</node>
+    <node x="538.0" y="0.0">it.polimi.ingsw.pc34.SocketRMICongiunction.Client</node>
+    <node x="1030.0" y="0.0">it.polimi.ingsw.pc34.SocketRMICongiunction.NotificationType</node>
+    <node x="85.0" y="123.0">it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo</node>
+    <node x="1.0" y="747.0">it.polimi.ingsw.pc34.SocketRMICongiunction.Server</node>
+    <node x="248.75" y="0.0">it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby" target="it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo">
+      <point x="0.0" y="-214.0" />
+      <point x="0.0" y="48.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo" target="it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType">
+      <point x="80.75" y="-48.0" />
+      <point x="327.25" y="98.0" />
+      <point x="316.75" y="98.0" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo" target="it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType">
+      <point x="-80.75" y="-48.0" />
+      <point x="165.75" y="98.0" />
+      <point x="176.25" y="98.0" />
+      <point x="0.0" y="36.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.SocketRMICongiunction.Server" target="it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby">
+      <point x="0.0" y="-169.5" />
+      <point x="0.0" y="214.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="143.0" y="125.5" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

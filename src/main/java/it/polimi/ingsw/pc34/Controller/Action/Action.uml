@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.pc34.Controller.Action</OriginalElement>
+  <nodes>
+    <node x="2658.0" y="253.0">it.polimi.ingsw.pc34.Controller.Action.ActivateImmediateLeaderCard</node>
+    <node x="1006.0" y="220.0">it.polimi.ingsw.pc34.Controller.Action.PlaceLeaderCard</node>
+    <node x="3111.0" y="253.0">it.polimi.ingsw.pc34.Controller.Action.Harvest</node>
+    <node x="1766.0" y="0.0">it.polimi.ingsw.pc34.Controller.Action.CommandPattern</node>
+    <node x="353.0" y="143.0">it.polimi.ingsw.pc34.Controller.Action.BuyCard</node>
+    <node x="0.0" y="791.0">it.polimi.ingsw.pc34.Controller.Action.Produce</node>
+    <node x="2265.0" y="286.0">it.polimi.ingsw.pc34.Controller.Action.PlaceCouncilPalace</node>
+    <node x="1872.0" y="286.0">it.polimi.ingsw.pc34.Controller.Action.PlaceMarket</node>
+    <node x="1519.0" y="308.0">it.polimi.ingsw.pc34.Controller.Action.SupportVatican</node>
+    <node x="0.0" y="308.0">it.polimi.ingsw.pc34.Controller.Action.ChangeLeaderCardInReward</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.pc34.Controller.Action.PlaceLeaderCard" target="it.polimi.ingsw.pc34.Controller.Action.CommandPattern">
+      <point x="0.0" y="-224.5" />
+      <point x="1252.5" y="113.0" />
+      <point x="1832.25" y="113.0" />
+      <point x="-39.75" y="36.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Action.ChangeLeaderCardInReward" target="it.polimi.ingsw.pc34.Controller.Action.CommandPattern">
+      <point x="0.0" y="-136.5" />
+      <point x="166.5" y="93.0" />
+      <point x="1779.25" y="93.0" />
+      <point x="-92.75" y="36.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Action.PlaceCouncilPalace" target="it.polimi.ingsw.pc34.Controller.Action.CommandPattern">
+      <point x="0.0" y="-158.5" />
+      <point x="2451.5" y="113.0" />
+      <point x="1911.75" y="113.0" />
+      <point x="39.75" y="36.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Action.Harvest" target="it.polimi.ingsw.pc34.Controller.Action.CommandPattern">
+      <point x="0.0" y="-191.5" />
+      <point x="3327.5" y="93.0" />
+      <point x="1964.75" y="93.0" />
+      <point x="92.75" y="36.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Action.ActivateImmediateLeaderCard" target="it.polimi.ingsw.pc34.Controller.Action.CommandPattern">
+      <point x="0.0" y="-191.5" />
+      <point x="2874.5" y="103.0" />
+      <point x="1938.25" y="103.0" />
+      <point x="66.25" y="36.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Action.BuyCard" target="it.polimi.ingsw.pc34.Controller.Action.CommandPattern">
+      <point x="0.0" y="-301.5" />
+      <point x="669.5" y="103.0" />
+      <point x="1805.75" y="103.0" />
+      <point x="-66.25" y="36.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Action.PlaceMarket" target="it.polimi.ingsw.pc34.Controller.Action.CommandPattern">
+      <point x="0.0" y="-158.5" />
+      <point x="2058.5" y="123.0" />
+      <point x="1885.25" y="123.0" />
+      <point x="13.25" y="36.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Controller.Action.SupportVatican" target="it.polimi.ingsw.pc34.Controller.Action.CommandPattern">
+      <point x="0.0" y="-136.5" />
+      <point x="1685.5" y="123.0" />
+      <point x="1858.75" y="123.0" />
+      <point x="-13.25" y="36.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="516.0" y="101.0" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.pc34.Controller.Action.ChangeLeaderCardInReward</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

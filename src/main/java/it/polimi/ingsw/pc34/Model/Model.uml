@@ -1,0 +1,1095 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.pc34.Model</OriginalElement>
+  <nodes>
+    <node x="6479.770469364428" y="5010.0">it.polimi.ingsw.pc34.Model.Dice</node>
+    <node x="8605.833317580917" y="4943.5">it.polimi.ingsw.pc34.Model.Order</node>
+    <node x="11590.520817580917" y="3025.5">it.polimi.ingsw.pc34.Model.PlayerColor</node>
+    <node x="307.0" y="7302.0">it.polimi.ingsw.pc34.Model.VentureCardTest</node>
+    <node x="12039.758317580916" y="2461.5">it.polimi.ingsw.pc34.Model.CardSpot</node>
+    <node x="11793.520817580917" y="3081.0">it.polimi.ingsw.pc34.Model.TerritorySpot</node>
+    <node x="10126.021465509" y="2462.0">it.polimi.ingsw.pc34.Model.ImmediateLeaderCard</node>
+    <node x="8201.302530756187" y="1813.0">it.polimi.ingsw.pc34.Model.CardTypeTest</node>
+    <node x="5793.895469364428" y="255.0">it.polimi.ingsw.pc34.Model.Reward</node>
+    <node x="11962.520817580917" y="3081.0">it.polimi.ingsw.pc34.Model.VentureSpot</node>
+    <node x="12332.133317580916" y="3081.0">it.polimi.ingsw.pc34.Model.BuildingSpot</node>
+    <node x="13150.01423687143" y="4933.0">it.polimi.ingsw.pc34.Model.FamilyMemberTest</node>
+    <node x="2601.2941176470586" y="6137.5">it.polimi.ingsw.pc34.Model.Tower</node>
+    <node x="11910.495817580919" y="3663.0">it.polimi.ingsw.pc34.Model.AllCardSpotTest</node>
+    <node x="5301.6037229219655" y="1050.0">it.polimi.ingsw.pc34.Model.RewardForReward</node>
+    <node x="8561.833317580917" y="5710.5">it.polimi.ingsw.pc34.Model.DiceTest</node>
+    <node x="13366.164236871431" y="344.0">it.polimi.ingsw.pc34.Model.FamilyColor</node>
+    <node x="11970.348165442858" y="278.0">it.polimi.ingsw.pc34.Model.ActionType</node>
+    <node x="4820.294117647058" y="2462.0">it.polimi.ingsw.pc34.Model.CharacterCard</node>
+    <node x="728.1274509803916" y="4227.0">it.polimi.ingsw.pc34.Model.VaticanReportCard</node>
+    <node x="7189.794117647058" y="2495.0">it.polimi.ingsw.pc34.Model.TerritoryCard</node>
+    <node x="36.5" y="3608.0">it.polimi.ingsw.pc34.Model.CounterTest</node>
+    <node x="5898.395469364428" y="0.0">it.polimi.ingsw.pc34.Model.RewardType</node>
+    <node x="11065.938560167951" y="3586.0">it.polimi.ingsw.pc34.Model.PlayerBoard</node>
+    <node x="11579.710784313726" y="5588.5">it.polimi.ingsw.pc34.Model.CouncilPalaceTest</node>
+    <node x="1799.5358640895201" y="5467.0">it.polimi.ingsw.pc34.Model.Board</node>
+    <node x="5805.13725490196" y="1813.0">it.polimi.ingsw.pc34.Model.RewardForCard</node>
+    <node x="6578.794117647058" y="1050.0">it.polimi.ingsw.pc34.Model.Trade</node>
+    <node x="0.0" y="7302.0">it.polimi.ingsw.pc34.Model.BuildingCardTest</node>
+    <node x="13281.776174723775" y="5511.5">it.polimi.ingsw.pc34.Model.ActionMarketSpotTest</node>
+    <node x="2502.2941176470586" y="5066.0">it.polimi.ingsw.pc34.Model.PlayerBoardTest</node>
+    <node x="11489.66911764706" y="4260.0">it.polimi.ingsw.pc34.Model.Player</node>
+    <node x="1699.1274509803916" y="5009.5">it.polimi.ingsw.pc34.Model.HarvestArea</node>
+    <node x="12127.520817580917" y="3081.0">it.polimi.ingsw.pc34.Model.CharacterSpot</node>
+    <node x="3644.139602763901" y="5632.5">it.polimi.ingsw.pc34.Model.Floor</node>
+    <node x="945.9816176470586" y="4976.5">it.polimi.ingsw.pc34.Model.VaticanReportSpot</node>
+    <node x="8445.333317580917" y="6105.0">it.polimi.ingsw.pc34.Model.BoardTest</node>
+    <node x="715.0441176470586" y="5588.5">it.polimi.ingsw.pc34.Model.VaticanReportSpotTest</node>
+    <node x="7895.447936097236" y="2396.0">it.polimi.ingsw.pc34.Model.PermanentLeaderCard</node>
+    <node x="611.0" y="7302.0">it.polimi.ingsw.pc34.Model.RandomUtility</node>
+    <node x="8331.153802697761" y="1039.5">it.polimi.ingsw.pc34.Model.CardType</node>
+    <node x="9322.447936097236" y="2992.0">it.polimi.ingsw.pc34.Model.PersonalBonusTile</node>
+    <node x="5812.770469364428" y="4868.0">it.polimi.ingsw.pc34.Model.ModifierTest</node>
+    <node x="10624.583317580917" y="1483.0">it.polimi.ingsw.pc34.Model.Modifier</node>
+    <node x="3393.2941176470586" y="5032.0">it.polimi.ingsw.pc34.Model.Market</node>
+    <node x="1973.1274509803916" y="5009.5">it.polimi.ingsw.pc34.Model.ProductionArea</node>
+    <node x="4036.294117647058" y="2484.0">it.polimi.ingsw.pc34.Model.VentureCard</node>
+    <node x="3800.294117647058" y="4326.0">it.polimi.ingsw.pc34.Model.ActionSpot</node>
+    <node x="6115.294117647058" y="2462.0">it.polimi.ingsw.pc34.Model.BuildingCard</node>
+    <node x="12534.133317580916" y="3784.0">it.polimi.ingsw.pc34.Model.BuildingSpotTest</node>
+    <node x="3559.1691176470586" y="6522.0">it.polimi.ingsw.pc34.Model.FloorTest</node>
+    <node x="9728.447936097236" y="1768.5">it.polimi.ingsw.pc34.Model.LeaderCard</node>
+    <node x="7722.794117647058" y="5020.5">it.polimi.ingsw.pc34.Model.CouncilPalace</node>
+    <node x="2778.2941176470586" y="2827.0">it.polimi.ingsw.pc34.Model.Counter</node>
+    <node x="12779.210665442859" y="940.0">it.polimi.ingsw.pc34.Model.FamilyMember</node>
+    <node x="6768.294117647058" y="1758.0">it.polimi.ingsw.pc34.Model.DevelopmentCard</node>
+    <node x="12632.95106016795" y="5556.0">it.polimi.ingsw.pc34.Model.OrderTest</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.pc34.Model.CharacterCard" target="it.polimi.ingsw.pc34.Model.RewardForReward">
+      <point x="-106.25" y="-114.5" />
+      <point x="5351.544117647058" y="2346.0" />
+      <point x="5399.3537229219655" y="2346.0" />
+      <point x="-97.75" y="81.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Player" target="it.polimi.ingsw.pc34.Model.PlayerColor">
+      <point x="117.60000000000036" y="-202.5" />
+      <point x="11901.269117647058" y="4207.0" />
+      <point x="11804.43566544286" y="4207.0" />
+      <point x="11804.43566544286" y="3426.0" />
+      <point x="11727.770817580917" y="3426.0" />
+      <point x="45.75" y="81.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VaticanReportCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-237.5" y="-235.5" />
+      <point x="965.6274509803916" y="4207.0" />
+      <point x="1365.7613542855988" y="4207.0" />
+      <point x="1365.7613542855988" y="720.0" />
+      <point x="5872.875861521291" y="720.0" />
+      <point x="-133.01960784313724" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CouncilPalaceTest" target="it.polimi.ingsw.pc34.Model.FamilyMember">
+      <point x="183.33333333333303" y="-147.5" />
+      <point x="11983.04411764706" y="5437.0" />
+      <point x="13072.133317580916" y="5437.0" />
+      <point x="13072.133317580916" y="1463.0" />
+      <point x="13060.210665442859" y="1463.0" />
+      <point x="0.0" y="191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Board" target="it.polimi.ingsw.pc34.Model.Tower">
+      <point x="0.0" y="269.0" />
+      <point x="2096.03586408952" y="6075.0" />
+      <point x="2656.7941176470586" y="6075.0" />
+      <point x="-111.0" y="-126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Board" target="it.polimi.ingsw.pc34.Model.Dice">
+      <point x="104.64705882352928" y="-269.0" />
+      <point x="2200.68292291305" y="5397.0" />
+      <point x="6527.603802697761" y="5397.0" />
+      <point x="-95.66666666666663" y="92.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Trade" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="0.0" y="-81.5" />
+      <point x="6757.794117647058" y="850.0" />
+      <point x="6022.52292034482" y="850.0" />
+      <point x="16.62745098039204" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PermanentLeaderCard" target="it.polimi.ingsw.pc34.Model.LeaderCard">
+      <point x="468.6666666666665" y="-180.5" />
+      <point x="9067.114602763902" y="2376.0" />
+      <point x="9783.947936097236" y="2376.0" />
+      <point x="-111.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BoardTest" target="it.polimi.ingsw.pc34.Model.PersonalBonusTile">
+      <point x="34.33333333333337" y="-158.5" />
+      <point x="8685.66665091425" y="6065.0" />
+      <point x="9462.947936097236" y="6065.0" />
+      <point x="-140.5" y="114.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Counter" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-145.75" y="-279.5" />
+      <point x="2924.0441176470586" y="2807.0" />
+      <point x="3115.78586408952" y="2807.0" />
+      <point x="3115.78586408952" y="790.0" />
+      <point x="5931.071939952663" y="790.0" />
+      <point x="-74.82352941176464" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="245.625" y="290.5" />
+      <point x="11639.063560167951" y="4187.0" />
+      <point x="11783.66911764706" y="4187.0" />
+      <point x="0.0" y="-202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FamilyMemberTest" target="it.polimi.ingsw.pc34.Model.FamilyColor">
+      <point x="176.0" y="-169.5" />
+      <point x="13524.01423687143" y="4848.0" />
+      <point x="13532.879631596523" y="4848.0" />
+      <point x="13532.879631596523" y="600.0" />
+      <point x="13449.914236871431" y="600.0" />
+      <point x="16.75" y="58.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FamilyMember" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="-74.9333333333334" y="191.5" />
+      <point x="12985.277332109526" y="1463.0" />
+      <point x="12703.32606016795" y="1463.0" />
+      <point x="12703.32606016795" y="2366.0" />
+      <point x="12490.633317580916" y="2366.0" />
+      <point x="12490.633317580916" y="4207.0" />
+      <point x="12018.869117647058" y="4207.0" />
+      <point x="235.19999999999982" y="-202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.LeaderCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="111.0" y="-126.0" />
+      <point x="10005.947936097236" y="1403.0" />
+      <point x="9977.14566801109" y="1403.0" />
+      <point x="9977.14566801109" y="760.0" />
+      <point x="6097.346449756586" y="760.0" />
+      <point x="91.45098039215691" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Reward" target="it.polimi.ingsw.pc34.Model.RewardType">
+      <point x="0.0" y="-147.5" />
+      <point x="0.0" y="102.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CharacterSpot" target="it.polimi.ingsw.pc34.Model.CardSpot">
+      <point x="0.0" y="-25.5" />
+      <point x="12205.020817580917" y="2807.0" />
+      <point x="12235.383317580916" y="2807.0" />
+      <point x="39.125" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FloorTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-248.0" y="-367.5" />
+      <point x="3683.1691176470586" y="6482.0" />
+      <point x="690.0" y="6482.0" />
+      <point x="690.0" y="680.0" />
+      <point x="5839.620959560507" y="680.0" />
+      <point x="-166.27450980392155" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BuildingSpotTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="41.0" y="-92.5" />
+      <point x="12739.133317580916" y="3566.0" />
+      <point x="12757.710665442859" y="3566.0" />
+      <point x="12757.710665442859" y="700.0" />
+      <point x="6147.228802697762" y="700.0" />
+      <point x="141.33333333333348" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.CharacterSpot">
+      <point x="212.875" y="-290.5" />
+      <point x="11606.313560167951" y="3476.0" />
+      <point x="12146.895817580917" y="3476.0" />
+      <point x="-58.125" y="25.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.RewardForCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-97.25" y="-81.5" />
+      <point x="5902.38725490196" y="1353.0" />
+      <point x="6034.028722921966" y="1353.0" />
+      <point x="6034.028722921966" y="870.0" />
+      <point x="6005.895469364428" y="870.0" />
+      <point x="0.0" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VaticanReportSpotTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-184.875" y="-147.5" />
+      <point x="776.6691176470586" y="5447.0" />
+      <point x="698.3137254901958" y="5447.0" />
+      <point x="698.3137254901958" y="690.0" />
+      <point x="5847.934685050703" y="690.0" />
+      <point x="-157.96078431372553" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Modifier" target="it.polimi.ingsw.pc34.Model.ActionType">
+      <point x="309.375" y="-411.5" />
+      <point x="11346.458317580917" y="1403.0" />
+      <point x="11171.853722921966" y="1403.0" />
+      <point x="11171.853722921966" y="900.0" />
+      <point x="12104.931498776194" y="900.0" />
+      <point x="-26.91666666666606" y="124.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Market" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-96.5" y="-70.5" />
+      <point x="3489.7941176470586" y="820.0" />
+      <point x="5956.013116423252" y="820.0" />
+      <point x="-49.88235294117658" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ImmediateLeaderCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="0.0" y="-114.5" />
+      <point x="10580.021465509" y="2376.0" />
+      <point x="10511.79411764706" y="2376.0" />
+      <point x="10511.79411764706" y="740.0" />
+      <point x="6113.973900736977" y="740.0" />
+      <point x="108.07843137254895" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ActionMarketSpotTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="234.85714285714312" y="-224.5" />
+      <point x="13790.633317580916" y="5427.0" />
+      <point x="13600.51423687143" y="5427.0" />
+      <point x="13600.51423687143" y="590.0" />
+      <point x="6213.73860661933" y="590.0" />
+      <point x="207.8431372549021" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BuildingCard" target="it.polimi.ingsw.pc34.Model.Trade">
+      <point x="181.20000000000005" y="-114.5" />
+      <point x="6749.494117647058" y="2346.0" />
+      <point x="6757.794117647058" y="2346.0" />
+      <point x="0.0" y="81.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VaticanReportCard" target="it.polimi.ingsw.pc34.Model.ActionType">
+      <point x="237.5" y="-235.5" />
+      <point x="1440.6274509803916" y="4207.0" />
+      <point x="1376.7613542855988" y="4207.0" />
+      <point x="1376.7613542855988" y="880.0" />
+      <point x="11997.264832109526" y="880.0" />
+      <point x="-134.58333333333394" y="124.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FloorTest" target="it.polimi.ingsw.pc34.Model.FamilyMember">
+      <point x="248.0" y="-367.5" />
+      <point x="4179.169117647059" y="6482.0" />
+      <point x="13874.646272762991" y="6482.0" />
+      <point x="13874.646272762991" y="1413.0" />
+      <point x="13322.477332109525" y="1413.0" />
+      <point x="262.2666666666664" y="191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.BuildingSpot">
+      <point x="311.125" y="-290.5" />
+      <point x="11704.563560167951" y="3526.0" />
+      <point x="12369.133317580916" y="3526.0" />
+      <point x="-37.0" y="25.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Market" target="it.polimi.ingsw.pc34.Model.ActionSpot">
+      <point x="96.5" y="-70.5" />
+      <point x="3682.7941176470586" y="4788.0" />
+      <point x="3988.2107843137246" y="4788.0" />
+      <point x="-37.58333333333326" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CardTypeTest" target="it.polimi.ingsw.pc34.Model.CardType">
+      <point x="0.0" y="-81.5" />
+      <point x="8365.802530756187" y="1403.0" />
+      <point x="8440.153802697761" y="1403.0" />
+      <point x="0.0" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CouncilPalaceTest" target="it.polimi.ingsw.pc34.Model.CouncilPalace">
+      <point x="-183.33333333333326" y="-147.5" />
+      <point x="11616.377450980392" y="5397.0" />
+      <point x="7880.919117647058" y="5397.0" />
+      <point x="31.625" y="82.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.AllCardSpotTest" target="it.polimi.ingsw.pc34.Model.TerritorySpot">
+      <point x="-246.60000000000002" y="-213.5" />
+      <point x="11937.895817580917" y="3446.0" />
+      <point x="11886.645817580917" y="3446.0" />
+      <point x="18.625" y="25.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.TerritoryCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="128.0" y="-81.5" />
+      <point x="7573.794117647058" y="830.0" />
+      <point x="6039.150371325212" y="830.0" />
+      <point x="33.25490196078408" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BuildingCard" target="it.polimi.ingsw.pc34.Model.RewardForReward">
+      <point x="-181.20000000000005" y="-114.5" />
+      <point x="6387.094117647058" y="2346.0" />
+      <point x="6411.604001344423" y="2346.0" />
+      <point x="6411.604001344423" y="1343.0" />
+      <point x="5594.8537229219655" y="1343.0" />
+      <point x="97.75" y="81.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BuildingSpot" target="it.polimi.ingsw.pc34.Model.CardSpot">
+      <point x="0.0" y="-25.5" />
+      <point x="12406.133317580916" y="2807.0" />
+      <point x="12313.633317580916" y="2807.0" />
+      <point x="117.375" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.LeaderCard">
+      <point x="-180.125" y="-290.5" />
+      <point x="11213.313560167951" y="3526.0" />
+      <point x="9894.947936097236" y="3526.0" />
+      <point x="0.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CounterTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-126.39999999999964" y="-268.5" />
+      <point x="226.10000000000036" y="3566.0" />
+      <point x="271.63512879540303" y="3566.0" />
+      <point x="271.63512879540303" y="650.0" />
+      <point x="5814.679783089919" y="650.0" />
+      <point x="-191.21568627450984" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Tower" target="it.polimi.ingsw.pc34.Model.Board">
+      <point x="-148.0" y="-126.0" />
+      <point x="2619.7941176470586" y="6085.0" />
+      <point x="2011.321578375234" y="6085.0" />
+      <point x="-84.71428571428578" y="269.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ModifierTest" target="it.polimi.ingsw.pc34.Model.CharacterCard">
+      <point x="0.0" y="-234.5" />
+      <point x="6136.270469364428" y="4788.0" />
+      <point x="6089.083317580917" y="4788.0" />
+      <point x="6089.083317580917" y="2777.0" />
+      <point x="5457.794117647058" y="2777.0" />
+      <point x="0.0" y="114.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BoardTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-34.33333333333326" y="-158.5" />
+      <point x="8616.999984247585" y="6025.0" />
+      <point x="7712.294117647058" y="6025.0" />
+      <point x="7712.294117647058" y="820.0" />
+      <point x="6047.464096815409" y="820.0" />
+      <point x="41.56862745098033" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.Counter">
+      <point x="-278.375" y="-290.5" />
+      <point x="11115.063560167951" y="3556.0" />
+      <point x="3288.4191176470586" y="3556.0" />
+      <point x="218.625" y="279.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Modifier" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-103.125" y="-411.5" />
+      <point x="10933.958317580917" y="1403.0" />
+      <point x="11031.583317580917" y="1403.0" />
+      <point x="11031.583317580917" y="730.0" />
+      <point x="6122.287626227173" y="730.0" />
+      <point x="116.3921568627452" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoardTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-85.0" y="-36.5" />
+      <point x="2544.7941176470586" y="4758.0" />
+      <point x="2559.4509803921565" y="4758.0" />
+      <point x="2559.4509803921565" y="770.0" />
+      <point x="5914.444488972271" y="770.0" />
+      <point x="-91.45098039215691" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Tower" target="it.polimi.ingsw.pc34.Model.CardType">
+      <point x="37.0" y="-126.0" />
+      <point x="2804.7941176470586" y="6055.0" />
+      <point x="3371.7941176470586" y="6055.0" />
+      <point x="3371.7941176470586" y="2376.0" />
+      <point x="3436.2941176470586" y="2376.0" />
+      <point x="3436.2941176470586" y="1363.0" />
+      <point x="8343.264913808873" y="1363.0" />
+      <point x="-96.88888888888891" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CardSpot" target="it.polimi.ingsw.pc34.Model.DevelopmentCard">
+      <point x="-78.25" y="-115.0" />
+      <point x="12118.008317580916" y="2346.0" />
+      <point x="7392.936974789915" y="2346.0" />
+      <point x="227.14285714285734" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ActionMarketSpotTest" target="it.polimi.ingsw.pc34.Model.Market">
+      <point x="-234.85714285714283" y="-224.5" />
+      <point x="13320.91903186663" y="5367.0" />
+      <point x="3714.960784313725" y="5367.0" />
+      <point x="128.66666666666652" y="70.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BuildingSpotTest" target="it.polimi.ingsw.pc34.Model.BuildingSpot">
+      <point x="-123.0" y="-92.5" />
+      <point x="12575.133317580916" y="3546.0" />
+      <point x="12443.133317580916" y="3546.0" />
+      <point x="37.0" y="25.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.PlayerColor">
+      <point x="49.125" y="-290.5" />
+      <point x="11442.563560167951" y="3426.0" />
+      <point x="11636.270817580917" y="3426.0" />
+      <point x="-45.75" y="81.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Dice" target="it.polimi.ingsw.pc34.Model.FamilyColor">
+      <point x="0.0" y="-92.5" />
+      <point x="6623.270469364428" y="4788.0" />
+      <point x="9311.947936097236" y="4788.0" />
+      <point x="9311.947936097236" y="910.0" />
+      <point x="13382.914236871431" y="910.0" />
+      <point x="-50.25" y="58.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ImmediateLeaderCard" target="it.polimi.ingsw.pc34.Model.FamilyMember">
+      <point x="302.6666666666665" y="-114.5" />
+      <point x="10882.688132175666" y="2376.0" />
+      <point x="11460.083317580917" y="2376.0" />
+      <point x="11460.083317580917" y="1433.0" />
+      <point x="12872.877332109525" y="1433.0" />
+      <point x="-187.33333333333303" y="191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ModifierTest" target="it.polimi.ingsw.pc34.Model.Modifier">
+      <point x="258.8000000000002" y="-234.5" />
+      <point x="6395.0704693644275" y="4778.0" />
+      <point x="6217.470469364428" y="4778.0" />
+      <point x="6217.470469364428" y="2807.0" />
+      <point x="11092.626060167951" y="2807.0" />
+      <point x="11092.626060167951" y="2366.0" />
+      <point x="10762.083317580917" y="2366.0" />
+      <point x="-275.0" y="411.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.DevelopmentCard" target="it.polimi.ingsw.pc34.Model.CardType">
+      <point x="0.0" y="-136.5" />
+      <point x="7165.794117647058" y="1393.0" />
+      <point x="8415.931580475539" y="1393.0" />
+      <point x="-24.22222222222217" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VaticanReportSpot" target="it.polimi.ingsw.pc34.Model.VaticanReportCard">
+      <point x="41.625" y="-126.0" />
+      <point x="1154.1066176470586" y="4848.0" />
+      <point x="1203.1274509803916" y="4848.0" />
+      <point x="0.0" y="235.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Board" target="it.polimi.ingsw.pc34.Model.CouncilPalace">
+      <point x="174.41176470588243" y="-269.0" />
+      <point x="2270.447628795403" y="5417.0" />
+      <point x="7754.419117647058" y="5417.0" />
+      <point x="-94.875" y="82.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FloorTest" target="it.polimi.ingsw.pc34.Model.ActionType">
+      <point x="297.5999999999999" y="-367.5" />
+      <point x="4228.769117647058" y="6492.0" />
+      <point x="13885.646272762991" y="6492.0" />
+      <point x="13885.646272762991" y="580.0" />
+      <point x="12266.431498776194" y="580.0" />
+      <point x="134.58333333333394" y="124.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.AllCardSpotTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="246.60000000000036" y="-213.5" />
+      <point x="12431.095817580917" y="3566.0" />
+      <point x="12512.633317580916" y="3566.0" />
+      <point x="12512.633317580916" y="710.0" />
+      <point x="6138.915077207565" y="710.0" />
+      <point x="133.01960784313724" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ActionSpot" target="it.polimi.ingsw.pc34.Model.FamilyMember">
+      <point x="0.0" y="-136.5" />
+      <point x="4025.794117647058" y="1413.0" />
+      <point x="12797.943998776193" y="1413.0" />
+      <point x="-262.2666666666664" y="191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Board" target="it.polimi.ingsw.pc34.Model.ProductionArea">
+      <point x="-69.7647058823527" y="-269.0" />
+      <point x="2026.271158207167" y="5447.0" />
+      <point x="2015.4607843137246" y="5447.0" />
+      <point x="-84.66666666666652" y="93.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.HarvestArea" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-63.5" y="-93.0" />
+      <point x="1762.6274509803916" y="740.0" />
+      <point x="5889.5033125016835" y="740.0" />
+      <point x="-116.3921568627452" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.VentureSpot">
+      <point x="180.125" y="-290.5" />
+      <point x="11573.563560167951" y="3466.0" />
+      <point x="12016.895817580917" y="3466.0" />
+      <point x="-18.125" y="25.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.LeaderCard" target="it.polimi.ingsw.pc34.Model.CardType">
+      <point x="-111.0" y="-126.0" />
+      <point x="9783.947936097236" y="1393.0" />
+      <point x="8488.598247142205" y="1393.0" />
+      <point x="48.44444444444434" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.AllCardSpotTest" target="it.polimi.ingsw.pc34.Model.DevelopmentCard">
+      <point x="191.80000000000018" y="-213.5" />
+      <point x="12376.295817580918" y="3556.0" />
+      <point x="12501.633317580916" y="3556.0" />
+      <point x="12501.633317580916" y="2326.0" />
+      <point x="7506.508403361344" y="2326.0" />
+      <point x="340.7142857142858" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PermanentLeaderCard" target="it.polimi.ingsw.pc34.Model.CardType">
+      <point x="0.0" y="-180.5" />
+      <point x="8598.447936097236" y="1403.0" />
+      <point x="8464.376024919984" y="1403.0" />
+      <point x="24.22222222222217" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CharacterCard" target="it.polimi.ingsw.pc34.Model.RewardForCard">
+      <point x="318.75" y="-114.5" />
+      <point x="5776.544117647058" y="2346.0" />
+      <point x="5902.38725490196" y="2346.0" />
+      <point x="-97.25" y="81.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CharacterCard" target="it.polimi.ingsw.pc34.Model.ActionType">
+      <point x="-318.75" y="-114.5" />
+      <point x="5139.044117647058" y="2346.0" />
+      <point x="5262.970469364428" y="2346.0" />
+      <point x="5262.970469364428" y="890.0" />
+      <point x="12051.098165442858" y="890.0" />
+      <point x="-80.75" y="124.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.PersonalBonusTile">
+      <point x="-212.875" y="-290.5" />
+      <point x="11180.563560167951" y="3536.0" />
+      <point x="9743.947936097236" y="3536.0" />
+      <point x="140.5" y="114.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FamilyMember" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-224.79999999999995" y="-191.5" />
+      <point x="12835.410665442858" y="680.0" />
+      <point x="6163.856253678154" y="680.0" />
+      <point x="157.96078431372553" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.TerritoryCard" target="it.polimi.ingsw.pc34.Model.DevelopmentCard">
+      <point x="-128.0" y="-81.5" />
+      <point x="7317.794117647058" y="2376.0" />
+      <point x="7279.365546218487" y="2376.0" />
+      <point x="113.57142857142867" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.Modifier">
+      <point x="-81.875" y="-290.5" />
+      <point x="11311.563560167951" y="3496.0" />
+      <point x="11103.626060167951" y="3496.0" />
+      <point x="11103.626060167951" y="2356.0" />
+      <point x="11037.083317580917" y="2356.0" />
+      <point x="0.0" y="411.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FloorTest" target="it.polimi.ingsw.pc34.Model.Board">
+      <point x="-198.4000000000001" y="-367.5" />
+      <point x="3732.7691176470585" y="6472.0" />
+      <point x="1967.5084033613448" y="6472.0" />
+      <point x="1967.5084033613448" y="6085.0" />
+      <point x="1841.8930069466633" y="6085.0" />
+      <point x="-254.14285714285688" y="269.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FloorTest" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="49.59999999999991" y="-367.5" />
+      <point x="3980.7691176470585" y="6442.0" />
+      <point x="11569.210784313726" y="6442.0" />
+      <point x="11569.210784313726" y="4848.0" />
+      <point x="11691.79411764706" y="4848.0" />
+      <point x="-91.875" y="202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CouncilPalace" target="it.polimi.ingsw.pc34.Model.ActionSpot">
+      <point x="-84.33333333333337" y="-82.0" />
+      <point x="7764.960784313725" y="4728.0" />
+      <point x="4138.544117647058" y="4728.0" />
+      <point x="112.75" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VentureCard" target="it.polimi.ingsw.pc34.Model.DevelopmentCard">
+      <point x="190.75" y="-92.5" />
+      <point x="4608.544117647058" y="2356.0" />
+      <point x="6825.079831932772" y="2356.0" />
+      <point x="-340.7142857142858" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Floor" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-125.66666666666697" y="-103.5" />
+      <point x="3706.972936097234" y="5367.0" />
+      <point x="3382.7941176470586" y="5367.0" />
+      <point x="3382.7941176470586" y="810.0" />
+      <point x="5947.699390933056" y="810.0" />
+      <point x="-58.1960784313726" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VentureCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-190.75" y="-92.5" />
+      <point x="4227.044117647058" y="2376.0" />
+      <point x="3868.377332109525" y="2376.0" />
+      <point x="3868.377332109525" y="830.0" />
+      <point x="5964.326841913447" y="830.0" />
+      <point x="-41.56862745098033" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.OrderTest" target="it.polimi.ingsw.pc34.Model.FamilyMember">
+      <point x="170.25" y="-180.0" />
+      <point x="13030.20106016795" y="5447.0" />
+      <point x="13083.133317580916" y="5447.0" />
+      <point x="13083.133317580916" y="1463.0" />
+      <point x="13097.677332109524" y="1463.0" />
+      <point x="37.46666666666624" y="191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Board" target="it.polimi.ingsw.pc34.Model.Order">
+      <point x="244.17647058823513" y="-269.0" />
+      <point x="2340.2123346777553" y="5437.0" />
+      <point x="8666.499984247585" y="5437.0" />
+      <point x="-121.33333333333333" y="159.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FamilyMemberTest" target="it.polimi.ingsw.pc34.Model.ActionType">
+      <point x="132.0" y="-169.5" />
+      <point x="13480.01423687143" y="4838.0" />
+      <point x="13521.879631596523" y="4838.0" />
+      <point x="13521.879631596523" y="610.0" />
+      <point x="12212.598165442858" y="610.0" />
+      <point x="80.75" y="124.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BuildingCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="0.0" y="-114.5" />
+      <point x="6568.294117647058" y="860.0" />
+      <point x="6014.209194854624" y="860.0" />
+      <point x="8.313725490196248" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ActionMarketSpotTest" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="0.0" y="-224.5" />
+      <point x="13555.776174723775" y="5447.0" />
+      <point x="13567.51423687143" y="5447.0" />
+      <point x="13567.51423687143" y="4758.0" />
+      <point x="12059.29411764706" y="4758.0" />
+      <point x="275.625" y="202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Player" target="it.polimi.ingsw.pc34.Model.PlayerBoard">
+      <point x="-117.60000000000014" y="-202.5" />
+      <point x="11666.069117647057" y="4197.0" />
+      <point x="11475.313560167951" y="4197.0" />
+      <point x="81.875" y="290.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ModifierTest" target="it.polimi.ingsw.pc34.Model.VaticanReportCard">
+      <point x="-258.8000000000002" y="-234.5" />
+      <point x="5877.470469364427" y="4748.0" />
+      <point x="1519.7941176470586" y="4748.0" />
+      <point x="316.66666666666697" y="235.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.OrderTest" target="it.polimi.ingsw.pc34.Model.Order">
+      <point x="-170.25" y="-180.0" />
+      <point x="12689.70106016795" y="5377.0" />
+      <point x="8909.16665091425" y="5377.0" />
+      <point x="121.33333333333331" y="159.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.TerritorySpot" target="it.polimi.ingsw.pc34.Model.CardSpot">
+      <point x="0.0" y="-25.5" />
+      <point x="11868.020817580917" y="2797.0" />
+      <point x="12078.883317580916" y="2797.0" />
+      <point x="-117.375" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Order" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="0.0" y="-159.0" />
+      <point x="8787.833317580917" y="4818.0" />
+      <point x="11581.54411764706" y="4818.0" />
+      <point x="-202.125" y="202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FloorTest" target="it.polimi.ingsw.pc34.Model.Tower">
+      <point x="-99.20000000000027" y="-367.5" />
+      <point x="3831.9691176470583" y="6452.0" />
+      <point x="2684.5441176470586" y="6452.0" />
+      <point x="-83.25" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FamilyMemberTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="44.0" y="-169.5" />
+      <point x="13392.01423687143" y="4818.0" />
+      <point x="13499.879631596523" y="4818.0" />
+      <point x="13499.879631596523" y="630.0" />
+      <point x="6197.111155638938" y="630.0" />
+      <point x="191.2156862745096" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ProductionArea" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-63.5" y="-93.0" />
+      <point x="2036.6274509803916" y="750.0" />
+      <point x="5897.817037991879" y="750.0" />
+      <point x="-108.07843137254895" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ProductionArea" target="it.polimi.ingsw.pc34.Model.Board">
+      <point x="84.66666666666697" y="93.0" />
+      <point x="2184.7941176470586" y="5367.0" />
+      <point x="2096.03586408952" y="5367.0" />
+      <point x="0.0" y="-269.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Board" target="it.polimi.ingsw.pc34.Model.Market">
+      <point x="69.76470588235316" y="-269.0" />
+      <point x="2165.8005699718733" y="5387.0" />
+      <point x="3586.2941176470586" y="5387.0" />
+      <point x="0.0" y="70.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Floor" target="it.polimi.ingsw.pc34.Model.ActionSpot">
+      <point x="125.66666666666697" y="-103.5" />
+      <point x="3958.306269430568" y="5387.0" />
+      <point x="4063.3774509803916" y="5387.0" />
+      <point x="37.583333333333485" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CounterTest" target="it.polimi.ingsw.pc34.Model.Counter">
+      <point x="252.79999999999995" y="-268.5" />
+      <point x="605.3000000000002" y="3566.0" />
+      <point x="2996.9191176470586" y="3566.0" />
+      <point x="-72.875" y="279.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CharacterCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-531.25" y="-114.5" />
+      <point x="4926.544117647058" y="2336.0" />
+      <point x="5251.970469364428" y="2336.0" />
+      <point x="5251.970469364428" y="850.0" />
+      <point x="5980.95429289384" y="850.0" />
+      <point x="-24.94117647058829" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FloorTest" target="it.polimi.ingsw.pc34.Model.FamilyColor">
+      <point x="347.1999999999998" y="-367.5" />
+      <point x="4278.369117647058" y="6502.0" />
+      <point x="13973.229606096324" y="6502.0" />
+      <point x="13973.229606096324" y="570.0" />
+      <point x="13483.414236871431" y="570.0" />
+      <point x="50.25" y="58.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoardTest" target="it.polimi.ingsw.pc34.Model.PlayerBoard">
+      <point x="0.0" y="-36.5" />
+      <point x="2629.7941176470586" y="4207.0" />
+      <point x="11147.813560167951" y="4207.0" />
+      <point x="-245.625" y="290.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.ImmediateLeaderCard">
+      <point x="-114.625" y="-290.5" />
+      <point x="11278.813560167951" y="3506.0" />
+      <point x="10661.56066544286" y="3506.0" />
+      <point x="10661.56066544286" y="2797.0" />
+      <point x="10580.021465509" y="2797.0" />
+      <point x="0.0" y="114.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.AllCardSpotTest" target="it.polimi.ingsw.pc34.Model.CharacterSpot">
+      <point x="27.399999999999977" y="-213.5" />
+      <point x="12211.895817580917" y="3506.0" />
+      <point x="12263.145817580917" y="3506.0" />
+      <point x="58.125" y="25.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Board" target="it.polimi.ingsw.pc34.Model.HarvestArea">
+      <point x="-139.52941176470586" y="-269.0" />
+      <point x="1956.5064523248138" y="5407.0" />
+      <point x="1826.1274509803916" y="5407.0" />
+      <point x="0.0" y="93.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BuildingCard" target="it.polimi.ingsw.pc34.Model.RewardForCard">
+      <point x="-362.4000000000001" y="-114.5" />
+      <point x="6205.894117647058" y="2346.0" />
+      <point x="6096.88725490196" y="2346.0" />
+      <point x="97.25" y="81.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PermanentLeaderCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-468.66666666666674" y="-180.5" />
+      <point x="8129.781269430569" y="2376.0" />
+      <point x="8190.8025307561875" y="2376.0" />
+      <point x="8190.8025307561875" y="790.0" />
+      <point x="6072.405273285996" y="790.0" />
+      <point x="66.50980392156862" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FamilyMember" target="it.polimi.ingsw.pc34.Model.FamilyColor">
+      <point x="224.80000000000018" y="-191.5" />
+      <point x="13285.01066544286" y="920.0" />
+      <point x="13416.414236871431" y="920.0" />
+      <point x="-16.75" y="58.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CharacterCard" target="it.polimi.ingsw.pc34.Model.DevelopmentCard">
+      <point x="531.25" y="-114.5" />
+      <point x="5989.044117647058" y="2366.0" />
+      <point x="6938.651260504201" y="2366.0" />
+      <point x="-227.1428571428571" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PersonalBonusTile" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="0.0" y="-114.5" />
+      <point x="9603.447936097236" y="780.0" />
+      <point x="6080.718998776193" y="780.0" />
+      <point x="74.82352941176487" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Board" target="it.polimi.ingsw.pc34.Model.VaticanReportSpot">
+      <point x="-279.0588235294117" y="-269.0" />
+      <point x="1816.9770405601084" y="5447.0" />
+      <point x="1154.1066176470586" y="5447.0" />
+      <point x="41.625" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoardTest" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="85.0" y="-36.5" />
+      <point x="2714.7941176470586" y="4808.0" />
+      <point x="11544.79411764706" y="4808.0" />
+      <point x="-238.875" y="202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ActionMarketSpotTest" target="it.polimi.ingsw.pc34.Model.ActionSpot">
+      <point x="-156.57142857142844" y="-224.5" />
+      <point x="13399.204746152345" y="5357.0" />
+      <point x="10451.437484247585" y="5357.0" />
+      <point x="10451.437484247585" y="4718.0" />
+      <point x="4213.710784313725" y="4718.0" />
+      <point x="187.91666666666652" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Floor" target="it.polimi.ingsw.pc34.Model.DevelopmentCard">
+      <point x="0.0" y="-103.5" />
+      <point x="3832.639602763901" y="5387.0" />
+      <point x="3789.794117647058" y="5387.0" />
+      <point x="3789.794117647058" y="2787.0" />
+      <point x="7165.794117647058" y="2787.0" />
+      <point x="0.0" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VaticanReportSpot" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-41.625" y="-126.0" />
+      <point x="1070.8566176470586" y="4828.0" />
+      <point x="717.6274509803916" y="4828.0" />
+      <point x="717.6274509803916" y="710.0" />
+      <point x="5864.562136031095" y="710.0" />
+      <point x="-141.33333333333326" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FamilyMemberTest" target="it.polimi.ingsw.pc34.Model.FamilyMember">
+      <point x="-44.0" y="-169.5" />
+      <point x="13304.01423687143" y="4798.0" />
+      <point x="13350.945389588633" y="4798.0" />
+      <point x="13350.945389588633" y="1453.0" />
+      <point x="13172.610665442859" y="1453.0" />
+      <point x="112.40000000000055" y="191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FloorTest" target="it.polimi.ingsw.pc34.Model.Floor">
+      <point x="0.0" y="-367.5" />
+      <point x="3931.169117647058" y="6085.0" />
+      <point x="3974.014602763901" y="6085.0" />
+      <point x="141.375" y="103.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ModifierTest" target="it.polimi.ingsw.pc34.Model.PermanentLeaderCard">
+      <point x="129.4000000000001" y="-234.5" />
+      <point x="6265.670469364428" y="4788.0" />
+      <point x="6206.470469364428" y="4788.0" />
+      <point x="6206.470469364428" y="2797.0" />
+      <point x="8246.947936097236" y="2797.0" />
+      <point x="-351.5" y="180.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ImmediateLeaderCard" target="it.polimi.ingsw.pc34.Model.LeaderCard">
+      <point x="-302.66666666666697" y="-114.5" />
+      <point x="10277.354798842334" y="2376.0" />
+      <point x="10005.947936097236" y="2376.0" />
+      <point x="111.0" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Tower" target="it.polimi.ingsw.pc34.Model.Floor">
+      <point x="74.0" y="-126.0" />
+      <point x="2841.7941176470586" y="6065.0" />
+      <point x="3691.264602763901" y="6065.0" />
+      <point x="-141.375" y="103.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.RewardForCard" target="it.polimi.ingsw.pc34.Model.CardType">
+      <point x="97.25" y="-81.5" />
+      <point x="6096.88725490196" y="1383.0" />
+      <point x="8391.709358253316" y="1383.0" />
+      <point x="-48.44444444444434" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CouncilPalaceTest" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="-36.66666666666697" y="-147.5" />
+      <point x="11763.04411764706" y="5447.0" />
+      <point x="11794.210784313726" y="5447.0" />
+      <point x="11794.210784313726" y="4848.0" />
+      <point x="11728.54411764706" y="4848.0" />
+      <point x="-55.125" y="202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ProductionArea" target="it.polimi.ingsw.pc34.Model.ActionSpot">
+      <point x="63.5" y="-93.0" />
+      <point x="2163.6274509803916" y="4778.0" />
+      <point x="3913.044117647058" y="4778.0" />
+      <point x="-112.75" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FamilyMember" target="it.polimi.ingsw.pc34.Model.ActionType">
+      <point x="112.40000000000009" y="-191.5" />
+      <point x="13172.610665442859" y="650.0" />
+      <point x="12158.764832109526" y="650.0" />
+      <point x="26.916666666666515" y="124.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CharacterCard" target="it.polimi.ingsw.pc34.Model.CardType">
+      <point x="106.25" y="-114.5" />
+      <point x="5564.044117647058" y="2346.0" />
+      <point x="5463.294117647058" y="2346.0" />
+      <point x="5463.294117647058" y="1373.0" />
+      <point x="8367.487136031094" y="1373.0" />
+      <point x="-72.66666666666663" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.HarvestArea" target="it.polimi.ingsw.pc34.Model.ActionSpot">
+      <point x="63.5" y="-93.0" />
+      <point x="1889.6274509803916" y="4768.0" />
+      <point x="3837.8774509803916" y="4768.0" />
+      <point x="-187.91666666666674" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ActionMarketSpotTest" target="it.polimi.ingsw.pc34.Model.FamilyMember">
+      <point x="156.57142857142844" y="-224.5" />
+      <point x="13712.347603295202" y="5437.0" />
+      <point x="13589.51423687143" y="5437.0" />
+      <point x="13589.51423687143" y="1433.0" />
+      <point x="13247.543998776193" y="1433.0" />
+      <point x="187.33333333333303" y="191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.DevelopmentCard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-265.0" y="-136.5" />
+      <point x="6900.794117647058" y="1353.0" />
+      <point x="7057.7287229219655" y="1353.0" />
+      <point x="7057.7287229219655" y="840.0" />
+      <point x="6030.8366458350165" y="840.0" />
+      <point x="24.94117647058829" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.FamilyMember">
+      <point x="-16.375" y="-290.5" />
+      <point x="11377.063560167951" y="3406.0" />
+      <point x="11471.083317580917" y="3406.0" />
+      <point x="11471.083317580917" y="1443.0" />
+      <point x="12910.343998776192" y="1443.0" />
+      <point x="-149.8666666666668" y="191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.AllCardSpotTest" target="it.polimi.ingsw.pc34.Model.BuildingSpot">
+      <point x="82.19999999999993" y="-213.5" />
+      <point x="12266.695817580918" y="3536.0" />
+      <point x="12393.799984247584" y="3536.0" />
+      <point x="-12.333333333333485" y="25.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VaticanReportSpot" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="124.875" y="-126.0" />
+      <point x="1237.3566176470586" y="4798.0" />
+      <point x="11508.04411764706" y="4798.0" />
+      <point x="-275.625" y="202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.DiceTest" target="it.polimi.ingsw.pc34.Model.Dice">
+      <point x="0.0" y="-25.5" />
+      <point x="8651.333317580917" y="5407.0" />
+      <point x="6718.937136031094" y="5407.0" />
+      <point x="95.66666666666674" y="92.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.ModifierTest" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-129.4000000000001" y="-234.5" />
+      <point x="6006.870469364428" y="4738.0" />
+      <point x="4809.794117647058" y="4738.0" />
+      <point x="4809.794117647058" y="840.0" />
+      <point x="5972.640567403643" y="840.0" />
+      <point x="-33.25490196078454" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Floor" target="it.polimi.ingsw.pc34.Model.Tower">
+      <point x="47.125" y="103.5" />
+      <point x="3879.764602763901" y="6085.0" />
+      <point x="2915.7941176470586" y="6085.0" />
+      <point x="148.0" y="-126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VentureSpot" target="it.polimi.ingsw.pc34.Model.CardSpot">
+      <point x="0.0" y="-25.5" />
+      <point x="12035.020817580917" y="2807.0" />
+      <point x="12157.133317580916" y="2807.0" />
+      <point x="-39.125" y="115.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BoardTest" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="103.0" y="-158.5" />
+      <point x="8754.333317580917" y="6075.0" />
+      <point x="11547.210784313726" y="6075.0" />
+      <point x="11547.210784313726" y="4828.0" />
+      <point x="11618.29411764706" y="4828.0" />
+      <point x="-165.375" y="202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.AllCardSpotTest" target="it.polimi.ingsw.pc34.Model.VentureSpot">
+      <point x="-82.20000000000005" y="-213.5" />
+      <point x="12102.295817580918" y="3466.0" />
+      <point x="12089.395817580917" y="3466.0" />
+      <point x="54.375" y="25.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VaticanReportSpotTest" target="it.polimi.ingsw.pc34.Model.VaticanReportCard">
+      <point x="-61.625" y="-147.5" />
+      <point x="899.9191176470586" y="5447.0" />
+      <point x="935.4816176470586" y="5447.0" />
+      <point x="935.4816176470586" y="4848.0" />
+      <point x="886.4607843137246" y="4848.0" />
+      <point x="-316.66666666666697" y="235.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.PermanentLeaderCard">
+      <point x="-245.625" y="-290.5" />
+      <point x="11147.813560167951" y="3546.0" />
+      <point x="8949.947936097236" y="3546.0" />
+      <point x="351.5" y="180.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Board" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-209.29411764705856" y="-269.0" />
+      <point x="1886.7417464424616" y="5427.0" />
+      <point x="1688.6274509803916" y="5427.0" />
+      <point x="1688.6274509803916" y="730.0" />
+      <point x="5881.189587011487" y="730.0" />
+      <point x="-124.70588235294122" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.HarvestArea" target="it.polimi.ingsw.pc34.Model.Board">
+      <point x="84.66666666666697" y="93.0" />
+      <point x="1910.7941176470586" y="5397.0" />
+      <point x="1991.3888052659904" y="5397.0" />
+      <point x="-104.64705882352973" y="-269.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BuildingCard" target="it.polimi.ingsw.pc34.Model.DevelopmentCard">
+      <point x="362.4" y="-114.5" />
+      <point x="6930.694117647058" y="2376.0" />
+      <point x="7052.22268907563" y="2376.0" />
+      <point x="-113.57142857142844" y="136.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.TerritorySpot">
+      <point x="114.625" y="-290.5" />
+      <point x="11508.063560167951" y="3446.0" />
+      <point x="11849.395817580917" y="3446.0" />
+      <point x="-18.625" y="25.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Modifier" target="it.polimi.ingsw.pc34.Model.CardType">
+      <point x="-309.375" y="-411.5" />
+      <point x="10727.708317580917" y="1383.0" />
+      <point x="8512.820469364427" y="1383.0" />
+      <point x="72.66666666666674" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.BoardTest" target="it.polimi.ingsw.pc34.Model.Board">
+      <point x="-171.66666666666669" y="-158.5" />
+      <point x="8479.66665091425" y="6045.0" />
+      <point x="2265.4644355180917" y="6045.0" />
+      <point x="169.42857142857156" y="269.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.OrderTest" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="-56.75" y="-180.0" />
+      <point x="12803.20106016795" y="5417.0" />
+      <point x="12951.45106016795" y="5417.0" />
+      <point x="12951.45106016795" y="4818.0" />
+      <point x="11838.79411764706" y="4818.0" />
+      <point x="55.125" y="202.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.Tower" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-37.0" y="-126.0" />
+      <point x="2730.7941176470586" y="6055.0" />
+      <point x="2491.7941176470586" y="6055.0" />
+      <point x="2491.7941176470586" y="760.0" />
+      <point x="5906.130763482075" y="760.0" />
+      <point x="-99.76470588235293" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CardSpot" target="it.polimi.ingsw.pc34.Model.CardType">
+      <point x="78.25" y="-115.0" />
+      <point x="12274.508317580916" y="2336.0" />
+      <point x="11482.083317580917" y="2336.0" />
+      <point x="11482.083317580917" y="1373.0" />
+      <point x="8537.04269158665" y="1373.0" />
+      <point x="96.88888888888891" y="92.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.PlayerBoard" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-147.375" y="-290.5" />
+      <point x="11246.063560167951" y="3516.0" />
+      <point x="10071.947936097236" y="3516.0" />
+      <point x="10071.947936097236" y="750.0" />
+      <point x="6105.660175246781" y="750.0" />
+      <point x="99.76470588235316" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.CouncilPalace" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="0.0" y="-82.0" />
+      <point x="7849.294117647058" y="4778.0" />
+      <point x="7873.9479360972355" y="4778.0" />
+      <point x="7873.9479360972355" y="810.0" />
+      <point x="6055.777822305605" y="810.0" />
+      <point x="49.88235294117658" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.RewardForReward" target="it.polimi.ingsw.pc34.Model.Reward">
+      <point x="-97.75" y="-81.5" />
+      <point x="5399.3537229219655" y="860.0" />
+      <point x="5989.268018384037" y="860.0" />
+      <point x="-16.62745098039204" y="147.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.DevelopmentCard" target="it.polimi.ingsw.pc34.Model.FamilyMember">
+      <point x="265.0" y="-136.5" />
+      <point x="7430.794117647058" y="1423.0" />
+      <point x="12835.410665442858" y="1423.0" />
+      <point x="-224.79999999999995" y="191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.VaticanReportSpotTest" target="it.polimi.ingsw.pc34.Model.VaticanReportSpot">
+      <point x="61.625" y="-147.5" />
+      <point x="1023.1691176470586" y="5447.0" />
+      <point x="987.6066176470586" y="5447.0" />
+      <point x="-124.875" y="126.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Model.FamilyMemberTest" target="it.polimi.ingsw.pc34.Model.Player">
+      <point x="-176.0" y="-169.5" />
+      <point x="13172.01423687143" y="4788.0" />
+      <point x="11949.04411764706" y="4788.0" />
+      <point x="165.375" y="202.5" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="0.7000000000000001" x="6005.857142857143" y="847.7142857142857" />
+  <SelectedNodes />
+  <Categories>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+

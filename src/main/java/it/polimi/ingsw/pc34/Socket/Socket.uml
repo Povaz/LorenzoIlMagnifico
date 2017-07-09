@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Diagram>
+  <ID>JAVA</ID>
+  <OriginalElement>it.polimi.ingsw.pc34.Socket</OriginalElement>
+  <nodes>
+    <node x="970.4583333333333" y="889.0">it.polimi.ingsw.pc34.Socket.ClientInputHandler</node>
+    <node x="841.9583333333333" y="213.0">it.polimi.ingsw.pc34.Socket.ClientSOC</node>
+    <node x="223.15277777777777" y="1242.0">it.polimi.ingsw.pc34.Socket.LobbyFlow</node>
+    <node x="0.0" y="720.0">it.polimi.ingsw.pc34.Socket.ServerSOC</node>
+    <node x="51.958333333333314" y="0.0">it.polimi.ingsw.pc34.Socket.ServerHandler</node>
+    <node x="1021.9583333333333" y="0.0">it.polimi.ingsw.pc34.Socket.ClientOutputHandler</node>
+  </nodes>
+  <notes />
+  <edges>
+    <edge source="it.polimi.ingsw.pc34.Socket.ServerSOC" target="it.polimi.ingsw.pc34.Socket.ServerHandler">
+      <point x="-162.66666666666663" y="-236.0" />
+      <point x="81.33333333333337" y="700.0" />
+      <point x="114.04166666666663" y="700.0" />
+      <point x="-310.4166666666667" y="335.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket.ClientInputHandler" target="it.polimi.ingsw.pc34.Socket.ClientSOC">
+      <point x="-125.33333333333326" y="-114.5" />
+      <point x="1033.125" y="864.0" />
+      <point x="947.4583333333333" y="864.0" />
+      <point x="-211.0" y="313.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket.ServerHandler" target="it.polimi.ingsw.pc34.Socket.LobbyFlow">
+      <point x="186.2500000000001" y="335.0" />
+      <point x="610.7083333333335" y="690.0" />
+      <point x="509.5" y="690.0" />
+      <point x="509.5" y="1222.0" />
+      <point x="496.90277777777777" y="1222.0" />
+      <point x="54.75" y="-191.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket.ClientSOC" target="it.polimi.ingsw.pc34.Socket.ClientInputHandler">
+      <point x="0.0" y="313.0" />
+      <point x="0.0" y="-114.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket.ClientSOC" target="it.polimi.ingsw.pc34.Socket.ClientOutputHandler">
+      <point x="0.0" y="-313.0" />
+      <point x="0.0" y="81.5" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket.LobbyFlow" target="it.polimi.ingsw.pc34.Socket.ServerSOC">
+      <point x="-164.25" y="-191.5" />
+      <point x="277.90277777777777" y="1222.0" />
+      <point x="244.0" y="1222.0" />
+      <point x="0.0" y="236.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket.ClientOutputHandler" target="it.polimi.ingsw.pc34.Socket.ClientSOC">
+      <point x="91.0" y="81.5" />
+      <point x="1249.4583333333333" y="188.0" />
+      <point x="1369.4583333333333" y="188.0" />
+      <point x="211.0" y="-313.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket.ServerHandler" target="it.polimi.ingsw.pc34.Socket.ServerSOC">
+      <point x="-62.083333333333314" y="335.0" />
+      <point x="362.375" y="700.0" />
+      <point x="406.66666666666663" y="700.0" />
+      <point x="162.66666666666663" y="-236.0" />
+    </edge>
+    <edge source="it.polimi.ingsw.pc34.Socket.LobbyFlow" target="it.polimi.ingsw.pc34.Socket.ServerHandler">
+      <point x="-54.75" y="-191.5" />
+      <point x="387.40277777777777" y="1212.0" />
+      <point x="498.5" y="1212.0" />
+      <point x="498.5" y="700.0" />
+      <point x="486.5416666666667" y="700.0" />
+      <point x="62.08333333333337" y="335.0" />
+    </edge>
+  </edges>
+  <settings layout="Hierarchic Group" zoom="1.0" x="136.5" y="565.5" />
+  <SelectedNodes>
+    <node>it.polimi.ingsw.pc34.Socket.ClientInputHandler</node>
+  </SelectedNodes>
+  <Categories>
+    <Category>Fields</Category>
+    <Category>Constructors</Category>
+    <Category>Methods</Category>
+    <Category>Properties</Category>
+    <Category>Inner Classes</Category>
+  </Categories>
+  <SCOPE>All</SCOPE>
+  <VISIBILITY>private</VISIBILITY>
+</Diagram>
+
