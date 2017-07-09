@@ -167,6 +167,26 @@ public class Lobby {
         }, timeoutLobby);
     }
 
+    public void startGameImmediately () throws RemoteException {
+        //Notifying the Game is Starting
+        notifyAllUsers(NotificationType.STARTGAME, "The Game is Starting");
+        //Socket Start
+        serverSoc.throwInGame();
+
+
+        //RMI (GUI) Start
+        serverRMI.throwInGameGUI(getRMIUsers());
+
+
+        //Game Start
+        Game game = new Game(users, serverRMI, serverSoc);
+        serverSoc.fromLobbytoInGame();
+        users.clear();
+        Server.gamesOnGoing.add(game);
+        Thread threadGame = new Thread (game);
+        threadGame.start();
+    }
+
     public void stopTimer() {
         timer.cancel();
     }

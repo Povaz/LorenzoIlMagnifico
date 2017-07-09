@@ -108,6 +108,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
                         if (lobby.getUsers().size() == 5) {
                             lobby.stopTimer();
+                            lobby.startGameImmediately();
                         }
                         return true;
                     } else {    //If it was in game before, it will be reconnected to that game

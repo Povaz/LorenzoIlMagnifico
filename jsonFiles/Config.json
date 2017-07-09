@@ -1,5 +1,5 @@
 {
-  "timeoutLobby": 1000,
+  "timeoutLobby": 30000,
   "timeoutTurn": 300000,
 
   "exchangeLeader":[
