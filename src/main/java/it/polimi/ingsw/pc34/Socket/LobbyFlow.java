@@ -185,12 +185,12 @@ public class LobbyFlow {
 					}
 					else{	
 						setInFlow();
+						registration = false;
+						start = true;
 						if(serverHandler.getGraphicType().equals("2")){	
 							serverHandler.setSendGUI(true);
 							return "Registration failed!";
 						}
-						registration = false;
-						start = true;
 						return "Registration failed\nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
 				}
