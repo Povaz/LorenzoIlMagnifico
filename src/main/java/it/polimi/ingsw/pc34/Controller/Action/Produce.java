@@ -15,7 +15,8 @@ import java.util.Set;
 public class Produce {
     private final Game game;
     private final Player player;
-    private final Board board;
+    @SuppressWarnings("unused")
+	private final Board board;
     private final ProductionArea productionArea;
     private final FamilyMember familyMember;
     private final Counter newCounter;

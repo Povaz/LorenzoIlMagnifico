@@ -5,11 +5,8 @@ import it.polimi.ingsw.pc34.Model.Player;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
-import it.polimi.ingsw.pc34.View.GUI.BoardView;
-
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
-import java.rmi.Remote;
 import java.rmi.RemoteException;
 import java.rmi.registry.LocateRegistry;
 import java.rmi.registry.Registry;

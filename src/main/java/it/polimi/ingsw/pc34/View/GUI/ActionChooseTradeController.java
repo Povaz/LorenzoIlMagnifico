@@ -9,6 +9,7 @@ import javafx.scene.layout.BorderPane;
 /**
  * Created by trill on 03/07/2017.
  */
+@SuppressWarnings("restriction")
 public class ActionChooseTradeController {
     private MainGUI mainGUI;
 

@@ -14,7 +14,8 @@ import java.util.Set;
 public class PlaceCouncilPalace implements CommandPattern{
     private final Game game;
     private final Player player;
-    private final Board board;
+    @SuppressWarnings("unused")
+	private final Board board;
     private final CouncilPalace councilPalace;
     private final FamilyMember familyMember;
     private final Counter newCounter;

@@ -10,6 +10,7 @@ import javafx.scene.layout.GridPane;
 /**
  * Created by trill on 03/07/2017.
  */
+@SuppressWarnings("restriction")
 public class ActionChooseDiscountController {
     private MainGUI mainGUI;
 

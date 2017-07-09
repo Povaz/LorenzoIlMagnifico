@@ -9,6 +9,7 @@ import java.io.Serializable;
 /**
  * Created by Povaz on 04/07/2017.
  */
+@SuppressWarnings({ "unused", "restriction", "serial" })
 public class SynchronizedString implements Serializable{
     private String message;
     private BooleanProperty available = new SimpleBooleanProperty(false);

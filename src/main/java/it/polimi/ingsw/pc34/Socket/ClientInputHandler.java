@@ -18,6 +18,7 @@ public class ClientInputHandler extends Thread{
 	
 	private static final Logger LOGGER = Logger.getLogger(ClientInputHandler.class.getName());
 	
+	@SuppressWarnings("static-access")
 	public ClientInputHandler (Socket socketServer, ClientSOC clientSoc, int graphicType) throws IOException{
 		client = clientSoc;
 		this.graphicType = graphicType;
@@ -56,6 +57,7 @@ public class ClientInputHandler extends Thread{
 		return received;	
 	}
 	
+	@SuppressWarnings("static-access")
 	public void run(){
 		String line = null;
 		while (true){

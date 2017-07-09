@@ -9,11 +9,11 @@ import java.io.Serializable;
 /**
  * Created by Povaz on 04/07/2017.
  */
+@SuppressWarnings({ "serial", "restriction" })
 public class SynchronizedBoardView implements Serializable{
     private BoardView board;
-    private BooleanProperty available = new SimpleBooleanProperty(false);
-
-    public BooleanProperty getAvailable() {
+	private BooleanProperty available = new SimpleBooleanProperty(false);
+	public BooleanProperty getAvailable() {
         return available;
     }
 

@@ -14,8 +14,6 @@ import org.json.JSONException;
 
 import it.polimi.ingsw.pc34.Controller.BooleanCreated;
 import it.polimi.ingsw.pc34.Controller.GameController;
-import it.polimi.ingsw.pc34.Model.Player;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 

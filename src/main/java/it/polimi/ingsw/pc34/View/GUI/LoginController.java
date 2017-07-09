@@ -8,6 +8,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
+@SuppressWarnings("restriction")
 public class LoginController {
     private MainGUI mainGUI;
 

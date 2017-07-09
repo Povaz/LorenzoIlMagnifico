@@ -7,12 +7,10 @@ import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -40,11 +38,14 @@ public class Game implements Runnable{
     private int[] characterCard;
     private int[] ventureCard;
 
-    private ServerRMIImpl serverLoginImpl;
+    @SuppressWarnings("unused")
+	private ServerRMIImpl serverLoginImpl;
     private ServerSOC serverSoc;
 
-    private Timer timer;
-    private TimerTask timerTask;
+    @SuppressWarnings("unused")
+	private Timer timer;
+    @SuppressWarnings("unused")
+	private TimerTask timerTask;
 
     public void run(){
         while (this.period <= PERIOD_NUMBER) {

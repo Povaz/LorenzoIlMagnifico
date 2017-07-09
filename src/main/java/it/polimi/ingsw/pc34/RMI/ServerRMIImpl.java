@@ -17,6 +17,7 @@ import java.util.*;
 /**
  * Created by Povaz on 24/05/2017.
  **/
+@SuppressWarnings("serial")
 public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
     private ArrayList<UserRMI> usersLoggedRMI;
     private ArrayList<String> usernames;

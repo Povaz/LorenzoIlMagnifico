@@ -5,9 +5,6 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 
-import java.util.List;
-import java.util.function.IntToDoubleFunction;
-
 /**
  * Created by trill on 30/05/2017.
  */

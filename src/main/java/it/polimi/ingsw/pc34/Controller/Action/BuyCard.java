@@ -3,7 +3,6 @@ package it.polimi.ingsw.pc34.Controller.Action;
 import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Model.*;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
@@ -53,6 +52,8 @@ public class BuyCard implements CommandPattern {
             case VENTURE:
                 realValue += modifier.getActionModifiers().get(ActionType.VENTURE_TOWER);
                 break;
+			default:
+				break;
         }
         familyMember.setRealValue(realValue);
     }

@@ -169,6 +169,8 @@ public class JSONUtility {
 			case VENTURE:
 				path = ventureCardPath;
 				break;
+			default:
+				break;
 		}
 		JSONObject cards = fromPathToJSONObject(path);
 		JSONArray cardsArray = cards.getJSONArray("cards").getJSONObject(period - 1).getJSONArray("period");

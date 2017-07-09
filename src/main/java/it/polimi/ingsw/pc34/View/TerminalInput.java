@@ -4,9 +4,7 @@ import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.Exception.IllegalNumberOf;
 import it.polimi.ingsw.pc34.Exception.SameChooseErrorException;
 import it.polimi.ingsw.pc34.Model.*;
-import org.json.JSONException;
 
-import java.io.IOException;
 import java.util.*;
 
 /**
@@ -41,7 +39,8 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
                     try {
                         System.out.println("1. 1 WOOD 1 Stone   2. 2 SERVANT    3. 2 COIN   4. 2 MILITARY_POINT  5. 1 FAITH_POINT \n" +
                                 "Don't choose the sameType reward as before" + "\n");
-                        Scanner inChoose = new Scanner(System.in);
+                        @SuppressWarnings("resource")
+						Scanner inChoose = new Scanner(System.in);
                         choose[i] = inChoose.nextInt();
 
                         if (choose[i] < 1 || choose[i] > 5) {
@@ -85,7 +84,8 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
         while (!correct) {
             try {
                 System.out.println("Which FamilyMember do you choose?\n" + "1. " + FamilyColor.WHITE + "\n" + "2. " + FamilyColor.BLACK + "\n" + "3. " + FamilyColor.ORANGE + "\n" + "4. " + FamilyColor.NEUTRAL + "\n");
-                Scanner inChoose = new Scanner(System.in);
+                @SuppressWarnings("resource")
+				Scanner inChoose = new Scanner(System.in);
                 int choose = inChoose.nextInt();
 
                 switch (choose) {
@@ -123,7 +123,8 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
         while (!correct) {
             try {
                 System.out.println("Which FamilyMember do you choose?\n" + "1. " + FamilyColor.WHITE + "\n" + "2. " + FamilyColor.BLACK + "\n" + "3. " + FamilyColor.ORANGE + "\n");
-                Scanner inChoose = new Scanner(System.in);
+                @SuppressWarnings("resource")
+				Scanner inChoose = new Scanner(System.in);
                 int choose = inChoose.nextInt();
 
                 switch (choose) {
@@ -151,7 +152,8 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
         return familyColor;
     }
 
-    synchronized public static int askNumber(int min, int max){
+    @SuppressWarnings("resource")
+	synchronized public static int askNumber(int min, int max){
         int number;
         Scanner insertNumber;
         while(true){
@@ -315,7 +317,8 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
                     System.out.println("    " + i + ". " + buildingCard.getTrades().get(i).toString());
                 }
 
-                Scanner inChoose = new Scanner(System.in);
+                @SuppressWarnings("resource")
+				Scanner inChoose = new Scanner(System.in);
                 int choose = inChoose.nextInt();
 
                 if(choose == -1){

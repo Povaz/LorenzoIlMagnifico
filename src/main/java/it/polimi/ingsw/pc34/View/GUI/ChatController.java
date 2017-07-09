@@ -13,6 +13,7 @@ import javafx.scene.text.Text;
 /**
  * Created by Povaz on 03/07/2017.
  */
+@SuppressWarnings("restriction")
 public class ChatController{
     private MainGUI mainGUI;
 

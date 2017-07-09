@@ -5,6 +5,7 @@ import javafx.scene.image.Image;
 /**
  * Created by trill on 01/07/2017.
  */
+@SuppressWarnings("restriction")
 class LocatedImage extends Image{
     private final String url;
 

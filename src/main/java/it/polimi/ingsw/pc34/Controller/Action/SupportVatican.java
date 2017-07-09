@@ -5,7 +5,6 @@ import it.polimi.ingsw.pc34.Controller.PlayerState;
 import it.polimi.ingsw.pc34.Model.*;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.Set;
 
 /**
@@ -14,10 +13,12 @@ import java.util.Set;
 public class SupportVatican implements CommandPattern{
     private final Game game;
     private final Player player;
-    private final Board board;
+    @SuppressWarnings("unused")
+	private final Board board;
     private final VaticanReportSpot vaticanReportSpot;
     private final Counter newCounter;
-    private final Modifier modifier;
+    @SuppressWarnings("unused")
+	private final Modifier modifier;
 
     public SupportVatican(Game game, Player player, VaticanReportSpot vaticanReportSpot){
         this.game = game;

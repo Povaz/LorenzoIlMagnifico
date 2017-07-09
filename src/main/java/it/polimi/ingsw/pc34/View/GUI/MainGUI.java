@@ -16,6 +16,7 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@SuppressWarnings("restriction")
 public class MainGUI extends Application{
     Logger LOGGER = Logger.getLogger(MainGUI.class.getName());
 
@@ -29,8 +30,10 @@ public class MainGUI extends Application{
 
     // controller
     private RootLayoutController rootC = null;
-    private LoginController loginC = null;
-    private WaitingRoomController waitingRoomC = null;
+    @SuppressWarnings("unused")
+	private LoginController loginC = null;
+    @SuppressWarnings("unused")
+	private WaitingRoomController waitingRoomC = null;
     private GameViewController gameViewC = null;
 
     // username

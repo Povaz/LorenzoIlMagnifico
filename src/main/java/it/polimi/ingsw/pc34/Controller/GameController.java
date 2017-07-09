@@ -1088,6 +1088,8 @@ public class GameController {
 				    					integerCreated.put(Integer.parseInt(asked));
 				    					String message = "You choose " + Integer.parseInt(asked);
 				    					return message;
+				    				default:
+				    					break;
 								}
 		    				default:
 		    					setInFlow();

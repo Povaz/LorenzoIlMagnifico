@@ -1,7 +1,6 @@
 package it.polimi.ingsw.pc34.Controller;
 
 import it.polimi.ingsw.pc34.Controller.ActionInput;
-import it.polimi.ingsw.pc34.Model.ActionType;
 
 /**
  * Created by Povaz on 17/06/2017.

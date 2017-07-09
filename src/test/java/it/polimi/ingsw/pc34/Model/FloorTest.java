@@ -23,7 +23,8 @@ import java.util.Set;
  * Created by Povaz on 02/07/2017.
  */
 public class FloorTest extends TestCase {
-    private Floor floor;
+    @SuppressWarnings("unused")
+	private Floor floor;
     private Tower tower;
     private List<Player> players;
     private Board board;
@@ -42,15 +43,19 @@ public class FloorTest extends TestCase {
     private ServerRMIImpl serverRMI;
     private ServerSOC serverSOC;
     private Player player;
-    private ActionType actionType;
+    @SuppressWarnings("unused")
+	private ActionType actionType;
     private int value;
     private Reward reward1;
     private Reward reward2;
     private Set<Reward> discount;
     private Set<Reward> rewards;
-    private FamilyColor familyColor1;
-    private FamilyColor familyColor2;
-    private FamilyColor familyColor3;
+    @SuppressWarnings("unused")
+	private FamilyColor familyColor1;
+    @SuppressWarnings("unused")
+	private FamilyColor familyColor2;
+    @SuppressWarnings("unused")
+	private FamilyColor familyColor3;
     private Lobby lobby;
 
 

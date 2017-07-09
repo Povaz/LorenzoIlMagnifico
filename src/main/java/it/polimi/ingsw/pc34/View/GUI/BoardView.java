@@ -10,6 +10,7 @@ import java.util.List;
 /**
  * Created by trill on 01/07/2017.
  */
+@SuppressWarnings("serial")
 public class BoardView implements Serializable{
     private List<PlayerBoardView> players;
 

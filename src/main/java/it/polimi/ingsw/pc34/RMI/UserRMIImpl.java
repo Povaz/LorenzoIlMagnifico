@@ -14,6 +14,7 @@ import java.util.Scanner;
  * Created by Povaz on 24/05/2017.
  **/
 
+@SuppressWarnings("serial")
 public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
     private String username;
     private String keyword;
@@ -177,10 +178,12 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
 
     private void insertData() { //For a RMI CLI User
         System.out.print("Insert your Username: ");
-        Scanner inUsername = new Scanner(System.in);
+        @SuppressWarnings("resource")
+		Scanner inUsername = new Scanner(System.in);
         this.setUsername(inUsername.nextLine());
         System.out.print("Insert your Password: ");
-        Scanner inPassword = new Scanner(System.in);
+        @SuppressWarnings("resource")
+		Scanner inPassword = new Scanner(System.in);
         this.setKeyword(inPassword.nextLine());
     }
 
@@ -218,7 +221,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         while (!startingGame) {
             try {
                 System.out.println("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application      - Logged: " + this.isLogged());
-                Scanner inChoose = new Scanner(System.in);
+                @SuppressWarnings("resource")
+				Scanner inChoose = new Scanner(System.in);
                 choose = inChoose.nextLine();
 
                 switch (choose) {
@@ -264,7 +268,8 @@ public class UserRMIImpl extends UnicastRemoteObject implements UserRMI {
         System.out.println("Type: /playturn for an Action; /chat to send message;\n");
         while (logged) {
             try {
-                Scanner inChoose = new Scanner (System.in);
+                @SuppressWarnings("resource")
+				Scanner inChoose = new Scanner (System.in);
                 String choose = inChoose.nextLine();
                 serverRMI.sendInput(choose, this);
             }

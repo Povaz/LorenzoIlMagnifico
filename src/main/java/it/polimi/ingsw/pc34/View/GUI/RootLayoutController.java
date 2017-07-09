@@ -13,6 +13,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+@SuppressWarnings("restriction")
 public class RootLayoutController {
     Logger LOGGER = Logger.getLogger(RootLayoutController.class.getName());
 

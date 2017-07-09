@@ -5,13 +5,11 @@ import java.util.Collections;
 import java.util.List;
 
 public class Order{
-	private final int playerNumber;
 	private List<Player> shown;
 	private List<Player> real;
 	private int current;
 	
 	public Order(List<Player> players){
-		this.playerNumber = players.size();
 		initializeOrder(players);
 		calculateRealOrder();
 		this.current = 0;

@@ -13,7 +13,6 @@ import junit.framework.TestSuite;
 
 import java.io.IOException;
 import java.rmi.RemoteException;
-import java.util.Map;
 
 /**
  * Created by Povaz on 02/07/2017.

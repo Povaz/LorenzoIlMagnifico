@@ -2,8 +2,6 @@ package it.polimi.ingsw.pc34.Controller;
 
 import it.polimi.ingsw.pc34.Model.FamilyColor;
 
-import java.beans.IntrospectionException;
-
 /**
  * Created by Povaz on 18/06/2017.
  */

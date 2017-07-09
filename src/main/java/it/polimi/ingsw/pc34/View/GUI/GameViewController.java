@@ -28,6 +28,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 
 
+@SuppressWarnings("restriction")
 public class GameViewController {
     Logger LOGGER = Logger.getLogger(GameViewController.class.getName());
 

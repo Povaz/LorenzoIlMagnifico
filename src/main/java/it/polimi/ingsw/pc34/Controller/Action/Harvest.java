@@ -2,7 +2,6 @@ package it.polimi.ingsw.pc34.Controller.Action;
 
 import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Model.*;
-import it.polimi.ingsw.pc34.SocketRMICongiunction.Client;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
@@ -15,7 +14,8 @@ import java.util.Set;
 public class Harvest implements CommandPattern{
     private final Game game;
     private final Player player;
-    private final Board board;
+    @SuppressWarnings("unused")
+	private final Board board;
     private final HarvestArea harvestArea;
     private final FamilyMember familyMember;
     private final Counter newCounter;

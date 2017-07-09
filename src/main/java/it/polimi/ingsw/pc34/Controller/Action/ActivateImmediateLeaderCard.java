@@ -17,7 +17,6 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
     private final Board board;
     private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
     private final Counter newCounter;
-    private final Modifier modifier;
     private ImmediateLeaderCard leaderCard;
     private FamilyMember toChange;
     private int newValueFamilyMember;
@@ -28,7 +27,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         this.board = game.getBoard();
         this.immediateLeaderCardsPositionated = player.getPlayerBoard().getImmediateLeaderCardsPositionated();
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
-        this.modifier = player.getPlayerBoard().getModifier();
+        player.getPlayerBoard().getModifier();
         this.toChange = null;
         this.newValueFamilyMember = 0;
     }

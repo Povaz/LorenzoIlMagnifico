@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
+@SuppressWarnings("restriction")
 public class WaitingRoomController {
     private MainGUI mainGUI;
 
@@ -33,7 +34,8 @@ public class WaitingRoomController {
 
     @FXML protected void logoutClick() throws Exception{
         mainGUI.getFromGuiToServer().put("/logout");
-        String result = mainGUI.getFromServerToGui().get();
+        @SuppressWarnings("unused")
+		String result = mainGUI.getFromServerToGui().get();
     }
 
     public void setMessageText(String message){

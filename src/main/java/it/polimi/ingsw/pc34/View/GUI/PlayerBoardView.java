@@ -9,6 +9,7 @@ import java.util.List;
 /**
  * Created by trill on 22/06/2017.
  */
+@SuppressWarnings("serial")
 public class PlayerBoardView implements Serializable{
     private String username;
     private String color;

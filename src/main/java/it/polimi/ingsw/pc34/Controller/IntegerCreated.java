@@ -1,7 +1,5 @@
 package it.polimi.ingsw.pc34.Controller;
 
-import java.nio.channels.InterruptedByTimeoutException;
-
 /**
  * Created by Povaz on 17/06/2017.
  */

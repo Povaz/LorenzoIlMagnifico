@@ -15,7 +15,8 @@ import java.util.Map;
 public class PlaceLeaderCard implements CommandPattern{
     private final Game game;
     private final Player player;
-    private final Board board;
+    @SuppressWarnings("unused")
+	private final Board board;
     private final List<LeaderCard> leaderCardsInHand;
     private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
     private final List<PermanentLeaderCard> permanentLeaderCardsPositionated;

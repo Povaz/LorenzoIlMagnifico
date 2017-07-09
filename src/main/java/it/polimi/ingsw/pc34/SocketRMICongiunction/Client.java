@@ -105,14 +105,22 @@ public class Client {
 
 			// wait until guiReference is initialized in MainGUI
 			while(guiReference == null){
-				System.out.println("While guiReference");
+				try {
+					Thread.sleep(1000);
+				} catch(InterruptedException e){
+					e.printStackTrace();
+				}
 			}
 
 			System.out.println(guiReference);
 
 			// wait until guiReference.getBoardViewFromServer() is initialized in MainGUI
 			while(guiReference.getBoardViewFromServer() == null){
-				System.out.print("While guiReference");
+				try {
+					Thread.sleep(1000);
+				} catch(InterruptedException e){
+					e.printStackTrace();
+				}
 			}
 
 			messageForGUI = guiReference.getFromServerToGui();
@@ -163,7 +171,7 @@ public class Client {
 				Scanner inChoose = new Scanner(System.in);
 				choose = inChoose.nextInt();
 
-				// TODO costruttore che dà in ingresso graphicChosen
+				//Construct a client based on type connection and graphical interface choosen
 				switch (choose) {
 				case 1:
 					UserRMIImpl userRMI;

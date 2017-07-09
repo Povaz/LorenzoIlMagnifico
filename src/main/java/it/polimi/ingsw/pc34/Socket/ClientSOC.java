@@ -29,7 +29,6 @@ public class ClientSOC implements Runnable {
     private Thread outputGUI;  
     private String username; 
     private String keyword; 
-    private boolean logged; //Boolean variabile that tells if a User is currently logged 
     private boolean startingGame; //Boolean variable that tells if a User is currently in Game 
     
     boolean youCanSend;
@@ -131,10 +130,6 @@ public class ClientSOC implements Runnable {
 		
 	}
 
-	private boolean isLogged() {
-        return logged;
-    }
-	
 	private void setUsername(String username) {
         this.username = username;
     }
@@ -191,7 +186,6 @@ public class ClientSOC implements Runnable {
     }
 	
     public void setLogged(boolean logged) {
-        this.logged = logged;
     }
     
     private void registrationGUI() { //Registration procedure for RMI GUI Users
@@ -244,6 +238,7 @@ public class ClientSOC implements Runnable {
 		ClientOutputHandler.sendToServer(messageGraphicType);
 		String message = getSynchronizedMessageByGUI().get();
 		ClientOutputHandler.sendToServer(message);
+		@SuppressWarnings("unused")
 		String ok = ClientInputHandler.receiveFromServer();
 		String choose;
 	    while (!startingGame) {

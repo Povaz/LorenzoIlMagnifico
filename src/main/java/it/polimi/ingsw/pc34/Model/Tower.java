@@ -63,6 +63,8 @@ public class Tower {
 					reward2.add(new Reward(RewardType.COIN, 1));
 					reward3.add(new Reward(RewardType.COIN, 2));
 					break;
+				default:
+					break;
 			}
 			LOGGER.log(Level.WARNING, "Config.json: Wrong format", e);
 		} catch(IOException e){
@@ -86,6 +88,8 @@ public class Tower {
 				case VENTURE:
 					reward2.add(new Reward(RewardType.COIN, 1));
 					reward3.add(new Reward(RewardType.COIN, 2));
+					break;
+				default:
 					break;
 			}
 			LOGGER.log(Level.WARNING, "Config.json: Incorrect path", e);

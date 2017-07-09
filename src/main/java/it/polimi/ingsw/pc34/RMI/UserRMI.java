@@ -1,9 +1,7 @@
 package it.polimi.ingsw.pc34.RMI;
 
-import it.polimi.ingsw.pc34.Controller.ActionInput;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
 
-import java.io.IOException;
 import java.rmi.Remote;
 import java.rmi.RemoteException;
 

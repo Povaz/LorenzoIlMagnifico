@@ -76,7 +76,7 @@ public class LobbyFlow {
 					registration = true;
 					start = false;
 					setInFlow();
-					return "Ok tell me username :";
+					return "Insert your Username:";
 				}
 				else{
 					setInFlow();
@@ -124,6 +124,7 @@ public class LobbyFlow {
 						setInFlow();
 						if(serverHandler.getGraphicType().equals("2")){
 							serverHandler.setSendGUI(true);
+							return "Login successful";
 						}
 						return "Login successful/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
@@ -151,7 +152,7 @@ public class LobbyFlow {
 						}
 						login = false;
 						start = true;
-						return "User already logged: ";
+						return "User already logged/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
 				}
 			}
@@ -162,7 +163,7 @@ public class LobbyFlow {
 				if(username==null){
 					username = asked;
 					setInFlow();
-					return "Ok tell me password";	
+					return "Insert your Password: ";	
 				}
 				//user input is a password
 				else{
@@ -186,11 +187,11 @@ public class LobbyFlow {
 						setInFlow();
 						if(serverHandler.getGraphicType().equals("2")){	
 							serverHandler.setSendGUI(true);
-							registration = false;
-							start = true;
 							return "Registration failed!";
 						}
-						return "Registration failed, retry! Tell me username : ";
+						registration = false;
+						start = true;
+						return "Registration failed/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
 				}
 			}
@@ -213,13 +214,13 @@ public class LobbyFlow {
 					if(serverHandler.getGraphicType().equals("2")){	
 						serverHandler.setSendGUI(true);
 					}
-					return "Logout successful/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
+					return "Logout successful/nInsert: /logout to logout or /exit to close to application";
 				}
 			}
 			
 			//return if logged and input different from /logout
 			setInFlow();
-			return "You are logged yet...";
+			return "Insert: /logout to logout or /exit to close to application";
 		}
     	else{
 	    	return "I am still processing a request";

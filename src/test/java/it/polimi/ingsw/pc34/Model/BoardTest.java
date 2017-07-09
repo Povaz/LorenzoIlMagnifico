@@ -7,15 +7,11 @@ import it.polimi.ingsw.pc34.SocketRMICongiunction.ConnectionType;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.json.JSONException;
-import org.junit.Test;
-
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-
-import static junit.framework.TestCase.assertEquals;
 
 /**
  * Created by Povaz on 14/06/2017.
@@ -62,7 +58,8 @@ public class BoardTest extends TestCase {
     public void setUp () throws JSONException, IOException {
         Set<Reward> personalBonusTileRewards =  new HashSet<>();
         personalBonusTileRewards.add(new Reward(RewardType.COIN, 1));
-        PersonalBonusTile personalBonusTile = new PersonalBonusTile(null, 1, 1, personalBonusTileRewards, personalBonusTileRewards);
+        @SuppressWarnings("unused")
+		PersonalBonusTile personalBonusTile = new PersonalBonusTile(null, 1, 1, personalBonusTileRewards, personalBonusTileRewards);
 
         List<LeaderCard> leaderCards = new ArrayList<>();
         leaderCards.add(JSONUtility.getPermanentLeaderCard(0));

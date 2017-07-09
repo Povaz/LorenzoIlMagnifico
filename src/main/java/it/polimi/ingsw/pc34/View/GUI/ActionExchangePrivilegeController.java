@@ -9,6 +9,7 @@ import javafx.scene.text.Text;
 /**
  * Created by trill on 03/07/2017.
  */
+@SuppressWarnings("restriction")
 public class ActionExchangePrivilegeController {
     private MainGUI mainGUI;
 

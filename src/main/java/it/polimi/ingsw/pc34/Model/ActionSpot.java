@@ -4,7 +4,6 @@ import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
 
 import java.io.IOException;
-import java.rmi.RemoteException;
 import java.util.LinkedList;
 import java.util.List;
 

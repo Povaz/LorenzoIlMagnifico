@@ -14,10 +14,12 @@ import java.util.Set;
 public class ChangeLeaderCardInReward implements CommandPattern{
     private final Game game;
     private final Player player;
-    private final Board board;
+    @SuppressWarnings("unused")
+	private final Board board;
     private final List<LeaderCard> leaderCardsInHand;
     private final Counter newCounter;
-    private final Modifier modifier;
+    @SuppressWarnings("unused")
+	private final Modifier modifier;
     private LeaderCard leaderCard;
 
     public ChangeLeaderCardInReward(Game game, Player player){
