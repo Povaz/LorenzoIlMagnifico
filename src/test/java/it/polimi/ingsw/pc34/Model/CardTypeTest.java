@@ -16,11 +16,10 @@ public class CardTypeTest extends TestCase {
     }
 
     public void sameTypeTest() {
-        assertTrue(testCard.get(0).equals(CardType.TERRITORY));
-        assertEquals(CardType.TERRITORY, testCard.get(0)); //TODO CONVERTO ASSERT TRUE IN ASSERT EQUALS
-        assertTrue(testCard.get(1).equals(CardType.BUILDING));
-        assertTrue(testCard.get(2).equals(CardType.CHARACTER));
-        assertTrue(testCard.get(3).equals(CardType.VENTURE));
+        assertEquals(CardType.TERRITORY, testCard.get(0));
+        assertEquals(CardType.BUILDING, testCard.get(1));
+        assertEquals(CardType.CHARACTER, testCard.get(2));
+        assertEquals(CardType.VENTURE, testCard.get(3));
     }
 
     public void setUp() {

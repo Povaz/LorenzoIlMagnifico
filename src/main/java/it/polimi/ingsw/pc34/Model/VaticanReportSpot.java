@@ -42,7 +42,7 @@ public class VaticanReportSpot {
 		}
 	}
 
-	private Reward standardRewardsFromFaithPoints(int faith){
+	protected Reward standardRewardsFromFaithPoints(int faith){
 		if(faith < 0){
 			return new Reward(RewardType.VICTORY_POINT, 0);
 		}
