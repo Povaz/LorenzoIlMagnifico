@@ -30,8 +30,8 @@ public class PlaceLeaderCard implements CommandPattern{
         this.player = player;
         this.board = game.getBoard();
         this.leaderCardsInHand = player.getPlayerBoard().getLeaderCardsInHand();
-        this.immediateLeaderCardsPositionated = player.getPlayerBoard().getImmediateLeaderCardsPositionated();
-        this.permanentLeaderCardsPositionated = player.getPlayerBoard().getPermanentLeaderCardsPositionated();
+        this.immediateLeaderCardsPositionated = player.getPlayerBoard().getImmediateLeaderCardsPositioned();
+        this.permanentLeaderCardsPositionated = player.getPlayerBoard().getPermanentLeaderCardsPositioned();
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
         this.modifier = player.getPlayerBoard().getModifier();
     }
@@ -171,10 +171,10 @@ public class PlaceLeaderCard implements CommandPattern{
         List<LeaderCard> canBeCopied = new ArrayList<>();
         for(Player p : game.getPlayers()){
             if(!player.equals(p)){
-                for(PermanentLeaderCard pLC : p.getPlayerBoard().getPermanentLeaderCardsPositionated()){
+                for(PermanentLeaderCard pLC : p.getPlayerBoard().getPermanentLeaderCardsPositioned()){
                     canBeCopied.add(pLC);
                 }
-                for(ImmediateLeaderCard iLC : p.getPlayerBoard().getImmediateLeaderCardsPositionated()){
+                for(ImmediateLeaderCard iLC : p.getPlayerBoard().getImmediateLeaderCardsPositioned()){
                     canBeCopied.add(iLC);
                 }
             }

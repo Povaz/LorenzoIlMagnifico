@@ -88,15 +88,15 @@ public class PlayerBoardView implements Serializable{
         leaderCardsState = new ArrayList<>();
         for(int i = 0; i < 4; i++){
             int inHand = toCopy.getLeaderCardsInHand().size();
-            int immediatePlaced = toCopy.getImmediateLeaderCardsPositionated().size();
-            int permanentPlaced = toCopy.getPermanentLeaderCardsPositionated().size();
+            int immediatePlaced = toCopy.getImmediateLeaderCardsPositioned().size();
+            int permanentPlaced = toCopy.getPermanentLeaderCardsPositioned().size();
             if(i < inHand){
                 leaderCards.add(toCopy.getLeaderCardsInHand().get(i).getPath());
                 leaderCardsState.add("IN HAND");
             }
             else if((i - inHand) < immediatePlaced){
-                leaderCards.add(toCopy.getImmediateLeaderCardsPositionated().get(i - inHand).getPath());
-                if(toCopy.getImmediateLeaderCardsPositionated().get(i - inHand).isActivated()){
+                leaderCards.add(toCopy.getImmediateLeaderCardsPositioned().get(i - inHand).getPath());
+                if(toCopy.getImmediateLeaderCardsPositioned().get(i - inHand).isActivated()){
                     leaderCardsState.add("ACTIVATED");
                 }
                 else{
@@ -104,7 +104,7 @@ public class PlayerBoardView implements Serializable{
                 }
             }
             else if((i - inHand - immediatePlaced) < permanentPlaced){
-                leaderCards.add(toCopy.getPermanentLeaderCardsPositionated().get(i - inHand - immediatePlaced).getPath());
+                leaderCards.add(toCopy.getPermanentLeaderCardsPositioned().get(i - inHand - immediatePlaced).getPath());
                 leaderCardsState.add("PLACED");
             }
             else{

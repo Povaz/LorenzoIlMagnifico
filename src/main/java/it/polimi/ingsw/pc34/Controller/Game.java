@@ -89,8 +89,8 @@ public class Game implements Runnable{
     }
 
     public Game(Map<String, ClientInfo> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
-        this.turn = 1;
-        this.period = 1;
+        this.turn = 2;
+        this.period = 3;
         this.usernames = new ArrayList<>();
         usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();
@@ -194,7 +194,7 @@ public class Game implements Runnable{
                 LOGGER.log(Level.WARNING, "ImmediateLeaderCard.json or PermanentLeaderCard.json: Incorrect path", e);
             }
 
-            if((i + 1) % LEADER_CARD_FOR_PLAYER == 0){
+            if((i + 1) % LEADER_CARD_FOR_PLAYER == 0) {
                 playerNum++;
             }
         }
@@ -404,7 +404,7 @@ public class Game implements Runnable{
             }
             return false;
         }
-        if(actionSpot instanceof CouncilPalace){
+        if(actionSpot instanceof CouncilPalace) {
             PlaceCouncilPalace placeCouncilPalace = new PlaceCouncilPalace(this, actionSpot, familyMember);
             if(placeCouncilPalace.canDoAction()){
                 placeCouncilPalace.doAction();
@@ -412,9 +412,9 @@ public class Game implements Runnable{
             }
             return false;
         }
-        if(actionSpot instanceof HarvestArea){
+        if(actionSpot instanceof HarvestArea) {
             Harvest harvest = new Harvest(this, actionSpot, familyMember);
-            if(harvest.canDoAction()){
+            if(harvest.canDoAction()) {
                 harvest.doAction();
                 return true;
             }

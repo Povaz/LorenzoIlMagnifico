@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.JSONUtility;
+
 import java.util.*;
 
 /**
@@ -17,8 +19,8 @@ public class PlayerBoard {
     private final VentureSpot ventureSpot;
     private final Modifier modifier;
     private final List<LeaderCard> leaderCardsInHand;
-    private final List<ImmediateLeaderCard> immediateLeaderCardsPositionated;
-    private final List<PermanentLeaderCard> permanentLeaderCardsPositionated;
+    private final List<ImmediateLeaderCard> immediateLeaderCardsPositioned;
+    private final List<PermanentLeaderCard> permanentLeaderCardsPositioned;
 
     public PlayerBoard(Player player){
         this.player = player;
@@ -32,8 +34,16 @@ public class PlayerBoard {
         this.ventureSpot = new VentureSpot();
         this.modifier = new Modifier();
         this.leaderCardsInHand = new ArrayList<>();
-        this.immediateLeaderCardsPositionated = new ArrayList<>();
-        this.permanentLeaderCardsPositionated = new ArrayList<>();
+        this.immediateLeaderCardsPositioned = new ArrayList<>();
+        this.permanentLeaderCardsPositioned = new ArrayList<>();
+
+        for (int i = 0; i < 6; i++) {
+            try {
+                territorySpot.getCards().add(JSONUtility.getCard(1, i, CardType.TERRITORY))
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     private List<FamilyMember> initializeFamilyMembers(Player player){
@@ -63,7 +73,7 @@ public class PlayerBoard {
     }
 
     public void reinitializeLeaderCards(){
-        for(ImmediateLeaderCard iLC : immediateLeaderCardsPositionated){
+        for(ImmediateLeaderCard iLC : immediateLeaderCardsPositioned){
             iLC.setActivated(false);
         }
     }
@@ -179,12 +189,12 @@ public class PlayerBoard {
         return leaderCardsInHand;
     }
 
-    public List<ImmediateLeaderCard> getImmediateLeaderCardsPositionated() {
-        return immediateLeaderCardsPositionated;
+    public List<ImmediateLeaderCard> getImmediateLeaderCardsPositioned() {
+        return immediateLeaderCardsPositioned;
     }
 
-    public List<PermanentLeaderCard> getPermanentLeaderCardsPositionated() {
-        return permanentLeaderCardsPositionated;
+    public List<PermanentLeaderCard> getPermanentLeaderCardsPositioned() {
+        return permanentLeaderCardsPositioned;
     }
 
     public TerritorySpot getTerritorySpot() {
@@ -230,16 +240,16 @@ public class PlayerBoard {
             }
             bld.append("\n");
         }
-        if(!permanentLeaderCardsPositionated.isEmpty()){
+        if(!permanentLeaderCardsPositioned.isEmpty()){
             bld.append("Permanent leader cards positionated:\n");
-            for(PermanentLeaderCard p : permanentLeaderCardsPositionated){
+            for(PermanentLeaderCard p : permanentLeaderCardsPositioned){
                 bld.append(p.toString() + "\n");
             }
             bld.append("\n");
         }
-        if(!immediateLeaderCardsPositionated.isEmpty()){
+        if(!immediateLeaderCardsPositioned.isEmpty()){
             bld.append("Immediate leader cards positionated:\n");
-            for(ImmediateLeaderCard i : immediateLeaderCardsPositionated){
+            for(ImmediateLeaderCard i : immediateLeaderCardsPositioned){
                 bld.append(i.toString() + "\n");
             }
             bld.append("\n");

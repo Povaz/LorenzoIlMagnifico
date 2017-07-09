@@ -25,7 +25,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
         this.game = game;
         this.player = player;
         this.board = game.getBoard();
-        this.immediateLeaderCardsPositionated = player.getPlayerBoard().getImmediateLeaderCardsPositionated();
+        this.immediateLeaderCardsPositionated = player.getPlayerBoard().getImmediateLeaderCardsPositioned();
         this.newCounter = new Counter(player.getPlayerBoard().getCounter());
         player.getPlayerBoard().getModifier();
         this.toChange = null;
