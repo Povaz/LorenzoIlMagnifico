@@ -23,7 +23,7 @@ public class ActionChooseColoredFamilyController {
         if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
-        closeColredFamily();
+        closeColoredFamily();
     }
 
     @FXML private void whiteClicked(){
@@ -31,7 +31,7 @@ public class ActionChooseColoredFamilyController {
         if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
-        closeColredFamily();
+        closeColoredFamily();
     }
 
     @FXML private void orangeClicked(){
@@ -39,10 +39,10 @@ public class ActionChooseColoredFamilyController {
         if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
-        closeColredFamily();
+        closeColoredFamily();
     }
 
-    private void closeColredFamily(){
+    private void closeColoredFamily(){
         BorderPane parent = (BorderPane) coloredFamilyPane.getParent();
         parent.setDisable(true);
         parent.setVisible(false);

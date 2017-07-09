@@ -49,4 +49,26 @@ public class PlayerBoardTest {
 
         assertEquals(expected, calculated);
     }
+
+    @Test public void testEarnVictoryPointFromVentureCards(){
+        Player player = new Player("Cugola", new ClientInfo(ConnectionType.RMI, ClientType.GUI), PlayerColor.RED);
+        PlayerBoard playerBoard = new PlayerBoard(player);
+
+        try {
+            for(int i = 0; i < 4; i++) {
+                playerBoard.getVentureSpot().getCards().add(JSONUtility.getCard(1, i, CardType.VENTURE));
+            }
+        } catch(Exception e){
+            assertFalse(true);
+        }
+
+        Reward expected = new Reward(RewardType.VICTORY_POINT, 16);
+
+        playerBoard.earnVictoryPointFromVentureCards();
+        Reward calculated = playerBoard.getCounter().getVictoryPoint();
+
+        System.out.println(playerBoard);
+
+        assertEquals(expected, calculated);
+    }
 }
