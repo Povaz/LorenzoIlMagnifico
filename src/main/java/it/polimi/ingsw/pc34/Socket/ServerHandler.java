@@ -33,6 +33,7 @@ public class ServerHandler implements Runnable{
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
 	
+	private boolean confirm;
 	private BooleanCreated isNotConnect = new BooleanCreated();
 	private String answer = null;
 	
@@ -48,6 +49,7 @@ public class ServerHandler implements Runnable{
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
 		sendGUI = false;
+		confirm =true;
 	}
 	
 	//boolean to send directly to gui interface
@@ -181,6 +183,7 @@ public class ServerHandler implements Runnable{
 		if(answer!=null && received.equals("yes")){
 			answer=received;
 		}
+		System.out.println(received);
 		return received;
 	}
 	
@@ -219,21 +222,23 @@ public class ServerHandler implements Runnable{
 			e1.printStackTrace();
 		}
 		if(graphicType.equals("1")){
+			confirm = false;
 			sendToClient("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application");
-		}
-		else{
-			try {
-				@SuppressWarnings("unused")
-				String confirm=receiveFromClient();
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
 		}
 		while (true){
 			try {
 				line = receiveFromClient();
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
+			}
+			if(confirm ){
+				if(line.equals("1")){
+					confirm = false;
+					continue;
+				}
+				else{
+					confirm = false;
+				}
 			}
 			if(line.equals("ok") && graphicType.equals("2")){
 				continue;
