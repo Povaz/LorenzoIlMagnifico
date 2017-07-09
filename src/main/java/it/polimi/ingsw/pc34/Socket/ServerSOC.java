@@ -105,8 +105,8 @@ public class ServerSOC implements Runnable {
 		}
 		
 		if(lobby.getUsers().size() == 5){
-			System.out.println("Fifth player");
 			lobby.stopTimer();
+			lobby.inizializeTimer();
 			last.setSendGUI(true);
 			last.sendToClient("Login successful");
             lobby.startGameImmediately();
