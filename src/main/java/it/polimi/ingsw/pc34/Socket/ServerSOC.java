@@ -108,6 +108,7 @@ public class ServerSOC implements Runnable {
 			lobby.stopTimer();
 			lobby.notifyAllUsers(NotificationType.TIMERSTARTED, "");
             System.out.println("Start Game");
+            lobby.startGameImmediately();
 		}
 		
 	}
