@@ -112,6 +112,7 @@ public class GameController {
 			public void run() {
 				try {
 					System.out.println("Timer expired for " + username);
+					@SuppressWarnings("unused")
 					final String flow = flow("/afk", username);
 				} catch (IOException e) {
 					e.printStackTrace();
