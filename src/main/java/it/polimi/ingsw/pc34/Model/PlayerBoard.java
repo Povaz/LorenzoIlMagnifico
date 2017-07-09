@@ -36,6 +36,7 @@ public class PlayerBoard {
         this.leaderCardsInHand = new ArrayList<>();
         this.immediateLeaderCardsPositioned = new ArrayList<>();
         this.permanentLeaderCardsPositioned = new ArrayList<>();
+<<<<<<< HEAD
 
         for (int i = 0; i < 6; i++) {
             try {
@@ -44,6 +45,8 @@ public class PlayerBoard {
                 e.printStackTrace();
             }
         }
+=======
+>>>>>>> master
     }
 
     private List<FamilyMember> initializeFamilyMembers(Player player){
