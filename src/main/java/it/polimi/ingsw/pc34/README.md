@@ -74,5 +74,6 @@ You skipped your turn!
 - If you're kicked out of the game, your window will be closed. It is necessary to re-launch the Client class in order to log in.
 - If the game has finished, your window will be closed. It is necessary to re-launch the Client classe in order to log in.
 
-
+#To set configurable object:
+- In order to set the configurable settings it is sufficient to open the desired JSON File (files' name are understandable) and modify the settings following the JSON Object rules.
 
