@@ -1157,9 +1157,9 @@ public class GameController {
 				break;
 			case CLI:
 				this.sendMessageCLI(player, "This Client has been disconnected");
-				this.sendMessageChat("has disconnected.", player.getUsername());
 				break;
 		}
+		this.sendMessageChat("has disconnected.", player.getUsername());
 	}
 
 	public ServerRMIImpl getServerRMI() {

@@ -6,7 +6,7 @@ import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.RMI.UserRMIImpl;
 import it.polimi.ingsw.pc34.Socket.ClientSOC;
 import it.polimi.ingsw.pc34.View.GUI.LaunchGUI;
-import it.polimi.ingsw.pc34.View.GUI.Main;
+import it.polimi.ingsw.pc34.View.GUI.MainGUI;
 
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
@@ -21,7 +21,7 @@ import java.util.Scanner;
  */
 
 public class Client {
-	public static Main guiReference = null;
+	public static MainGUI guiReference = null;
 	private UserRMIImpl userLoginRMI;
 	private ClientSOC userSoc;
 	private SynchronizedString messageByGUI;
@@ -57,14 +57,24 @@ public class Client {
 
 			// wait until guiReference is initialized in MainGUI
 			while(guiReference == null){
-				System.out.println("While guiReference");
+				try {
+					Thread.sleep(1000);
+				} catch(InterruptedException e){
+					e.printStackTrace();
+				}
+				// TODO vedi se funziona System.out.println("While guiReference");
 			}
 
-			System.out.println(guiReference);
+			//System.out.println(guiReference);
 
 			// wait until guiReference.getBoardViewFromServer() is initialized in MainGUI
 			while(guiReference.getBoardViewFromServer() == null){
-				System.out.println("While BoardView");
+				try {
+					Thread.sleep(1000);
+				} catch(InterruptedException e){
+					e.printStackTrace();
+				}
+				// TODO vedi se funziona System.out.println("While BoardView");
 			}
 
 			System.out.println("After Board View");

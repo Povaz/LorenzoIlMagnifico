@@ -11,7 +11,7 @@ import javafx.scene.text.Text;
  * Created by trill on 03/07/2017.
  */
 public class ActionLeaderCardController {
-    private Main main;
+    private MainGUI mainGUI;
 
     @FXML private AnchorPane leaderPane;
     @FXML protected Text action;
@@ -27,8 +27,8 @@ public class ActionLeaderCardController {
             }
         }
 
-        main.getFromGuiToServer().put(Integer.toString(toSend));
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        mainGUI.getFromGuiToServer().put(Integer.toString(toSend));
+        if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
         closeLeader();
@@ -40,7 +40,7 @@ public class ActionLeaderCardController {
         parent.setVisible(false);
     }
 
-    public void setMain(Main main){
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI){
+        this.mainGUI = mainGUI;
     }
 }

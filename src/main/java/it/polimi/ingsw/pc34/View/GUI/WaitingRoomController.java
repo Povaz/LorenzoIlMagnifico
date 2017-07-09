@@ -6,7 +6,7 @@ import javafx.scene.control.Button;
 import javafx.scene.text.Text;
 
 public class WaitingRoomController {
-    private Main main;
+    private MainGUI mainGUI;
 
     @FXML private Button logoutButton;
     @FXML private Button gameButton;
@@ -16,15 +16,15 @@ public class WaitingRoomController {
         (new Thread(() -> {
             String result;
             do {
-                result = main.getOpenWindow().get();
+                result = mainGUI.getOpenWindow().get();
                 final String toLambda = result;
 
                 Platform.runLater(() -> {
                     if(toLambda.equals("/login")){
-                        main.showLogin();
+                        mainGUI.showLogin();
                     }
                     else if(toLambda.equals("/game")){
-                        main.showGame();
+                        mainGUI.showGame();
                     }
                 });
             } while(!(result.equals("/login") || result.equals("/game")));
@@ -32,15 +32,15 @@ public class WaitingRoomController {
     }
 
     @FXML protected void logoutClick() throws Exception{
-        main.getFromGuiToServer().put("/logout");
-        String result = main.getFromServerToGui().get();
+        mainGUI.getFromGuiToServer().put("/logout");
+        String result = mainGUI.getFromServerToGui().get();
     }
 
     public void setMessageText(String message){
         waitingMessageText.setText(message);
     }
 
-    public void setMain(Main main) {
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
     }
 }

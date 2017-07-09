@@ -11,24 +11,24 @@ import javafx.scene.text.Text;
  * Created by trill on 03/07/2017.
  */
 public class ActionBonusFamilyController {
-    private Main main;
+    private MainGUI mainGUI;
 
     @FXML private AnchorPane bonusPane;
     @FXML protected Button ghostFamily;
     @FXML protected Text typeValue;
     
     @FXML private void passClicked(){
-        main.getFromGuiToServer().put("0");
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        mainGUI.getFromGuiToServer().put("0");
+        if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
         closeBonus();
     }
 
     @FXML private void startDrag(MouseEvent event){
-        main.getGameViewC().setGhost(true);
-        main.getGameViewC().setDragButton((Button) event.getSource());
-        main.getGameViewC().setDropShape(null);
+        mainGUI.getGameViewC().setGhost(true);
+        mainGUI.getGameViewC().setDragButton((Button) event.getSource());
+        mainGUI.getGameViewC().setDropShape(null);
         ((Button) event.getSource()).startFullDrag();
     }
 
@@ -38,7 +38,7 @@ public class ActionBonusFamilyController {
         parent.setVisible(false);
     }
 
-    public void setMain(Main main){
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI){
+        this.mainGUI = mainGUI;
     }
 }

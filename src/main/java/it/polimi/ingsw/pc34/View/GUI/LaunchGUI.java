@@ -9,6 +9,6 @@ import javafx.application.Application;
 public class LaunchGUI implements Runnable{
     @Override
     public void run(){
-        Application.launch(Main.class);
+        Application.launch(MainGUI.class);
     }
 }

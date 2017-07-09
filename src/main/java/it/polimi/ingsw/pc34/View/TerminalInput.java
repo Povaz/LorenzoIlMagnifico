@@ -362,42 +362,5 @@ public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ES
             return true;
         }
     }
-
-    public static void main (String args[]) throws SameChooseErrorException, IOException, JSONException{
-        /* Reward councilPrivilege = new Reward (RewardType.COUNCIL_PRIVILEGE, 2);
-
-        int[] choose = exchangeCouncilPrivilege(councilPrivilege);
-
-        for (int i = 0; i < choose.length; i++) {
-            System.out.println(choose[i]);
-        }*/
-
-        /* DevelopmentCard buildingCard = JSONUtility.getCard(1, 4, CardType.BUILDING);
-
-        Trade trade = chooseTrade((BuildingCard) buildingCard);
-
-        System.out.println(trade.toString()); */
-
-        /* System.out.println(chooseFamilyMemberColor()); */
-
-        /* ActionInput action = chooseAction(4);
-
-        System.out.println(action.toString());*/
-
-        /* System.out.println(askNumberOfServant());
-        System.out.println(askVaticanSupport()); */
-
-        /* CharacterCard characterCard = (CharacterCard) JSONUtility.getCard(1, 1, CardType.CHARACTER);
-        CostDiscount costDiscount = askWhichDiscount(characterCard);
-        System.out.println(costDiscount.toString()); */
-
-        Set<Reward> reward = new HashSet<>();
-        reward.add(new Reward(RewardType.COIN, 2));
-        reward.add(new Reward(RewardType.STONE, 2));
-
-
-        boolean militaryPoint = wantToPayWithMilitaryPoint(reward, new Reward (RewardType.MILITARY_POINT, 5), new Reward (RewardType.MILITARY_POINT, 2));
-        System.out.println(militaryPoint);
-    }
 }
 

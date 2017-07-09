@@ -9,7 +9,7 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.text.Text;
 
 public class LoginController {
-    private Main main;
+    private MainGUI mainGUI;
 
     @FXML private TextField usernameTextField;
     @FXML private PasswordField passwordTextField;
@@ -28,15 +28,15 @@ public class LoginController {
             return;
         }
 
-        main.getFromGuiToServer().put("/login");
+        mainGUI.getFromGuiToServer().put("/login");
 
-        main.getFromGuiToServer().put(usernameTextField.getText());
-        main.getFromGuiToServer().put(passwordTextField.getText());
+        mainGUI.getFromGuiToServer().put(usernameTextField.getText());
+        mainGUI.getFromGuiToServer().put(passwordTextField.getText());
 
-        String result = main.getFromServerToGui().get();
+        String result = mainGUI.getFromServerToGui().get();
         if(result.equals("Login successful")){
-            main.setUsername(usernameTextField.getText());
-            main.showWaitingRoom();
+            mainGUI.setUsername(usernameTextField.getText());
+            mainGUI.showWaitingRoom();
         }
         else{
             loginMessageText.setText(result);
@@ -48,12 +48,12 @@ public class LoginController {
             return;
         }
 
-        main.getFromGuiToServer().put("/registration");
+        mainGUI.getFromGuiToServer().put("/registration");
 
-        main.getFromGuiToServer().put(usernameTextField.getText());
-        main.getFromGuiToServer().put(passwordTextField.getText());
+        mainGUI.getFromGuiToServer().put(usernameTextField.getText());
+        mainGUI.getFromGuiToServer().put(passwordTextField.getText());
 
-        String result = main.getFromServerToGui().get();
+        String result = mainGUI.getFromServerToGui().get();
         loginMessageText.setText(result);
     }
 
@@ -61,7 +61,7 @@ public class LoginController {
         loginMessageText.setText(message);
     }
 
-    public void setMain(Main main) {
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
     }
 }

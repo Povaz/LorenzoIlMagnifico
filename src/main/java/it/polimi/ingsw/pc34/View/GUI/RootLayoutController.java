@@ -16,30 +16,23 @@ import java.util.logging.Logger;
 public class RootLayoutController {
     Logger LOGGER = Logger.getLogger(RootLayoutController.class.getName());
 
-    private Main main;
+    private MainGUI mainGUI;
 
     private MediaPlayer mediaPlayer;
 
     @FXML private void initialize(){
-        try {
-            List<MediaPlayer> music = new LinkedList<>();
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track3.mp3").toURI().toString())));
-
-            playMusic(music);
-        } catch(URISyntaxException e){
-            LOGGER.log(Level.WARNING, "URISyntaxException track1", e);
-        }
+        setTrack1();
     }
 
     protected void initializeListner(){
-        main.getPrimaryStage().iconifiedProperty().addListener((obsVal, oldVal, newVal) -> {
-            Stage stage = main.getPrimaryStage();
+        mainGUI.getPrimaryStage().iconifiedProperty().addListener((obsVal, oldVal, newVal) -> {
+            Stage stage = mainGUI.getPrimaryStage();
             if(stage.isFullScreen() || stage.getX() < 0 || stage.getY() < 0){
                 setFullScreenOff();
             }
         });
 
-        main.getPrimaryStage().setOnCloseRequest((event) -> {
+        mainGUI.getPrimaryStage().setOnCloseRequest((event) -> {
             System.exit(0);
         });
     }
@@ -47,25 +40,28 @@ public class RootLayoutController {
     @FXML private void setTrack1(){
         try {
             List<MediaPlayer> music = new LinkedList<>();
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_1.mp3").toURI().toString())));
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_2.mp3").toURI().toString())));
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_3.mp3").toURI().toString())));
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track1_4.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/AwesomeMix_1.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/AwesomeMix_2.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/AwesomeMix_3.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/AwesomeMix_4.mp3").toURI().toString())));
 
             playMusic(music);
         } catch(URISyntaxException e){
-            LOGGER.log(Level.WARNING, "URISyntaxException track1", e);
+            LOGGER.log(Level.WARNING, "URISyntaxException AwesomeMix", e);
         }
     }
 
     @FXML private void setTrack2(){
         try {
             List<MediaPlayer> music = new LinkedList<>();
-            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/track2.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/DarkSouls_1.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/DarkSouls_2.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/DarkSouls_3.mp3").toURI().toString())));
+            music.add(new MediaPlayer(new Media(RootLayoutController.class.getResource("mp3Files/DarkSouls_4.mp3").toURI().toString())));
 
             playMusic(music);
         } catch(URISyntaxException e){
-            LOGGER.log(Level.WARNING, "URISyntaxException track2", e);
+            LOGGER.log(Level.WARNING, "URISyntaxException DarkSouls", e);
         }
     }
 
@@ -119,26 +115,26 @@ public class RootLayoutController {
     }
 
     @FXML private void setFullScreenOn(){
-        if(main.isCanBeFullScreen()){
-            main.getPrimaryStage().setFullScreen(true);
+        if(mainGUI.isCanBeFullScreen()){
+            mainGUI.getPrimaryStage().setFullScreen(true);
         }
     }
 
     @FXML protected void setFullScreenOff(){
-        if(main.isCanBeFullScreen()){
-            main.getPrimaryStage().setFullScreen(false);
+        if(mainGUI.isCanBeFullScreen()){
+            mainGUI.getPrimaryStage().setFullScreen(false);
             resizeWindow();
         }
     }
 
     @FXML private void resizeWindow(){
-        main.getPrimaryStage().setWidth(main.getWindowWidth());
-        main.getPrimaryStage().setHeight(main.getWindowHeight());
-        main.getPrimaryStage().setX(0);
-        main.getPrimaryStage().setY(0);
+        mainGUI.getPrimaryStage().setWidth(mainGUI.getWindowWidth());
+        mainGUI.getPrimaryStage().setHeight(mainGUI.getWindowHeight());
+        mainGUI.getPrimaryStage().setX(0);
+        mainGUI.getPrimaryStage().setY(0);
     }
 
-    public void setMain(Main main) {
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI) {
+        this.mainGUI = mainGUI;
     }
 }

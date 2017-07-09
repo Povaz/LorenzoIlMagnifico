@@ -6,13 +6,12 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.text.Text;
 
 /**
  * Created by trill on 03/07/2017.
  */
 public class ActionChooseDiscountController {
-    private Main main;
+    private MainGUI mainGUI;
 
     @FXML private AnchorPane discountPane;
     @FXML protected GridPane discount;
@@ -27,8 +26,8 @@ public class ActionChooseDiscountController {
             }
         }
 
-        main.getFromGuiToServer().put(Integer.toString(toSend));
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        mainGUI.getFromGuiToServer().put(Integer.toString(toSend));
+        if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
         closeDiscount();
@@ -40,7 +39,7 @@ public class ActionChooseDiscountController {
         parent.setVisible(false);
     }
 
-    public void setMain(Main main){
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI){
+        this.mainGUI = mainGUI;
     }
 }

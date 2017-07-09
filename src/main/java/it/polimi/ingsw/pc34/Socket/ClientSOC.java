@@ -1,21 +1,13 @@
 package it.polimi.ingsw.pc34.Socket;
 
-import it.polimi.ingsw.pc34.RMI.ServerRMI; 
 import it.polimi.ingsw.pc34.RMI.SynchronizedBoardView;
 import it.polimi.ingsw.pc34.RMI.SynchronizedString;
 import it.polimi.ingsw.pc34.View.GUI.BoardView;
-import it.polimi.ingsw.pc34.View.GUI.LaunchGUI;
-import it.polimi.ingsw.pc34.View.GUI.Main;
-import javafx.application.Application;
 
 import java.io.IOException;
 import java.io.StreamCorruptedException;
 import java.net.Socket;
 import java.net.UnknownHostException;
-import java.rmi.RemoteException; 
-import java.util.InputMismatchException; 
- 
-import org.json.JSONException; 
 
 //if client decides to use socket as comunication tool, ClientSoc will be launched
 public class ClientSOC implements Runnable {

@@ -37,7 +37,7 @@ public class GameViewController {
     private final String TILE_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/PersonalBonusTile/";
     private final String REPORT_FOLDER = "it/polimi/ingsw/pc34/View/GUI/pngFiles/VaticanReports/";
 
-    private Main main;
+    private MainGUI mainGUI;
     private ChatController chatController;
     private String currentPlayerShown;
     private BoardView board = null;
@@ -142,7 +142,7 @@ public class GameViewController {
 
     public void initializeView(){
         // set player text
-        ownerUsername.setText(main.getUsername());
+        ownerUsername.setText(mainGUI.getUsername());
 
         // fill playerButton List
         playerButtons.add(player0);
@@ -166,11 +166,11 @@ public class GameViewController {
         // initialize chat
         try {
             FXMLLoader loader = new FXMLLoader();
-            loader.setLocation(Main.class.getResource("Chat.fxml"));
+            loader.setLocation(MainGUI.class.getResource("Chat.fxml"));
             AnchorPane chat = (AnchorPane) loader.load();
             chatBorder.setCenter(chat);
             chatController = loader.getController();
-            chatController.setMain(main);
+            chatController.setMainGUI(mainGUI);
             chatController.initializeThread();
         } catch(IOException e){
             LOGGER.log(Level.SEVERE, "Chat.fxml: Not found", e);
@@ -181,12 +181,12 @@ public class GameViewController {
         (new Thread(() -> {
             String result;
             do {
-                result = main.getOpenWindow().get();
+                result = mainGUI.getOpenWindow().get();
                 final String toLambda = result;
 
                 Platform.runLater(() -> {
                     if(toLambda.equals("/login")){
-                        String info = main.getInfoFromServer().get();
+                        String info = mainGUI.getInfoFromServer().get();
 
                         showWinner.setText(info);
 
@@ -199,14 +199,14 @@ public class GameViewController {
                     else if(toLambda.equals("/bonusaction")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("ActionBonusFamily.fxml"));
+                            loader.setLocation(MainGUI.class.getResource("ActionBonusFamily.fxml"));
                             AnchorPane bonusFamily = (AnchorPane) loader.load();
                             actionBorder.setCenter(bonusFamily);
 
                             ActionBonusFamilyController bonusController = loader.getController();
-                            bonusController.setMain(main);
+                            bonusController.setMainGUI(mainGUI);
 
-                            bonusController.typeValue.setText(main.getInfoFromServer().get());
+                            bonusController.typeValue.setText(mainGUI.getInfoFromServer().get());
 
                             updateButton(bonusController.ghostFamily, PAWN_FOLDER, "Ghost.png", 55, 80);
 
@@ -219,14 +219,14 @@ public class GameViewController {
                     else if(toLambda.equals("/supportvatican")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("ActionSupportVatican.fxml"));
+                            loader.setLocation(MainGUI.class.getResource("ActionSupportVatican.fxml"));
                             AnchorPane supportVatican = (AnchorPane) loader.load();
                             actionBorder.setCenter(supportVatican);
 
                             ActionSupportVaticanController supportController = loader.getController();
-                            supportController.setMain(main);
+                            supportController.setMainGUI(mainGUI);
 
-                            main.getInfoFromServer().get();
+                            mainGUI.getInfoFromServer().get();
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -237,14 +237,14 @@ public class GameViewController {
                     else if(toLambda.equals("/exchangeprivilege")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("ActionExchangePrivilege.fxml"));
+                            loader.setLocation(MainGUI.class.getResource("ActionExchangePrivilege.fxml"));
                             AnchorPane exchangePrivilege = (AnchorPane) loader.load();
                             actionBorder.setCenter(exchangePrivilege);
 
                             ActionExchangePrivilegeController exchangeController = loader.getController();
-                            exchangeController.setMain(main);
+                            exchangeController.setMainGUI(mainGUI);
 
-                            exchangeController.number.setText(main.getInfoFromServer().get());
+                            exchangeController.number.setText(mainGUI.getInfoFromServer().get());
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -255,14 +255,14 @@ public class GameViewController {
                     else if(toLambda.equals("/numberservant")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("ActionNumberServant.fxml"));
+                            loader.setLocation(MainGUI.class.getResource("ActionNumberServant.fxml"));
                             AnchorPane numberServant = (AnchorPane) loader.load();
                             actionBorder.setCenter(numberServant);
 
                             ActionNumberServantController servantController = loader.getController();
-                            servantController.setMain(main);
+                            servantController.setMainGUI(mainGUI);
 
-                            servantController.servant.setMax(Double.valueOf(main.getInfoFromServer().get()));
+                            servantController.servant.setMax(Double.valueOf(mainGUI.getInfoFromServer().get()));
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -273,14 +273,14 @@ public class GameViewController {
                     else if(toLambda.equals("/paymilitarypoint")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("ActionPayMilitaryPoint.fxml"));
+                            loader.setLocation(MainGUI.class.getResource("ActionPayMilitaryPoint.fxml"));
                             AnchorPane payMilitary = (AnchorPane) loader.load();
                             actionBorder.setCenter(payMilitary);
 
                             ActionPayMilitaryPointController payMilitaryPointController = loader.getController();
-                            payMilitaryPointController.setMain(main);
+                            payMilitaryPointController.setMainGUI(mainGUI);
 
-                            main.getInfoFromServer().get();
+                            mainGUI.getInfoFromServer().get();
 
                             actionBorder.setDisable(false);
                             actionBorder.setVisible(true);
@@ -291,14 +291,14 @@ public class GameViewController {
                     else if(toLambda.equals("/choosetrade")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("ActionChooseTrade.fxml"));
+                            loader.setLocation(MainGUI.class.getResource("ActionChooseTrade.fxml"));
                             AnchorPane trade = (AnchorPane) loader.load();
                             actionBorder.setCenter(trade);
 
                             ActionChooseTradeController tradeController = loader.getController();
-                            tradeController.setMain(main);
+                            tradeController.setMainGUI(mainGUI);
 
-                            String info = main.getInfoFromServer().get();
+                            String info = mainGUI.getInfoFromServer().get();
 
                             if(info.substring(0, 1).equals("2")){
                                 tradeController.second.setDisable(false);
@@ -316,14 +316,14 @@ public class GameViewController {
                     else if(toLambda.equals("/choosediscount")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("ActionChooseDiscount.fxml"));
+                            loader.setLocation(MainGUI.class.getResource("ActionChooseDiscount.fxml"));
                             AnchorPane discount = (AnchorPane) loader.load();
                             actionBorder.setCenter(discount);
 
                             ActionChooseDiscountController discountController = loader.getController();
-                            discountController.setMain(main);
+                            discountController.setMainGUI(mainGUI);
 
-                            String info = main.getInfoFromServer().get();
+                            String info = mainGUI.getInfoFromServer().get();
 
                             List<String> discountStrings = new ArrayList<>();
                             while(info.endsWith("/")){
@@ -348,14 +348,14 @@ public class GameViewController {
                     else if(toLambda.equals("/leadercard")){
                         try {
                             FXMLLoader loader = new FXMLLoader();
-                            loader.setLocation(Main.class.getResource("ActionLeaderCard.fxml"));
+                            loader.setLocation(MainGUI.class.getResource("ActionLeaderCard.fxml"));
                             AnchorPane leaderCard = (AnchorPane) loader.load();
                             actionBorder.setCenter(leaderCard);
 
                             ActionLeaderCardController leaderController = loader.getController();
-                            leaderController.setMain(main);
+                            leaderController.setMainGUI(mainGUI);
 
-                            String info = main.getInfoFromServer().get();
+                            String info = mainGUI.getInfoFromServer().get();
 
                             String type = "";
                             switch(info.substring(0, 1)){
@@ -397,7 +397,7 @@ public class GameViewController {
                         }
                     }
                     else if(toLambda.equals("/update")){
-                        update(main.getBoardViewFromServer().get());
+                        update(mainGUI.getBoardViewFromServer().get());
                     }
                 });
             } while(!result.equals("/login"));
@@ -482,7 +482,7 @@ public class GameViewController {
 
 
         // family members
-        boolean yourFamilyMember = currentPlayerShown.equals(main.getUsername());
+        boolean yourFamilyMember = currentPlayerShown.equals(mainGUI.getUsername());
         for(int i = 0; i < 4; i++){
             Button button = familyButton.get(i);
             String path = playerBoardView.getFamilyMembers().get(i);
@@ -517,13 +517,13 @@ public class GameViewController {
     }
 
     @FXML private void showWinnerClicked(){
-        main.getChatFromServer().put("/close");
-        main.showLogin();
+        mainGUI.getChatFromServer().put("/close");
+        mainGUI.showLogin();
     }
 
     @FXML private void escPressed(KeyEvent event){
         if(event.getCode() == KeyCode.ESCAPE){
-            main.getRootC().setFullScreenOff();
+            mainGUI.getRootC().setFullScreenOff();
         }
     }
 
@@ -547,15 +547,15 @@ public class GameViewController {
     @FXML private void passClicked(){
         String resultString;
 
-        main.getFromGuiToServer().put("/playturn");
-        resultString = main.getFromServerToGui().get();
+        mainGUI.getFromGuiToServer().put("/playturn");
+        resultString = mainGUI.getFromServerToGui().get();
         if(!resultString.equals("Yes")){
             chatController.addMessage("/error" + resultString);
             return;
         }
 
-        main.getFromGuiToServer().put("5");
-        resultString = main.getFromServerToGui().get();
+        mainGUI.getFromGuiToServer().put("5");
+        resultString = mainGUI.getFromServerToGui().get();
         if(!resultString.equals("Yes")){
             chatController.addMessage("/error" + resultString);
             return;
@@ -579,15 +579,15 @@ public class GameViewController {
         }
 
         String resultString;
-        main.getFromGuiToServer().put("/playturn");
-        resultString = main.getFromServerToGui().get();
+        mainGUI.getFromGuiToServer().put("/playturn");
+        resultString = mainGUI.getFromServerToGui().get();
         if(!resultString.equals("Yes")){
             chatController.addMessage("/error" + resultString);
             return;
         }
 
-        main.getFromGuiToServer().put(actionType);
-        resultString = main.getFromServerToGui().get();
+        mainGUI.getFromGuiToServer().put(actionType);
+        resultString = mainGUI.getFromServerToGui().get();
         if(!resultString.equals("Yes")){
             chatController.addMessage("/error" + resultString);
             return;
@@ -617,31 +617,31 @@ public class GameViewController {
         String resultString;
 
         if(!ghost){
-            main.getFromGuiToServer().put("/playturn");
-            resultString = main.getFromServerToGui().get();
+            mainGUI.getFromGuiToServer().put("/playturn");
+            resultString = mainGUI.getFromServerToGui().get();
             if(!resultString.equals("Yes")){
                 chatController.addMessage("/error" + resultString);
                 return;
             }
 
-            main.getFromGuiToServer().put("1");
-            resultString = main.getFromServerToGui().get();
+            mainGUI.getFromGuiToServer().put("1");
+            resultString = mainGUI.getFromServerToGui().get();
             if(!resultString.equals("Yes")){
                 chatController.addMessage("/error" + resultString);
                 return;
             }
         }
 
-        main.getFromGuiToServer().put(spotType); // 1 TerritoryT, 2 BuildingT, 3 CharacterT, 4 VentureT, 5 Harvest, 6 Produce, 7 Market, 8 CouncilPalace
-        resultString = main.getFromServerToGui().get();
+        mainGUI.getFromGuiToServer().put(spotType); // 1 TerritoryT, 2 BuildingT, 3 CharacterT, 4 VentureT, 5 Harvest, 6 Produce, 7 Market, 8 CouncilPalace
+        resultString = mainGUI.getFromServerToGui().get();
         if(!resultString.equals("Yes")){
             chatController.addMessage("/error" + resultString);
             return;
         }
 
         if(!spotType.equals("8")){
-            main.getFromGuiToServer().put(spotNumber); // spot number: insert number between [0 - numSpot)
-            resultString = main.getFromServerToGui().get();
+            mainGUI.getFromGuiToServer().put(spotNumber); // spot number: insert number between [0 - numSpot)
+            resultString = mainGUI.getFromServerToGui().get();
             if(!resultString.equals("Yes")){
                 chatController.addMessage("/error" + resultString);
                 return;
@@ -649,8 +649,8 @@ public class GameViewController {
         }
 
         if(!ghost){
-            main.getFromGuiToServer().put(familyColor); // familyMember: insert 1 black, 2 white, 3 orange, 4 neutral
-            resultString = main.getFromServerToGui().get();
+            mainGUI.getFromGuiToServer().put(familyColor); // familyMember: insert 1 black, 2 white, 3 orange, 4 neutral
+            resultString = mainGUI.getFromServerToGui().get();
             if(!resultString.equals("Yes")){
                 chatController.addMessage("/error" + resultString);
                 return;
@@ -877,8 +877,8 @@ public class GameViewController {
         }
     }
 
-    public void setMain(Main main){
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI){
+        this.mainGUI = mainGUI;
     }
 
     public void setDragButton(Button dragButton){

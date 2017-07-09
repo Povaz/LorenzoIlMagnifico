@@ -2,7 +2,6 @@ package it.polimi.ingsw.pc34.View.GUI;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.CheckBox;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.text.Text;
@@ -11,7 +10,7 @@ import javafx.scene.text.Text;
  * Created by trill on 03/07/2017.
  */
 public class ActionExchangePrivilegeController {
-    private Main main;
+    private MainGUI mainGUI;
 
     @FXML private AnchorPane exchangePrivilege;
     @FXML protected Text number;
@@ -50,8 +49,8 @@ public class ActionExchangePrivilegeController {
             return;
         }
 
-        main.getFromGuiToServer().put(toSend);
-        if(!main.getFromServerToGui().get().equals("Yes")){
+        mainGUI.getFromGuiToServer().put(toSend);
+        if(!mainGUI.getFromServerToGui().get().equals("Yes")){
             return;
         }
         closeExchangePrivilege();
@@ -63,7 +62,7 @@ public class ActionExchangePrivilegeController {
         parent.setVisible(false);
     }
 
-    public void setMain(Main main){
-        this.main = main;
+    public void setMainGUI(MainGUI mainGUI){
+        this.mainGUI = mainGUI;
     }
 }
