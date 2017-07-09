@@ -43,6 +43,8 @@ What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 
 5
 You skipped your turn!
 ```
+- If you don't Pass in time, the timer expires and you will be automatically kicked out of the game:
+
 - Use command /chat to send a message in Chat in any case, with the following pattern:
 ```bash
 /chat messagetosend
@@ -59,9 +61,13 @@ You skipped your turn!
   * Game board is situated at your left, showing all the Family Member that were used by all the players;
   * Your player board is situated at your bottom-right, showing your cards, resources, family member not used and points;
   * At your top-right you can see:
-    + The Request window: here are displayed Turn Number and what player is in turn. Here you can also Pass your turn or Place/Activate/Exchange a leader card*;
+    + The Request window: here are displayed Turn Number and what player is in turn and there will be asked questions about your actions during the game. Here you can also Pass your turn or Place/Activate/Exchange a leader card;
     + The Chat window: here are displayed in red the error messages and you can send messages to the other players and read other players' messages;
-    + The LeaderCard window: here are display your leader cards
+    + The LeaderCard window: here are display your leader cards and moving your mouse on them, you can see their status (In hand, Placed, Activated);
+    + The Player window: here you can click on a player's username in order to change the player board you want to see, but keep in mind, you can move only your Family Member;
+  * In order to Activate/Place/Exchange a leader card, press on the arrow near Pass button and choose your card.
+- If you do not complete your action clicking on Pass button, timer will expires and it will be notified on your screen. Clicking on your screen will take you to the Login Window;
+- If the game finishes, the name of the winner will be displayed on the screen and clicking on it will take you to the Login Window.
 
 
 
