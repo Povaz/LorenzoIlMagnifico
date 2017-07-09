@@ -69,30 +69,23 @@ public class Game implements Runnable{
                     e.printStackTrace();
                 }
                 this.endTurn();
-                System.out.println("end turn done");
             }
             try {
                 this.endPeriod();
-                System.out.println("end period done");
             }
             catch (IOException e) {
                 e.printStackTrace();
             }
         }
-        System.out.println("decree winner");
         Player winner = this.decreeWinner();
-        System.out.println("decree winner done");
         try {
             gameController.sendMessageGUIAllEndGame("The winner is \n" + winner.getUsername() + "!");
             gameController.sendMessageCLIAll("THE WINNER IS : " + winner.getUsername());
 			gameController.sendMessageCLIAll("This game is finished");
 		} catch (IOException e) {
-            System.out.println("catch IOEX");
 			e.printStackTrace();
 		}
-        System.out.println("serverSoc");
         serverSoc.getServer().removeGame(this);
-        System.out.println("RIP");
     }
 
     public Game(Map<String, ClientInfo> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
@@ -296,7 +289,6 @@ public class Game implements Runnable{
         do{
             Player current = order.getCurrent();
             gameController.sendMessageCLIAll(current.getUsername() + " is your turn!");
-            System.out.println("Am i blocked here? 1");
             if (!current.isDisconnected()) {
                 ActionSpot actionSpot;
                 FamilyMember familyMember;
@@ -305,10 +297,10 @@ public class Game implements Runnable{
                 gameController.updatePlayersView(boardView);
                 gameController.startTimer(current.getUsername());
                 do {
-                    System.out.println("\n\nPLAYERBOARD:"); //TODO GameController.sendMessageAll
-                    System.out.println(board.toString());
-                    System.out.println(current.getPlayerBoard());
-                    System.out.println("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
+                    gameController.sendMessageCLIAll("\n\nPLAYERBOARD:"); //TODO GameController.sendMessageAll
+                    gameController.sendMessageCLIAll(board.toString());
+                    gameController.sendMessageCLIAll(current.getPlayerBoard().toString());
+                    gameController.sendMessageCLIAll("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");
                     Integer whatToDo = gameController.getWhatToDo(current);
                     switch (whatToDo) {
                         case 0:
@@ -378,34 +370,25 @@ public class Game implements Runnable{
                             }
                             break;
                         case 4:
-                            System.out.println(current.getUsername() + "skipped the turn");
                             current.setYourTurn(false);
-                            System.out.println("First State:" + current.getFirst_state());
-                            System.out.println("Second State:" + current.getSecond_state());
                             gameController.stopTimer(current.getUsername());
                             gameController.setInFlow();
                             gameController.sendMessageCLI(current, "Action has been executed");
                             break;
                         default:
-                            System.out.println("WhatToDo Error"); // No user should get here
+                            System.out.println("WhatToDo Error"); // No user should be able to get here
                     }
                     current.putFirst_State(PlayerState.WAITING);
                     current.putSecond_State(PlayerState.WAITING);
-                    System.out.println("First State:" + current.getFirst_state());
-                    System.out.println("Second State:" + current.getSecond_state());
                 } while (current.isYourTurn());
             }
             current.putFirst_State(PlayerState.WAITING);
             current.putSecond_State(PlayerState.WAITING);
-            System.out.println("First State:" + current.getFirst_state());
-            System.out.println("Second State:" + current.getSecond_state());
             current.setYourTurn(false);
             current.setPlacedFamilyMember(false);
-            System.out.println("\n\nPLAYERBOARD:"); //TODO MANDARE LA STAMPA AGLI USER CLI
-            System.out.println(order.getCurrent().getPlayerBoard());
-            System.out.println(board.getOrder().getReal());
+            gameController.sendMessageCLIAll("\n\nPLAYERBOARD:");
+            gameController.sendMessageCLIAll(order.getCurrent().getPlayerBoard().toString());
         } while(board.getOrder().nextOrder());
-        System.out.println("esco cicli game" + " period: " + period + " turn: " + turn);
     }
 
     public boolean placeFamilyMember(FamilyMember familyMember, ActionSpot actionSpot) throws IOException{
