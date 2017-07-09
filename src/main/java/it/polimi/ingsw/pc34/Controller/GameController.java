@@ -450,7 +450,7 @@ public class GameController {
 
         	switch (player.getConnectionType()) {
 				case RMI:
-					serverRMI.openNewWindow(player, " /choosecoloredfamily", "toSynchro");
+					serverRMI.openNewWindow(player, "/choosecoloredfamily", "toSynchro");
 					break;
 				case SOCKET:
 					//TODO FILL SOCKET TOM

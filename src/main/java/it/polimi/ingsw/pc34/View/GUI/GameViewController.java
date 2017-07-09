@@ -314,6 +314,25 @@ public class GameViewController {
                             LOGGER.log(Level.SEVERE, "ActionChooseTrade.fxml: Not found", e);
                         }
                     }
+                    else if(toLambda.equals("/choosecoloredfamily")){
+                        try {
+                            System.out.println("in choose");
+                            FXMLLoader loader = new FXMLLoader();
+                            loader.setLocation(MainGUI.class.getResource("ActionChooseColoredFamily.fxml"));
+                            AnchorPane coloredFamily = (AnchorPane) loader.load();
+                            actionBorder.setCenter(coloredFamily);
+
+                            ActionChooseColoredFamilyController coloredController = loader.getController();
+                            coloredController.setMainGUI(mainGUI);
+
+                            mainGUI.getInfoFromServer().get();
+
+                            actionBorder.setDisable(false);
+                            actionBorder.setVisible(true);
+                        } catch(IOException e){
+                            LOGGER.log(Level.SEVERE, "ActionChooseColoredFamily.fxml: Not found", e);
+                        }
+                    }
                     else if(toLambda.equals("/choosediscount")){
                         try {
                             FXMLLoader loader = new FXMLLoader();

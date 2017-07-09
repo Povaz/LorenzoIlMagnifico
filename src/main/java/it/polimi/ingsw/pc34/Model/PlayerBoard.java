@@ -1,5 +1,7 @@
 package it.polimi.ingsw.pc34.Model;
 
+import it.polimi.ingsw.pc34.JSONUtility;
+
 import java.util.*;
 
 /**
@@ -34,6 +36,14 @@ public class PlayerBoard {
         this.leaderCardsInHand = new ArrayList<>();
         this.immediateLeaderCardsPositionated = new ArrayList<>();
         this.permanentLeaderCardsPositionated = new ArrayList<>();
+
+        // TODO elimina
+        for(int i = 0; i < 6; i++){
+            try {
+                territorySpot.getCards().add(JSONUtility.getCard(1,i,CardType.TERRITORY));
+            }
+            catch (Exception e){}
+        }
     }
 
     private List<FamilyMember> initializeFamilyMembers(Player player){
