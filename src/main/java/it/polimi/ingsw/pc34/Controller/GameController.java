@@ -452,7 +452,7 @@ public class GameController {
 					serverRMI.openNewWindow(player, "/choosecoloredfamily", "toSynchro");
 					break;
 				case SOCKET:
-					//TODO FILL SOCKET TOM
+					getServerHandler(player).openNewWindow("/choosecoloredfamily", "toSynchro");
 					break;
 			}
 		}

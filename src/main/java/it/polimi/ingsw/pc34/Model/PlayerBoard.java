@@ -1,7 +1,5 @@
 package it.polimi.ingsw.pc34.Model;
 
-import it.polimi.ingsw.pc34.JSONUtility;
-
 import java.util.*;
 
 /**

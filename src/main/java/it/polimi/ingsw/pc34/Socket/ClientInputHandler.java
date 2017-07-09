@@ -126,6 +126,11 @@ public class ClientInputHandler extends Thread{
 					client.getSynchronizedMessageInfo().put(line);
 					client.getSynchronizedMessageByGUI().put("skipCommand");
 				}
+				else if(line.contains("/choosecoloredfamily")){
+					client.getSynchronizedMessageToChangeWindow().put("/choosecoloredfamily");
+					String [] toSynchroo = line.split("/choosecoloredfamily");
+					client.getSynchronizedMessageInfo().put(toSynchroo[1]);
+				}
 				else if(line.contains("The winner is")){
 					client.getSynchronizedMessageToChangeWindow().put("/login");
 					client.getSynchronizedMessageInfo().put(line);
