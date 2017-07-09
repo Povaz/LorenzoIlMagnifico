@@ -109,7 +109,7 @@ public class JSONUtility {
 
 	public static Set<Reward> getMilitaryRoutePoint(int position) throws JSONException, IOException{
 		JSONObject config = fromPathToJSONObject(configPath);
-		JSONObject reward = config.getJSONArray("faithRoute").getJSONObject(position - 1);
+		JSONObject reward = config.getJSONArray("militaryRoute").getJSONObject(position - 1);
 		Set<Reward> rewardSet = getRewardSet(reward.getJSONArray("rewards"));
 		for(Reward r : rewardSet){
 			if(r.getType() == RewardType.COUNCIL_PRIVILEGE){

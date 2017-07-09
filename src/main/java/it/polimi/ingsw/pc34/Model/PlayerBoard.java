@@ -103,7 +103,7 @@ public class PlayerBoard {
         return victoryPoint;
     }
 
-    private void earnVictoryPointFromRewards(){
+    void earnVictoryPointFromRewards(){
         int sumRewards = 0;
         sumRewards += counter.getCoin().getQuantity();
         sumRewards += counter.getWood().getQuantity();
@@ -117,11 +117,11 @@ public class PlayerBoard {
         }
     }
 
-    private void loseVictoryPointFromMilitaryPoint(){
+    void loseVictoryPointFromMilitaryPoint(){
         counter.subtract(new Reward(RewardType.VICTORY_POINT, counter.getMilitaryPoint().getQuantity()));
     }
 
-    private void loseVictoryPointFromBuildingCost(){
+    void loseVictoryPointFromBuildingCost(){
         int sumCosts = 0;
         List<DevelopmentCard> developmentCards = buildingSpot.getCards();
         for(DevelopmentCard card : developmentCards){
@@ -136,7 +136,7 @@ public class PlayerBoard {
         counter.subtract(new Reward(RewardType.VICTORY_POINT, sumCosts));
     }
 
-    private void loseVictoryPointFromVictoryPoint(){
+    void loseVictoryPointFromVictoryPoint(){
         int victoryPointToLose = counter.getVictoryPoint().getQuantity() / 5;
         counter.subtract(new Reward(RewardType.VICTORY_POINT, victoryPointToLose));
     }

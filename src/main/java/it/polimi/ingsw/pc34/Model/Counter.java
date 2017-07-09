@@ -288,4 +288,32 @@ public class Counter{
         bld.append("  " + victoryPoint.toString() + "\n");
     	return bld.toString();
     }
+
+    @Override
+    public boolean equals(Object o){
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        Counter counter = (Counter) o;
+
+        if (!coin.equals(counter.coin)) return false;
+        if (!wood.equals(counter.wood)) return false;
+        if (!stone.equals(counter.stone)) return false;
+        if (!servant.equals(counter.servant)) return false;
+        if (!militaryPoint.equals(counter.militaryPoint)) return false;
+        if (!faithPoint.equals(counter.faithPoint)) return false;
+        return victoryPoint.equals(counter.victoryPoint);
+    }
+
+    @Override
+    public int hashCode(){
+        int result = coin.hashCode();
+        result = 31 * result + wood.hashCode();
+        result = 31 * result + stone.hashCode();
+        result = 31 * result + servant.hashCode();
+        result = 31 * result + militaryPoint.hashCode();
+        result = 31 * result + faithPoint.hashCode();
+        result = 31 * result + victoryPoint.hashCode();
+        return result;
+    }
 }

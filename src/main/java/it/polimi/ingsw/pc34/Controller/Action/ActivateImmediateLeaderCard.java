@@ -106,7 +106,6 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
     }
 
     private void doBonusActions() throws IOException{
-        // TODO uguale a Game
         List<FamilyMember> actions = leaderCard.getActions();
         if(actions != null){
             for(FamilyMember fM : actions){
@@ -145,6 +144,7 @@ public class ActivateImmediateLeaderCard implements CommandPattern{
                         game.getGameController().getServerRMI().openNewWindow(player, "/bonusaction", info);
                         break;
                     case SOCKET:
+                        game.getGameController().getServerHandler(player.getUsername()).openNewWindow("/bonusaction", "toSynchro");
                         break;
                 }
             }

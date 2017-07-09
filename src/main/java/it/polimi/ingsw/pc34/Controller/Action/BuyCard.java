@@ -363,7 +363,6 @@ public class BuyCard implements CommandPattern {
     }
 
     private void doBonusActions() throws IOException{
-        // TODO uguale a Game
         List<FamilyMember> actions = card.getActions();
         if(actions != null){
             for(FamilyMember fM : actions){
@@ -402,7 +401,6 @@ public class BuyCard implements CommandPattern {
                         game.getGameController().getServerRMI().openNewWindow(player, "/bonusaction", info);
                         break;
                     case SOCKET:
-                    	//DA aggiungere
                     	game.getGameController().getServerHandler(player.getUsername()).openNewWindow("/bonusaction", "toSynchro");
                         break;
                 }

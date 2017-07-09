@@ -89,8 +89,8 @@ public class Game implements Runnable{
     }
 
     public Game(Map<String, ClientInfo> usersOfThisGame, ServerRMIImpl serverLoginImpl, ServerSOC serverSoc) {
-        this.turn = 2;
-        this.period = 3;
+        this.turn = 1;
+        this.period = 1;
         this.usernames = new ArrayList<>();
         usernames.addAll(usersOfThisGame.keySet());
         this.playerNumber = usernames.size();
@@ -439,7 +439,7 @@ public class Game implements Runnable{
         return false;
     }
 
-    private void calculateRealValueFamilyMember(FamilyMember familyMember){
+    void calculateRealValueFamilyMember(FamilyMember familyMember){
         Modifier modifier = familyMember.getPlayer().getPlayerBoard().getModifier();
         int value = familyMember.getValue();
         int servantUsed = familyMember.getServantUsed().getQuantity();
@@ -475,7 +475,7 @@ public class Game implements Runnable{
         return calculateWinner(order);
     }
 
-    private void earnVictoryPointFromMilitaryPoint(List<Player> order){
+    void earnVictoryPointFromMilitaryPoint(List<Player> order){
         List<Player> first = new ArrayList<>();
         List<Player> second = new ArrayList<>();
         int firstMP = -1;
@@ -537,7 +537,7 @@ public class Game implements Runnable{
         }
     }
 
-    private Player calculateWinner(List<Player> order){
+    Player calculateWinner(List<Player> order){
         List<Player> winner = new ArrayList<>();
         int victoryPoint = -1;
         for(Player p : order){

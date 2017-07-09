@@ -1177,4 +1177,12 @@ public class GameController {
 	public ServerRMIImpl getServerRMI() {
 		return serverRMI;
 	}
+
+	public ArrayIntegerCreated getArrayIntegerCreated(){
+		return arrayIntegerCreated;
+	}
+
+	public IntegerCreated getIntegerCreated(){
+		return integerCreated;
+	}
 }

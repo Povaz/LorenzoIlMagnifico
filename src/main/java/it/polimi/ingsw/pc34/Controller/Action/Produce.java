@@ -111,11 +111,11 @@ public class Produce {
                     Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(bCard.getEarnings(), player);
                     newCounter.sumWithLose(rewards, modifier.getLoseRewards());
                 }
-                if(bCard.getRewardForCard() != null){
+                if(bCard.getRewardForReward() != null){
                     Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(convertRewardForReward(bCard.getRewardForReward()), player);
                     newCounter.sumWithLose(rewards, modifier.getLoseRewards());
                 }
-                if(bCard.getRewardForReward() != null){
+                if(bCard.getRewardForCard() != null){
                     Set<Reward> rewards = game.getGameController().exchangeCouncilPrivilege(covertRewardForCard(bCard.getRewardForCard()), player);
                     newCounter.sumWithLose(rewards, modifier.getLoseRewards());
                 }
@@ -157,7 +157,7 @@ public class Produce {
         Reward currentReward = newCounter.giveSameReward(owned);
         int multiplier = currentReward.getQuantity() / owned.getQuantity();
         Set<Reward> earned = new HashSet<>();
-        for(Reward r : earned){
+        for(Reward r : rewardForReward.getEarned()){
             earned.add(r.multiplyQuantity(multiplier));
         }
         return earned;
@@ -167,7 +167,7 @@ public class Produce {
         CardType cardType = rewardForCard.getCardTypeOwned();
         int multiplier = player.getPlayerBoard().getCardSpot(cardType).getCards().size();
         Set<Reward> earned = new HashSet<>();
-        for(Reward r : earned){
+        for(Reward r : rewardForCard.getEarned()){
             earned.add(r.multiplyQuantity(multiplier));
         }
         return earned;
