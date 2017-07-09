@@ -119,6 +119,9 @@ public class ServerHandler implements Runnable{
 			message += "\nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 			lobbyFlow.reset();
 			stateGame = null;
+			if(graphicType.equals("2")){
+				return;
+			}
 		}
 		else if(message.equals("Reconnected to the game")){
 			setFase(1);
@@ -212,7 +215,10 @@ public class ServerHandler implements Runnable{
         sendToClient(message+Integer.toString(numberOfCP));
     }
 	
-	
+    public void openNewWindowAtTheEnd (String infoGUI) {
+    	sendToClient("This Client has been disconnected");
+    	sendToClient(infoGUI);
+    }
 	
 	public void run(){
 		String line = null;

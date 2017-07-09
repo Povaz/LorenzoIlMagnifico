@@ -121,6 +121,11 @@ public class ClientInputHandler extends Thread{
 					}   
 					
 				}
+				else if(line.contains("Timeout expired")){
+					client.getSynchronizedMessageToChangeWindow().put("/login");
+					client.getSynchronizedMessageInfo().put(line);
+					client.getSynchronizedMessageByGUI().put("skipCommand");
+				}
 				
 				//open new window possibilities
 				else if(line.contains("/numberservant")){

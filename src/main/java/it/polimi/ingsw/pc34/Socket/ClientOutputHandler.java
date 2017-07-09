@@ -56,6 +56,14 @@ public class ClientOutputHandler extends Thread{
 					}
 					client.getSynchronizedMessageForGUI().put("Yes");
 				}
+				else if(client.getGraphicType()==2 && message.equals("skipCommand")){
+					try {
+						Thread.sleep(2000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.exit(0);
+				}
 				try {
 					sendToServer(message);
 				} catch (IOException e) {
