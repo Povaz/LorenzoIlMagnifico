@@ -43,8 +43,7 @@ What action you want to do? 1-action 2-place Leader Card 3-activate Leader Card 
 5
 You skipped your turn!
 ```
-- If you don't Pass in time, the timer expires and you will be automatically kicked out of the game:
-
+- If you don't Pass in time, the timer expires and you will be automatically kicked out of the game, pressing any key will take you to the Login phase. Here you can log in again in the same game you were before, if it isn't finished yet;
 - Use command /chat to send a message in Chat in any case, with the following pattern:
 ```bash
 /chat messagetosend
@@ -67,7 +66,13 @@ You skipped your turn!
     + The Player window: here you can click on a player's username in order to change the player board you want to see, but keep in mind, you can move only your Family Member;
   * In order to Activate/Place/Exchange a leader card, press on the arrow near Pass button and choose your card.
 - If you do not complete your action clicking on Pass button, timer will expires and it will be notified on your screen. Clicking on your screen will take you to the Login Window;
+- If you're kicked out of the game, you can log in again in the same game, if it isn't finished yet.
 - If the game finishes, the name of the winner will be displayed on the screen and clicking on it will take you to the Login Window.
+
+
+####The following features are not available for Socket users:
+- If you're kicked out of the game, your window will be closed. It is necessary to re-launch the Client class in order to log in.
+- If the game has finished, your window will be closed. It is necessary to re-launch the Client classe in order to log in.
 
 
 
