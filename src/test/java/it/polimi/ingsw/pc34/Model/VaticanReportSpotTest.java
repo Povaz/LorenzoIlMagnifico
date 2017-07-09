@@ -1,13 +1,11 @@
 package it.polimi.ingsw.pc34.Model;
 
-import com.sun.org.apache.regexp.internal.RE;
 import it.polimi.ingsw.pc34.JSONUtility;
 import junit.framework.TestCase;
 import junit.framework.TestSuite;
 import org.json.JSONException;
 
 import java.io.IOException;
-import java.util.HashMap;
 import java.util.HashSet;
 
 /**
@@ -15,11 +13,14 @@ import java.util.HashSet;
  */
 public class VaticanReportSpotTest extends TestCase {
     private VaticanReportSpot vaticanReportSpot1;
-    private VaticanReportSpot vaticanReportSpot2;
-    private VaticanReportSpot vaticanReportSpot3;
+    @SuppressWarnings("unused")
+	private VaticanReportSpot vaticanReportSpot2;
+    @SuppressWarnings("unused")
+	private VaticanReportSpot vaticanReportSpot3;
     private VaticanReportCard vaticanReportCard1;
     private VaticanReportCard vaticanReportCard2;
-    private VaticanReportCard vaticanReportCard3;
+    @SuppressWarnings("unused")
+	private VaticanReportCard vaticanReportCard3;
 
 
     public VaticanReportSpotTest(String name) {
