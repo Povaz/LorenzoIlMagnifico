@@ -108,7 +108,7 @@ public class ServerHandler implements Runnable{
 		if(message==null){
 			return;
 		}
-		else if(message.equals("This Client has been disconnected")||message.equals("Game : This game is finished")){
+		else if(message.equals("This Client has been disconnected")||message.equals("This game is finished")){
 			setFase(0);
 			//todo togliere riferimento in GameController e il tipo di interfaccia grafica
 			try {
@@ -215,9 +215,14 @@ public class ServerHandler implements Runnable{
         sendToClient(message+Integer.toString(numberOfCP));
     }
 	
-    public void openNewWindowAtTheEnd (String infoGUI) {
+    public void openNewWindowDisconnect (String infoGUI) {
     	sendToClient("This Client has been disconnected");
     	sendToClient(infoGUI);
+    }
+    
+    public void openNewWindowGameEnd (String message) {
+    	sendToClient("This game is finished");
+    	sendToClient(message);
     }
 	
 	public void run(){

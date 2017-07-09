@@ -89,7 +89,7 @@ public class ClientInputHandler extends Thread{
 					client.getSynchronizedMessageByGUI().put("exit");			
 					System.out.println("settato a exit!");                     
 					try {
-						sleep(1000);
+						sleep(500);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
@@ -126,7 +126,11 @@ public class ClientInputHandler extends Thread{
 					client.getSynchronizedMessageInfo().put(line);
 					client.getSynchronizedMessageByGUI().put("skipCommand");
 				}
-				
+				else if(line.contains("The winner is")){
+					client.getSynchronizedMessageToChangeWindow().put("/login");
+					client.getSynchronizedMessageInfo().put(line);
+					client.getSynchronizedMessageByGUI().put("skipCommand");
+				}
 				//open new window possibilities
 				else if(line.contains("/numberservant")){
 					client.getSynchronizedMessageToChangeWindow().put("/numberservant");

@@ -176,7 +176,14 @@ public class GameController {
 				serverRMI.openNewWindowAtTheEnd(player, messageGUI, messageServer);
 				break;
 			case SOCKET:
-				getServerHandler(player).openNewWindowAtTheEnd(messageGUI);
+				if(messageServer.equals("This game is finished")){
+					getServerHandler(player).openNewWindowGameEnd(messageGUI);	
+				}
+				try{
+					getServerHandler(player).openNewWindowDisconnect(messageGUI);
+				} catch(NullPointerException e){
+					break;
+				}
 				break;
 		}
 	}

@@ -58,7 +58,7 @@ public class ClientOutputHandler extends Thread{
 				}
 				else if(client.getGraphicType()==2 && message.equals("skipCommand")){
 					try {
-						Thread.sleep(2000);
+						Thread.sleep(5000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}
