@@ -108,6 +108,7 @@ public class ServerRMIImpl extends UnicastRemoteObject implements ServerRMI {
 
                         if (lobby.getUsers().size() == 5) {
                             lobby.stopTimer();
+                            lobby.inizializeTimer();
                             lobby.startGameImmediately();
                         }
                         return true;
