@@ -72,9 +72,9 @@ You skipped your turn!
 - Esc to set Fullscreen off;
 - F to set Fullscreen on;
 - M to mute the music;
-- D to resize window;
-- 1 to set the Awesome Track music;
-- 2 to set Gwyn OST (also awesome) music.
+- D to resize the window;
+- 1 to set the Awesome Mix vol. 1and2 music;
+- 2 to set Dark Souls (also awesome) soundtrack.
 
 ####The following features are not available for Socket users:
 - If you're kicked out of the game, your window will be closed. It is necessary to re-launch the Client class in order to log in.
