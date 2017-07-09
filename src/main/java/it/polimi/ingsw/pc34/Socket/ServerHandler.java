@@ -67,8 +67,7 @@ public class ServerHandler implements Runnable{
 			}
 			else if(graphicType.equals("2") && boardvieww == false){
 				setSendGUI(true);
-			    System.out.println(username + " sta per mandare /game"); 
-				guiIsReady = false;
+			    guiIsReady = false;
 				sendToClient("/game"); 
 				while(!guiIsReady){
 					try {
@@ -77,7 +76,6 @@ public class ServerHandler implements Runnable{
 						e.printStackTrace();
 					}
 				}
-				System.out.println("sono uscito dal blocco su GUIISREADY"); 
 			}
 			else{
 				sendToClient("/game");
@@ -97,7 +95,6 @@ public class ServerHandler implements Runnable{
 	
 	public void setStateGame(String stateGame){
 		this.stateGame = stateGame;
-		System.out.println("settato a " + stateGame);
 	}
 
 	public String getName(){
@@ -175,7 +172,6 @@ public class ServerHandler implements Runnable{
 		} catch (IOException e) {
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
-		System.out.println("sent " + message); 
 	}
 	
 	synchronized public void sendToClientGUI (BoardView boardView){
@@ -199,7 +195,6 @@ public class ServerHandler implements Runnable{
 		if(answer!=null && received.equals("yes")){
 			answer=received;
 		}
-		System.out.println(received);
 		return received;
 	}
 	
@@ -267,10 +262,8 @@ public class ServerHandler implements Runnable{
 			if(line.equals("ok") && graphicType.equals("2")){
 				continue;
 			}
-			System.out.println("non entro " + guiIsReady);
 			if(line.equals("3") && graphicType.equals("2") && guiIsReady == false){
-				System.out.println("ricevuto 3 e sono nell'if che dici"); 
-		        sendToClient("You can send!"); 
+				sendToClient("You can send!"); 
 				guiIsReady = true;
 				continue;
 			}
@@ -278,7 +271,6 @@ public class ServerHandler implements Runnable{
 				continue;
 			}
 			String answer = null;
-			System.out.println("manda in flow : " + line);
 			//to lobby flow
 			if(fase==0){
 				if(line.equals("/exit")){
@@ -297,7 +289,6 @@ public class ServerHandler implements Runnable{
 						String [] mexChat = line.split("/chat");
 						try {
 							gameController.sendMessageChat(mexChat[1], username);
-							System.out.println(mexChat[1]);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}

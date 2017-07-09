@@ -122,16 +122,13 @@ public class LobbyFlow {
 						setInFlow();
 						if(serverHandler.getGraphicType().equals("2")){
 							serverHandler.setName(username);
-							System.out.println("entrooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
 							serverSoc.addPlayer (serverHandler, username);
-							System.out.println("escoooooooooooooooooooooooooooooooooooooooooooooooooooooooooo");
 							if(serverHandler.getFase()==0){
 								serverHandler.setSendGUI(true);
 							}
 							else{
 								return null;
 							}
-							System.out.println(serverHandler.getName() + serverHandler.getFase());
 							return "Login successful";
 						}
 						serverHandler.setName(username);

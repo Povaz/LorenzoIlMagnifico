@@ -39,7 +39,7 @@ public class PlayerBoard {
 
         for (int i = 0; i < 6; i++) {
             try {
-                territorySpot.getCards().add(JSONUtility.getCard(1, i, CardType.TERRITORY))
+                territorySpot.getCards().add(JSONUtility.getCard(1, i, CardType.TERRITORY));
             } catch (Exception e) {
                 e.printStackTrace();
             }

@@ -184,9 +184,6 @@ public class ClientSOC implements Runnable {
 			e.printStackTrace();
 		}
     }
-	
-    public void setLogged(boolean logged) {
-    }
     
     private void registrationGUI() { //Registration procedure for RMI GUI Users
     	try {
@@ -237,8 +234,7 @@ public class ClientSOC implements Runnable {
                 	System.out.println("Stato non valido");
                     break;
             }
-	    } 
-	    System.out.println("Uscita starting game!");
+	    }
 	    outputGUI = new Thread(coh);
 	    outputGUI.start();
 		
