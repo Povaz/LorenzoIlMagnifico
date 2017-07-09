@@ -238,8 +238,6 @@ public class ClientSOC implements Runnable {
 		ClientOutputHandler.sendToServer(messageGraphicType);
 		String message = getSynchronizedMessageByGUI().get();
 		ClientOutputHandler.sendToServer(message);
-		@SuppressWarnings("unused")
-		String ok = ClientInputHandler.receiveFromServer();
 		String choose;
 	    while (!startingGame) {
             choose = messageByGUI.get();

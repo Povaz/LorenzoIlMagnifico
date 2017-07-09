@@ -26,6 +26,7 @@ public class ClientInputHandler extends Thread{
 		this.socketServer = socketServer;
 	}
 
+	//receive an object board to send to GUI for update graphic
 	public BoardView receiveBoard() throws ClassNotFoundException, IOException{
 		BoardView received = null;
 		System.out.println("sto per ricevere la board");
@@ -34,6 +35,7 @@ public class ClientInputHandler extends Thread{
 		return received;
 	}
 	
+	//receive a string from server
 	public static String receiveFromServer() throws IOException{
 		String received = null;
 		try {
@@ -42,9 +44,7 @@ public class ClientInputHandler extends Thread{
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
 		catch (OptionalDataException e1) {
-			System.out.println("boh");
-			//da modificare perchè risolto col synchronized !!!!!!!!!!!!!!!!
-			return "belaaaaaaaa";
+			return "error124";
 		}
 		System.out.println("received : " + received);
 		if(received == null){
@@ -67,6 +67,7 @@ public class ClientInputHandler extends Thread{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
+			//essentially particular gui cases
 			if(graphicType == 2){
 				client.setYouCanSend(true);
 			}
@@ -95,8 +96,9 @@ public class ClientInputHandler extends Thread{
 					client.getSynchronizedMessageToChangeWindow().put("/game");
 				}
 				else if(line.contains("/chat")){
-					//String [] messageRet = line.split("/chat");
+					System.out.println(line);
 					client.getChatIn().put(line);
+					System.out.println("sono dopo la put");
 				}
 				else if(line.equals("/update")){
 					client.getSynchronizedMessageToChangeWindow().put("/update");
@@ -119,11 +121,12 @@ public class ClientInputHandler extends Thread{
 					}   
 					
 				}
+				
+				//open new window possibilities
 				else if(line.contains("/numberservant")){
 					client.getSynchronizedMessageToChangeWindow().put("/numberservant");
 					String [] servantsOwned = line.split("/numberservant");
 					client.getSynchronizedMessageInfo().put(servantsOwned[1]);   
-					
 				}
 				else if(line.contains("/exchangeprivilege")){
 					client.getSynchronizedMessageToChangeWindow().put("/exchangeprivilege");
@@ -161,10 +164,11 @@ public class ClientInputHandler extends Thread{
 					client.getSynchronizedMessageInfo().put(messageInfo[1]);  
 				}
 			}
+			//for cli clients, just stamps the received line 
 			else if(line!=null && graphicType!=2){
 				System.out.println(line);
 			}
-			if(line.equals("belaaaaaaaa")){
+			if(line.equals("errore124")){
 				try {
 					this.socketIn = new ObjectInputStream(socketServer.getInputStream());
 				} catch (IOException e) {

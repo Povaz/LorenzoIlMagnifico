@@ -126,7 +126,7 @@ public class LobbyFlow {
 							serverHandler.setSendGUI(true);
 							return "Login successful";
 						}
-						return "Login successful/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
+						return "Login successful\nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
 					
 					//failed combination
@@ -152,7 +152,7 @@ public class LobbyFlow {
 						}
 						login = false;
 						start = true;
-						return "User already logged/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
+						return "User already logged\nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
 				}
 			}
@@ -181,7 +181,7 @@ public class LobbyFlow {
 							serverHandler.setSendGUI(true);
 							return "Registration Successful";
 						}
-						return "Registration successful!/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
+						return "Registration successful!\nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
 					else{	
 						setInFlow();
@@ -191,7 +191,7 @@ public class LobbyFlow {
 						}
 						registration = false;
 						start = true;
-						return "Registration failed/nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
+						return "Registration failed\nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 					}
 				}
 			}
@@ -214,7 +214,7 @@ public class LobbyFlow {
 					if(serverHandler.getGraphicType().equals("2")){	
 						serverHandler.setSendGUI(true);
 					}
-					return "Logout successful/nInsert: /logout to logout or /exit to close to application";
+					return "Logout successful\nInsert: /logout to logout or /exit to close to application";
 				}
 			}
 			

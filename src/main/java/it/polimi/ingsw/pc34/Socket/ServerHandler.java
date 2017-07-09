@@ -50,6 +50,7 @@ public class ServerHandler implements Runnable{
 		sendGUI = false;
 	}
 	
+	//boolean to send directly to gui interface
 	public void setSendGUI(boolean value){
 		sendGUI = value;
 	}
@@ -195,6 +196,7 @@ public class ServerHandler implements Runnable{
 		return answer;
 	}
 	
+	//open new window method sends specific messages to GUI to open particular windows
 	public void openNewWindow(String message) throws RemoteException {
         sendToClient(message);
     }
@@ -218,6 +220,14 @@ public class ServerHandler implements Runnable{
 		}
 		if(graphicType.equals("1")){
 			sendToClient("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application");
+		}
+		else{
+			try {
+				@SuppressWarnings("unused")
+				String confirm=receiveFromClient();
+			} catch (IOException e1) {
+				e1.printStackTrace();
+			}
 		}
 		while (true){
 			try {
@@ -257,9 +267,11 @@ public class ServerHandler implements Runnable{
 						String [] mexChat = line.split("/chat");
 						try {
 							gameController.sendMessageChat(mexChat[1], username);
+							System.out.println(mexChat[1]);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
+						continue;
 					}
 				}
 				//have to decide the type of action
@@ -374,6 +386,7 @@ public class ServerHandler implements Runnable{
 		}
 	}
 
+	//check connection is up
 	public boolean isNotConnected() {
 		boolean result;
 		answer = "waiting";
