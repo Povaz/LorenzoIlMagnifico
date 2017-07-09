@@ -209,26 +209,6 @@ public class ClientSOC implements Runnable {
 		getSynchronizedMessageForGUI().put(resultRegister);
     }
 
-	private void logout() throws IOException {
-		try {
-			ClientOutputHandler.sendToServer("/logout");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		String resultLogout = null;
-		try {
-			resultLogout = ClientInputHandler.receiveFromServer();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		getSynchronizedMessageForGUI().put(resultLogout);
-		getSynchronizedMessageToChangeWindow().put("/login");
-		String message = getSynchronizedMessageByGUI().get();
-		ClientOutputHandler.sendToServer(message);
-		startGame.interrupt();
-		cih = new ClientInputHandler (socketServer, this, graphicType);
-	}
-	
 	public void loginHandlerGUI() throws IOException {
 		System.out.println("Connection established");
 		System.out.println("");
@@ -238,8 +218,6 @@ public class ClientSOC implements Runnable {
 		ClientOutputHandler.sendToServer(messageGraphicType);
 		String message = getSynchronizedMessageByGUI().get();
 		ClientOutputHandler.sendToServer(message);
-		@SuppressWarnings("unused")
-		String ok = ClientInputHandler.receiveFromServer();
 		String choose;
 	    while (!startingGame) {
             choose = messageByGUI.get();
@@ -249,7 +227,7 @@ public class ClientSOC implements Runnable {
                     this.loginGUI();
                     break;
                 case "/logout":
-                    this.logout();
+                	getSynchronizedMessageForGUI().put("Not available on Socket");
                     break;
                 case "/registration":
                     this.registrationGUI();

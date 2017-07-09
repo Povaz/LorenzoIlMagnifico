@@ -48,6 +48,22 @@ public class ClientOutputHandler extends Thread{
 				if(message.equals("exit")){
 					continue;
 				}
+				if(client.getGraphicType()==2 && message.contains("/chat")){
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					client.getSynchronizedMessageForGUI().put("Yes");
+				}
+				else if(client.getGraphicType()==2 && message.equals("skipCommand")){
+					try {
+						Thread.sleep(5000);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
+					System.exit(0);
+				}
 				try {
 					sendToServer(message);
 				} catch (IOException e) {
@@ -58,7 +74,11 @@ public class ClientOutputHandler extends Thread{
 					System.exit(0);
 				}
 				while(!client.getYouCanSend()){
-					System.out.print("qui...");
+					try {
+						Thread.sleep(100);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 				System.out.println("posso mandare altro");
 			}

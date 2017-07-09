@@ -34,8 +34,10 @@ public class WaitingRoomController {
 
     @FXML protected void logoutClick() throws Exception{
         mainGUI.getFromGuiToServer().put("/logout");
-        @SuppressWarnings("unused")
-		String result = mainGUI.getFromServerToGui().get();
+        String result = mainGUI.getFromServerToGui().get();
+        if(!result.equals("Yes")){
+            waitingMessageText.setText(result);
+        }
     }
 
     public void setMessageText(String message){

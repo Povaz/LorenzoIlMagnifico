@@ -33,6 +33,7 @@ public class ServerHandler implements Runnable{
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
 	
+	private boolean confirm;
 	private BooleanCreated isNotConnect = new BooleanCreated();
 	private String answer = null;
 	
@@ -48,8 +49,10 @@ public class ServerHandler implements Runnable{
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
 		sendGUI = false;
+		confirm =true;
 	}
 	
+	//boolean to send directly to gui interface
 	public void setSendGUI(boolean value){
 		sendGUI = value;
 	}
@@ -105,7 +108,7 @@ public class ServerHandler implements Runnable{
 		if(message==null){
 			return;
 		}
-		else if(message.equals("This Client has been disconnected")||message.equals("Game : This game is finished")){
+		else if(message.equals("This Client has been disconnected")||message.equals("This game is finished")){
 			setFase(0);
 			//todo togliere riferimento in GameController e il tipo di interfaccia grafica
 			try {
@@ -116,6 +119,9 @@ public class ServerHandler implements Runnable{
 			message += "\nInsert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application";
 			lobbyFlow.reset();
 			stateGame = null;
+			if(graphicType.equals("2")){
+				return;
+			}
 		}
 		else if(message.equals("Reconnected to the game")){
 			setFase(1);
@@ -180,6 +186,7 @@ public class ServerHandler implements Runnable{
 		if(answer!=null && received.equals("yes")){
 			answer=received;
 		}
+		System.out.println(received);
 		return received;
 	}
 	
@@ -195,6 +202,7 @@ public class ServerHandler implements Runnable{
 		return answer;
 	}
 	
+	//open new window method sends specific messages to GUI to open particular windows
 	public void openNewWindow(String message) throws RemoteException {
         sendToClient(message);
     }
@@ -207,7 +215,15 @@ public class ServerHandler implements Runnable{
         sendToClient(message+Integer.toString(numberOfCP));
     }
 	
-	
+    public void openNewWindowDisconnect (String infoGUI) {
+    	sendToClient("This Client has been disconnected");
+    	sendToClient(infoGUI);
+    }
+    
+    public void openNewWindowGameEnd (String message) {
+    	sendToClient("This game is finished");
+    	sendToClient(message);
+    }
 	
 	public void run(){
 		String line = null;
@@ -217,6 +233,7 @@ public class ServerHandler implements Runnable{
 			e1.printStackTrace();
 		}
 		if(graphicType.equals("1")){
+			confirm = false;
 			sendToClient("Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application");
 		}
 		while (true){
@@ -224,6 +241,15 @@ public class ServerHandler implements Runnable{
 				line = receiveFromClient();
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
+			}
+			if(confirm ){
+				if(line.equals("1")){
+					confirm = false;
+					continue;
+				}
+				else{
+					confirm = false;
+				}
 			}
 			if(line.equals("ok") && graphicType.equals("2")){
 				continue;
@@ -257,9 +283,11 @@ public class ServerHandler implements Runnable{
 						String [] mexChat = line.split("/chat");
 						try {
 							gameController.sendMessageChat(mexChat[1], username);
+							System.out.println(mexChat[1]);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
+						continue;
 					}
 				}
 				//have to decide the type of action
@@ -374,6 +402,7 @@ public class ServerHandler implements Runnable{
 		}
 	}
 
+	//check connection is up
 	public boolean isNotConnected() {
 		boolean result;
 		answer = "waiting";
