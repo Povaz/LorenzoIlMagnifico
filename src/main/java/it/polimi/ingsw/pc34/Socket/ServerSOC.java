@@ -99,7 +99,6 @@ public class ServerSOC implements Runnable {
 		
 		if(lobby.getUsers().size() == 2){
 			lobby.notifyAllUsers(NotificationType.TIMERSTARTED, "");
-			System.out.println("Timer Started");
 			lobby.inizializeTimer();
             lobby.startTimer();
 		}
@@ -135,8 +134,6 @@ public class ServerSOC implements Runnable {
 	
 	//notify players in lobby
 	synchronized public void notifySOCPlayers (String message){
-		System.out.println("INVIO NOTIFICA : " + message);
-		System.out.println("");
 		for (ServerHandler user: usersInLobby) {
             user.sendToClient(message);
         }

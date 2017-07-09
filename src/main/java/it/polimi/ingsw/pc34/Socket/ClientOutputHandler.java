@@ -19,7 +19,6 @@ public class ClientOutputHandler extends Thread{
 
 	synchronized public static void sendToServer(String message) throws IOException{
 		PrintWriter out = new PrintWriter(socketServer.getOutputStream(), true);
-		System.out.println("sent : " + message);
 		out.println(message);
 		out.flush();
 	}
@@ -80,7 +79,6 @@ public class ClientOutputHandler extends Thread{
 						e.printStackTrace();
 					}
 				}
-				System.out.println("posso mandare altro");
 			}
 		}
 		

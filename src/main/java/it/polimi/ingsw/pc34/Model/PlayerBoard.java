@@ -36,6 +36,17 @@ public class PlayerBoard {
         this.leaderCardsInHand = new ArrayList<>();
         this.immediateLeaderCardsPositioned = new ArrayList<>();
         this.permanentLeaderCardsPositioned = new ArrayList<>();
+<<<<<<< HEAD
+
+        for (int i = 0; i < 6; i++) {
+            try {
+                territorySpot.getCards().add(JSONUtility.getCard(1, i, CardType.TERRITORY));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+=======
+>>>>>>> master
     }
 
     private List<FamilyMember> initializeFamilyMembers(Player player){

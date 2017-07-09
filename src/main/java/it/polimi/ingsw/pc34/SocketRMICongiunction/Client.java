@@ -62,10 +62,8 @@ public class Client {
 				} catch(InterruptedException e){
 					e.printStackTrace();
 				}
-				// TODO vedi se funziona System.out.println("While guiReference");
 			}
 
-			//System.out.println(guiReference);
 
 			// wait until guiReference.getBoardViewFromServer() is initialized in MainGUI
 			while(guiReference.getBoardViewFromServer() == null){
@@ -74,10 +72,8 @@ public class Client {
 				} catch(InterruptedException e){
 					e.printStackTrace();
 				}
-				// TODO vedi se funziona System.out.println("While BoardView");
 			}
 
-			System.out.println("After Board View");
 
 			messageForGUI = guiReference.getFromServerToGui();
 			messageByGUI = guiReference.getFromGuiToServer();
@@ -111,8 +107,6 @@ public class Client {
 					e.printStackTrace();
 				}
 			}
-
-			System.out.println(guiReference);
 
 			// wait until guiReference.getBoardViewFromServer() is initialized in MainGUI
 			while(guiReference.getBoardViewFromServer() == null){

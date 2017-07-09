@@ -29,9 +29,7 @@ public class ClientInputHandler extends Thread{
 	//receive an object board to send to GUI for update graphic
 	public BoardView receiveBoard() throws ClassNotFoundException, IOException{
 		BoardView received = null;
-		System.out.println("sto per ricevere la board");
 		received = (BoardView) socketIn.readObject();
-		System.out.println("ricevuta!");
 		return received;
 	}
 	
@@ -46,7 +44,6 @@ public class ClientInputHandler extends Thread{
 		catch (OptionalDataException e1) {
 			return "error124";
 		}
-		System.out.println("received : " + received);
 		if(received == null){
 			return null;
 		}
@@ -61,7 +58,6 @@ public class ClientInputHandler extends Thread{
 	public void run(){
 		String line = null;
 		while (true){
-			System.out.println("posso ricevere altro");
 			try {
 				line = receiveFromServer();
 			} catch (IOException e) {
@@ -72,7 +68,6 @@ public class ClientInputHandler extends Thread{
 				client.setYouCanSend(true);
 			}
 			if(line!=null && !line.equals("You can send!") && graphicType == 2){
-				System.out.println("into if " + line);
 				if(line.equals("Logout successful")){
 					client.getSynchronizedMessageForGUI().put(line);
 					client.getSynchronizedMessageToChangeWindow().put("/login");
@@ -87,7 +82,6 @@ public class ClientInputHandler extends Thread{
 				else if(line.equals("/game")){
 					client.setStartingGame(true);
 					client.getSynchronizedMessageByGUI().put("exit");			
-					System.out.println("settato a exit!");                     
 					try {
 						sleep(400);
 					} catch (InterruptedException e) {
@@ -96,9 +90,7 @@ public class ClientInputHandler extends Thread{
 					client.getSynchronizedMessageToChangeWindow().put("/game");
 				}
 				else if(line.contains("/chat")){
-					System.out.println(line);
 					client.getChatIn().put(line);
-					System.out.println("sono dopo la put");
 				}
 				else if(line.equals("/update")){
 					client.getSynchronizedMessageToChangeWindow().put("/update");
