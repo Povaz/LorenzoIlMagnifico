@@ -8,13 +8,29 @@
 ```bash
  Which Interface do you want to use? 1. CLI 2. GUI
 ```
-- then, answer to the second question about the Connection Infrastructure: RMI or Socket Connection
+- then, answer to the second question about the Connection Infrastructure: Remote Method Interface or Socket Connection
 ```bash
 Which Connection Type do you want to use? 1. RMI 2. Socket
 ```
-
-### Customize your project files and Import them in Eclipse
-- Open the `pom.xml` file in a text editor and substitute the two occurrences of **pcXX** with your assigned **team_code**.
+- Keep in mind that there will be no differences (more or less) choosing RMI or Socket connection during the game
+### Command Line Interface 
+#### Login/Lobby phase
+- It will be shown the list of legal commands that are accepted by the Server in this phase:
+```bash
+Insert: /login to login, /logout to logout /registration to registrate a new user or /exit to close to application      - Logged: false
+```
+- As said in this line, command /login is used to ask for a Login procedure, that will proceed like this:
+```bash
+Insert your Username: Username
+Insert your Password: Password
+```
+- After a successful Login (you will be notified by Server about it), which puts you directly in the Lobby waiting for a new Game to start, (you will be notified by Server about it), command /logout will be unlocked, in order to log out from the Lobby;
+- Use command /registration to ask for a Registration Procedure, which is similar to Login Procedure and it is available only when you're not logged yet with an account;
+- Use command /exit to close the application;
+#### Game Phase 
+- When Lobby reaches 2 players waiting, a timer starts. When the timer is finished, the game will start automatically.
+- The game will start immediately if Lobby reaches 5 players, even if the timer isn't finished yet.
+- As soon as the game starts, after pressing any key, it will be shown the list of legal commands that are accepted by Server in this phase:
 - Import it in Eclipse as Maven Project:
   * from Eclipse, select `File > Import... > Existing Maven Project`
   * click `Browse...` and select the directory where you cloned the project

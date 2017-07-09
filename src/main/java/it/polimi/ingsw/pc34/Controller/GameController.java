@@ -445,9 +445,8 @@ public class GameController {
 
     public FamilyColor chooseFamilyMemberColorNotNeutral(Player player) throws IOException{ //Waits for a FamilyColor (Not Neutral) chosen by this Player
     	afkVar = "familyColorNotNeutral";
-        player.putSecond_State(PlayerState.FAMILY_MEMBER);
+        player.putSecond_State(PlayerState.FAMILY_MEMBER_NOT_NEUTRAL);
         if (player.getClientType().equals(ClientType.GUI)) {
-
         	switch (player.getConnectionType()) {
 				case RMI:
 					serverRMI.openNewWindow(player, "/choosecoloredfamily", "toSynchro");
