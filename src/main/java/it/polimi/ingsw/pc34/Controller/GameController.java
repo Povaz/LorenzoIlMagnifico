@@ -292,9 +292,6 @@ public class GameController {
 	}
 
 	public ActionSpot getViewActionSpot(Player player) throws RemoteException { //Wait for an ActionSpot from Client
-		System.out.println("getViewActionSpot called");
-		System.out.println("First State:" + player.getFirst_state());
-		System.out.println("Second State:" + player.getSecond_state());
 		afkVar = "actionInput";
 		try {
 			ActionInput actionInput = actionInputCreated.get(); //If player crashes, actionInput will be null. Return Null in Game.PlayTurn
@@ -541,9 +538,7 @@ public class GameController {
 		}
 
     	afkVar = "booleanVat";
-    	System.out.println("prima get vatican AFK");
         boolean choose = booleanCreated.get(); //Here it waits
-		System.out.println("dopo get vatican AFK");
         switch (player.getConnectionType()) { //Resets this player gameState in Server, so that new inputs are evaluated accordingly
 			case SOCKET:
 				currPlayer.setStateGame(null);
@@ -738,7 +733,6 @@ public class GameController {
     	    				setInFlow();
     	    				return "You're being disconnected";
     	    		}
-    	    		System.out.println("booleanVatCase jumped");
     	    		setInFlow();
     	    		return "not handled case";
     	    	}
@@ -810,21 +804,16 @@ public class GameController {
 	        			}
 	        		}
 	        		else {
-						System.out.println("First State: " + state1);
-	        			switch (state1){ 
+	        			switch (state1){
 		    				case ACTION :
-								System.out.println("Second State: " + state2);
 								switch (state2) {
 		    						case ACTION_INPUT :
 		    							if(actionSpot == null && checkNumber(0, 8, asked)){
-		    								System.out.println("This is the asked: " + asked);
 		    								actionSpot = asked;
 			    							switch(actionSpot) {
 												case "0":
-													System.out.println("Case 0 entered in IF");
 													if (ghost.get()) {
 														actionInputCreated.put(null);
-														System.out.println("Ghost in Case 0 entered in IF");
 														setInFlow();
 														return "You choose not to do the bonus action";
 													}
@@ -978,7 +967,6 @@ public class GameController {
 		    							if(checkNumber(0, 99, asked)){
 		    								integerCreated.put(Integer.parseInt(asked));
 		    								setInFlow();
-		    								System.out.println("You choose to use " + Integer.parseInt(asked) + " servants");
 			    						    return "You choose to use " + Integer.parseInt(asked) + " servants";
 		    							}
 		    							else{
@@ -1134,7 +1122,6 @@ public class GameController {
         	}
     	}
     	else{
-    		System.out.println("I am still processing a request");
 	    	return "I am still processing a request";
 	   	}
     }
@@ -1151,7 +1138,6 @@ public class GameController {
 	public void disconnectPlayer (Player player) throws IOException {
 		player.setDisconnected(true);
 		player.setYourTurn(false);
-		System.out.println("disconnectedPlayer : " + player.getUsername());
 		switch (player.getClientType()) {
 			case GUI:
 				System.out.println("disconnectedPlayer GUI: " + player.getUsername());
