@@ -441,8 +441,6 @@ public class GameController {
 		return newRewards;
 	}
 
-
-
     public FamilyColor chooseFamilyMemberColorNotNeutral(Player player) throws IOException{ //Waits for a FamilyColor (Not Neutral) chosen by this Player
     	afkVar = "familyColorNotNeutral";
         player.putSecond_State(PlayerState.FAMILY_MEMBER_NOT_NEUTRAL);

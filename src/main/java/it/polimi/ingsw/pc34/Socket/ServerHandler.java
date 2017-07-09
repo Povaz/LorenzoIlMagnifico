@@ -30,6 +30,7 @@ public class ServerHandler implements Runnable{
 	private String graphicType;
 	private boolean sendGUI;
 	private boolean guiIsReady = true;
+	private boolean boardvieww = false;
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
 	
@@ -64,7 +65,7 @@ public class ServerHandler implements Runnable{
 			if(graphicType.equals("1")){
 				sendToClient("Type: /playturn for an action; /chat to send message(you can always do this action, only if you are not doing something else);  /afk to disconnect from the game(you can always do this action, at any time)");
 			}
-			else{
+			else if(graphicType.equals("2") && boardvieww == false){
 				setSendGUI(true);
 			    System.out.println(username + " sta per mandare /game"); 
 				guiIsReady = false;
@@ -77,6 +78,10 @@ public class ServerHandler implements Runnable{
 					}
 				}
 				System.out.println("sono uscito dal blocco su GUIISREADY"); 
+			}
+			else{
+				sendToClient("/game");
+				return;
 			}
 		}
 	}
@@ -128,11 +133,15 @@ public class ServerHandler implements Runnable{
 			}
 		}
 		else if(message.equals("Reconnected to the game")){
-			setFase(1);
 			if(graphicType.equals("2")){
-				BoardView boardView = gameController.getBoardView(username);
-				sendToClientGUI(boardView);
+				sendGUI = true;
+				sendToClient("Login successful");
+				boardvieww = true;
+				setFase(1);
+				stateGame = null;
+				return;
 			}
+			setFase(1);
 			stateGame = null;
 		}
 		else if(message.equals("Action has been executed") && fase==1){
