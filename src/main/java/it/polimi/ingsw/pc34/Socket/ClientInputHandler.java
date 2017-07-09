@@ -89,7 +89,7 @@ public class ClientInputHandler extends Thread{
 					client.getSynchronizedMessageByGUI().put("exit");			
 					System.out.println("settato a exit!");                     
 					try {
-						sleep(500);
+						sleep(1000);
 					} catch (InterruptedException e) {
 						e.printStackTrace();
 					}

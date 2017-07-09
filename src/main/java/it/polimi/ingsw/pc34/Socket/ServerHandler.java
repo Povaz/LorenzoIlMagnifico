@@ -70,7 +70,11 @@ public class ServerHandler implements Runnable{
 				guiIsReady = false;
 				sendToClient("/game"); 
 				while(!guiIsReady){
-					 System.out.print("sono dentro"); 
+					try {
+						Thread.sleep(10);
+					} catch (InterruptedException e) {
+						e.printStackTrace();
+					}
 				}
 				System.out.println("sono uscito dal blocco su GUIISREADY"); 
 			}
@@ -254,6 +258,7 @@ public class ServerHandler implements Runnable{
 			if(line.equals("ok") && graphicType.equals("2")){
 				continue;
 			}
+			System.out.println("non entro " + guiIsReady);
 			if(line.equals("3") && graphicType.equals("2") && guiIsReady == false){
 				System.out.println("ricevuto 3 e sono nell'if che dici"); 
 		        sendToClient("You can send!"); 
@@ -424,6 +429,10 @@ public class ServerHandler implements Runnable{
 		
 		result = isNotConnect.get();
 		return result;
+	}
+
+	public int getFase() {
+		return fase;
 	}
 
 }

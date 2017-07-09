@@ -48,6 +48,12 @@ public class Game implements Runnable{
 	private TimerTask timerTask;
 
     public void run(){
+    	//DA TOGLIEREEEEEEEEEEEEEEEEEEEEEEEEEEEEEEE
+    	try {
+			Thread.sleep(10000);
+		} catch (InterruptedException e2) {
+			e2.printStackTrace();
+		}
         while (this.period <= PERIOD_NUMBER) {
             this.startPeriod();
             try {
