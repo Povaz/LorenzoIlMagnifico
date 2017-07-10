@@ -762,6 +762,7 @@ public class GameController {
     	    	}
 	    		//ENTER HERE IF STATE1 STILL NOT DEFINED
 	    		if(state1.equals(PlayerState.WAITING)){
+
 	    			switch (asked) {
 	    				case "/playturn" :
 	    					setInFlow();

@@ -121,10 +121,11 @@ public class ServerSOC implements Runnable {
 			game = server.reconnected(username, ClientType.CLI, ConnectionType.SOCKET);
 		}
 		else{
-			game = server.reconnected(username, ClientType.CLI, ConnectionType.SOCKET);
+			game = server.reconnected(username, ClientType.GUI, ConnectionType.SOCKET);
 		}
 		game.getGameController().addServerHandler(newHandler);
 		game.getGameController().sendMessageChat(" has reconnected!", username);
+		newHandler.setGameController(game.getGameController());
 	}
 	
 	//remove a player from the list if disconnected
