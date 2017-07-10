@@ -8,7 +8,7 @@ import org.json.JSONException;
 import it.polimi.ingsw.pc34.JSONUtility;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.Lobby;
 
-//a class that is a state machine, based on state do differents things
+//a class that is a state machine for the lobby(login, etc), based on state do differents things
 public class LobbyFlow {
 	//states
 	private boolean start;

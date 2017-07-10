@@ -16,7 +16,8 @@ public class ClientOutputHandler extends Thread{
 		this.graphicType = graphicType;
 		this.client = client;
 	}
-
+	
+	//send to the server a string
 	synchronized public static void sendToServer(String message) throws IOException{
 		PrintWriter out = new PrintWriter(socketServer.getOutputStream(), true);
 		out.println(message);
@@ -26,6 +27,7 @@ public class ClientOutputHandler extends Thread{
 	@SuppressWarnings("resource")
 	public void run(){;
 		Scanner input;
+		//if client is cli follow this cycle
 		if(graphicType==1){
 			while(true){
 				String message = null;
@@ -41,13 +43,14 @@ public class ClientOutputHandler extends Thread{
 				}
 			}
 		}
+		//if client is gui follow this cycle
 		else{
 			while(true){
 				String message = client.getSynchronizedMessageByGUI().get();
 				if(message.equals("exit")){
 					continue;
 				}
-				if(client.getGraphicType()==2 && message.contains("/chat")){
+				if(message.contains("/chat")){
 					try {
 						Thread.sleep(100);
 					} catch (InterruptedException e) {
@@ -55,7 +58,9 @@ public class ClientOutputHandler extends Thread{
 					}
 					client.getSynchronizedMessageForGUI().put("Yes");
 				}
-				else if(client.getGraphicType()==2 && message.equals("skipCommand")){
+				
+				//close the program if timeout expire or if game finish
+				else if(message.equals("skipCommand")){
 					try {
 						Thread.sleep(5000);
 					} catch (InterruptedException e) {
@@ -69,9 +74,8 @@ public class ClientOutputHandler extends Thread{
 					e.printStackTrace();
 				}				
 				client.setYouCanSend(false);
-				if(message.equals("/exit")){
-					System.exit(0);
-				}
+				
+				//wait for an answer from server before send another thing
 				while(!client.getYouCanSend()){
 					try {
 						Thread.sleep(100);

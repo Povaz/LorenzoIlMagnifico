@@ -30,9 +30,11 @@ public class ServerHandler implements Runnable{
 	private String graphicType;
 	private boolean sendGUI;
 	private boolean guiIsReady = true;
-	private boolean boardvieww = false;
+	private boolean lastClient = false;
 	
 	private static final Logger LOGGER = Logger.getLogger(ServerHandler.class.getName());
+	
+	private Scanner socketIn;
 	
 	private boolean confirm;
 	private BooleanCreated isNotConnect = new BooleanCreated();
@@ -51,6 +53,11 @@ public class ServerHandler implements Runnable{
 		}
 		sendGUI = false;
 		confirm =true;
+		try {
+			socketIn = new Scanner(socket.getInputStream());
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
 	}
 	
 	//boolean to send directly to gui interface
@@ -65,10 +72,12 @@ public class ServerHandler implements Runnable{
 			if(graphicType.equals("1")){
 				sendToClient("Type: /playturn for an action; /chat to send message(you can always do this action, only if you are not doing something else);  /afk to disconnect from the game(you can always do this action, at any time)");
 			}
-			else if(graphicType.equals("2") && boardvieww == false){
+			else if(graphicType.equals("2") && lastClient == false){
 				setSendGUI(true);
 			    guiIsReady = false;
 				sendToClient("/game"); 
+				
+				//wait client to send 3 as a confirm that gui is loaded
 				while(!guiIsReady){
 					try {
 						Thread.sleep(10);
@@ -77,6 +86,7 @@ public class ServerHandler implements Runnable{
 					}
 				}
 			}
+			//in the case the last client of 5 is gui and socket
 			else{
 				sendToClient("/game");
 				return;
@@ -85,6 +95,11 @@ public class ServerHandler implements Runnable{
 	}
 	
 	//other sets and gets
+	
+	public int getFase() {
+		return fase;
+	}
+	
 	public void setGameController(GameController gameController){
 		this.gameController= gameController;
 	}
@@ -114,9 +129,9 @@ public class ServerHandler implements Runnable{
 		if(message==null){
 			return;
 		}
+		//particular cases of messages
 		else if(message.equals("This Client has been disconnected")||message.equals("This game is finished")){
 			setFase(0);
-			//todo togliere riferimento in GameController e il tipo di interfaccia grafica
 			try {
 				serverSoc.getServer().disconnectPlayerSoc(username);
 			} catch (IOException e) {
@@ -133,12 +148,12 @@ public class ServerHandler implements Runnable{
 			if(graphicType.equals("2")){
 				sendGUI = true;
 				sendToClient("Login successful");
-				boardvieww = true;
+				lastClient = true;
 				setFase(1);
 				stateGame = null;
 				return;
 			}
-			setFase(1);
+			setFase(1);              //set fase in game
 			stateGame = null;
 		}
 		else if(message.equals("Action has been executed") && fase==1){
@@ -173,7 +188,8 @@ public class ServerHandler implements Runnable{
 			LOGGER.log(Level.WARNING, "warning", e);
 		}
 	}
-	
+
+	//send board to client gui
 	synchronized public void sendToClientGUI (BoardView boardView){
 		try {
 			socketOut.writeObject("/update");
@@ -189,8 +205,6 @@ public class ServerHandler implements Runnable{
 	
 	//method to receive messages from client
 	private String receiveFromClient() throws IOException{
-		@SuppressWarnings("resource")
-		Scanner socketIn = new Scanner(socket.getInputStream());
 		String received = socketIn.nextLine();
 		if(answer!=null && received.equals("yes")){
 			answer=received;
@@ -250,7 +264,7 @@ public class ServerHandler implements Runnable{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
-			if(confirm ){
+			if(confirm){
 				if(line.equals("1")){
 					confirm = false;
 					continue;
@@ -429,10 +443,6 @@ public class ServerHandler implements Runnable{
 		
 		result = isNotConnect.get();
 		return result;
-	}
-
-	public int getFase() {
-		return fase;
 	}
 
 }

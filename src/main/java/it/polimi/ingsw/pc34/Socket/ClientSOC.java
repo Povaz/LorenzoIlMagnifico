@@ -15,8 +15,8 @@ public class ClientSOC implements Runnable {
 	private final int port = 1337;
 	private static Socket socketServer;
 	private final int graphicType;
-	private ClientOutputHandler coh;
-	private ClientInputHandler cih;
+	private ClientOutputHandler cliOutHan;
+	private ClientInputHandler cliInHan;
 	
 	private SynchronizedString messageByGUI;
     private SynchronizedString messageForGUI;
@@ -38,6 +38,8 @@ public class ClientSOC implements Runnable {
 		this.graphicType = graphicType;
 		youCanSend = true;
 	}
+
+	//set and get
 	
 	public void setBoardView (BoardView boardView) {this.boardView.put(boardView);}
 
@@ -46,11 +48,11 @@ public class ClientSOC implements Runnable {
 	}
 	
 	public ClientOutputHandler getClientOutputHandler(){
-		return coh;
+		return cliOutHan;
 	}
 	
 	public ClientInputHandler getClientInputHandler(){
-		return cih;
+		return cliInHan;
 	}
 	
 	public void setYouCanSend(boolean value){
@@ -101,36 +103,7 @@ public class ClientSOC implements Runnable {
         this.chatIn = chatIn;
     }
 
-	public void run() {
-		if(graphicType==1){
-			System.out.println("Connection established");
-			System.out.println("");
-			
-			//2 thread, 1 for input and 1 for output
-			//output
-			String messageGraphicType = "" + graphicType;
-			coh = new ClientOutputHandler (socketServer, this, graphicType);
-			try {
-				cih = new ClientInputHandler (socketServer, this, graphicType);
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
-			try {
-				ClientOutputHandler.sendToServer(messageGraphicType);
-			} catch (IOException e1) {
-				e1.printStackTrace();
-			}
-		}
-		Thread output = new Thread(coh);
-		output.start();
-		setYouCanSend(true);
-		//input
-		Thread input = new Thread(cih);
-		input.start();
-		
-	}
-
-	private void setUsername(String username) {
+    private void setUsername(String username) {
         this.username = username;
     }
 	
@@ -138,6 +111,35 @@ public class ClientSOC implements Runnable {
         this.keyword = keyword;
     }
 	
+    //called only if client is cli
+	public void run() {
+		System.out.println("Connection established");
+		System.out.println("");
+		
+		//2 thread, 1 for input and 1 for output
+		//output
+		String messageGraphicType = "" + graphicType;
+		cliOutHan = new ClientOutputHandler (socketServer, this, graphicType);
+		try {
+			cliInHan = new ClientInputHandler (socketServer, this, graphicType);
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		try {
+			ClientOutputHandler.sendToServer(messageGraphicType);
+		} catch (IOException e1) {
+			e1.printStackTrace();
+		}
+		Thread output = new Thread(cliOutHan);
+		output.start();
+		setYouCanSend(true);
+		//input
+		Thread input = new Thread(cliInHan);
+		input.start();
+		
+	}
+
+	//login path for gui
 	private void loginGUI() throws StreamCorruptedException{ //Login procedure for GUI User
 		try {
 			ClientOutputHandler.sendToServer("/login");
@@ -160,11 +162,12 @@ public class ClientSOC implements Runnable {
 		}
 		getSynchronizedMessageForGUI().put(resultLogin);
 		if(resultLogin.equals("Login successful")){
-			startGame = new Thread(cih);
+			startGame = new Thread(cliInHan);
 			startGame.start();
 		}
     }
 	
+	//send username and password
 	private void insertDataGUI() { //For a RMI GUI User
         this.setUsername(messageByGUI.get());
         try {
@@ -184,7 +187,8 @@ public class ClientSOC implements Runnable {
 			e.printStackTrace();
 		}
     }
-    
+	
+	//register path for gui
     private void registrationGUI() { //Registration procedure for RMI GUI Users
     	try {
 			ClientOutputHandler.sendToServer("/registration");
@@ -206,11 +210,12 @@ public class ClientSOC implements Runnable {
 		getSynchronizedMessageForGUI().put(resultRegister);
     }
 
-	public void loginHandlerGUI() throws IOException {
+    //start instead of run for gui
+    public void loginHandlerGUI() throws IOException {
 		System.out.println("Connection established");
 		System.out.println("");
-		coh = new ClientOutputHandler (socketServer, this, graphicType);
-		cih = new ClientInputHandler (socketServer, this, graphicType);
+		cliOutHan = new ClientOutputHandler (socketServer, this, graphicType);
+		cliInHan = new ClientInputHandler (socketServer, this, graphicType);
 		String messageGraphicType = "" + graphicType; 
 		ClientOutputHandler.sendToServer(messageGraphicType);
 		String message = getSynchronizedMessageByGUI().get();
@@ -235,7 +240,7 @@ public class ClientSOC implements Runnable {
                     break;
             }
 	    }
-	    outputGUI = new Thread(coh);
+	    outputGUI = new Thread(cliOutHan);
 	    outputGUI.start();
 		
 	}

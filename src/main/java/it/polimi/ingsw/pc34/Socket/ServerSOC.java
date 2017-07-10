@@ -8,6 +8,7 @@ import java.util.ArrayList;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
+import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Controller.GameController;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientInfo;
 import it.polimi.ingsw.pc34.SocketRMICongiunction.ClientType;
@@ -115,7 +116,15 @@ public class ServerSOC implements Runnable {
 
 	//call when a player reconnect
 	synchronized public void reconnect (String username, ServerHandler newHandler) throws IOException{
-		server.reconnectedSoc(username, newHandler);
+		Game game = null;
+		if(newHandler.getGraphicType().equals("1")){
+			game = server.reconnected(username, ClientType.CLI, ConnectionType.SOCKET);
+		}
+		else{
+			game = server.reconnected(username, ClientType.CLI, ConnectionType.SOCKET);
+		}
+		game.getGameController().addServerHandler(newHandler);
+		game.getGameController().sendMessageChat(" has reconnected!", username);
 	}
 	
 	//remove a player from the list if disconnected

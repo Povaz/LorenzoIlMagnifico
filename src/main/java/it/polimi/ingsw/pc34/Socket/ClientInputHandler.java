@@ -63,6 +63,7 @@ public class ClientInputHandler extends Thread{
 			} catch (IOException e) {
 				LOGGER.log(Level.WARNING, "warning", e);
 			}
+			
 			//essentially particular gui cases
 			if(graphicType == 2){
 				client.setYouCanSend(true);

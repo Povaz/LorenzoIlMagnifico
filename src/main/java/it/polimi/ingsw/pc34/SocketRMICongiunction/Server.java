@@ -3,7 +3,6 @@ package it.polimi.ingsw.pc34.SocketRMICongiunction;
 import it.polimi.ingsw.pc34.Controller.Game;
 import it.polimi.ingsw.pc34.Model.Player;
 import it.polimi.ingsw.pc34.RMI.ServerRMIImpl;
-import it.polimi.ingsw.pc34.Socket.ServerHandler;
 import it.polimi.ingsw.pc34.Socket.ServerSOC;
 import java.io.IOException;
 import java.rmi.AlreadyBoundException;
@@ -61,12 +60,6 @@ public class Server {
     			}
     		}
     	}
-    }
-    
-    public void reconnectedSoc(String username, ServerHandler newHandler) throws IOException{
-    	//Game game = reconnected(username);
-    	//game.getGameController().addServerHandler(newHandler);
-    	//game.getGameController().sendMessageChat(" has reconnected!", username);
     }
     
     public Game reconnected(String username, ClientType clientType, ConnectionType connectionType) throws IOException{

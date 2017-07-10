@@ -135,7 +135,8 @@ public class Lobby {
     public void inizializeTimer() {
         this.timer = new Timer();
     }
-
+    
+    //start this timer if lobby contains 2 users, the brare minimum to start a game
     public void startTimer () {
         this.timer.schedule(new TimerTask() {
             @Override
@@ -167,6 +168,7 @@ public class Lobby {
         }, timeoutLobby);
     }
 
+    //start game in this manner if lobby reach the max number of users possible (aka 5)
     public void startGameImmediately () throws RemoteException {
         this.timer.schedule(new TimerTask() {
             @Override
