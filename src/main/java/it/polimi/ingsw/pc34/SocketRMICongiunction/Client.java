@@ -121,7 +121,7 @@ public class Client {
 			messageByGUI = guiReference.getFromGuiToServer();
 			messageToChangeWindow = guiReference.getOpenWindow();
 			messageInfo = guiReference.getInfoFromServer();
-			messageChat = guiReference.getChatFromServer();// TODO controlla
+			messageChat = guiReference.getChatFromServer();
 			boardForGUI = guiReference.getBoardViewFromServer();
 
 			this.getUserSoc().setSynchronizedMessageToChangeWindow(messageToChangeWindow);

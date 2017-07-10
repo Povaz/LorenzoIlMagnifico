@@ -297,7 +297,7 @@ public class Game implements Runnable{
                 gameController.updatePlayersView(boardView);
                 gameController.startTimer(current.getUsername());
                 do {
-                    gameController.sendMessageCLIAll("\n\nPLAYERBOARD:"); //TODO GameController.sendMessageAll
+                    gameController.sendMessageCLIAll("\n\nPLAYERBOARD:");
                     gameController.sendMessageCLIAll(board.toString());
                     gameController.sendMessageCLIAll(current.getPlayerBoard().toString());
                     gameController.sendMessageCLIAll("\n\nIS YOUR TURN " + current.getUsername() + "!!!   " + current.getColor() + "\n\n");

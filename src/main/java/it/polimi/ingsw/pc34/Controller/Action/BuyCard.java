@@ -275,7 +275,7 @@ public class BuyCard implements CommandPattern {
     private boolean canBePlacedInCardSpot() throws RemoteException, IOException{
         if(!cardSpot.canPlaceCard()){
             if (player.getClientType().equals(ClientType.GUI)) {
-                game.getGameController().sendMessageChatGUI(player, "You don't have enough space in the card spot!", true); //TODO TESTA
+                game.getGameController().sendMessageChatGUI(player, "You don't have enough space in the card spot!", true);
             }
             else {
                 game.getGameController().sendMessageCLI(player, "You don't have enough space in the card spot!");

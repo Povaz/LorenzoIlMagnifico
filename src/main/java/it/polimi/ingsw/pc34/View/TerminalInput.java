@@ -10,7 +10,7 @@ import java.util.*;
 /**
  * Created by Povaz on 06/06/2017.
  */
-public class TerminalInput { //Metodi view: richieste ai Client TODO DOVRANNO ESSERE SPOSTATI SOLAMENTE SU CLIENT SIDE
+public class TerminalInput { //Metodi view: richieste ai Client
 
     public static boolean doYouWantToSkip () {
         System.out.println("Do you want to skip your action?\n  0. No\n  1. Yes");

@@ -82,7 +82,7 @@ public class GameController {
 		return null;
 	}
 	
-	public ServerHandler getServerHandler (String username){ //TODO Commenta Tommaso
+	public ServerHandler getServerHandler (String username){
     	for(ServerHandler handler : usersSoc){
     		if(handler.getName().equals(username)){
     			return handler;
@@ -169,7 +169,7 @@ public class GameController {
 		}
 	}
 
-	//TODO SOCKET PART
+
 	public void sendMessageGUIEndGame(Player player, String messageGUI, String messageServer) throws IOException { //Sends a message of "End Game" or "Crashed player" in order to open the LoginView again
 		switch (player.getConnectionType()) {
 			case RMI:
@@ -283,14 +283,14 @@ public class GameController {
 		return boardView;
 	}
 	
-	//TODO SOCKET
+
 	public void updatePlayerReconnectedView (BoardView boardView, Player player) throws RemoteException { //Update GUI for a Reconnected player
 		switch (player.getConnectionType()) {
 			case RMI:
 				serverRMI.updateUserRMIView(boardView, player.getUsername());
 				break;
 			case SOCKET:
-				//TODO Fill socket
+
 				break;
 		}
 	}
@@ -1055,7 +1055,7 @@ public class GameController {
 			        			}
 		    				case ACTIVATE_LEADER_CARD :
 		    					switch (state2){ 
-				    				case FAMILY_MEMBER_NOT_NEUTRAL : //TODO CAMBIA NUMERAZIONE FAMILY MEMBER NOT NEUTRAL
+				    				case FAMILY_MEMBER_NOT_NEUTRAL :
 				    					switch (asked){
 											case "1" :
 												familyColorCreated.put(FamilyColor.BLACK);
@@ -1072,7 +1072,6 @@ public class GameController {
 				    					}
 				    				case ASK_WHICH_CARD_COPY :
 				    					integerCreated.put(Integer.parseInt(asked));
-				    					//TODO GESTIRE TUTTI GLI ERRORI DI PARSEINT
 				    					return null;
 				    				default:
 				    					setInFlow();

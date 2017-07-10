@@ -13,7 +13,6 @@ public class BuildingSpotTest extends TestCase {
     private BuildingSpot buildingSpot;
     private Reward reward;
 
-    //TODO RILEGGERE
 
     public BuildingSpotTest(String name) {
         super(name);
