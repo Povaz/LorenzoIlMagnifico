@@ -64,7 +64,9 @@ You skipped your turn!
     + The Chat window: here are displayed in red the error messages and you can send messages to the other players and read other players' messages;
     + The LeaderCard window: here are display your leader cards and moving your mouse on them, you can see their status (In hand, Placed, Activated);
     + The Player window: here you can click on a player's username in order to change the player board you want to see, but keep in mind, you can move only your Family Member;
-  * In order to Activate/Place/Exchange a leader card, press on the arrow near Pass button and choose your card.
+  * In order to Activate/Place/Exchange a leader card, press on the arrow near Pass button and choose your card;
+  * In order to place a family member, drag and drop it to the spot that you choose;
+  * If you cannot understand a card's details, you can zoom it by clicking it.
 - If you do not complete your action clicking on Pass button, timer will expires and it will be notified on your screen. Clicking on your screen will take you to the Login Window;
 - If you're kicked out of the game, you can log in again in the same game, if it isn't finished yet.
 - If the game finishes, the name of the winner will be displayed on the screen and clicking on it will take you to the Login Window.
